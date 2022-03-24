@@ -1,0 +1,3475 @@
+[
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "608",
+    "SubStat": "暴击率",
+    "SubStatValue": "33.1%",
+    "Passive": "白刃流转",
+    "PassiveDescription": "获得12%/15%/18%/21%/24%所有元素伤害加成；队伍中附近的其他角色在普通攻击命中敌人时，会为装备该武器的角色产生1层「波穗」效果，至多叠加5层，每0.3秒最多触发1次。装备该武器的角色施放元素战技时，将消耗已有的「波穗」，获得「波乱」：根据消耗的层数，每层提升8%普通攻击伤害，持续8秒。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "鸣神御灵",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Narukami",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_574.png"
+    },
+    "Elite": {
+      "Name": "刻像",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Statuette",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_153.png"
+    },
+    "Monster": {
+      "Name": "刀镡",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Handguard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+    },
+    "Name": "波乱月白经津",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "HaranTsukishiroFutsu",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1408.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "674",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "44.1%",
+    "Passive": "雾切御腰物",
+    "PassiveDescription": "获得12%/15%/18%/21%/24%所有元素伤害加成，并能获得「雾切之巴印」的威势。雾切之巴印：持有1/2/3层雾切之巴印时，获得(8%/16/28%)/‌(10%/20%/35%)/‌(12%/24%/42%)/‌(14%/28%/49%)/‌(16%/32%/56%)自己的元素类型的元素伤害加成。在下列情况下，角色将各获得1层雾切之巴印：普通攻击造成元素伤害时，持续5秒；施放元素爆发时，持续10秒；此外，角色元素能量低于100%时，将获得1层雾切之巴印，此雾切之巴印会在角色的元素能量充满时消失。每层雾切之巴印的持续时间独立计算。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "远海夷地",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DistantSea",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_564.png"
+    },
+    "Elite": {
+      "Name": "混沌2",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Chaos2",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_173.png"
+    },
+    "Monster": {
+      "Name": "刀镡",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Handguard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+    },
+    "Name": "雾切之回光",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "MistsplittersReflection",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1407.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "608",
+    "SubStat": "攻击力",
+    "SubStatValue": "49.6%",
+    "Passive": "如狼般狩猎者",
+    "PassiveDescription": "攻击力提高20%/25%/30%/35%/40%；攻击命中生命值低于30%的敌人时，队伍中所有成员的攻击力提高40%/50%/60%/70%/80%，持续12秒。该效果30秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "狼的末路",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "WolfsGravestone",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2402.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "674",
+    "SubStat": "暴击率",
+    "SubStatValue": "22.1%",
+    "Passive": "昭理的鸢之枪",
+    "PassiveDescription": "命中敌人时自身攻击力提高3.2%/3.9%/4.6%/5.3%/6%，持续6秒，最高可以叠加7层。该效果每0.3秒最多触发一次。满层状态时伤害提升12%/15%/18%/21%/24%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "和璞鸢",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "PrimordialJadeWingedSpear",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3402.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "608",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "66.2%",
+    "Passive": "无羁的朱赤之蝶",
+    "PassiveDescription": "生命值提升20%/25%/30%/35%/40%。此外，提供基于装备该武器的角色生命值上限的0.8%/1%/1.2%/1.4%/1.6%，获得攻击力加成。当装备该武器的角色生命值低于50%时，进一步获得1%/1.2%/1.4%/1.6%/1.8%最大生命值上限的攻击力提升。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "护摩之杖",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "StaffofHoma",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3405.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "608",
+    "SubStat": "元素精通",
+    "SubStatValue": "198",
+    "Passive": "抗争的践行之歌",
+    "PassiveDescription": "飘游风中的「千年的大乐章」的一部分。伤害提升10%/12.5%/15%/17.5%/20%；触发元素反应时，角色获得一枚奋起之符，每0.5秒内至多触发一次，角色处于队伍后台也能触发。拥有2枚奋起之符时，将消耗所有奋起之符，使附近队伍中所有角色获得持续12秒的「千年的大乐章·抗争之歌」效果：普通攻击、重击、下落攻击造成的伤害提升16%/20%/24%/28%/32%，攻击力提升20%/25%/30%/35%/40%。触发后20秒内，无法再次获得奋起之符。「千年的大乐章」触发的多种数值效果中，同类数值效果不可叠加。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "苍古自由之誓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "FreedomSworn",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1405.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "608",
+    "SubStat": "生命值",
+    "SubStatValue": "49.6%",
+    "Passive": "白夜皓月",
+    "PassiveDescription": "治疗加成提升10%/12.5%/15%/17.5%/20%；普通攻击造成的伤害增加，增加值为装备该武器的角色生命值上限的1%/1.5%/2%/2.5%/3%。在施放元素爆发后的12秒内，普通攻击命中敌人时恢复0.6点元素能量，每0.1秒至多通过这种方式恢复一次元素能量。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "远海夷地",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DistantSea",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_564.png"
+    },
+    "Elite": {
+      "Name": "棱镜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Elite_Prism",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_183.png"
+    },
+    "Monster": {
+      "Name": "浮游",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Spectral",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_187.png"
+    },
+    "Name": "不灭月华",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "FumetsuGekka",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5406.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "608",
+    "SubStat": "暴击率",
+    "SubStatValue": "33.1%",
+    "Passive": "无边际的眷顾",
+    "PassiveDescription": "移动速度提高10%；在场上每4秒获得8%/10%/12%/14%/16%元素伤害加成。该效果最多叠加4层，角色倒下或离场后清空。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "四风原典",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "LostPrayertotheSacredWinds",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5401.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "674",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "36.8%",
+    "Passive": "斩裂晴空的龙脊",
+    "PassiveDescription": "造成的伤害提高8%/10%/12%/14%/16%;施放元素爆发后，普通攻击和重击命中时会发出真空刃，对路径上的敌人造成80%/100%/120%/140%/160%攻击力的伤害，持续20秒或直至发出8次真空刃。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "天空之傲",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "SkywardPride",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2401.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "608",
+    "SubStat": "攻击力",
+    "SubStatValue": "49.6%",
+    "Passive": "金璋皇极",
+    "PassiveDescription": "护盾强效提升20%/25%/30%/35%/40%。攻击命中后的8秒内，攻击力提升4%/5%/6%/7%/8%。该效果至多可叠加5层，每0.3秒只能触发一次。此外，处于护盾庇护下时，该效果的攻击力提升效果提高100%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "无工之剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "TheUnforged",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2404.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "608",
+    "SubStat": "攻击力",
+    "SubStatValue": "49.6%",
+    "Passive": "金璋皇极",
+    "PassiveDescription": "护盾强效提升20%/25%/30%/35%/40%。攻击命中后的8秒内，攻击力提升4%/5%/6%/7%/8%。该效果至多可叠加5层，每0.3秒只能触发一次。此外，处于护盾庇护下时，该效果的攻击力提升效果提高100%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "贯虹之槊",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "VortexVanquisher",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3401.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "608",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "55.1%",
+    "Passive": "离别的思念之歌",
+    "PassiveDescription": "飘游风中的「千年的大乐章」的一部分。元素精通提高60/75/90/105/120点；元素战技或元素爆发命中敌人时，角色获得一枚追思之符，每0.2秒内至多触发一次，角色处于队伍后台也能触发。拥有4枚追思之符时，将消耗所有追思之符，使附近的队伍中所有角色获得持续12秒的「千年的大乐章·别离之歌」效果：元素精通提高100/125/150/175/200点，攻击力提升20%/25%/30%/35%/40%。触发后20秒内，无法再次获得追思之符。「千年的大乐章」触发的多种数值效果中，同类数值效果不可叠加。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "终末嗟叹之诗",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "ElegyfortheEnd",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4404.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "741",
+    "SubStat": "物理伤害加成",
+    "SubStatValue": "20.7%",
+    "Passive": "揭旗的叛逆之歌",
+    "PassiveDescription": "飘游风中的「千年的大乐章」的一部分。攻击力提升16%/20%/24%/28%/32%；普通攻击或重击命中敌人时，角色获得一枚低语之符，每0.3秒内至多触发一次。拥有4枚低语之符时，将消耗所有低语之符，使附近队伍中所有角色获得持续12秒的「千年的大乐章·揭旗之歌」效果：普通攻击速度提升12%/15%/18%/21%/24%，攻击力提升20%/25%/30%/35%/40%。触发后20秒内，无法再次获得低语之符。「千年的大乐章」触发的多种数值效果中，同类数值效果不可叠加。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "松籁响起之时",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "SongofBrokenPines",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2405.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "608",
+    "SubStat": "攻击力",
+    "SubStatValue": "49.6%",
+    "Passive": "金璋皇极",
+    "PassiveDescription": "护盾强效提升20%/25%/30%/35%/40%。攻击命中后的8秒内，攻击力提升4%/5%/6%/7%/8%。该效果至多可叠加5层，每0.3秒只能触发一次。此外，处于护盾庇护下时，该效果的攻击力提升效果提高100%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "斫峰之刃",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "SummitShaper",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1403.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "674",
+    "SubStat": "物理伤害加成%",
+    "SubStatValue": "41.3%",
+    "Passive": "西风之鹰的抗争",
+    "PassiveDescription": "攻击力提高20%/25%/30%/35%/40%；受到伤害时触发：高扬抗争旗号的西风鹰之魂苏醒，恢复同等与攻击力的100%/115%/130%/145%/160%生命值，并对周围的敌人造成200%/230%/260%/290%/320%攻击力的伤害。该效果每15秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "风鹰剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "AquilaFavonia",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1401.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "608",
+    "SubStat": "攻击力",
+    "SubStatValue": "49.6%",
+    "Passive": "金璋皇极",
+    "PassiveDescription": "护盾强效提升20%/25%/30%/35%/40%。攻击命中后的8秒内，攻击力提升4%/5%/6%/7%/8%。该效果至多可叠加5层，每0.3秒只能触发一次。此外，处于护盾庇护下时，该效果的攻击力提升效果提高100%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "尘世之锁",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "MemoryofDust",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5403.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "608",
+    "SubStat": "攻击力",
+    "SubStatValue": "49.6%",
+    "Passive": "矢志不忘",
+    "PassiveDescription": "普通攻击和重击造成的伤害提升12%/15%/18%/21%/24%;箭矢发射后每经过0.1秒，伤害还会提升8%/10%/12%/14%/16%。至多提升5次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "阿莫斯之弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "AmosBow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4402.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "674",
+    "SubStat": "攻击力",
+    "SubStatValue": "33.1%",
+    "Passive": "浮游四方的灵云",
+    "PassiveDescription": "元素伤害加成提升12%/15%/18%/21%/24%；普通攻击命中时，有50%的概率获得高天流云的青睐，在15秒内主动攻击附近的敌人，造成等同于160%/200%/240%/280%/320%攻击力的伤害。该效果每30秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "天空之卷",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "SkywardAtlas",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5402.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "542",
+    "SubStat": "暴击率",
+    "SubStatValue": "44.1%",
+    "Passive": "护国的无垢之心",
+    "PassiveDescription": "生命值提升20%/25%/30%/35%/40%。此外，基于装备该武器的角色生命值上限的1.2%/1.5%/1.8%/2.1%/2.4%,获得攻击力加成。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "磐岩结绿",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "PrimordialJadeCutter",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1404.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "674",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "36.8%",
+    "Passive": "斫断黑翼的利齿",
+    "PassiveDescription": "暴击率提升8%/10%/12%/14%/16%， 普通攻击速度提升12%, 此外，普通攻击与重击命中敌人时，有50%概率触发真空刃，在小范围内造成额外40%/55%/70%/85%/100%攻击力的伤害。该效果每2秒至多触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "天空之脊",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "SkywardSpine",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3403.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "608",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "55.1%",
+    "Passive": "穿刺高天的利齿",
+    "PassiveDescription": "暴击率提升4%/5%/6%/7%/8%；施放元素爆发时，获得破空之势：移动速度提升10%，攻击速度提升10%，普通攻击与重击命中时，额外造成20%/25%/30%/35%/40%攻击力的伤害，持续12秒。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "天空之刃",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "SkywardBlade",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1402.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "674",
+    "SubStat": "暴击率",
+    "SubStatValue": "22.1%",
+    "Passive": "回响长天的诗歌",
+    "PassiveDescription": "暴击伤害提高20%/25%/30%/35%/40%；攻击命中时有60%/70%/80%/90%/100%概率造成125%攻击力的小范围物理伤害，该效果每4秒/3.5秒/3秒/2.5秒/2秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "天空之翼",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "SkywardHarp",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4401.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "608",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "66.2%",
+    "Passive": "飞雷御执",
+    "PassiveDescription": "攻击力提高20%/25%/30%/35%/40%，并能获得「飞雷之巴印」的威势。飞雷之巴印：持有1/2/3层飞雷之巴印时，普通攻击造成的伤害提高(12/24/40%)/‌(15/30/50%)/‌(18/36/60%)/‌(21/42/70%)/‌(24/48/80%)。在下列情况下，角色将各获得1层飞雷之巴印：普通攻击造成伤害时，持续5秒；施放元素战技时，持续10秒；此外，角色元素能量低于100%时，将获得1层飞雷之巴印，此飞雷之巴印会在角色的元素能量充满时消失。每层飞雷之巴印的持续时间独立计算。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "鸣神御灵",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Narukami",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_574.png"
+    },
+    "Elite": {
+      "Name": "棱镜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Elite_Prism",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_183.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Arrowhead",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "飞雷之弦振",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "ThunderingPulse",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4407.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "608",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "55.1%",
+    "Passive": "非时之梦·常世灶食",
+    "PassiveDescription": "攻击力获得提升(基础攻击力x百分比+人物面板攻击)，提升程度相当于元素充能效率超出100%部分的28%/35%/42%/49%/56%，至多通过这种方式提升80%/90%/100%/110%/120%。施放元素爆发后的12秒内，元素充能效率提升30%/35%/40%/45%/50%。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "今昔剧画",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Mask",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_584.png"
+    },
+    "Elite": {
+      "Name": "混沌2",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Chaos2",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_173.png"
+    },
+    "Monster": {
+      "Name": "刀镡",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Handguard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+    },
+    "Name": "薙草之稻光",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GrasscuttersLight",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3406.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "608",
+    "SubStat": "暴击率",
+    "SubStatValue": "33.1%",
+    "Passive": "极昼的先兆者",
+    "PassiveDescription": "元素战技和元素爆发造成的伤害提高12%/15%/18%/21%/24%；普通攻击、重击、元素战技或元素爆发命中敌人后，将产生1层持续12秒的「白夜极星」效果。处于1/2/3/4层「白夜极星」效果下时，攻击力将提高(10/20/30/48%)/‌(12.5/25/37.5/60%)/‌(15/30/45/72%)/‌(17.5/35/52.5/84%)/‌(20/40/60/96%)。由普通攻击、重击、元素战技或元素爆发产生的「白夜极星」将分别独立存在。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "今昔剧画",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Mask",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_584.png"
+    },
+    "Elite": {
+      "Name": "隐兽",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Concealed",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_176.png"
+    },
+    "Monster": {
+      "Name": "浮游",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Spectral",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_187.png"
+    },
+    "Name": "冬极白星",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "BrumalStar",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4408.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "542",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "88.2%",
+    "Passive": "御迦大王御迦话",
+    "PassiveDescription": "防御力提高28%/35%/42%/49%/56%；普通攻击与重击造成的伤害值提高，数值相当于防御力的40%/50%/60%/70%/80%。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "鸣神御灵",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Narukami",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_574.png"
+    },
+    "Elite": {
+      "Name": "隐兽",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Concealed",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_176.png"
+    },
+    "Monster": {
+      "Name": "刀镡",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Handguard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+    },
+    "Name": "赤角石溃杵",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "RedhornStonethresher",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2408.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "741",
+    "SubStat": "攻击力",
+    "SubStatValue": "16.5%",
+    "Passive": "灭却之戒法",
+    "PassiveDescription": "获得12%/15%/18%/21%/24%所有元素伤害加成；施放元素战技后，获得持续20秒的「圆顿」，攻击力每1秒提升3.2%/4%/4.8%/5.6%/6.4%，该攻击力提升效果至多叠加6次。当装备此武器的角色处于队伍后台时，「圆顿」的攻击力提升效果翻倍。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_MistVeiled",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_MistGrass",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Nectar",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "息灾",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "CalamityQueller",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3407.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "608",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "66.2%",
+    "Passive": "神樱神游神乐舞",
+    "PassiveDescription": "施放元素战技时，将获得「神乐舞」的效果，使装备该武器的角色的元素战技造成的伤害提高12%/15%/18%/21%/24%，该效果持续12秒，至多叠加3层。持有3层时，该角色获得12%/15%/18%/21%/24%所有元素伤害加成。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "今昔剧画",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Mask",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_584.png"
+    },
+    "Elite": {
+      "Name": "隐兽",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Concealed",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_176.png"
+    },
+    "Monster": {
+      "Name": "浮游",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Spectral",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_187.png"
+    },
+    "Name": "神乐之真意",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "KagurasVerity",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5407.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "专注",
+    "PassiveDescription": "攻击造成伤害时，暴击率提升8%/10%/12%/14%/16%，最多堆叠5次。攻击造成暴击后，移除已有的专注效果。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "宗室长弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "RoyalBow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4307.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "和弦",
+    "PassiveDescription": "普通攻击或重击命中时，会获得一个和音。积攒了5个和音后，释放音律的力量，对周围的敌人造成100%/125%/150%/175%/200%攻击力的伤害。和音最多存在30秒，每0.5秒至多获得1个和音。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "笛剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "TheFlute",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1310.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "霜葬",
+    "PassiveDescription": "普通攻击与重击命中敌人时，有60%/70%/80%/90/100%概率在敌人上方生成恒冰晶核并坠落，造成80%/95%/110%/125%/140%攻击力的范围伤害。若敌人处于冰元素影响下，则造成200%/240%/280%/320%/360%攻击力的伤害。该效果每10秒至多触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "忍冬之果",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Frostbearer",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5311.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "510",
+    "SubStat": "暴击率",
+    "SubStatValue": "27.6%",
+    "Passive": "日月辉",
+    "PassiveDescription": "普通攻击命中后的6秒内，元素战技与元素爆发的伤害提高20%/25%/30%/35%/40%；元素战技与元素爆发命中后的6秒内，普通攻击的伤害提高20%/25%/30%/35%/40%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "匣里日月",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "SolarPearl",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5307.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "565",
+    "SubStat": "攻击力",
+    "SubStatValue": "27.6%",
+    "Passive": "千岩诀·同心",
+    "PassiveDescription": "队伍中每有一位璃月角色，装备该武器的角色便获得7%/8%/9%/10%/11%攻击力提升与3%/4%/5%/6%/7%暴击率提升。至多获得4层提升效果。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "千岩长枪",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "LithicSpear",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3305.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "454",
+    "SubStat": "攻击力",
+    "SubStatValue": "55.1%",
+    "Passive": "岩藏之胤",
+    "PassiveDescription": "施放元素战技后，获得1个胤种，该效果每5秒至多触发一次。胤种持续30秒，至多同时存在3个。施放元素爆发后，会清除持有的所有胤种，并在2秒之后，基于消耗的胤种数量，每个为该角色恢复6/7.5/9/10.5/12点元素能量。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "远海夷地",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_564.png"
+    },
+    "Elite": {
+      "Name": "混沌2",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_173.png"
+    },
+    "Monster": {
+      "Name": "刀镡",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+    },
+    "Name": "天目影打刀",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "AmenomaKageutaBlade",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1313.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "454",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "61.3%",
+    "Passive": "顺风而行",
+    "PassiveDescription": "攻击造成暴击时，有60%/70%/80%/90%/100%的几率产生少量元素微粒，能为角色恢复6点元素能量。该效果每12/10.5/9/7.5/6秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "西风猎弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "FavoniusWarbow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4305.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "速射弓斗",
+    "PassiveDescription": "普通攻击伤害提升40%/50%/60%/70%/80%，重击伤害下降10%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "弓藏",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Rust",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4308.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "510",
+    "SubStat": "生命值",
+    "SubStatValue": "41.3%",
+    "Passive": "炊金",
+    "PassiveDescription": "施放元素爆发后6秒内，每2秒恢复4/4.5/5/5.5/6点元素能量，队伍中的所有角色每2秒恢复4%/4.5%/5%/5.5%/6%生命值。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "试作金珀",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "PrototypeAmber",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5304.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "565",
+    "SubStat": "物理伤害加成",
+    "SubStatValue": "34.5%",
+    "Passive": "注能之针",
+    "PassiveDescription": "获得元素微粒或元素晶球后的5秒内，普通攻击和重击额外造成20%/25%/30%/35%/40%攻击力伤害。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "流月针",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "CrescentPike",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3302.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "454",
+    "SubStat": "元素精通",
+    "SubStatValue": "221",
+    "Passive": "气定神闲",
+    "PassiveDescription": "元素战技造成伤害时，有40%/50%/60%/70%/80%的概率重置该技能的冷却时间，该效果每30/26/22/19/16秒只能触发1次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DandelionGladiator",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "祭礼残章",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "SacrificialFragments",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5306.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "510",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "55.1%",
+    "Passive": "乘胜追击",
+    "PassiveDescription": "击败敌人后，攻击力提升12%/15%/18%/21%/24%，持续30秒。该效果至多叠加3层，每层持续时间独立。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "黑岩刺枪",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "BlackcliffPole",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3301.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "565",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "30.6%",
+    "Passive": "顺风而行",
+    "PassiveDescription": "攻击造成暴击时，有60%/70%/80%/90%/100%的几率产生少量元素微粒，能为角色恢复6点元素能量。该效果每12/10.5/9/7.5/6秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "西风长枪",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "FavoniusLance",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3307.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "565",
+    "SubStat": "攻击力",
+    "SubStatValue": "27.6%",
+    "Passive": "粉碎",
+    "PassiveDescription": "普通攻击和重击命中时，有50%的概率对小范围内的敌人造成240%/300%/360%/420%/480%攻击力的额外伤害。该效果每15秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "试作古华",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "PrototypeArchaic",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2304.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "510",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "55.1%",
+    "Passive": "乘胜追击",
+    "PassiveDescription": "击败敌人后，攻击力提升12%/15%/18%/21%/24%，持续30秒。该效果至多叠加3层，每层持续时间独立。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "黑岩绯玉",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "BlackcliffAgate",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5301.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "565",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "30.6%",
+    "Passive": "气定神闲",
+    "PassiveDescription": "元素战技造成伤害时，有40%/50%/60%/70%/80%概率重置该技能的冷却时间，该效果每30/26/22/19/16秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "祭礼大剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "SacrificialGreatsword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2310.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "565",
+    "SubStat": "物理伤害加成",
+    "SubStatValue": "34.5%",
+    "Passive": "霜葬",
+    "PassiveDescription": "普通攻击与重击命中敌人时，有60%/70%/80%/90%/100%概率在敌人上方生成恒冰晶核并坠落，造成80%/95%/110%/125%/140%攻击力的范围伤害。若敌人处于冰元素影响下，则造成200%/240%/280%/320%/360%攻击力的伤害。该效果每10秒至多触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "雪葬的星银",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "SnowTombedStarsilver",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2311.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "510",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "55.1%",
+    "Passive": "登场乐",
+    "PassiveDescription": "角色登场时，随机获得一个主题曲，持续10秒。每30秒只能触发一次。宣叙调：攻击力提升60%/75%/90%/105%/120%；咏叹调：全元素伤害提升48%/60％/72%/84%/96%；间奏曲：元素精通提升240/300/360/420/480。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "流浪乐章",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "TheWidsith",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5308.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "510",
+    "SubStat": "元素精通",
+    "SubStatValue": "165",
+    "Passive": "止水息雷",
+    "PassiveDescription": "对处于水元素或雷元素影响下的敌人，造成的伤害提高20％/24%/28%/32%/36%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "雨裁",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Rainslasher",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2305.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "510",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "45.9%",
+    "Passive": "嗜魔",
+    "PassiveDescription": "施放元素战技后，普通攻击和重击造成的伤害提高8%/10%/12%/14%/16%。该效果持续12秒，最多叠加2层。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "试作星镰",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "PrototypeStarglitter",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3306.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "510",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "45.9%",
+    "Passive": "无尽的渴慕",
+    "PassiveDescription": "元素战技造成的伤害增加16/20/24/28/32%，元素战技的暴击率提升6/7.5/9/10.5/12%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "腐殖之剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "FesteringDesire",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1312.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "565",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "36.8%",
+    "Passive": "乘胜追击",
+    "PassiveDescription": "击败敌人后,攻击力提升12%/15%/18%/21%/24%,持续30秒。该效果至多叠加3层,每层持续时间独立。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "黑岩战弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "BlackcliffWarbow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4303.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "510",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "45.9%",
+    "Passive": "顺风而行",
+    "PassiveDescription": "攻击造成暴击时，有60％/70％/80％/90％/100％的几率产生少量元素微粒，能为角色恢复6点元素能量。该效果每12/10.5/9/7.5/6秒只能触发一次",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "西风秘典",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "FavoniusCodex",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5302.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "454",
+    "SubStat": "物理伤害加成",
+    "SubStatValue": "69%",
+    "Passive": "注能之矢",
+    "PassiveDescription": "普通攻击和瞄准攻击命中时，提升4%/5%/6%/7%/8%攻击力与1.2%/1.5%/1.8%/2.1%/2.4%普通攻击速度。该效果持续6秒，最多可以叠加4层，每0.3秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "钢轮弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "CompoundBow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4304.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "510",
+    "SubStat": "暴击率",
+    "SubStatValue": "27.6%",
+    "Passive": "苍翠之风",
+    "PassiveDescription": "普通攻击与重击命中时，有50%几率生成一个风之眼，持续吸引周围敌人，并对其中的敌人每0.5秒造成40%/50%/60%/70%/80%攻击力的伤害。该效果持续4秒，每14/13/12/11/10秒至多触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "苍翠猎弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "TheViridescentHunt",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4310.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "510",
+    "SubStat": "元素精通",
+    "SubStatValue": "165",
+    "Passive": "注能之刺",
+    "PassiveDescription": "造成元素伤害后的6秒内，角色造成的伤害提高6%/7.5%/9%/10.5%/12%，该效果最多叠加2层。该效果每1秒可以触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "铁蜂刺",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "IronSting",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1303.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "454",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "61.3%",
+    "Passive": "顺风而行",
+    "PassiveDescription": "攻击造成暴击时，有60%/70%/80%/90%/100%的几率产生少量元素微粒，能为角色恢复6点元素能量。该效果每12/10.5/9/7.5/6秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "西风剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "FavoniusSword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1302.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "510",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "55.1%",
+    "Passive": "乘胜追击",
+    "PassiveDescription": "击败敌人后,攻击力提升12%/15%/18%/21%/24%,持续30秒。该效果至多叠加3层，每层持续时间独立。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "黑岩斩刀",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "BlackcliffSlasher",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2301.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "565",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "30.6%",
+    "Passive": "变化万端",
+    "PassiveDescription": "普通攻击命中敌人后，冲刺或替代冲刺的能力消耗的体力降低14%/16%/18%/20%/22%，持续5秒。此外，使用冲刺或替代冲刺的能力后，攻击力提升20%/25%/30%/35%/40%，持续5秒。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "暗巷的酒与诗",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "WineandSong",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5309.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "454",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "61.3%",
+    "Passive": "顺风而行",
+    "PassiveDescription": "攻击造成暴击时，有60%/70%/80%/90%/100%的几率产生少量元素微粒，能为角色恢复6点元素能量。该效果每12/10.5/9/7.5/6秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "西风大剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "FavoniusGreatsword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2302.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "510",
+    "SubStat": "暴击率",
+    "SubStatValue": "27.6%",
+    "Passive": "「正义」",
+    "PassiveDescription": "普通攻击与重击造成的伤害提升20%/25%/30%/35%/40%；此外普通攻击和重击暴击时，恢复等同于攻击力60/70/80/90/100%的生命值。该效果每5秒至多发动一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "黑剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "TheBlackSword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1309.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "510",
+    "SubStat": "暴击率",
+    "SubStatValue": "27.6%",
+    "Passive": "破浪",
+    "PassiveDescription": "角色在场上时，每4秒提升6%/7%/8%/9%/10%造成的伤害，3%/2.7%/2.4%/2.2%/2%受到的伤害。该效果最多叠加5层，不随角色退场重置，受到伤害后会减少1层效果。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "螭骨剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "SerpentSpine",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2307.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "565",
+    "SubStat": "元素精通",
+    "SubStatValue": "110",
+    "Passive": "注能之卷",
+    "PassiveDescription": "触发元素反应后的10秒内，获得8%/10%/12%/14%/16%元素伤害加成，该效果最多可叠加2层",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "万国诸海图谱",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "MappaMare",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5303.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "454",
+    "SubStat": "元素精通",
+    "SubStatValue": "221",
+    "Passive": "踏火止水",
+    "PassiveDescription": "对于处于水元素或火元素影响下的敌人，造成的伤害提高20%/24%/28%/32%/36%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "匣里灭辰",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "DragonsBane",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3304.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "565",
+    "SubStat": "攻击力",
+    "SubStatValue": "27.6%",
+    "Passive": "街巷伏击",
+    "PassiveDescription": "装备该武器的角色处于队伍后台时，每1秒角色造成的伤害提升2%/2.5%/3%/3.5%/4%,最多通过这种方式获得20%/25%/30%/35%/40%的伤害提升；在场上超过4秒后，上述伤害提升效果每1秒会流失4%/5%/6%/7%/8%，直到降低至0%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DandelionGladiator",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Chaos",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Slime",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "暗巷猎手",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "AlleyHunter",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4302.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "565",
+    "SubStat": "物理伤害加成%",
+    "SubStatValue": "34.5%",
+    "Passive": "碎石",
+    "PassiveDescription": "普通攻击或重击命中时，攻击力（原为基础攻击力）和防御力提高4%/5%/6%/7%/8%，持续6秒，最多叠加4层。该效果每0.3秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "试作斩岩",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "PrototypeRancour",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1305.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "565",
+    "SubStat": "攻击力",
+    "SubStatValue": "27.6%",
+    "Passive": "专注",
+    "PassiveDescription": "攻击造成伤害时，暴击率提升8%/10%/12%/14%/16%,最多堆叠5次。攻击造成暴击后，移除已有的专注效果。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "宗室猎枪",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "RoyalSpear",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3308.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "510",
+    "SubStat": "元素精通",
+    "SubStatValue": "165",
+    "Passive": "无矢之歌",
+    "PassiveDescription": "元素战技与元素爆发的伤害提高24％/30%/36%/42%/48%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "绝弦",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "TheStringless",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4301.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "565",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "30.6%",
+    "Passive": "气定神闲",
+    "PassiveDescription": "元素战技造成伤害时，有40％/50%/60%/70%/80%的概率重置该技能的冷却时间，该效果每30/26/22/19/16秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "祭礼弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "SacrificialBow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4309.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "565",
+    "SubStat": "攻击力",
+    "SubStatValue": "27.6%",
+    "Passive": "专注",
+    "PassiveDescription": "攻击造成伤害时，暴击率提升8%/10%/12%/14%/16%，最多堆叠5次。攻击造成暴击后，移除已有的专注效果。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "宗室秘法录",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "RoyalGrimoire",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5305.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "454",
+    "SubStat": "物理伤害加成",
+    "SubStatValue": "69%",
+    "Passive": "霜葬",
+    "PassiveDescription": "普通攻击与重击命中敌人时，有60%/70%/80%/90%/100%概率在敌人上方生成恒冰晶核并坠落，造成80%/95%/110%/125%/140%攻击力的范围伤害。若敌人处于冰元素影响下，则造成200%/240%/280%/320%/360%攻击力的伤害。该效果每10秒至多触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "龙脊长枪",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "DragonSpineSpear",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3309.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "离簇不归",
+    "PassiveDescription": "瞄准射击时，若命中要害，则提升10%移动速度与36%/45%/54%/63%/72%攻击力，持续10秒。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "试作澹月",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "PrototypeCrescent",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4306.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "专注",
+    "PassiveDescription": "攻击造成伤害时，暴击率提升8%/10%/12%/14%/16%，最多堆叠5次。攻击造成暴击后，移除已有的专注效果。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "宗室长剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "RoyalLongsword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1306.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "454",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "61.3%",
+    "Passive": "气定神闲",
+    "PassiveDescription": "元素战技造成伤害时，有40%/50%/60%/70%/80%概率重置该技能的冷却时间，该效果每30/26/22/19/16秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "祭礼剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "SacrificialSword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1307.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "440",
+    "SubStat": "攻击力",
+    "SubStatValue": "35.2%",
+    "Passive": "降世",
+    "PassiveDescription": "仅在\"PlayStation Network\"游玩时生效。普通攻击与重击命中敌人后有50%概率在小范围内造成200%攻击力的伤害。该效果每10秒只能触发一次;此外，旅行者装备降临之剑时，攻击力提升66点。 该武器技能效果初始即满级，无法精炼。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "降临之剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "SwordofDescension",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1311.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "565",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "36.8%",
+    "Passive": "乘胜追击",
+    "PassiveDescription": "击败敌人后，攻击力提升12%/15%/18%/21%/24%，持续30秒。该效果至多叠加三层，每层持续时间独立。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "黑岩长剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "BlackcliffLongsword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1301.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "620",
+    "SubStat": "元素精通",
+    "SubStatValue": "55",
+    "Passive": "元素精通55",
+    "PassiveDescription": "街巷游侠：造成的伤害提升12%/15%/18%/21%/24%，受到伤害后的5秒内失效。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Decarabian",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Horn",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Scroll",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "暗巷闪光",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "TheAlleyFlash",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1308.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "454",
+    "SubStat": "暴击率",
+    "SubStatValue": "36.8%",
+    "Passive": "角斗士",
+    "PassiveDescription": "身边至少有2个敌人时，获得16%/20%/24%/28%/32%攻击力提升与16%/20%/24%/28%/32%防御力提升；身边的敌人少于2个时，获得24%/30%/36%/42%/48%攻击力提升。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "决斗之枪",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "DeathMatch",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3303.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "454",
+    "SubStat": "攻击力",
+    "SubStatValue": "55.1%",
+    "Passive": "回响",
+    "PassiveDescription": "普通攻击与重击命中时，有50%几率发射一枚昭心法球，造成240%/270%/300%/330%/360%攻击力伤害，至多在敌人之间弹射4次。该效果每12/11/10/9/8秒至多触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "昭心",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "EyeofPerception",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5310.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "踏火息雷",
+    "PassiveDescription": "对处于火元素或雷元素影响下的敌人，造成的伤害提高20%/24%/28%/32%/36%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "匣里龙吟",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "LionsRoar",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1304.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "565",
+    "SubStat": "攻击力",
+    "SubStatValue": "27.6%",
+    "Passive": "专注",
+    "PassiveDescription": "攻击造成伤害时，暴击率提升8%/10%/12%/14%/16%，最多堆叠5次。攻击造成暴击后，移除已有的专注效果。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "宗室大剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "RoyalGreatsword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2306.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "510",
+    "SubStat": "防御力",
+    "SubStatValue": "51.7%",
+    "Passive": "注能之锋",
+    "PassiveDescription": "普通攻击和重击命中后，攻击力和防御力提高6%/7.5%/9%/10.5%/12%。该效果持续6秒，最多叠加4层，每0.5秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "白影剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Whiteblind",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2309.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "510",
+    "SubStat": "生命值",
+    "SubStatValue": "41.3%",
+    "Passive": "叛逆的守护者",
+    "PassiveDescription": "受到伤害时，生成一个伤害吸收等同于生命上限20%/23%/26%/29%/32%的护盾，持续10秒或者直到护盾失效，每45秒只能触发一次。角色处于护盾庇护下时，造成的伤害提升12%/15%/18%/21%/24%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "钟剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "TheBell",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2308.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "千岩诀·同心",
+    "PassiveDescription": "队伍中每有一位璃月角色，装备该武器的角色便获得7%/8%/9%/10%/11%攻击力提升与3%/4%/5%/6%/7%暴击率提升。至多获得4层提升效果。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "千岩古剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "LithicBlade",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2303.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "510",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "45.9%",
+    "Passive": "名士振舞",
+    "PassiveDescription": "元素战技造成的伤害提升6%/7.5%/9%/10.5%/12%。元素战技命中后，角色流失3点元素能量，并在此后的6秒内，每2秒恢复3/3.5/4/4.5/5点元素能量。该效果每10秒至多触发一次，角色处于队伍后台也能触发。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "鸣神御灵",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Narukami",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_574.png"
+    },
+    "Elite": {
+      "Name": "混沌2",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Chaos2",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_173.png"
+    },
+    "Monster": {
+      "Name": "刀镡",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Handguard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+    },
+    "Name": "桂木斩长正",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "KatsuragikiriNagamasa",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2312.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "565",
+    "SubStat": "元素精通",
+    "SubStatValue": "110",
+    "Passive": "名士振舞",
+    "PassiveDescription": "元素战技造成的伤害提升6%/7.5%/9%/10.5%/12%。元素战技命中后，角色流失3点元素能量，并在此后的6秒内，每2秒恢复3/3.5/4/4.5/5点元素能量。该效果每10秒至多触发一次，角色处于队伍后台也能触发。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "今昔剧画",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Mask",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_584.png"
+    },
+    "Elite": {
+      "Name": "混沌2",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Chaos2",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_173.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_RavenInsignia",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "喜多院十文字",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "KitainCrossSpear",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3310.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "510",
+    "SubStat": "元素精通",
+    "SubStatValue": "165",
+    "Passive": "风花之愿",
+    "PassiveDescription": "施放元素战技时，获得风之花的悠古愿望加持，攻击力提升16%/20%/24%/28%/32%，持续6秒。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DandelionGladiator",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_LeyLine",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Nectar",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "风花之颂",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "WindblumeOde",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4311.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "510",
+    "SubStat": "物理伤害加成",
+    "SubStatValue": "51.7%",
+    "Passive": "极夜二重奏",
+    "PassiveDescription": "普通攻击命中敌人后的5秒内，元素战技造成的伤害提升20%/25%/30%/35%/40%；元素战技命中敌人后的5秒内，普通攻击造成的伤害提升20%/25%/30%/35%/40%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Decarabian",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Horn",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_RavenInsignia",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "幽夜华尔兹",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "MitternachtsWaltz",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4312.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "454",
+    "SubStat": "攻击力",
+    "SubStatValue": "55.1%",
+    "Passive": "浅濑之弭",
+    "PassiveDescription": "普通攻击造成的伤害提升16%/20%/24%/28%/32%，重击造成的伤害提升12%/15%/18%/21%/24%。当装备该武器的角色元素能量等于100%时，这个效果提升100%。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "鸣神御灵",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Narukami",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_574.png"
+    },
+    "Elite": {
+      "Name": "棱镜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Elite_Prism",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_183.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Arrowhead",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "破魔之弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Hamayumi",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4313.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "454",
+    "SubStat": "攻击力",
+    "SubStatValue": "55.1%",
+    "Passive": "嘟嘟！大冒险",
+    "PassiveDescription": "普通攻击命中敌人后的6秒内，重击造成的伤害提升16/20/24/28/32%;",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_BorealWolf",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_LeyLine",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Mask",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "嘟嘟可故事集",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "DodocoTales",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5312.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "565",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "30.6%",
+    "Passive": "樱之斋宫",
+    "PassiveDescription": "装备该武器的角色触发雷元素相关反应后，队伍中附近的与该元素反应相关的元素类型的角色，获得10%/12.5%/15%/17.5%/20%对应元素的元素伤害加成，持续6秒。通过这种方式，角色获得的元素伤害加成无法叠加。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "远海夷地",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DistantSea",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_564.png"
+    },
+    "Elite": {
+      "Name": "棱镜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Elite_Prism",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_183.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Scroll",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "白辰之环",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "HakushinRing",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5313.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "454",
+    "SubStat": "攻击力",
+    "SubStatValue": "55.1%",
+    "Passive": "海洋的胜利",
+    "PassiveDescription": "元素爆发造成的伤害提升12%/15%/18%/21%/24%。元素爆发命中敌人时，有100%概率召唤大鲔冲击，造成100%/125%/150%/175%/200%攻击力的范围伤害。该效果每15秒至多触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Aerosiderite",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_BoneShard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Slime",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "衔珠海皇",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "LuxuriousSeaLord",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2313.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "510",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "45.9%",
+    "Passive": "船歌",
+    "PassiveDescription": "元素爆发造成的伤害提升16%/20%/24%/28%/32%，元素爆发的暴击率提升6%/7.5%/9%/10.5%/12%。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "今昔剧画",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Mask",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_584.png"
+    },
+    "Elite": {
+      "Name": "混沌2",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Chaos2",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_173.png"
+    },
+    "Monster": {
+      "Name": "浮游",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Spectral",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_187.png"
+    },
+    "Name": "「渔获」",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "TheCatch",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3311.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "强力攻击",
+    "PassiveDescription": "仅在“PlayStation NetWork”游玩时生效。对敌人造成冰元素伤害后，普通攻击与重击造成的伤害提高10%，效果持续6秒，至多叠加2次；此外，埃洛伊装备掠食者时，攻击力提升66点。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "鸣神御灵",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Narukami",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_574.png"
+    },
+    "Elite": {
+      "Name": "棱镜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Elite_Prism",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_183.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Arrowhead",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "掠食者",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Predator",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4314.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "510",
+    "SubStat": "攻击力",
+    "SubStatValue": "41.3%",
+    "Passive": "驭浪的海祇民",
+    "PassiveDescription": "队伍中所有角色的元素能量上限的总和，每1点能使装备此武器的角色的元素爆发造成的伤害提高0.12%/0.15%/0.18%/0.21%/0.24%，通过这种方式，元素爆发造成的伤害至多提高40%/50%/60%/70%/80%。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "远海夷地",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DistantSea",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_564.png"
+    },
+    "Elite": {
+      "Name": "隐兽",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Concealed",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_176.png"
+    },
+    "Monster": {
+      "Name": "刀镡",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Handguard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+    },
+    "Name": "恶王丸",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Akuoumaru",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2314.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "620",
+    "SubStat": "攻击力",
+    "SubStatValue": "13.8%",
+    "Passive": "驭浪的海祇民",
+    "PassiveDescription": "队伍中所有角色的元素能量上限的总和，每1点能使装备此武器的角色的元素爆发造成的伤害提高0.12%/0.15%/0.18%/0.21%/0.24%，通过这种方式，元素爆发造成的伤害至多提高40%/50%/60%/70%/80%。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "今昔剧画",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Mask",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_584.png"
+    },
+    "Elite": {
+      "Name": "隐兽",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Concealed",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_176.png"
+    },
+    "Monster": {
+      "Name": "刀镡",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Handguard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+    },
+    "Name": "断浪长鳍",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "WavebreakersFin",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3312.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "565",
+    "SubStat": "攻击力",
+    "SubStatValue": "27.6%",
+    "Passive": "驭浪的海祇民",
+    "PassiveDescription": "队伍中所有角色的元素能量上限的总和，每1点能使装备此武器的角色的元素爆发造成的伤害提高0.12%/0.15%/0.18%/0.21%/0.24%，通过这种方式，元素爆发造成的伤害至多提高40%/50%/60%/70%/80%。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "鸣神御灵",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Narukami",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_574.png"
+    },
+    "Elite": {
+      "Name": "棱镜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Prism",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_183.png"
+    },
+    "Monster": {
+      "Name": "浮游",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Spectral",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_187.png"
+    },
+    "Name": "曚云之月",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "MouunsMoon",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4315.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "454",
+    "SubStat": "防御力",
+    "SubStatValue": "69%",
+    "Passive": "无垢之心",
+    "PassiveDescription": "元素战技造成的伤害提高，提高数值相当于防御力的40%/50%/60%/70%/80%。该效果每1.5秒最多触发一次，并将在元素战技造成伤害后的0.1秒后清除效果。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Decarabian",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Chaos",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Mask",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "辰砂之纺锤",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "CinnabarSpindle",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1314.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "565",
+    "SubStat": "攻击力",
+    "SubStatValue": "27.6%",
+    "Passive": "微光的海渊民",
+    "PassiveDescription": "施放元素战技后，元素充能效率提升24%/30%/36%/42%/48%，持续10秒。",
+    "Ascension": {
+      "City": "Inazuma",
+      "Name": "远海夷地",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DistantSea",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_564.png"
+    },
+    "Elite": {
+      "Name": "隐兽",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Concealed",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_176.png"
+    },
+    "Monster": {
+      "Name": "浮游",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Spectral",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_187.png"
+    },
+    "Name": "证誓之明瞳",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "OathswornEye",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5314.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "354",
+    "SubStat": "元素精通",
+    "SubStatValue": "187",
+    "Passive": "踏火息雷",
+    "PassiveDescription": "对处于火元素或雷元素影响下的敌人，造成的伤害提高12%/15%/18%/21%/24%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "沐浴龙血的剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "BloodtaintedGreatsword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2201.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "401",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "46.9%",
+    "Passive": "精准",
+    "PassiveDescription": "针对要害造成的伤害提升24%/30%/36%/42%/48%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "神射手之誓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "SharpshootersOath",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4205.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "448",
+    "SubStat": "暴击率",
+    "SubStatValue": "15.6%",
+    "Passive": "奔袭战术",
+    "PassiveDescription": "击败敌人后的15秒内，移动速度和攻击力提升12%/14%/16%/18%/20%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "甲级宝钰",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "TwinNephrite",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5206.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "401",
+    "SubStat": "物理伤害加成",
+    "SubStatValue": "43.9%",
+    "Passive": "勇气",
+    "PassiveDescription": "普通攻击和重击命中时，攻击力提高6%/7%/8%/9%/10%，持续6秒，最多叠加4层，该效果每0.5秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "飞天大御剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "SkyriderGreatsword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2205.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "354",
+    "SubStat": "元素精通",
+    "SubStatValue": "187",
+    "Passive": "止水息雷",
+    "PassiveDescription": "对处于水元素或雷元素影响下的敌人，造成的伤害提高12%/15%/18%/21%/24%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "魔导绪论",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "MagicGuide",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5203.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "401",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "46.9%",
+    "Passive": "激励",
+    "PassiveDescription": "生命值高于90%时，暴击率提升14%/17.5%/21%/24.5%/28%",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "黎明神剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "HarbingerofDawn",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1204.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "448",
+    "SubStat": "元素精通",
+    "SubStatValue": "94",
+    "Passive": "踏火止水",
+    "PassiveDescription": "对处于火元素或水元素影响下的敌人，造成的伤害提高12%/15%/18%/21%/24%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "鸦羽弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "RavenBow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4203.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "401",
+    "SubStat": "攻击力",
+    "SubStatValue": "35.2%",
+    "Passive": "有话直说",
+    "PassiveDescription": "施放元素战技后，普通攻击和重击命中时会在小范围内额外造成60%/75%/90%/105%/120%攻击力的伤害。该效果持续15秒，伤害每3秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "以理服人",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "DebateClub",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2202.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "401",
+    "SubStat": "生命值",
+    "SubStatValue": "35.2%",
+    "Passive": "不屈",
+    "PassiveDescription": "生命值低于70%/75%/80%/85%/90%时，重击不会轻易被打断，并提高30%/35%/40%/45%/50%重击伤害。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "铁影阔剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "FerrousShadow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2203.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "354",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "52.1%",
+    "Passive": "决心",
+    "PassiveDescription": "施放元素爆发后，提高12%/15%/18%/21%/24%攻击力和移动速度，持续15秒。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "飞天御剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "SkyriderSword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1205.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "354",
+    "SubStat": "暴击率",
+    "SubStatValue": "31.2%",
+    "Passive": "弹弓",
+    "PassiveDescription": "普通攻击和瞄准射击时，箭矢若在发射后的0.3秒内击中敌人，则造成的伤害增加36%/42%/48%/54%/60%；否则，造成的伤害下降10%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "弹弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Slingshot",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4206.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "448",
+    "SubStat": "元素精通",
+    "SubStatValue": "94",
+    "Passive": "激流",
+    "PassiveDescription": "触发蒸发、感电、冰冻、或水元素扩散反应后的12秒内，攻击力提高20%/25%/30%/35%/40%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "翡玉法球",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "EmeraldOrb",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5202.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "448",
+    "SubStat": "防御力%",
+    "SubStatValue": "29.3%",
+    "Passive": "旅程",
+    "PassiveDescription": "获得元素晶球或元素微粒时，恢复1%/1.25%/1.5%/1.75%/2%生命值。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "旅行剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "TravelersHandySword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1206.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "354",
+    "SubStat": "生命值",
+    "SubStatValue": "46.9%",
+    "Passive": "收割",
+    "PassiveDescription": "击败敌人时，恢复8%/10%/12%/14%/16%生命值。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "反曲弓",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "RecurveBow",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4204.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "401",
+    "SubStat": "攻击力",
+    "SubStatValue": "35.2%",
+    "Passive": "决",
+    "PassiveDescription": "攻击命中时，有50%的概率对单个敌人造成240%/280%/320%/360%/400%攻击力的伤害。该效果每15/14/13/12/11秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "吃虎鱼刀",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "FilletBlade",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1203.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "401",
+    "SubStat": "生命值",
+    "SubStatValue": "46.9%",
+    "Passive": "克柔",
+    "PassiveDescription": "对史莱姆类敌人造成的伤害增加40%/50%/60%/70%/80%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "漆黑陨铁",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_Aerosiderite",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+    },
+    "Elite": {
+      "Name": "骨片",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_BoneShard",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Arrowhead",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "黑缨枪",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "BlackTassel",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3201.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "401",
+    "SubStat": "元素精通",
+    "SubStatValue": "141",
+    "Passive": "过载",
+    "PassiveDescription": "触发超载、超导、感电或雷元素扩散反应后的12秒内，攻击力提高20%/25%/30%/35%/40%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "暗铁剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "DarkIronSword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1202.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
+    "ATK": "448",
+    "SubStat": "暴击伤害",
+    "SubStatValue": "31.2%",
+    "Passive": "飞矢传书",
+    "PassiveDescription": "瞄准射击时，若命中要害，则额外造成100%/125%/150%/175%/200%攻击力的伤害，该伤害必定暴击。此效果每10秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "鸦印",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+    },
+    "Name": "信使",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Messenger",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_4202.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "448",
+    "SubStat": "攻击力",
+    "SubStatValue": "23.5%",
+    "Passive": "沉重",
+    "PassiveDescription": "对普通攻击命中的敌人造成160%/200%/240%/280%/320%攻击力的额外伤害。该效果每10秒只能触发一次。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "雾海云间",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+    },
+    "Elite": {
+      "Name": "雾虚",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+    },
+    "Monster": {
+      "Name": "花蜜",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+    },
+    "Name": "钺矛",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Halbeld",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3202.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
+    "ATK": "401",
+    "SubStat": "攻击力",
+    "SubStatValue": "35.2%",
+    "Passive": "止水融冰",
+    "PassiveDescription": "对处于水元素或冰元素影响下的敌人，造成的伤害提高12%/15%/18%/21%/24%。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "高塔孤王",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+    },
+    "Elite": {
+      "Name": "号角",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+    },
+    "Monster": {
+      "Name": "箭簇",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+    },
+    "Name": "冷刃",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "CoolSteel",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_1201.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "401",
+    "SubStat": "生命值",
+    "SubStatValue": "35.2%",
+    "Passive": "传承",
+    "PassiveDescription": "主动切换角色时，新登场的角色攻击力提升24%/30%/36%/42%/48%，持续10秒。该效果每20秒只能触发一次。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "凛风奔狼",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+    },
+    "Elite": {
+      "Name": "地脉",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+    },
+    "Monster": {
+      "Name": "绘卷",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+    },
+    "Name": "讨龙英杰谭",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "ThrillingTalesofDragonSlayers",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5205.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
+    "ATK": "401",
+    "SubStat": "暴击率",
+    "SubStatValue": "23.4%",
+    "Passive": "锐利",
+    "PassiveDescription": "普通攻击造成的伤害提升24%/30%/36%/42%/48%。",
+    "Ascension": {
+      "City": "Liyue",
+      "Name": "孤云寒林",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+    },
+    "Elite": {
+      "Name": "祭刀",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+    },
+    "Monster": {
+      "Name": "徽记",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+    },
+    "Name": "白缨枪",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "WhiteTassel",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_3203.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
+    "ATK": "401",
+    "SubStat": "元素充能效率",
+    "SubStatValue": "39%",
+    "Passive": "能量沐浴",
+    "PassiveDescription": "获得元素微粒或元素晶球时，恢复1%/1.25%/1.5%/1.75%/2%生命值。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "面具",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+    },
+    "Name": "异世界行记",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "OtherworldlyStory",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_5204.png"
+  },
+  {
+    "Type": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
+    "ATK": "401",
+    "SubStat": "防御力",
+    "SubStatValue": "43.9%",
+    "Passive": "收割",
+    "PassiveDescription": "击败敌人时，恢复8%/10%/12%/14%/16%生命值。",
+    "Ascension": {
+      "City": "Mondstadt",
+      "Name": "狮牙斗士",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+      "Key": "Weapon_DandelionGladiator",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+    },
+    "Elite": {
+      "Name": "混沌",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+      "Key": "Elite_Chaos",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+    },
+    "Monster": {
+      "Name": "史莱姆",
+      "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+      "Key": "Monster_Slime",
+      "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+    },
+    "Name": "白铁大剑",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "White Iron Greatsword",
+    "Source": "https://genshin.honeyhunterworld.com/img/weapon/w_2206.png"
+  }
+]

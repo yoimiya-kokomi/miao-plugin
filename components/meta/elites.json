@@ -1,0 +1,62 @@
+[
+  {
+    "Name": "混沌",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_Chaos",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_83.png"
+  },
+  {
+    "Name": "号角",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_Horn",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_63.png"
+  },
+  {
+    "Name": "雾虚",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_MistGrass",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_93.png"
+  },
+  {
+    "Name": "骨片",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_BoneShard",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_143.png"
+  },
+  {
+    "Name": "地脉",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_LeyLine",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_73.png"
+  },
+  {
+    "Name": "混沌2",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_Chaos2",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_173.png"
+  },
+  {
+    "Name": "祭刀",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_SacrificialKnife",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_103.png"
+  },
+  {
+    "Name": "棱镜",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_Prism",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_183.png"
+  },
+  {
+    "Name": "隐兽",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_Concealed",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_176.png"
+  },
+  {
+    "Name": "刻像",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Elite_Statuette",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_153.png"
+  }
+]

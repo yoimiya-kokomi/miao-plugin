@@ -1,0 +1,65 @@
+[
+  {
+    "City": "Liyue",
+    "Name": "漆黑陨铁",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_Aerosiderite",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_554.png"
+  },
+  {
+    "City": "Liyue",
+    "Name": "孤云寒林",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_Guyun",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_514.png"
+  },
+  {
+    "City": "Liyue",
+    "Name": "雾海云间",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_MistVeiled",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_534.png"
+  },
+  {
+    "City": "Inazuma",
+    "Name": "远海夷地",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_DistantSea",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_564.png"
+  },
+  {
+    "City": "Mondstadt",
+    "Name": "凛风奔狼",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_BorealWolf",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_524.png"
+  },
+  {
+    "City": "Inazuma",
+    "Name": "鸣神御灵",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_Narukami",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_574.png"
+  },
+  {
+    "City": "Mondstadt",
+    "Name": "高塔孤王",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_Decarabian",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_504.png"
+  },
+  {
+    "City": "Inazuma",
+    "Name": "今昔剧画",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_Mask",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_584.png"
+  },
+  {
+    "City": "Mondstadt",
+    "Name": "狮牙斗士",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Weapon_DandelionGladiator",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/weapon/i_544.png"
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "Name": "史莱姆",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_Slime",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_23.png"
+  },
+  {
+    "Name": "刀镡",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_Handguard",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_163.png"
+  },
+  {
+    "Name": "鸦印",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_RavenInsignia",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_123.png"
+  },
+  {
+    "Name": "花蜜",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_Nectar",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_133.png"
+  },
+  {
+    "Name": "箭簇",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_Arrowhead",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_53.png"
+  },
+  {
+    "Name": "徽记",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_Insignia",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_113.png"
+  },
+  {
+    "Name": "面具",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_Mask",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_33.png"
+  },
+  {
+    "Name": "绘卷",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_Scroll",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_43.png"
+  },
+  {
+    "Name": "浮游",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/3star.png",
+    "Key": "Monster_Spectral",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/material/i_187.png"
+  }
+]

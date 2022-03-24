@@ -1,0 +1,92 @@
+[
+  {
+    "Name": "排异之露",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "Boss_DewofRepudiation",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_213.png"
+  },
+  {
+    "Name": "极寒之核",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_HoarfrostCore",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_204.png"
+  },
+  {
+    "Name": "飓风之种",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_HurricaneSeed",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_205.png"
+  },
+  {
+    "Name": "阴燃之珠",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_SmolderingPearl",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_212.png"
+  },
+  {
+    "Name": "未熟之玉",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_JuvenileJade",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_207.png"
+  },
+  {
+    "Name": "魔偶机心",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_MaguuKishin",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_210.png"
+  },
+  {
+    "Name": "净水之心",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_CleansingHeart",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_202.png"
+  },
+  {
+    "Name": "恒常机关之心",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_PerpetualHeart",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_211.png"
+  },
+  {
+    "Name": "玄岩之塔",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_BasaltPillar",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_206.png"
+  },
+  {
+    "Name": "晶凝之华",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_CrystallineBloom",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_208.png"
+  },
+  {
+    "Name": "雷光棱镜",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_LightningPrism",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_203.png"
+  },
+  {
+    "Name": "常燃火种",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_EverflameSeed",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_201.png"
+  },
+  {
+    "Name": "雷霆数珠",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_StormBeads",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_214.png"
+  },
+  {
+    "Name": "兽境王器",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_RiftbornRegalia",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_215.png"
+  },
+  {
+    "Name": "龙嗣伪鳍",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Boss_DragonheirsFalseFin",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_216.png"
+  }
+]

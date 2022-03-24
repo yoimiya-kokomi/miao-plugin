@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "哀叙冰玉",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GemStone_ShivadaJade",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_344.png"
+  },
+  {
+    "Name": "坚牢黄玉",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GemStone_PrithivaTopaz",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_364.png"
+  },
+  {
+    "Name": "燃愿玛瑙",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GemStone_AgnidusAgate",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_314.png"
+  },
+  {
+    "Name": "自在松石",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GemStone_VayudaTurquoise",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_354.png"
+  },
+  {
+    "Name": "最胜紫晶",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GemStone_VajradaAmethyst",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_334.png"
+  },
+  {
+    "Name": "璀璨原钻",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GemStone_BrilliantDiamond",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_304.png"
+  },
+  {
+    "Name": "生长碧翡",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GemStone_NagadusEmerald",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_374.png"
+  },
+  {
+    "Name": "涤净青金",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/5star.png",
+    "Key": "GemStone_VarunadaLazurite",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/gem/i_324.png"
+  }
+]

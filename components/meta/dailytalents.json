@@ -1,0 +1,74 @@
+[
+  {
+    "City": "Mondstadt",
+    "Week": 2,
+    "Name": "抗争",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Resistance",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_453.png"
+  },
+  {
+    "City": "Liyue",
+    "Week": 1,
+    "Name": "繁荣",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Prosperity",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_443.png"
+  },
+  {
+    "City": "Inazuma",
+    "Week": 3,
+    "Name": "天光",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Light",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_428.png"
+  },
+  {
+    "City": "Liyue",
+    "Week": 3,
+    "Name": "黄金",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Gold",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_433.png"
+  },
+  {
+    "City": "Mondstadt",
+    "Week": 1,
+    "Name": "自由",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Freedom",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_423.png"
+  },
+  {
+    "City": "Mondstadt",
+    "Week": 3,
+    "Name": "诗文",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Ballad",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_403.png"
+  },
+  {
+    "City": "Inazuma",
+    "Week": 2,
+    "Name": "风雅",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Elegance",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_418.png"
+  },
+  {
+    "City": "Liyue",
+    "Week": 2,
+    "Name": "勤劳",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Diligence",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_413.png"
+  },
+  {
+    "City": "Inazuma",
+    "Week": 1,
+    "Name": "浮世",
+    "Star": "https://genshin.honeyhunterworld.com/img/back/item/4star.png",
+    "Key": "Talent_Transience",
+    "Source": "https://genshin.honeyhunterworld.com/img/upgrade/guide/i_408.png"
+  }
+]
