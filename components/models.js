@@ -1,5 +1,5 @@
-/*
-import Character from "./models/Character";
 
-export {Character};
-*/
+import Character from "./models/Character.js";
+
+export  {Character};
+
