@@ -9,8 +9,17 @@ export const rule = {
     priority: 208,
   },
 
+  userStat: {
+    reg: "^#*user\s*\d*",
+    priority: 200
+  },
+  rebuildCookie: {
+    reg: "#rebuild"
+  }
+
 };
 
 import { character, setCharacterImg } from "./apps/character.js";
+import {userStat, rebuildCookie} from "./apps/admin.js";
 
-export { character, setCharacterImg };
+export { character, setCharacterImg, userStat, rebuildCookie };
