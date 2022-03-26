@@ -1,18 +1,16 @@
 import fetch from "node-fetch";
 import { segment } from "oicq";
 import lodash from "lodash";
+import { Character } from "../components/models.js"
 import fs from "fs";
+import sizeOf from "image-size";
 
 let getUrl, getServer;
-
-import { Character } from "../components/models.js";
-
 
 //角色昵称
 let nameID = "";
 let genshin = {};
 await init();
-
 
 export async function init(isUpdate = false) {
   let _path = "file://" + process.cwd();
@@ -23,26 +21,19 @@ export async function init(isUpdate = false) {
   nameID = "";
 }
 
-
-//#神里
+// 查看当前角色
 export async function character(e, { render, MysApi }) {
-  let roleId = roleIdToName(e.msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim());
-
-
-  let hutao = Character.get("胡桃");
-
-  console.log(hutao.a)
-
-  return true;
-
-  if (!roleId) return false;
+  let name = e.msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
+  let char = Character.get(name);
+  if (!char) {
+    return false;
+  }
+  let roleId = char.id;
 
   getUrl = MysApi.getUrl;
   getServer = MysApi.getServer;
 
   let uidRes = await getUid(e);
-
-
   if (!uidRes.uid && uidRes.isSelf) {
     e.reply("请先发送#+你游戏的uid");
     return true;
@@ -93,16 +84,20 @@ export async function character(e, { render, MysApi }) {
 
   avatars = avatars[roleId];
 
-  let skill = await getSkill(e, uid, avatars);
 
-  let type = "character";
-
-  let base64 = await render("miao-plugin", type, {
+  let talent = await getTalent(e, uid, avatars);
+  let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length
+  let base64 = await render("miao-plugin", "character", {
     _plugin: true,
     save_id: uid,
     uid: uid,
-    skill,
-    ...get_character(avatars),
+    talent,
+    crownNum,
+    talentMap: { a: "普攻", e: "战技", q: "爆发" },
+    bg: getCharacterImg(char.name),
+    ...getCharacterData(avatars),
+    ds: char.getData("name,id,title,desc"),
+
   }, "png");
 
   if (base64) {
@@ -112,9 +107,13 @@ export async function character(e, { render, MysApi }) {
   return true; //事件结束不再往下
 }
 
+// 设置角色图像
+export async function setCharacterImg(e, render) {
+
+}
 
 //获取角色技能数据
-async function getSkill(e, uid, avatars) {
+async function getTalent(e, uid, avatars) {
 
   let skill = {};
   if (NoteCookie && NoteCookie[e.user_id] && NoteCookie[e.user_id].uid == uid && NoteCookie[e.user_id].cookie.includes("cookie_token")) {
@@ -161,14 +160,12 @@ async function getSkill(e, uid, avatars) {
   return skill;
 }
 
-
-function get_character(avatars) {
+function getCharacterData(avatars) {
   let list = [];
   let set = {};
   let setArr = [];
   let text1 = "";
   let text2 = "";
-  let bg = 2;
 
   let weapon = {
     type: "weapon",
@@ -232,7 +229,6 @@ function get_character(avatars) {
     weapon,
     text1,
     text2,
-    bg,
     reliquaries,
     set: setArr,
   };
@@ -523,3 +519,13 @@ function getDayEnd() {
   return dayEnd - parseInt(now.getTime() / 1000);
 }
 
+function getCharacterImg(name) {
+  let imgs = fs.readdirSync(`./plugins/miao-plugin/resources/characterImg/${name}/`);
+  imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
+  let img = lodash.sample(imgs);
+
+  let ret = sizeOf(`./plugins/miao-plugin/resources/characterImg/${name}/${img}`);
+  ret.img = `/characterImg/${name}/${img}`;
+  ret.mode = ret.width > ret.height ? "left" : "bottom";
+  return ret;
+}

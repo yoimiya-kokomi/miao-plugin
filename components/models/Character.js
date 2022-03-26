@@ -32,14 +32,6 @@ class Character extends Base {
     lodash.extend(this, getMetaData(name))
   }
 
-  get id() {
-    for (let id in roleId) {
-      if (roleId[id] && role[id][0] === this.name) {
-        return id;
-      }
-    }
-  }
-
   async checkImgCache(resDir) {
     // 处理img信息
     let chcheDir = resDir + "/cache/";
@@ -101,7 +93,6 @@ let getMetaData = function (name) {
     cons[key.replace("Constellation")] = Data.getData(data, "Name,icon:Source,desc:Description", metaCfg);
   })
   ret.cons = cons;
-
   return ret;
 }
 

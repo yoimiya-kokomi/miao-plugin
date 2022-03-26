@@ -1,1 +1,3 @@
-export Data from "./Data.js";
+import Data from "./Data.js";
+
+export { Data }

@@ -3,52 +3,47 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
   <link rel="shortcut icon" href="#"/>
-
-  <link rel="stylesheet" type="text/css" href="{{_res_path}}/MiaoPlugin/character/character.css?v=1.0"/>
-  <link rel="preload" href="{{_res_path}}/font/tttgbnumber.ttf" as="font">
-  <link rel="preload" href="{{_res_path}}/font/华文中宋.TTF" as="font">
-  <link rel="preload" href="{{_res_path}}/genshin/logo/bg/{{name}}1.png" as="image">
-  <link rel="preload" href="{{_res_path}}/genshin/logo/bg/{{name}}2.png" as="image">
+  <link rel="stylesheet" type="text/css" href="{{_app_res_path}}/character/character.css?v=1.0"/>
 </head>
-<body>
+<body class="{{bg.mode}}_mode">
 <div class="container" id="container">
   <div class="info">
-    <div class="role_name">
-      {{"神里凌华"}}
+    <div class="char_name">
+      <div class="uid">ID:{{uid}}</div>
+      <span>{{ds.name}}</span>
     </div>
-    <div class="lv">ID:{{uid}} Lv.{{level}} ❤{{fetter}}</div>
+    <div class="detail"> Lv.{{level}} ❤{{fetter}}
+      <span class="crown crown_{{crownNum}}"></span>
+    </div>
 
     <div class="weapon">
-      <div class="img_box">
-        <img src="{{_res_path}}/genshin/logo/weapon/{{weapon.name}}.png"/>
+      <div class="weapon_cont">
+        <img title="{{weapon.name}}" src="{{_res_path}}/genshin/logo/weapon/{{weapon.name}}.png"/>
+        <p class="weapon_lv">Lv.{{weapon.level}}</p>
+        <p class="weapon_affix">{{weapon.affix_level}}</p>
       </div>
-      <p class="num">lv{{weapon.level}}</p>
-      <p class="weapon_num">{{weapon.affix_level}}</p>
+      <p class="weapon_name">
+        <span class="for_left">Lv.{{weapon.level}} 精{{weapon.affix_level}}</span>
+        <span class="for_bottom">精{{weapon.affix_level}} </span>
+        {{weapon.name}}
+      </p>
     </div>
 
-    {{ if skill.a }}
-    <div class="skill">
-      <p> 爆发：<span>{{ skill.q.level_current}}</span></p>
-      <p> 战技：<span>{{ skill.e.level_current}}</span></p>
-      <p> 普攻：<span>{{ skill.a.level_current}}</span></p>
+    {{ if talent.a }}
+    <div class="talent">
+      {{each talentMap name key}}
+      <div class="talent_{{key}}"> {{name}}：<span>{{ talent[key].level_current}}</span></div>
+      {{/each}}
     </div>
     {{/if}}
 
-    <div class="equiv">
-      <div class="item">
-        <div class="img_box">
-          <img src="{{_res_path}}/genshin/logo/{{reliquaries.type}}/{{reliquaries.name}}.png"/>
-        </div>
-        <p class="num">+{{reliquaries.level}}</p>
-      </div>
-    </div>
     <div class="equiv_info">
       <div class="text">{{text1}}</div>
       <div class="text">{{text2}}</div>
     </div>
   </div>
   <div>
-    <img src="{{_res_path}}/MiaoPlugin/characterImg/刻晴/1.jpg" class="bg"></div>
+    <img src="{{_app_res_path}}{{bg.img}}" title="{{name}}" class="bg"></div>
 </div>
 </body>
 <script type="text/javascript"></script>

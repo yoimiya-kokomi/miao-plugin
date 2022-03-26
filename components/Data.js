@@ -7,7 +7,6 @@ let Data = {
   * 根据指定的path依次检查与创建目录
   * */
   createDir(rootPath = "", path, includeFile = false) {
-    console.log(rootPath, path)
     let pathList = path.split("/"),
       nowPath = rootPath;
     pathList.forEach((name, idx) => {
@@ -16,7 +15,6 @@ let Data = {
         nowPath += name + "/";
         if (name) {
           if (!fs.existsSync(nowPath)) {
-            console.log(nowPath)
             fs.mkdirSync(nowPath);
           }
         }
@@ -79,7 +77,6 @@ let Data = {
         keyRet = keyTo;
       if (cfg.lowerFirstKey) {
         keyRet = lodash.lowerFirst(keyRet);
-        console.log('keyRet', keyRet)
       }
       if (cfg.keyPrefix) {
         keyRet = cfg.keyPrefix + keyRet;
