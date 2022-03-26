@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+  <link rel="shortcut icon" href="#"/>
+
+  <link rel="stylesheet" type="text/css" href="{{_res_path}}/MiaoPlugin/character/character.css?v=1.0"/>
+  <link rel="preload" href="{{_res_path}}/font/tttgbnumber.ttf" as="font">
+  <link rel="preload" href="{{_res_path}}/font/华文中宋.TTF" as="font">
+  <link rel="preload" href="{{_res_path}}/genshin/logo/bg/{{name}}1.png" as="image">
+  <link rel="preload" href="{{_res_path}}/genshin/logo/bg/{{name}}2.png" as="image">
+</head>
+<body>
+<div class="container" id="container">
+  <div class="info">
+    <div class="role_name">
+      {{"神里凌华"}}
+    </div>
+    <div class="lv">ID:{{uid}} Lv.{{level}} ❤{{fetter}}</div>
+
+    <div class="weapon">
+      <div class="img_box">
+        <img src="{{_res_path}}/genshin/logo/weapon/{{weapon.name}}.png"/>
+      </div>
+      <p class="num">lv{{weapon.level}}</p>
+      <p class="weapon_num">{{weapon.affix_level}}</p>
+    </div>
+
+    {{ if skill.a }}
+    <div class="skill">
+      <p> 爆发：<span>{{ skill.q.level_current}}</span></p>
+      <p> 战技：<span>{{ skill.e.level_current}}</span></p>
+      <p> 普攻：<span>{{ skill.a.level_current}}</span></p>
+    </div>
+    {{/if}}
+
+    <div class="equiv">
+      <div class="item">
+        <div class="img_box">
+          <img src="{{_res_path}}/genshin/logo/{{reliquaries.type}}/{{reliquaries.name}}.png"/>
+        </div>
+        <p class="num">+{{reliquaries.level}}</p>
+      </div>
+    </div>
+    <div class="equiv_info">
+      <div class="text">{{text1}}</div>
+      <div class="text">{{text2}}</div>
+    </div>
+  </div>
+  <div>
+    <img src="{{_res_path}}/MiaoPlugin/characterImg/刻晴/1.jpg" class="bg"></div>
+</div>
+</body>
+<script type="text/javascript"></script>
+</html>

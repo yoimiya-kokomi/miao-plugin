@@ -1,0 +1,304 @@
+@font-face {
+  font-family: "HWZhongSong";
+  src: url("../../font/华文中宋.TTF");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "tttgbnumber";
+  src: url("../../font/tttgbnumber.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NZBZ";
+  src: url("../font/NZBZ.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+html, body {
+  width: 500px;
+}
+
+body {
+  font-size: 16px;
+  color: #fff;
+  font-family: "tttgbnumber";
+  transform: scale(1.40);
+  transform-origin: 0 0;
+}
+
+.container {
+  position: relative;
+  background-color: #1234;
+  width: 100%;
+}
+
+.container img.bg {
+  width: 100%;
+  margin-bottom: -1px;
+}
+
+.info {
+  position: absolute;
+  background: rgba(0, 0, 0, .5);
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  box-shadow: 0 -5px 10px 0 #000;
+  padding:35px 10px 10px 35px;
+}
+
+.role_box {
+  padding: 5px 10px;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.title {
+  font-size: 36px;
+}
+
+.role_name {
+  font-family: "NZBZ";
+  font-size: 80px;
+  letter-spacing: 5px;
+  line-height: 90px;
+  height: 100px;
+  text-shadow: 0 0 1px #000, 3px 3px 6px #000;
+  display: inline-block;
+  position:absolute;
+  top:-70px;
+  left:20px;
+}
+
+.role_name:after {
+  content: "";
+  display: block;
+  position: absolute;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%);
+  right: -50px;
+  min-width: 360px;
+  height: 1px;
+  bottom: 0;
+  left: -50px;
+  opacity: 1;
+  transition: width 0.3s 0.1s, opacity 0.3s 0.1s;
+}
+
+
+.weapon {
+  text-align: center;
+  font-size: 20px;
+  padding: 3px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  overflow: hidden;
+  right:15px;
+  top:45px;
+}
+
+.lv {
+  font-family: "tttgbnumber";
+  font-size: 26px;
+  margin: 10px 5px 2px 5px;
+}
+
+
+.weapon .num {
+  position: absolute;
+  bottom: 0px;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 1px 5px;
+  background-color: rgba(0, 0, 0, var(--bg-opacity));
+  --bg-opacity: 0.75;
+}
+
+.weapon_num {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+  background: #000;
+  border-radius: 5px;
+  padding: 1px 3px;
+}
+
+.weapon img {
+  width: 100%;
+  transform: scale(1.2, 1.2);
+}
+
+.equiv .img_box {
+  width: 46px;
+  height: 46px;
+  border: 1px solid #d3bc8d;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.equiv img {
+  width: 100%;
+  transform: scale(1.2, 1.2);
+}
+
+
+.detail {
+  margin-left: 5px;
+  width: 300px;
+  margin-top: 3px;
+  padding: 5px 0;
+  display: flex;
+  position: relative;
+}
+
+.skill {
+  margin-left: 5px;
+  width: 300px;
+  padding-bottom: 6px;
+  display: flex;
+  position: relative;
+}
+
+.text_box::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 20%,
+    rgba(255, 255, 255, 0.5) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 0%;
+  height: 1px;
+  top: 0;
+  left: -15px;
+  width: 300px;
+  opacity: 1;
+  transition: width 0.3s 0.1s, opacity 0.3s 0.1s;
+}
+
+.text_box::after {
+  content: "";
+  display: block;
+  position: absolute;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 20%,
+    rgba(255, 255, 255, 0.5) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 0%;
+  height: 1px;
+  bottom: 0;
+  left: -15px;
+  width: 300px;
+  opacity: 1;
+  transition: width 0.3s 0.1s, opacity 0.3s 0.1s;
+}
+
+.detail p,
+.skill p {
+  margin-right: 4px;
+  line-height: 16px;
+  width: 90px;
+  white-space: nowrap;
+}
+
+.no_skill {
+  padding: 10px 0;
+}
+
+.star {
+  width: 16px;
+  vertical-align: -2px;
+  margin-right: 1px;
+}
+
+.equiv {
+  margin-top: 12px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  /*margin-bottom: 5px;*/
+}
+
+.equiv {
+  margin: 0 10px 8px 10px;
+  text-align: center;
+  font-size: 20px;
+  padding: 3px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  height: 52px;
+  width: 52px;
+  position: relative;
+  display:flex;
+}
+
+.equiv .num {
+  position: absolute;
+  bottom: 0px;
+  font-size: 12px;
+  /*background: rgba(0,0,0,.6);*/
+  border-radius: 5px;
+  padding: 1px 5px;
+  background-color: rgba(0, 0, 0, var(--bg-opacity));
+  --bg-opacity: 0.75;
+  border-radius: 9999px;
+}
+
+
+.equiv .img_box {
+  width: 46px;
+  height: 46px;
+  border: 1px solid #d3bc8d;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.equiv img {
+  width: 100%;
+  transform: scale(1.2, 1.2);
+}
+
+.equiv_info {
+  display: inline-block;
+  font-size: 15px;
+  padding: 5px 5px 1px 7px;
+  border-radius: 10px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(114, 102, 104, 0.3);
+  margin-left: 5px;
+}
+
+.equiv_info .text {
+  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
