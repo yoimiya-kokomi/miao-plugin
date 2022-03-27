@@ -22,31 +22,42 @@ export async function init(isUpdate = false) {
 }
 
 // 查看当前角色
-export async function character(e, { render, MysApi }) {
-  let name = e.msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
+export async function character(e, { render, MysApi, User }) {
+
+  if (!e.msg) {
+    return;
+  }
+
+
+  let name = e.msg.replace(/#?|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
   let char = Character.get(name);
   if (!char) {
     return false;
   }
+
+
+  let check = await User.checkAuth(e, "bind", {
+    action: "查询角色详情"
+  });
+  if (!check) {
+    return true;
+  }
+
   let roleId = char.id;
 
   getUrl = MysApi.getUrl;
   getServer = MysApi.getServer;
 
-  let uidRes = await getUid(e);
-  if (!uidRes.uid && uidRes.isSelf) {
-    e.reply("请先发送#+你游戏的uid");
+  let { selfUser, targetUser } = e;
+  if (!targetUser.uid) {
+    e.reply("未能找到查询角色");
     return true;
   }
 
-  if (!(await limitGet(e))) return true;
+  let uid = targetUser.uid;
 
-  let uid = uidRes.uid;
+  let res = await MysApi.requestData(e, uid, "character");
 
-  let res = await mysApi(e, uid, "character", {
-    role_id: uid,
-    server: getServer(uid),
-  });
 
   if (res.retcode == "-1") {
     return true;
@@ -97,7 +108,6 @@ export async function character(e, { render, MysApi }) {
     bg: getCharacterImg(char.name),
     ...getCharacterData(avatars),
     ds: char.getData("name,id,title,desc"),
-
   }, "png");
 
   if (base64) {
