@@ -67,13 +67,15 @@ export async function character(e, { render, MysApi, User }) {
   avatars = lodash.keyBy(avatars, "id");
 
   if (roleId == 20000000) {
+
     if (avatars["10000005"]) {
-      roleId = "10000005";
+      roleId = 10000005;
     }
     if (avatars["10000007"]) {
-      roleId = "10000007";
+      roleId = 10000007;
     }
   }
+  char.roleId = roleId;
 
   if (!avatars[roleId]) {
     let name = lodash.truncate(e.sender.card, { length: 8 });

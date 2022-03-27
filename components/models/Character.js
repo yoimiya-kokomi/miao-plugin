@@ -26,10 +26,25 @@ const elemName = {
 class Character extends Base {
   constructor(name) {
     super();
-    this.name = name;
+    this._name = name;
     this.sName = this.name;
     this.id = YunzaiApps.mysInfo['roleIdToName'](name);
-    lodash.extend(this, getMetaData(name))
+    lodash.extend(this, getMetaData(name));
+  }
+
+  get name() {
+    if (this.roleId) {
+      if (this.roleId * 1 === 10000005) {
+        this._name = "空";
+      } else if (this.roleId * 1 === 10000007) {
+        this._name = "荧";
+      }
+    }
+    return this._name;
+  }
+
+  set name(name) {
+    this._name = name;
   }
 
   async checkImgCache(resDir) {

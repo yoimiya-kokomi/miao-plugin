@@ -7,23 +7,26 @@
 </head>
 <body class="{{bg.mode}}_mode">
 <div class="container" id="container">
+  <div class="char_name">
+    <div class="uid">ID:{{uid}}</div>
+    <span>{{ds.name}}</span>
+    <span
+        class="cons cons_{{actived_constellation_num}}">{{actived_constellation_num}}命</span>
+  </div>
   <div class="info">
-    <div class="char_name">
-      <div class="uid">ID:{{uid}}</div>
-      <span>{{ds.name}} <span
-          class="cons cons_{{actived_constellation_num}}">{{actived_constellation_num}}命</span></span>
-    </div>
-    <div class="detail"> Lv.{{level}} ❤{{fetter}}
+    <div class="detail">  Lv.{{level}} ❤{{fetter}}
       <span class="crown crown_{{crownNum}}"></span>
     </div>
 
     <div class="weapon">
       <div class="weapon_cont">
         <img title="{{weapon.name}}" src="{{_res_path}}/genshin/logo/weapon/{{weapon.name}}.png"/>
+
         <p class="weapon_lv">Lv.{{weapon.level}}</p>
         <p class="weapon_affix">{{weapon.affix_level}}</p>
       </div>
       <p class="weapon_name">
+
         <span class="for_left">Lv.{{weapon.level}} 精{{weapon.affix_level}}</span>
         <span class="for_bottom">精{{weapon.affix_level}} </span>
         {{weapon.name}}
