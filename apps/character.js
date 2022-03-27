@@ -14,7 +14,6 @@ await init();
 
 export async function init(isUpdate = false) {
   let _path = "file://" + process.cwd();
-  console.log(_path + "config/gen");
   let version = isUpdate ? new Date().getTime() : 0;
 
   genshin = await import(_path + `/config/genshin/roleId.js?version=${version}`);
@@ -23,19 +22,14 @@ export async function init(isUpdate = false) {
 
 // 查看当前角色
 export async function character(e, { render, MysApi, User }) {
-
   if (!e.msg) {
     return;
   }
-
-
   let name = e.msg.replace(/#?|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
   let char = Character.get(name);
   if (!char) {
     return false;
   }
-
-
   let check = await User.checkAuth(e, "bind", {
     action: "查询角色详情"
   });
@@ -96,7 +90,7 @@ export async function character(e, { render, MysApi, User }) {
   avatars = avatars[roleId];
 
 
-  let talent = await getTalent(e, uid, avatars);
+  let talent = await getTalent(e, uid, avatars, MysApi);
   let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length
   let base64 = await render("miao-plugin", "character", {
     _plugin: true,
@@ -117,54 +111,176 @@ export async function character(e, { render, MysApi, User }) {
   return true; //事件结束不再往下
 }
 
+
+//#老婆
+export async function wife(e, { render, MysApi, User }) {
+  let msg = e.msg;
+  if (!msg) {
+    return;
+  }
+  let check = await User.checkAuth(e, "bind", {
+    action: "查询角色详情"
+  });
+  if (!check) {
+    return true;
+  }
+
+  msg = msg.replace(/#|\w/g, "");
+
+  let i = 0;
+  if (["老婆", "媳妇", "妻子", "娘子", "女朋友", "女友", "女神"].includes(msg)) {
+    i = 0;
+  } else if (["老公", "丈夫", "夫君", "郎君", "男朋友", "男友", "男神"].includes(msg)) {
+    i = 1;
+  } else if (["女儿"].includes(msg)) {
+    i = 2;
+  } else if (["儿子"].includes(msg)) {
+    e.reply("暂无正太角色");
+    return true;
+  } else {
+    return true;
+  }
+
+  let { selfUser, targetUser } = e;
+  if (!targetUser.uid) {
+    e.reply("暂未查询到角色信息");
+    return true;
+  }
+
+  let uid = targetUser.uid;
+
+  let res = await MysApi.requestData(e, uid, "character");
+
+  if (res.retcode == "-1") {
+    return true;
+  }
+
+  if (checkRetcode(res, uid, e)) {
+    return true;
+  }
+
+  let avatars = res.data.avatars;
+
+  if (avatars.length <= 0) {
+    return true;
+  }
+
+  let list = [];
+
+  for (let val of avatars) {
+    if (!genshin.wifeData[i].includes(Number(val.id))) {
+      continue;
+    }
+    if (val.rarity > 5) {
+      val.rarity = 5;
+    }
+
+    //等级+好感*10+命座*5+五星*20
+    val.sort = val.level + val.fetter * 10 + val.actived_constellation_num * 5 * (val.rarity - 3) + (val.rarity - 4) * 20;
+
+    //超过80级的每级*5
+    if (val.level > 80) {
+      val.sort += (val.level - 80) * 5;
+    }
+
+    //武器 等级+五星*25+精炼*5
+    val.sort += val.weapon.level + (val.weapon.rarity - 4) * 25 + val.weapon.affix_level * 5;
+
+    //武器超过80级的每级*5
+    if (val.weapon.level > 80) {
+      val.sort += (val.weapon.level - 80) * 5;
+    }
+
+    //圣遗物等级
+    for (let rel of val.reliquaries) {
+      val.sort += rel.level * 1.2;
+    }
+
+    list.push(val);
+  }
+
+  if (list.length <= 0) {
+    return true;
+  }
+
+  //limitSet(e);
+
+  list = lodash.orderBy(list, ["sort"], ["desc"]);
+
+  avatars = lodash.sample(list.slice(0, 5));
+
+  let talent = await getTalent(e, uid, avatars, MysApi);
+
+  let char = Character.get(avatars.name);
+
+  let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length
+
+  let base64 = await render("miao-plugin", "character", {
+    _plugin: true,
+    save_id: uid,
+    uid: uid,
+    talent,
+    crownNum,
+    talentMap: { a: "普攻", e: "战技", q: "爆发" },
+    bg: getCharacterImg(char.name),
+    ...getCharacterData(avatars),
+    ds: char.getData("name,id,title,desc"),
+  }, "png");
+
+  if (base64) {
+    e.reply(segment.image(`base64://${base64}`));
+  }
+
+  return true;
+}
+
+
 // 设置角色图像
 export async function setCharacterImg(e, render) {
 
 }
 
 //获取角色技能数据
-async function getTalent(e, uid, avatars) {
+async function getTalent(e, uid, avatars, MysApi) {
 
   let skill = {};
-  if (NoteCookie && NoteCookie[e.user_id] && NoteCookie[e.user_id].uid == uid && NoteCookie[e.user_id].cookie.includes("cookie_token")) {
-    let skillres = await mysApi(e, uid, "detail", {
-      role_id: uid,
-      server: getServer(uid),
-      avatar_id: avatars.id,
-    });
-    if (skillres.retcode == 0 && skillres.data && skillres.data.skill_list) {
-      skill.id = avatars.id;
-      let skill_list = lodash.orderBy(skillres.data.skill_list, ["id"], ["asc"]);
-      for (let val of skill_list) {
-        val.level_original = val.level_current;
-        if (val.name.includes("普通攻击")) {
-          skill.a = val;
-          continue;
-        }
-        if (val.max_level >= 10 && !skill.e) {
-          skill.e = val;
-          continue;
-        }
-        if (val.max_level >= 10 && !skill.q) {
-          skill.q = val;
-          continue;
-        }
+
+  let skillres = await MysApi.requestData(e, uid, "detail", {
+    avatar_id: avatars.id,
+  });
+  if (skillres.retcode == 0 && skillres.data && skillres.data.skill_list) {
+    skill.id = avatars.id;
+    let skill_list = lodash.orderBy(skillres.data.skill_list, ["id"], ["asc"]);
+    for (let val of skill_list) {
+      val.level_original = val.level_current;
+      if (val.name.includes("普通攻击")) {
+        skill.a = val;
+        continue;
       }
-      if (avatars.actived_constellation_num >= 3) {
-        if (avatars.constellations[2].effect.includes(skill.e.name)) {
-          skill.e.level_current += 3;
-        } else if (avatars.constellations[2].effect.includes(skill.q.name)) {
-          skill.q.level_current += 3;
-        }
+      if (val.max_level >= 10 && !skill.e) {
+        skill.e = val;
+        continue;
       }
-      if (avatars.actived_constellation_num >= 5) {
-        if (avatars.constellations[4].effect.includes(skill.e.name)) {
-          skill.e.level_current += 3;
-        } else if (avatars.constellations[4].effect.includes(skill.q.name)) {
-          skill.q.level_current += 3;
-        }
+      if (val.max_level >= 10 && !skill.q) {
+        skill.q = val;
+        continue;
       }
     }
+    if (avatars.actived_constellation_num >= 3) {
+      if (avatars.constellations[2].effect.includes(skill.e.name)) {
+        skill.e.level_current += 3;
+      } else if (avatars.constellations[2].effect.includes(skill.q.name)) {
+        skill.q.level_current += 3;
+      }
+    }
+    if (avatars.actived_constellation_num >= 5) {
+      if (avatars.constellations[4].effect.includes(skill.e.name)) {
+        skill.e.level_current += 3;
+      } else if (avatars.constellations[4].effect.includes(skill.q.name)) {
+        skill.q.level_current += 3;
+      }
+    }
+
   }
 
   return skill;
@@ -530,10 +646,20 @@ function getDayEnd() {
 }
 
 function getCharacterImg(name) {
+
+  if (!fs.existsSync(`./plugins/miao-plugin/resources/characterImg/${name}/`)) {
+    fs.mkdirSync(`./plugins/miao-plugin/resources/characterImg/${name}/`);
+  }
+
+
   let imgs = fs.readdirSync(`./plugins/miao-plugin/resources/characterImg/${name}/`);
   imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
   let img = lodash.sample(imgs);
 
+  if (!img) {
+    name = "刻晴";
+    img = "01.jpg";
+  }
   let ret = sizeOf(`./plugins/miao-plugin/resources/characterImg/${name}/${img}`);
   ret.img = `/characterImg/${name}/${img}`;
   ret.mode = ret.width > ret.height ? "left" : "bottom";

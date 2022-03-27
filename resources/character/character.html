@@ -10,7 +10,8 @@
   <div class="info">
     <div class="char_name">
       <div class="uid">ID:{{uid}}</div>
-      <span>{{ds.name}}</span>
+      <span>{{ds.name}} <span
+          class="cons cons_{{actived_constellation_num}}">{{actived_constellation_num}}命</span></span>
     </div>
     <div class="detail"> Lv.{{level}} ❤{{fetter}}
       <span class="crown crown_{{crownNum}}"></span>
@@ -35,11 +36,15 @@
       <div class="talent_{{key}}"> {{name}}：<span>{{ talent[key].level_current}}</span></div>
       {{/each}}
     </div>
+    {{else}}
+    <div class="talent">
+      <div class="talent_{{key}}">暂无天赋信息</div>
+    </div>
     {{/if}}
 
     <div class="equiv_info">
-      <div class="text">{{text1}}</div>
-      <div class="text">{{text2}}</div>
+      <div class="text">{{text1|| "-"}}</div>
+      <div class="text">{{text2 || "-"}}</div>
     </div>
   </div>
   <div>

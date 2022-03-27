@@ -80,6 +80,7 @@ body {
   position: absolute;
   top: -60px;
   left: 20px;
+  white-space: nowrap;
 }
 
 .char_name:after {
@@ -104,6 +105,49 @@ body {
   top: -25px;
   left: 15px;
   letter-spacing: 0;
+}
+
+.char_name .cons {
+  display: inline-block;
+  width: 55px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
+  font-size: 20px;
+  vertical-align: middle;
+  text-align: center;
+  letter-spacing: 0px;
+  font-family: tttgbnumber;
+  box-shadow: 0px 0px 3px 0px #000;
+  text-shadow: 0 0 3px #000;
+}
+
+.cons_0 {
+  background: #666;
+}
+
+.cons_1 {
+  background-color: #62a8ea;
+}
+
+.cons_2 {
+  background-color: #62a8ea;
+}
+
+.cons_3 {
+  background-color: #45b97c;
+}
+
+.cons_4 {
+  background-color: #45b97c;
+}
+
+.cons_5 {
+  background-color: #ff5722;
+}
+
+.cons_6 {
+  background-color: #ff5722;
 }
 
 .crown {
@@ -349,6 +393,16 @@ body {
 
 body.bottom_mode {
   width: 500px;
+}
+
+.bottom_mode .cons {
+  position: absolute;
+  left: 5px;
+  top: -30px;
+}
+
+.bottom_mode .uid {
+  left: 70px;
 }
 
 .bottom_mode .info {
