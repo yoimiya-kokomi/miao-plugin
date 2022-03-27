@@ -1,2 +1,0 @@
-把miao-plugin目录放到机器人根目录下
-把miao-plugin.js复制到lib/app 或者 lib/example下
