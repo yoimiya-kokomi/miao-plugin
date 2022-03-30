@@ -21,47 +21,35 @@ export async function init(isUpdate = false) {
 }
 
 // 查看当前角色
-export async function character(e, { render, MysApi, User }) {
+export async function character(e, { render, User }) {
   if (!e.msg) {
     return;
   }
-  let name = e.msg.replace(/#?|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
+  let name = e.msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
+
   let char = Character.get(name);
   if (!char) {
     return false;
   }
-  let check = await User.checkAuth(e, "bind", {
-    action: "查询角色详情"
+
+  let MysApi = await e.initMysApi({
+    auth: "all",
+    target: "uid",
+    cookieType: "all",
+    actionName: "查询角色详情"
   });
-  if (!check) {
+
+  if (!MysApi) {
     return true;
   }
 
-  let roleId = char.id;
+  let roleId = char.id, uid = e.targetUser.uid;
 
-  getUrl = MysApi.getUrl;
-  getServer = MysApi.getServer;
-
-  let { selfUser, targetUser } = e;
-  if (!targetUser.uid) {
-    e.reply("未能找到查询角色");
-    return true;
-  }
-
-  let uid = targetUser.uid;
-
-  let res = await MysApi.requestData(e, uid, "character");
+  let charData = await MysApi.getData('character');
+  if (!charData) return true;
 
 
-  if (res.retcode == "-1") {
-    return true;
-  }
-
-  if (checkRetcode(res, uid, e)) {
-    return true;
-  }
-
-  let avatars = res.data.avatars;
+  let avatars = charData.avatars;
   let length = avatars.length;
 
   avatars = lodash.keyBy(avatars, "id");
@@ -86,49 +74,30 @@ export async function character(e, { render, MysApi, User }) {
     }
     return true;
   }
+  let avatar = avatars[roleId];
 
-  limitSet(e);
-
-  avatars = avatars[roleId];
-
-
-  let talent = await getTalent(e, uid, avatars, MysApi);
-  let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length
-  let base64 = await render("miao-plugin", "character", {
-    _plugin: true,
-    save_id: uid,
-    uid: uid,
-    talent,
-    crownNum,
-    talentMap: { a: "普攻", e: "战技", q: "爆发" },
-    bg: getCharacterImg(char.name),
-    ...getCharacterData(avatars),
-    ds: char.getData("name,id,title,desc"),
-  }, "png");
-
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
-  }
+  renderAvatar(e, avatar, MysApi, render);
 
   return true; //事件结束不再往下
 }
 
 
 //#老婆
-export async function wife(e, { render, MysApi, User }) {
+export async function wife(e, { render, User }) {
   let msg = e.msg;
   if (!msg) {
     return;
   }
-  let check = await User.checkAuth(e, "bind", {
-    action: "查询角色详情"
+
+  let MysApi = await e.initMysApi({
+    auth: "all",
+    target: "uid",
+    cookieType: "all",
+    actionName: "查询信息"
   });
-  if (!check) {
-    return true;
-  }
+  if (!MysApi) return true;
 
   msg = msg.replace(/#|\w/g, "");
-
   let i = 0;
   if (["老婆", "媳妇", "妻子", "娘子", "女朋友", "女友", "女神"].includes(msg)) {
     i = 0;
@@ -143,25 +112,10 @@ export async function wife(e, { render, MysApi, User }) {
     return true;
   }
 
-  let { selfUser, targetUser } = e;
-  if (!targetUser.uid) {
-    e.reply("暂未查询到角色信息");
-    return true;
-  }
+  let data = await MysApi.getData("character");
+  if (!data) return true;
 
-  let uid = targetUser.uid;
-
-  let res = await MysApi.requestData(e, uid, "character");
-
-  if (res.retcode == "-1") {
-    return true;
-  }
-
-  if (checkRetcode(res, uid, e)) {
-    return true;
-  }
-
-  let avatars = res.data.avatars;
+  let avatars = data.avatars;
 
   if (avatars.length <= 0) {
     return true;
@@ -177,27 +131,6 @@ export async function wife(e, { render, MysApi, User }) {
       val.rarity = 5;
     }
 
-    //等级+好感*10+命座*5+五星*20
-    val.sort = val.level + val.fetter * 10 + val.actived_constellation_num * 5 * (val.rarity - 3) + (val.rarity - 4) * 20;
-
-    //超过80级的每级*5
-    if (val.level > 80) {
-      val.sort += (val.level - 80) * 5;
-    }
-
-    //武器 等级+五星*25+精炼*5
-    val.sort += val.weapon.level + (val.weapon.rarity - 4) * 25 + val.weapon.affix_level * 5;
-
-    //武器超过80级的每级*5
-    if (val.weapon.level > 80) {
-      val.sort += (val.weapon.level - 80) * 5;
-    }
-
-    //圣遗物等级
-    for (let rel of val.reliquaries) {
-      val.sort += rel.level * 1.2;
-    }
-
     list.push(val);
   }
 
@@ -205,18 +138,25 @@ export async function wife(e, { render, MysApi, User }) {
     return true;
   }
 
-  //limitSet(e);
+  let sortKey = "level,fetter,weapon_level,rarity,weapon_rarity,cons,weapon_affix_level";
 
-  list = lodash.orderBy(list, ["sort"], ["desc"]);
+  list = lodash.orderBy(list, sortKey, lodash.repeat("desc,", sortKey.length).split(","));
+  let avatar = lodash.sample(list.slice(0, 5));
+  renderAvatar(e, avatar, MysApi, render);
+  return true;
+}
 
-  avatars = lodash.sample(list.slice(0, 5));
+// 渲染角色卡片
+async function renderAvatar(e, avatar, MysApi, render) {
+  let talent = await getTalent(e, avatar, MysApi);
+  // 计算皇冠个数
+  let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length;
 
-  let talent = await getTalent(e, uid, avatars, MysApi);
+  let uid = e.targetUser.uid;
 
-  let char = Character.get(avatars.name);
+  let char = Character.get(avatar.name);
 
-  let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length
-
+  //渲染图像
   let base64 = await render("miao-plugin", "character", {
     _plugin: true,
     save_id: uid,
@@ -224,35 +164,29 @@ export async function wife(e, { render, MysApi, User }) {
     talent,
     crownNum,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
-    bg: getCharacterImg(char.name),
-    ...getCharacterData(avatars),
+    bg: getCharacterImg(avatar.name),
+    ...getCharacterData(avatar),
     ds: char.getData("name,id,title,desc"),
   }, "png");
 
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
   }
-
-  return true;
-}
-
-
-// 设置角色图像
-export async function setCharacterImg(e, render) {
-
 }
 
 //获取角色技能数据
-async function getTalent(e, uid, avatars, MysApi) {
+async function getTalent(e, avatars, MysApi) {
 
   let skill = {};
 
-  let skillres = await MysApi.requestData(e, uid, "detail", {
+  let skillres = await MysApi.getData("detail", {
     avatar_id: avatars.id,
   });
+
   if (skillres.retcode == 0 && skillres.data && skillres.data.skill_list) {
     skill.id = avatars.id;
     let skill_list = lodash.orderBy(skillres.data.skill_list, ["id"], ["asc"]);
+
     for (let val of skill_list) {
       val.level_original = val.level_current;
       if (val.name.includes("普通攻击")) {
@@ -282,12 +216,12 @@ async function getTalent(e, uid, avatars, MysApi) {
         skill.q.level_current += 3;
       }
     }
-
   }
-
   return skill;
 }
 
+
+// 获取角色数据
 function getCharacterData(avatars) {
   let list = [];
   let set = {};
@@ -362,231 +296,7 @@ function getCharacterData(avatars) {
   };
 }
 
-//获取uid
-async function getUid(e) {
-  let res;
-  let reg = /[1|2|5][0-9]{8}/g;
 
-  //从消息中获取
-  if (e.msg) {
-    res = e.msg.match(reg);
-    if (res) {
-      //redis保存uid
-      redis.set(`genshin:uid:${e.user_id}`, res[0], { EX: 2592000 });
-      return { isSelf: false, uid: res[0] };
-    }
-  }
-
-  //从群昵称获取
-  res = e.sender.card.toString().match(reg);
-
-  if (res) {
-    //redis保存uid
-    redis.set(`genshin:uid:${e.user_id}`, res[0], { EX: 2592000 });
-
-    return { isSelf: true, uid: res[0] };
-  }
-
-  //从redis获取
-  res = await redis.get(`genshin:uid:${e.user_id}`);
-  if (res) {
-    redis.expire(`genshin:uid:${e.user_id}`, 2592000);
-    return { isSelf: true, uid: res };
-  }
-
-  return { isSelf: true, uid: false };
-}
-
-async function mysApi(e, uid, type, data = {}) {
-  if (BotConfig.mysCookies.length <= 0) {
-    Bot.logger.error("请打开config.js,配置米游社cookie");
-    return { retcode: -300 };
-  }
-
-  let dayEnd = getDayEnd();
-
-  let cookie, index, isNew;
-  let selfCookie = NoteCookie[e.user_id];
-
-  //私聊发送的cookie
-  if (selfCookie && selfCookie.uid == uid) {
-    cookie = selfCookie.cookie;
-  }
-  //配置里面的cookie
-  else if (BotConfig.dailyNote && BotConfig.dailyNote[e.user_id] && BotConfig.dailyNote[e.user_id].uid == uid) {
-    cookie = BotConfig.dailyNote[e.user_id].cookie;
-  } else {
-    //获取uid集合
-    let uid_arr = await redis.get(`genshin:ds:qq:${e.user_id}`);
-
-    if (uid_arr) {
-      uid_arr = JSON.parse(uid_arr);
-      if (!uid_arr.includes(uid)) {
-        uid_arr.push(uid);
-
-        await redis.set(`genshin:ds:qq:${e.user_id}`, JSON.stringify(uid_arr), {
-          EX: dayEnd,
-        });
-      }
-    } else {
-      uid_arr = [uid];
-
-      await redis.set(`genshin:ds:qq:${e.user_id}`, JSON.stringify(uid_arr), {
-        EX: dayEnd,
-      });
-    }
-
-    if (uid_arr.length > e.groupConfig.mysUidLimit && !e.isMaster) {
-      return { retcode: -200 };
-    }
-
-    //限制无用uid查询
-    if (uid < 100000050) {
-      return { retcode: 10102, message: "Data is not public for the user" };
-    }
-
-    isNew = false;
-    index = await redis.get(`genshin:ds:uid:${uid}`);
-    if (!index) {
-      //获取没有到30次的index
-      for (let i in BotConfig.mysCookies) {
-        //跳过达到上限的cookie
-        if (await redis.get(`genshin:ds:max:${i}}`)) {
-          continue;
-        }
-        let count = await redis.sendCommand(["scard", `genshin:ds:index:${i}`]);
-        if (count < 27) {
-          index = i;
-          break;
-        }
-      }
-      //查询已达上限
-      if (!index) {
-        return { retcode: -100 };
-      }
-      isNew = true;
-    }
-    if (!BotConfig.mysCookies[index]) {
-      return { retcode: -300 };
-    }
-
-    if (!BotConfig.mysCookies[index].includes("ltoken")) {
-      Bot.logger.error("米游社cookie错误，请重新配置");
-      return { retcode: -400 };
-    }
-  }
-
-  let { url, headers, query, body } = getUrl(type, uid, data);
-  headers.Cookie = cookie || BotConfig.mysCookies[index];
-
-  let param = {
-    headers,
-    timeout: 10000,
-  };
-  if (body) {
-    param.method = "post";
-    param.body = body;
-  } else {
-    param.method = "get";
-  }
-
-  let response = {};
-  try {
-    response = await fetch(url, param);
-  } catch (error) {
-    Bot.logger.error(error);
-    return false;
-  }
-  if (!response.ok) {
-    Bot.logger.error(response);
-    return false;
-  }
-  const res = await response.json();
-
-  if (!res) {
-    Bot.logger.mark(`mys接口没有返回`);
-    return false;
-  }
-
-  if (isNew) {
-    await redis.sendCommand(["sadd", `genshin:ds:index:${index}`, uid]);
-    redis.expire(`genshin:ds:index:${index}`, dayEnd);
-    redis.set(`genshin:ds:uid:${uid}`, index, { EX: dayEnd });
-  }
-
-  if (res.retcode != 0 && ![10102, 1008, -1].includes(res.retcode)) {
-    let ltuid = headers.Cookie.match(/ltuid=(\w{0,9})/g)[0].replace(/ltuid=|;/g, "");
-
-    if (selfCookie && selfCookie.uid == uid) {
-      Bot.logger.mark(`mys接口报错:${JSON.stringify(res)}，体力配置cookie，ltuid:${ltuid}`);
-      //体力cookie失效
-      if (res.message == "Please login") {
-        delete NoteCookie[e.user_id];
-      }
-    } else {
-      Bot.logger.mark(`mys接口报错:${JSON.stringify(res)}，第${Number(index) + 1}个cookie，ltuid:${ltuid}`);
-
-      //标记达到上限的cookie，自动切换下一个
-      if ([10101].includes(res.retcode)) {
-        redis.set(`genshin:ds:max:${index}`, "1", { EX: dayEnd });
-      }
-    }
-  }
-
-  return res;
-}
-
-function checkRetcode(res, uid, e) {
-  let qqName = "";
-  switch (res.retcode) {
-    case 0:
-      Bot.logger.debug(`mys查询成功:${uid}`);
-      return false;
-    case -1:
-      break;
-    case -100:
-      e.reply("无法查询，已达上限\n请配置更多cookie");
-      break;
-    case -200:
-      qqName = lodash.truncate(e.sender.card, { length: 8 });
-      e.reply([segment.at(e.user_id, qqName), "\n今日查询已达上限"]);
-      break;
-    case -300:
-      e.reply("尚未配置公共查询cookie，无法查询原神角色信息\n私聊发送【配置cookie】进行设置");
-      break;
-    case -400:
-      e.reply("米游社cookie错误，请重新配置");
-      break;
-    case 1001:
-    case 10001:
-    case 10103:
-      e.reply("米游社接口报错，暂时无法查询");
-      break;
-    case 1008:
-      qqName = lodash.truncate(e.sender.card, { length: 8 });
-      e.reply([segment.at(e.user_id, qqName), "\n请先去米游社绑定角色"]);
-      break;
-    case 10101:
-      e.reply("查询已达今日上限");
-      break;
-    case 10102:
-      if (res.message == "Data is not public for the user") {
-        qqName = lodash.truncate(e.sender.card, { length: 8 });
-        e.reply([segment.at(e.user_id, qqName), "\n米游社数据未公开"]);
-      } else {
-        e.reply(`id:${uid}请先去米游社绑定角色`);
-      }
-      break;
-  }
-
-  return true;
-}
-
-/**
- * @param {角色昵称} keyword
- * @param {是否搜索角色默认名} search_val
- * @returns
- */
 export function roleIdToName(keyword, search_val = false) {
   if (!keyword) {
     return false;

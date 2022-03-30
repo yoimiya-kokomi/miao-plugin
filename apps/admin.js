@@ -30,9 +30,11 @@ export async function userStat(e) {
 }
 
 export async function rebuildCookie(e) {
-  if (!e.isMaster) {
-    return;
-  }
+  let MysApi = await e.initMysApi({
+    auth: "master"
+  });
+  if (!MysApi) return true;
+
   let count = 0;
   for (let qq in NoteCookie) {
     let uid = NoteCookie[qq].uid;
@@ -44,4 +46,54 @@ export async function rebuildCookie(e) {
     }
   }
   e.reply(`重建${count}个缓存`)
+}
+
+export async function userStatus(e, { Models }) {
+  let MysApi = await e.initMysApi({
+    auth: "master"
+  });
+  if (!MysApi) return true;
+
+  let { MysUser } = Models;
+  let userList = await MysUser.getAll();
+  let ret = [];
+  for (let idx in userList) {
+    let data = userList[idx];
+    ret.push(`UID:${data.uid}, Count:${data.count}`);
+  }
+  e.reply(ret.join("\n"));
+
+  return true;
+
+}
+
+export async function userCacheRebuild(e, { Models }) {
+  let MysApi = await e.initMysApi({
+    auth: "master"
+  });
+  if (!MysApi) return true;
+
+  let { MysUser } = Models;
+  await MysUser._delCache();
+  e.reply("用户缓存已清除");
+  return true;
+}
+
+export async function mysUserCk(e, { Models }) {
+  let MysApi = await e.initMysApi({
+    auth: "master"
+  });
+  if (!MysApi) return true;
+
+  let uid = e.msg.replace("#ck", "");
+
+  let { MysUser } = Models;
+  let user = await MysUser.get(uid);
+
+  let ret = [];
+  console.log(user);
+  let cookie = await user.getCookie();
+  console.log(cookie)
+  e.reply("完成");
+  return true;
 }
