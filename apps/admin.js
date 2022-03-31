@@ -1,9 +1,8 @@
 export async function userStat(e) {
+  if (await e.checkAuth({
+    auth: "master"
+  })) return true;
 
-  if (!e.isMaster) {
-    // e.reply("暂无权限");
-    return;
-  }
   let ret = /\d+/.exec(e.msg)
 
   if (ret && ret[0]) {
@@ -30,10 +29,10 @@ export async function userStat(e) {
 }
 
 export async function rebuildCookie(e) {
-  let MysApi = await e.initMysApi({
+  if (await e.checkAuth({
     auth: "master"
-  });
-  if (!MysApi) return true;
+  })) return true;
+
 
   let count = 0;
   for (let qq in NoteCookie) {
@@ -49,10 +48,9 @@ export async function rebuildCookie(e) {
 }
 
 export async function userStatus(e, { Models }) {
-  let MysApi = await e.initMysApi({
+  if (await e.checkAuth({
     auth: "master"
-  });
-  if (!MysApi) return true;
+  })) return true;
 
   let { MysUser } = Models;
   let userList = await MysUser.getAll();
@@ -68,10 +66,10 @@ export async function userStatus(e, { Models }) {
 }
 
 export async function userCacheRebuild(e, { Models }) {
-  let MysApi = await e.initMysApi({
+  if (await e.checkAuth({
     auth: "master"
-  });
-  if (!MysApi) return true;
+  })) return true;
+
 
   let { MysUser } = Models;
   await MysUser._delCache();
@@ -80,10 +78,9 @@ export async function userCacheRebuild(e, { Models }) {
 }
 
 export async function mysUserCk(e, { Models }) {
-  let MysApi = await e.initMysApi({
+  if (await e.checkAuth({
     auth: "master"
-  });
-  if (!MysApi) return true;
+  })) return true;
 
   let uid = e.msg.replace("#ck", "");
 
@@ -91,9 +88,9 @@ export async function mysUserCk(e, { Models }) {
   let user = await MysUser.get(uid);
 
   let ret = [];
-  console.log(user);
+
   let cookie = await user.getCookie();
-  console.log(cookie)
+
   e.reply("完成");
   return true;
 }

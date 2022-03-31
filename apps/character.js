@@ -45,7 +45,7 @@ export async function character(e, { render, User }) {
 
   let roleId = char.id, uid = e.targetUser.uid;
 
-  let charData = await MysApi.getData('character');
+  let charData = await MysApi.getCharacter();
   if (!charData) return true;
 
 
@@ -81,7 +81,6 @@ export async function character(e, { render, User }) {
   return true; //事件结束不再往下
 }
 
-
 //#老婆
 export async function wife(e, { render, User }) {
   let msg = e.msg;
@@ -112,7 +111,7 @@ export async function wife(e, { render, User }) {
     return true;
   }
 
-  let data = await MysApi.getData("character");
+  let data = await MysApi.getCharacter();
   if (!data) return true;
 
   let avatars = data.avatars;
@@ -179,9 +178,7 @@ async function getTalent(e, avatars, MysApi) {
 
   let skill = {};
 
-  let skillres = await MysApi.getData("detail", {
-    avatar_id: avatars.id,
-  });
+  let skillres = await MysApi.getAvatar(avatars.id);
 
   if (skillres.retcode == 0 && skillres.data && skillres.data.skill_list) {
     skill.id = avatars.id;
@@ -219,7 +216,6 @@ async function getTalent(e, avatars, MysApi) {
   }
   return skill;
 }
-
 
 // 获取角色数据
 function getCharacterData(avatars) {
@@ -294,67 +290,6 @@ function getCharacterData(avatars) {
     reliquaries,
     set: setArr,
   };
-}
-
-
-export function roleIdToName(keyword, search_val = false) {
-  if (!keyword) {
-    return false;
-  }
-  if (search_val) {
-    return genshin.roleId[keyword][0] ? genshin.roleId[keyword][0] : "";
-  }
-
-  if (!nameID) {
-    nameID = new Map();
-    for (let i in genshin.roleId) {
-      for (let val of genshin.roleId[i]) {
-        nameID.set(val, i);
-      }
-    }
-  }
-  let name = nameID.get(keyword);
-  return name ? name : "";
-}
-
-async function limitGet(e) {
-  if (!e.isGroup) {
-    return true;
-  }
-
-  if (e.isMaster) {
-    return true;
-  }
-
-  let key = `genshin:limit:${e.user_id}`;
-  let num = await redis.get(key);
-
-  if (num && num >= e.groupConfig.mysDayLimit - 1) {
-    let name = lodash.truncate(e.sender.card, { length: 8 });
-    e.reply([segment.at(e.user_id, name), "\n今日查询已达上限"]);
-    return false;
-  }
-
-  return true;
-}
-
-async function limitSet(e) {
-  if (!e.isGroup) {
-    return true;
-  }
-
-  let key = `genshin:limit:${e.user_id}`;
-  let dayEnd = getDayEnd();
-
-  await redis.incr(key);
-  redis.expire(key, dayEnd);
-}
-
-function getDayEnd() {
-  let now = new Date();
-  let dayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), "23", "59", "59").getTime() / 1000;
-
-  return dayEnd - parseInt(now.getTime() / 1000);
 }
 
 function getCharacterImg(name) {
