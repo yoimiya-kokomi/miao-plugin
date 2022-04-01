@@ -36,7 +36,7 @@
     {{ if talent.a }}
     <div class="talent">
       {{each talentMap name key}}
-      <div class="talent_{{key}}"> {{name}}：<span>{{ talent[key].level_current}}</span></div>
+      <div class="talent_{{key}}">{{name}}: <span>{{ talent[key].level_current}}</span></div>
       {{/each}}
     </div>
     {{else}}

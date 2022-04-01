@@ -178,11 +178,11 @@ async function getTalent(e, avatars, MysApi) {
 
   let skill = {};
 
-  let skillres = await MysApi.getAvatar(avatars.id);
+  let skillRes = await MysApi.getAvatar(avatars.id);
 
-  if (skillres.retcode == 0 && skillres.data && skillres.data.skill_list) {
+  if (skillRes&& skillRes.skill_list) {
     skill.id = avatars.id;
-    let skill_list = lodash.orderBy(skillres.data.skill_list, ["id"], ["asc"]);
+    let skill_list = lodash.orderBy(skillRes.skill_list, ["id"], ["asc"]);
 
     for (let val of skill_list) {
       val.level_original = val.level_current;
