@@ -32,7 +32,7 @@ export async function character(e, { render, User }) {
     return false;
   }
 
-  let MysApi = await e.initMysApi({
+  let MysApi = await e.getMysApi({
     auth: "all",
     target: "uid",
     cookieType: "all",
@@ -88,7 +88,7 @@ export async function wife(e, { render, User }) {
     return;
   }
 
-  let MysApi = await e.initMysApi({
+  let MysApi = await e.getMysApi({
     auth: "all",
     target: "uid",
     cookieType: "all",
