@@ -1,5 +1,5 @@
 export async function userStat(e) {
-  if (await e.checkAuth({
+  if (!await e.checkAuth({
     auth: "master"
   })) return true;
 
@@ -29,7 +29,7 @@ export async function userStat(e) {
 }
 
 export async function rebuildCookie(e) {
-  if (await e.checkAuth({
+  if (!await e.checkAuth({
     auth: "master"
   })) return true;
 
@@ -48,7 +48,7 @@ export async function rebuildCookie(e) {
 }
 
 export async function userStatus(e, { Models }) {
-  if (await e.checkAuth({
+  if (!await e.checkAuth({
     auth: "master"
   })) return true;
 
@@ -66,7 +66,7 @@ export async function userStatus(e, { Models }) {
 }
 
 export async function userCacheRebuild(e, { Models }) {
-  if (await e.checkAuth({
+  if (!await e.checkAuth({
     auth: "master"
   })) return true;
 
@@ -78,7 +78,7 @@ export async function userCacheRebuild(e, { Models }) {
 }
 
 export async function mysUserCk(e, { Models }) {
-  if (await e.checkAuth({
+  if (!await e.checkAuth({
     auth: "master"
   })) return true;
 
