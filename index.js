@@ -1,3 +1,9 @@
+import { character, wife, wifeReg } from "./apps/character.js";
+import { userStat, rebuildCookie, userStatus, userCacheRebuild, mysUserCk } from "./apps/admin.js";
+
+export { character, userStat, rebuildCookie, wife, userStatus, userCacheRebuild, mysUserCk };
+
+
 export const rule = {
   character: {
     prehash: true,
@@ -7,7 +13,7 @@ export const rule = {
   },
   wife: {
     prehash: true,
-    reg: "^#(老婆|妻子|媳妇|娘子|女朋友|女友|女神|老公|丈夫|夫君|郎君|男朋友|男友|男神|女儿|儿子)[ |0-9]*$",
+    reg: wifeReg,
     priority: 203,
     describe: "【#老婆，#老公，#女儿】角色详情",
   },
@@ -46,7 +52,3 @@ export const rule = {
 
 };
 
-import { character, wife } from "./apps/character.js";
-import { userStat, rebuildCookie, userStatus, userCacheRebuild, mysUserCk } from "./apps/admin.js";
-
-export { character, userStat, rebuildCookie, wife, userStatus, userCacheRebuild, mysUserCk };

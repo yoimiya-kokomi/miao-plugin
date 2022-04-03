@@ -4,6 +4,7 @@ import lodash from "lodash";
 import { Character } from "../components/models.js"
 import fs from "fs";
 import sizeOf from "image-size";
+import { wifeData } from "../../../config/genshin/roleId.js";
 
 let getUrl, getServer;
 
@@ -12,10 +13,39 @@ let nameID = "";
 let genshin = {};
 await init();
 
+const relationMap = {
+  wife: {
+    keyword: "老婆,媳妇,妻子,娘子".split(","),
+    type: 0
+  },
+  husband: {
+    keyword: "老公,丈夫,夫君,郎君".split(","),
+    type: 1
+  },
+  gf: {
+    keyword: "女朋友,女友,女神".split(","),
+    type: 0
+  },
+  bf: {
+    keyword: "男朋友,男友,男神".split(","),
+    type: 1
+  },
+  daughter: {
+    keyword: "女儿".split(","),
+    type: 2
+  },
+  son: {
+    keyword: "儿子".split(","),
+    type: 3
+  }
+}
+
+const relation = lodash.flatMap(relationMap, (d) => d.keyword);
+export const wifeReg = `^#*\\s*(${relation.join("|")})\\s*(设置|选择|指定|列表|查询|列表|是|是谁|照片|相片|写真|图像)?\\s*([^\\d]*)\\s*(\\d*)$`;
+
 export async function init(isUpdate = false) {
   let _path = "file://" + process.cwd();
   let version = isUpdate ? new Date().getTime() : 0;
-
   genshin = await import(_path + `/config/genshin/roleId.js?version=${version}`);
   nameID = "";
 }
@@ -31,123 +61,204 @@ export async function character(e, { render, User }) {
   if (!char) {
     return false;
   }
-
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    target: "uid",
-    cookieType: "all",
-    actionName: "查询角色详情"
-  });
-
-  if (!MysApi) {
-    return true;
-  }
-
-  let roleId = char.id, uid = e.targetUser.uid;
-
-  let charData = await MysApi.getCharacter();
-  if (!charData) return true;
-
-
-  let avatars = charData.avatars;
-  let length = avatars.length;
-
-  avatars = lodash.keyBy(avatars, "id");
-
-  if (roleId == 20000000) {
-
-    if (avatars["10000005"]) {
-      roleId = 10000005;
-    }
-    if (avatars["10000007"]) {
-      roleId = 10000007;
-    }
-  }
-  char.roleId = roleId;
-
-  if (!avatars[roleId]) {
-    let name = lodash.truncate(e.sender.card, { length: 8 });
-    if (length > 8) {
-      e.reply([segment.at(e.user_id, name), `\n没有${e.msg}`]);
-    } else {
-      e.reply([segment.at(e.user_id, name), "\n请先在米游社展示该角色"]);
-    }
-    return true;
-  }
-  let avatar = avatars[roleId];
-
-  renderAvatar(e, avatar, MysApi, render);
-
-  return true; //事件结束不再往下
+  return renderAvatar(e, char.name, render);
 }
+
 
 //#老婆
 export async function wife(e, { render, User }) {
-  let msg = e.msg;
-  if (!msg) {
-    return;
-  }
+  let msg = e.msg || "";
+  msg = msg.replace(/#|\w/g, "");
+  if (!msg) return false;
+
+  let msgRet = (new RegExp(wifeReg)).exec(msg);
+
+  if (!msgRet) return false;
+
+  let target = msgRet[1],
+    action = msgRet[2] || "卡片",
+    actionParam = msgRet[3] || "";
+
+  let targetCfg = lodash.find(relationMap, (cfg, key) => {
+    cfg.key = key;
+    return cfg.keyword.includes(target);
+  });
+  if (!targetCfg) return true;
+
+  let avatarList = [], avatar = {}, wifeList = [];
 
   let MysApi = await e.getMysApi({
     auth: "all",
-    target: "uid",
+    target: "all",
     cookieType: "all",
     actionName: "查询信息"
   });
-  if (!MysApi) return true;
+  let selfUser = MysApi.selfUser;
 
-  msg = msg.replace(/#|\w/g, "");
-  let i = 0;
-  if (["老婆", "媳妇", "妻子", "娘子", "女朋友", "女友", "女神"].includes(msg)) {
-    i = 0;
-  } else if (["老公", "丈夫", "夫君", "郎君", "男朋友", "男友", "男神"].includes(msg)) {
-    i = 1;
-  } else if (["女儿"].includes(msg)) {
-    i = 2;
-  } else if (["儿子"].includes(msg)) {
-    e.reply("暂无正太角色");
-    return true;
-  } else {
-    return true;
+  switch (action) {
+    case "卡片":
+    case "照片":
+    case "相片":
+    case "图片":
+    case "写真":
+      // 展示老婆卡片
+
+      // 如果选择过，则进行展示
+      wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, []);
+      let renderType = action === "卡片" ? "card" : "photo";
+      // 存在设置
+      if (wifeList && wifeList.length > 0) {
+        if (wifeList[0] === "随机") {
+          // 如果选择为全部，则从列表中随机选择一个
+          avatarList = await getAvatarList(e, targetCfg.type, MysApi);
+          let avatar = lodash.sample(avatarList);
+          return renderAvatar(e, avatar, render,  renderType);
+        } else {
+          // 如果指定过，则展示指定角色
+          return renderAvatar(e, lodash.sample(wifeList), render,  renderType);
+        }
+      } else {
+        // 如果未指定过，则从列表中排序并随机选择前5个
+        avatarList = await getAvatarList(e, targetCfg.type, MysApi);
+        avatar = lodash.sample(avatarList.slice(0, 5));
+        return renderAvatar(e, avatar, render,  renderType);
+      }
+      break;
+    case "设置":
+    case "选择":
+    case "挑选":
+    case "指定":
+      let selfMysUser = await MysApi.selfUser.getMysUser();
+      if (!selfMysUser || selfMysUser.uid !== MysApi.targetUser.uid) {
+        e.reply("只能指定自己的哦~");
+        return true;
+      }
+      // 选择老婆
+      actionParam = actionParam.replaceAll("，", ",");
+      wifeList = actionParam.split(",");
+      let addRet = [];
+      if (lodash.intersection(["全部", "任意", "随机", "全都要"], wifeList).length > 0) {
+        addRet = ['随机'];
+      } else {
+        wifeList = lodash.map(wifeList, (name) => {
+          let char = Character.get(name);
+          if (char) {
+            return char.name;
+          }
+        });
+        wifeList = lodash.filter(lodash.uniq(wifeList), (d) => !!d);
+        avatarList = await getAvatarList(e, targetCfg.type, MysApi);
+        avatarList = lodash.map(avatarList, (avatar) => avatar.name);
+        avatarList = lodash.filter(avatarList, (d) => !!d);
+        addRet = lodash.intersection(avatarList, wifeList);
+        if (addRet.length === 0) {
+          e.reply("未能找到所指定的角色，请重新设置");
+          return true;
+        }
+      }
+      await selfUser.setCfg(`wife.${targetCfg.key}`, addRet);
+      e.reply(`${targetCfg.keyword[0]}已经设置：${addRet.join("，")}`);
+      return true;
+      break;
+    case "列表":
+    case "是":
+    case "是谁":
+      // 查看当前选择老婆
+      wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, []);
+      if (wifeList && wifeList.length > 0) {
+        e.reply(`你的${targetCfg.keyword[0]}是：${wifeList.join("，")}`);
+      } else {
+        e.reply(`尚未设置，回复#${targetCfg.keyword[0]}设置+角色名 来设置，如果设置多位请用逗号间隔`)
+      }
+      break;
   }
 
+
+}
+
+async function getAvatarList(e, type, MysApi) {
   let data = await MysApi.getCharacter();
-  if (!data) return true;
+  if (!data) return false;
 
   let avatars = data.avatars;
 
   if (avatars.length <= 0) {
-    return true;
+    return false;
   }
-
   let list = [];
-
   for (let val of avatars) {
-    if (!genshin.wifeData[i].includes(Number(val.id))) {
+    if (!genshin.wifeData[type].includes(Number(val.id))) {
       continue;
     }
     if (val.rarity > 5) {
       val.rarity = 5;
     }
-
     list.push(val);
   }
 
   if (list.length <= 0) {
-    return true;
+    return false;
+  }
+  let sortKey = "level,fetter,weapon_level,rarity,weapon_rarity,cons,weapon_affix_level";
+  list = lodash.orderBy(list, sortKey, lodash.repeat("desc,", sortKey.length).split(","));
+  return list;
+}
+
+async function renderAvatar(e, avatar, render, renderType = "card") {
+
+  // 如果传递的是名字，则获取
+  if (typeof (avatar) === "string") {
+    let char = Character.get(avatar);
+    if (!char) {
+      return false;
+    }
+    let roleId = char.id;
+    let MysApi = await e.getMysApi({
+      auth: "all",
+      target: "all",
+      cookieType: "all",
+      actionName: "查询信息"
+    });
+    if (!MysApi) return true;
+
+    let charData = await MysApi.getCharacter();
+    if (!charData) return true;
+
+    let avatars = charData.avatars;
+    let length = avatars.length;
+
+    avatars = lodash.keyBy(avatars, "id");
+    if (roleId == 20000000) {
+
+      if (avatars["10000005"]) {
+        roleId = 10000005;
+      }
+      if (avatars["10000007"]) {
+        roleId = 10000007;
+      }
+    }
+    char.roleId = roleId;
+
+    if (!avatars[roleId]) {
+      let name = lodash.truncate(e.sender.card, { length: 8 });
+      if (length > 8) {
+        e.reply([segment.at(e.user_id, name), `\n没有${e.msg}`]);
+      } else {
+        e.reply([segment.at(e.user_id, name), "\n请先在米游社展示该角色"]);
+      }
+      return true;
+    }
+    avatar = avatars[roleId];
   }
 
-  let sortKey = "level,fetter,weapon_level,rarity,weapon_rarity,cons,weapon_affix_level";
 
-  list = lodash.orderBy(list, sortKey, lodash.repeat("desc,", sortKey.length).split(","));
-  let avatar = lodash.sample(list.slice(0, 5));
-  renderAvatar(e, avatar, MysApi, render);
-  return true;
+  return await renderCard(e, avatar, render, renderType);
+
 }
 
 // 渲染角色卡片
-async function renderAvatar(e, avatar, MysApi, render) {
-  let talent = await getTalent(e, avatar, MysApi);
+async function renderCard(e, avatar, render, renderType = "card") {
+  let talent = await getTalent(e, avatar);
   // 计算皇冠个数
   let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length;
 
@@ -155,32 +266,46 @@ async function renderAvatar(e, avatar, MysApi, render) {
 
   let char = Character.get(avatar.name);
 
-  //渲染图像
-  let base64 = await render("miao-plugin", "character", {
-    _plugin: true,
-    save_id: uid,
-    uid: uid,
-    talent,
-    crownNum,
-    talentMap: { a: "普攻", e: "战技", q: "爆发" },
-    bg: getCharacterImg(avatar.name),
-    ...getCharacterData(avatar),
-    ds: char.getData("name,id,title,desc"),
-  }, "png");
+  let bg = getCharacterImg(avatar.name);
 
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
+  if (renderType === "photo") {
+    e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + bg.img));
+  } else {
+    //渲染图像
+    let base64 = await render("character", "card", {
+      save_id: uid,
+      uid: uid,
+      talent,
+      crownNum,
+      talentMap: { a: "普攻", e: "战技", q: "爆发" },
+      bg: getCharacterImg(avatar.name),
+      ...getCharacterData(avatar),
+      ds: char.getData("name,id,title,desc"),
+    }, "png");
+    if (base64) {
+      e.reply(segment.image(`base64://${base64}`));
+    }
   }
+
+  return true;
 }
 
 //获取角色技能数据
-async function getTalent(e, avatars, MysApi) {
+async function getTalent(e, avatars) {
+
+  let MysApi = await e.getMysApi({
+    auth: "all",
+    target: "all",
+    cookieType: "all",
+    actionName: "查询信息"
+  });
+  if (!MysApi) return {};
 
   let skill = {};
 
   let skillRes = await MysApi.getAvatar(avatars.id);
 
-  if (skillRes&& skillRes.skill_list) {
+  if (skillRes && skillRes.skill_list) {
     skill.id = avatars.id;
     let skill_list = lodash.orderBy(skillRes.skill_list, ["id"], ["asc"]);
 
@@ -196,7 +321,7 @@ async function getTalent(e, avatars, MysApi) {
       }
       if (val.max_level >= 10 && !skill.q) {
         skill.q = val;
-        continue;
+
       }
     }
     if (avatars.actived_constellation_num >= 3) {
@@ -293,7 +418,6 @@ function getCharacterData(avatars) {
 }
 
 function getCharacterImg(name) {
-
   if (!fs.existsSync(`./plugins/miao-plugin/resources/characterImg/${name}/`)) {
     fs.mkdirSync(`./plugins/miao-plugin/resources/characterImg/${name}/`);
   }
@@ -304,7 +428,7 @@ function getCharacterImg(name) {
   let img = lodash.sample(imgs);
 
   if (!img) {
-    name = "刻晴";
+    name = "default";
     img = "01.jpg";
   }
   let ret = sizeOf(`./plugins/miao-plugin/resources/characterImg/${name}/${img}`);
