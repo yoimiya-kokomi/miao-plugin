@@ -6,7 +6,7 @@ import { Character } from "../components/models.js";
 
 export async function wiki(e, { render }) {
 
-  const ret = /^#*(.*)(素材|技能|材料|信息|天赋|wiki|资料|命座)$/.exec(e.msg);
+  const ret = /^#*(.*)(缓存)$/.exec(e.msg);
 
   if (!ret || !ret[1]) {
     return;

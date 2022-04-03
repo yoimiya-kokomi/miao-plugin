@@ -18,7 +18,7 @@ export const rule = {
     describe: "【#老婆，#老公，#女儿】角色详情",
   },
   wiki: {
-    reg: "^#*.*(天赋|技能|命座|命之座|详情)$",
+    reg: "^#*.*(缓存)$",
     priority: 300
   }
 };

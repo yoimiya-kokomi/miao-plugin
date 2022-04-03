@@ -65,6 +65,19 @@ class Character extends Base {
 
     fileList = lodash.uniq(fileList);
 
+    let fileMap = await Data.cacheFile(fileList, `${_path}/resources/`, `cache`);
+
+    let path = Data.getUrlPath()
+
+    lodash.forEach(this.img, (url, key) => {
+      if (path[url]) {
+        this.img[key] = path[url]
+      }
+    });
+
+
+    console.log(this);
+
 
   }
 
