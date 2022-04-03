@@ -28,24 +28,7 @@ export async function userStat(e) {
   }
 }
 
-export async function rebuildCookie(e) {
-  if (!await e.checkAuth({
-    auth: "master"
-  })) return true;
 
-
-  let count = 0;
-  for (let qq in NoteCookie) {
-    let uid = NoteCookie[qq].uid;
-    if (uid) {
-      redis.set(`genshin:uid:${qq}`, uid, { EX: 2592000 });
-      redis.set(`genshin:qq-uid:${qq}`, uid, { EX: 2592000 });
-      redis.set(`genshin:uid-qq:${uid}`, qq, { EX: 2592000 });
-      count++;
-    }
-  }
-  e.reply(`重建${count}个缓存`)
-}
 
 export async function userStatus(e, { Models }) {
   if (!await e.checkAuth({

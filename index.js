@@ -1,7 +1,7 @@
 import { character, wife, wifeReg } from "./apps/character.js";
-import { userStat, rebuildCookie, userStatus, userCacheRebuild, mysUserCk } from "./apps/admin.js";
+import { userStat,  userStatus, userCacheRebuild, mysUserCk } from "./apps/admin.js";
 
-export { character, userStat, rebuildCookie, wife, userStatus, userCacheRebuild, mysUserCk };
+export { character, userStat,  wife, userStatus, userCacheRebuild, mysUserCk };
 
 
 export const rule = {
