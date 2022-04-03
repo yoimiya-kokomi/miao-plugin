@@ -112,16 +112,16 @@ export async function wife(e, { render, User }) {
           // 如果选择为全部，则从列表中随机选择一个
           avatarList = await getAvatarList(e, targetCfg.type, MysApi);
           let avatar = lodash.sample(avatarList);
-          return renderAvatar(e, avatar, render,  renderType);
+          return renderAvatar(e, avatar, render, renderType);
         } else {
           // 如果指定过，则展示指定角色
-          return renderAvatar(e, lodash.sample(wifeList), render,  renderType);
+          return renderAvatar(e, lodash.sample(wifeList), render, renderType);
         }
       } else {
         // 如果未指定过，则从列表中排序并随机选择前5个
         avatarList = await getAvatarList(e, targetCfg.type, MysApi);
         avatar = lodash.sample(avatarList.slice(0, 5));
-        return renderAvatar(e, avatar, render,  renderType);
+        return renderAvatar(e, avatar, render, renderType);
       }
       break;
     case "设置":
@@ -172,8 +172,7 @@ export async function wife(e, { render, User }) {
       }
       break;
   }
-
-
+  return true;
 }
 
 async function getAvatarList(e, type, MysApi) {
