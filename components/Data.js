@@ -6,12 +6,12 @@ let Data = {
   /*
   * 根据指定的path依次检查与创建目录
   * */
-  createDir(rootPath = "", path, includeFile = false) {
+  createDir(rootPath = "", path = "", includeFile = false) {
     let pathList = path.split("/"),
       nowPath = rootPath;
     pathList.forEach((name, idx) => {
       name = name.trim();
-      if (!includeFile && idx < pathList.length - 1) {
+      if (!includeFile && idx <= pathList.length - 1) {
         nowPath += name + "/";
         if (name) {
           if (!fs.existsSync(nowPath)) {
@@ -89,6 +89,11 @@ let Data = {
 
   getVal(target, keyFrom, defaultValue) {
     return lodash.get(target, keyFrom, defaultValue);
-  }
+  },
+
+
+
+
+
 };
 export default Data;

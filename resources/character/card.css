@@ -30,7 +30,7 @@
 body {
   font-size: 16px;
   color: #fff;
-  transform: scale(1);
+  transform: scale(1.25);
   transform-origin: 0 0;
 }
 
@@ -132,29 +132,41 @@ body {
   background: #666;
 }
 
+
+.cons_0 {
+  color: #666;
+}
+
 .cons_1 {
-  background-color: #62a8ea;
+  background-color: #71b167;
+  color: #fff;
 }
 
 .cons_2 {
-  background-color: #62a8ea;
+  background-color: #369961;
+  color: #fff;
 }
 
 .cons_3 {
-  background-color: #45b97c;
+  background-color: #4596b9;
+  color: #fff;
 }
 
 .cons_4 {
-  background-color: #45b97c;
+  background-color: #4560b9;
+  color: #fff;
 }
 
 .cons_5 {
-  background-color: #ff5722;
+  background-color: #531ba9cf;
+  color: #fff;
 }
 
 .cons_6 {
   background-color: #ff5722;
+  color: #fff;
 }
+
 
 .crown {
   width: 30px;
@@ -183,7 +195,6 @@ body {
 }
 
 .detail {
-
   font-size: 26px;
   margin: 10px 5px 2px 5px;
 }
@@ -384,7 +395,7 @@ body {
   border-radius: 10px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(114, 102, 104, 0.3);
   margin-left: 5px;
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 .equiv_info .text {
@@ -394,10 +405,17 @@ body {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 body.bottom_mode {
   width: 500px;
+}
+
+.bottom_mode .info {
+  height: 158px;
 }
 
 
@@ -449,6 +467,7 @@ body.bottom_mode {
 
 .bottom_mode .detail {
   font-family: NZBZ;
+  margin-top: 0px;
 }
 
 .bottom_mode .for_left {
@@ -465,20 +484,20 @@ body.bottom_mode {
 .left_mode .info {
   right: initial;
   padding: 10px 10px 5px 10px;
-  border-radius: 20px;
+  border-radius: 8px;
   left: 10px;
-  bottom: 120px;
+  bottom: 10px;
 }
 
 
 .left_mode .weapon {
-  top: 155px;
+  top: -110px;
   width: 270px;
   height: 100px;
   padding: 0 0 3px 0;
-  left: 0px;
+  left: 0;
   background: rgba(0, 0, 0, 0.8);
-  border-radius: 20px;
+  border-radius: 8px;
 }
 
 .left_mode .weapon_cont {
@@ -528,4 +547,27 @@ body.bottom_mode {
 .left_mode .equiv_info {
   padding: 0;
   background: none;
+  margin-top: 5px;
+}
+
+.copyright {
+  position: absolute;
+
+}
+
+.left_mode .copyright {
+  bottom: 5px;
+  right: 9px;
+  text-shadow: 1px 1px 1px #000;
+  font-family: tttgbnumber;
+  line-height: 20px;
+}
+
+.bottom_mode .copyright {
+  bottom: 1px;
+  right: 7px;
+  text-shadow: 1px 1px 1px #000;
+  font-family: tttgbnumber;
+  line-height: 20px;
+  font-size: 10px;
 }

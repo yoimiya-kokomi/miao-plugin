@@ -1,5 +1,4 @@
 import Base from "./Base.js";
-import { roleId, abbr } from "../../../../config/genshin/roleId.js";
 import lodash from "lodash";
 import fs from "fs";
 import Data from "../Data.js";
@@ -7,6 +6,7 @@ import request from "request";
 
 
 let characterMap = {};
+const _path = process.cwd();
 
 // 读取配置
 let characterMeta = Data.readJSON("./plugins/miao-plugin/components/meta", "characters.json")// JSON.parse(fs.readFileSync(__dirname + "../meta/characters.json", "utf8"));
@@ -50,6 +50,22 @@ class Character extends Base {
   async checkImgCache(resDir) {
     // 处理img信息
     let chcheDir = resDir + "/cache/";
+  }
+
+  async cacheImg() {
+    let cacheDir = `_path/data/cache`;
+    Data.createDir(`${_path}/resources/`, `cache`)
+
+    let fileList = [
+      ...lodash.values(this.img),
+      ...lodash.map(lodash.values(this.talents), (d) => d.icon),
+      ...lodash.map(this.passiveTalents, (d) => d.icon),
+      ...lodash.map(lodash.values(this.cons), (d) => d.icon)
+    ];
+
+    fileList = lodash.uniq(fileList);
+
+
   }
 
 }
@@ -105,7 +121,7 @@ let getMetaData = function (name) {
   // 处理命座信息
   let cons = {};
   lodash.forEach(meta.Constellation, (data, key) => {
-    cons[key.replace("Constellation")] = Data.getData(data, "Name,icon:Source,desc:Description", metaCfg);
+    cons[key.replace("Constellation", "")] = Data.getData(data, "Name,icon:Source,desc:Description", metaCfg);
   })
   ret.cons = cons;
   return ret;
