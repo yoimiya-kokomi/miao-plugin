@@ -55,7 +55,7 @@ class Character extends Base {
   }
 
   async cacheImg() {
-    let cacheDir = `_path/data/cache`;
+    let cacheDir = `${_path}/resources/cache`;
     Data.createDir(`${_path}/resources/`, `cache`)
 
     let fileList = [
@@ -67,7 +67,7 @@ class Character extends Base {
 
     fileList = lodash.uniq(fileList);
 
-    let fileMap = await Data.cacheFile(fileList, `${_path}/resources/`, `cache`);
+    let fileMap = await Data.cacheFile(fileList, `${_path}/resources/cache/`);
 
     let path = Data.getUrlPath()
 
