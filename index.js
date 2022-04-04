@@ -1,7 +1,7 @@
 import { character, wife, wifeReg } from "./apps/character.js";
-import { wiki } from "./apps/wiki.js";
+//import { wiki } from "./apps/wiki.js";
 
-export { character, wife, wiki };
+export { character, wife };
 
 
 export const rule = {
@@ -17,9 +17,10 @@ export const rule = {
     priority: 203,
     describe: "【#老婆，#老公，#女儿】角色详情",
   },
+  /*
   wiki: {
     reg: "^#*.*(缓存)$",
     priority: 300
-  }
+  }*/
 };
 
