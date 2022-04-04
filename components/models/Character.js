@@ -22,6 +22,8 @@ const elemName = {
   geo: "岩"
 };
 
+let genshin = await import(`file://${_path}/config/genshin/roleId.js`);
+
 
 class Character extends Base {
   constructor(name) {
@@ -102,6 +104,8 @@ let getMetaData = function (name) {
 
   // 处理基础信息
   let ret = Data.getData(meta, "Name,Title,desc:Description,astro:AstrolabeName", metaCfg);
+
+  ret.star = /4star/.test(meta.Star) ? 4 : 5;
 
   // 处理图像信息
   ret.img = Data.getData(meta, "Weapon,Element,City,Profile,GachaCard,GachaSplash,Source", metaCfg);
@@ -185,7 +189,12 @@ const getTalentData = function (data) {
 
 
 Character.get = function (val) {
-  let roleid = YunzaiApps.mysInfo['roleIdToName'](val);
+  let roleid;
+  if (typeof (val) === "number") {
+    roleid = val;
+  } else {
+    roleid = YunzaiApps.mysInfo['roleIdToName'](val);
+  }
   let name = YunzaiApps.mysInfo['roleIdToName'](roleid, true);
   if (!name) {
     return false;
@@ -196,5 +205,9 @@ Character.get = function (val) {
   }
   return characterMap[name];
 };
+
+Character.getAbbr = function () {
+  return genshin.abbr;
+}
 
 export default Character;

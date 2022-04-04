@@ -1,0 +1,282 @@
+
+.weapon_mode .for_talent {
+  display: none !important;
+}
+
+.talent_mode .for_weapon {
+  display: none !important;
+}
+
+
+.data-box {
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0px 15px 5px 15px;
+  overflow: hidden;
+  background: #f5f5f5;
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
+  position: relative;
+}
+
+.tab_lable {
+  position: absolute;
+  top: -10px;
+  left: -8px;
+  background: #a98242;
+  color: #fff;
+  font-size: 14px;
+  padding: 3px 10px;
+  border-radius: 15px 0px 15px 15px;
+  z-index: 20;
+}
+
+.data_line {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 14px;
+}
+
+.data_line_item {
+  width: 100px;
+  text-align: center;
+  /*margin: 0 20px;*/
+}
+
+.num {
+  font-family: tttgbnumber;
+  font-size: 24px;
+}
+
+.num .unit {
+  font-size: 12px;
+}
+
+
+
+.data-box {
+
+}
+
+.char-list {
+  display: table;
+  border-collapse: collapse;
+  width: calc(100% + 30px);
+  margin: 0 -15px -5px;
+  font-size: 12px;
+  /* border-radius: 0 0 15px 15px; */
+  overflow: hidden;
+}
+
+.char-list .avatar {
+  display: table-row;
+  font-family: tttgbnumber;
+  overflow: visible;
+}
+
+.char-list .avatar {
+  display: table-row;
+}
+
+.char-list .avatar > div {
+  box-shadow: 0 0 1px 0 #555 inset;
+}
+
+.char-list .avatar:nth-child(odd) {
+  background: #e0e0e0;
+}
+
+.char-list .avatar:nth-child(even) {
+
+}
+
+.char-list .avatar:nth-child(1) {
+  background: #ccc;
+
+}
+
+.char-list .avatar > div {
+  display: table-cell;
+  text-align: center;
+  height: 30px;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+.char-list .avatar .index {
+  color: #333;
+  width: 30px;
+  padding-left: 5px;
+
+}
+
+.char-list .avatar .name_cont {
+  width: 80px;
+}
+
+
+.char-list .avatar .star4 {
+  background: rgba(137, 189, 233, .6);
+}
+
+.char-list .avatar .star5 {
+  background: rgba(239, 214, 137, .6);
+}
+
+.char-list .avatar .name_cont {
+  width: 80px;
+}
+
+.char-list .avatar .name {
+  text-align: left;
+  display: flex;
+  width: 80px;
+}
+
+.char-list .th,
+.char-list .th div{
+  font-weight: bold;
+  height:40px;
+  line-height:40px;
+  overflow: hidden;
+}
+
+.char-list .th .name {
+  justify-content: center;
+}
+
+.char-list .avatar .name .avatar_img {
+  width: 26px;
+  height: 26px;
+  position: relative;
+  margin-right: 3px;
+}
+
+.char-list .avatar .name img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -3px;
+  margin-left: 3px;
+}
+
+.char-list .avatar .name .avatar_name {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 48px;
+}
+
+.char-list .avatar .res {
+  font-size: 12px;
+  width: 90px;
+}
+
+.char-list .avatar .res img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.char-list .avatar > div.lvl90 {
+}
+
+.char-list .avatar > div.fetter10 {
+  background: url("./hart.png") center center no-repeat;
+  background-size: contain;
+  color: #fff;
+}
+
+.char-list .cons {
+  width: 400px;
+  position: relative;
+  z-index: 98;
+  overflow: visible;
+}
+
+.char-list .cons-pct,
+.char-list .cons-bg {
+  display: flex;
+}
+
+.char-list .th .cons-pct {
+  margin: 0;
+  color: #fff;
+  font-weight: bold;
+}
+
+.char-list .th .cons-pct > div:first-child {
+  padding-left: 10px;
+}
+
+.char-list .th .cons-pct > div:last-child {
+  padding-right: 10px;
+}
+
+
+.char-list .cons-pct {
+  margin: 0 10px;
+  z-index: 100;
+  position: relative;
+  color: #fff;
+}
+
+.char-list .cons-pct > div {
+  flex: 1;
+  font-size: 12px;
+  mix-blend-mode: difference;
+  font-weight: normal;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
+}
+
+.char-list .cons-bg {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  height: 20px;
+  z-index: 99;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #888;
+}
+
+.char-list .life_bg {
+  background: #888;
+}
+
+.char-list .cons-bg > div:last-child {
+  border-radius: 0 3px 3px 0;
+}
+
+.char-list .cons-bg > div {
+  height: 20px;
+}
+
+.char-list .life0 {
+  background: #5b8185
+}
+
+.char-list .life1 {
+  background: #ce881f;
+}
+
+.char-list .life2 {
+  background: #7ba824;
+}
+
+.char-list .life3 {
+  background: #3e8853;
+}
+
+.char-list .life4 {
+  background: #1a426e;
+}
+
+.char-list .life5 {
+  background: #632e62;
+}
+
+.char-list .life6 {
+  background: #9b2d1f;
+}
+

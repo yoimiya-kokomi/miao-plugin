@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/character.css?v=1.0"/>
+    <link rel="preload" href="{{_res_path}}/font/tttgbnumber.ttf" as="font">
+  </head>
+  <body id="container" class="body_box">
+    <div class="container">
+      <div class="info_box">
+        <div class="head-box type{{bgType}}">
+          {{if mode === "char"}}
+          <div class="title">角色持有率统计</div>
+          <div class="label">全角色综合持有率统计</div>
+          {{else}}
+          <div class="title">角色{{conNum == -1 ? "命座" : "零一二三四五满"[conNum]+"命"}}分布统计</div>
+          <div class="label">统计所有角色命座，无论角色是否出场</div>
+          {{/if}}
+
+          <img class="genshin_logo" src="{{_sys_res_path}}/genshin/roleAll/原神.png"/>
+        </div>
+
+        <div class="data-box">
+          <div class="char-list">
+            <div class="avatar th">
+              <div class="index">#</div>
+              <div class="name">
+                角色
+              </div>
+              <div class="lvl">持有率</div>
+              <div class="cons">
+                <div class="cons-pct">
+                  <div class="life0">0命</div>
+                  <div class="life1">1命</div>
+                  <div class="life2">2命</div>
+                  <div class="life3">3命</div>
+                  <div class="life4">4命</div>
+                  <div class="life5">5命</div>
+                  <div class="life6">6命</div>
+                  {{if mode === "char"}}
+                  <div class="life_bg">无</div>
+                  {{/if}}
+                </div>
+
+              </div>
+            </div>
+            {{each chars char idx}}
+            <div class="avatar">
+              <div class="index star{{char.star}}">{{idx+1}}</div>
+              <div class="name_cont star{{char.star}}">
+                <div class="name">
+                  <div class="avatar_img">
+                    <img src="{{_sys_res_path}}genshin/logo/side/{{char.name}}.png" onerror="whenError(this)"/>
+                  </div>
+                  <div class="avatar_name">
+                    {{abbr[char.name] || char.name}}
+                  </div>
+                </div>
+              </div>
+              <div class="pct">{{pct(char.hold)}}</div>
+              <div class="cons">
+                <div class="cons-pct">
+                  {{each char.cons con idx}}
+                  <div>{{pct(con.value)}}</div>
+                  {{/each}}
+                  {{if mode ==="char"}}
+                  <div>{{pct(1-char.hold)}}</div>
+                  {{/if}}
+                </div>
+                <div class="cons-bg">
+                  {{each char.cons con idx}}
+                  <div class="life{{con.id}}" style='{{"width:"+pct(con.value)+"%"}}'></div>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+          <p class="notice"> 数据来源：DGP-Studio-胡桃API  .  最后更新时间：{{lastUpdate}} </p>
+        </div>
+        <div class="copyright"> Create By Yunzai-Bot & Miao-Plugin</div>
+      </div>
+    </div>
+
+  </body>
+</html>

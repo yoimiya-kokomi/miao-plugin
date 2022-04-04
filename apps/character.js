@@ -79,6 +79,8 @@ export async function wife(e, { render, User }) {
     action = msgRet[2] || "卡片",
     actionParam = msgRet[3] || "";
 
+  actionParam = actionParam.toString();
+
   let targetCfg = lodash.find(relationMap, (cfg, key) => {
     cfg.key = key;
     return cfg.keyword.includes(target);

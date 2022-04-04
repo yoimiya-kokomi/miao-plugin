@@ -1,0 +1,103 @@
+@font-face {
+  font-family: "tttgbnumber";
+  src: url("../../font/tttgbnumber.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: HYWenHei-55W;
+  src: url('../../font/HYWenHei-55W.ttf');
+}
+
+@font-face {
+  font-family: "NZBZ";
+  src: url("../font/NZBZ.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  font-size: 18px;
+  color: #1e1f20;
+  font-family: PingFangSC-Medium, PingFang SC, sans-serif;
+  transform: scale(1.4);
+  transform-origin: 0 0;
+  background: url("./bg1.png") top left no-repeat #2a3860;
+  background-size: contain;
+  width: 600px;
+}
+
+.container {
+  width: 600px;
+  padding: 20px 15px 10px 15px;
+  background: url("./footer.png") left bottom no-repeat;
+  background-size: contain;
+}
+
+
+.head-box {
+  border-radius: 15px;
+  padding: 10px 20px;
+  position: relative;
+  color: #fff;
+  margin-top:30px;
+
+}
+
+.head-box .title {
+  font-size: 36px;
+  font-family: NZBZ;
+}
+
+
+.head-box .genshin_logo {
+  position: absolute;
+  top: 1px;
+  right: 15px;
+  width: 97px;
+}
+.head-box .label{
+  font-size:16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.notice {
+  color: #888;
+  font-size: 12px;
+  text-align: right;
+  padding: 12px 5px 5px;
+}
+.notice-center{
+  color:#fff;
+  text-align: center;
+  margin-bottom:10px;
+  text-shadow:1px 1px 1px #333;
+}
+.copyright {
+  font-size: 16px;
+  font-family: "tttgbnumber";
+  text-align: center;
+  color: #fff;
+  position: relative;
+  text-align: center;
+  padding-left: 10px;
+  text-shadow:1px 1px 1px #000;
+  margin-bottom:10px;
+}
