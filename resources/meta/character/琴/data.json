@@ -7,21 +7,15 @@
 	"desc": "正直严谨的蒲公英骑士，蒙德西风骑士团的代理团长。",
 	"astro": "幼狮座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/anemo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7008_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/jean_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/jean_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/jean_face.png"
-	},
+	"weapon": "单手剑",
+	"elem": "anemo",
+	"element": "风",
 	"stat": {
-		"baseHP": "14695",
-		"baseATK": "239",
-		"baseDEF": "769",
-		"aStat": "治疗加成",
-		"aStatValue": "22.2%"
+		"hp": "14695",
+		"atk": "239",
+		"def": "769",
+		"growStat": "治疗加成",
+		"growValue": "22.2%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·西风剑术",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
 			"desc": "普通攻击\n进行至多五段的连续剑击。\n重击\n消耗一定体力，进行饱含风之力的挑击。\n被挑飞的敌人，在短时间内会缓慢坠落。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +314,6 @@
 		},
 		"e": {
 			"name": "风压剑",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_33201.png",
 			"desc": "将无形的风之力汇聚在剑上，释放微型的风暴，将敌人向瞄准的方向击飞，造成大量风元素伤害。\n长按\n以持续消耗体力为代价，令旋风将周围的敌人与物体牵引至面前。\n可以调整方向。\n期间无法移动。",
 			"attr": [
 				{
@@ -379,7 +371,6 @@
 		},
 		"q": {
 			"name": "蒲公英之风",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_33901.png",
 			"desc": "呼唤风的护佑，创造千风涌动的蒲公英领域，击退周围的敌人并造成风元素伤害。\n同时，为队伍中的所有角色瞬间恢复大量生命值，回复量受益于琴的攻击力。\n蒲公英领域\n•\n为其中的角色持续恢复生命值；\n•\n令其中的角色持续受到风元素影响；\n•\n对出入领域的敌人造成风元素伤害。",
 			"attr": [
 				{
@@ -495,49 +486,40 @@
 	"passive": [
 		{
 			"name": "引领之风",
-			"desc": "完美烹饪恢复类食物时，有12%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_32301.png"
+			"desc": "完美烹饪恢复类食物时，有12%概率获得2倍产出。"
 		},
 		{
 			"name": "顺风而行",
-			"desc": "琴的普通攻击命中时，有50%的几率为队伍中所有角色恢复等同于琴攻击力15%的生命值。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_32101.png"
+			"desc": "琴的普通攻击命中时，有50%的几率为队伍中所有角色恢复等同于琴攻击力15%的生命值。"
 		},
 		{
 			"name": "听凭风引",
-			"desc": "使用蒲公英之风后，恢复20%元素能量。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_32201.png"
+			"desc": "使用蒲公英之风后，恢复20%元素能量。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "流转剑脊的暴风",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_31.png",
 			"desc": "风压剑长按超过1秒后，提升牵引速度，并使造成的伤害提升40%。"
 		},
 		"2": {
 			"name": "守护众人的坚盾",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_32.png",
 			"desc": "琴获得元素晶球或元素微粒时，队伍中所有角色获得15%攻击速度和15%移动速度提升，持续15秒。"
 		},
 		"3": {
 			"name": "西风吹拂之时",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_33.png",
 			"desc": "蒲公英之风的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "蒲公英的国土",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_34.png",
 			"desc": "在蒲公英之风的领域内，所有敌人的风元素抗性下降40%。"
 		},
 		"5": {
 			"name": "须臾一瞬的烈风",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_35.png",
 			"desc": "风压剑的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "恩眷万民的狮牙",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_36.png",
 			"desc": "在蒲公英之风的领域内，角色受到的伤害降低35%。 离开领域后，这个效果会在承受3次攻击或10秒后消失。"
 		}
 	}

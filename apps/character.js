@@ -1,12 +1,9 @@
-import fetch from "node-fetch";
 import { segment } from "oicq";
 import lodash from "lodash";
 import { Character } from "../components/models.js"
 import fs from "fs";
 import sizeOf from "image-size";
-import { wifeData } from "../../../config/genshin/roleId.js";
 
-let getUrl, getServer;
 
 //角色昵称
 let nameID = "";
@@ -120,8 +117,13 @@ export async function wife(e, { render, User }) {
       } else {
         // 如果未指定过，则从列表中排序并随机选择前5个
         avatarList = await getAvatarList(e, targetCfg.type, MysApi);
-        avatar = lodash.sample(avatarList.slice(0, 5));
-        return renderAvatar(e, avatar, render, renderType);
+        if (avatarList && avatarList.length > 0) {
+          avatar = lodash.sample(avatarList.slice(0, 5));
+          return renderAvatar(e, avatar, render, renderType);
+        } else {
+          e.reply(`在当前米游社公开展示的角色中未能找到适合展示的角色..`);
+          return true;
+        }
       }
       break;
     case "设置":
@@ -152,7 +154,10 @@ export async function wife(e, { render, User }) {
         avatarList = lodash.filter(avatarList, (d) => !!d);
         addRet = lodash.intersection(avatarList, wifeList);
         if (addRet.length === 0) {
-          e.reply("未能找到所指定的角色，请重新设置");
+          e.reply(`在可选的${targetCfg.keyword[0]}列表中未能找到 ${actionParam} ~`);
+          if (!MysApi.isSelfCookie) {
+            e.reply("请确认已在米游社展示对应角色，也可以绑定Cookie以查询所有角色..");
+          }
           return true;
         }
       }
@@ -298,7 +303,7 @@ async function getTalent(e, avatars) {
     cookieType: "all",
     actionName: "查询信息"
   });
-  if (!MysApi) return {};
+  if (!MysApi && !MysApi.isSelfCookie) return {};
 
   let skill = {};
 

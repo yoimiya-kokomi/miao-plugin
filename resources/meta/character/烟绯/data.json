@@ -3,25 +3,20 @@
 	"key": "Yanfei",
 	"name": "烟绯",
 	"abbr": "烟绯",
+	"city": "璃月",
 	"title": "智明无邪",
 	"desc": "活跃在璃月港的知名律法咨询师，混有仙兽血脉的精明少女。",
 	"astro": "法兽座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/pyro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7064_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/feiyan_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/feiyan_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/feiyan_face.png"
-	},
+	"weapon": "法器",
+	"elem": "pyro",
+	"element": "火",
 	"stat": {
-		"baseHP": "9352",
-		"baseATK": "240",
-		"baseDEF": "587",
-		"aStat": "火元素伤害加成",
-		"aStatValue": "24%"
+		"hp": "9352",
+		"atk": "240",
+		"def": "587",
+		"growStat": "火元素伤害加成",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·火漆制印",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_483101.png",
 			"desc": "普通攻击\n连续发射火球，造成最多三段的火元素伤害。\n普通攻击命中敌人时，会赋予烟绯一枚丹火印。初始最多持有三枚丹火印，每次触发都会刷新已有的丹火印持续时间。\n每枚丹火印都会降低烟绯的体力消耗，并会在烟绯退场时消失。\n重击\n消耗体力，短暂咏唱后，消耗所有的丹火印，在前方造成火元素范围伤害。\n根据被消耗的丹火印数量，强化这次重击的范围与伤害。\n下落攻击\n凝聚火元素的力量，从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成火元素范围伤害。",
 			"attr": [
 				{
@@ -289,7 +283,6 @@
 		},
 		"e": {
 			"name": "丹书立约",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_483201.png",
 			"desc": "唤出烈焰，造成火元素范围伤害。\n命中敌人后，会为烟绯赋予最大数量的丹火印。",
 			"attr": [
 				{
@@ -339,7 +332,6 @@
 		},
 		"q": {
 			"name": "凭此结契",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_483901.png",
 			"desc": "引发喷薄爆发的烈火，冲击周围的敌人，造成火元素范围伤害，并为烟绯自己赋予最大数量的丹火印与灼灼效果。\n灼灼\n具有如下效果：\n•\n每间隔一段时间，为烟绯赋予一枚丹火印；\n•\n提高重击造成的伤害。\n灼灼效果会在烟绯退场与倒下时移除。",
 			"attr": [
 				{
@@ -439,49 +431,40 @@
 	"passive": [
 		{
 			"name": "博闻强记",
-			"desc": "在小地图上显示周围的璃月区域特产的位置。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_482301.png"
+			"desc": "在小地图上显示周围的璃月区域特产的位置。"
 		},
 		{
 			"name": "关联条款",
-			"desc": "烟绯通过重击消耗丹火印时，每枚丹火印会提升烟绯5%的火元素伤害加成，持续6秒。在该效果的持续时间内再次施放重击时，会先移除原有的效果。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_482101.png"
+			"desc": "烟绯通过重击消耗丹火印时，每枚丹火印会提升烟绯5%的火元素伤害加成，持续6秒。在该效果的持续时间内再次施放重击时，会先移除原有的效果。"
 		},
 		{
 			"name": "法兽灼眼",
-			"desc": "烟绯主动施放的重击对敌人造成暴击时，会额外造成一次80%攻击力的火元素范围伤害。该伤害视为重击伤害。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_482201.png"
+			"desc": "烟绯主动施放的重击对敌人造成暴击时，会额外造成一次80%攻击力的火元素范围伤害。该伤害视为重击伤害。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "占理不饶人",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_481.png",
 			"desc": "烟绯进行重击时，每持有一枚丹火印，都会提高烟绯在咏唱期间的抗打断能力，并额外降低本次重击10%的体力消耗。"
 		},
 		"2": {
 			"name": "最终解释权",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_482.png",
 			"desc": "烟绯的重击对于生命值低于50%的敌人，暴击率提高20%。"
 		},
 		"3": {
 			"name": "真火炼宝印",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_483.png",
 			"desc": "丹书立约的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "丹书金铁券",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_484.png",
 			"desc": "施放凭此结契时： 生成一个伤害吸收量等于生命值上限45%的护盾，持续15秒。 该护盾对火元素伤害有250%的吸收效果。"
 		},
 		"5": {
 			"name": "遵法切结书",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_485.png",
 			"desc": "凭此结契的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "是额外条款",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_486.png",
 			"desc": "烟绯持有的丹火印最大数量增加一枚。"
 		}
 	}

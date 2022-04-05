@@ -7,21 +7,15 @@
 	"desc": "除了打扮哪里都不像神职人员的修女。冷淡的言行中透着锐利。总是单独行动。",
 	"astro": "荆冠座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/cryo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7059_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/rosaria_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/rosaria_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/rosaria_face.png"
-	},
+	"weapon": "长柄武器",
+	"elem": "cryo",
+	"element": "冰",
 	"stat": {
-		"baseHP": "12289",
-		"baseATK": "240",
-		"baseDEF": "710",
-		"aStat": "攻击力",
-		"aStatValue": "24%"
+		"hp": "12289",
+		"atk": "240",
+		"def": "710",
+		"growStat": "攻击力",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·教会枪术",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_453101.png",
 			"desc": "普通攻击\n进行至多五段的连续枪击。\n重击\n消耗一定体力，向前方突进，对路径上的敌人造成伤害。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +314,6 @@
 		},
 		"e": {
 			"name": "噬罪的告解",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_453201.png",
 			"desc": "罗莎莉亚快速移动至目标敌人身后，进行长枪穿刺与挥砍，造成冰元素伤害。\n无法通过施放时的快速移动，转移至体型较大的敌人身后。",
 			"attr": [
 				{
@@ -371,7 +363,6 @@
 		},
 		"q": {
 			"name": "终命的圣礼",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_453901.png",
 			"desc": "这是罗莎莉亚专属的领祷仪式。挥舞武器扫击身边的敌人后，凝聚极寒的冰枪击向地面，分别造成冰元素伤害。\n冰枪在存在期间内，会间歇性释放寒气，对附近的敌人造成冰元素伤害。",
 			"attr": [
 				{
@@ -451,49 +442,40 @@
 	"passive": [
 		{
 			"name": "夜行",
-			"desc": "在夜间（18时至6时），队伍中自己的角色移动速度提高10%。 该效果在秘境、征讨领域、深境螺旋中无效，且无法与效果完全相同的固有天赋叠加。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_452301.png"
+			"desc": "在夜间（18时至6时），队伍中自己的角色移动速度提高10%。 该效果在秘境、征讨领域、深境螺旋中无效，且无法与效果完全相同的固有天赋叠加。"
 		},
 		{
 			"name": "聆听忏悔的幽影",
-			"desc": "噬罪的告解从技能目标的背后攻击时，罗莎莉亚的暴击率提升12%，持续5秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_452101.png"
+			"desc": "噬罪的告解从技能目标的背后攻击时，罗莎莉亚的暴击率提升12%，持续5秒。"
 		},
 		{
 			"name": "暗中支援的黯色",
-			"desc": "施放终命的圣礼时，基于自身暴击率的15%，提高附近的队伍中所有角色（不包括罗莎莉亚自己）的暴击率，持续10秒。 通过这种方式获得的暴击率提升，无法超过15%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_452201.png"
+			"desc": "施放终命的圣礼时，基于自身暴击率的15%，提高附近的队伍中所有角色（不包括罗莎莉亚自己）的暴击率，持续10秒。 通过这种方式获得的暴击率提升，无法超过15%。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "罪之导引",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_451.png",
 			"desc": "罗莎莉亚的攻击造成暴击后，自身攻击速度提升10%，普通攻击造成的伤害提升10%，持续4秒。"
 		},
 		"2": {
 			"name": "无福之地",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_452.png",
 			"desc": "终命的圣礼创造的冰枪持续时间延长4秒。"
 		},
 		"3": {
 			"name": "告解之仪",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_453.png",
 			"desc": "噬罪的告解的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "苦痛恩典",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_454.png",
 			"desc": "噬罪的告解造成暴击时，为罗莎莉亚自己恢复5点元素能量。 每次噬罪的告解至多触发1次该效果。"
 		},
 		"5": {
 			"name": "临终祈礼",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_455.png",
 			"desc": "终命的圣礼的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "代行裁判",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_456.png",
 			"desc": "终命的圣礼的攻击会使敌人的物理抗性降低20%，持续10秒。"
 		}
 	}

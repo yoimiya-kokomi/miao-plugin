@@ -3,25 +3,20 @@
 	"key": "Zhongli",
 	"name": "钟离",
 	"abbr": "钟离",
+	"city": "璃月",
 	"title": "尘世闲游",
 	"desc": "被「往生堂」请来的神秘客人，知识渊博，对各种事物都颇有见地。",
 	"astro": "？？？",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/geo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7040_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/zhongli_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/zhongli_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/zhongli_face.png"
-	},
+	"weapon": "长柄武器",
+	"elem": "geo",
+	"element": "岩",
 	"stat": {
-		"baseHP": "14695",
-		"baseATK": "251",
-		"baseDEF": "738",
-		"aStat": "岩元素伤害加成",
-		"aStatValue": "28.8%"
+		"hp": "14695",
+		"atk": "251",
+		"def": "738",
+		"growStat": "岩元素伤害加成",
+		"growValue": "28.8%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·岩雨",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_303101.png",
 			"desc": "普通攻击\n进行至多六段的连续枪击。\n重击\n消耗一定体力，向前方疾行，在行动路径上和终点投下如雨的岩枪。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -341,7 +335,6 @@
 		},
 		"e": {
 			"name": "地心",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_303201.png",
 			"desc": "山脉中、大地上、磐石间，都遍布着岩之力。能自如驱动这股力量的人却少之又少。\n点按\n命令大地上岩元素积聚而起，创造岩脊。\n长按\n令附近的岩元素爆发，造成以下效果：\n•\n如果岩脊数量没有达到上限，则创造岩脊；\n•\n形成玉璋护盾，伤害吸收量受益于钟离的生命值上限；\n•\n造成岩元素范围伤害；\n•\n身边如果有附带有岩元素的目标，则大量消耗至多两个目标的岩元素。这个效果不会造成伤害。\n岩脊\n创造时，造成岩元素范围伤害。\n此外，存在期间会与周围的其他岩元素创造物间歇进行原岩共鸣，对周围的敌人造成岩元素伤害。\n岩脊视为岩元素创造物，可以阻拦攻击，可以攀爬。\n由钟离自己创造的岩脊，初始同时只能存在一个。\n玉璋护盾\n对所有元素伤害与物理伤害有150%的吸收效果。\n处于玉璋护盾庇护下的角色，会使附近小范围内敌人的所有元素抗性与物理抗性降低20%，该效果不可叠加。",
 			"attr": [
 				{
@@ -459,7 +452,6 @@
 		},
 		"q": {
 			"name": "天星",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_303901.png",
 			"desc": "降下巨大的星岩，对坠落范围内的敌人造成巨额岩元素伤害，并使其石化。\n石化\n处于石化状态下的敌人无法行动。",
 			"attr": [
 				{
@@ -535,49 +527,40 @@
 	"passive": [
 		{
 			"name": "晶石命理",
-			"desc": "锻造长柄武器时，返还15%消耗的矿石。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_302301.png"
+			"desc": "锻造长柄武器时，返还15%消耗的矿石。"
 		},
 		{
 			"name": "悬岩宸断",
-			"desc": "玉璋护盾受到伤害时，会产生坚璧效果： • 处于玉璋护盾庇护下的角色，护盾强效提升5%； • 该效果至多叠加5次，持续直到玉璋护盾消失。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_302101.png"
+			"desc": "玉璋护盾受到伤害时，会产生坚璧效果： • 处于玉璋护盾庇护下的角色，护盾强效提升5%； • 该效果至多叠加5次，持续直到玉璋护盾消失。"
 		},
 		{
 			"name": "炊金馔玉",
-			"desc": "基于生命值上限，钟离的以下攻击造成的伤害提高： • 普通攻击、重击与下落攻击伤害提高值：生命值上限的1.39% • 地心的岩脊、共鸣伤害与长按伤害提高值：生命值上限的1.9% • 天星伤害提高值：生命值上限的33%",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_302201.png"
+			"desc": "基于生命值上限，钟离的以下攻击造成的伤害提高： • 普通攻击、重击与下落攻击伤害提高值：生命值上限的1.39% • 地心的岩脊、共鸣伤害与长按伤害提高值：生命值上限的1.9% • 天星伤害提高值：生命值上限的33%"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "岩者，六合引之为骨",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_301.png",
 			"desc": "地心创造的岩脊至多可以同时存在2个。"
 		},
 		"2": {
 			"name": "石者，八荒韫玉而明",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_302.png",
 			"desc": "天星陨落时，会为附近的当前场上角色赋予玉璋护盾。"
 		},
 		"3": {
 			"name": "圭璋，暝仍不移其晖",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_303.png",
 			"desc": "地心的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "黄琮，破而不夺其坚",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_304.png",
 			"desc": "天星的影响范围扩大20%。 此外，天星的石化效果持续时间延长2秒。"
 		},
 		"5": {
 			"name": "苍璧，驱之长昭天理",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_305.png",
 			"desc": "天星的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "金玉，礼予天地四方",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_306.png",
 			"desc": "玉璋护盾受到伤害时，将为当前角色恢复生命值，回复量为伤害的40%。 单次回复量不超过当前角色最大生命值的8%。"
 		}
 	}

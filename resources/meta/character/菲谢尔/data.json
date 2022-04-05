@@ -7,21 +7,15 @@
 	"desc": "自称「断罪之皇女」，与名为奥兹的漆黑夜鸦同行的神秘少女。",
 	"astro": "幻鸦座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/electro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7013_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/fischl_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/fischl_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/fischl_face.png"
-	},
+	"weapon": "弓",
+	"elem": "electro",
+	"element": "雷",
 	"stat": {
-		"baseHP": "9189",
-		"baseATK": "244",
-		"baseDEF": "594",
-		"aStat": "攻击力",
-		"aStatValue": "24%"
+		"hp": "9189",
+		"atk": "244",
+		"def": "594",
+		"growStat": "攻击力",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·罪灭之矢",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_313101.png",
 			"desc": "普通攻击\n进行至多五段的连续弓箭射击。\n重击\n进行伤害更高、更为精准的瞄准射击。\n瞄准时，幽夜净土的黯雷精灵会听从皇女的号令，凭附在她的雷影魔箭上。聚满了断罪之雷的魔箭会造成高额的雷元素伤害。\n下落攻击\n从空中射出箭雨，并迅速下坠冲击地面，在落地时造成范围伤害。",
 			"attr": [],
 			"table": [
@@ -336,7 +329,6 @@
 		},
 		"e": {
 			"name": "夜巡影翼",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_313201.png",
 			"desc": "召唤奥兹。暗影与雷电构成的夜鸦降生尘世时，会在小范围内造成雷元素伤害。\n存在期间内，奥兹会持续发射雷之魔弹攻击附近的敌人。\n长按以调整技能生效位置。\n奥兹存在期间内再次点按可以将其召唤至身旁。",
 			"attr": [
 				{
@@ -410,7 +402,6 @@
 		},
 		"q": {
 			"name": "至夜幻现",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_313901.png",
 			"desc": "呼唤奥兹，张开纯粹的夜色编织成的双翼，守护菲谢尔。\n持续期间，具有如下效果：\n•\n以奥兹的形态进行高速移动；\n•\n对附近的敌人降下落雷，造成雷元素伤害。每个敌人只能受到一次落雷伤害；\n•\n效果结束时，奥兹将会停留在战场上，攻击皇女的敌人。若奥兹已经在场，则重置奥兹的存在时间。",
 			"attr": [
 				{
@@ -466,49 +457,40 @@
 	"passive": [
 		{
 			"name": "吾之后花园",
-			"desc": "在蒙德执行探索派遣任务时，消耗的时间缩短25%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_312301.png"
+			"desc": "在蒙德执行探索派遣任务时，消耗的时间缩短25%。"
 		},
 		{
 			"name": "噬星魔鸦",
-			"desc": "菲谢尔以蓄力完成的瞄准射击命中奥兹时，奥兹会对附近敌人降下圣裁之雷，造成等同射击伤害152.7%的雷元素范围伤害。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_312101.png"
+			"desc": "菲谢尔以蓄力完成的瞄准射击命中奥兹时，奥兹会对附近敌人降下圣裁之雷，造成等同射击伤害152.7%的雷元素范围伤害。"
 		},
 		{
 			"name": "断罪雷影",
-			"desc": "奥兹在场时，若当前场上自己的角色攻击敌人时触发了雷元素相关反应，则会对敌人降下圣裁之雷，造成菲谢尔80%攻击力的雷元素伤害。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_312201.png"
+			"desc": "奥兹在场时，若当前场上自己的角色攻击敌人时触发了雷元素相关反应，则会对敌人降下圣裁之雷，造成菲谢尔80%攻击力的雷元素伤害。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "幽邃鸦眼",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_311.png",
 			"desc": "奥兹不在战场上时，也会透过鸦眼守望菲谢尔。在菲谢尔对敌人进行普通攻击时，奥兹会通过鸦眼协同攻击，造成22%攻击力的伤害。"
 		},
 		"2": {
 			"name": "圣裁影羽",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_312.png",
 			"desc": "施放夜巡影翼时，能额外造成200%攻击力的伤害，并使影响范围扩大50%。"
 		},
 		"3": {
 			"name": "渊色黑翼",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_313.png",
 			"desc": "夜巡影翼的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "皇女幻绮谭",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_314.png",
 			"desc": "施放至夜幻现时，会对周围的敌人造成222%攻击力的雷元素伤害； 技能效果结束时，会为菲谢尔恢复20%生命值。"
 		},
 		"5": {
 			"name": "至夜默示录",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_315.png",
 			"desc": "至夜幻现的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "永夜之禽",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_316.png",
 			"desc": "奥兹的存在时间延长2秒。此外，奥兹会协同当前场上自己的角色一起攻击，造成菲谢尔30%攻击力的雷元素伤害。"
 		}
 	}

@@ -3,25 +3,20 @@
 	"key": "Xiangling",
 	"name": "香菱",
 	"abbr": "香菱",
+	"city": "璃月",
 	"title": "万民百味",
 	"desc": "来自璃月，名声在外的少女厨师，对料理之道极具热情，拿手麻辣菜肴堪称一绝。",
 	"astro": "长杓座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/pyro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7017_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/xiangling_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/xiangling_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/xiangling_face.png"
-	},
+	"weapon": "长柄武器",
+	"elem": "pyro",
+	"element": "火",
 	"stat": {
-		"baseHP": "10875",
-		"baseATK": "225",
-		"baseDEF": "669",
-		"aStat": "元素精通",
-		"aStatValue": "96"
+		"hp": "10875",
+		"atk": "225",
+		"def": "669",
+		"growStat": "元素精通",
+		"growValue": "96"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·白案功夫",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
 			"desc": "普通攻击\n进行至多五段的连续枪击。\n重击\n消耗一定体力，向前方突进，对路径上的敌人造成伤害。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +315,6 @@
 		},
 		"e": {
 			"name": "锅巴出击",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_233201.png",
 			"desc": "唤出喷火的锅巴，存在期间内，不断对敌人喷火，造成火元素范围伤害。",
 			"attr": [
 				{
@@ -371,7 +364,6 @@
 		},
 		"q": {
 			"name": "旋火轮",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_233901.png",
 			"desc": "以控制火候与枪术的精湛技巧，甩出围绕自己快速旋转的旋火轮。\n存在期间内，旋火轮会跟随角色运动，对路径上的敌人造成火元素伤害。",
 			"attr": [
 				{
@@ -491,49 +483,40 @@
 	"passive": [
 		{
 			"name": "万民堂大厨",
-			"desc": "完美烹饪攻击类食物时，有12%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_232301.png"
+			"desc": "完美烹饪攻击类食物时，有12%概率获得2倍产出。"
 		},
 		{
 			"name": "交叉火力",
-			"desc": "锅巴的喷火距离提高20%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_232101.png"
+			"desc": "锅巴的喷火距离提高20%。"
 		},
 		{
 			"name": "绝云朝天椒",
-			"desc": "锅巴出击效果结束时，锅巴会在消失的位置留下辣椒。拾取辣椒会提高10%攻击力，持续10秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_232201.png"
+			"desc": "锅巴出击效果结束时，锅巴会在消失的位置留下辣椒。拾取辣椒会提高10%攻击力，持续10秒。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "外酥里嫩",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_231.png",
 			"desc": "受到锅巴攻击的敌人，火元素抗性降低15%，持续6秒。"
 		},
 		"2": {
 			"name": "大火宽油",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_232.png",
 			"desc": "普通攻击的最后一击会对敌人施加持续2秒的内爆效果，持续时间结束时会发生爆炸，造成75%攻击力的火元素范围伤害。"
 		},
 		"3": {
 			"name": "武火急烹",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_233.png",
 			"desc": "旋火轮的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "文火慢煨",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_234.png",
 			"desc": "旋火轮的持续时间延长40%。"
 		},
 		"5": {
 			"name": "锅巴凶猛",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_235.png",
 			"desc": "锅巴出击的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "大龙卷旋火轮",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_236.png",
 			"desc": "旋火轮持续期间，队伍中所有角色获得15%火元素伤害加成。"
 		}
 	}

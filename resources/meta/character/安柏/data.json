@@ -7,21 +7,15 @@
 	"desc": "永远充满活力的女孩，骑士团最优秀，同时也是最后的侦察骑士。",
 	"astro": "小兔座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/pyro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7003_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/amber_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/amber_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/amber_face.png"
-	},
+	"weapon": "弓",
+	"elem": "pyro",
+	"element": "火",
 	"stat": {
-		"baseHP": "9461",
-		"baseATK": "223",
-		"baseDEF": "601",
-		"aStat": "攻击力",
-		"aStatValue": "24%"
+		"hp": "9461",
+		"atk": "223",
+		"def": "601",
+		"growStat": "攻击力",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·神射手",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
 			"desc": "普通攻击\n进行至多五段的连续弓箭射击。\n重击\n进行伤害更高、更为精准的瞄准射击。\n瞄准时，烈焰会在箭矢上持续积聚。聚满了烈焰的箭矢会造成火元素伤害。\n下落攻击\n从空中射出箭雨，并迅速下坠冲击地面，在落地时造成范围伤害。",
 			"attr": [],
 			"table": [
@@ -336,7 +329,6 @@
 		},
 		"e": {
 			"name": "爆弹玩偶",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_213201.png",
 			"desc": "请可靠的兔兔伯爵上阵。\n兔兔伯爵\n•\n持续嘲讽周围的敌人，吸引火力；\n•\n耐久度按比例继承安柏的生命值上限；\n•\n被摧毁或持续时间结束时，会发生剧烈的爆炸，造成火元素范围伤害。\n长按\n调整投掷方向。\n投掷距离随长按时间增加。",
 			"attr": [
 				{
@@ -406,7 +398,6 @@
 		},
 		"q": {
 			"name": "箭雨",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_213901.png",
 			"desc": "射出火焰箭雨，持续造成火元素范围伤害。",
 			"attr": [
 				{
@@ -486,49 +477,40 @@
 	"passive": [
 		{
 			"name": "飞行冠军",
-			"desc": "队伍中自己的角色滑翔消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_212301.png"
+			"desc": "队伍中自己的角色滑翔消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。"
 		},
 		{
 			"name": "百发百中！",
-			"desc": "箭雨的暴击率提高10%，影响范围扩大30%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_212101.png"
+			"desc": "箭雨的暴击率提高10%，影响范围扩大30%。"
 		},
 		{
 			"name": "压制射击",
-			"desc": "瞄准射击命中弱点时，攻击力提高15%，持续10秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_212201.png"
+			"desc": "瞄准射击命中弱点时，攻击力提高15%，持续10秒。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "一箭双丘丘！",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_211.png",
 			"desc": "瞄准射击时，会连续射出2支箭。第二支箭能造成原本20%的伤害。"
 		},
 		"2": {
 			"name": "一触即发",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_212.png",
 			"desc": "兔兔伯爵进行了全新改良！蓄力完成的瞄准射击命中兔兔伯爵脚部时，能直接引爆兔兔伯爵… 通过这种方式主动引爆兔兔伯爵时，会额外造成200%伤害。"
 		},
 		"3": {
 			"name": "烧起来啦！",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_213.png",
 			"desc": "箭雨的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "才不是普通的布偶",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_214.png",
 			"desc": "爆弹玩偶的冷却时间减少20%，并增加1次可使用次数。"
 		},
 		"5": {
 			"name": "是兔兔伯爵！",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_215.png",
 			"desc": "爆弹玩偶的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "疾如野火",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_216.png",
 			"desc": "使用箭雨后的10秒内，队伍中所有角色的移动速度提升15%，攻击力提升15%。"
 		}
 	}

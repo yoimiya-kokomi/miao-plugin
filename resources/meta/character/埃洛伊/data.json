@@ -3,25 +3,20 @@
 	"key": "Aloy",
 	"name": "埃洛伊",
 	"abbr": "埃洛伊",
+	"city": "稻妻",
 	"title": "「异界的救世主」",
 	"desc": "曾经是流放者，如今则是无比机敏的猎手。随时准备着为了正当之事而挽弓放箭。",
 	"astro": "诺拉勇者座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/cryo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Daoqi.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7091_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/aloy_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/aloy_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/aloy_face.png"
-	},
+	"weapon": "弓",
+	"elem": "cryo",
+	"element": "冰",
 	"stat": {
-		"baseHP": "10899",
-		"baseATK": "234",
-		"baseDEF": "676",
-		"aStat": "冰元素伤害加成",
-		"aStatValue": "28.8%"
+		"hp": "10899",
+		"atk": "234",
+		"def": "676",
+		"growStat": "冰元素伤害加成",
+		"growValue": "28.8%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·快速射击",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_623101.png",
 			"desc": "普通攻击\n进行至多四段的连续弓箭射击。\n重击\n进行伤害更高、更为精准的瞄准射击。\n瞄准时，冰霜散发的寒气会凭附在箭矢上。聚满了寒气的箭矢会造成冰元素伤害。\n下落攻击\n从空中射出箭雨，并迅速下坠冲击地面，在落地时造成范围伤害。",
 			"attr": [],
 			"table": [
@@ -316,7 +310,6 @@
 		},
 		"e": {
 			"name": "冰尘雪野",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_623201.png",
 			"desc": "向目标方向投掷一枚冰尘弹，在命中后引发爆炸，造成冰元素伤害。爆炸后，冰尘弹将分裂成许多冷冻炸弹，在接触到敌人或一段时间后爆炸，造成冰元素伤害。\n冰尘弹或冷冻炸弹命中敌人后，会使敌人的攻击力降低，并为埃洛伊赋予1层「线圈」效果。\n每0.1秒至多获得1层线圈效果。\n线圈\n•\n依据层数，提高埃洛伊的普通攻击造成的伤害；\n•\n拥有4层线圈时，埃洛伊清除所有的线圈效果，并获得「冰驰」，进一步提高普通攻击造成的伤害，并将普通攻击造成的伤害转为冰元素伤害。\n处于冰驰状态下时，埃洛伊无法获得线圈效果。\n线圈效果会在脱离战斗30秒后清除。",
 			"attr": [
 				{
@@ -454,7 +447,6 @@
 		},
 		"q": {
 			"name": "曙光预言",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_623901.png",
 			"desc": "向目标方向投掷冰元素满溢的蓄能容器，并用弓箭引爆，造成冰元素范围伤害。",
 			"attr": [
 				{
@@ -510,49 +502,40 @@
 	"passive": [
 		{
 			"name": "荒野猎手",
-			"desc": "埃洛伊在队伍中时，队伍中自己的角色接近产出禽肉、兽肉与冷鲜肉的小动物时，不会轻易惊动它们。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_622301.png"
+			"desc": "埃洛伊在队伍中时，队伍中自己的角色接近产出禽肉、兽肉与冷鲜肉的小动物时，不会轻易惊动它们。"
 		},
 		{
 			"name": "战斗覆盖",
-			"desc": "埃洛伊获得冰尘雪野的线圈效果时，埃洛伊的攻击力提升16%，队伍中附近的其他角色的攻击力提升8%，持续10秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_622101.png"
+			"desc": "埃洛伊获得冰尘雪野的线圈效果时，埃洛伊的攻击力提升16%，队伍中附近的其他角色的攻击力提升8%，持续10秒。"
 		},
 		{
 			"name": "强力攻击",
-			"desc": "埃洛伊处于冰尘雪野的冰驰状态下时，每1秒提升3.5%冰元素伤害加成，通过这种方式至多获得35%冰元素伤害加成。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_622201.png"
+			"desc": "埃洛伊处于冰尘雪野的冰驰状态下时，每1秒提升3.5%冰元素伤害加成，通过这种方式至多获得35%冰元素伤害加成。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "异界之星",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_621.png",
 			"desc": "点亮此人一方星空之刻尚未到来。"
 		},
 		"2": {
 			"name": "异界之星",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_622.png",
 			"desc": "点亮此人一方星空之刻尚未到来。"
 		},
 		"3": {
 			"name": "异界之星",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_623.png",
 			"desc": "点亮此人一方星空之刻尚未到来。"
 		},
 		"4": {
 			"name": "异界之星",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_624.png",
 			"desc": "点亮此人一方星空之刻尚未到来。"
 		},
 		"5": {
 			"name": "异界之星",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_625.png",
 			"desc": "点亮此人一方星空之刻尚未到来。"
 		},
 		"6": {
 			"name": "异界之星",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_626.png",
 			"desc": "点亮此人一方星空之刻尚未到来。"
 		}
 	}

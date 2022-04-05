@@ -7,21 +7,15 @@
 	"desc": "住在蒙德地区奔狼领，远离城市与人群，和狼一同生活的少年。直觉锐利，身姿迅捷。",
 	"astro": "小狼座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/electro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7006_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/razor_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/razor_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/razor_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "electro",
+	"element": "雷",
 	"stat": {
-		"baseHP": "11962",
-		"baseATK": "234",
-		"baseDEF": "751",
-		"aStat": "物理伤害加成",
-		"aStatValue": "30%"
+		"hp": "11962",
+		"atk": "234",
+		"def": "751",
+		"growStat": "物理伤害加成",
+		"growValue": "30%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·钢脊",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_203101.png",
 			"desc": "普通攻击\n进行至多四段的连续挥砍。\n重击\n持续消耗体力，旋转大剑攻击周围的敌人。\n停止旋转时，会进行一次格外有力的挥砍。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -325,7 +318,6 @@
 		},
 		"e": {
 			"name": "利爪与苍雷",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_203201.png",
 			"desc": "用师父与他的「家人」教他的方法，来解决猎物。\n点按\n向前挥动雷狼之爪，对前方的敌人造成雷元素伤害。\n若命中敌人，则会为雷泽积攒一个雷之印，提高雷泽的元素充能效率。\n最多同时存在3个雷之印，叠加刷新持续时间。\n长按\n积聚雷电力量引发小范围的雷爆，造成大量雷元素伤害，并清除已有的雷之印。\n每个因此被清除的雷之印，都会转为雷泽的元素能量。",
 			"attr": [
 				{
@@ -411,7 +403,6 @@
 		},
 		"q": {
 			"name": "雷牙",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_203901.png",
 			"desc": "唤醒无形的雷狼守护自己，对周围的敌人造成雷元素伤害，并消耗所有雷之印，为雷泽恢复元素能量。\n雷狼存在期间，会与雷泽共同战斗。\n雷狼\n•\n会随雷泽的普通攻击协同攻击，造成雷元素伤害；\n•\n提高雷泽的攻击速度、雷元素抗性；\n•\n使雷泽免疫感电反应的伤害；\n•\n无法施放重击；\n•\n提高雷泽的抗打断能力。\n效果将在雷泽退场时解除。\n退场时，会依据剩余的持续时间，返还至多10点元素能量。",
 			"attr": [
 				{
@@ -515,49 +506,40 @@
 	"passive": [
 		{
 			"name": "奔狼",
-			"desc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_202301.png"
+			"desc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。"
 		},
 		{
 			"name": "觉醒",
-			"desc": "利爪与苍雷的冷却时间减少18%。 施放雷牙时，重置利爪与苍雷的冷却时间。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_202101.png"
+			"desc": "利爪与苍雷的冷却时间减少18%。 施放雷牙时，重置利爪与苍雷的冷却时间。"
 		},
 		{
 			"name": "饥饿",
-			"desc": "雷泽的元素能量在50%以下时，元素充能效率提高30%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_202201.png"
+			"desc": "雷泽的元素能量在50%以下时，元素充能效率提高30%。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "狼性",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_201.png",
 			"desc": "雷泽获取元素晶球或元素微粒后的8秒内，造成的伤害提高10%。"
 		},
 		"2": {
 			"name": "压制",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_202.png",
 			"desc": "雷泽攻击生命值低于30%的敌人时，暴击率提高10%。"
 		},
 		"3": {
 			"name": "兽魂",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_203.png",
 			"desc": "雷牙的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "撕咬",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_204.png",
 			"desc": "利爪与苍雷点按时，会使命中的敌人防御力降低15%，持续7秒。"
 		},
 		"5": {
 			"name": "利爪",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_205.png",
 			"desc": "利爪与苍雷的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "天狼",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_206.png",
 			"desc": "每10秒，雷泽的大剑将自动充能，使下一次普通攻击引发落雷，造成100%攻击力的雷元素伤害。 不处于雷牙状态下时，若落雷击中敌人，会为雷泽积攒一个利爪与苍雷的雷之印。"
 		}
 	}

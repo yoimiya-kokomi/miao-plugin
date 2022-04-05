@@ -7,21 +7,15 @@
 	"desc": "对万物充满好奇的炼金术士，「生物炼金」学派的研究者。",
 	"astro": "烧瓶座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/anemo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7012_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/sucrose_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/sucrose_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/sucrose_face.png"
-	},
+	"weapon": "法器",
+	"elem": "anemo",
+	"element": "风",
 	"stat": {
-		"baseHP": "9244",
-		"baseATK": "170",
-		"baseDEF": "703",
-		"aStat": "风元素伤害加成",
-		"aStatValue": "24%"
+		"hp": "9244",
+		"atk": "170",
+		"def": "703",
+		"growStat": "风元素伤害加成",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·简式风灵作成",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_433101.png",
 			"desc": "普通攻击\n进行至多四段的风灵攻击，造成风元素伤害。\n重击\n消耗一定体力，短暂咏唱后，造成风元素范围伤害。\n下落攻击\n凝聚风灵的力量，从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成风元素范围伤害。",
 			"attr": [
 				{
@@ -301,7 +294,6 @@
 		},
 		"e": {
 			"name": "风灵作成·陆叁零捌",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_433201.png",
 			"desc": "召唤出小型风灵，将敌人与物体牵引至风灵所在位置，击飞范围内的敌人，并造成风元素伤害。",
 			"attr": [
 				{
@@ -351,7 +343,6 @@
 		},
 		"q": {
 			"name": "禁·风灵作成·柒伍同构贰型",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_433901.png",
 			"desc": "砂糖抛出不稳定的烧瓶，生成大型风灵。\n存在期间，大型风灵会持续牵引附近的敌人与物体，击飞附近的敌人，并造成风元素伤害。\n元素转化\n若风灵在技能持续期间接触了水元素/火元素/冰元素/雷元素，则会获得对应元素属性，额外造成该元素的附加伤害。\n元素转化在技能持续期间仅会发生一次。",
 			"attr": [
 				{
@@ -431,49 +422,40 @@
 	"passive": [
 		{
 			"name": "不稳定发现",
-			"desc": "合成角色与武器培养素材时，有10%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_432301.png"
+			"desc": "合成角色与武器培养素材时，有10%概率获得2倍产出。"
 		},
 		{
 			"name": "触媒置换术",
-			"desc": "砂糖触发扩散反应时，使队伍中所有对应元素类型的角色（不包括砂糖自己）元素精通提升50，持续8秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_432101.png"
+			"desc": "砂糖触发扩散反应时，使队伍中所有对应元素类型的角色（不包括砂糖自己）元素精通提升50，持续8秒。"
 		},
 		{
 			"name": "小小的慧风",
-			"desc": "风灵作成 • 陆叁零捌或禁 • 风灵作成 • 柒伍同构贰型命中敌人时，基于砂糖元素精通的20%，为队伍中所有角色（不包括砂糖自己）提供元素精通加成，持续8秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_432201.png"
+			"desc": "风灵作成 • 陆叁零捌或禁 • 风灵作成 • 柒伍同构贰型命中敌人时，基于砂糖元素精通的20%，为队伍中所有角色（不包括砂糖自己）提供元素精通加成，持续8秒。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "堆叠真空域",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_431.png",
 			"desc": "风灵作成 • 陆叁零捌的可使用次数增加1次。"
 		},
 		"2": {
 			"name": "不羁型贝特",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_432.png",
 			"desc": "禁 • 风灵作成 • 柒伍同构贰型的技能持续时间延长2秒。"
 		},
 		"3": {
 			"name": "零失误少女",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_433.png",
 			"desc": "风灵作成 • 陆叁零捌的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "炼金的偏执",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_434.png",
 			"desc": "砂糖的普通攻击或者重击累计命中敌人7次，风灵作成 • 陆叁零捌的冷却时间就会随机减少1-7秒。 每0.1秒至多计数一次。"
 		},
 		"5": {
 			"name": "认真普通瓶",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_435.png",
 			"desc": "禁 • 风灵作成 • 柒伍同构贰型的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "混元熵增论",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_436.png",
 			"desc": "禁 • 风灵作成 • 柒伍同构贰型如果发生了元素转化，则使队伍中所有角色在技能持续时间内获得20%的对应元素伤害加成。"
 		}
 	}

@@ -3,25 +3,20 @@
 	"key": "Kazuha",
 	"name": "枫原万叶",
 	"abbr": "万叶",
+	"city": "稻妻",
 	"title": "红叶逐荒波",
 	"desc": "来自稻妻的浪人武士，如今栖身于璃月船队「南十字」中。性情温和而洒脱，心中埋藏着许多往事。",
 	"astro": "枫红座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/anemo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Daoqi.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7069_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/kazuha_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/kazuha_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/kazuha_face.png"
-	},
+	"weapon": "单手剑",
+	"elem": "anemo",
+	"element": "风",
 	"stat": {
-		"baseHP": "13348",
-		"baseATK": "297",
-		"baseDEF": "807",
-		"aStat": "元素精通",
-		"aStatValue": "115"
+		"hp": "13348",
+		"atk": "297",
+		"def": "807",
+		"growStat": "元素精通",
+		"growValue": "115"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·我流剑术",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_473101.png",
 			"desc": "普通攻击\n进行至多五段的连续剑击。\n重击\n消耗一定体力，瞬间向前方挥出两剑。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。若这次下落攻击经由千早振施放，则会转为施放下落攻击\n•\n乱岚拨止。\n下落攻击\n•\n乱岚拨止\n通过元素战技\n•\n千早振施放的下落攻击，造成的伤害将转化为风元素伤害，并在落地时施展秘剑产生小型的风穴，牵引附近的物体与敌人。",
 			"attr": [
 				{
@@ -321,7 +315,6 @@
 		},
 		"e": {
 			"name": "千早振",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_473201.png",
 			"desc": "施展如同冲风般激昂的秘剑，将敌人与物体牵引至所在位置，击飞范围内的敌人，造成风元素伤害，并借由喷薄的气流如登泷般腾空而起。\n枫原万叶因元素战技\n•\n千早振而升空后的10秒内并持续处于空中时，若进行下落攻击，则会施展格外强劲的下落攻击\n•\n乱岚拨止。\n点按\n可以在空中施放。\n长按\n积蓄力量后施展，相对于点按，在更大的范围内造成更高的风元素伤害。\n下落攻击\n•\n乱岚拨止\n通过元素战技\n•\n千早振施放的下落攻击，造成的伤害将转化为风元素伤害，并在落地时施展秘剑产生小型的风穴，牵引附近的物体与敌人。\n乱岚拨止造成的伤害视为下落攻击伤害。",
 			"attr": [
 				{
@@ -395,7 +388,6 @@
 		},
 		"q": {
 			"name": "万叶之一刀",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_473901.png",
 			"desc": "施展我流的奥义，斩出初岚般的一刀，造成风元素范围伤害。\n刀风会留下名为「流风秋野」的领域，对其中的敌人造成间歇的风元素伤害。\n元素转化\n若流风秋野在持续期间接触了水元素/火元素/冰元素/雷元素，则会获得对应元素属性，额外造成该元素附加伤害。\n这种转化在技能持续期间仅会发生一次。",
 			"attr": [
 				{
@@ -495,49 +487,40 @@
 	"passive": [
 		{
 			"name": "松风霞立",
-			"desc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_472301.png"
+			"desc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。"
 		},
 		{
 			"name": "相闻之剑法",
-			"desc": "千早振在施放时，如果接触了水元素/火元素/冰元素/雷元素，则会使这次千早振的下落攻击 • 乱岚拨止，发生元素转化，将附加200%攻击力的对应元素伤害，该伤害视为下落攻击伤害。每次千早振的技能效果中，元素转化仅会发生一次。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_472101.png"
+			"desc": "千早振在施放时，如果接触了水元素/火元素/冰元素/雷元素，则会使这次千早振的下落攻击 • 乱岚拨止，发生元素转化，将附加200%攻击力的对应元素伤害，该伤害视为下落攻击伤害。每次千早振的技能效果中，元素转化仅会发生一次。"
 		},
 		{
 			"name": "风物之诗咏",
-			"desc": "枫原万叶触发扩散反应后，枫原万叶的每点元素精通，会为队伍中所有角色提供0.04%对应元素伤害加成，持续8秒。通过这种方式获得的不同元素伤害加成可以共存。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_472201.png"
+			"desc": "枫原万叶触发扩散反应后，枫原万叶的每点元素精通，会为队伍中所有角色提供0.04%对应元素伤害加成，持续8秒。通过这种方式获得的不同元素伤害加成可以共存。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "千山红遍",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_471.png",
 			"desc": "千早振的冷却时间减少10%。 施放万叶之一刀时，重置千早振的冷却时间。"
 		},
 		"2": {
 			"name": "山岚残芯",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_472.png",
 			"desc": "万叶之一刀的流风秋野具有以下效果： • 持续期间内，枫原万叶自己的元素精通提升200点； • 其中的场上角色的元素精通提升200点。 该命之座提供的元素精通提升效果无法叠加。"
 		},
 		"3": {
 			"name": "枫袖奇谭",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_473.png",
 			"desc": "千早振的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "大空幻法",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_474.png",
 			"desc": "当枫原万叶的元素能量低于45点时，具有如下效果： • 点按、长按施放千早振时，将分别为枫原万叶恢复3、4点元素能量； • 处于滑翔状态下时，每秒为枫原万叶恢复2点元素能量。"
 		},
 		"5": {
 			"name": "万世之集",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_475.png",
 			"desc": "万叶之一刀的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "血赤叶红",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_476.png",
 			"desc": "枫原万叶施放千早振或万叶之一刀后的5秒内，获得风元素附魔，并且枫原万叶的每点元素精通，都会使他的普通攻击、重击、下落攻击造成的伤害提高0.2%。"
 		}
 	}

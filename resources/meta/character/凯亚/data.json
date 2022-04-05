@@ -7,21 +7,15 @@
 	"desc": "异国面容的剑斗士，西风骑士团的头脑派人物。",
 	"astro": "孔雀羽座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/cryo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7010_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/kaeya_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/kaeya_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/kaeya_face.png"
-	},
+	"weapon": "单手剑",
+	"elem": "cryo",
+	"element": "冰",
 	"stat": {
-		"baseHP": "11636",
-		"baseATK": "223",
-		"baseDEF": "792",
-		"aStat": "元素充能效率",
-		"aStatValue": "26.7%"
+		"hp": "11636",
+		"atk": "223",
+		"def": "792",
+		"growStat": "元素充能效率",
+		"growValue": "26.7%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·仪典剑术",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_153101.png",
 			"desc": "普通攻击\n进行至多五段的连续剑击。\n重击\n消耗一定体力，瞬间向前方挥出两剑。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +314,6 @@
 		},
 		"e": {
 			"name": "霜袭",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_153201.png",
 			"desc": "瞬间放出急冻的寒气，对前方的敌人造成冰元素伤害。",
 			"attr": [
 				{
@@ -371,7 +363,6 @@
 		},
 		"q": {
 			"name": "凛冽轮舞",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_153901.png",
 			"desc": "凝聚空气中的寒霜，召唤3枚围绕自身旋转的寒冰之棱。\n存在期间内，寒冰之棱会跟随角色运动，对路径上的敌人造成冰元素伤害。",
 			"attr": [
 				{
@@ -431,49 +422,40 @@
 	"passive": [
 		{
 			"name": "隐藏的实力",
-			"desc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_152301.png"
+			"desc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。"
 		},
 		{
 			"name": "冷血之剑",
-			"desc": "霜袭每击中一个单位，便为凯亚恢复等同于攻击力15%的生命值。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_152101.png"
+			"desc": "霜袭每击中一个单位，便为凯亚恢复等同于攻击力15%的生命值。"
 		},
 		{
 			"name": "冰渊之心",
-			"desc": "霜袭使敌人冻结时，被冻结的敌人会掉落额外的元素微粒。 一次霜袭至多因此产生2个额外元素微粒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_152201.png"
+			"desc": "霜袭使敌人冻结时，被冻结的敌人会掉落额外的元素微粒。 一次霜袭至多因此产生2个额外元素微粒。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "卓越的血脉",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_151.png",
 			"desc": "对受到冰元素影响的敌人，凯亚的普通攻击与重击暴击率提升15%。"
 		},
 		"2": {
 			"name": "无尽的霜舞",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_152.png",
 			"desc": "在凛冽轮舞的持续时间内击败敌人时，持续时间延长2.5秒，最多不会超过15秒。"
 		},
 		"3": {
 			"name": "凛冽的冰戏",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_153.png",
 			"desc": "霜袭的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "极寒的轻吻",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_154.png",
 			"desc": "凯亚的生命值低于20%时自动触发： 生成一个伤害吸收量等于生命值上限30%的护盾，持续20秒。 该护盾对冰元素伤害有250%的吸收效果。 该效果每60秒只能触发一次。"
 		},
 		"5": {
 			"name": "至冷的拥抱",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_155.png",
 			"desc": "凛冽轮舞的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "轮旋的冰凌",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_156.png",
 			"desc": "凛冽轮舞会产生一个额外的寒冰之棱，并在施放时返还15点元素能量。"
 		}
 	}

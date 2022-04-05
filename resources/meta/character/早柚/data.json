@@ -3,25 +3,20 @@
 	"key": "Sayu",
 	"name": "早柚",
 	"abbr": "早柚",
+	"city": "稻妻",
 	"title": "忍里之貉",
 	"desc": "隶属于「终末番」的忍者。身形小巧，总像没睡饱一样。",
 	"astro": "小貉座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/anemo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Daoqi.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7087_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/sayu_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/sayu_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/sayu_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "anemo",
+	"element": "风",
 	"stat": {
-		"baseHP": "11854",
-		"baseATK": "244",
-		"baseDEF": "745",
-		"aStat": "元素精通",
-		"aStatValue": "96"
+		"hp": "11854",
+		"atk": "244",
+		"def": "745",
+		"growStat": "元素精通",
+		"growValue": "96"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·忍刀·终末番",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_533101.png",
 			"desc": "普通攻击\n进行至多四段的连续挥砍。\n重击\n持续消耗体力，旋转大剑攻击周围的敌人。\n停止旋转时，会进行一次格外有力的挥砍。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -325,7 +319,6 @@
 		},
 		"e": {
 			"name": "呜呼流·风隐急进",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_533201.png",
 			"desc": "忍法\n•\n呜呼流的独创奥义！以风驰电掣之势席卷战场的绝技！\n蜷缩成高速滚动的风风轮，冲撞触及的敌人造成风元素伤害，并在结束时使出风风轮舞踢，造成风元素范围伤害。\n点按\n进入风风轮状态，向前滚动一小段距离，并使出风风轮舞踢。\n长按\n以风风轮之姿持续滚动，并在该状态下提高早柚的抗打断能力。\n期间，早柚可以控制滚动的方向，并能通过再次施放技能，提前结束状态使出相比点按更为强大的风风轮舞踢。\n该技能通过长按施放时，能发生元素转化。\n持续至多10秒。效果结束时，技能将进入冷却。在风风轮状态下持续的时间越长，冷却时间越长。\n元素转化\n若早柚在风风轮状态下，接触了水元素/火元素/冰元素/雷元素，则会获得对应元素属性，使风风轮与风风轮舞踢额外造成该元素的附加伤害。\n元素转化在技能持续期间仅会发生一次。",
 			"attr": [
 				{
@@ -459,7 +452,6 @@
 		},
 		"q": {
 			"name": "呜呼流·影貉缭乱",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_533901.png",
 			"desc": "忍法\n•\n呜呼流的另一个独创奥义！能创造出替早柚干活的帮手！\n对身边的敌人造成风元素伤害，为队伍中附近的所有角色恢复生命值，回复量受益于早柚的攻击力，并召唤出「不倒貉貉」。\n不倒貉貉\n周期性地根据附近的状况，采取其中一种行动：\n•\n附近的角色如果生命值均高于70%，不倒貉貉会攻击附近的一名敌人，造成风元素伤害；\n•\n附近场上如果存在生命值低于或等于70%的角色，会为附近场上生命值百分比最低的角色恢复生命值，回复量受益于早柚的攻击力。若附近不存在敌人，即使角色的生命值均高于70%，也会为角色恢复生命值。",
 			"attr": [
 				{
@@ -579,49 +571,40 @@
 	"passive": [
 		{
 			"name": "呜呼流·屏息秘传",
-			"desc": "早柚在队伍中时，队伍中自己的角色接近晶蝶等部分生物时，不会惊动它们。 有效对象可参考图鉴中「生物志 / 野生动物」的「其他」分类。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_532301.png"
+			"desc": "早柚在队伍中时，队伍中自己的角色接近晶蝶等部分生物时，不会惊动它们。 有效对象可参考图鉴中「生物志 / 野生动物」的「其他」分类。"
 		},
 		{
 			"name": "更加合适的人选",
-			"desc": "早柚在场上触发扩散反应时，为队伍中自己的角色以及附近的友方角色恢复300点生命值。除此之外，早柚的每点元素精通将额外恢复1.2点生命值。 该效果每2秒只能触发一次。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_532101.png"
+			"desc": "早柚在场上触发扩散反应时，为队伍中自己的角色以及附近的友方角色恢复300点生命值。除此之外，早柚的每点元素精通将额外恢复1.2点生命值。 该效果每2秒只能触发一次。"
 		},
 		{
 			"name": "早柚不用工作啦",
-			"desc": "呜呼流 • 影貉缭乱的不倒貉貉获得如下效果： • 为角色恢复生命值时，将为该角色身边的其他场上角色恢复相当于回复量20%的生命值； • 攻击敌人时，扩大造成伤害的范围。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_532201.png"
+			"desc": "呜呼流 • 影貉缭乱的不倒貉貉获得如下效果： • 为角色恢复生命值时，将为该角色身边的其他场上角色恢复相当于回复量20%的生命值； • 攻击敌人时，扩大造成伤害的范围。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "一心二用之术",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_531.png",
 			"desc": "呜呼流 • 影貉缭乱的不倒貉貉的行动将忽视生命值限制，能同时攻击附近的敌人并为角色恢复生命值。"
 		},
 		"2": {
 			"name": "理清逃跑路线",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_532.png",
 			"desc": "呜呼流 • 风隐急进获得如下效果： • 点按施放时，风风轮舞踢造成的伤害提高3.3%； • 处于长按施放后的风风轮状态下时，每0.5秒，就会使这次施展的风风轮舞踢造成的伤害提高3.3%。通过这种方式，风风轮舞踢造成的伤害至多可以提高66%。"
 		},
 		"3": {
 			"name": "都交给分身吧",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_533.png",
 			"desc": "呜呼流 • 影貉缭乱的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "偷懒的新方法",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_534.png",
 			"desc": "早柚在场上触发扩散反应时，将恢复1.2点元素能量。 该效果每2秒只能触发一次。"
 		},
 		"5": {
 			"name": "快是第一奥义",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_535.png",
 			"desc": "呜呼流 • 风隐急进的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "呼呼大睡时间",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_536.png",
 			"desc": "早柚自己通过呜呼流 • 影貉缭乱召唤的不倒貉貉的攻击与回复量，受益于早柚的元素精通。早柚的每点元素精通，能产生如下效果： • 使不倒貉貉的攻击额外造成0.2%攻击力的伤害。通过这种方式至多额外造成400%攻击力的伤害； • 使不倒貉貉的回复量提高3点。通过这种方式，至多提高6000点回复量。"
 		}
 	}

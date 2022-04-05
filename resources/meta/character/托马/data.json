@@ -3,25 +3,20 @@
 	"key": "Thoma",
 	"name": "托马",
 	"abbr": "托马",
+	"city": "稻妻",
 	"title": "渡来介者",
 	"desc": "神里家的家政官，活跃在稻妻的「地头蛇」。",
 	"astro": "赤楯座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/pyro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Daoqi.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7097_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/thoma_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/thoma_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/thoma_face.png"
-	},
+	"weapon": "长柄武器",
+	"elem": "pyro",
+	"element": "火",
 	"stat": {
-		"baseHP": "10331",
-		"baseATK": "202",
-		"baseDEF": "751",
-		"aStat": "攻击力",
-		"aStatValue": "24%"
+		"hp": "10331",
+		"atk": "202",
+		"def": "751",
+		"growStat": "攻击力",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·迅破枪势",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_503101.png",
 			"desc": "普通攻击\n进行至多四段的连续枪击。\n重击\n消耗一定体力，向前方突进，对路径上的敌人造成伤害。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -301,7 +295,6 @@
 		},
 		"e": {
 			"name": "烈烧佑命之侍护",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_503201.png",
 			"desc": "托马以枪尖刺地作为支点，倾注燃焰之力，向前迅猛踢击，造成火元素范围伤害，唤出护体的烈烧佑命护盾，并在施放的瞬间，为托马施加火元素附着。\n护盾的伤害吸收量受益于托马的生命值上限。\n烈烧佑命护盾具有如下特性：\n•\n对火元素伤害有250%的吸收效果；\n•\n护盾剩余的伤害吸收量在获取新的烈烧佑命护盾时将会叠加，并刷新持续时间。\n护盾的伤害吸收量至多不超过托马生命值上限的一定比例。",
 			"attr": [
 				{
@@ -395,7 +388,6 @@
 		},
 		"q": {
 			"name": "真红炽火之大铠",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_503901.png",
 			"desc": "托马旋转长枪，以炽烈的燃焰挥斩周围的敌人，造成火元素范围伤害，并产生炽火大铠。\n炽火大铠\n处于炽火大铠效果下的当前场上角色进行普通攻击时，将触发炽火崩破，造成火元素范围伤害，并唤出护体的烈烧佑命护盾。\n炽火崩破每1秒至多触发一次。\n产生的护盾，除伤害吸收量以外，特性与元素战技「烈烧佑命之侍护」的护盾相同：\n•\n对火元素伤害有250%的吸收效果；\n•\n护盾剩余的伤害吸收量在获取新的烈烧佑命护盾时将会叠加，并刷新持续时间。\n护盾的伤害吸收量至多不超过托马生命值上限的一定比例。\n托马倒下时，将会清除炽火大铠的效果。",
 			"attr": [
 				{
@@ -499,49 +491,40 @@
 	"passive": [
 		{
 			"name": "悬鲷狩",
-			"desc": "旅行者在稻妻成功钓鱼时，因为托马的帮助，有20%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_502301.png"
+			"desc": "旅行者在稻妻成功钓鱼时，因为托马的帮助，有20%概率获得2倍产出。"
 		},
 		{
 			"name": "甲衣交叠",
-			"desc": "当前场上自己的角色获取或刷新烈烧佑命护盾时，护盾强效提升5%，持续时间6秒。 此效果每0.3秒至多触发一次，至多叠加5次。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_502101.png"
+			"desc": "当前场上自己的角色获取或刷新烈烧佑命护盾时，护盾强效提升5%，持续时间6秒。 此效果每0.3秒至多触发一次，至多叠加5次。"
 		},
 		{
 			"name": "烈火攻燔",
-			"desc": "真红炽火之大铠的炽火崩破造成的伤害提高，提高值相当于托马生命值上限的2.2%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_502201.png"
+			"desc": "真红炽火之大铠的炽火崩破造成的伤害提高，提高值相当于托马生命值上限的2.2%。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "同袍的义理",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_501.png",
 			"desc": "处于托马自己的烈烧佑命护盾庇护下的角色（除了托马自己）受到攻击时，托马自己的烈烧佑命之侍护的冷却时间减少3秒，真红炽火之大铠的冷却时间减少3秒。 该效果每20秒至多触发一次。"
 		},
 		"2": {
 			"name": "僚佐的才巧",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_502.png",
 			"desc": "真红炽火之大铠的持续时间延长3秒。"
 		},
 		"3": {
 			"name": "御敌的执定",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_503.png",
 			"desc": "烈烧佑命之侍护的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "用臣的久计",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_504.png",
 			"desc": "施放真红炽火之大铠后，为托马恢复15点元素能量。"
 		},
 		"5": {
 			"name": "野火的豪烈",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_505.png",
 			"desc": "真红炽火之大铠的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "炽烧的至心",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_506.png",
 			"desc": "获取或刷新烈烧佑命护盾时，队伍中所有角色的普通攻击，重击与下落攻击造成的伤害提升15%，持续6秒。"
 		}
 	}

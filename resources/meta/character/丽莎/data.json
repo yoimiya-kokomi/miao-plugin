@@ -7,21 +7,15 @@
 	"desc": "慵懒而博学的图书管理员，须弥教令院「两百年一见」的天才毕业生。",
 	"astro": "沙漏座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/electro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7011_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/lisa_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/lisa_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/lisa_face.png"
-	},
+	"weapon": "法器",
+	"elem": "electro",
+	"element": "雷",
 	"stat": {
-		"baseHP": "9570",
-		"baseATK": "232",
-		"baseDEF": "573",
-		"aStat": "元素精通",
-		"aStatValue": "96"
+		"hp": "9570",
+		"atk": "232",
+		"def": "573",
+		"growStat": "元素精通",
+		"growValue": "96"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·指尖雷暴",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
 			"desc": "普通攻击\n进行至多四段的电击，造成雷元素伤害。\n重击\n消耗一定体力，短暂咏唱后，造成雷元素范围伤害。\n下落攻击\n凝聚雷电的力量，从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成雷元素范围伤害。",
 			"attr": [
 				{
@@ -301,7 +294,6 @@
 		},
 		"e": {
 			"name": "苍雷",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_43201.png",
 			"desc": "导引雷电的力量，把麻烦的东西都清理干净。\n点按\n放出能自行索敌的球形闪电。\n命中时，会造成雷元素伤害，并对小范围内的敌人施加至多叠加3层的引雷状态。\n长按\n持续咏唱后，召唤雷电从天而降，对附近的所有敌人造成大量雷元素伤害。\n对处于引雷状态下的敌人，会根据叠加层数造成大量额外伤害，并清除引雷效果。",
 			"attr": [
 				{
@@ -435,7 +427,6 @@
 		},
 		"q": {
 			"name": "蔷薇的雷光",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_43901.png",
 			"desc": "召唤蔷薇雷光，释放强大的雷电之力，击退周围的敌人并造成雷元素伤害。\n存在期间内，蔷薇雷光会持续放电攻击附近的敌人，造成雷元素伤害。",
 			"attr": [
 				{
@@ -495,49 +486,40 @@
 	"passive": [
 		{
 			"name": "药剂通识",
-			"desc": "合成药剂时，有20%概率返还部分合成材料。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_42301.png"
+			"desc": "合成药剂时，有20%概率返还部分合成材料。"
 		},
 		{
 			"name": "电感余震",
-			"desc": "重击命中时，会为敌人附加苍雷的引雷效果。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_42101.png"
+			"desc": "重击命中时，会为敌人附加苍雷的引雷效果。"
 		},
 		{
 			"name": "静电场力",
-			"desc": "敌人受到蔷薇的雷光攻击后，降低15%防御力，持续10秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_42201.png"
+			"desc": "敌人受到蔷薇的雷光攻击后，降低15%防御力，持续10秒。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "无限的电回路",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_41.png",
 			"desc": "苍雷长按时，每个命中的敌人都会为丽莎恢复2点元素能量。 通过这种方式，一次至多回复10点元素能量。"
 		},
 		"2": {
 			"name": "空间电势结界",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_42.png",
 			"desc": "苍雷长按时，具有如下效果： • 防御力提升25%； • 提高丽莎的抗打断能力。"
 		},
 		"3": {
 			"name": "谐振的雷光",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_43.png",
 			"desc": "蔷薇的雷光的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "如雨的电浆",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_44.png",
 			"desc": "蔷薇的雷光攻击时，放出的闪电增加至1~3道。"
 		},
 		"5": {
 			"name": "等离态的落雷",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_45.png",
 			"desc": "苍雷的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "脉冲的魔女",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_46.png",
 			"desc": "丽莎登场时，对附近的敌人施加3层苍雷的引雷效果。 该效果每5秒只能触发一次。"
 		}
 	}

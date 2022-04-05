@@ -3,25 +3,20 @@
 	"key": "Itto",
 	"name": "荒泷一斗",
 	"abbr": "一斗",
+	"city": "稻妻",
 	"title": "花坂豪快",
 	"desc": "活跃在稻妻城花见坂的「荒泷派」初代目头领。什么，从没听说过荒泷派？你是想找茬吗？",
 	"astro": "天牛座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/geo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Daoqi.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7101_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/itto_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/itto_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/itto_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "geo",
+	"element": "岩",
 	"stat": {
-		"baseHP": "12858",
-		"baseATK": "227",
-		"baseDEF": "959",
-		"aStat": "暴击率",
-		"aStatValue": "19.2%"
+		"hp": "12858",
+		"atk": "227",
+		"def": "959",
+		"growStat": "暴击率",
+		"growValue": "19.2%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击· 喧哗屋传说",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_573101.png",
 			"desc": "普通攻击\n进行至多四段的连续挥砍。\n在第二段与第四段攻击命中敌人时，会分别产生1层与2层「乱神之怪力」效果。\n最多拥有5层乱神之怪力，每次触发都会刷新已有的乱神之怪力持续时间。\n此外，施放元素战技「魔杀绝技\n•\n赤牛发破！」或进行冲刺后的一小段时间内，普通攻击连击段数不会重置。\n重击\n长按进行重击时，若拥有乱神之怪力，将进行不消耗体力的「荒泷逆袈裟」斩击。荒泷逆袈裟的每次攻击都将消耗一层乱神之怪力；消耗最后一层时，将施展格外强力的终结一击。\n没有乱神之怪力时，将消耗体力，进行一次猛烈的左一文字斩。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -345,7 +339,6 @@
 		},
 		"e": {
 			"name": "魔杀绝技·赤牛发破！",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_573201.png",
 			"desc": "将荒泷派编外成员小赤牛「阿丑」高速投掷出去，对命中的敌人造成岩元素伤害！「阿丑」命中敌人时，会为荒泷一斗提供1层「乱神之怪力」效果。\n「阿丑」会留在场上提供支援：\n•\n持续嘲讽周围的敌人，吸引火力；\n•\n耐久度按比例继承荒泷一斗的生命值上限；\n•\n受到伤害时，会为荒泷一斗自己提供1层「乱神之怪力」效果。每2秒至多通过这种方式提供1层；\n•\n耐久度耗尽或持续时间结束时会逃走，并在离开时为荒泷一斗自己提供1层「乱神之怪力」效果。\n长按\n调整投掷方向。\n「阿丑」被视为岩元素创造物；同时只能存在一个由荒泷一斗自己召唤的「阿丑」。",
 			"attr": [
 				{
@@ -403,7 +396,6 @@
 		},
 		"q": {
 			"name": "最恶鬼王·一斗轰临！！",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_573901.png",
 			"desc": "是时候展现荒泷派的一斗之威名了！在接下来的一段时间内化身「怒目鬼王」，使用鬼王金碎棒战斗。\n具有如下特性：\n•\n普通攻击、重击与下落攻击造成的伤害转为无法被附魔覆盖的岩元素伤害；\n•\n提高荒泷一斗普通攻击的攻击速度，并基于其防御力，提高攻击力；\n•\n第一与第三段攻击在命中敌人时，将为荒泷一斗自己提供1层「乱神之怪力」效果；\n•\n荒泷一斗的所有元素抗性与物理抗性降低20%。\n「怒目鬼王」状态将在荒泷一斗退场时解除。",
 			"attr": [
 				{
@@ -467,49 +459,40 @@
 	"passive": [
 		{
 			"name": "干裂枝碎",
-			"desc": "队伍中自己的角色通过攻击树木获取木材时，有25%的几率获得额外的木材。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_572301.png"
+			"desc": "队伍中自己的角色通过攻击树木获取木材时，有25%的几率获得额外的木材。"
 		},
 		{
 			"name": "荒泷第一",
-			"desc": "荒泷一斗施展连续的「荒泷逆袈裟」时，获得以下效果： • 每次斩击都将使接下来的斩击攻击速度提升10%，通过这种方法至多提升30%； • 提升抗打断能力。 这些效果将在连续施展结束时消失。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_572101.png"
+			"desc": "荒泷一斗施展连续的「荒泷逆袈裟」时，获得以下效果： • 每次斩击都将使接下来的斩击攻击速度提升10%，通过这种方法至多提升30%； • 提升抗打断能力。 这些效果将在连续施展结束时消失。"
 		},
 		{
 			"name": "赤鬼之血",
-			"desc": "「荒泷逆袈裟」造成的伤害提高，伤害提高值基于荒泷一斗防御力的35%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_572201.png"
+			"desc": "「荒泷逆袈裟」造成的伤害提高，伤害提高值基于荒泷一斗防御力的35%。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "倘若不知，我讲你听",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_571.png",
 			"desc": "施放最恶鬼王 • 一斗轰临！！后，荒泷一斗获得2层「乱神之怪力」效果。1秒后，荒泷一斗每0.5秒再获得1层「乱神之怪力」效果，持续1.5秒。"
 		},
 		"2": {
 			"name": "纠集众人，斗倒御岳",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_572.png",
 			"desc": "施放最恶鬼王 • 一斗轰临！！后，队伍中每个元素类型为岩元素的角色，都将使其冷却时间减少1.5秒，使荒泷一斗的元素能量恢复6点。 通过这种方式，至多减少4.5秒冷却时间，恢复18点元素能量。"
 		},
 		"3": {
 			"name": "水陆自在，牛王同行",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_573.png",
 			"desc": "魔杀绝技 • 赤牛发破！的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "奉行牢狱，茶饭之所",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_574.png",
 			"desc": "最恶鬼王 • 一斗轰临！！施加的「怒目鬼王」状态结束后，附近的队伍中所有角色的防御力提升20%，攻击力提升20%，持续10秒。"
 		},
 		"5": {
 			"name": "十年花坂，皆知我名",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_575.png",
 			"desc": "最恶鬼王 • 一斗轰临！！的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "在下荒泷一斗是也",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_576.png",
 			"desc": "荒泷一斗的重击的暴击伤害提高70%；此外，施展「荒泷逆袈裟」时，有50%的几率不消耗「乱神之怪力」。"
 		}
 	}

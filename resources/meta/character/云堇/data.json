@@ -3,25 +3,20 @@
 	"key": "YunJin",
 	"name": "云堇",
 	"abbr": "云堇",
+	"city": "璃月",
 	"title": "红毹婵娟",
 	"desc": "集剧作与演唱能力于一身的璃月戏曲名角。风格自成一派，雅致柔美，恰如其人。",
 	"astro": "虹章座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/geo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7104_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/yunjin_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/yunjin_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/yunjin_face.png"
-	},
+	"weapon": "长柄武器",
+	"elem": "geo",
+	"element": "岩",
 	"stat": {
-		"baseHP": "10657",
-		"baseATK": "191",
-		"baseDEF": "734",
-		"aStat": "元素充能效率",
-		"aStatValue": "26.7%"
+		"hp": "10657",
+		"atk": "191",
+		"def": "734",
+		"growStat": "元素充能效率",
+		"growValue": "26.7%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·拂云出手",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_643101.png",
 			"desc": "普通攻击\n进行至多五段的连续枪击。\n重击\n消耗一定体力，向前方突进，对路径上的敌人造成伤害。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +315,6 @@
 		},
 		"e": {
 			"name": "旋云开相",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_643201.png",
 			"desc": "云先生的武戏架势，是真能御敌的。\n点按\n以拨云之势旋舞长枪，造成岩元素伤害。\n长按\n摆出旋云开相之架势蓄力，形成护盾，伤害吸收量受益于云堇的生命值上限，对所有元素伤害与物理伤害有150%的吸收效果。护盾持续至元素战技施放完毕。\n松开技能、持续时间结束时，或护盾被破坏时，会挥舞长枪释放积攒的力量进行攻击，造成岩元素伤害。\n依据蓄力的时间，释放时的状态将分为一段蓄力与二段蓄力。",
 			"attr": [
 				{
@@ -431,7 +424,6 @@
 		},
 		"q": {
 			"name": "破嶂见旌仪",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_643901.png",
 			"desc": "造成岩元素范围伤害，并为附近的队伍中所有角色赋予「飞云旗阵」。\n飞云旗阵\n对敌人造成普通攻击伤害时，基于云堇自己当前的防御力，提高造成的伤害。\n「飞云旗阵」效果会在持续时间结束或生效一定次数后消失。\n一次普通攻击同时命中多名敌人时，会依据命中敌人的数量消耗生效次数；队伍中具有「飞云旗阵」的角色，其生效次数单独计算。",
 			"attr": [
 				{
@@ -515,49 +507,40 @@
 	"passive": [
 		{
 			"name": "清食养性",
-			"desc": "完美烹饪冒险类食物时，有12%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_642301.png"
+			"desc": "完美烹饪冒险类食物时，有12%概率获得2倍产出。"
 		},
 		{
 			"name": "务守本真",
-			"desc": "在被攻击瞬间施放的旋云开相，会以长按二段蓄力的形式施放。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_642101.png"
+			"desc": "在被攻击瞬间施放的旋云开相，会以长按二段蓄力的形式施放。"
 		},
 		{
 			"name": "莫从恒蹊",
-			"desc": "「飞云旗阵」提供的普通攻击伤害提高，当队伍中存在1/2/3/4种元素类型的角色时，数值上进一步追加云堇防御力的2.5%/5%/7.5%/11.5%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_642201.png"
+			"desc": "「飞云旗阵」提供的普通攻击伤害提高，当队伍中存在1/2/3/4种元素类型的角色时，数值上进一步追加云堇防御力的2.5%/5%/7.5%/11.5%。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "飞身趟马",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_641.png",
 			"desc": "旋云开相的冷却时间减少18%。"
 		},
 		"2": {
 			"name": "诸般切末",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_642.png",
 			"desc": "施放破嶂见旌仪后，附近队伍中所有角色普通攻击造成的伤害提升15%，持续12秒。"
 		},
 		"3": {
 			"name": "牙纛探海",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_643.png",
 			"desc": "破嶂见旌仪的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "昇堂吊云",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_644.png",
 			"desc": "云堇触发结晶反应后，防御力提升20%，持续12秒。"
 		},
 		"5": {
 			"name": "翘楚名坤",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_645.png",
 			"desc": "旋云开相的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "庄谐并举",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_646.png",
 			"desc": "处于「飞云旗阵」状态下的角色，普通攻击的攻击速度提升12%。"
 		}
 	}

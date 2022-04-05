@@ -3,25 +3,20 @@
 	"key": "ShenHe",
 	"name": "申鹤",
 	"abbr": "申鹤",
+	"city": "璃月",
 	"title": "孤辰茕怀",
 	"desc": "气质出尘的仙家子弟。隐修在璃月群山之间，个性也如仙人般淡漠疏离。",
 	"astro": "愁疏座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/cryo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7103_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/shenhe_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/shenhe_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/shenhe_face.png"
-	},
+	"weapon": "长柄武器",
+	"elem": "cryo",
+	"element": "冰",
 	"stat": {
-		"baseHP": "12993",
-		"baseATK": "304",
-		"baseDEF": "830",
-		"aStat": "攻击力",
-		"aStatValue": "28.8%"
+		"hp": "12993",
+		"atk": "304",
+		"def": "830",
+		"growStat": "攻击力",
+		"growValue": "28.8%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·踏辰摄斗",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_633101.png",
 			"desc": "普通攻击\n进行至多五段的连续枪击。\n重击\n消耗一定体力，向前方突进，对路径上的敌人造成伤害。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +315,6 @@
 		},
 		"e": {
 			"name": "仰灵威召将役咒",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_633201.png",
 			"desc": "凝叠银之霜露，摒退一切邪魔。\n为队伍中附近的所有角色施加「冰翎」效果，并依据点按、长按，以不同的方式造成冰元素伤害。\n点按\n与「箓灵」一同向前突进，对路径上的敌人造成冰元素伤害。\n长按\n律令「箓灵」，造成冰元素范围伤害。\n冰翎\n普通攻击、重击、下落攻击、元素战技和元素爆发伤害对敌人造成冰元素伤害时，基于申鹤自己当前的攻击力，提高造成的伤害。\n「冰翎」效果会在持续时间结束或生效一定次数后消失。长按施加的「冰翎」相比点按，拥有更长的持续时间与更多的生效次数。\n一次冰元素伤害同时命中多名敌人时，会依据命中敌人的数量消耗生效次数；队伍中具有「冰翎」的角色，其生效次数单独计算。",
 			"attr": [
 				{
@@ -423,7 +416,6 @@
 		},
 		"q": {
 			"name": "神女遣灵真诀",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_633901.png",
 			"desc": "解放「箓灵」的力量，驱使其驰骋世间，造成冰元素范围伤害。\n「箓灵」将结成领域，使其中敌人的冰元素抗性与物理抗性降低，并持续对其中的敌人造成冰元素伤害。",
 			"attr": [
 				{
@@ -523,49 +515,40 @@
 	"passive": [
 		{
 			"name": "来复知时",
-			"desc": "在璃月执行时长为20小时的探索派遣任务时，获得的奖励增加25%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_632301.png"
+			"desc": "在璃月执行时长为20小时的探索派遣任务时，获得的奖励增加25%。"
 		},
 		{
 			"name": "大洞弥罗尊法",
-			"desc": "处于神女遣灵真诀的领域中的当前场上角色，冰元素伤害加成提高15%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_632101.png"
+			"desc": "处于神女遣灵真诀的领域中的当前场上角色，冰元素伤害加成提高15%。"
 		},
 		{
 			"name": "缚灵通真法印",
-			"desc": "申鹤施放仰灵威召将役咒后，将使附近的队伍中所有角色获得如下效果： • 点按：元素战技和元素爆发造成的伤害提高15%，持续10秒； • 长按：普通攻击、重击和下落攻击造成的伤害提高15%，持续15秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_632201.png"
+			"desc": "申鹤施放仰灵威召将役咒后，将使附近的队伍中所有角色获得如下效果： • 点按：元素战技和元素爆发造成的伤害提高15%，持续10秒； • 长按：普通攻击、重击和下落攻击造成的伤害提高15%，持续15秒。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "心斋",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_631.png",
 			"desc": "仰灵威召将役咒的可使用次数增加1次。"
 		},
 		"2": {
 			"name": "定蒙",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_632.png",
 			"desc": "神女遣灵真诀的持续时间延长6秒。领域中的当前场上角色，冰元素伤害的暴击伤害提高15%。"
 		},
 		"3": {
 			"name": "潜虚",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_633.png",
 			"desc": "仰灵威召将役咒的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "洞观",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_634.png",
 			"desc": "处于申鹤自己施加的「冰翎」状态下的角色，触发「冰翎」的伤害增加时，申鹤将获得一层「霜霄诀」： • 申鹤施放仰灵威召将役咒时，将清除所有「霜霄诀」，并根据清除的层数，每层使本次仰灵威召将役咒造成的伤害提高5%； • 该效果至多叠加50次，持续60秒。"
 		},
 		"5": {
 			"name": "化神",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_635.png",
 			"desc": "神女遣灵真诀的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "忘玄",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_636.png",
 			"desc": "角色通过普通攻击伤害与重击伤害触发「冰翎」的效果时，将不再会减少「冰翎」的生效次数。"
 		}
 	}

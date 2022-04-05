@@ -3,25 +3,20 @@
 	"key": "Xinyan",
 	"name": "辛焱",
 	"abbr": "辛焱",
+	"city": "璃月",
 	"title": "燥热旋律",
 	"desc": "璃月港唯一的摇滚乐手，以音乐和热情歌颂着对「成见」的反抗。",
 	"astro": "红檀四弦座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/pyro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7041_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/xinyan_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/xinyan_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/xinyan_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "pyro",
+	"element": "火",
 	"stat": {
-		"baseHP": "11201",
-		"baseATK": "249",
-		"baseDEF": "799",
-		"aStat": "攻击力",
-		"aStatValue": "24%"
+		"hp": "11201",
+		"atk": "249",
+		"def": "799",
+		"growStat": "攻击力",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·炎舞",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_443101.png",
 			"desc": "普通攻击\n进行至多四段的连续挥砍。\n重击\n持续消耗体力，旋转大剑攻击周围的敌人。\n停止旋转时，会进行一次格外有力的挥砍。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -325,7 +319,6 @@
 		},
 		"e": {
 			"name": "热情拂扫",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_443201.png",
 			"desc": "辛焱挥动乐器，对周围的敌人造成火元素伤害，并借由「观众」的「热情」，形成护盾。\n护盾的伤害吸收量受益于辛焱的防御力，并基于命中敌人的数目：\n•\n未命中或命中一名敌人：一级护盾\n•\n散序节拍；\n•\n命中二名敌人：二级护盾\n•\n歌头节拍；\n•\n命中三名或更多敌人时，将产生三级护盾\n•\n舞遍节拍。除了吸收伤害，还会间歇性对周围的敌人造成火元素伤害。\n护盾具有如下特性：\n•\n施放的瞬间，为辛焱施加火元素附着；\n•\n对火元素伤害有250%的吸收效果。",
 			"attr": [
 				{
@@ -459,7 +452,6 @@
 		},
 		"q": {
 			"name": "叛逆刮弦",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_443901.png",
 			"desc": "迅速扫弦引发音波，击退敌人，对周围的敌人造成物理伤害，激起「舞台」上的氛围。\n因为氛围实在太过炙烈，所以会引起烈焰，对周围的敌人持续造成火元素伤害。",
 			"attr": [
 				{
@@ -539,49 +531,40 @@
 	"passive": [
 		{
 			"name": "摇滚的食谱",
-			"desc": "完美烹饪防御类食物时，有12%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_442301.png"
+			"desc": "完美烹饪防御类食物时，有12%概率获得2倍产出。"
 		},
 		{
 			"name": "「没听众也要演奏…」",
-			"desc": "减少热情拂扫的护盾所需的命中敌人数量： • 二级护盾 • 歌头节拍：命中一名敌人； • 三级护盾 • 舞遍节拍：命中二名或更多敌人。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_442101.png"
+			"desc": "减少热情拂扫的护盾所需的命中敌人数量： • 二级护盾 • 歌头节拍：命中一名敌人； • 三级护盾 • 舞遍节拍：命中二名或更多敌人。"
 		},
 		{
 			"name": "「…这才是摇滚！」",
-			"desc": "处于热情拂扫的护盾保护下的角色造成的物理伤害提高15%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_442201.png"
+			"desc": "处于热情拂扫的护盾保护下的角色造成的物理伤害提高15%。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "绝命的加速",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_441.png",
 			"desc": "辛焱造成暴击后的5秒内，普通攻击和重击的攻击速度提升12%。 该效果每5秒只能触发一次。"
 		},
 		"2": {
 			"name": "开场即兴段",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_442.png",
 			"desc": "叛逆刮弦造成的物理伤害暴击率提升100%，并会在施放时形成三级护盾 • 舞遍节拍。"
 		},
 		"3": {
 			"name": "摭分的指法",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_443.png",
 			"desc": "热情拂扫的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "节奏的传染",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_444.png",
 			"desc": "热情拂扫的挥舞伤害，会使敌人的物理抗性降低15%，持续12秒。"
 		},
 		"5": {
 			"name": "返场的高呼",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_445.png",
 			"desc": "叛逆刮弦的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "地狱里摇摆",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_446.png",
 			"desc": "辛焱的重击的体力消耗降低30%；此外，进行重击时，将基于防御力的50%获得攻击力加成。"
 		}
 	}

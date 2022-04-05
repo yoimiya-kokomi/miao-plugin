@@ -7,21 +7,15 @@
 	"desc": "坐拥蒙德大半酒业的贵公子，财力、人望、能力都令人无法小觑。",
 	"astro": "夜枭座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/pyro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7005_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/diluc_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/diluc_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/diluc_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "pyro",
+	"element": "火",
 	"stat": {
-		"baseHP": "12981",
-		"baseATK": "335",
-		"baseDEF": "784",
-		"aStat": "暴击率",
-		"aStatValue": "19.2%"
+		"hp": "12981",
+		"atk": "335",
+		"def": "784",
+		"growStat": "暴击率",
+		"growValue": "19.2%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·淬炼之剑",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
 			"desc": "普通攻击\n进行至多四段的连续挥砍。\n重击\n持续消耗体力，快速进行连续的斩击。\n重击结束时，会进行一次格外有力的挥砍。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -325,7 +318,6 @@
 		},
 		"e": {
 			"name": "逆焰之刃",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_163201.png",
 			"desc": "挥舞大剑向前劈砍，造成火元素伤害。\n可以连续施放3次。\n若在短时间内没有施放，则会进入冷却。",
 			"attr": [
 				{
@@ -415,7 +407,6 @@
 		},
 		"q": {
 			"name": "黎明",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_163901.png",
 			"desc": "爆发出烈焰的力量，击退周围的敌人，造成火元素伤害。随后，将烈焰凝聚在武器上，挥出向前飞行的火之鸟，对路径上的敌人造成高额火元素伤害，并在火之鸟行进的终点爆裂造成大量的火元素范围伤害。\n武器上凝聚的烈焰会使迪卢克获得火元素附魔。",
 			"attr": [
 				{
@@ -515,49 +506,40 @@
 	"passive": [
 		{
 			"name": "晨曦的传统",
-			"desc": "锻造双手剑类武器时，返还15%消耗的矿石。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_162301.png"
+			"desc": "锻造双手剑类武器时，返还15%消耗的矿石。"
 		},
 		{
 			"name": "永不休止",
-			"desc": "迪卢克的重击体力消耗降低50%，最大持续时间增加3秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_162101.png"
+			"desc": "迪卢克的重击体力消耗降低50%，最大持续时间增加3秒。"
 		},
 		{
 			"name": "熔毁之翼",
-			"desc": "黎明提供的火元素附魔持续时间延长4秒；此外，在效果持续期间，迪卢克获得20%火元素伤害加成。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_162201.png"
+			"desc": "黎明提供的火元素附魔持续时间延长4秒；此外，在效果持续期间，迪卢克获得20%火元素伤害加成。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "罪罚裁断",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_161.png",
 			"desc": "对生命值高于50%的敌人，迪卢克造成的伤害提高15%。"
 		},
 		"2": {
 			"name": "炙热余烬",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_162.png",
 			"desc": "迪卢克受到伤害时，攻击力提高10%，攻击速度提高5%，持续10秒。 该效果至多叠加3次，每1.5秒只能触发一次。"
 		},
 		"3": {
 			"name": "钢铁炽焰",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_163.png",
 			"desc": "逆焰之刃的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "流火焦灼",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_164.png",
 			"desc": "有节奏地释放逆焰之刃可以大幅提升造成的伤害。 施放逆焰之刃的2秒后，使下一段逆焰之刃的伤害提高40%，持续2秒。"
 		},
 		"5": {
 			"name": "昭告黎明的火之鸟",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_165.png",
 			"desc": "黎明的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "清算黑暗的炎之剑",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_166.png",
 			"desc": "施放逆焰之刃后，接下来6秒内的2次普通攻击速度提升30%，造成的伤害提高30%。 此外，逆焰之刃不再重置普通攻击连击段数。"
 		}
 	}

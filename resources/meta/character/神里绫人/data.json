@@ -3,25 +3,20 @@
 	"key": "Ayato",
 	"name": "神里绫人",
 	"abbr": "绫人",
+	"city": "稻妻",
 	"title": "磐祭叶守",
 	"desc": "社奉行神里家年轻有为的现任家主，为人温雅有礼，处事颇有手段。",
 	"astro": "神守柏座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/hydro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Daoqi.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7110_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/ayato_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/ayato_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/ayato_face.png"
-	},
+	"weapon": "单手剑",
+	"elem": "hydro",
+	"element": "水",
 	"stat": {
-		"baseHP": "13446",
-		"baseATK": "285",
-		"baseDEF": "815",
-		"aStat": "暴击伤害",
-		"aStatValue": "38.4%"
+		"hp": "13446",
+		"atk": "285",
+		"def": "815",
+		"growStat": "暴击伤害",
+		"growValue": "38.4%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·神里流·转",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_663101.png",
 			"desc": "普通攻击\n进行至多五段的连续剑击。\n重击\n消耗一定体力，向前冲刺并施展居合。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +315,6 @@
 		},
 		"e": {
 			"name": "神里流·镜花",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_663201.png",
 			"desc": "神里绫人垫步移动并在原本的位置留下水影，并进入「泷廻鉴花」状态。\n水影会持续嘲讽周围的敌人，并在受到攻击或持续时间结束后破裂，造成水元素范围伤害。\n泷廻鉴花\n在此状态下，神里绫人将使用瞬水剑进行迅速的攻击，将普通攻击造成的伤害转为无法被附魔覆盖的水元素范围伤害。\n此外，具有如下效果：\n•\n瞬水剑攻击命中敌人后，将为神里绫人赋予「浪闪」效果，基于神里绫人自己当前的生命值上限，提升瞬水剑造成的伤害。浪闪初始至多叠加4层，每0.1秒至多通过瞬水剑攻击获得一层，将在泷廻鉴花状态结束时消失。\n•\n提高神里绫人的抗打断能力；\n•\n无法施放重击与下落攻击。\n泷廻鉴花状态将在神里绫人退场时解除；处于泷廻鉴花状态下时再次施放神里流\n•\n镜花，将移除已有的泷廻鉴花状态。",
 			"attr": [
 				{
@@ -467,7 +460,6 @@
 		},
 		"q": {
 			"name": "神里流·水囿",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_663901.png",
 			"desc": "展开清净之园囿，熄灭其中一切嚣闹。\n存在期间，其中会持续降下水花剑，攻击范围内的敌人，造成水元素伤害，并提高其中的角色（除了神里绫人自己）的攻击速度。",
 			"attr": [
 				{
@@ -547,49 +539,40 @@
 	"passive": [
 		{
 			"name": "神里流·日常茶饭",
-			"desc": "完美烹饪食物时，有18%概率额外获得一个「奇怪的」品质的同种料理。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_662301.png"
+			"desc": "完美烹饪食物时，有18%概率额外获得一个「奇怪的」品质的同种料理。"
 		},
 		{
 			"name": "神里流·清泷绕峰",
-			"desc": "神里流 • 镜花具有如下效果： • 施放后，神里绫人会获得2层浪闪效果； • 水影受到攻击而破裂后，神里绫人将获得等同于叠加上限层数的浪闪效果。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_662101.png"
+			"desc": "神里流 • 镜花具有如下效果： • 施放后，神里绫人会获得2层浪闪效果； • 水影受到攻击而破裂后，神里绫人将获得等同于叠加上限层数的浪闪效果。"
 		},
 		{
 			"name": "神里流·活水穿石",
-			"desc": "神里流 • 水囿造成的伤害提高，提高值相当于神里绫人生命值上限的3%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_662201.png"
+			"desc": "神里流 • 水囿造成的伤害提高，提高值相当于神里绫人生命值上限的3%。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "镜华风姿",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_661.png",
 			"desc": "对于生命值低于或等于50%的敌人，瞬水剑造成的伤害提升40%。"
 		},
 		"2": {
 			"name": "世有源泉",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_662.png",
 			"desc": "浪闪叠加上限提升至5层；神里绫人处于至少3层浪闪状态下时，将提升40%生命值上限。"
 		},
 		"3": {
 			"name": "无意弄花",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_663.png",
 			"desc": "神里流 • 镜花的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "不厌细流",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_664.png",
 			"desc": "施放神里流 • 水囿后，队伍中附近的角色（除了神里绫人自己）普通攻击造成的伤害提升20%，持续12秒。"
 		},
 		"5": {
 			"name": "万水一露",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_665.png",
 			"desc": "神里流 • 水囿的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "滥觞无底",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_666.png",
 			"desc": "施放神里流 • 镜花之后，神里绫人的下一次瞬水剑攻击命中敌人时，将进行2次额外的瞬水剑攻击，各自能造成神里绫人攻击力300%的伤害。 此两次瞬水剑攻击不会受到浪闪的增益。"
 		}
 	}

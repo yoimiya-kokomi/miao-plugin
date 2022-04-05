@@ -3,25 +3,20 @@
 	"key": "Xiao",
 	"name": "魈",
 	"abbr": "魈",
+	"city": "璃月",
 	"title": "护法夜叉",
 	"desc": "守护璃月的仙人，「夜叉」。美号「降魔大圣」，妙称「护法夜叉大将」。",
 	"astro": "金翅鹏王座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_233101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/anemo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7054_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/xiao_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/xiao_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/xiao_face.png"
-	},
+	"weapon": "长柄武器",
+	"elem": "anemo",
+	"element": "风",
 	"stat": {
-		"baseHP": "12736",
-		"baseATK": "349",
-		"baseDEF": "799",
-		"aStat": "暴击率",
-		"aStatValue": "19.2%"
+		"hp": "12736",
+		"atk": "349",
+		"def": "799",
+		"growStat": "暴击率",
+		"growValue": "19.2%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·卷积微尘",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_263101.png",
 			"desc": "普通攻击\n进行至多六段的连续枪击。\n重击\n消耗一定体力，进行上挑攻击。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。\n魈进行下落攻击时，不会承受坠落伤害。",
 			"attr": [
 				{
@@ -341,7 +335,6 @@
 		},
 		"e": {
 			"name": "风轮两立",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_263201.png",
 			"desc": "疾速突进，对路径上的敌人造成风元素伤害。\n可以在空中施放。\n初始拥有2次可使用次数。",
 			"attr": [
 				{
@@ -391,7 +384,6 @@
 		},
 		"q": {
 			"name": "靖妖傩舞",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_263901.png",
 			"desc": "展现数千年前令神魔精妖睹之胆颤的夜叉傩面。\n夜叉傩面\n•\n大幅提升魈的跳跃能力；\n•\n提高攻击范围与攻击伤害；\n•\n将攻击伤害转为风元素伤害，该元素转化无法被附魔覆盖。\n在这个状态下，魈会持续损失生命值。\n效果将在魈退场时解除。",
 			"attr": [
 				{
@@ -471,49 +463,40 @@
 	"passive": [
 		{
 			"name": "神通·空中自在法",
-			"desc": "队伍中自己的角色攀爬消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_262301.png"
+			"desc": "队伍中自己的角色攀爬消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。"
 		},
 		{
 			"name": "降魔·平妖大圣",
-			"desc": "在靖妖傩舞状态下，魈造成的所有伤害提高5%。此后，在技能持续时间内，每经过3秒，造成的伤害再额外提高5%。 至多获得25%伤害加成。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_262101.png"
+			"desc": "在靖妖傩舞状态下，魈造成的所有伤害提高5%。此后，在技能持续时间内，每经过3秒，造成的伤害再额外提高5%。 至多获得25%伤害加成。"
 		},
 		{
 			"name": "坏劫·国土碾尘",
-			"desc": "施放风轮两立会使之后7秒内的风轮两立造成的伤害提高15%。 该效果持续7秒，最多叠加3次，叠加时刷新持续时间。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_262201.png"
+			"desc": "施放风轮两立会使之后7秒内的风轮两立造成的伤害提高15%。 该效果持续7秒，最多叠加3次，叠加时刷新持续时间。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "坏劫·毁坏三界",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_261.png",
 			"desc": "风轮两立的可使用次数增加1次。"
 		},
 		"2": {
 			"name": "空劫·虚空华开敷变",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_262.png",
 			"desc": "处于队伍后台时，魈自己的元素充能效率提高25%。"
 		},
 		"3": {
 			"name": "降魔·忿怒显相",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_263.png",
 			"desc": "风轮两立的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "神通·诸苦灭尽",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_264.png",
 			"desc": "魈的生命值低于50%时，获得100%防御力提升。"
 		},
 		"5": {
 			"name": "成劫·无明增长",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_265.png",
 			"desc": "靖妖傩舞的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "降魔·护法夜叉",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_266.png",
 			"desc": "在靖妖傩舞状态下，下落攻击命中至少2个敌人时，风轮两立立刻获得1次可使用次数，并且在接下来1秒内，可以无视冷却时间施放风轮两立。"
 		}
 	}

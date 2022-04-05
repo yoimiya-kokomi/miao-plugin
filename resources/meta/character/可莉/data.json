@@ -7,21 +7,15 @@
 	"desc": "西风骑士团禁闭室的常客，蒙德的爆破大师。人称「逃跑的太阳」。",
 	"astro": "四叶草座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_43101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/pyro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7004_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/klee_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/klee_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/klee_face.png"
-	},
+	"weapon": "法器",
+	"elem": "pyro",
+	"element": "火",
 	"stat": {
-		"baseHP": "10287",
-		"baseATK": "311",
-		"baseDEF": "615",
-		"aStat": "火元素伤害加成",
-		"aStatValue": "28.8%"
+		"hp": "10287",
+		"atk": "311",
+		"def": "615",
+		"growStat": "火元素伤害加成",
+		"growValue": "28.8%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·砰砰",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_293101.png",
 			"desc": "普通攻击\n投掷在碰撞后会爆炸的好东西！进行至多三段的炸弹攻击，造成火元素范围伤害。\n重击\n消耗一定体力，短暂咏唱后，轰击敌人，造成火元素范围伤害。\n下落攻击\n凝聚烈焰的力量，从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成火元素范围伤害。",
 			"attr": [
 				{
@@ -281,7 +274,6 @@
 		},
 		"e": {
 			"name": "蹦蹦炸弹",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_293201.png",
 			"desc": "投出带来无限快乐的蹦蹦炸弹！\n蹦蹦炸弹会连续弹跳三次，每次弹跳都会引发爆炸，造成火元素范围伤害。\n第三次弹跳后，将分裂成许多诡雷。\n诡雷会在接触到敌人或一段时间后爆炸，造成火元素范围伤害。\n初始拥有2次可使用次数。",
 			"attr": [
 				{
@@ -355,7 +347,6 @@
 		},
 		"q": {
 			"name": "轰轰火花",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_293901.png",
 			"desc": "可莉火力全开！在技能持续时间内，不停召唤轰轰火花攻击附近的敌人，造成火元素范围伤害。",
 			"attr": [
 				{
@@ -415,49 +406,40 @@
 	"passive": [
 		{
 			"name": "全是宝藏",
-			"desc": "在小地图上显示周围的蒙德区域特产的位置。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_292301.png"
+			"desc": "在小地图上显示周围的蒙德区域特产的位置。"
 		},
 		{
 			"name": "砰砰礼物",
-			"desc": "蹦蹦炸弹与普通攻击造成伤害时，有50%的几率赋予可莉一朵爆裂火花。 施放重击时将消耗爆裂火花，使本次重击不消耗体力，造成的伤害提升50%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_292101.png"
+			"desc": "蹦蹦炸弹与普通攻击造成伤害时，有50%的几率赋予可莉一朵爆裂火花。 施放重击时将消耗爆裂火花，使本次重击不消耗体力，造成的伤害提升50%。"
 		},
 		{
 			"name": "火花无限",
-			"desc": "可莉的重击造成暴击后，为队伍中所有角色恢复2点元素能量。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_292201.png"
+			"desc": "可莉的重击造成暴击后，为队伍中所有角色恢复2点元素能量。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "连环轰隆",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_291.png",
 			"desc": "攻击与施放技能时，有几率召唤火花轰击敌人，造成相当于轰轰火花攻击伤害120%的伤害。"
 		},
 		"2": {
 			"name": "破破弹片",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_292.png",
 			"desc": "蹦蹦炸弹的诡雷会使敌人的防御力降低23%，持续10秒。"
 		},
 		"3": {
 			"name": "可莉特调",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_293.png",
 			"desc": "蹦蹦炸弹的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "一触即发",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_294.png",
 			"desc": "如果在轰轰火花持续期间内退场，会引发爆炸，造成555%攻击力的火元素范围伤害。"
 		},
 		"5": {
 			"name": "轰击之星",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_295.png",
 			"desc": "轰轰火花的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "火力全开",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_296.png",
 			"desc": "在轰轰火花的状态下，可莉每3秒会为队伍中所有角色（不包括可莉自己）恢复3点元素能量； 施放轰轰火花后的25秒内，队伍中所有角色获得10%火元素伤害加成。"
 		}
 	}

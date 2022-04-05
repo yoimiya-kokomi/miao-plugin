@@ -3,25 +3,20 @@
 	"key": "Tartaglia",
 	"name": "达达利亚",
 	"abbr": "公子",
+	"city": "璃月",
 	"title": "「公子」",
 	"desc": "愚人众执行官第十一位，「公子」，其战绩威名远扬。",
 	"astro": "鲸天座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/hydro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7042_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/tartaglia_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/tartaglia_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/tartaglia_face.png"
-	},
+	"weapon": "弓",
+	"elem": "hydro",
+	"element": "水",
 	"stat": {
-		"baseHP": "13103",
-		"baseATK": "301",
-		"baseDEF": "815",
-		"aStat": "水元素伤害加成",
-		"aStatValue": "28.8%"
+		"hp": "13103",
+		"atk": "301",
+		"def": "815",
+		"growStat": "水元素伤害加成",
+		"growValue": "28.8%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·断雨",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_333101.png",
 			"desc": "普通攻击\n进行至多六段的连续弓箭射击。\n重击\n进行伤害更高、更为精准的瞄准射击。\n瞄准时，水元素之力会在箭矢上持续积聚。聚满了激流的箭矢会在命中敌人时造成水元素伤害，并施加断流效果。\n断流\n处于断流影响下的敌人受到达达利亚的各种攻击时，将产生水元素范围伤害效果。这些效果造成的伤害视为普通攻击伤害。\n•\n断流\n•\n闪：满蓄力瞄准射击命中处于断流影响下的敌人时，会引发连续范围伤害。断流\n•\n闪每0.7秒至多触发一次。\n•\n断流\n•\n破：击败处于断流影响下的敌人时会引发水之绽放，对附近的敌人施加断流效果。\n下落攻击\n从空中射出箭雨，并迅速下坠冲击地面，在落地时造成范围伤害。\n处于魔王武装\n•\n狂澜的近战状态下时，无法施展下落攻击。",
 			"attr": [
 				{
@@ -401,7 +395,6 @@
 		},
 		"e": {
 			"name": "魔王武装·狂澜",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_333201.png",
 			"desc": "解放纯水构成的武装，对周围的敌人造成水元素伤害，并进入近战状态。\n在此状态下，达达利亚的普通攻击与重击将转为无法被附魔覆盖的水元素伤害，并发生以下变化：\n普通攻击\n进行至多六段的连续水元素斩击。\n重击\n消耗体力，瞬间向前方挥出两剑，造成水元素伤害。\n断流\n•\n斩\n近战攻击命中处于断流影响下的敌人时，将引发一次断流\n•\n斩，造成水元素范围伤害。断流\n•\n斩造成的伤害视为元素战技伤害，每1.5秒至多触发一次。\n30秒后或再次施放时效果将会解除，回到远程状态，并使技能进入冷却。近战状态下持续的时间越长，冷却时间越长。\n若持续30秒后自动回到远程状态，技能将进入更长的冷却周期。",
 			"attr": [
 				{
@@ -623,7 +616,6 @@
 		},
 		"q": {
 			"name": "极恶技·尽灭闪",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_333901.png",
 			"desc": "依据达达利亚当前所处的状态，进行不同的攻击：\n远程状态\n•\n魔弹一闪\n向前方快速射出一发饱含水元素的魔箭，造成水元素范围伤害，并施加断流效果。\n施放后，返还部分元素能量。\n近战状态\n•\n尽灭水光\n进行一次大范围斩击，对附近所有敌人造成大量水元素伤害，并能引发断流\n•\n爆。\n断流\n•\n爆\n尽灭水光命中处于断流状态下的敌人时，会消耗断流效果并引发水爆，造成水元素范围伤害。断流\n•\n爆造成的伤害视为元素爆发伤害。",
 			"attr": [
 				{
@@ -723,49 +715,40 @@
 	"passive": [
 		{
 			"name": "诸武精通",
-			"desc": "队伍中自己的角色普通攻击等级提高1级。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_332301.png"
+			"desc": "队伍中自己的角色普通攻击等级提高1级。"
 		},
 		{
 			"name": "永无谢幕",
-			"desc": "断流效果的持续时间延长8秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_332101.png"
+			"desc": "断流效果的持续时间延长8秒。"
 		},
 		{
 			"name": "水形剑",
-			"desc": "处于魔王武装 • 狂澜的近战状态时，普通攻击与重击在造成暴击时，会为命中的敌人施加断流效果。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_332201.png"
+			"desc": "处于魔王武装 • 狂澜的近战状态时，普通攻击与重击在造成暴击时，会为命中的敌人施加断流效果。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "魔王武装·遏浪",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_331.png",
 			"desc": "魔王武装 • 狂澜的冷却时间降低20%。"
 		},
 		"2": {
 			"name": "魔王武装·暗流",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_332.png",
 			"desc": "处于断流效果影响下的敌人被击败时，为达达利亚恢复4点元素能量。"
 		},
 		"3": {
 			"name": "深渊之灾·纷争涡源",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_333.png",
 			"desc": "魔王武装 • 狂澜的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "深渊之灾·凝水盛放",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_334.png",
 			"desc": "每4秒，场上存在达达利亚自身施加的断流效果时，若达达利亚当前处于魔王武装 • 狂澜的近战状态，则触发断流 • 斩；否则，触发断流 • 闪。 通过此命之座触发的断流 • 斩与断流 • 闪不受这两种断流各自的触发间隔限制，也不会影响其触发间隔。"
 		},
 		"5": {
 			"name": "极恶技·斩水斩雨",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_335.png",
 			"desc": "极恶技 • 尽灭闪的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "极恶技·天使灭尽",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_336.png",
 			"desc": "在近战状态下施放极恶技 • 尽灭闪时，清除魔王武装 • 狂澜的冷却时间。 该效果会在回到远程状态后触发。"
 		}
 	}

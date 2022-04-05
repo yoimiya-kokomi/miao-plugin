@@ -7,21 +7,15 @@
 	"desc": "「西风骑士团」的可靠女仆，梦想有一天能成为正式的骑士。",
 	"astro": "心护座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/geo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7014_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/noelle_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/noelle_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/noelle_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "geo",
+	"element": "岩",
 	"stat": {
-		"baseHP": "12071",
-		"baseATK": "191",
-		"baseDEF": "799",
-		"aStat": "防御力",
-		"aStatValue": "30%"
+		"hp": "12071",
+		"atk": "191",
+		"def": "799",
+		"growStat": "防御力",
+		"growValue": "30%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·西风剑术·女仆",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_343101.png",
 			"desc": "普通攻击\n进行至多四段的连续挥砍。\n重击\n持续消耗体力，旋转大剑攻击周围的敌人。\n停止旋转时，会进行一次格外有力的挥砍。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -325,7 +318,6 @@
 		},
 		"e": {
 			"name": "护心铠",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_343201.png",
 			"desc": "唤出护体的岩铠，对周围的敌人造成岩元素伤害，并形成护盾，伤害吸收量基于诺艾尔的防御力。\n护盾具有如下效果：\n•\n诺艾尔的普通攻击与重击命中时，都有几率为队伍中所有角色恢复生命值；\n•\n对所有元素伤害与物理伤害有150%的吸收效果。\n触发治疗时的治疗量受益于诺艾尔的防御力。",
 			"attr": [
 				{
@@ -439,7 +431,6 @@
 		},
 		"q": {
 			"name": "大扫除",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_343901.png",
 			"desc": "将磐石的力量凝聚在武器上，冲击周围的敌人并进行一次大范围扫击，造成岩元素伤害。\n此后，获得如下效果：\n•\n提高诺艾尔的攻击范围；\n•\n将攻击伤害转为岩元素伤害，该元素转化无法被附魔覆盖；\n•\n基于诺艾尔的防御力，提高攻击力。",
 			"attr": [
 				{
@@ -539,49 +530,40 @@
 	"passive": [
 		{
 			"name": "女仆的态度",
-			"desc": "完美烹饪防御类食物时，有12%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_342301.png"
+			"desc": "完美烹饪防御类食物时，有12%概率获得2倍产出。"
 		},
 		{
 			"name": "全心全意",
-			"desc": "诺艾尔处于队伍后台，且当前场上自己的角色的生命值低于30%时自动触发： 为当前场上自己的角色生成一个伤害吸收量等同于诺艾尔防御力400%的护盾，持续20秒。 • 对所有元素伤害与物理伤害有150%的吸收效果。 该效果60秒内只能触发一次。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_342101.png"
+			"desc": "诺艾尔处于队伍后台，且当前场上自己的角色的生命值低于30%时自动触发： 为当前场上自己的角色生成一个伤害吸收量等同于诺艾尔防御力400%的护盾，持续20秒。 • 对所有元素伤害与物理伤害有150%的吸收效果。 该效果60秒内只能触发一次。"
 		},
 		{
 			"name": "干净利落",
-			"desc": "诺艾尔的普通攻击或重击累计命中敌人4次，会减少护心铠1秒的冷却。 每0.1秒至多计数一次。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_342201.png"
+			"desc": "诺艾尔的普通攻击或重击累计命中敌人4次，会减少护心铠1秒的冷却。 每0.1秒至多计数一次。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "支援就交给我吧",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_341.png",
 			"desc": "同时处于大扫除与护心铠状态时，护心铠的生命值回复效果触发几率提升至100%。"
 		},
 		"2": {
 			"name": "旋风女仆",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_342.png",
 			"desc": "诺艾尔的重击的体力消耗降低20%，伤害提升15%。"
 		},
 		"3": {
 			"name": "女仆不会受伤",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_343.png",
 			"desc": "护心铠的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "之后会扫干净的",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_344.png",
 			"desc": "护心铠在效果结束时，或因伤害破碎时，会对周围的敌人造成400%攻击力的岩元素伤害。"
 		},
 		"5": {
 			"name": "骑士团扫除专家",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_345.png",
 			"desc": "大扫除的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "要一尘不染才行",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_346.png",
 			"desc": "大扫除额外提高诺艾尔防御力50%的攻击力； 此外，在技能持续时间内，每打倒1个敌人，其持续时间将延长1秒，最多不会超过10秒。"
 		}
 	}

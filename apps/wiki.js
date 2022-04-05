@@ -1,30 +1,37 @@
 import { segment } from "oicq";
 import fs from "fs";
 import { Character } from "../components/models.js";
+import lodash from "lodash";
 
 //import {wikiCharacter} from "../modules/wiki.js";
 
+let action = {
+  wiki: {
+    keyword: "命座|天赋|技能|资料"
+  }
+}
+
+
 export async function wiki(e, { render }) {
 
-  const ret = /^#*(.*)(缓存)$/.exec(e.msg);
-
-  if (!ret || !ret[1]) {
-    return;
-  }
-  if (ret[1] == "全部" && e.isMaster) {
-    return await wikiCache(e);
+  if (!e.msg) {
+    return false;
   }
 
-  let char = Character.get(ret[1].trim());
+  let reg = /#?(.+)(命座|天赋|技能|资料)$/, msg = e.msg;
+  let ret = reg.exec(msg);
 
-  await char.cacheImg();
+  if (!ret && !ret[1]) {
+    return false;
+  }
 
-  return true;
+  let char = Character.get(ret[1]);
+
   let base64 = await render("wiki", "character", {
-    save_id: 'wiki-character',
-    cache_id: data.Name,
-    cache_time: 0,
-    char
+    save_id: "天赋" + char.name,
+    ...char,
+    line: getLineData(char),
+    _char: `/meta/character/${char.name}/`
   });
 
   if (base64) {
@@ -33,10 +40,16 @@ export async function wiki(e, { render }) {
   return true; //事件结束不再往下
 }
 
-// 生成Wiki图像
-async function genWikiImg(name) {
+const getLineData = function (data) {
+  let ret = [];
+  lodash.forEach(data.lvStat, (ls) => {
+    ret.push({
+      num: ls.values["90"],
+      label: ls.name
+    })
+  })
 
-
+  return ret;
 }
 
 // 更新图像缓存

@@ -3,25 +3,20 @@
 	"key": "Xingqiu",
 	"name": "行秋",
 	"abbr": "行秋",
+	"city": "璃月",
 	"title": "少年春衫薄",
 	"desc": "经常能在书摊看到的少年人。手执长剑，胸中常怀侠义之心。",
 	"astro": "锦织座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/hydro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7018_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/xingqiu_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/xingqiu_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/xingqiu_face.png"
-	},
+	"weapon": "单手剑",
+	"elem": "hydro",
+	"element": "水",
 	"stat": {
-		"baseHP": "10222",
-		"baseATK": "202",
-		"baseDEF": "758",
-		"aStat": "攻击力",
-		"aStatValue": "24%"
+		"hp": "10222",
+		"atk": "202",
+		"def": "758",
+		"growStat": "攻击力",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·古华剑法",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_253101.png",
 			"desc": "普通攻击\n进行至多五段的连续剑击。\n重击\n消耗一定体力，瞬间向前方挥出两剑。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +315,6 @@
 		},
 		"e": {
 			"name": "古华剑·画雨笼山",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_253201.png",
 			"desc": "使出连续两段的剑技，对前方的敌人造成水元素伤害。同时，生成最大数量的雨帘剑围绕在当前场上自己的角色身边。\n具有如下特性：\n•\n角色受到伤害时会破碎，降低受到的伤害；\n•\n提高角色的抗打断能力。\n行秋水元素伤害加成的20%将转换为雨帘剑的额外伤害减免。\n最多通过这种方式获得24%额外伤害减免。\n初始雨帘剑的最大数量为3柄。\n施放的瞬间，为角色施加潮湿状态。",
 			"attr": [
 				{
@@ -395,7 +388,6 @@
 		},
 		"q": {
 			"name": "古华剑·裁雨留虹",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_253901.png",
 			"desc": "展开虹剑势，驾御幻影剑雨战斗，并生成最大数量的雨帘剑。\n虹剑势\n•\n当前场上自己的角色进行普通攻击时，会产生剑雨连携攻击，造成水元素伤害；\n•\n雨帘剑的数量将始终维持在最大数量。",
 			"attr": [
 				{
@@ -455,49 +447,40 @@
 	"passive": [
 		{
 			"name": "灵光乍现",
-			"desc": "合成角色天赋素材时，有25%概率返还部分合成材料。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_252301.png"
+			"desc": "合成角色天赋素材时，有25%概率返还部分合成材料。"
 		},
 		{
 			"name": "生水要诀",
-			"desc": "雨帘剑受击破碎时或持续时间结束时，基于行秋最大生命值的6%，恢复当前角色的生命值。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_252101.png"
+			"desc": "雨帘剑受击破碎时或持续时间结束时，基于行秋最大生命值的6%，恢复当前角色的生命值。"
 		},
 		{
 			"name": "虚实工笔",
-			"desc": "行秋获得20%水元素伤害加成。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_252201.png"
+			"desc": "行秋获得20%水元素伤害加成。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "重帘留香",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_251.png",
 			"desc": "雨帘剑的最大数量增加1柄。"
 		},
 		"2": {
 			"name": "天青现虹",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_252.png",
 			"desc": "古华剑 • 裁雨留虹的持续时间延长3秒； 此外，受到剑雨攻击的敌人，水元素抗性降低15%，持续4秒。"
 		},
 		"3": {
 			"name": "织诗成锦",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_253.png",
 			"desc": "古华剑 • 裁雨留虹的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "孤舟斩蛟",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_254.png",
 			"desc": "在古华剑 • 裁雨留虹效果持续期间，古华剑 • 画雨笼山造成的伤害提升50%。"
 		},
 		"5": {
 			"name": "雨深闭门",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_255.png",
 			"desc": "古华剑 • 画雨笼山的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "万文集此",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_256.png",
 			"desc": "古华剑 • 裁雨留虹每发动2次剑雨攻击，就大幅增强下一次剑雨攻击，并在命中敌人时为行秋恢复3点元素能量。"
 		}
 	}

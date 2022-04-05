@@ -3,25 +3,20 @@
 	"key": "Ayaka",
 	"name": "神里绫华",
 	"abbr": "绫华",
+	"city": "稻妻",
 	"title": "白鹭霜华",
 	"desc": "稻妻「社奉行」神里家的大小姐。端庄而文雅，聪慧又坚韧。",
 	"astro": "雪鹤座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/cryo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Daoqi.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7085_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/ayaka_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/ayaka_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/ayaka_face.png"
-	},
+	"weapon": "单手剑",
+	"elem": "cryo",
+	"element": "冰",
 	"stat": {
-		"baseHP": "12858",
-		"baseATK": "342",
-		"baseDEF": "784",
-		"aStat": "暴击伤害",
-		"aStatValue": "38.4%"
+		"hp": "12858",
+		"atk": "342",
+		"def": "784",
+		"growStat": "暴击伤害",
+		"growValue": "38.4%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·神里流·倾",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_23101.png",
 			"desc": "普通攻击\n进行至多五段的连续剑击。\n重击\n消耗一定体力，在居合中放出连续的剑风。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +315,6 @@
 		},
 		"e": {
 			"name": "神里流·冰华",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_23201.png",
 			"desc": "唤起盛开的冰之华，击飞身边的敌人并造成冰元素范围伤害。",
 			"attr": [
 				{
@@ -371,7 +364,6 @@
 		},
 		"q": {
 			"name": "神里流·霜灭",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_23901.png",
 			"desc": "以倾奇之姿汇聚寒霜，放出持续行进的霜见雪关扉。\n霜见雪关扉\n•\n以刀锋般尖锐的霜风持续切割触及的敌人，造成冰元素伤害；\n•\n持续时间结束时绽放，造成冰元素范围伤害。",
 			"attr": [
 				{
@@ -451,54 +443,44 @@
 	"passive": [
 		{
 			"name": "神里流·霰步",
-			"desc": "替代冲刺\n隐入碎冰，以消耗体力为代价，化为激流快速移动。\n在霰步状态下，神里绫华可以在水面上高速移动。\n结束霰步现身时，将产生如下效果：\n•\n释放寒冰的力量，对周围的敌人施加冰元素附着；\n•\n将寒气凝聚在剑上，使神里绫华在短时间内获得冰元素附魔。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_23301.png"
+			"desc": "替代冲刺\n隐入碎冰，以消耗体力为代价，化为激流快速移动。\n在霰步状态下，神里绫华可以在水面上高速移动。\n结束霰步现身时，将产生如下效果：\n•\n释放寒冰的力量，对周围的敌人施加冰元素附着；\n•\n将寒气凝聚在剑上，使神里绫华在短时间内获得冰元素附魔。"
 		},
 		{
 			"name": "鉴查心得",
-			"desc": "合成武器突破素材时，有10%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_22301.png"
+			"desc": "合成武器突破素材时，有10%概率获得2倍产出。"
 		},
 		{
 			"name": "天罪国罪镇词",
-			"desc": "施放神里流 • 冰华后的6秒内，神里绫华的普通攻击与重击造成的伤害提升30%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_22101.png"
+			"desc": "施放神里流 • 冰华后的6秒内，神里绫华的普通攻击与重击造成的伤害提升30%。"
 		},
 		{
 			"name": "寒天宣命祝词",
-			"desc": "神里流 • 霰步结束时释放的寒冰命中了敌人时，神里绫华将获得如下效果： • 恢复10点体力； • 获得18%冰元素伤害加成，持续10秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_22201.png"
+			"desc": "神里流 • 霰步结束时释放的寒冰命中了敌人时，神里绫华将获得如下效果： • 恢复10点体力； • 获得18%冰元素伤害加成，持续10秒。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "霜杀墨染樱",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_21.png",
 			"desc": "神里绫华的普通攻击或重击对敌人造成冰元素伤害时，有50%的几率使神里流 • 冰华的冷却时间缩减0.3秒。该效果每0.1秒只能触发一次。"
 		},
 		"2": {
 			"name": "三重雪关扉",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_22.png",
 			"desc": "施放神里流 • 霜灭时，会额外释放两股规模较小的霜见雪关扉，各自能造成原本20%的伤害。"
 		},
 		"3": {
 			"name": "花白锦画纸吹雪",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_23.png",
 			"desc": "神里流 • 霜灭的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "盈缺流返",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_24.png",
 			"desc": "敌人受到神里流 • 霜灭的霜见雪关扉造成的伤害后，防御力降低30%，持续6秒。"
 		},
 		"5": {
 			"name": "花云钟入月",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_25.png",
 			"desc": "神里流 • 冰华的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "间水月",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_26.png",
 			"desc": "每过10秒，神里绫华会获得「薄冰舞踏」，使重击造成的伤害提高298%。薄冰舞踏效果将在重击命中敌人的0.5秒后清除，并重新开始计算时间。"
 		}
 	}

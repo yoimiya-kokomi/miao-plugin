@@ -7,21 +7,15 @@
 	"desc": "古老家族出身的「浪花骑士」，西风骑士团游击小队队长。身为旧贵族后裔却加入了堪称死对头的西风骑士团，该事件至今仍是蒙德一大谜团。",
 	"astro": "浪沫座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/cryo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Mengde.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7065_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/eula_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/eula_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/eula_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "cryo",
+	"element": "冰",
 	"stat": {
-		"baseHP": "13226",
-		"baseATK": "342",
-		"baseDEF": "751",
-		"aStat": "暴击伤害",
-		"aStatValue": "38.4%"
+		"hp": "13226",
+		"atk": "342",
+		"def": "751",
+		"growStat": "暴击伤害",
+		"growValue": "38.4%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +125,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·西风剑术·宗室",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_513101.png",
 			"desc": "普通攻击\n进行至多五段的连续挥砍。\n重击\n持续消耗体力，快速进行连续的斩击。\n重击结束时，会进行一次格外有力的挥砍。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -345,7 +338,6 @@
 		},
 		"e": {
 			"name": "冰潮的涡旋",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_513201.png",
 			"desc": "极寒的冰气、迅捷的剑舞。\n点按\n快速挥斩，造成冰元素伤害。\n命中敌人时，优菈自己获得一层冷酷之心效果，最多叠加2次，每0.3秒内只能触发1次。\n冷酷之心\n提高优菈的抗打断能力和防御力。\n长按\n消耗所有的冷酷之心效果，并挥舞大剑向前挥砍，对前方的敌人造成冰元素范围伤害。\n若消耗了冷酷之心效果，会使身边的敌人的物理抗性与冰元素抗性降低。\n每一层被消耗的冷酷之心会转化为一柄冰涡之剑，对附近的敌人造成冰元素伤害。",
 			"attr": [
 				{
@@ -491,7 +483,6 @@
 		},
 		"q": {
 			"name": "凝浪之光剑",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_513901.png",
 			"desc": "猛烈挥舞大剑，对周围的敌人造成冰元素伤害，并创造一柄跟随自己，至多持续存在7秒的光降之剑。\n在持续期间内，光降之剑会提高优菈自己的抗打断能力，并在优菈自己的普通攻击、元素战技或元素爆发对敌人造成伤害时，为光降之剑积蓄能量。每0.1秒只能积攒一层能量。\n持续时间结束后，光降之剑会降下并猛烈爆发，对周围的敌人造成物理伤害。\n此伤害受益于光降之剑积蓄的能量层数。\n优菈退场时，光降之剑会立即爆发。",
 			"attr": [
 				{
@@ -591,49 +582,40 @@
 	"passive": [
 		{
 			"name": "贵族的自省",
-			"desc": "合成角色天赋素材时，有10%概率获得2倍产出。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_512301.png"
+			"desc": "合成角色天赋素材时，有10%概率获得2倍产出。"
 		},
 		{
 			"name": "潮卷冰削",
-			"desc": "长按施放冰潮的涡旋时，若一次性消耗了2层冷酷之心效果，则创造会立即爆发的残缺光降之剑，造成相当于凝浪之光剑的光降之剑基础伤害50%的物理伤害。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_512101.png"
+			"desc": "长按施放冰潮的涡旋时，若一次性消耗了2层冷酷之心效果，则创造会立即爆发的残缺光降之剑，造成相当于凝浪之光剑的光降之剑基础伤害50%的物理伤害。"
 		},
 		{
 			"name": "战欲涌现",
-			"desc": "施放凝浪之光剑时，重置冰潮的涡旋的冷却时间，并为优菈赋予一层冷酷之心效果。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_512201.png"
+			"desc": "施放凝浪之光剑时，重置冰潮的涡旋的冷却时间，并为优菈赋予一层冷酷之心效果。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "光潮的幻象",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_511.png",
 			"desc": "消耗冰潮的涡旋的冷酷之心效果后，优菈的物理伤害加成提高30%，持续6秒， 每消耗一层冷酷之心，都会使这个效果的持续时间延长6秒，最多不会超过18秒。"
 		},
 		"2": {
 			"name": "海沫的少女",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_512.png",
 			"desc": "缩短冰潮的涡旋长按的冷却时间，使其降低至与点按的冷却时间相同。"
 		},
 		"3": {
 			"name": "劳伦斯的血脉",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_513.png",
 			"desc": "凝浪之光剑的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "自卑者的逞强",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_514.png",
 			"desc": "对生命值低于50%的敌人，光降之剑造成的伤害提高25%。"
 		},
 		"5": {
 			"name": "骑士的素质",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_515.png",
 			"desc": "冰潮的涡旋的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "高贵者的义务",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_516.png",
 			"desc": "凝浪之光剑创造的光降之剑立即获得5层能量。普通攻击、元素战技或元素爆发造成伤害使其积蓄能量层数时，有50%的概率额外获得一层。"
 		}
 	}

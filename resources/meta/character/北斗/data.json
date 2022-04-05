@@ -3,25 +3,20 @@
 	"key": "Beidou",
 	"name": "北斗",
 	"abbr": "北斗",
+	"city": "璃月",
 	"title": "无冕的龙王",
 	"desc": "武装船队「南十字」的首领，豪快的大姐头。",
 	"astro": "南天海山座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/electro.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7035_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/beidou_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/beidou_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/beidou_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "electro",
+	"element": "雷",
 	"stat": {
-		"baseHP": "13050",
-		"baseATK": "225",
-		"baseDEF": "648",
-		"aStat": "雷元素伤害加成",
-		"aStatValue": "24%"
+		"hp": "13050",
+		"atk": "225",
+		"def": "648",
+		"growStat": "雷元素伤害加成",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·征涛",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_243101.png",
 			"desc": "普通攻击\n进行至多五段的连续挥砍。\n重击\n持续消耗体力，快速进行连续的斩击。\n重击结束时，会进行一次格外有力的挥砍。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -345,7 +339,6 @@
 		},
 		"e": {
 			"name": "捉浪",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_243201.png",
 			"desc": "没有什么好担心的。如果有人敢对她或她的人出手，那就以雷电与大剑十倍奉还。\n点按\n积聚雷之力，猛烈向前挥舞大剑，造成雷元素伤害。\n长按\n举起武器形成护盾，伤害吸收量受益于北斗的生命值上限。\n松开技能或持续时间结束时，会挥舞大剑释放积攒的力量进行攻击，造成雷元素伤害。依据技能期间受到攻击的次数，提高释放时造成的伤害。触发2次达到最高伤害加成。\n护盾具有如下效果：\n•\n对雷元素伤害有250%的吸收效果；\n•\n施放的瞬间，为北斗施加雷元素附着。",
 			"attr": [
 				{
@@ -435,7 +428,6 @@
 		},
 		"q": {
 			"name": "斫雷",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_243901.png",
 			"desc": "重忆斩灭海山巨兽之战，唤起巨兽与雷电的力量，创造环绕自身的雷兽之盾，并对周围的敌人造成雷元素伤害。\n雷兽之盾\n•\n普通攻击与重击命中时，释放雷电之力，引来1道能在敌人之间跃动的闪雷，造成雷元素伤害；\n•\n提高角色的抗打断能力，并降低受到的伤害。\n每秒至多触发1道闪雷。",
 			"attr": [
 				{
@@ -535,49 +527,40 @@
 	"passive": [
 		{
 			"name": "拥涛踏潮",
-			"desc": "队伍中自己的角色游泳消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_242301.png"
+			"desc": "队伍中自己的角色游泳消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。"
 		},
 		{
 			"name": "遍宇灵光",
-			"desc": "在被攻击瞬间施放的捉浪反击，拥有最高伤害加成。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_242101.png"
+			"desc": "在被攻击瞬间施放的捉浪反击，拥有最高伤害加成。"
 		},
 		{
 			"name": "霹雳连霄",
-			"desc": "施放拥有最高伤害加成的捉浪后的10秒内，获得如下效果： • 普通攻击与重击造成的伤害提高15%，攻击速度提高15%； • 大幅减少重击需要的准备时间。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_242201.png"
+			"desc": "施放拥有最高伤害加成的捉浪后的10秒内，获得如下效果： • 普通攻击与重击造成的伤害提高15%，攻击速度提高15%； • 大幅减少重击需要的准备时间。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "鱼龙沉四方",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_241.png",
 			"desc": "施放斫雷时： 生成一个伤害吸收量等于生命值上限16%的护盾，持续15秒。 该护盾对雷元素伤害有250%的吸收效果。"
 		},
 		"2": {
 			"name": "赫赫雷涌起",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_242.png",
 			"desc": "斫雷的闪雷能额外弹跳2个敌人。"
 		},
 		"3": {
 			"name": "潮奔蓦引电",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_243.png",
 			"desc": "捉浪的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "牵星觅乡岸",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_244.png",
 			"desc": "受到攻击后的10秒内，北斗的普通攻击附带20%额外雷元素伤害。"
 		},
 		"5": {
 			"name": "踏浪霞连阶",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_245.png",
 			"desc": "斫雷的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "北斗祓幽孽",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_246.png",
 			"desc": "斫雷持续期间，周围敌人的雷元素抗性降低15%。"
 		}
 	}

@@ -3,25 +3,20 @@
 	"key": "Gorou",
 	"name": "五郎",
 	"abbr": "五郎",
+	"city": "稻妻",
 	"title": "戎犬锵锵",
 	"desc": "海祇岛军的大将，深受部下信赖。",
 	"astro": "柴犬座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_213101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/geo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Daoqi.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7100_profile.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/gorou_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/gorou_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/gorou_face.png"
-	},
+	"weapon": "弓",
+	"elem": "geo",
+	"element": "岩",
 	"stat": {
-		"baseHP": "9570",
-		"baseATK": "183",
-		"baseDEF": "648",
-		"aStat": "岩元素伤害加成",
-		"aStatValue": "24%"
+		"hp": "9570",
+		"atk": "183",
+		"def": "648",
+		"growStat": "岩元素伤害加成",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·呲牙裂扇箭",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_553101.png",
 			"desc": "普通攻击\n进行至多四段的连续弓箭射击。\n重击\n进行伤害更高、更为精准的瞄准射击。\n瞄准时，岩晶会在箭矢上持续积聚。聚满了晶岩的箭矢会造成岩元素伤害。\n下落攻击\n从空中射出箭雨，并迅速下坠冲击地面，在落地时造成范围伤害。",
 			"attr": [],
 			"table": [
@@ -316,7 +310,6 @@
 		},
 		"e": {
 			"name": "犬坂吠吠方圆阵",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_553201.png",
 			"desc": "造成岩元素范围伤害，并立起大将旗指物。\n大将旗指物\n依据施放时队伍中元素类型为岩元素的角色数量，为其领域内的当前场上角色赋予如下效果：\n•\n一名角色时：「坚牢」：防御力提升；\n•\n二名角色时：「难破」：除上述效果外，提升抗打断能力；\n•\n三名角色时：「摧碎」：除上述效果外，获得岩元素伤害加成。\n同时只能存在一个由五郎自己创造的大将旗指物；角色只能获得一个大将旗指物提供的效果。角色离开领域后，领域的效果将持续2秒。\n长按\n可以调整技能生效位置。",
 			"attr": [
 				{
@@ -394,7 +387,6 @@
 		},
 		"q": {
 			"name": "兽牙逐突形胜战法",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_553901.png",
 			"desc": "展现大将之威，造成岩元素范围伤害，并展开大将威仪之领域，鼓舞身边的战友。\n大将威仪\n具有如下特性：\n•\n领域拥有等同于元素战技「犬坂吠吠方圆阵」创造的大将旗指物的效果，依据施放时队伍中元素类型为岩元素的角色数量，为其领域内的当前场上角色赋予效果，并且会随着当前场上角色移动；\n•\n每1.5秒，会产生一次岩晶崩破，对领域内一名敌人造成岩元素范围伤害；\n•\n每1.5秒，将领域内1枚结晶反应产生的晶片吸引至当前角色的位置。\n施放时，若场上存在五郎自己的大将旗指物，会将其破坏。此外，在大将威仪的持续期间，五郎自己施放元素战技「犬坂吠吠方圆阵」时，将不会产生大将旗指物。\n五郎倒下时将解除五郎自己的大将威仪效果。",
 			"attr": [
 				{
@@ -474,49 +466,40 @@
 	"passive": [
 		{
 			"name": "亮晶晶发现术",
-			"desc": "在小地图上显示周围的稻妻区域特产的位置。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_552301.png"
+			"desc": "在小地图上显示周围的稻妻区域特产的位置。"
 		},
 		{
 			"name": "不畏风雨",
-			"desc": "施放兽牙逐突形胜战法后的12秒内，附近的队伍中所有角色的防御力提升25%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_552101.png"
+			"desc": "施放兽牙逐突形胜战法后的12秒内，附近的队伍中所有角色的防御力提升25%。"
 		},
 		{
 			"name": "报恩之守",
-			"desc": "基于防御力，五郎的以下攻击造成的伤害提高： • 犬坂吠吠方圆阵的技能伤害提高值：防御力的156%； • 兽牙逐突形胜战法的技能伤害与岩晶崩破伤害提高值：防御力的15.6%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_552201.png"
+			"desc": "基于防御力，五郎的以下攻击造成的伤害提高： • 犬坂吠吠方圆阵的技能伤害提高值：防御力的156%； • 兽牙逐突形胜战法的技能伤害与岩晶崩破伤害提高值：防御力的15.6%。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "犬奔·疾如风",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_551.png",
 			"desc": "处于五郎自己的大将旗指物或大将威仪领域中的当前场上角色（除了五郎自己）对敌人造成岩元素伤害后，五郎自己的犬坂吠吠方圆阵冷却时间减少2秒。 该效果每10秒至多触发一次。"
 		},
 		"2": {
 			"name": "犬坐·稳如钟",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_552.png",
 			"desc": "在大将威仪的持续期间，附近的当前场上角色获取结晶反应产生的晶片后，五郎自己的大将威仪的持续时间延长1秒。 该效果每0.1秒至多触发一次，至多通过这种方式延长3秒持续时间。"
 		},
 		"3": {
 			"name": "犬爪·势如火",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_553.png",
 			"desc": "犬坂吠吠方圆阵的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "犬舐·温如水",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_554.png",
 			"desc": "大将威仪在具有「难破」或「摧碎」的效果时，每1.5秒，为领域内的当前场上角色恢复生命值，回复量相当于五郎自己防御力的50%。"
 		},
 		"5": {
 			"name": "犬突·动如雷",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_555.png",
 			"desc": "兽牙逐突形胜战法的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "犬勇·忠如山",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_556.png",
 			"desc": "施放犬坂吠吠方圆阵或兽牙逐突形胜战法后的12秒内，依据施放时的领域等级，提高附近的队伍中所有角色岩元素伤害的暴击伤害： • 「坚牢」：提高10%； • 「难破」：提高20%； • 「摧碎」：提高40%。 该效果无法叠加，以后生效的为准。"
 		}
 	}

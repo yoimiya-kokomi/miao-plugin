@@ -3,25 +3,20 @@
 	"key": "Qiqi",
 	"name": "七七",
 	"abbr": "七七",
+	"city": "璃月",
 	"title": "冻冻回魂夜",
 	"desc": "药庐「不卜庐」的采药姑娘兼学徒，面色苍白如纸的不死之人。话很少，也没有什么表情。",
 	"astro": "三清铃座",
 	"star": 5,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_33101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/cryo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7019_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/qiqi_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/qiqi_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/qiqi_face.png"
-	},
+	"weapon": "单手剑",
+	"elem": "cryo",
+	"element": "冰",
 	"stat": {
-		"baseHP": "12368",
-		"baseATK": "287",
-		"baseDEF": "922",
-		"aStat": "治疗加成",
-		"aStatValue": "22.2%"
+		"hp": "12368",
+		"atk": "287",
+		"def": "922",
+		"growStat": "治疗加成",
+		"growValue": "22.2%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·云来古剑法",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_353101.png",
 			"desc": "普通攻击\n进行至多五段的连续剑击。\n重击\n消耗一定体力，瞬间向前方挥出两剑。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -321,7 +315,6 @@
 		},
 		"e": {
 			"name": "仙法·寒病鬼差",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_353201.png",
 			"desc": "冰血化符，召唤寒病鬼差，并对周围的敌人造成冰元素伤害。\n寒病鬼差\n•\n七七的普通攻击与重击命中时，为队伍中自己的角色，以及附近的友方角色恢复生命值，回复量受益于七七的攻击力；\n•\n每隔一段时间，为当前场上自己的角色恢复生命值；\n•\n跟随角色行动，对路径上的敌人造成冰元素伤害。",
 			"attr": [
 				{
@@ -435,7 +428,6 @@
 		},
 		"q": {
 			"name": "仙法·救苦度厄",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_353901.png",
 			"desc": "七七释放体内封印的仙力，以度厄真符标记附近的敌人，并造成冰元素伤害。\n度厄真符\n处于度厄真符影响下的敌人受到伤害时，为造成伤害的角色恢复生命值。",
 			"attr": [
 				{
@@ -515,49 +507,40 @@
 	"passive": [
 		{
 			"name": "前尘旧忆",
-			"desc": "在小地图上显示周围的璃月区域特产的位置。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_352301.png"
+			"desc": "在小地图上显示周围的璃月区域特产的位置。"
 		},
 		{
 			"name": "延命妙法",
-			"desc": "处于仙法 • 寒病鬼差状态下的角色触发元素反应时，受治疗加成提升20%，持续8秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_352101.png"
+			"desc": "处于仙法 • 寒病鬼差状态下的角色触发元素反应时，受治疗加成提升20%，持续8秒。"
 		},
 		{
 			"name": "玉签偶开",
-			"desc": "七七的普通攻击与重击命中敌人时，有50%的几率为敌人添加一枚度厄真符，持续6秒。该效果每30秒只能触发一次。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_352201.png"
+			"desc": "七七的普通攻击与重击命中敌人时，有50%的几率为敌人添加一枚度厄真符，持续6秒。该效果每30秒只能触发一次。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "寒苦回向",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_351.png",
 			"desc": "寒病鬼差命中被度厄真符标记的敌人时，为七七恢复2点元素能量。"
 		},
 		"2": {
 			"name": "冰寒蚀骨",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_352.png",
 			"desc": "对受到冰元素影响的敌人，七七的普通攻击与重击造成的伤害提升15%。"
 		},
 		"3": {
 			"name": "升天宝诰",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_353.png",
 			"desc": "仙法 • 救苦度厄的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "天威压众",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_354.png",
 			"desc": "被度厄真符标记的目标，攻击力下降20%。"
 		},
 		"5": {
 			"name": "红莲开绽",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_355.png",
 			"desc": "仙法 • 寒病鬼差的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "起死回骸",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_356.png",
 			"desc": "施放仙法 • 救苦度厄时，复苏附近队伍中所有倒下的角色，并将其生命值恢复至50%。 该效果每15分钟只能触发一次。"
 		}
 	}

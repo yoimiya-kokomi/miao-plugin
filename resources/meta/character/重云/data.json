@@ -3,25 +3,20 @@
 	"key": "Chongyun",
 	"name": "重云",
 	"abbr": "重云",
+	"city": "璃月",
 	"title": "雪融有踪",
 	"desc": "驱邪世家的年轻方士，为压制自身的「纯阳之体」费尽心机。",
 	"astro": "乾坤锋座",
 	"star": 4,
-	"img": {
-		"weapon": "https://genshin.honeyhunterworld.com/img/skills/s_163101.png",
-		"element": "https://genshin.honeyhunterworld.com/img/icons/element/cryo.png",
-		"city": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Liyue.png",
-		"profile": "https://genshin.honeyhunterworld.com/img/cardicon/i_7036_party_135.png",
-		"gachaCard": "https://genshin.honeyhunterworld.com/img/char/chongyun_gacha_card.png",
-		"gachaSplash": "https://genshin.honeyhunterworld.com/img/char/chongyun_gacha_splash.png",
-		"source": "https://genshin.honeyhunterworld.com/img/char/chongyun_face.png"
-	},
+	"weapon": "双手剑",
+	"elem": "cryo",
+	"element": "冰",
 	"stat": {
-		"baseHP": "10984",
-		"baseATK": "223",
-		"baseDEF": "648",
-		"aStat": "攻击力",
-		"aStatValue": "24%"
+		"hp": "10984",
+		"atk": "223",
+		"def": "648",
+		"growStat": "攻击力",
+		"growValue": "24%"
 	},
 	"lvStat": [
 		{
@@ -131,7 +126,6 @@
 	"talent": {
 		"a": {
 			"name": "普通攻击·灭邪四式",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_363101.png",
 			"desc": "普通攻击\n进行至多四段的连续挥砍。\n重击\n持续消耗体力，旋转大剑攻击周围的敌人。\n停止旋转时，会进行一次格外有力的挥砍。\n下落攻击\n从空中下坠冲击地面，攻击下落路径上的敌人，并在落地时造成范围伤害。",
 			"attr": [
 				{
@@ -325,7 +319,6 @@
 		},
 		"e": {
 			"name": "灵刃·重华叠霜",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_363201.png",
 			"desc": "重云挥动巨剑猛击地面，在前方圆形范围内引发冰爆，并对敌人造成冰元素伤害。\n短暂延迟后，冰爆引发的寒气汇聚成重华叠霜领域，其中的单手剑、大剑、长柄武器角色获得冰元素附魔。",
 			"attr": [
 				{
@@ -399,7 +392,6 @@
 		},
 		"q": {
 			"name": "灵刃·云开星落",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/s_363901.png",
 			"desc": "重云结印，在前方半空中连续召唤出三柄巨大灵刃，短时间内依次落向地面并爆裂。\n灵刃爆裂时，会造成冰元素范围伤害，并击飞敌人。",
 			"attr": [
 				{
@@ -455,49 +447,40 @@
 	"passive": [
 		{
 			"name": "云游山海",
-			"desc": "在璃月执行探索派遣任务时，消耗的时间缩短25%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_362301.png"
+			"desc": "在璃月执行探索派遣任务时，消耗的时间缩短25%。"
 		},
 		{
 			"name": "吐纳真定",
-			"desc": "处在灵刃 • 重华叠霜领域内的单手剑、双手剑、长柄武器角色，普通攻击的攻击速度提升8%。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_362101.png"
+			"desc": "处在灵刃 • 重华叠霜领域内的单手剑、双手剑、长柄武器角色，普通攻击的攻击速度提升8%。"
 		},
 		{
 			"name": "追冰剑诀",
-			"desc": "灵刃 • 重华叠霜领域消失时，会唤出一柄灵刃自动攻击附近的敌人，造成相当于灵刃 • 重华叠霜技能伤害100%的冰元素范围伤害。被击中的敌人冰元素抗性降低10%，持续8秒。",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/p_362201.png"
+			"desc": "灵刃 • 重华叠霜领域消失时，会唤出一柄灵刃自动攻击附近的敌人，造成相当于灵刃 • 重华叠霜技能伤害100%的冰元素范围伤害。被击中的敌人冰元素抗性降低10%，持续8秒。"
 		}
 	],
 	"cons": {
 		"1": {
 			"name": "释凌咏冰",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_361.png",
 			"desc": "普通攻击的最后一击会向前方释放三道冰之刃，每道冰之刃对沿途的敌人造成重云50%攻击力的冰元素伤害。"
 		},
 		"2": {
 			"name": "周天运转",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_362.png",
 			"desc": "在灵刃 • 重华叠霜领域内施放的元素战技与元素爆发的冷却时间减少15%。"
 		},
 		"3": {
 			"name": "云尽光生",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_363.png",
 			"desc": "灵刃 • 云开星落的技能等级提高3级。 至多提升至15级。"
 		},
 		"4": {
 			"name": "浮云霜天",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_364.png",
 			"desc": "重云的所有攻击命中受到冰元素影响的敌人时，自身将恢复1点元素能量。 该效果每2秒最多触发一次。"
 		},
 		"5": {
 			"name": "真道正理",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_365.png",
 			"desc": "灵刃 • 重华叠霜的技能等级提高3级。 至多提升至15级。"
 		},
 		"6": {
 			"name": "四灵捧圣",
-			"icon": "https://genshin.honeyhunterworld.com/img/skills/c_366.png",
 			"desc": "灵刃 • 云开星落对生命值百分比低于重云的敌人造成伤害时，伤害提升15%； 此外，施放时，会召唤一柄额外的灵刃。"
 		}
 	}
