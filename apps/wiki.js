@@ -19,9 +19,6 @@ export async function wiki(e, { render }) {
 
   await char.cacheImg();
 
-
-  console.log(char);
-
   return true;
   let base64 = await render("wiki", "character", {
     save_id: 'wiki-character',
