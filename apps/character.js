@@ -79,8 +79,6 @@ export async function wife(e, { render, User }) {
     action = msgRet[2] || "卡片",
     actionParam = msgRet[3] || "";
 
-  actionParam = actionParam.toString();
-
   let targetCfg = lodash.find(relationMap, (cfg, key) => {
     cfg.key = key;
     return cfg.keyword.includes(target);
@@ -136,7 +134,7 @@ export async function wife(e, { render, User }) {
         return true;
       }
       // 选择老婆
-      actionParam = actionParam.replaceAll("，", ",");
+      actionParam = actionParam.replace(/，/g, ",");
       wifeList = actionParam.split(",");
       let addRet = [];
       if (lodash.intersection(["全部", "任意", "随机", "全都要"], wifeList).length > 0) {

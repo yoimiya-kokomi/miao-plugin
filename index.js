@@ -19,7 +19,7 @@ export const rule = {
     describe: "【#老婆，#老公，#女儿】角色详情",
   },
   consStat: {
-    hrehash: true,
+    prehash: true,
     reg: "^#角色(持有|持有率|命座|命之座|.命)(分布|统计)?$",
     priority: 200
   },

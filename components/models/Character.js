@@ -76,11 +76,7 @@ class Character extends Base {
         this.img[key] = path[url]
       }
     });
-
-
     console.log(this);
-
-
   }
 
 }
@@ -103,7 +99,7 @@ let getMetaData = function (name) {
     meta = characterMeta[name];
 
   // 处理基础信息
-  let ret = Data.getData(meta, "Name,Title,desc:Description,astro:AstrolabeName", metaCfg);
+  let ret = Data.getData(meta, "Name,Key,Title,desc:Description,astro:AstrolabeName", metaCfg);
 
   ret.star = /4star/.test(meta.Star) ? 4 : 5;
 
@@ -118,22 +114,22 @@ let getMetaData = function (name) {
   }
 
   // 处理属性
-  ret.stat = Data.getData(meta, "BaseHP,BaseATK,BaseDEF,aStat:AscensionStat,aStatValue:AscensionStatValue");
-  ret.statPerLv = lodash.map(meta.CharStat, (d) => Data.getData(d, "Name,Values", metaCfg));
+  ret.stat = Data.getData(meta, "BaseHP,BaseATK,BaseDEF,aStat:AscensionStat,aStatValue:AscensionStatValue", metaCfg);
+  ret.lvStat = lodash.map(meta.CharStat, (d) => Data.getData(d, "Name,Values", metaCfg));
 
   // 处理材料
   let itemKey = lodash.map("talent,boss,gemStone,Local,monster,weekly".split(","), (a) => `${a}:${lodash.upperFirst(a)}.Name`);
   ret.item = Data.getData(meta, itemKey, metaCfg)
 
   // 处理天赋
-  ret.talents = {
+  ret.talent = {
     a: getTalentData(meta.NormalAttack),
     e: getTalentData(meta.TalentE),
     q: getTalentData(meta.TalentQ),
   };
 
   // 处理其他天赋
-  ret.passiveTalents = lodash.map(meta.PassiveTalents, (d) => Data.getData(d, "Name,desc:Description,icon:Source", metaCfg))
+  ret.passive = lodash.map(meta.PassiveTalents, (d) => Data.getData(d, "Name,desc:Description,icon:Source", metaCfg))
 
   // 处理命座信息
   let cons = {};
@@ -209,5 +205,6 @@ Character.get = function (val) {
 Character.getAbbr = function () {
   return genshin.abbr;
 }
+Character.getMetaData = getMetaData;
 
 export default Character;
