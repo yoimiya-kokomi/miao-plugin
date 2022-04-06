@@ -86,7 +86,7 @@ export async function wife(e, { render, User }) {
 
   let MysApi = await e.getMysApi({
     auth: "all",
-    target: "all",
+    target: "self",
     cookieType: "all",
     actionName: "查询信息"
   });

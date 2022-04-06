@@ -10,7 +10,7 @@
 
     </style>
     <div class="container elem_{{elem}}" id="container">
-      <div class="head-box" style="background-image:url('{{_res_path}}{{_char}}/party.png')">
+      <div class="head-box" style="background-image:url('{{_res_path}}/{{_char}}/party.png')">
         <div class="head">
           <img src="{{_res_path}}{{_char}}/face.png"/>
         </div>
@@ -40,13 +40,13 @@
       </div>
 
 
-      {{each talent skill idx}}
+      {{each talent skill type}}
       <div class="talent-box">
 
         <div class="talent-detail">
           <div class="talent-line">
             <div class="talent-icon">
-              <img src="{{_res_path}}{{_char}}/talent_{{idx}}.png"/>
+              <img src="{{_res_path}}{{_char}}/talent_{{type}}.png"/>
             </div>
             <div class="talent-info">
               <strong class="talent-name">{{skill.name}}</strong>
@@ -67,7 +67,7 @@
               <div class="tr">
                 <div class="th"></div>
                 {{each skill.tableKeys lv idx}}
-                {{if idx>4 && idx < 13}}
+                {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
                 <div class="th lv">{{lv}}</div>
                 {{/if}}
                 {{/each}}
@@ -78,7 +78,7 @@
                   {{tr.name}}
                 </div>
                 {{each tr.value v idx}}
-                {{if idx >4 && idx < 13}}
+                {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
                 <div class="td">{{v}}</div>
                 {{/if}}
                 {{/each}}
