@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/character.css"/>
+  </head>
+  <body>
+    <style>
+
+    </style>
+    <div class="container elem_{{elem}}" id="container">
+      <div class="head-box" style="background-image:url('{{_res_path}}{{_char}}/party.png')">
+        <div class="head">
+          <img src="{{_res_path}}{{_char}}/face.png"/>
+        </div>
+        <!-- <div class="head-astro">{{astro}}</div>
+         <div class="head-icon">
+           <img src="{{City}}" />
+           <img src="{{Weapon}}" />
+           <img src="{{Element}}" />
+      </div>
+      -->
+
+        <div class="head-detail">
+          <div class="name">{{title}} · {{name}}</div>
+          <div class="desc">{{desc}}</div>
+        </div>
+        <div class="data-box">
+          <div class="tab-label">90级基础数据</div>
+          <div class="data-line">
+            {{each line item}}
+            <div class="data_line_item">
+              <div class="num">{{item.num}}</div>
+              <div class="label">{{item.label}}</div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+
+
+      {{each talent skill idx}}
+      <div class="talent-box">
+
+        <div class="talent-detail">
+          <div class="talent-line">
+            <div class="talent-icon">
+              <img src="{{_res_path}}{{_char}}/talent_{{idx}}.png"/>
+            </div>
+            <div class="talent-info">
+              <strong class="talent-name">{{skill.name}}</strong>
+              <div class="talent-desc">
+                {{each skill.desc.split("\n") d}}
+                {{ if d.length < 6 }}
+                {{if d === "•"}} • {{else}} <span>{{d}}</span>
+                {{/if}}
+
+                {{else}}
+                {{d}}</br>
+                {{/if}}
+                {{/each}}
+              </div>
+            </div>
+            {{if skill.table && skill.table.length > 0}}
+            <div class="talent-table">
+              <div class="tr">
+                <div class="th"></div>
+                {{each skill.tableKeys lv idx}}
+                {{if idx>4 && idx < 13}}
+                <div class="th lv">{{lv}}</div>
+                {{/if}}
+                {{/each}}
+              </div>
+              {{each skill.table tr}}
+              <div class="tr">
+                <div class="th talent_name">
+                  {{tr.name}}
+                </div>
+                {{each tr.value v idx}}
+                {{if idx >4 && idx < 13}}
+                <div class="td">{{v}}</div>
+                {{/if}}
+                {{/each}}
+              </div>
+              {{/each}}
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+
+      <div class="talent-box">
+
+        <div class="talent-detail">
+          {{each passive pass}}
+          <div class="talent-line">
+            <div class="talent-icon">
+              <img src="{{_res_path}}{{_char}}/passive_{{pass.name}}.png"/>
+            </div>
+            <div class="talent-info">
+              <strong class="talent-name">{{pass.name}}</strong>
+              <div class="talent-desc">
+                {{pass.desc}}
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="logo">Create By Yunzai-Bot & Miao-Plugin</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,448 @@
+@font-face {
+  font-family: "tttgbnumber";
+  src: url("../font/tttgbnumber.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  font-size: 18px;
+  color: #1e1f20;
+  font-family: PingFangSC-Medium, PingFang SC, sans-serif;
+  transform: scale(1);
+  transform-origin: 0 0;
+}
+
+.container {
+  width: 800px;
+  padding: 0px 0px 10px 0px;
+  background-color: #ececec;
+}
+
+.head-box {
+  box-shadow: 0 5px 5px 0 rgb(0 0 0 / 25%);
+  width: 100%;
+  height: 355px;
+  overflow: hidden;
+  font-family: tttgbnumber;
+  position: relative;
+  background-size: cover;
+  color: #fff;
+  text-shadow: 0px 0px 3px rgba(0 0 0 / 70%);
+  margin-bottom: 25px;
+}
+
+.head-box .head {
+  position: absolute;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  border: 2px solid #f0efe0;
+  box-shadow: 0 0 3px 6px rgb(0 0 0 / 10%);
+  position: absolute;
+  left: 52px;
+  top: 35px;
+  background-size: cover;
+}
+
+.head-box .head img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.head-box .head-astro {
+  position: absolute;
+  width: 128px;
+  top: 198px;
+  font-size: 17px;
+  left: 52px;
+  text-align: center;
+}
+
+.head-box .head-icon {
+  position: absolute;
+  left: 35px;
+  top: 238px;
+  width: 172px;
+  background: rgba(0, 0, 0, 0.2);
+  height: 52px;
+  border-radius: 26px;
+}
+
+.head-box .head-icon img {
+  width: 42px;
+  height: 42px;
+  float: left;
+  margin: 4px 6px;
+}
+
+.head-box .head-detail {
+  position: absolute;
+  left: 240px;
+  top: 35px;
+  width: 540px;
+  font-size: 18px;
+}
+
+.head-box .name {
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.head-box .desc {
+  font-size: 17px;
+  margin-top: 17px;
+  height: 86px;
+}
+
+.head-box .ascension {
+  font-size: 17px;
+  height: 43px;
+}
+
+.head-box .material {
+  display: block;
+}
+
+.head-box .meterial_group {
+  float: left;
+  margin-right: 25px;
+}
+
+.head-box .material span {
+  display: block;
+  height: 24px;
+  font-size: 10px;
+}
+
+.head-box .meterial_group div {
+  width: 34px;
+  height: 40px;
+  overflow: hidden;
+  padding: 2px;
+  border-radius: 4px;
+  float: left;
+  background-size: cover;
+  margin-right: 5px;
+  box-shadow: 0 0 3px 0px rgb(0 0 0 / 20%);
+}
+
+.head-box .material span.meterial_desc {
+  display: block;
+  overflow: hidden;
+  clear: left;
+  padding-top: 5px;
+}
+
+.head-box .meterial_group div img {
+  width: 30px;
+  vertical-align: baseline;
+  vertical-align: -webkit-baseline-middle;
+}
+
+.head-box .genshin_logo {
+  position: absolute;
+  top: 1px;
+  right: 15px;
+  width: 97px;
+}
+
+.base_info {
+  position: relative;
+  padding-left: 10px;
+}
+
+.uid:before {
+  content: " ";
+  position: absolute;
+  width: 5px;
+  height: 24px;
+  border-radius: 1px;
+  left: 0;
+  top: 0;
+  background: #d3bc8d;
+}
+
+.uid {
+  font-family: tttgbnumber;
+}
+
+.head-box .data-box {
+  margin-top: 220px;
+  color: #000;
+  text-shadow: none;
+}
+
+.head-box .data-box .tab-label {
+  width: 170px;
+  left: 20px;
+  border-radius: 8px;
+  background: #272f43;
+}
+
+.data-box {
+  border-radius: 15px;
+  margin: 30px 15px;
+  padding: 30px 15px 5px 15px;
+  background: #f5f5f5;
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
+  position: relative;
+  background-size: contain;
+  color: #000;
+}
+
+.tab-label {
+  position: absolute;
+  top: -18px;
+  left: -8px;
+  background: #d4b98c;
+  color: #fff;
+  font-size: 20px;
+  padding: 6px 20px;
+  border-radius: 15px 0px 15px 15px;
+  z-index: 20;
+}
+
+.data-line {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 14px;
+}
+
+.data_line_item {
+  flex: 1;
+  text-align: center;
+  /*margin: 0 20px;*/
+}
+
+.num {
+  font-family: tttgbnumber;
+  font-size: 40px;
+}
+
+.data-box .label {
+  font-size: 18px;
+  color: #7f858a;
+  line-height: 1;
+  margin-top: 3px;
+}
+
+.talent-box {
+  border-radius: 25px;
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
+  position: relative;
+  margin: 20px 15px 15px 15px;
+  background-size: 100% 100%;
+  overflow: hidden;
+}
+
+.talent-detail {
+  padding: 30px 15px 5px 15px;
+  background: url(card-bg.png) left top repeat-x;
+  background-size: auto 100%;
+}
+
+.talent-info {
+  position: relative;
+  padding-left: 140px;
+  font-size: 18px;
+  font-weight: normal;
+  min-height: 80px;
+  padding-bottom: 15px;
+  color: #fff;
+}
+
+.talent-icon {
+  width: 120px;
+  height: 120px;
+  padding: 5px;
+  display: table;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  top: -10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 90;
+}
+
+.talent-icon img {
+  width: 46%;
+  height: 46%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -22% 0 0 -23%;
+}
+
+.talent-info .talent-detail-table {
+  margin-left: -140px;
+}
+
+.talent-name {
+  display: block;
+  font-size: 32px;
+  margin: -5px 0 20px 0;
+  color: #d3bc8e;
+  line-height: 45px;
+}
+
+.talent-desc {
+  font-size: 18px;
+  line-height: 26px;
+  padding-right: 10px;
+}
+
+.talent-desc span {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+  color: #d3bc8e;
+}
+
+.talent-line {
+  position: relative;
+  min-height: 100px;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+.talent-line:first-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.talent-table {
+  text-align: center;
+  border-collapse: collapse;
+  margin: 15px -10px -10px -15px;
+  border-radius: 0 0 10px 10px;
+  display: table;
+  overflow: hidden;
+  width: calc(100% + 30px);
+  color: #fff;
+}
+
+.talent-table .tr {
+  display: table-row;
+}
+
+.talent-table .td,
+.talent-table .th {
+  font-size: 14px;
+  display: table-cell;
+  box-shadow: 0 0 1px 0 #888 inset;
+  padding: 7px 0;
+  line-height: 24px;
+}
+
+.talent-table .tr:nth-child(odd) {
+  background: rgba(34, 41, 51, .6)
+}
+
+.talent-table .tr:nth-child(even) {
+  background: rgba(34, 41, 51, .3)
+}
+
+.talent-table .th {
+  background: rgba(34, 41, 51, .5)
+}
+
+.talent-table .lv {
+  font-family: tttgbnumber;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.talent-table .th {
+  font-weight: bold;
+  padding: 5px 3px;
+  color: #d3bc8e;
+}
+
+.talent-table .talent_name {
+  min-width: 120px;
+  padding: 10px 3px;
+  font-size: 15px;
+}
+
+.talent-table .tr:last-child .td {
+  padding-bottom: 12px;
+}
+
+.talent-table .tr > div:last-child {
+  padding-right: 5px;
+}
+
+
+.elem_anemo .talent-icon {
+  background-image: url(../common/bg/talent-anemo.png)
+}
+
+.elem_anemo .talent-box {
+  background-image: url(../common/bg/bg-anemo.jpg);
+}
+
+
+.elem_cryo .talent-icon {
+  background-image: url(../common/bg/talent-cryo.png)
+}
+
+.elem_cryo .talent-box {
+  background-image: url(../common/bg/bg-cryo.jpg);
+}
+
+
+.elem_electro .talent-icon {
+  background-image: url(../common/bg/talent-electro.png)
+}
+
+.elem_electro .talent-box {
+  background-image: url(../common/bg/bg-electro.jpg);
+}
+
+
+.elem_geo .talent-icon {
+  background-image: url(../common/bg/talent-geo.png)
+}
+
+.elem_geo .talent-box {
+  background-image: url(../common/bg/bg-geo.jpg);
+}
+
+
+.elem_hydro .talent-icon {
+  background-image: url(../common/bg/talent-hydro.png)
+}
+
+.elem_hydro .talent-box {
+  background-image: url(../common/bg/bg-hydro.jpg);
+}
+
+
+.elem_pyro .talent-icon {
+  background-image: url(../common/bg/talent-pyro.png)
+}
+
+.elem_pyro .talent-box {
+  background-image: url(../common/bg/bg-pyro.jpg);
+}
+
+
+.logo {
+  font-size: 24px;
+  font-family: "tttgbnumber";
+  text-align: center;
+  color: #7994a7;
+  margin: 20px 0 10px 0;
+}
