@@ -81,7 +81,7 @@ function getTalents($, eq) {
   let root = $("#beta_scroll_attack_talent");
   let info = root.nextAll(`.item_main_table:eq(${eq})`);
 
-  let title = info.find("tr:first td:eq(1)").text();
+  let name = info.find("tr:first td:eq(1)").text();
   let icon = info.find("tr:first td:first img").attr("data-src");
 
   // 说明
@@ -104,7 +104,7 @@ function getTalents($, eq) {
     }
   });
   detail.find("tr:gt(0)").each(function () {
-    let title = $(this).find("td:eq(0)").text();
+    let name = $(this).find("td:eq(0)").text();
     let values = [], isSame = true;
     $(this).find("td:gt(0)").each(function (i) {
       let val = lodash.trim($(this).text());
@@ -115,15 +115,15 @@ function getTalents($, eq) {
     });
 
     details.push({
-      title, isSame, values
+      name, isSame, values
     })
   });
 
   return {
-    title,
+    name,
     icon,
     desc,
-    details,
+    tables: details,
     lvs
   }
 
@@ -136,7 +136,7 @@ let getPassive = function ($) {
     if (idx % 2 === 0) {
       let ds = {};
       ds.icon = $(this).find("td:first img").attr("data-src");
-      ds.title = $(this).find("td:eq(1)").text();
+      ds.name = $(this).find("td:eq(1)").text();
       ret[idx / 2] = ds;
     } else {
       ret[(idx - 1) / 2].desc = $(this).find("td").text();
@@ -152,7 +152,7 @@ let getCons = function ($) {
     if (idx % 2 === 0) {
       let ds = {};
       ds.icon = $(this).find("td:first img").attr("data-src");
-      ds.title = $(this).find("td:eq(1)").text();
+      ds.name = $(this).find("td:eq(1)").text();
       ret[idx / 2 + 1] = ds;
     } else {
       ret[(idx + 1) / 2].desc = $(this).find("td").text();
@@ -202,8 +202,8 @@ let getCharData = async function (url, key, name = '') {
 }
 
 async function down() {
-  //const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
-  const url = "https://genshin.honeyhunterworld.com/db/char/unreleased-and-upcoming-characters/?lang=CHS";
+  const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
+ // const url = "https://genshin.honeyhunterworld.com/db/char/unreleased-and-upcoming-characters/?lang=CHS";
   let req = await fetch(url);
   let txt = await req.text();
   let $ = cheerio.load(txt);
