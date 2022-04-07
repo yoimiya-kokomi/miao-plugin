@@ -1,4 +1,4 @@
-import { Data } from "../components/index.js";
+import {Data} from "../components/index.js";
 import lodash from "lodash";
 import fs from "fs";
 import request from "request";
@@ -6,7 +6,10 @@ import request from "request";
 const _root = process.cwd() + "/plugins/miao-plugin/";
 const _cRoot = _root + "resources/meta/character/";
 
-let chars = Data.readJSON(_cRoot, "index.json");
+
+let readDir = fs.readdirSync(_cRoot);
+console.log(readDir);
+
 let imgs = [];
 
 function img(char, url, target) {
@@ -16,30 +19,32 @@ function img(char, url, target) {
   })
 }
 
-lodash.forEach(chars, (c) => {
-  let char = Data.readJSON(`${_cRoot}${c.name}/`, "data.json");
+
+lodash.forEach(readDir, (c) => {
+
+  console.log(c);
+
+  if (!fs.existsSync(`${_cRoot}/${c}/data.json`)) {
+    return;
+  }
+
+  let char = Data.readJSON(`${_cRoot}/${c}/`, 'data.json');
 
   if (char.name) {
     // 正面
-    let party = /i_(\d*)_party/.exec(char.img.profile);
-    if (party && party[1]) {
-      let pid = party[1];
-      // 角色条
-      img(char, `https://genshin.honeyhunterworld.com/img/cardicon/i_${pid}_profile.png`, "profile.png");
-      // 名片
-      img(char, `https://genshin.honeyhunterworld.com/img/cardicon/i_${pid}_party.png`, "party.png");
-    } else {
-      console.log('party fail', char.name)
-    }
+
+    // 角色条
+    img(char, char.imgs.profile, "profile.png");
+    // 名片
+    img(char, char.imgs.party, "party.png");
+    // img(char, char.imgs.char, "char.png");
     // 立绘-竖版
-    img(char, char.img.gachaCard, "gacha_card.png");
+    img(char, char.imgs.gacha_card, "gacha_card.png");
     // 立绘
-    img(char, char.img.gachaSplash, "gacha_splash.png");
+    img(char, char.imgs.gacha_splash, "gacha_splash.png");
     // 正面像
-    img(char, char.img.source, "face.png");
-    let sideImg = char.img.source.replace("_face", "_side");
-    // 侧面像
-    img(char, sideImg, "side.png");
+    img(char, char.imgs.face, "face.png");
+    img(char, char.imgs.side, "face.png");
 
     // 天赋
     img(char, char.talent.a.icon, "talent_a.png");
@@ -48,7 +53,7 @@ lodash.forEach(chars, (c) => {
 
     // 被动天赋
     lodash.forEach(char.passive, (p, idx) => {
-      img(char, p.icon, `passive_${p.name}.png`);
+      img(char, p.icon, `passive_${idx}.png`);
     });
 
     // 命座
@@ -64,14 +69,17 @@ let cacheFile = async function () {
   let cacheFn = async function (file) {
     if (fs.existsSync(`${_cRoot}/${file.file}`)) {
       console.log(`已存在，跳过 ${file.file}`);
-     return true;
+      return true;
     }
 
     try {
-      await request(file.url).pipe(fs.createWriteStream(`${_cRoot}/${file.file}`));
+      let stream = fs.createWriteStream(`${_cRoot}/${file.file}`);
+      await request("https://genshin.honeyhunterworld.com/" + file.url).pipe(stream);
 
-      return new Promise((resolve) => setTimeout(resolve, parseInt(Math.random() * 2000)));
-    }catch(e){
+      return new Promise((resolve) => {
+        stream.on('finish', resolve)
+      });
+    } catch (e) {
       return false;
     }
     console.log(`下载成功: ${file.file}`);

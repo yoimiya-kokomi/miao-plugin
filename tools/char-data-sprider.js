@@ -2,20 +2,39 @@ import fs from "fs";
 import cheerio from "cheerio";
 import lodash from "lodash";
 import fetch from "node-fetch";
+import {roleId, abbr} from "../../../config/genshin/roleId.js";
 
 const _path = process.cwd();
+let roleIdMap = {};
+lodash.forEach(roleId, (names, id) => {
+  roleIdMap[names[0]] = id;
+});
 
-let txt = fs.readFileSync(`${_path}/plugins/miao-plugin/tools/test.txt`);
-
-function getBasic($) {
+function getBasic($, name) {
   let ret = {}
-  // 采集基础信息
-  ret.name = $("#scroll_card_item").next("table").find("tr:first td:eq(1)").text();
+
+  if (name) {
+    ret.name = name;
+  } else {
+    // 采集基础信息
+    ret.name = $("#scroll_card_item").next("table").find("tr:first td:eq(1)").text();
+  }
+  ret.abbr = abbr[ret.name] || ret.name;
+  ret.id = roleIdMap[ret.name] || '';
+
   let basic = $(".data_cont_wrapper table:first");
   let title = function (title) {
     return basic.find(`td:contains('${title}')`).next("td").text();
   }
   ret.title = title("Title");
+  ret.star = basic.find(`td:contains('Rarity')`).next("td").find(".sea_char_stars_wrap").length;
+  let elem = basic.find(`td:contains('Element')`).next("td").find("img").attr("data-src");
+
+  let elemRet = /\/([^\/]*)_35/.exec(elem);
+  if (elemRet) {
+    ret.elem = elemRet[1];
+  }
+
   ret.allegiance = title("Allegiance");
   ret.weapon = title("Weapon Type");
   ret.britydah = title("Birthday");
@@ -88,7 +107,7 @@ function getTalents($, eq) {
     let title = $(this).find("td:eq(0)").text();
     let values = [], isSame = true;
     $(this).find("td:gt(0)").each(function (i) {
-      let val = $(this).text();
+      let val = lodash.trim($(this).text());
       values.push(val);
       if (i > 0 && values[0] !== val) {
         isSame = false;
@@ -128,15 +147,15 @@ let getPassive = function ($) {
 
 let getCons = function ($) {
   let table = $("#beta_scroll_constellation").next("table")
-  let ret = [];
+  let ret = {};
   table.find("tr").each(function (idx) {
     if (idx % 2 === 0) {
       let ds = {};
       ds.icon = $(this).find("td:first img").attr("data-src");
       ds.title = $(this).find("td:eq(1)").text();
-      ret[idx / 2] = ds;
+      ret[idx / 2 + 1] = ds;
     } else {
-      ret[(idx - 1) / 2].desc = $(this).find("td").text();
+      ret[(idx + 1) / 2].desc = $(this).find("td").text();
     }
   })
   return ret;
@@ -155,18 +174,21 @@ let getImgs = function ($) {
     gacha_splash: img(3),
     profile: img(1, card),
     party: img(2, card),
-    char: $("#live_beta_checker").nextAll(".item_main_table:first").find("tr:first td:first img").attr("data-src")
+    char: $("#live_data table.item_main_table:first td:first img").attr("data-src")
   }
 }
 
-let getCharData = function (url, key, name = '') {
+let getCharData = async function (url, key, name = '') {
 
+  url = "https://genshin.honeyhunterworld.com/" + url;
+  console.log('req' + key, url)
+
+  let req = await fetch(url);
+  let txt = await req.text();
 
   const $ = cheerio.load(txt);
-  let ret = getBasic($);
-  if (name) {
-    ret.name = name;
-  }
+  let ret = getBasic($, name);
+
   ret.lvStat = getStat($);
   ret.talent = {
     a: getTalents($, 0),
@@ -176,16 +198,18 @@ let getCharData = function (url, key, name = '') {
   ret.passive = getPassive($);
   ret.cons = getCons($);
   ret.imgs = getImgs($);
+  return ret;
 }
 
 async function down() {
-  const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
+  //const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
+  const url = "https://genshin.honeyhunterworld.com/db/char/unreleased-and-upcoming-characters/?lang=CHS";
   let req = await fetch(url);
   let txt = await req.text();
   let $ = cheerio.load(txt);
-  let char = $(".char_sea_cont:first");
+  let char = $(".char_sea_cont");
 
-  char.each(function () {
+  char.each(async function () {
     let url = $(this).find("a:first").attr("href");
     let keyRet = /\/char\/(\w*)\//.exec(url);
 
@@ -194,23 +218,30 @@ async function down() {
       let key = keyRet[1],
         tRet = /traveler_(girl|boy)_(\w*)/.exec(key),
         name;
+
       if (tRet) {
         if (tRet[1] === "girl") {
-          let name = { anemo: "风", geo: "岩", electro: "雷" }[tRet[2]] + "主";
-          getCharData(url, key, name);
+          name = {anemo: "风", geo: "岩", electro: "雷"}[tRet[2]] + "主";
         } else {
           return
         }
       }
-      console.log(url, key);
-      //let data = await getCharData(url, key, name)
-    }
 
+      let data = await getCharData(url, key, name);
+
+      let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${data.name}/`
+      if (!fs.existsSync(charPath)) {
+        fs.mkdirSync(charPath);
+      }
+
+      fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, "", "\t"));
+      console.log(data.name + "下载完成");
+    }
   });
 
 }
 
-down();
+await down();
 
 
 

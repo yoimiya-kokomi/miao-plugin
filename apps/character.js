@@ -58,6 +58,7 @@ export async function character(e, { render, User }) {
   if (!char) {
     return false;
   }
+
   return renderAvatar(e, char.name, render);
 }
 
