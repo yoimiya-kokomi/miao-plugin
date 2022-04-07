@@ -48,10 +48,10 @@ export async function wiki(e, { render }) {
 
 const getLineData = function (data) {
   let ret = [];
-  lodash.forEach(data.lvStat, (ls) => {
+  lodash.forEach(data.lvStat.detail["90"], (num, idx) => {
     ret.push({
-      num: ls.values["90"],
-      label: ls.name
+      num,
+      label: data.lvStat.stat[idx]
     })
   })
 
