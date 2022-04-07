@@ -39,10 +39,10 @@
         </div>
       </div>
 
+      {{if mode == "talent"}}
 
       {{each talent skill type}}
       <div class="talent-box">
-
         <div class="talent-detail">
           <div class="talent-line">
             <div class="talent-icon">
@@ -92,7 +92,6 @@
       {{/each}}
 
       <div class="talent-box">
-
         <div class="talent-detail">
           {{each passive pass}}
           <div class="talent-line">
@@ -109,6 +108,27 @@
           {{/each}}
         </div>
       </div>
+      {{/if}}
+
+      {{if mode == "cons"}}
+      <div class="talent-box">
+        <div class="talent-detail">
+          {{each cons con idx}}
+          <div class="talent-line">
+            <div class="talent-icon">
+              <img src="{{_res_path}}{{_char}}/cons_{{idx}}.png"/>
+            </div>
+            <div class="talent-info">
+              <strong class="talent-name">{{con.name}}</strong>
+              <div class="talent-desc">
+                {{con.desc}}
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
 
       <div class="logo">Create By Yunzai-Bot & Miao-Plugin</div>
     </div>

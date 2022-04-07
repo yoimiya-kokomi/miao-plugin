@@ -18,18 +18,24 @@ export async function wiki(e, { render }) {
     return false;
   }
 
-  let reg = /#?(.+)(命座|天赋|技能|资料)$/, msg = e.msg;
+  let reg = /#?(.+)(命座|命之座|天赋|技能|资料)$/, msg = e.msg;
   let ret = reg.exec(msg);
 
-  if (!ret && !ret[1]) {
+  if (!ret && !ret[1] && !ret[2]) {
     return false;
   }
 
-  let char = Character.get(ret[1]);
+  let mode = "talent";
+  if (/命/.test(ret[2])) {
+    mode = "cons";
+  }
 
+
+  let char = Character.get(ret[1]);
   let base64 = await render("wiki", "character", {
     save_id: "天赋" + char.name,
     ...char,
+    mode,
     line: getLineData(char),
     _char: `/meta/character/${char.name}/`
   });
