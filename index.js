@@ -3,7 +3,9 @@ import { consStat, abyssPct } from "./apps/stat.js";
 import { wiki } from "./apps/wiki.js";
 import lodash from "lodash";
 
-export { character, wife, consStat, abyssPct, wiki };
+import { rule as adminRule, updateRes } from "./apps/admin.js";
+
+export { character, wife, consStat, abyssPct, wiki, updateRes };
 
 
 let rule = {
@@ -23,12 +25,14 @@ let rule = {
   },
   wiki: {
     reg: "^#.*(天赋|技能|命座|命之座|资料)$",
-  }
+  },
+  ...adminRule
 };
 
 lodash.forEach(rule, (r) => {
   r.priority = r.priority || 50;
   r.prehash = true;
+  r.hashMark = true;
 });
 
 export { rule };

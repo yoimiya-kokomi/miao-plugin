@@ -423,21 +423,42 @@ function getCharacterData(avatars) {
 }
 
 function getCharacterImg(name) {
-  if (!fs.existsSync(`./plugins/miao-plugin/resources/characterImg/${name}/`)) {
-    fs.mkdirSync(`./plugins/miao-plugin/resources/characterImg/${name}/`);
+
+  if (!fs.existsSync(`./plugins/miao-plugin/resources/character-img/${name}/`)) {
+    fs.mkdirSync(`./plugins/miao-plugin/resources/character-img/${name}/`);
+  }
+
+  let list = {};
+  let imgs = fs.readdirSync(`./plugins/miao-plugin/resources/character-img/${name}/`);
+  imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
+
+  lodash.forEach(imgs, (img) => {
+    list[img] = `character-img/${name}/${img}`
+  });
+
+  const plusPath = `./plugins/miao-plugin/resources/miao-res-plus/`;
+  if (fs.existsSync(plusPath)) {
+    if (!fs.existsSync(`${plusPath}/character-img/${name}/`)) {
+      fs.mkdirSync(`${plusPath}/character-img/${name}/`);
+    }
+
+    let imgs = fs.readdirSync(`${plusPath}/character-img/${name}/`);
+    imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
+    lodash.forEach(imgs, (img) => {
+      list[img] = `miao-res-plus/character-img/${name}/${img}`
+    });
   }
 
 
-  let imgs = fs.readdirSync(`./plugins/miao-plugin/resources/characterImg/${name}/`);
-  imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
-  let img = lodash.sample(imgs);
+  let img = lodash.sample(lodash.values(list));
 
   if (!img) {
-    name = "default";
-    img = "01.jpg";
+
+    img = "/character-img/default/01.jpg";
   }
-  let ret = sizeOf(`./plugins/miao-plugin/resources/characterImg/${name}/${img}`);
-  ret.img = `/characterImg/${name}/${img}`;
+
+  let ret = sizeOf(`./plugins/miao-plugin/resources/${img}`);
+  ret.img = img;
   ret.mode = ret.width > ret.height ? "left" : "bottom";
   return ret;
 }
