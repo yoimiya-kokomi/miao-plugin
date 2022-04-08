@@ -7,7 +7,7 @@ import lodash from "lodash";
 
 let action = {
   wiki: {
-    keyword: "命座|天赋|技能|资料"
+    keyword: "命座|天赋|技能|资料|照片|写真|图片|插画"
   }
 }
 
@@ -18,20 +18,33 @@ export async function wiki(e, { render }) {
     return false;
   }
 
-  let reg = /#?(.+)(命座|命之座|天赋|技能|资料)$/, msg = e.msg;
+  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|照片|写真|图片|插画)$/, msg = e.msg;
   let ret = reg.exec(msg);
 
-  if (!ret && !ret[1] && !ret[2]) {
+  if (!ret || !ret[1] || !ret[2]) {
     return false;
   }
 
   let mode = "talent";
   if (/命/.test(ret[2])) {
     mode = "cons";
+  } else if (/图|画|写真|照片/.test(ret[2])) {
+    mode = "pic";
   }
 
 
   let char = Character.get(ret[1]);
+
+  if (mode === "pic") {
+    let img = char.getCardImg(false);
+    if (img && img.img) {
+      e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + img.img));
+    } else {
+      e.reply("暂无图片");
+    }
+    return true;
+  }
+
   let base64 = await render("wiki", "character", {
     save_id: "天赋" + char.name,
     ...char,

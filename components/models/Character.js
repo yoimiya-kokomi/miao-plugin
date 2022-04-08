@@ -4,6 +4,7 @@ import fs from "fs";
 import Data from "../Data.js";
 import request from "request";
 import path from "path";
+import sizeOf from "image-size";
 
 let characterMap = {};
 const _path = process.cwd();
@@ -18,21 +19,52 @@ class Character extends Base {
     let data = Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/character/${this.name}/`, "data.json");
     lodash.extend(this, data);
   }
-/*
-  get name() {
-    if (this.roleId) {
-      if (this.roleId * 1 === 10000005) {
-        this.name = "空";
-      } else if (this.roleId * 1 === 10000007) {
-        this.name = "荧";
+
+  getCardImg(def = true) {
+    let name = this.name;
+
+    if (!fs.existsSync(`./plugins/miao-plugin/resources/character-img/${name}/`)) {
+      fs.mkdirSync(`./plugins/miao-plugin/resources/character-img/${name}/`);
+    }
+
+    let list = {};
+    let imgs = fs.readdirSync(`./plugins/miao-plugin/resources/character-img/${name}/`);
+    imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
+
+    lodash.forEach(imgs, (img) => {
+      list[img] = `character-img/${name}/${img}`
+    });
+
+    const plusPath = `./plugins/miao-plugin/resources/miao-res-plus/`;
+    if (fs.existsSync(plusPath)) {
+      if (!fs.existsSync(`${plusPath}/character-img/${name}/`)) {
+        fs.mkdirSync(`${plusPath}/character-img/${name}/`);
+      }
+
+      let imgs = fs.readdirSync(`${plusPath}/character-img/${name}/`);
+      imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
+      lodash.forEach(imgs, (img) => {
+        list[img] = `miao-res-plus/character-img/${name}/${img}`
+      });
+    }
+
+
+    let img = lodash.sample(lodash.values(list));
+
+
+    if (!img) {
+      if (def) {
+        img = "/character-img/default/01.jpg";
+      } else {
+        return false
       }
     }
-    return this._name;
-  }
 
-  set name(name) {
-    this._name = name;
-  }*/
+    let ret = sizeOf(`./plugins/miao-plugin/resources/${img}`);
+    ret.img = img;
+    ret.mode = ret.width > ret.height ? "left" : "bottom";
+    return ret;
+  }
 }
 
 
