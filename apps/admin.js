@@ -115,6 +115,11 @@ export async function updateRes(e) {
         e.reply("素材已经是最新了~");
         return true;
       }
+      let numRet = /(\d*) files changed,/.exec(stdout);
+      if (numRet && numRet[1]) {
+        e.reply(`更新成功，更新${numRet[1]}个素材~`);
+        return true;
+      }
       if (error) {
         e.reply("更新失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
       } else {
