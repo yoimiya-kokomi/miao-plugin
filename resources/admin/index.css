@@ -1,0 +1,90 @@
+body {
+  transform: scale(1);
+  width: 520px;
+}
+
+.container {
+  background: url("bg.png") #000144 left top no-repeat;
+  background-size: 520px auto;
+  width:520px;
+}
+
+.head-box {
+  margin: 0 0 80px 0;
+}
+
+.cfg-box {
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 5px 15px;
+  overflow: hidden;
+  background: #f5f5f5;
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
+  position: relative;
+  background: rgba(35, 38, 57, .8);
+}
+
+
+.cfg-group {
+  color: #ceb78b;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.cfg-ul {
+
+}
+
+.cfg-li {
+  border-radius: 18px;
+  min-height: 36px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: rgba(203, 196, 190, 0);
+}
+
+.cfg-line {
+  color: #4e5769;
+  line-height: 36px;
+  padding-left: 20px;
+  font-weight: bold;
+  border-radius: 16px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  background: url("./cfg-right.jpg") right top #cbc4be no-repeat;
+  background-size: auto 36px;
+}
+
+.cfg-hint {
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 3px;
+  margin-bottom: -3px;
+}
+
+.cfg-status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 36px;
+  width: 160px;
+  text-align: center;
+  line-height: 36px;
+  font-size: 16px;
+  color: #495366;
+  font-weight: bold;
+  border-radius: 0 16px 16px 0;
+  font-family: Number, "微软雅黑", sans-serif;
+}
+
+.cfg-status.status-off {
+  color: #a95151;
+}
+
+.cfg-desc {
+  font-size: 12px;
+  color: #cbc4be;
+  margin: 5px 0 5px 20px;
+}

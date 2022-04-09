@@ -1,28 +1,108 @@
 import { segment } from "oicq";
 import fs from "fs";
-import { Character } from "../components/models.js";
 import lodash from "lodash";
-
 import { createRequire } from "module";
 import { exec } from "child_process";
+import { Cfg } from "../components/index.js";
 
 const require = createRequire(import.meta.url);
 
-
-//import {wikiCharacter} from "../modules/wiki.js";
-
+let cfgMap = {
+  "角色": "char.char",
+  "老婆": "char.wife",
+  "查他人": "char.queryOther",
+  "天赋": "wiki.talent",
+  "命座": "wiki.cons",
+  "图片": "wiki.pic",
+  "深渊": "wiki.abyss",
+  "渲染": "sys.scale",
+};
+let sysCfgReg = `^#喵喵设置\s*(${lodash.keys(cfgMap).join("|")})?\s*(.*)$`;
 export const rule = {
   updateRes: {
-    reg: "#喵喵更新素材",
-    describe: "【#老婆，#老公，#女儿】角色详情",
+    reg: "^#喵喵更新图像$",
+    describe: "【#管理】更新素材",
+  },
+  sysCfg: {
+    reg: sysCfgReg,
+    describe: "【#管理】系统设置"
   }
 };
 
+
 const _path = process.cwd();
 const resPath = `${_path}/plugins/miao-plugin/resources/`;
+const plusPath = `${resPath}/miao-res-plus/`;
+
+const checkAuth = async function (e) {
+  return await e.checkAuth({
+    auth: "master",
+    replyMsg: `只有主人才能命令喵喵哦~
+    (*/ω＼*)`
+  });
+}
+
+export async function sysCfg(e, { render }) {
+  if (!await checkAuth(e)) {
+    return true;
+  }
+
+  let cfgReg = new RegExp(sysCfgReg);
+  let regRet = cfgReg.exec(e.msg);
+
+  if (!regRet) {
+    return true;
+  }
+
+  if (regRet[1]) {
+    // 设置模式
+    let val = regRet[2] || "";
+
+    let cfgKey = cfgMap[regRet[1]];
+    if (cfgKey === "sys.scale") {
+      val = Math.min(200, Math.max(50, val * 1 || 100));
+    } else {
+      val = !/关闭/.test(val);
+    }
+
+    if (cfgKey) {
+      Cfg.set(cfgKey, val);
+    }
+  }
+
+  let cfg = {
+    chars: getStatus("char.char"),
+    wife: getStatus("char.wife"),
+    other: getStatus("char.queryOther"),
+    talent: getStatus("wiki.talent"),
+    cons: getStatus("wiki.cons"),
+    pic: getStatus("wiki.pic"),
+    abyss: getStatus("wiki.hutao"),
+    imgPlus: fs.existsSync(plusPath),
+    scale: Cfg.get("sys.scale", 100)
+  }
+
+  let base64 = await render("admin", "index", {
+    ...cfg,
+    cfgScale: Cfg.scale(1.2)
+  }, "png");
+  if (base64) {
+    e.reply(segment.image(`base64://${base64}`));
+  }
+  return true;
+}
+
+const getStatus = function (rote) {
+  if (Cfg.get(rote, true)) {
+    return `<div class="cfg-status" >已开启</div>`;
+  } else {
+    return `<div class="cfg-status status-off">已关闭</div>`;
+  }
+
+}
 
 export async function updateRes(e) {
-  if (!e.checkAuth({ auth: "master" })) {
+  if (!await checkAuth(e)) {
     return true;
   }
 
@@ -31,22 +111,23 @@ export async function updateRes(e) {
     command = `git -C ${resPath}/miao-res-plus  pull`;
     exec(command, function (error, stdout, stderr) {
       console.log(stdout);
-      if (stdout === "Already up to date.") {
+      if (/Already up to date/.test(stdout)) {
         e.reply("素材已经是最新了~");
+        return true;
       }
       if (error) {
-        e.reply("素材初始化失败！\nError code: " + error.code + "\n" + error.stack + "\n出错了，可以重试一下。");
+        e.reply("更新失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
       } else {
-        e.reply("额外素材初始化成功");
+        e.reply("角色图像加量包更新成功~");
       }
     });
   } else {
     command = `git clone https://gitee.com/yoimiya-kokomi/miao-res-plus.git ${resPath}/miao-res-plus/`;
     exec(command, function (error, stdout, stderr) {
       if (error) {
-        e.reply("素材初始化失败！\nError code: " + error.code + "\n" + error.stack + "\n出错了，可以重试一下。");
+        e.reply("角色图像加量包安装失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
       } else {
-        e.reply("额外素材初始化成功");
+        e.reply("角色图像加量包安装成功！您后续也可以通过 #喵喵更新图像 命令来更新图像");
       }
     });
   }

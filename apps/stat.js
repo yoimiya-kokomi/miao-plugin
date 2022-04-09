@@ -3,16 +3,22 @@
 *
 * */
 import { HutaoApi, Character } from "../components/models.js";
+import { Cfg } from "../components/index.js";
 import lodash from "lodash";
 import { segment } from "oicq";
 
 export async function consStat(e, { render }) {
+  if (Cfg.isDisable(e, "wiki.abyss")) {
+    return;
+  }
 
   let consData = await HutaoApi.getCons();
   if (!consData) {
     e.reply("暂时无法查询");
     return true;
   }
+
+
 
   let msg = e.msg;
 
@@ -71,7 +77,8 @@ export async function consStat(e, { render }) {
     lastUpdate: consData.lastUpdate,
     pct: function (num) {
       return (num * 100).toFixed(2);
-    }
+    },
+    cfgScale: Cfg.scale(1.4)
   }, "png");
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
@@ -80,6 +87,11 @@ export async function consStat(e, { render }) {
 }
 
 export async function abyssPct(e, { render }) {
+
+  if (Cfg.isDisable(e, "wiki.abyss")) {
+    return;
+  }
+
   let abyssData = await HutaoApi.getAbyssPct();
   if (!abyssData) {
     e.reply("暂时无法查询");
@@ -119,7 +131,7 @@ export async function abyssPct(e, { render }) {
         avatars.push({
           name: char.name,
           star: char.star,
-          value: ds.value
+          value: ds.value * 8
         })
       }
     })
@@ -143,7 +155,8 @@ export async function abyssPct(e, { render }) {
     lastUpdate: abyssData.lastUpdate,
     pct: function (num) {
       return (num * 100).toFixed(2);
-    }
+    },
+    cfgScale: Cfg.scale(1.4)
   }, "png");
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));

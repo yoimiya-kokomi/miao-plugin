@@ -1,20 +1,20 @@
 @font-face {
   font-family: "HWZhongSong";
-  src: url("../font/华文中宋.TTF");
+  src: url("../common/font/华文中宋.TTF");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "tttgbnumber";
-  src: url("../font/tttgbnumber.ttf");
+  src: url("../common/font/tttgbnumber.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "NZBZ";
-  src: url("../font/NZBZ.ttf");
+  src: url("../common/font/NZBZ.ttf");
   font-weight: normal;
   font-style: normal;
 }

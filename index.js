@@ -3,9 +3,9 @@ import { consStat, abyssPct } from "./apps/stat.js";
 import { wiki } from "./apps/wiki.js";
 import lodash from "lodash";
 
-import { rule as adminRule, updateRes } from "./apps/admin.js";
+import { rule as adminRule, updateRes, sysCfg } from "./apps/admin.js";
 
-export { character, wife, consStat, abyssPct, wiki, updateRes };
+export { character, wife, consStat, abyssPct, wiki, updateRes, sysCfg };
 
 
 let rule = {

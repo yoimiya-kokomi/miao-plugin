@@ -2,6 +2,7 @@ import { segment } from "oicq";
 import fs from "fs";
 import { Character } from "../components/models.js";
 import lodash from "lodash";
+import { Cfg } from "../components/index.js";
 
 //import {wikiCharacter} from "../modules/wiki.js";
 
@@ -32,6 +33,10 @@ export async function wiki(e, { render }) {
     mode = "pic";
   }
 
+  if (Cfg.isDisable(e, `wiki.${mode}`)) {
+    return;
+  }
+
 
   let char = Character.get(ret[1]);
 
@@ -50,7 +55,8 @@ export async function wiki(e, { render }) {
     ...char,
     mode,
     line: getLineData(char),
-    _char: `/meta/character/${char.name}/`
+    _char: `/meta/character/${char.name}/`,
+    cfgScale: Cfg.scale(1)
   });
 
   if (base64) {

@@ -1,6 +1,7 @@
 import { segment } from "oicq";
 import lodash from "lodash";
 import { Character } from "../components/models.js"
+import { Cfg } from "../components/index.js";
 import fs from "fs";
 import sizeOf from "image-size";
 
@@ -52,6 +53,10 @@ export async function character(e, { render, User }) {
   if (!e.msg) {
     return;
   }
+  if (Cfg.isDisable(e, "char.char")) {
+    return;
+  }
+
   let name = e.msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
 
   let char = Character.get(name);
@@ -69,8 +74,11 @@ export async function wife(e, { render, User }) {
   msg = msg.replace(/#|\w/g, "");
   if (!msg) return false;
 
-  let msgRet = (new RegExp(wifeReg)).exec(msg);
+  if (Cfg.isDisable(e, "char.wife")) {
+    return;
+  }
 
+  let msgRet = (new RegExp(wifeReg)).exec(msg);
   if (!msgRet) return false;
 
   let target = msgRet[1],
@@ -87,11 +95,17 @@ export async function wife(e, { render, User }) {
 
   let MysApi = await e.getMysApi({
     auth: "all",
-    target: "self",
+    targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
     cookieType: "all",
     actionName: "查询信息"
   });
   let selfUser = MysApi.selfUser;
+
+  let selfMysUser = await MysApi.selfUser.getMysUser();
+  let isSelf = true;
+  if (!selfMysUser || selfMysUser.uid !== MysApi.targetUser.uid) {
+    isSelf = false;
+  }
 
   switch (action) {
     case "卡片":
@@ -105,7 +119,7 @@ export async function wife(e, { render, User }) {
       wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, []);
       let renderType = action === "卡片" ? "card" : "photo";
       // 存在设置
-      if (wifeList && wifeList.length > 0) {
+      if (wifeList && wifeList.length > 0 && isSelf) {
         if (wifeList[0] === "随机") {
           // 如果选择为全部，则从列表中随机选择一个
           avatarList = await getAvatarList(e, targetCfg.type, MysApi);
@@ -131,8 +145,7 @@ export async function wife(e, { render, User }) {
     case "选择":
     case "挑选":
     case "指定":
-      let selfMysUser = await MysApi.selfUser.getMysUser();
-      if (!selfMysUser || selfMysUser.uid !== MysApi.targetUser.uid) {
+      if (!isSelf) {
         e.reply("只能指定自己的哦~");
         return true;
       }
@@ -170,6 +183,12 @@ export async function wife(e, { render, User }) {
     case "是":
     case "是谁":
       // 查看当前选择老婆
+
+      if (!isSelf) {
+        e.reply("只能查看自己的哦~");
+        return true;
+      }
+
       wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, []);
       if (wifeList && wifeList.length > 0) {
         e.reply(`你的${targetCfg.keyword[0]}是：${wifeList.join("，")}`);
@@ -220,7 +239,7 @@ async function renderAvatar(e, avatar, render, renderType = "card") {
     let roleId = char.id;
     let MysApi = await e.getMysApi({
       auth: "all",
-      target: "all",
+      targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
       cookieType: "all",
       actionName: "查询信息"
     });
@@ -286,6 +305,7 @@ async function renderCard(e, avatar, render, renderType = "card") {
       bg: getCharacterImg(avatar.name),
       ...getCharacterData(avatar),
       ds: char.getData("name,id,title,desc"),
+      cfgScale: Cfg.scale(1.25)
     }, "png");
     if (base64) {
       e.reply(segment.image(`base64://${base64}`));
@@ -300,7 +320,7 @@ async function getTalent(e, avatars) {
 
   let MysApi = await e.getMysApi({
     auth: "all",
-    target: "all",
+    targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
     cookieType: "all",
     actionName: "查询信息"
   });
