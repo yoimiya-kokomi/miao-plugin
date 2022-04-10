@@ -12,24 +12,33 @@ let genshin = await import(`file://${_path}/config/genshin/roleId.js`);
 
 
 class Character extends Base {
-  constructor(name) {
-    console.log('constructor', name)
+  constructor(name, id) {
     super();
+
+    if (id * 1 === 10000005) {
+      name = "空";
+    } else if (id * 1 === 10000007) {
+      name = "荧";
+    }
     this.name = name;
-    let data = Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/character/${this.name}/`, "data.json");
-    lodash.extend(this, data);
+    lodash.extend(this, getMeta(name));
+    if (name === "主角" || name === "旅行者" || /.主/.test(name)) {
+      this.id = 20000000;
+    }
   }
 
   getCardImg(def = true) {
     let name = this.name;
 
-    if (!fs.existsSync(`./plugins/miao-plugin/resources/character-img/${name}/`)) {
-      fs.mkdirSync(`./plugins/miao-plugin/resources/character-img/${name}/`);
+    const charImgPath = `./plugins/miao-plugin/resources/character-img/${name}/`;
+
+    if (!fs.existsSync(charImgPath)) {
+      fs.mkdirSync(charImgPath);
     }
 
     let list = {};
-    let imgs = fs.readdirSync(`./plugins/miao-plugin/resources/character-img/${name}/`);
-    imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
+    let imgs = fs.readdirSync(charImgPath);
+    imgs = imgs.filter((img) => /\.(png|jpg|webp)/i.test(img));
 
     lodash.forEach(imgs, (img) => {
       list[img] = `character-img/${name}/${img}`
@@ -37,17 +46,18 @@ class Character extends Base {
 
     const plusPath = `./plugins/miao-plugin/resources/miao-res-plus/`;
     if (fs.existsSync(plusPath)) {
-      if (!fs.existsSync(`${plusPath}/character-img/${name}/`)) {
-        fs.mkdirSync(`${plusPath}/character-img/${name}/`);
+      const charImgPlusPath = `${plusPath}/character-img/${name}/`;
+      if (!fs.existsSync(charImgPlusPath)) {
+        fs.mkdirSync(charImgPlusPath);
       }
 
-      let imgs = fs.readdirSync(`${plusPath}/character-img/${name}/`);
-      imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
+      imgs = fs.readdirSync(charImgPlusPath);
+      imgs = imgs.filter((img) => /\.(png|jpg|webp)/i.test(img));
+
       lodash.forEach(imgs, (img) => {
         list[img] = `miao-res-plus/character-img/${name}/${img}`
       });
     }
-
 
     let img = lodash.sample(lodash.values(list));
 
@@ -65,22 +75,51 @@ class Character extends Base {
     ret.mode = ret.width > ret.height ? "left" : "bottom";
     return ret;
   }
+
+  checkAvatars(avatars) {
+
+    if (!lodash.includes([20000000, 10000005, 10000007], this.id * 1)) {
+      return;
+    }
+    let avatarIds = [];
+    if (lodash.isArray(avatars)) {
+      avatarIds = lodash.map(avatars, (a) => a.id * 1);
+    } else {
+      avatarIds = [avatars.id];
+    }
+
+    if (lodash.includes(avatarIds, 10000005)) {
+      // 空
+      lodash.extend(this, getMeta('空'));
+    } else if (lodash.includes(avatarIds, 10000007)) {
+      // 荧
+      lodash.extend(this, getMeta('荧'));
+    }
+  }
 }
 
+let getMeta = function (name) {
+  return Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/character/${name}/`, "data.json") || {};
+}
 
 Character.get = function (val) {
-  let roleid;
+  let roleid, name;
   if (typeof (val) === "number") {
     roleid = val;
+  } else if (val.id) {
+    roleid = val.id;
+    name = val.name || YunzaiApps.mysInfo['roleIdToName'](roleid, true);
   } else {
     roleid = YunzaiApps.mysInfo['roleIdToName'](val);
+    name = YunzaiApps.mysInfo['roleIdToName'](roleid, true);
   }
-  let name = YunzaiApps.mysInfo['roleIdToName'](roleid, true);
   if (!name) {
     return false;
   }
-  return new Character(name);
+
+  return new Character(name, roleid);
 };
+
 
 Character.getAbbr = function () {
   return genshin.abbr;

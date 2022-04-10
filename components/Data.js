@@ -32,9 +32,11 @@ let Data = {
     }
     // 检查并创建目录
     Data.createDir(root, path, true);
-
-    let jsonRet = fs.readFileSync(`${root}/${path}`, "utf8");
-    return JSON.parse(jsonRet);
+    if (fs.existsSync(`${root}/${path}`)) {
+      let jsonRet = fs.readFileSync(`${root}/${path}`, "utf8");
+      return JSON.parse(jsonRet);
+    }
+    return {}
   },
 
   /*

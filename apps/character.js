@@ -236,7 +236,7 @@ async function renderAvatar(e, avatar, render, renderType = "card") {
     if (!char) {
       return false;
     }
-    let roleId = char.id;
+
     let MysApi = await e.getMysApi({
       auth: "all",
       targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
@@ -250,20 +250,10 @@ async function renderAvatar(e, avatar, render, renderType = "card") {
 
     let avatars = charData.avatars;
     let length = avatars.length;
-
+    char.checkAvatars(avatars);
     avatars = lodash.keyBy(avatars, "id");
-    if (roleId == 20000000) {
 
-      if (avatars["10000005"]) {
-        roleId = 10000005;
-      }
-      if (avatars["10000007"]) {
-        roleId = 10000007;
-      }
-    }
-    char.roleId = roleId;
-
-    if (!avatars[roleId]) {
+    if (!avatars[char.id]) {
       let name = lodash.truncate(e.sender.card, { length: 8 });
       if (length > 8) {
         e.reply([segment.at(e.user_id, name), `\n没有${e.msg}`]);
@@ -272,10 +262,8 @@ async function renderAvatar(e, avatar, render, renderType = "card") {
       }
       return true;
     }
-    avatar = avatars[roleId];
+    avatar = avatars[char.id];
   }
-
-
   return await renderCard(e, avatar, render, renderType);
 
 }
@@ -288,9 +276,12 @@ async function renderCard(e, avatar, render, renderType = "card") {
 
   let uid = e.targetUser.uid;
 
-  let char = Character.get(avatar.name);
+  let char = Character.get(avatar);
 
-  let bg = getCharacterImg(avatar.name);
+  if (!char) {
+    return false;
+  }
+  let bg = char.getCardImg();
 
   if (renderType === "photo") {
     e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + bg.img));
@@ -302,7 +293,8 @@ async function renderCard(e, avatar, render, renderType = "card") {
       talent,
       crownNum,
       talentMap: { a: "普攻", e: "战技", q: "爆发" },
-      bg: getCharacterImg(avatar.name),
+      //bg: getCharacterImg(avatar.name),
+      bg,
       ...getCharacterData(avatar),
       ds: char.getData("name,id,title,desc"),
       cfgScale: Cfg.scale(1.25)
@@ -440,45 +432,4 @@ function getCharacterData(avatars) {
     reliquaries,
     set: setArr,
   };
-}
-
-function getCharacterImg(name) {
-
-  if (!fs.existsSync(`./plugins/miao-plugin/resources/character-img/${name}/`)) {
-    fs.mkdirSync(`./plugins/miao-plugin/resources/character-img/${name}/`);
-  }
-
-  let list = {};
-  let imgs = fs.readdirSync(`./plugins/miao-plugin/resources/character-img/${name}/`);
-  imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
-
-  lodash.forEach(imgs, (img) => {
-    list[img] = `character-img/${name}/${img}`
-  });
-
-  const plusPath = `./plugins/miao-plugin/resources/miao-res-plus/`;
-  if (fs.existsSync(plusPath)) {
-    if (!fs.existsSync(`${plusPath}/character-img/${name}/`)) {
-      fs.mkdirSync(`${plusPath}/character-img/${name}/`);
-    }
-
-    let imgs = fs.readdirSync(`${plusPath}/character-img/${name}/`);
-    imgs = imgs.filter((img) => /\.(png|jpg|webp)/.test(img));
-    lodash.forEach(imgs, (img) => {
-      list[img] = `miao-res-plus/character-img/${name}/${img}`
-    });
-  }
-
-
-  let img = lodash.sample(lodash.values(list));
-
-  if (!img) {
-
-    img = "/character-img/default/01.jpg";
-  }
-
-  let ret = sizeOf(`./plugins/miao-plugin/resources/${img}`);
-  ret.img = img;
-  ret.mode = ret.width > ret.height ? "left" : "bottom";
-  return ret;
 }

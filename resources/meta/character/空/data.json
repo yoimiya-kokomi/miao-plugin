@@ -1,1 +1,18 @@
-{}
+{
+  "name": "空",
+  "abbr": "空",
+  "id": 10000005,
+  "title": "",
+  "star": 5,
+  "elem": "anemo",
+  "allegiance": "-",
+  "weapon": "Sword",
+  "britydah": " April",
+  "astro": "旅人座",
+  "cncv": "",
+  "jpcv": "",
+  "desc": "从世界之外漂流而来的旅行者，被神带走血亲，自此踏上寻找七神之路。",
+  "imgs": {
+
+  }
+}
