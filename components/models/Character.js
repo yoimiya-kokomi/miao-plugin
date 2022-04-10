@@ -104,18 +104,22 @@ let getMeta = function (name) {
 
 Character.get = function (val) {
   let roleid, name;
-  if (typeof (val) === "number") {
+  if (typeof (val) === "number" || /^\d*$/.test(val)) {
     roleid = val;
   } else if (val.id) {
     roleid = val.id;
     name = val.name || YunzaiApps.mysInfo['roleIdToName'](roleid, true);
   } else {
     roleid = YunzaiApps.mysInfo['roleIdToName'](val);
+
+  }
+  if (!name) {
     name = YunzaiApps.mysInfo['roleIdToName'](roleid, true);
   }
   if (!name) {
     return false;
   }
+
 
   return new Character(name, roleid);
 };
