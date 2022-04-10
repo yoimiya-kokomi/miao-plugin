@@ -15,7 +15,12 @@ body {
 }
 
 .head-box {
-  margin: 0 0 60px 0;
+  margin: 60px 0 0 0;
+  padding-bottom: 0;
+}
+
+.head-box .title {
+  font-size: 50px;
 }
 
 .cont-box {
@@ -34,7 +39,7 @@ body {
   color: #ceb78b;
   font-size: 18px;
   font-weight: bold;
-  padding: 5px 0;
+  padding: 8px 0 5px 10px;
 }
 
 .help-table {
@@ -57,7 +62,7 @@ body {
   font-size: 14px;
   display: table-cell;
   box-shadow: 0 0 1px 0 #888 inset;
-  padding: 9px 0 9px 50px;
+  padding: 12px 0 12px 50px;
   line-height: 24px;
   position: relative;
   width: 50%;
@@ -88,22 +93,22 @@ body {
   background: url("icon.png") 0 0 no-repeat;
   background-size: 500px 500px;
   border-radius: 5px;
-  left: 5px;
-  top: 8px;
+  left: 6px;
+  top: 12px;
   transform: scale(0.85);
 }
 
 .help-title {
   display: block;
   color: #d3bc8e;
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .help-desc {
   display: block;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 13px;
+  line-height: 18px;
   color: #eee;
 }
 

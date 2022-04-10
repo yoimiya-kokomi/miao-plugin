@@ -1,7 +1,7 @@
 export const helpCfg = [{
   group: "游戏信息查询",
   list: [{
-    icon: 1,
+    icon: 61,
     title: "#角色 #角色卡片 #探索",
     desc: "你的原神角色数据"
   }, {
@@ -9,7 +9,7 @@ export const helpCfg = [{
     title: "#深渊 #深渊12层",
     desc: "深渊数据，打完请2小时后查询",
   }, {
-    icon: 61,
+    icon: 66,
     title: "#五星 #武器 #今日素材",
     desc: "你的原神角色详情数据"
   }, {
