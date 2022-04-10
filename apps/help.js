@@ -7,9 +7,12 @@ const _path = process.cwd();
 const helpFilePath = `${_path}/plugins/miao-plugin/resources/help/help-list.js`;
 
 export async function help(e, { render }) {
-  let bg = Character.getRandomImg('party');
-  let helpFile = {};
 
+  if (!/喵喵/.test(e.msg) && !Cfg.get("sys.help", false)) {
+    return false;
+  }
+
+  let helpFile = {};
   helpFile = await import(`file://${helpFilePath}?version=${new Date().getTime()}`);
 
   const { helpCfg } = helpFile;
@@ -29,7 +32,6 @@ export async function help(e, { render }) {
 
   let base64 = await render("help", "index", {
     helpCfg,
-    bg,
     cfgScale: Cfg.scale(1)
   }, "png");
   if (base64) {

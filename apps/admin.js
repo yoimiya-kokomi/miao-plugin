@@ -16,6 +16,7 @@ let cfgMap = {
   "图片": "wiki.pic",
   "深渊": "wiki.abyss",
   "渲染": "sys.scale",
+  "帮助": "sys.help",
 };
 let sysCfgReg = `^#喵喵设置\s*(${lodash.keys(cfgMap).join("|")})?\s*(.*)$`;
 export const rule = {
@@ -81,6 +82,7 @@ export async function sysCfg(e, { render }) {
     pic: getStatus("wiki.pic"),
     abyss: getStatus("wiki.hutao"),
     imgPlus: fs.existsSync(plusPath),
+    help: getStatus("sys.help", false),
     scale: Cfg.get("sys.scale", 100)
   }
 
@@ -94,8 +96,8 @@ export async function sysCfg(e, { render }) {
   return true;
 }
 
-const getStatus = function (rote) {
-  if (Cfg.get(rote, true)) {
+const getStatus = function (rote, def = true) {
+  if (Cfg.get(rote, def)) {
     return `<div class="cfg-status" >已开启</div>`;
   } else {
     return `<div class="cfg-status status-off">已关闭</div>`;
