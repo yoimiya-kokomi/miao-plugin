@@ -10,6 +10,7 @@ let characterMap = {};
 const _path = process.cwd();
 let genshin = await import(`file://${_path}/config/genshin/roleId.js`);
 
+const metaPath = `${_path}/plugins/miao-plugin/resources/meta/character/`
 
 class Character extends Base {
   constructor(name, id) {
@@ -127,6 +128,18 @@ Character.get = function (val) {
 
 Character.getAbbr = function () {
   return genshin.abbr;
+}
+
+Character.getRandomImg = function (type) {
+  let chars = fs.readdirSync(metaPath);
+  let ret = [];
+  type = type === "party" ? "party" : "profile";
+  lodash.forEach(chars, (char) => {
+    if (fs.existsSync(`${metaPath}/${char}/${type}.png`)) {
+      ret.push(`/meta/character/${char}/${type}.png`);
+    }
+  });
+  return lodash.sample(ret);
 }
 
 export default Character;

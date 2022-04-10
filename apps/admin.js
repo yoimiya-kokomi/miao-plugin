@@ -20,10 +20,12 @@ let cfgMap = {
 let sysCfgReg = `^#喵喵设置\s*(${lodash.keys(cfgMap).join("|")})?\s*(.*)$`;
 export const rule = {
   updateRes: {
+    hashMark: true,
     reg: "^#喵喵更新图像$",
     describe: "【#管理】更新素材",
   },
   sysCfg: {
+    hashMark: true,
     reg: sysCfgReg,
     describe: "【#管理】系统设置"
   }
@@ -105,39 +107,37 @@ export async function updateRes(e) {
   if (!await checkAuth(e)) {
     return true;
   }
-
   let command = "";
   if (fs.existsSync(`${resPath}/miao-res-plus/`)) {
-    command = `git -C ${resPath}/miao-res-plus  pull`;
+    e.reply("开始尝试更新，请耐心等待~");
+    command = `git -C ${resPath}/miao-res-plus pull`;
     exec(command, function (error, stdout, stderr) {
       console.log(stdout);
       if (/Already up to date/.test(stdout)) {
-        e.reply("素材已经是最新了~");
+        e.reply("目前所有图片都已经是最新了~");
         return true;
       }
       let numRet = /(\d*) files changed,/.exec(stdout);
       if (numRet && numRet[1]) {
-        e.reply(`更新成功，更新${numRet[1]}个素材~`);
+        e.reply(`报告主人，更新成功，此次更新了${numRet[1]}个图片~`);
         return true;
       }
       if (error) {
         e.reply("更新失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
       } else {
-        e.reply("角色图像加量包更新成功~");
+        e.reply("图片加量包更新成功~");
       }
     });
   } else {
     command = `git clone https://gitee.com/yoimiya-kokomi/miao-res-plus.git ${resPath}/miao-res-plus/`;
+    e.reply("开始尝试安装图片加量包，可能会需要一段时间，请耐心等待~");
     exec(command, function (error, stdout, stderr) {
       if (error) {
-        e.reply("角色图像加量包安装失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
+        e.reply("角色图片加量包安装失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
       } else {
-        e.reply("角色图像加量包安装成功！您后续也可以通过 #喵喵更新图像 命令来更新图像");
+        e.reply("角色图片加量包安装成功！您后续也可以通过 #喵喵更新图像 命令来更新图像");
       }
     });
   }
-
   return true;
-
-
 }

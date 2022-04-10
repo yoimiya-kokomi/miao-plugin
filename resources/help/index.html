@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/help/index.css"/>
+  </head>
+  <body class="body_box" {{cfgScale}}>
+    <div id="container" class="container">
+      <div class="info_box">
+        <div class="head-box type{{bgType}}">
+          <div class="title">使用帮助</div>
+          <div class="label">Yunzai-Bot & Miao-Plugin</div>
+        </div>
+      </div>
+
+      {{each helpCfg helpGroup}}
+      <div class="cont-box">
+        <div class="help-group">{{helpGroup.group}}</div>
+        <div class="help-table">
+          {{each helpGroup.list help idx}}
+          {{if idx%2 == 0}}
+          <div class="tr">
+            {{/if}}
+            <div class="td">
+              <span class="help-icon" style="{{help.css}}"></span>
+              <strong class="help-title">{{help.title}}</strong>
+              <span class="help-desc">{{help.desc}}</span>
+            </div>
+            {{if idx%2 ==1 || idx == helpGroup.list.length -1}}
+          </div>
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+      {{/each}}
+      <div class="copyright"> Create By Yunzai-Bot & Miao-Plugin</div>
+    </div>
+  </body>
+</html>

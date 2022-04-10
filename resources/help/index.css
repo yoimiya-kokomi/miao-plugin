@@ -1,0 +1,109 @@
+body {
+  transform: scale(1);
+  width: 600px;
+  background: url("bg.jpg");
+}
+
+.container {
+  background: url(header.png) top left no-repeat;
+  background-size: 100% auto;
+  width: 600px;
+}
+
+.label {
+  font-family: Number, "微软雅黑", sans-serif;
+}
+
+.head-box {
+  margin: 0 0 60px 0;
+}
+
+.cont-box {
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 5px 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
+  position: relative;
+  background: rgba(43, 52, 61, 0.8);
+
+}
+
+.help-group {
+  color: #ceb78b;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.help-table {
+  text-align: center;
+  border-collapse: collapse;
+  margin: 5px -10px -10px -15px;
+  border-radius: 0 0 10px 10px;
+  display: table;
+  overflow: hidden;
+  width: calc(100% + 30px);
+  color: #fff;
+}
+
+.help-table .tr {
+  display: table-row;
+}
+
+.help-table .td,
+.help-table .th {
+  font-size: 14px;
+  display: table-cell;
+  box-shadow: 0 0 1px 0 #888 inset;
+  padding: 9px 0 9px 50px;
+  line-height: 24px;
+  position: relative;
+  width: 50%;
+  text-align: left;
+}
+
+.help-table .tr:nth-child(odd) {
+  background: rgba(34, 41, 51, .6)
+}
+
+.help-table .tr:nth-child(even) {
+  background: rgba(34, 41, 51, .3)
+}
+
+.help-table .tr:last-child .td {
+  padding-bottom: 12px;
+}
+
+.help-table .th {
+  background: rgba(34, 41, 51, .5)
+}
+
+.help-icon {
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  background: url("icon.png") 0 0 no-repeat;
+  background-size: 500px 500px;
+  border-radius: 5px;
+  left: 5px;
+  top: 8px;
+  transform: scale(0.85);
+}
+
+.help-title {
+  display: block;
+  color: #d3bc8e;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.help-desc {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  color: #eee;
+}
+
