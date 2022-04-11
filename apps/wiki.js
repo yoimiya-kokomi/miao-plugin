@@ -1,8 +1,8 @@
-import { segment } from "oicq";
+import {segment} from "oicq";
 import fs from "fs";
-import { Character } from "../components/models.js";
+import {Character} from "../components/models.js";
 import lodash from "lodash";
-import { Cfg } from "../components/index.js";
+import {Cfg} from "../components/index.js";
 
 //import {wikiCharacter} from "../modules/wiki.js";
 
@@ -13,7 +13,7 @@ let action = {
 }
 
 
-export async function wiki(e, { render }) {
+export async function wiki(e, {render}) {
 
   if (!e.msg) {
     return false;
@@ -39,6 +39,9 @@ export async function wiki(e, { render }) {
 
 
   let char = Character.get(ret[1]);
+  if (!char) {
+    return false;
+  }
 
   if (mode === "pic") {
     let img = char.getCardImg(false);

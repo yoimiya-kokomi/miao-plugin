@@ -202,8 +202,8 @@ let getCharData = async function (url, key, name = '') {
 }
 
 async function down() {
-  const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
- // const url = "https://genshin.honeyhunterworld.com/db/char/unreleased-and-upcoming-characters/?lang=CHS";
+ // const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
+  const url = "https://genshin.honeyhunterworld.com/db/char/unreleased-and-upcoming-characters/?lang=CHS";
   let req = await fetch(url);
   let txt = await req.text();
   let $ = cheerio.load(txt);
