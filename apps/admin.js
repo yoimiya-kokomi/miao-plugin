@@ -80,7 +80,7 @@ export async function sysCfg(e, { render }) {
     talent: getStatus("wiki.talent"),
     cons: getStatus("wiki.cons"),
     pic: getStatus("wiki.pic"),
-    abyss: getStatus("wiki.hutao"),
+    abyss: getStatus("wiki.abyss"),
     imgPlus: fs.existsSync(plusPath),
     help: getStatus("sys.help", false),
     scale: Cfg.get("sys.scale", 100)
