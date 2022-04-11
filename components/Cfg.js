@@ -4,14 +4,14 @@ import lodash from "lodash";
 const _path = process.cwd();
 const _cfgPath = `${_path}/plugins/miao-plugin/components/`;
 let cfg = {};
-
+console.log(cfg);
 if (!fs.existsSync(_cfgPath)) {
   fs.mkdirSync(_cfgPath);
 }
 
 try {
   if (fs.existsSync(_cfgPath + "cfg.json")) {
-    cfg = JSON.parse(fs.readFileSync(_cfgPath + "miao-plugin.json", "utf8")) || {};
+    cfg = JSON.parse(fs.readFileSync(_cfgPath + "cfg.json", "utf8")) || {};
   }
 } catch (e) {
   // do nth
