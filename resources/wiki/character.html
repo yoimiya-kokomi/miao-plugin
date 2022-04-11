@@ -53,11 +53,11 @@
               <div class="talent-desc">
                 {{each skill.desc d}}
                 {{ if d.length < 6 }}
-                {{if d === "•"}} • {{else}} <span>{{d}}</span>
+                {{if d === "•"}} • {{else}} <span>{{@d}}</span>
                 {{/if}}
 
                 {{else}}
-                {{#d}}</br>
+                {{@d}}</br>
                 {{/if}}
                 {{/each}}
               </div>
