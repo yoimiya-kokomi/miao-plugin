@@ -20,7 +20,7 @@
         <div class="help-group">{{helpGroup.group}}</div>
         <div class="help-table">
           {{each helpGroup.list help idx}}
-          {{if idx%2 == 0}}
+          {{if idx%3 == 0}}
           <div class="tr">
             {{/if}}
             <div class="td">
@@ -28,7 +28,7 @@
               <strong class="help-title">{{help.title}}</strong>
               <span class="help-desc">{{help.desc}}</span>
             </div>
-            {{if idx%2 ==1 || idx == helpGroup.list.length -1}}
+            {{if idx%3 ==2 || idx == helpGroup.list.length -1}}
           </div>
           {{/if}}
           {{/each}}

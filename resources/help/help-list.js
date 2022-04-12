@@ -33,10 +33,6 @@ export const helpCfg = [{
     title: "#体力 #体力帮助",
     desc: "查询体力，绑定Cookie帮助"
   }, {
-    icon: 86,
-    title: "#签到",
-    desc: "米游社原神签到"
-  }, {
     icon: 5,
     title: "#原石 #原石统计",
     desc: "札记数据，需要绑定Cookie"
@@ -48,12 +44,16 @@ export const helpCfg = [{
     icon: 22,
     title: "#我的ck #删除ck",
     desc: "查看绑定的cookie 删除cookie"
+  }, {
+    icon: 86,
+    title: "#签到",
+    desc: "米游社原神签到"
   }]
 }, {
   group: "喵喵扩展 Miao-Plugin",
   list: [{
     icon: 60,
-    title: "#老婆  #老婆设置心海，雷神",
+    title: "#老婆  #老婆设置心海,雷神",
     desc: "设置老婆，查看老婆信息卡片"
   }, {
     icon: 88,
@@ -67,14 +67,6 @@ export const helpCfg = [{
     icon: 56,
     title: "#角色持有率 #深渊出场率",
     desc: "查看角色的持有率及深渊出场率信息"
-  }, {
-    icon: 32,
-    title: "#喵喵设置",
-    desc: "管理员可用：配置喵喵功能"
-  }, {
-    icon: 35,
-    title: "#喵喵更新素材",
-    desc: "管理员可用：更新增量图像素材包"
   }]
 }, {
   group: "其他查询指令",
@@ -108,10 +100,19 @@ export const helpCfg = [{
     desc: "其他命令"
   }]
 }, {
-  group: "管理命令",
+  group: "管理命令，仅管理员可用",
+  auth: "master",
   list: [{
     icon: 85,
     title: "#用户统计",
     desc: "查看用户CK-UID列表"
+  }, {
+    icon: 32,
+    title: "#喵喵设置",
+    desc: "配置喵喵功能"
+  }, {
+    icon: 35,
+    title: "#喵喵更新图像",
+    desc: "更新喵喵的增量角色图像素材"
   }]
 }];

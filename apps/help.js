@@ -16,8 +16,14 @@ export async function help(e, { render }) {
   helpFile = await import(`file://${helpFilePath}?version=${new Date().getTime()}`);
 
   const { helpCfg } = helpFile;
+  let helpGroup = [];
 
   lodash.forEach(helpCfg, (group) => {
+    if (group.auth && group.auth === "master" && !e.isMaster) {
+      return;
+    }
+
+
     lodash.forEach(group.list, (help) => {
       let icon = help.icon * 1;
       if (!icon) {
@@ -27,12 +33,14 @@ export async function help(e, { render }) {
         help.css = `background-position:-${x * 50}px -${y * 50}px`;
       }
 
-    })
+    });
+
+    helpGroup.push(group);
   });
 
   let base64 = await render("help", "index", {
-    helpCfg,
-    cfgScale: Cfg.scale(1)
+    helpCfg: helpGroup,
+    cfgScale: Cfg.scale(1.05)
   }, "png");
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
