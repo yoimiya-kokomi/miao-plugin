@@ -291,9 +291,10 @@ body {
 .talent-name {
   display: block;
   font-size: 32px;
-  margin: -5px 0 20px 0;
+  margin: 0 0 15px 0;
   color: #d3bc8e;
   line-height: 45px;
+  font-weight: bold;
 }
 
 .talent-desc {
@@ -302,7 +303,7 @@ body {
   padding-right: 10px;
 }
 
-.talent-desc span {
+.talent-desc strong {
   margin-top: 15px;
   margin-bottom: 5px;
   display: block;
@@ -335,6 +336,10 @@ body {
 
 .talent-table .tr {
   display: table-row;
+}
+
+.talent-table .colspan {
+  display: table-column-group;
 }
 
 .talent-table .td,
@@ -384,6 +389,11 @@ body {
   padding-right: 5px;
 }
 
+.passive .talent-table {
+  margin-right: 20px;
+  width: 100%;
+  margin-bottom: -15px;
+}
 
 .elem_anemo .talent-icon {
   background-image: url(../common/bg/talent-anemo.png)

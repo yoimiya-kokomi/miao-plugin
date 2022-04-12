@@ -49,42 +49,44 @@
               <img src="{{_res_path}}{{_char}}/talent_{{type}}.png"/>
             </div>
             <div class="talent-info">
-              <strong class="talent-name">{{skill.name}}</strong>
+              <div class="talent-name">{{skill.name}}</div>
               <div class="talent-desc">
                 {{each skill.desc d}}
-                {{ if d.length < 6 }}
-                {{if d === "•"}} • {{else}} <span>{{@d}}</span>
-                {{/if}}
-
-                {{else}}
-                {{@d}}</br>
+                {{ if d[0] === "<" }}
+                {{@d}}
+                {{else if d!=""}}
+                {{d}}</br>
                 {{/if}}
                 {{/each}}
               </div>
             </div>
             {{if skill.tables && skill.tables.length > 0}}
-            <div class="talent-table">
-              <div class="tr">
-                <div class="th"></div>
+            <table class="talent-table">
+              <tr class="tr">
+                <td class="th"></td>
                 {{each skill.lvs lv idx}}
                 {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
-                <div class="th lv">{{lv}}</div>
+                <td class="th lv">{{lv}}</td>
                 {{/if}}
                 {{/each}}
-              </div>
+              </tr>
               {{each skill.tables tr}}
-              <div class="tr">
-                <div class="th talent_name">
+              <tr class="tr">
+                <td class="th talent_name">
                   {{tr.name}}
-                </div>
+                </td>
+                {{if tr.isSame}}
+                <td class="td colspan"  colspan="{{type == a ? 6 : 8}}" class="td">{{tr.values[0]}} </td>
+                {{else}}
                 {{each tr.values v idx}}
                 {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
-                <div class="td">{{v}}</div>
+                <td class="td">{{v}}</td>
                 {{/if}}
                 {{/each}}
-              </div>
+                {{/if}}
+              </tr>
               {{/each}}
-            </div>
+            </table>
             {{/if}}
           </div>
         </div>
@@ -92,7 +94,7 @@
       {{/each}}
 
       <div class="talent-box">
-        <div class="talent-detail">
+        <div class="talent-detail passive">
           {{each passive pass idx}}
           <div class="talent-line">
             <div class="talent-icon">
@@ -101,7 +103,25 @@
             <div class="talent-info">
               <strong class="talent-name">{{pass.name}}</strong>
               <div class="talent-desc">
-                {{pass.desc}}
+                {{if pass.tables}}
+                {{each pass.desc d}}
+                {{ if d[0] === "<" }}
+                {{@d}}
+                {{else if d!=""}}
+                {{d}}</br>
+                {{/if}}
+                {{/each}}
+                <div class="talent-table">
+                  {{each pass.tables tr}}
+                  <div class="tr">
+                    <div class="th">{{tr.name}}</div>
+                    <div class="td">{{tr.values[0]}}</div>
+                  </div>
+                  {{/each}}
+                </div>
+                {{else}}
+                {{@pass.desc}}
+                {{/if}}
               </div>
             </div>
           </div>
@@ -121,7 +141,7 @@
             <div class="talent-info">
               <strong class="talent-name">{{con.name}}</strong>
               <div class="talent-desc">
-                {{con.desc}}
+                {{@con.desc}}
               </div>
             </div>
           </div>
