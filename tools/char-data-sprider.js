@@ -77,7 +77,7 @@ function getStat($) {
   };
 }
 
-function getTalents($, eq) {
+function getTalents($, eq, onlyLv1 = false) {
   let root = $("#beta_scroll_attack_talent");
   let info = root.nextAll(`.item_main_table:eq(${eq})`);
 
@@ -99,6 +99,9 @@ function getTalents($, eq) {
   let detail = root.nextAll(`.skilldmgwrapper:eq(${eq})`).find("table");
   let lvs = [], details = [];
   detail.find("tr:first td").each(function (i) {
+    if (onlyLv1 && i > 1) {
+      return false;
+    }
     if (i > 0) {
       lvs.push($(this).text())
     }
@@ -107,6 +110,9 @@ function getTalents($, eq) {
     let name = $(this).find("td:eq(0)").text();
     let values = [], isSame = true;
     $(this).find("td:gt(0)").each(function (i) {
+      if (onlyLv1 && i > 0) {
+        return false;
+      }
       let val = lodash.trim($(this).text());
       values.push(val);
       if (i > 0 && values[0] !== val) {
@@ -129,9 +135,11 @@ function getTalents($, eq) {
 
 }
 
-let getPassive = function ($) {
+let getPassive = function ($, name) {
   let table = $("#beta_scroll_passive_talent").next("table")
   let ret = [];
+
+
   table.find("tr").each(function (idx) {
     if (idx % 2 === 0) {
       let ds = {};
@@ -142,6 +150,9 @@ let getPassive = function ($) {
       ret[(idx - 1) / 2].desc = $(this).find("td").text();
     }
   })
+  if (name === "莫娜" || name === "神里绫华") {
+    ret.push(getTalents($, 2, true))
+  }
   return ret;
 }
 
@@ -189,20 +200,35 @@ let getCharData = async function (url, key, name = '') {
   const $ = cheerio.load(txt);
   let ret = getBasic($, name);
 
+  name = ret.name;
+
   ret.lvStat = getStat($);
   ret.talent = {
     a: getTalents($, 0),
     e: getTalents($, 1),
-    q: getTalents($, 2)
+    q: getTalents($, name === "莫娜" || name === "神里绫华" ? 3 : 2)
   }
-  ret.passive = getPassive($);
+  ret.passive = getPassive($, name);
   ret.cons = getCons($);
   ret.imgs = getImgs($);
   return ret;
 }
 
+async function saveCharData(url, key, name) {
+
+  let data = await getCharData(url, key, name);
+
+  let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${data.name}/`
+  if (!fs.existsSync(charPath)) {
+    fs.mkdirSync(charPath);
+  }
+
+  fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, "", "\t"));
+  console.log(data.name + "下载完成");
+}
+
 async function down() {
- // const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
+  // const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
   const url = "https://genshin.honeyhunterworld.com/db/char/unreleased-and-upcoming-characters/?lang=CHS";
   let req = await fetch(url);
   let txt = await req.text();
@@ -227,21 +253,16 @@ async function down() {
         }
       }
 
-      let data = await getCharData(url, key, name);
-
-      let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${data.name}/`
-      if (!fs.existsSync(charPath)) {
-        fs.mkdirSync(charPath);
-      }
-
-      fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, "", "\t"));
-      console.log(data.name + "下载完成");
+      await saveCharData(url, key, name);
     }
   });
 
 }
 
-await down();
+await saveCharData("https://genshin.honeyhunterworld.com/db/char/ayaka/?lang=CHS", "ayaka");
+
+
+//await down();
 
 
 
