@@ -67,6 +67,19 @@ export async function character(e, { render, User }) {
   return renderAvatar(e, char.name, render);
 }
 
+let _pokeCharacter = false;
+
+async function initPoke() {
+  if (!_pokeCharacter) {
+    _pokeCharacter = YunzaiApps.mysInfo.pokeCharacter;
+  }
+  YunzaiApps.mysInfo.pokeCharacter = async function (e, components) {
+    if (Cfg.isDisable('char.poke', true)) {
+      return await _pokeCharacter(e, components);
+    }
+    return await pokeCharacter(e, components);
+  }
+}
 
 //#老婆
 export async function wife(e, { render, User }) {
@@ -200,6 +213,18 @@ export async function wife(e, { render, User }) {
   return true;
 }
 
+async function pokeCharacter(e, { render }) {
+  let MysApi = await e.getMysApi({
+    auth: "all",
+    targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
+    cookieType: "all",
+    actionName: "查询信息"
+  });
+  let avatarList = await getAvatarList(e, false, MysApi);
+  let avatar = lodash.sample(avatarList);
+  return renderAvatar(e, avatar, render, 'card');
+}
+
 async function getAvatarList(e, type, MysApi) {
   let data = await MysApi.getCharacter();
   if (!data) return false;
@@ -211,8 +236,10 @@ async function getAvatarList(e, type, MysApi) {
   }
   let list = [];
   for (let val of avatars) {
-    if (!genshin.wifeData[type].includes(Number(val.id))) {
-      continue;
+    if (type !== false) {
+      if (!genshin.wifeData[type].includes(Number(val.id))) {
+        continue;
+      }
     }
     if (val.rarity > 5) {
       val.rarity = 5;
@@ -227,6 +254,7 @@ async function getAvatarList(e, type, MysApi) {
   list = lodash.orderBy(list, sortKey, lodash.repeat("desc,", sortKey.length).split(","));
   return list;
 }
+
 
 async function renderAvatar(e, avatar, render, renderType = "card") {
 
