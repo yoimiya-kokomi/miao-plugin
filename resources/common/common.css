@@ -18,6 +18,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "YS";
+  src: url("../common/font/HYWenHei-55W.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 
 * {
   margin: 0;

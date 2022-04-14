@@ -2,6 +2,8 @@ import { segment } from "oicq";
 import lodash from "lodash";
 import { Character } from "../components/models.js"
 import { Cfg } from "../components/index.js";
+import Profile from "../components/Profile.js";
+import Format from "../components/Format.js"
 import fs from "fs";
 import sizeOf from "image-size";
 
@@ -46,25 +48,39 @@ export async function init(isUpdate = false) {
   let version = isUpdate ? new Date().getTime() : 0;
   genshin = await import(_path + `/config/genshin/roleId.js?version=${version}`);
   nameID = "";
+
 }
 
 // 查看当前角色
 export async function character(e, { render, User }) {
-  if (!e.msg) {
+  let msg = e.msg;
+  if (!msg) {
     return;
   }
+  console.log(msg);
   if (Cfg.isDisable(e, "char.char")) {
     return;
   }
 
-  let name = e.msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
+  let mode = 'card';
+  if (/详情$/.test(msg)) {
+    mode = 'profile';
+  }
 
+  let name = msg.replace(/#|老婆|老公|详情|[1|2|5][0-9]{8}/g, "").trim();
+  console.log(name);
   let char = Character.get(name);
   if (!char) {
     return false;
   }
 
-  return renderAvatar(e, char.name, render);
+  console.log(char.id, char.name, mode);
+
+  if (mode === "profile") {
+    return renderProfile(e, char, render);
+  } else {
+    return renderAvatar(e, char.name, render);
+  }
 }
 
 let _pokeCharacter = false;
@@ -387,6 +403,35 @@ async function getTalent(e, avatars) {
   return skill;
 }
 
+export async function getProfile(e) {
+  let MysApi = await e.getMysApi({
+    auth: "cookie",
+    targetType: "self",
+    cookieType: "self",
+    actionName: "更新角色信息"
+  });
+
+  if (!MysApi) {
+    return false;
+  }
+  let selfUser = e.selfUser;
+  if (!selfUser.isCookieUser) {
+    e.reply("仅绑定cookie用户可用")
+    return true;
+  }
+  e.reply("开始更新用户信息，可能会需要一定时间");
+  //try {
+  let data = await Profile.request(selfUser.uid);
+  //} catch (err) {
+
+  //e.reply("更新错误");
+  //}
+  if (data) {
+    e.reply("更新成功")
+  }
+  return true;
+}
+
 // 获取角色数据
 function getCharacterData(avatars) {
   let list = [];
@@ -460,4 +505,53 @@ function getCharacterData(avatars) {
     reliquaries,
     set: setArr,
   };
+}
+
+export async function renderProfile(e, char, render) {
+  let MysApi = await e.getMysApi({
+    auth: "cookie",
+    targetType: "self",
+    cookieType: "self",
+    actionName: "查询角色详情"
+  });
+
+  let selfUser = e.selfUser,
+    uid = selfUser.uid;
+
+  let profile = Profile.get(uid, char.id);
+  if (!profile) {
+    return renderAvatar(e, char.name, render)
+  }
+
+  let a = profile.attr;
+  let c = Format.comma,
+    p = Format.pct;
+  let attr = {
+    hp: c(a.hp),
+    hpPlus: c(a.hp - a.hpBase),
+    atk: c(a.atk),
+    atkPlus: c(a.atk - a.atkBase),
+    def: c(a.def),
+    defPlus: c(a.def - a.defBase),
+    cRate: p(a.cRate),
+    cDmg: p(a.cDmg),
+    mastery: c(a.mastery),
+    recharge: p(a.recharge),
+    dmgBonus: p(a.dmgBonus)
+  };
+
+
+
+  let base64 = await render("character", "detail", {
+    save_id: uid,
+    uid: uid,
+    data: profile,
+    meta: char,
+    attr,
+    talentMap: { a: "普攻", e: "战技", q: "爆发" },
+    cfgScale: Cfg.scale(1.25)
+  }, "png");
+  if (base64) {
+    e.reply(segment.image(`base64://${base64}`));
+  }
 }
