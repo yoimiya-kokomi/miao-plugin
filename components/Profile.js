@@ -77,11 +77,8 @@ let Data = {
       ret[key] = data[title] || "";
     })
 
-    console.log(data.items.length)
-
     lodash.forEach(data.items, (ds) => {
       let char = Data.getAvatar(ds);
-      console.log(char)
       ret.chars[char.id] = char;
     });
 
@@ -212,10 +209,8 @@ let Profile = {
     let req = await fetch(api);
     let data = await req.text();
     data = data.replace(/\x00/g, '');
-    console.log(data);
     fs.writeFileSync(userPath + "/test.json", data);
     data = JSON.parse(data);
-    console.log(data);
     let userData = {};
     if (data && data["角色名称"]) {
       userData = Profile.save(uid, data)
@@ -248,7 +243,6 @@ let Profile = {
     if (fs.existsSync(userFile)) {
       userData = JSON.parse(fs.readFileSync(userFile, "utf8")) || {};
     }
-    console.log(charId, lodash.keys(userData.chars));
     if (userData && userData.chars && userData.chars[charId]) {
       return userData.chars[charId];
     }

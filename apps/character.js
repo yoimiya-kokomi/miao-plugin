@@ -57,7 +57,6 @@ export async function character(e, { render, User }) {
   if (!msg) {
     return;
   }
-  console.log(msg);
   if (Cfg.isDisable(e, "char.char")) {
     return;
   }
@@ -68,13 +67,10 @@ export async function character(e, { render, User }) {
   }
 
   let name = msg.replace(/#|老婆|老公|详情|[1|2|5][0-9]{8}/g, "").trim();
-  console.log(name);
   let char = Character.get(name);
   if (!char) {
     return false;
   }
-
-  console.log(char.id, char.name, mode);
 
   if (mode === "profile") {
     return renderProfile(e, char, render);
