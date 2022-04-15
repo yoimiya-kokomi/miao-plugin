@@ -1,6 +1,7 @@
 import fs from "fs";
 import fetch from "node-fetch";
 import lodash from "lodash";
+import Format from "./Format.js";
 
 const _path = process.cwd();
 const cfgPath = `${_path}/plugins/miao-plugin/components/setting.json`;
@@ -247,6 +248,30 @@ let Profile = {
       return userData.chars[charId];
     }
     return false;
+  },
+  formatArti(ds) {
+    if (lodash.isArray(ds[0])) {
+      let ret = [];
+      lodash.forEach(ds, (d) => {
+        ret.push(Profile.formatArti(d));
+      })
+      return ret;
+    }
+    let title = ds[0], val = ds[1];
+    if (/伤害加成/.test(title) && val<1) {
+      val = Format.pct(val*100);
+    }else if (/伤害加成|大|暴|爆|充能|治疗/.test(title)) {
+      val = Format.pct(val);
+    } else {
+      val = Format.comma(val,1);
+    }
+    if (title == "爆伤") {
+      title = "暴击伤害";
+    }
+    if (/元素伤害加成/.test(title)) {
+      title = title.replace("元素伤害", "伤");
+    }
+    return [title, val];
   }
 };
 export default Profile;

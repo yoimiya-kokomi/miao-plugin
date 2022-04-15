@@ -503,6 +503,30 @@ function getCharacterData(avatars) {
   };
 }
 
+async function getAvatar(e, char, MysApi) {
+
+  let charData = await MysApi.getCharacter();
+  if (!charData) return true;
+
+  let avatars = charData.avatars;
+  let length = avatars.length;
+  char.checkAvatars(avatars);
+  avatars = lodash.keyBy(avatars, "id");
+
+  if (!avatars[char.id]) {
+    let name = lodash.truncate(e.sender.card, { length: 8 });
+    if (length > 8) {
+      e.reply([segment.at(e.user_id, name), `\n没有${e.msg}`]);
+    } else {
+      e.reply([segment.at(e.user_id, name), "\n请先在米游社展示该角色"]);
+    }
+    return false;
+  }
+
+  return avatars[char.id];
+}
+
+
 export async function renderProfile(e, char, render) {
   let MysApi = await e.getMysApi({
     auth: "cookie",
@@ -536,18 +560,37 @@ export async function renderProfile(e, char, render) {
     dmgBonus: p(a.dmgBonus)
   };
 
+  let avatar = await getAvatar(e, char, MysApi);
+  let talent = await getTalent(e, avatar);
 
+  let reliquaries = [];
+
+  lodash.forEach(avatar.reliquaries, (ds, idx)=>{
+    let arti = profile.artis[`arti${idx+1}`];
+    if(arti){
+      ds.main = Profile.formatArti(arti.main);
+      ds.attrs = Profile.formatArti(arti.attrs);
+    }
+    reliquaries.push(ds);
+  })
 
   let base64 = await render("character", "detail", {
     save_id: uid,
     uid: uid,
     data: profile,
-    meta: char,
+   // meta: char,
     attr,
+    avatar,
+    talent,
+    cons: char.cons,
+    name: char.name,
+    elem: char.elem,
+    reliquaries,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
     cfgScale: Cfg.scale(1.25)
   }, "png");
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
   }
+  return true;
 }
