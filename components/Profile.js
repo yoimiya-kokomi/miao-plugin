@@ -2,6 +2,7 @@ import fs from "fs";
 import fetch from "node-fetch";
 import lodash from "lodash";
 import Format from "./Format.js";
+import Character from "./models/Character.js";
 
 const _path = process.cwd();
 const cfgPath = `${_path}/plugins/miao-plugin/components/setting.json`;
@@ -87,8 +88,10 @@ let Data = {
 
   },
   getAvatar(data) {
+    let char = Character.get(data["英雄Id"]);
     return {
       id: data["英雄Id"],
+      name: char ? char.name : "",
       lv: data['等级'],
       attr: Data.getAttr(data),
       weapon: Data.getWeapon(data),
@@ -139,6 +142,7 @@ let Data = {
       maxDmg = Math.max(data[`属性${key}元素伤害加成`] * 1, maxDmg);
     });
     ret.dmgBonus = (maxDmg * 100).toFixed(2);
+    ret.phyBonus = (data[`属性物理伤害加成`] * 100).toFixed(2);
 
     return ret;
   },

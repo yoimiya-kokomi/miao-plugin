@@ -567,7 +567,7 @@ export async function renderProfile(e, char, render) {
     cDmg: p(a.cDmg),
     mastery: c(a.mastery),
     recharge: p(a.recharge),
-    dmgBonus: p(a.dmgBonus)
+    dmgBonus: p(Math.max(a.dmgBonus * 1 || 0, a.phyBonus * 1 || 0))
   };
 
   let avatar = await getAvatar(e, char, MysApi);
@@ -595,7 +595,6 @@ export async function renderProfile(e, char, render) {
     attr,
     avatar,
     talent,
-    key: char.key,
     cons: char.cons,
     name: char.name,
     elem: char.elem,
@@ -603,7 +602,7 @@ export async function renderProfile(e, char, render) {
     totalMark,
     weapon: avatar.weapon,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
-    cfgScale: Cfg.scale(1.25)
+    cfgScale: Cfg.scale(1.5)
   }, "png");
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
