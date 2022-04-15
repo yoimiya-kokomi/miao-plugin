@@ -271,6 +271,8 @@ let Profile = {
 
     if (/元素伤害加成/.test(title)) {
       title = title.replace("元素伤害", "伤");
+    } else if (title === "物理伤害加成") {
+      title = "物伤加成";
     }
     return [title, val];
   },
