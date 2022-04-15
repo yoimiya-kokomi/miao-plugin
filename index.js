@@ -35,7 +35,7 @@ let rule = {
     describe: "【#帮助】 #喵喵帮助",
   },
   getProfile: {
-    reg: "^#获取游戏角色详情$",
+    reg: "^#\s*获取游戏角色详情\s*$",
     describe: "【#角色】 获取游戏橱窗详情数据",
   },
   ...adminRule

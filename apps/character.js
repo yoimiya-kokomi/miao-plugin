@@ -412,19 +412,28 @@ export async function getProfile(e) {
   }
   let selfUser = e.selfUser;
   if (!selfUser.isCookieUser) {
-    e.reply("仅绑定cookie用户可用")
+    e.reply("此功能仅绑定cookie用户可用")
     return true;
   }
-  e.reply("开始更新用户信息，可能会需要一定时间");
-  //try {
-  let data = await Profile.request(selfUser.uid);
-  //} catch (err) {
+  let data = await Profile.request(selfUser.uid, e);
 
-  //e.reply("更新错误");
-  //}
-  if (data) {
-    e.reply("更新成功")
+  if (!data || !data.chars) {
+    e.reply("请求游戏信息失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~");
+  } else {
+    let ret = [];
+    lodash.forEach(data.chars, (ds) => {
+      let char = Character.get(ds.id);
+      if (char) {
+        ret.push(char.name);
+      }
+    })
+    if (ret.length === 0) {
+      e.reply("更新失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~")
+    } else {
+      e.reply(`更新成功！本次更新角色: ${ret.join(",")}。你可以使用 #角色名+详情 来查看详细角色属性了`)
+    }
   }
+
   return true;
 }
 
@@ -540,6 +549,7 @@ export async function renderProfile(e, char, render) {
 
   let profile = Profile.get(uid, char.id);
   if (!profile) {
+    e.reply(`尚无${char.name}的属性信息。请在游戏内将角色展示在“角色展柜”中，并打开“显示角色详情”。设置完成5分钟后请使用 #获取游戏角色详情 命令获取角色详情数据~`)
     return renderAvatar(e, char.name, render)
   }
 
@@ -563,11 +573,15 @@ export async function renderProfile(e, char, render) {
   let avatar = await getAvatar(e, char, MysApi);
   let talent = await getTalent(e, avatar);
 
-  let reliquaries = [];
+  let reliquaries = [], totalMark = 0;
 
-  lodash.forEach(avatar.reliquaries, (ds, idx)=>{
-    let arti = profile.artis[`arti${idx+1}`];
-    if(arti){
+  lodash.forEach(avatar.reliquaries, (ds, idx) => {
+    let arti = profile.artis[`arti${idx + 1}`];
+    if (arti) {
+      let mark = Profile.getArtiMark(arti.attrs, ds.pos_name === "理之冠" ? arti.main : false);
+      totalMark += mark;
+      ds.mark = c(mark, 1);
+      ds.markType = mark > 45 ? (mark >= 50 ? "high" : "good") : "normal";
       ds.main = Profile.formatArti(arti.main);
       ds.attrs = Profile.formatArti(arti.attrs);
     }
@@ -578,14 +592,16 @@ export async function renderProfile(e, char, render) {
     save_id: uid,
     uid: uid,
     data: profile,
-   // meta: char,
     attr,
     avatar,
     talent,
+    key: char.key,
     cons: char.cons,
     name: char.name,
     elem: char.elem,
     reliquaries,
+    totalMark,
+    weapon: avatar.weapon,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
     cfgScale: Cfg.scale(1.25)
   }, "png");

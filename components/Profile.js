@@ -33,7 +33,7 @@ const artifactMap = {
     pct: true
   },
   '暴击伤害': {
-    title: "爆伤",
+    title: "暴击伤害",
     pct: true
   },
   '防御力': {
@@ -51,14 +51,14 @@ const artifactMap = {
     pct: true
   },
   '元素精通': {
-    title: "精通"
+    title: "元素精通"
   },
   '元素充能效率': {
-    title: "充能",
+    title: "充能效率",
     pct: true
   },
   '治疗加成': {
-    title: "治疗",
+    title: "治疗加成",
     pct: true
   }
 }
@@ -202,10 +202,12 @@ let Data = {
 }
 
 let Profile = {
-  async request(uid) {
+  async request(uid, e) {
     if (!cfg.api) {
-      return {};
+      e.reply("尚未配置更新Api，无法更新数据~");
+      return false;
     }
+    e.reply("开始获取角色展柜中展示的角色详情，请确认已经打开显示角色详情开关，数据获取可能会需要一定时间~");
     const api = cfg.api + uid;
     let req = await fetch(api);
     let data = await req.text();
@@ -225,18 +227,14 @@ let Profile = {
     if (fs.existsSync(userFile)) {
       userData = JSON.parse(fs.readFileSync(userFile, "utf8")) || {};
     }
-
     let data = Data.getData(uid, ds);
-
     lodash.assignIn(userData, lodash.pick(data, "uid,name,lv,avatar".split(",")));
-
     userData.chars = userData.chars || {};
     lodash.forEach(data.chars, (char, charId) => {
       userData.chars[charId] = char;
     });
-
     fs.writeFileSync(userFile, JSON.stringify(userData), "", " ");
-    return userData;
+    return data;
   },
   get(uid, charId) {
     const userFile = `${userPath}/${uid}.json`;
@@ -258,20 +256,44 @@ let Profile = {
       return ret;
     }
     let title = ds[0], val = ds[1];
-    if (/伤害加成/.test(title) && val<1) {
-      val = Format.pct(val*100);
-    }else if (/伤害加成|大|暴|爆|充能|治疗/.test(title)) {
+    if (/伤害加成/.test(title) && val < 1) {
+      val = Format.pct(val * 100);
+    } else if (/伤害加成|大|暴|充能|治疗/.test(title)) {
       val = Format.pct(val);
     } else {
-      val = Format.comma(val,1);
+      val = Format.comma(val, 1);
     }
-    if (title == "爆伤") {
-      title = "暴击伤害";
-    }
+
+
     if (/元素伤害加成/.test(title)) {
       title = title.replace("元素伤害", "伤");
     }
     return [title, val];
+  },
+  getArtiMark(data, ds) {
+    let mark = {
+      "暴击率": 2,
+      "暴击伤害": 1,
+      "元素精通": 0.25,
+      "大攻击": 1,
+      "大生命": 0.86,
+      "大防御": 0.7,
+      "小攻击": 0.12,
+      "小生命": 0.014,
+      "小防御": 0.18,
+      "充能效率": 0.65
+    };
+
+    let total = 0;
+    lodash.forEach(data, (ret) => {
+      if (ret[0] && ret[1]) {
+        total += mark[ret[0]] * ret[1];
+      }
+    })
+    if (ds && /暴/.test(ds[0])) {
+      total += 20;
+    }
+    return total;
   }
 };
 export default Profile;

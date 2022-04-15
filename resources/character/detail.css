@@ -1,0 +1,512 @@
+
+body {
+  width: 600px;
+  height: 1000px;
+}
+
+.container {
+  width: 600px;
+  height: 1030px;
+  padding: 0;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.container:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 8px;
+  top: 115px;
+  bottom: 470px;
+  right: 8px;
+  box-shadow: 0 0 2px 0 #fff;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.main-pic {
+  width: 800px;
+  height: 500px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: -260px;
+  position: relative;
+  z-index: 2;
+}
+
+.detail {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  color: #fff;
+  z-index: 3;
+}
+
+.char-name {
+  font-size: 50px;
+  font-family: NZBZ;
+  text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, .7);
+  text-align: right;
+}
+
+.char-lv {
+  font-family: Number;
+  margin-bottom: 20px;
+  text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, .7);
+  text-align: right;
+}
+
+.attr {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.detail li {
+  width: 300px;
+  font-size: 18px;
+  list-style: none;
+  padding: 5px 100px 5px 35px;
+  position: relative;
+  font-family: YS;
+  font-weight: 400;
+}
+
+.attr li i {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-image: url("./icon.png");
+  background-size: auto 20px;
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  opacity: .9;
+  transform: scale(.9);
+
+}
+
+.i-hp {
+  background-position: -20px 0;
+}
+
+.i-atk {
+  background-position: -40px 0;
+}
+
+.i-def {
+  background-position: -60px 0;
+}
+
+.i-mastery {
+  background-position: -80px 0;
+}
+
+.i-cr {
+  background-position: -100px 0;
+}
+
+.i-cd {
+  background-position: -140px 0;
+}
+
+.i-re {
+  background-position: -120px 0;
+}
+
+.i-dmg {
+  background-position: -160px 0;
+}
+
+.detail li:nth-child(even) {
+  background: rgba(0, 0, 0, .4)
+}
+
+.detail li:nth-child(odd) {
+  background: rgba(50, 50, 50, .4)
+}
+
+.detail li strong {
+  display: inline-block;
+  position: absolute;
+  right: 85px;
+  text-align: right;
+  font-family: Number, sans-serif;
+  font-weight: normal;
+}
+
+.detail li span {
+  position: absolute;
+  right: 0;
+  text-align: left;
+  width: 75px;
+  display: inline-block;
+  font-family: Number, sans-serif;
+  color: #90e800;
+  font-size: 15px;
+}
+
+.talent-icon {
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  display: table;
+  border-radius: 50%;
+  position: relative;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 90;
+}
+
+.talent-icon img {
+  width: 46%;
+  height: 46%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -22% 0 0 -23%;
+}
+
+.talent-icon span {
+  background: #fff;
+  width: 34px;
+  height: 26px;
+  line-height: 26px;
+  font-size: 17px;
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  margin-left: -15px;
+  color: #000;
+  box-shadow: 0 0 5px 0 #000;
+  font-family: Number;
+}
+
+.talent-icon.talent-plus span {
+  background: #2e353e;
+  color: #ffdfa0;
+  font-weight: bold;
+  box-shadow: 0 0 1px 0 #d3bc8e, 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.talent-icon.talent-crown:after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 28px;
+  background: url("../character/imgs/crown.png") no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  margin-left: -14px;
+}
+
+
+.char-talents {
+  display: flex;
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+.char-cons {
+  display: flex;
+  width: 250px;
+  position: absolute;
+  top: 465px;
+  left: 20px;
+}
+
+.char-cons .talent-item,
+.char-talents .talent-item {
+  flex: 1;
+}
+
+.char-cons .talent-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 -5px
+}
+
+.char-cons .talent-icon.off {
+  filter: grayscale(100%);
+  opacity: .4;
+}
+
+
+.elem_anemo .talent-icon {
+  background-image: url(../common/bg/talent-anemo.png)
+}
+
+.elem_anemo .container {
+  background-image: url(../common/bg/bg-anemo.jpg);
+}
+
+
+.elem_cryo .talent-icon {
+  background-image: url(../common/bg/talent-cryo.png)
+}
+
+.elem_cryo .container {
+  background-image: url(../common/bg/bg-cryo.jpg);
+}
+
+
+.elem_electro .talent-icon {
+  background-image: url(../common/bg/talent-electro.png)
+}
+
+.elem_electro .container {
+  background-image: url(../common/bg/bg-electro.jpg);
+}
+
+
+.elem_geo .talent-icon {
+  background-image: url(../common/bg/talent-geo.png)
+}
+
+.elem_geo .container {
+  background-image: url(../common/bg/bg-geo.jpg);
+}
+
+
+.elem_hydro .talent-icon {
+  background-image: url(../common/bg/talent-hydro.png)
+}
+
+.elem_hydro .container {
+  background-image: url(../common/bg/bg-hydro.jpg);
+}
+
+
+.elem_pyro .talent-icon {
+  background-image: url(../common/bg/talent-pyro.png)
+}
+
+.elem_pyro .container {
+  background-image: url(../common/bg/bg-pyro.jpg);
+}
+
+.artis {
+  display: flex;
+  width: 600px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.artis .item {
+  width: 185px;
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 5px;
+  height: 210px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
+}
+
+
+.artis .item .arti-icon {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 2px;
+  top: 3px;
+}
+
+.artis .item .arti-icon span {
+  position: absolute;
+  right: 2px;
+  bottom: 0;
+  margin-left: 5px;
+  background: rgba(0, 0, 0, .5);
+  border-radius: 5px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 3px;
+  color: #fff;
+  font-size: 12px;
+  display: block;
+}
+
+.artis .item img {
+  width: 60px;
+  height: 60px;
+}
+
+.artis .head {
+  color: #fff;
+  padding: 12px 0 8px 68px;
+}
+
+.artis .head strong {
+  font-size: 15px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.artis .head span {
+  font-size: 14px;
+}
+
+.artis .head .mark {
+  font-family: YS;
+}
+
+.artis .head span.high-lvl {
+  color: #ffe699;
+  font-weight: bold;
+}
+
+.artis .head span.good-lvl {
+  color: #d699ff;
+  font-weight: bold;
+}
+
+.arti-main {
+  color: #fff;
+  padding: 6px 15px;
+}
+
+
+.artis ul.detail {
+  width: 100%;
+  padding: 0;
+  position: initial;
+  font-family: YS;
+}
+
+.artis ul.detail li {
+  padding: 3px;
+  font-size: 14px;
+  position: initial;
+  width: 100%;
+  display: table;
+}
+
+.artis ul.detail li.arti-main {
+  font-size: 16px;
+  padding: 8px 3px;
+  font-weight: bold;
+}
+
+.artis ul.detail li span {
+  position: initial;
+  display: table-cell;
+  color: #fff;
+  font-family: YS;
+}
+
+.artis ul.detail li span.title {
+  text-align: left;
+  padding-left: 10px;
+}
+
+.artis ul.detail li span.val {
+  text-align: right;
+  padding-right: 10px;
+}
+
+
+.artis .weapon .star {
+  height: 20px;
+  width: 100px;
+  background: url("../common/item/star.png") no-repeat;
+  background-size: 100px 100px;
+  transform: scale(0.8);
+  transform-origin: 100px 10px;
+  display: inline-block;
+}
+
+.artis .weapon .star.star-2 {
+  background-position: 0 -20px;
+}
+
+.artis .weapon .star.star-3 {
+  background-position: 0 -40px;
+}
+
+.artis .weapon .star.star-4 {
+  background-position: 0 -60px;
+}
+
+.artis .weapon .star.star-5 {
+  background-position: 0 -80px;
+}
+
+
+.artis .weapon {
+  overflow: hidden;
+}
+
+.artis .weapon img {
+  width: 185px;
+  height: 185px;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.artis .weapon .head {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: right;
+  padding: 8px 12px 10px 0;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+}
+
+.artis .weapon .head strong {
+  font-size: 18px;
+  margin-bottom: 3px;
+}
+
+.artis .weapon .head > span {
+  display: block;
+
+}
+
+.artis .weapon span {
+  font-size: 16px;
+}
+
+.artis .weapon .affix {
+  color: #000;
+  padding: 0 7px;
+  border-radius: 4px;
+  margin-left: 5px;
+  font-size: 16px;
+}
+
+.artis .weapon .affix-1 {
+  box-shadow: 0 0 4px 0 #a3a3a3 inset;
+  background: #ebebebaa;
+}
+
+.artis .weapon .affix-2 {
+  box-shadow: 0 0 4px 0 #51b72fbd inset;
+  background: #ddffdeaa;
+}
+
+.artis .weapon .affix-3 {
+  box-shadow: 0 0 4px 0 #396cdecf inset;
+  background: #ddebffaa;
+}
+
+.artis .weapon .affix-4 {
+  box-shadow: 0 0 4px 0 #c539debf inset;
+  background: #ffddf0aa;
+}
+
+.artis .weapon .affix-5 {
+  box-shadow: 0 0 4px 0 #deaf39 inset;
+  background: #fff6dd;
+}
