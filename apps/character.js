@@ -62,11 +62,11 @@ export async function character(e, { render, User }) {
   }
 
   let mode = 'card';
-  if (/详情$/.test(msg)) {
+  if (/(详情|详细|面板|面版)$/.test(msg)) {
     mode = 'profile';
   }
 
-  let name = msg.replace(/#|老婆|老公|详情|[1|2|5][0-9]{8}/g, "").trim();
+  let name = msg.replace(/#|老婆|老公|详情|详细|面板|面版|[1|2|5][0-9]{8}/g, "").trim();
   let char = Character.get(name);
   if (!char) {
     return false;
@@ -416,7 +416,7 @@ export async function getProfile(e) {
     return true;
   }
   let data = await Profile.request(selfUser.uid, e);
-  if(!data){
+  if (!data) {
     return true;
   }
   if (!data.chars) {
@@ -577,8 +577,28 @@ export async function renderProfile(e, char, render) {
 
   let reliquaries = [], totalMark = 0;
 
-  lodash.forEach(avatar.reliquaries, (ds, idx) => {
-    let arti = profile.artis[`arti${idx + 1}`];
+  let posIdx = {
+    "生之花": {
+      idx: 1
+    },
+    "死之羽": {
+      idx: 2
+    },
+    "时之沙": {
+      idx: 3
+    },
+    "空之杯": {
+      idx: 4
+    },
+    "理之冠": {
+      idx: 5
+    }
+  };
+
+
+  lodash.forEach(avatar.reliquaries, (ds) => {
+    let pos = ds.pos_name;
+    let arti = profile.artis[`arti${posIdx[pos].idx}`];
     if (arti) {
       let mark = Profile.getArtiMark(arti.attrs, ds.pos_name === "理之冠" ? arti.main : false);
       totalMark += mark;
@@ -587,8 +607,15 @@ export async function renderProfile(e, char, render) {
       ds.main = Profile.formatArti(arti.main);
       ds.attrs = Profile.formatArti(arti.attrs);
     }
-    reliquaries.push(ds);
+    posIdx[pos].data = ds;
   })
+  lodash.forEach(posIdx, (ds) => {
+    if (ds && ds.data) {
+      reliquaries.push(ds.data);
+    } else {
+      reliquaries.push({});
+    }
+  });
 
   let base64 = await render("character", "detail", {
     save_id: uid,

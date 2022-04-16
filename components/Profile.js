@@ -273,6 +273,9 @@ let Profile = {
       return ret;
     }
     let title = ds[0], val = ds[1];
+    if (!title || title === "undefined") {
+      return [];
+    }
     if (/伤害加成/.test(title) && val < 1) {
       val = Format.pct(val * 100);
     } else if (/伤害加成|大|暴|充能|治疗/.test(title)) {

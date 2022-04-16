@@ -11,7 +11,7 @@ export { character, wife, consStat, abyssPct, wiki, updateRes, sysCfg, help, get
 
 let rule = {
   character: {
-    reg: "^#(喵喵)?(.*)(详情)?$",
+    reg: "^#(喵喵)?(.*)(详情|详细|面板|面版)?$",
     describe: "【#角色】角色详情",
   },
   wife: {
@@ -35,7 +35,7 @@ let rule = {
     describe: "【#帮助】 #喵喵帮助",
   },
   getProfile: {
-    reg: "^#\s*获取游戏角色详情\s*$",
+    reg: "^#\s*(获取|更新)(游戏|角色)*(详情|详细|面板|面版)\s*$",
     describe: "【#角色】 获取游戏橱窗详情数据",
   },
   ...adminRule

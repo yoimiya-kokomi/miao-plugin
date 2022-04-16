@@ -20,7 +20,7 @@
               <div class="talent-icon
                {{talent[key].level_current > talent[key].level_original ? `talent-plus`:``}}
                 {{talent[key].level_original == 10 ? `talent-crown`:``}}">
-                <img src="{{_res_path}}/meta/character/{{name}}/talent_{{key}}.png"/>
+                <div class="talent-icon-img" style="background-image:url({{_res_path}}/meta/character/{{name}}/talent_{{key}}.png)"></div>
                 <span>{{talent[key].level_current}}</span>
               </div>
             </div>
@@ -40,7 +40,7 @@
         <div class="char-cons">
           {{each cons con idx}}
           <div class="cons-item">
-            <div class="talent-icon {{idx*1>avatar.actived_constellation_num*1 ? 'off':''}}">
+            <div class="talent-icon {{idx * 1 > avatar.actived_constellation_num * 1 ? 'off' : '' }}">
               <img src="{{_res_path}}/meta/character/{{name}}/cons_{{idx}}.png"/>
             </div>
           </div>
@@ -59,7 +59,7 @@
         </div>
         {{each reliquaries ds}}
         <div class="item arti">
-          {{if ds.name}}
+          {{if ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
           <div class="arti-icon">
             <img src="{{_sys_res_path}}/genshin/logo/reliquaries/{{ds.name}}.png"/>
             <span>+{{ds.level}}</span>

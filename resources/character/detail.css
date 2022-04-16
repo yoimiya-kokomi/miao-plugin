@@ -160,13 +160,17 @@ body {
   z-index: 90;
 }
 
-.talent-icon img {
+.talent-icon img,
+.talent-icon .talent-icon-img {
   width: 46%;
   height: 46%;
   position: absolute;
   top: 50%;
   left: 50%;
   margin: -22% 0 0 -23%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .talent-icon span {
