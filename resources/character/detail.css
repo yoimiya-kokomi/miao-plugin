@@ -71,6 +71,7 @@ body {
   position: relative;
   font-family: YS;
   font-weight: 400;
+  text-shadow: 0 0 1px rgba(0, 0, 0, .5);
 }
 
 .attr li i {
@@ -206,7 +207,7 @@ body {
   background-size: contain;
   position: absolute;
   left: 50%;
-  top: 0px;
+  top: 0;
   margin-left: -14px;
 }
 
@@ -361,7 +362,7 @@ body {
 }
 
 .artis .head .mark {
-  font-family: YS;
+  font-family: Number, YS;
 }
 
 .artis .head span.high-lvl {
@@ -416,6 +417,7 @@ body {
 .artis ul.detail li span.val {
   text-align: right;
   padding-right: 10px;
+  font-family: Number;
 }
 
 

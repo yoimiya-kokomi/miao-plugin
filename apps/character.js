@@ -543,7 +543,7 @@ export async function renderProfile(e, char, render) {
     auth: "cookie",
     targetType: "self",
     cookieType: "self",
-    actionName: "查询角色详情"
+    actionName: "查询角色天赋命座等信息"
   });
 
   let selfUser = e.selfUser,
@@ -551,8 +551,8 @@ export async function renderProfile(e, char, render) {
 
   let profile = Profile.get(uid, char.id);
   if (!profile) {
-    e.reply(`尚无${char.name}的属性信息。请在游戏内将角色展示在“角色展柜”中，并打开“显示角色详情”。设置完成5分钟后请使用 #获取游戏角色详情 命令获取角色详情数据~`)
-    return renderAvatar(e, char.name, render)
+    e.reply(`尚无${char.name}的面板详情。请在将角色展示在【游戏内】的“角色展柜”中，并打开“显示角色详情”。设置完成5分钟后使用 #获取游戏角色详情 命令进行数据获取。`)
+    return true;
   }
 
   let a = profile.attr;

@@ -97,10 +97,10 @@ let Data = {
       name: char ? char.name : "",
       lv: data['等级'],
       attr: Data.getAttr(data),
-      weapon: Data.getWeapon(data),
+      // weapon: Data.getWeapon(data),
       artis: Data.getArtifact(data),
-      cons: data["命之座数量"] * 1 || 0,
-      talent: Data.getTalent(data)
+      //cons: data["命之座数量"] * 1 || 0,
+      //talent: Data.getTalent(data)
     };
   },
   getAttr(data) {
