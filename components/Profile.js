@@ -5,15 +5,18 @@ import Format from "./Format.js";
 import Character from "./models/Character.js";
 
 const _path = process.cwd();
-const cfgPath = `${_path}/plugins/miao-plugin/components/setting.json`;
-let cfg = {};
-try {
-  if (fs.existsSync(cfgPath)) {
-    cfg = JSON.parse(fs.readFileSync(cfgPath, "utf8")) || {};
+const cfgPath = `${_path}/plugins/miao-plugin/config.js`;
+let config = {};
+//try {
+if (fs.existsSync(cfgPath)) {
+  let fileData = await import (`file://${cfgPath}`);
+  if (fileData && fileData.config) {
+    config = fileData.config;
   }
-} catch (e) {
-  // do nth
 }
+//} catch (e) {
+// do nth
+//}
 
 const userPath = `${_path}/data/UserData/`;
 
@@ -207,17 +210,27 @@ let Data = {
 
 let Profile = {
   async request(uid, e) {
+    let cfg = config.miaoApi || {};
     if (!cfg.api) {
       e.reply("尚未配置更新Api，无法更新数据~");
       return false;
     }
+    if (!cfg.qq || !cfg.token || cfg.token.length !== 32) {
+      e.reply("Token错误，无法请求数据~");
+      return false;
+    }
     e.reply("开始获取角色展柜中展示的角色详情，请确认已经打开显示角色详情开关，数据获取可能会需要一定时间~");
-    const api = cfg.api + uid;
+    const api = `${cfg.api}?uid=${uid}&qq=${cfg.qq}&token=${cfg.token}`;
+    console.log(api);
     let req = await fetch(api);
-    let data = await req.text();
-    data = data.replace(/\x00/g, '');
-    fs.writeFileSync(userPath + "/test.json", data);
-    data = JSON.parse(data);
+    let data = await req.json();
+    //fs.writeFileSync(userPath + "/test.json", data);
+    if (data.status !== 0 || !data.data) {
+      e.reply(`请求错误:${data.msg || "未知错误"}`);
+      return false;
+    }
+    data = data.data;
+
     let userData = {};
     if (data && data["角色名称"]) {
       userData = Profile.save(uid, data)

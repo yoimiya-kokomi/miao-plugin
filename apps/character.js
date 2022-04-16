@@ -416,8 +416,10 @@ export async function getProfile(e) {
     return true;
   }
   let data = await Profile.request(selfUser.uid, e);
-
-  if (!data || !data.chars) {
+  if(!data){
+    return true;
+  }
+  if (!data.chars) {
     e.reply("请求游戏信息失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~");
   } else {
     let ret = [];

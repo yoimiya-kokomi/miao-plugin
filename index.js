@@ -48,3 +48,5 @@ lodash.forEach(rule, (r) => {
 });
 
 export { rule };
+
+console.log("喵喵插件初始化~");

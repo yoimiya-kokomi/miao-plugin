@@ -40,7 +40,7 @@
         <div class="char-cons">
           {{each cons con idx}}
           <div class="cons-item">
-            <div class="talent-icon {{idx*1>data.cons*1 ? 'off':''}}">
+            <div class="talent-icon {{idx*1>avatar.actived_constellation_num*1 ? 'off':''}}">
               <img src="{{_res_path}}/meta/character/{{name}}/cons_{{idx}}.png"/>
             </div>
           </div>
