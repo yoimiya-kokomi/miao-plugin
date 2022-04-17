@@ -364,7 +364,8 @@ body {
   font-family: Number, YS;
 }
 
-.mark-ACE {
+.mark-ACE,
+.mark-ACE²{
   color: #e85656;
   font-weight: bold;
 }
@@ -564,4 +565,10 @@ body {
 
 .char-优菈 .main-pic {
   margin-left: -175px;
+}
+.char-烟绯 .main-pic {
+  margin-left: -135px;
+}
+.char-香菱 .main-pic {
+  margin-left: -195px;
 }

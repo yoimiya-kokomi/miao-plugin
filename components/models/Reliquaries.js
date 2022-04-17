@@ -68,7 +68,8 @@ let Reliquaries = {
       ["S", 0.55],
       ["SS", 0.65],
       ["SSS", 0.75],
-      ["ACE", 0.85]
+      ["ACE", 0.85],
+      ["ACE²", 1]
     ];
 
     for (let idx = 0; idx < scoreMap.length; idx++) {

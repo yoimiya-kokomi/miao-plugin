@@ -57,7 +57,7 @@ export const attrMap = {
 }
 
 export const usefulAttr = {
-  "神里绫人": "atk,cRate,cDmg",
+  "神里绫人": "hp,atk,cRate,cDmg,mastery",
   "八重神子": "atk,cRate,cDmg,mastery,",
   "申鹤": "atk,recharge",
   "云堇": "def,recharge",
@@ -67,7 +67,7 @@ export const usefulAttr = {
   "枫原万叶": "mastery,cRate,cDmg,recharge",
   "雷电将军": "atk,cRate,cDmg,recharge",
   "行秋": "atk,cRate,cDmg,recharge",
-  "钟离": "hp,cRate,cDmg,recharge",
+  "钟离": "hp,atk,cRate,cDmg,recharge",
   "神里绫华": "atk,cRate,cDmg",
   "香菱": "atk,cRate,cDmg,recharge,mastery",
   "胡桃": "hp,cRate,cDmg,mastery",
