@@ -1,12 +1,10 @@
 
 body {
   width: 600px;
-  height: 1000px;
 }
 
 .container {
   width: 600px;
-  height: 1030px;
   padding: 0;
   background-size: cover;
   overflow: hidden;
@@ -18,7 +16,7 @@ body {
   position: absolute;
   left: 8px;
   top: 115px;
-  bottom: 470px;
+  height: 410px;
   right: 8px;
   box-shadow: 0 0 2px 0 #fff;
   border-radius: 5px;
@@ -296,13 +294,14 @@ body {
   background-image: url(../common/bg/bg-pyro.jpg);
 }
 
+
 .artis {
   display: flex;
   width: 600px;
   flex-wrap: wrap;
-  margin-top: 40px;
   margin-bottom: 5px;
   padding: 5px;
+  margin-top: 40px;
 }
 
 .artis .item {
@@ -365,12 +364,19 @@ body {
   font-family: Number, YS;
 }
 
-.artis .head span.high-lvl {
+.mark-ACE {
+  color: #e85656;
+  font-weight: bold;
+}
+
+.mark-SSS,
+.mark-SS {
   color: #ffe699;
   font-weight: bold;
 }
 
-.artis .head span.good-lvl {
+.mark-S,
+.mark-A {
   color: #d699ff;
   font-weight: bold;
 }
@@ -396,6 +402,11 @@ body {
   display: table;
 }
 
+
+.artis ul.detail li.nouse span {
+  color: #888;
+}
+
 .artis ul.detail li.arti-main {
   font-size: 16px;
   padding: 8px 3px;
@@ -419,7 +430,6 @@ body {
   padding-right: 10px;
   font-family: Number;
 }
-
 
 .artis .weapon .star {
   height: 20px;
@@ -450,14 +460,16 @@ body {
 
 .artis .weapon {
   overflow: hidden;
+  height: 100px;
 }
 
 .artis .weapon img {
-  width: 185px;
-  height: 185px;
+  width: 100px;
+  height: 100px;
   top: 0;
   left: 0;
   position: absolute;
+  z-index: 2;
 }
 
 .artis .weapon .head {
@@ -492,6 +504,7 @@ body {
   font-size: 16px;
 }
 
+
 .artis .weapon .affix-1 {
   box-shadow: 0 0 4px 0 #a3a3a3 inset;
   background: #ebebebaa;
@@ -517,6 +530,37 @@ body {
   background: #fff6dd;
 }
 
+.artis .stat {
+  height: 100px;
+  margin-top: 10px;
+}
+
+.artis .stat {
+  display: table-row;
+  padding: 18px 10px;
+  display: table;
+}
+
+.artis .stat > div {
+  display: table-cell;
+  text-align: center;
+  color: #fff;
+}
+
+.artis .stat strong {
+  display: block;
+  height: 40px;
+  font-size: 30px;
+  font-family: Number;
+  line-height: 40px;
+}
+
+
+.artis .stat span {
+  font-size: 13px;
+  line-height: 20px;
+  color: #bbb;
+}
 
 .char-优菈 .main-pic {
   margin-left: -175px;

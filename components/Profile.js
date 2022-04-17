@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import lodash from "lodash";
 import Format from "./Format.js";
 import Character from "./models/Character.js";
+import Reliquaries from "./models/Reliquaries.js";
 
 const _path = process.cwd();
 const cfgPath = `${_path}/plugins/miao-plugin/config.js`;
@@ -66,6 +67,7 @@ const artifactMap = {
     pct: true
   }
 }
+
 
 let Data = {
   getData(uid, data) {
@@ -293,19 +295,7 @@ let Profile = {
     return [title, val];
   },
   getArtiMark(data, ds) {
-    let mark = {
-      "暴击率": 2,
-      "暴击伤害": 1,
-      "元素精通": 0.25,
-      "大攻击": 1,
-      "大生命": 0.86,
-      "大防御": 0.7,
-      "小攻击": 0.12,
-      "小生命": 0.014,
-      "小防御": 0.18,
-      "充能效率": 0.65
-    };
-
+    Reliquaries.getMark(data)
     let total = 0;
     lodash.forEach(data, (ret) => {
       if (ret[0] && ret[1]) {

@@ -4,6 +4,7 @@ import { Character } from "../components/models.js"
 import { Cfg } from "../components/index.js";
 import Profile from "../components/Profile.js";
 import Format from "../components/Format.js"
+import Reliquaries from "../components/models/Reliquaries.js";
 import fs from "fs";
 import sizeOf from "image-size";
 
@@ -575,7 +576,6 @@ export async function renderProfile(e, char, render) {
   let avatar = await getAvatar(e, char, MysApi);
   let talent = await getTalent(e, avatar);
 
-  let reliquaries = [], totalMark = 0;
 
   let posIdx = {
     "生之花": {
@@ -595,15 +595,21 @@ export async function renderProfile(e, char, render) {
     }
   };
 
+  let reliquaries = [], totalMark = 0, totalMaxMark = 0;
+
+  const maxMark = Reliquaries.getMaxMark(char.name);
+  let { titles: usefulTitles, mark: usefulMark } = Reliquaries.getUseful(avatar.name);
 
   lodash.forEach(avatar.reliquaries, (ds) => {
     let pos = ds.pos_name;
     let arti = profile.artis[`arti${posIdx[pos].idx}`];
     if (arti) {
-      let mark = Profile.getArtiMark(arti.attrs, ds.pos_name === "理之冠" ? arti.main : false);
+      let mark = Reliquaries.getMark(avatar.name, arti.attrs);
+      let maxMark = Reliquaries.getMaxMark(char.name, arti.main[0] || "");
       totalMark += mark;
+      totalMaxMark += maxMark;
       ds.mark = c(mark, 1);
-      ds.markType = mark > 45 ? (mark >= 50 ? "high" : "good") : "normal";
+      ds.markType = Reliquaries.getMarkScore(mark, maxMark);
       ds.main = Profile.formatArti(arti.main);
       ds.attrs = Profile.formatArti(arti.attrs);
     }
@@ -617,6 +623,7 @@ export async function renderProfile(e, char, render) {
     }
   });
 
+
   let base64 = await render("character", "detail", {
     save_id: uid,
     uid: uid,
@@ -628,8 +635,12 @@ export async function renderProfile(e, char, render) {
     name: char.name,
     elem: char.elem,
     reliquaries,
-    totalMark,
+    totalMark: c(totalMark, 1),
+    totalMaxMark,
+    markScore: Reliquaries.getMarkScore(totalMark, totalMaxMark),
     weapon: avatar.weapon,
+    usefulTitles,
+    usefulMark,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
     cfgScale: Cfg.scale(1.5)
   }, "png");
