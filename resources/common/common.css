@@ -18,6 +18,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "YS";
   src: url("../common/font/HYWenHei-55W.ttf");
@@ -63,7 +64,7 @@ body {
 .head-box .title {
   font-size: 36px;
   font-family: NZBZ, sans-serif;
-  text-shadow: 0 0 1px  #000, 1px 1px 3px rgba(0,0,0,.9);
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
 }
 
 
@@ -76,7 +77,7 @@ body {
 
 .head-box .label {
   font-size: 16px;
-  text-shadow: 0 0 1px  #000, 1px 1px 3px rgba(0,0,0,.9);
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
 }
 
 
@@ -103,4 +104,98 @@ body {
   padding-left: 10px;
   text-shadow: 1px 1px 1px #000;
   margin-bottom: 10px;
+}
+
+.cons {
+  border-radius: 4px;
+}
+
+.cons-0 {
+  background: #666;
+  color: #fff;
+}
+
+.cons-1 {
+  background-color: #71b167;
+  color: #fff;
+}
+
+.cons-2 {
+  background-color: #369961;
+  color: #fff;
+}
+
+.cons-3 {
+  background-color: #4596b9;
+  color: #fff;
+}
+
+.cons-4 {
+  background-color: #4560b9;
+  color: #fff;
+}
+
+.cons-5 {
+  background-color: #531ba9cf;
+  color: #fff;
+}
+
+.cons-6 {
+  background-color: #ff5722;
+  color: #fff;
+}
+
+/********  ELEM  ********/
+
+.elem-anemo .talent-icon {
+  background-image: url(../common/bg/talent-anemo.png)
+}
+
+.elem-anemo .elem-bg {
+  background-image: url(../common/bg/bg-anemo.jpg);
+}
+
+
+.elem-cryo .talent-icon {
+  background-image: url(../common/bg/talent-cryo.png)
+}
+
+.elem-cryo .elem-bg {
+  background-image: url(../common/bg/bg-cryo.jpg);
+}
+
+
+.elem-electro .talent-icon {
+  background-image: url(../common/bg/talent-electro.png)
+}
+
+.elem-electro .elem-bg {
+  background-image: url(../common/bg/bg-electro.jpg);
+}
+
+
+.elem-geo .talent-icon {
+  background-image: url(../common/bg/talent-geo.png)
+}
+
+.elem-geo .elem-bg {
+  background-image: url(../common/bg/bg-geo.jpg);
+}
+
+
+.elem-hydro .talent-icon {
+  background-image: url(../common/bg/talent-hydro.png)
+}
+
+.elem-hydro .elem-bg {
+  background-image: url(../common/bg/bg-hydro.jpg);
+}
+
+
+.elem-pyro .talent-icon {
+  background-image: url(../common/bg/talent-pyro.png)
+}
+
+.elem-pyro .elem-bg {
+  background-image: url(../common/bg/bg-pyro.jpg);
 }
