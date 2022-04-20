@@ -42,7 +42,7 @@ const relationMap = {
 }
 
 const relation = lodash.flatMap(relationMap, (d) => d.keyword);
-export const wifeReg = `^#*\\s*(${relation.join("|")})\\s*(设置|选择|指定|列表|查询|列表|是|是谁|照片|相片|写真|图像)?\\s*([^\\d]*)\\s*(\\d*)$`;
+export const wifeReg = `^#\\s*(${relation.join("|")})\\s*(设置|选择|指定|列表|查询|列表|是|是谁|照片|相片|写真|图像)?\\s*([^\\d]*)\\s*(\\d*)$`;
 
 export async function init(isUpdate = false) {
   let _path = "file://" + process.cwd();
@@ -421,7 +421,7 @@ export async function getProfile(e) {
     return true;
   }
   if (!data.chars) {
-    e.reply("请求游戏信息失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~");
+    e.reply("获取角色面板数据失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~");
   } else {
     let ret = [];
     lodash.forEach(data.chars, (ds) => {
@@ -431,9 +431,9 @@ export async function getProfile(e) {
       }
     })
     if (ret.length === 0) {
-      e.reply("更新失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~")
+      e.reply("获取角色面板数据失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~")
     } else {
-      e.reply(`更新成功！本次更新角色: ${ret.join(",")}。你可以使用 #角色名+详情 来查看详细角色属性了`)
+      e.reply(`获取角色面板数据成功！本次获取成功角色: ${ret.join(", ")} 。\n你可以使用 #角色名+面板 来查看详细角色面板属性了`)
     }
   }
 
@@ -540,6 +540,12 @@ async function getAvatar(e, char, MysApi) {
 
 
 export async function renderProfile(e, char, render) {
+
+  if (['荧', '空', '主角', '旅行者'].includes(char.name)) {
+    e.reply("暂不支持主角的面板信息查看");
+    return true;
+  }
+
   let MysApi = await e.getMysApi({
     auth: "cookie",
     targetType: "self",
@@ -552,7 +558,7 @@ export async function renderProfile(e, char, render) {
 
   let profile = Profile.get(uid, char.id);
   if (!profile) {
-    e.reply(`尚无${char.name}的面板详情。请在将角色展示在【游戏内】的“角色展柜”中，并打开“显示角色详情”。设置完成5分钟后使用 #获取游戏角色详情 命令进行数据获取。`)
+    e.reply(`请先发送 #获取游戏角色详情 命令获取 ${char.name} 的面板详情。\n请确认已将需要获取的8位角色展示在【游戏内】的“角色展柜”中，并已打开“显示角色详情”。如刚进行设置请等待5分钟后再进行使用，以免浪费请求次数。 `)
     return true;
   }
 

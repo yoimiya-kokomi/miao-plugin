@@ -214,25 +214,32 @@ let Profile = {
   async request(uid, e) {
     let cfg = config.miaoApi || {};
     if (!cfg.api) {
-      e.reply("尚未配置更新Api，无法更新数据~");
+      e.reply("该功能为小范围非公开功能，需具备Token才可使用~");
       return false;
     }
     if (!cfg.qq || !cfg.token || cfg.token.length !== 32) {
       e.reply("Token错误，无法请求数据~");
       return false;
     }
-    e.reply("开始获取角色展柜中展示的角色详情，请确认已经打开显示角色详情开关，数据获取可能会需要一定时间~");
-    const api = `${cfg.api}?uid=${uid}&qq=${cfg.qq}&token=${cfg.token}`;
-    console.log(api);
-    let req = await fetch(api);
-    let data = await req.json();
-    //fs.writeFileSync(userPath + "/test.json", data);
-    if (data.status !== 0 || !data.data) {
-      e.reply(`请求错误:${data.msg || "未知错误"}`);
+    let inCd = await redis.get(`miao:role-all:${uid}`);
+    if (inCd === 'loading') {
+      e.reply("请求过快，请稍后重试..");
+      return false;
+    } else if (inCd === 'pending') {
+      e.reply("距上次请求刷新成功间隔小于10分钟，请稍后重试..");
       return false;
     }
+    await redis.set(`miao:role-all:${uid}`, 'loading', { EX: 20 });
+    e.reply("开始获取角色展柜中展示的角色详情，数据获取可能会需要一定时间~");
+    const api = `${cfg.api}?uid=${uid}&qq=${cfg.qq}&token=${cfg.token}`;
+    let req = await fetch(api);
+    let data = await req.json();
+    if (data.status !== 0 || !data.data) {
+      e.reply(`请求失败:${data.msg || "未知错误"}`);
+      return false;
+    }
+    await redis.set(`miao:role-all:${uid}`, 'pending', { EX: 600 });
     data = data.data;
-
     let userData = {};
     if (data && data["角色名称"]) {
       userData = Profile.save(uid, data)
