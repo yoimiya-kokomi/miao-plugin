@@ -97,11 +97,10 @@ async function initPoke() {
 //#老婆
 export async function wife(e, { render, User }) {
   let msg = e.msg || "";
-  msg = msg.replace(/#|\w/g, "");
   if (!msg) return false;
 
   if (Cfg.isDisable(e, "char.wife")) {
-    return;
+    return false;
   }
 
   let msgRet = (new RegExp(wifeReg)).exec(msg);
