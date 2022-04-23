@@ -9,7 +9,6 @@ import Calc from "../components/Calc.js";
 import fs from "fs";
 
 
-
 //角色昵称
 let nameID = "";
 let genshin = {};
@@ -43,7 +42,7 @@ const relationMap = {
 }
 
 const relation = lodash.flatMap(relationMap, (d) => d.keyword);
-export const wifeReg = `^#\\s*(${relation.join("|")})\\s*(设置|选择|指定|列表|查询|列表|是|是谁|照片|相片|写真|图像)?\\s*([^\\d]*)\\s*(\\d*)$`;
+export const wifeReg = `^#?\\s*(${relation.join("|")})\\s*(设置|选择|指定|列表|查询|列表|是|是谁|照片|相片|图片|写真|图像)?\\s*([^\\d]*)\\s*(\\d*)$`;
 
 export async function init(isUpdate = false) {
   let _path = "file://" + process.cwd();
@@ -110,6 +109,10 @@ export async function wife(e, { render, User }) {
   let target = msgRet[1],
     action = msgRet[2] || "卡片",
     actionParam = msgRet[3] || "";
+
+  if (!"设置,选择,挑选,指定".split(",").includes(action) && actionParam) {
+    return false;
+  }
 
   let targetCfg = lodash.find(relationMap, (cfg, key) => {
     cfg.key = key;

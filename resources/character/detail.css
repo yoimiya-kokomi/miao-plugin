@@ -76,7 +76,6 @@ body {
   font-family: YS;
   height: 32px;
   line-height: 32px;
-  font-weight: 400;
   text-shadow: 0 0 1px rgba(0, 0, 0, .5);
 }
 
@@ -436,6 +435,7 @@ body {
   display: block;
   white-space: nowrap;
   overflow: hidden;
+  font-font: YS;
 }
 
 .artis .head span {
@@ -571,6 +571,8 @@ body {
 .artis .weapon .head strong {
   font-size: 18px;
   margin-bottom: 3px;
+  font-weight: normal;
+  font-family: YS;
 }
 
 .artis .weapon .head > span {
