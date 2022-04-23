@@ -84,7 +84,7 @@ let Calc = {
 
     ret.weaponType = avatar.weapon.type_name;
     ret.element = avatar.element;
-    ret.refine = (profile.weapon.refine * 1 - 1) || 0;
+    ret.refine = (avatar.weapon.affix_level * 1 - 1) || 0;
 
     return ret;
 
@@ -257,7 +257,7 @@ let Calc = {
 
     let originalAttr = Calc.attr(profile, avatar);
 
-    let weaponBuffs = await Calc.weapon(profile.weapon.name);
+    let weaponBuffs = await Calc.weapon(avatar.weapon.name);
     let reliBuffs = await Calc.reliquaries(avatar.reliquaries);
     buffs = lodash.concat(buffs, weaponBuffs, reliBuffs);
 
