@@ -91,11 +91,11 @@ let Calc = {
   },
 
   // 获取天赋数据
-  talent(profile, char) {
+  talent(talentData, char) {
     let ret = {};
 
     lodash.forEach(['a', 'e', 'q'], (key) => {
-      let lv = profile.talent[key] * 1 || 1,
+      let lv = talentData[key].level_current * 1 || 1,
         lvKey = `Lv${lv}`;
 
       let map = {};
@@ -236,7 +236,7 @@ let Calc = {
     })
     return retBuffs;
   },
-  async calcData(profile, char, avatar) {
+  async calcData(profile, char, avatar, talentData) {
     let charCalcData = await Calc.getCharCalcRule(char.name);
 
     //avatar.element;
@@ -244,12 +244,11 @@ let Calc = {
     if (!charCalcData) {
       return false;
     }
-    let talent = Calc.talent(profile, char);
+    let talent = Calc.talent(talentData, char);
 
     let meta = {
-      cons: profile.cons * 1,
-      ...profile.talent,
-      talent,
+      cons: avatar.actived_constellation_num * 1,
+      talent
     }
 
     let { buffs, details, defParams } = charCalcData;

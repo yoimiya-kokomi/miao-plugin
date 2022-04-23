@@ -633,7 +633,7 @@ export async function renderProfile(e, char, render) {
   });
 
   let dmgMsg = [], dmgData = [];
-  let dmgCalc = await Calc.calcData(profile, char, avatar);
+  let dmgCalc = await Calc.calcData(profile, char, avatar, talent);
   if (dmgCalc && dmgCalc.ret) {
     lodash.forEach(dmgCalc.ret, (ds) => {
       ds.dmg = Format.comma(ds.dmg, 1);
