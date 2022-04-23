@@ -48,6 +48,23 @@
           {{/each}}
         </div>
       </div>
+      {{if dmgData.length > 0}}
+      <div class="dmg-cont cont">
+        <div class="tr th">
+          <div class="title">伤害类型</div>
+          <div>暴击伤害</div>
+          <div>平均伤害(计算暴击率)</div>
+        </div>
+        {{each dmgData dmg idx}}
+        <div class="dmg tr">
+          <div class="title">{{dmg.title}}</div>
+          <div class="value">{{dmg.dmg}}</div>
+          <div class="value">{{dmg.avg}}</div>
+        </div>
+        {{/each}}
+      </div>
+      <div class="dmg-notice">伤害计算功能完善中，结果可能不准确，计算数据仅供参考</div>
+      {{/if}}
 
       <div class="artis">
         <div>
@@ -61,7 +78,7 @@
             </div>
           </div>
           <div class="item stat">
-            <div ><strong class="mark-{{markScore}}">{{markScore}}</strong><span>圣遗物评级</span></div>
+            <div><strong class="mark-{{markScore}}">{{markScore}}</strong><span>圣遗物评级</span></div>
             <div><strong>{{totalMark}}</strong><span>圣遗物总分</span></div>
           </div>
         </div>

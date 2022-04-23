@@ -5,8 +5,9 @@ import { Cfg } from "../components/index.js";
 import Profile from "../components/Profile.js";
 import Format from "../components/Format.js"
 import Reliquaries from "../components/models/Reliquaries.js";
+import Calc from "../components/Calc.js";
 import fs from "fs";
-import sizeOf from "image-size";
+
 
 
 //角色昵称
@@ -603,7 +604,6 @@ export async function renderProfile(e, char, render) {
 
   let reliquaries = [], totalMark = 0, totalMaxMark = 0;
 
-  const maxMark = Reliquaries.getMaxMark(char.name);
   let { titles: usefulTitles, mark: usefulMark } = Reliquaries.getUseful(avatar.name);
 
   lodash.forEach(avatar.reliquaries, (ds) => {
@@ -620,7 +620,8 @@ export async function renderProfile(e, char, render) {
       ds.attrs = Profile.formatArti(arti.attrs);
     }
     posIdx[pos].data = ds;
-  })
+  });
+
   lodash.forEach(posIdx, (ds) => {
     if (ds && ds.data) {
       reliquaries.push(ds.data);
@@ -629,6 +630,16 @@ export async function renderProfile(e, char, render) {
     }
   });
 
+  let dmgMsg = [], dmgData = [];
+  let dmgCalc = await Calc.calcData(profile, char, avatar);
+  if (dmgCalc && dmgCalc.ret) {
+    lodash.forEach(dmgCalc.ret, (ds) => {
+      ds.dmg = Format.comma(ds.dmg, 1);
+      ds.avg = Format.comma(ds.avg, 1);
+      dmgData.push(ds);
+    })
+    dmgMsg = dmgCalc.msg;
+  }
 
   let base64 = await render("character", "detail", {
     save_id: uid,
@@ -640,6 +651,8 @@ export async function renderProfile(e, char, render) {
     cons: char.cons,
     name: char.name,
     elem: char.elem,
+    dmgData,
+    dmgMsg,
     reliquaries,
     totalMark: c(totalMark, 1),
     totalMaxMark,

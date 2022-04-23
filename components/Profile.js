@@ -69,6 +69,24 @@ const artifactMap = {
 }
 
 
+let posIdx = {
+  "生之花": {
+    idx: 1
+  },
+  "死之羽": {
+    idx: 2
+  },
+  "时之沙": {
+    idx: 3
+  },
+  "空之杯": {
+    idx: 4
+  },
+  "理之冠": {
+    idx: 5
+  }
+};
+
 let Data = {
   getData(uid, data) {
     let ret = {
@@ -238,6 +256,8 @@ let Profile = {
       e.reply(`请求失败:${data.msg || "未知错误"}`);
       return false;
     }
+    // 请求成功Bot侧对该uid冷却10分钟
+    // 请勿将时间改短，10分钟之内若发起请求会命中服务侧的uid缓存，返回之前的数据，并导致服务侧重新计时
     await redis.set(`miao:role-all:${uid}`, 'pending', { EX: 600 });
     data = data.data;
     let userData = {};
@@ -262,6 +282,7 @@ let Profile = {
     fs.writeFileSync(userFile, JSON.stringify(userData), "", " ");
     return data;
   },
+
   get(uid, charId) {
     const userFile = `${userPath}/${uid}.json`;
     let userData = {};
@@ -273,6 +294,19 @@ let Profile = {
     }
     return false;
   },
+
+  getAll(uid) {
+    const userFile = `${userPath}/${uid}.json`;
+    let userData = {};
+    if (fs.existsSync(userFile)) {
+      userData = JSON.parse(fs.readFileSync(userFile, "utf8")) || {};
+    }
+    if (userData && userData.chars) {
+      return userData.chars;
+    }
+    return false;
+  },
+
   formatArti(ds) {
     if (lodash.isArray(ds[0])) {
       let ret = [];
@@ -301,6 +335,7 @@ let Profile = {
     }
     return [title, val];
   },
+
   getArtiMark(data, ds) {
     Reliquaries.getMark(data)
     let total = 0;
@@ -313,6 +348,43 @@ let Profile = {
       total += 20;
     }
     return total;
+  },
+
+  getArtiDetail(profile, avatar) {
+
+    let reliquaries = [],
+      totalMark = 0,
+      totalMaxMark = 0;
+
+    lodash.forEach(avatar.reliquaries, (ds) => {
+      let pos = ds.pos_name;
+      let arti = profile.artis[`arti${posIdx[pos].idx}`];
+      if (arti) {
+        let mark = Reliquaries.getMark(avatar.name, arti.attrs);
+        let maxMark = Reliquaries.getMaxMark(avatar.name, arti.main[0] || "");
+        totalMark += mark;
+        totalMaxMark += maxMark;
+        ds.mark = Format.comma(mark, 1);
+        ds.markType = Reliquaries.getMarkScore(mark, maxMark);
+        ds.main = Profile.formatArti(arti.main);
+        ds.attrs = Profile.formatArti(arti.attrs);
+      }
+      posIdx[pos].data = ds;
+    })
+    lodash.forEach(posIdx, (ds) => {
+      if (ds && ds.data) {
+        reliquaries.push(ds.data);
+      } else {
+        reliquaries.push({});
+      }
+    });
+
+    return {
+      reliquaries,
+      totalMark,
+      totalMaxMark,
+      markScore: Reliquaries.getMarkScore(totalMark * 1.05, totalMaxMark)
+    }
   }
 };
 export default Profile;

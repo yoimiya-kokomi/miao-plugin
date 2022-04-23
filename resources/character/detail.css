@@ -10,13 +10,19 @@ body {
   overflow: hidden;
 }
 
-.container:after {
+
+.basic {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.basic:after {
   content: "";
   display: block;
   position: absolute;
   left: 8px;
   top: 115px;
-  height: 410px;
+  bottom: 0;
   right: 8px;
   box-shadow: 0 0 2px 0 #fff;
   border-radius: 5px;
@@ -63,11 +69,13 @@ body {
 
 .detail li {
   width: 300px;
-  font-size: 18px;
+  font-size: 17px;
   list-style: none;
-  padding: 5px 100px 5px 35px;
+  padding: 0 100px 0 35px;
   position: relative;
   font-family: YS;
+  height: 32px;
+  line-height: 32px;
   font-weight: 400;
   text-shadow: 0 0 1px rgba(0, 0, 0, .5);
 }
@@ -213,14 +221,14 @@ body {
 .char-talents {
   display: flex;
   width: 300px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .char-cons {
   display: flex;
   width: 250px;
   position: absolute;
-  top: 465px;
+  bottom: 5px;
   left: 20px;
 }
 
@@ -295,13 +303,87 @@ body {
 }
 
 
+/***  dmg ***/
+
+.dmg-cont {
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 5px 15px 5px 10px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
+  overflow: hidden;
+  display: table;
+  width: calc(100% - 25px);
+  color: #fff;
+  font-size: 14px;
+}
+
+.dmg-cont .tr {
+  display: table-row;
+}
+
+.dmg-cont .tr:nth-child(even) {
+  background: rgba(0, 0, 0, .4);
+}
+
+.dmg-cont .tr:nth-child(odd) {
+  background: rgba(50, 50, 50, .4);
+}
+
+.dmg-cont .tr > div {
+  display: table-cell;
+  box-shadow: 0 0 1px 0 #fff;
+}
+
+.dmg-cont .th {
+  text-align: center;
+}
+
+.dmg-cont .th > div {
+  font-family: YS;
+  color: #d3bc8e;
+  background: rgba(0, 0, 0, .4);
+  line-height: 40px;
+  height: 40px;
+}
+
+
+.dmg-cont .title {
+  font-family: YS;
+  color: #d3bc8e;
+  padding-right: 15px;
+  text-align: right;
+  background: rgba(0, 0, 0, .4);
+}
+
+
+.dmg .value {
+  text-align: center;
+  color: #fff;
+  display: block;
+  height: 40px;
+  font-size: 18px;
+  font-family: Number;
+  line-height: 40px;
+  width: 33.333%
+}
+
+.dmg-notice {
+  font-size: 12px;
+  text-align: right;
+  color: #eee;
+  margin-right: 15px;
+}
+
+
+/*** artis***/
 .artis {
   display: flex;
   width: 600px;
   flex-wrap: wrap;
   margin-bottom: 5px;
   padding: 5px;
-  margin-top: 40px;
 }
 
 .artis .item {
@@ -365,7 +447,7 @@ body {
 }
 
 .mark-ACE,
-.mark-ACE²{
+.mark-ACE² {
   color: #e85656;
   font-weight: bold;
 }
@@ -396,11 +478,13 @@ body {
 }
 
 .artis ul.detail li {
-  padding: 3px;
+  padding: 0 3px;
   font-size: 14px;
   position: initial;
   width: 100%;
   display: table;
+  line-height: 26px;
+  height: 26px;
 }
 
 
@@ -410,7 +494,7 @@ body {
 
 .artis ul.detail li.arti-main {
   font-size: 16px;
-  padding: 8px 3px;
+  padding: 3px 3px;
   font-weight: bold;
 }
 
@@ -479,7 +563,8 @@ body {
   right: 0;
   left: 0;
   text-align: right;
-  padding: 8px 12px 10px 0;
+  padding: 13px 12px 13px 0;
+  z-index: 3;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
 }
 
@@ -566,9 +651,11 @@ body {
 .char-优菈 .main-pic {
   margin-left: -175px;
 }
+
 .char-烟绯 .main-pic {
   margin-left: -135px;
 }
+
 .char-香菱 .main-pic {
   margin-left: -195px;
 }
