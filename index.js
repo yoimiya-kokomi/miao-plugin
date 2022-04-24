@@ -1,4 +1,4 @@
-import { character, getProfile, wife, wifeReg } from "./apps/character.js";
+import { character, getProfile, wife, wifeReg, enemyLv } from "./apps/character.js";
 import { consStat, abyssPct } from "./apps/stat.js";
 import { wiki } from "./apps/wiki.js";
 import { help } from "./apps/help.js";
@@ -6,7 +6,7 @@ import lodash from "lodash";
 
 import { rule as adminRule, updateRes, sysCfg } from "./apps/admin.js";
 
-export { character, wife, consStat, abyssPct, wiki, updateRes, sysCfg, help, getProfile };
+export { character, wife, consStat, abyssPct, wiki, updateRes, sysCfg, help, getProfile, enemyLv };
 
 
 let rule = {
@@ -37,6 +37,10 @@ let rule = {
   getProfile: {
     reg: "^#\s*(获取|更新)(游戏|角色)*(详情|详细|面板|面版)\s*$",
     describe: "【#角色】 获取游戏橱窗详情数据",
+  },
+  enemyLv: {
+    ret: "^#\s*敌人等级\s*\d{1,3}\s*$",
+    describe: "【#角色】 设置伤害计算中目标敌人的等级",
   },
   ...adminRule
 };

@@ -261,7 +261,7 @@ let Calc = {
     })
     return retBuffs;
   },
-  async calcData({ profile, char, avatar, talentData }) {
+  async calcData({ profile, char, avatar, talentData, enemyLv = 91 }) {
     let charCalcData = await Calc.getCharCalcRule(char.name);
 
     //avatar.element;
@@ -334,7 +334,7 @@ let Calc = {
         }
 
         // 防御区
-        let enemyLv = 86, lv = avatar.level;
+        let lv = avatar.level;
         let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore));
 
         // 抗性区
@@ -357,7 +357,7 @@ let Calc = {
           avg: atkNum * pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
         }
         if (global.debugView === "web-debug") {
-          console.log(attr, { atkNum, pctNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum }, ret)
+         // console.log(attr, { atkNum, pctNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum }, ret)
         }
         return ret;
       };

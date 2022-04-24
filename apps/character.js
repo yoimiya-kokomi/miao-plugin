@@ -634,7 +634,7 @@ export async function renderProfile(e, char, render) {
 
   let enemyLv = await selfUser.getCfg(`char.enemyLv`, 91);
   let dmgMsg = [], dmgData = [];
-  let dmgCalc = await Calc.calcData({ profile, char, avatar, talent, enemyLv });
+  let dmgCalc = await Calc.calcData({ profile, char, avatar, talentData: talent, enemyLv });
   if (dmgCalc && dmgCalc.ret) {
     lodash.forEach(dmgCalc.ret, (ds) => {
       ds.dmg = Format.comma(ds.dmg, 0);
@@ -671,4 +671,26 @@ export async function renderProfile(e, char, render) {
     e.reply(segment.image(`base64://${base64}`));
   }
   return true;
+}
+
+export async function enemyLv(e) {
+  let selfUser = await e.checkAuth({
+    auth: "self"
+  })
+
+  if (!selfUser || !e.msg) {
+    return true;
+  }
+  let ret = /敌人等级\s*(\d{1,3})\s*$/.exec(e.msg);
+  if (ret && ret[1]) {
+    let lv = ret[1] * 1;
+
+    await selfUser.setCfg("char.enemyLv", lv);
+
+    lv = await selfUser.getCfg("char.enemyLv", 91);
+    e.reply(`敌人等级已经设置为${lv}`);
+    return true;
+  }
+  return true;
+
 }
