@@ -39,7 +39,7 @@ let rule = {
     describe: "【#角色】 获取游戏橱窗详情数据",
   },
   enemyLv: {
-    ret: "^#\s*敌人等级\s*\d{1,3}\s*$",
+    reg: "^#\s*敌人等级\s*\d{1,3}\s*$",
     describe: "【#角色】 设置伤害计算中目标敌人的等级",
   },
   ...adminRule
