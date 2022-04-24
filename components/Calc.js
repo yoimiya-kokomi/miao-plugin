@@ -309,7 +309,7 @@ let Calc = {
         }
 
         // 防御区
-        let enemyLv = 86, lv = 90;
+        let enemyLv = 91, lv = 90;
         let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore));
 
         // 抗性区
