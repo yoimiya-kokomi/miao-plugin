@@ -112,7 +112,7 @@ export async function updateRes(e) {
   let command = "";
   if (fs.existsSync(`${resPath}/miao-res-plus/`)) {
     e.reply("开始尝试更新，请耐心等待~");
-    command = `git -C ${resPath}/miao-res-plus pull`;
+    command = `git -C "${resPath}/miao-res-plus" pull`;
     exec(command, function (error, stdout, stderr) {
       console.log(stdout);
       if (/Already up to date/.test(stdout)) {
@@ -131,7 +131,7 @@ export async function updateRes(e) {
       }
     });
   } else {
-    command = `git clone https://gitee.com/yoimiya-kokomi/miao-res-plus.git '${resPath}/miao-res-plus/'`;
+    command = `git clone https://gitee.com/yoimiya-kokomi/miao-res-plus.git "${resPath}/miao-res-plus/"`;
     e.reply("开始尝试安装图片加量包，可能会需要一段时间，请耐心等待~");
     exec(command, function (error, stdout, stderr) {
       if (error) {
