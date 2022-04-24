@@ -16,9 +16,9 @@ let polearm = {
     }
   },
   "匣里灭辰": {
-    title: "对于水或或元素影响的敌人造成伤害提高[dmgPct]%",
+    title: "对于水或或元素影响的敌人造成伤害提高[dmg]%",
     refine: {
-      dmgPct: [20, 24, 28, 32, 36]
+      dmg: [20, 24, 28, 32, 36]
     }
   },
   "千岩长枪": {
@@ -68,10 +68,10 @@ let polearm = {
     }
   },
   "和璞鸢": {
-    title: "满层攻击力提高[atkPct]%，伤害提升[dmgPct]%",
+    title: "满层攻击力提高[atkPct]%，伤害提升[dmg]%",
     refine: {
       atkPct: [3.2 * 7, 3.9 * 7, 4.6 * 7, 5.3 * 7, 6 * 7],
-      dmgPct: [12, 15, 18, 21, 24]
+      dmg: [12, 15, 18, 21, 24]
     }
   },
   "天空之脊": {
@@ -81,12 +81,12 @@ let polearm = {
     }
   },
   "护摩之杖": {
-    title: "角色生命低于50%时获得攻击力提升[atkPlus]",
+    title: "角色生命低于50%时额外获得[atkPlus]攻击力",
     data: {
       atkPlus: ({ attr, refine }) => {
         let { hp } = attr,
           totalHp = hp.base + hp.plus + hp.pct * hp.base / 100;
-        return totalHp * [1, 1.2, 1.4, 1.6, 1.8][refine] / 100
+        return totalHp * ([0.8, 1, 1.2, 1.4, 1.6][refine] + [1, 1.2, 1.4, 1.6, 1.8][refine]) / 100
       }
     }
   },

@@ -585,26 +585,23 @@ export async function renderProfile(e, char, render) {
   let avatar = await getAvatar(e, char, MysApi);
   let talent = await getTalent(e, avatar);
 
-  if(!talent.id){
+
+  if (global.debugView === "web-debug") {
+    let file = process.cwd() + "/tools/avatar.json";
+    avatar._talent = talent;
+    fs.writeFileSync(file, JSON.stringify(avatar));
+  }
+
+  if (!talent.id) {
     return true;
   }
 
   let posIdx = {
-    "生之花": {
-      idx: 1
-    },
-    "死之羽": {
-      idx: 2
-    },
-    "时之沙": {
-      idx: 3
-    },
-    "空之杯": {
-      idx: 4
-    },
-    "理之冠": {
-      idx: 5
-    }
+    "生之花": { idx: 1 },
+    "死之羽": { idx: 2 },
+    "时之沙": { idx: 3 },
+    "空之杯": { idx: 4 },
+    "理之冠": { idx: 5 }
   };
 
   let reliquaries = [], totalMark = 0, totalMaxMark = 0;
@@ -635,8 +632,9 @@ export async function renderProfile(e, char, render) {
     }
   });
 
+  let enemyLv = await selfUser.getCfg(`char.enemyLv`, 91);
   let dmgMsg = [], dmgData = [];
-  let dmgCalc = await Calc.calcData(profile, char, avatar, talent);
+  let dmgCalc = await Calc.calcData({ profile, char, avatar, talent, enemyLv });
   if (dmgCalc && dmgCalc.ret) {
     lodash.forEach(dmgCalc.ret, (ds) => {
       ds.dmg = Format.comma(ds.dmg, 0);
@@ -659,6 +657,7 @@ export async function renderProfile(e, char, render) {
     dmgData,
     dmgMsg,
     reliquaries,
+    enemyLv,
     totalMark: c(totalMark, 1),
     totalMaxMark,
     markScore: Reliquaries.getMarkScore(totalMark, totalMaxMark),

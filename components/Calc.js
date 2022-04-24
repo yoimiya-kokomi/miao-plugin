@@ -1,7 +1,11 @@
 import fs from "fs";
 import lodash from "lodash";
 import Format from "./Format.js";
-import {buffs} from "../resources/meta/reliquaries/calc.js";
+
+const eleMap = {
+  Electro: "雷",
+  Pyro: "火"
+}
 
 let Calc = {
 
@@ -20,7 +24,7 @@ let Calc = {
     }
 
     if (details) {
-      return {details, buffs, defParams}
+      return { details, buffs, defParams }
     }
     return false;
   },
@@ -28,7 +32,7 @@ let Calc = {
   // 获取基础属性
   attr(profile, avatar) {
     let ret = {},
-      {attr} = profile;
+      { attr } = profile;
 
     // 基础属性
     lodash.forEach("atk,def,hp".split(","), (key) => {
@@ -47,7 +51,7 @@ let Calc = {
       }
     })
 
-    lodash.forEach({cRate: "cpct", cDmg: "cdmg", hInc: "heal"}, (val, key) => {
+    lodash.forEach({ cRate: "cpct", cDmg: "cdmg", hInc: "heal" }, (val, key) => {
       ret[val] = {
         base: attr[key] * 1 || 0,
         plus: 0,
@@ -83,8 +87,11 @@ let Calc = {
     }
 
     ret.weaponType = avatar.weapon.type_name;
-    ret.element = avatar.element;
+    ret.element = eleMap[avatar.element];
     ret.refine = (avatar.weapon.affix_level * 1 - 1) || 0;
+
+    ret.zf = 0;
+    ret.rh = 0;
 
     return ret;
 
@@ -137,15 +144,28 @@ let Calc = {
         ...meta,
         attr,
         params,
-        refine: attr.refine
+        refine: attr.refine,
+        calc(ds) {
+          return (ds.base || 0) + (ds.plus || 0) + ((ds.base || 0) * (ds.pct || 0) / 100)
+        }
       };
 
       // 如果存在rule，则进行计算
-      if (buff.rule && !buff.rule(ds)) {
+      if (buff.check && !buff.check(ds)) {
         return;
       }
 
       let title = buff.title;
+
+      if (buff.mastery) {
+        let mastery = attr.mastery.base + attr.mastery.plus;
+        let masteryNum = 2.78 * mastery / (mastery + 1400) * 100;
+        buff.data = buff.data || {};
+        lodash.forEach(buff.mastery.split(","), (key) => {
+          buff.data[key] = masteryNum;
+        })
+      }
+
       lodash.forEach(buff.data, (val, key) => {
 
         if (lodash.isFunction(val)) {
@@ -166,6 +186,11 @@ let Calc = {
         }
         if (key === "enemyDef") {
           attr.enemy.def += val * 1 || 0;
+          return;
+        }
+
+        if (["zf", "rh"].includes(key)) {
+          attr[key] += val * 1 || 0;
         }
       });
       msg.push(title);
@@ -197,7 +222,7 @@ let Calc = {
       if (ds.refine) {
         ds.data = ds.data || {};
         lodash.forEach(ds.refine, (r, key) => {
-          ds.data[key] = ({refine}) => r[refine] * (ds.buffCount || 1);
+          ds.data[key] = ({ refine }) => r[refine] * (ds.buffCount || 1);
         })
       }
     })
@@ -236,7 +261,7 @@ let Calc = {
     })
     return retBuffs;
   },
-  async calcData(profile, char, avatar, talentData) {
+  async calcData({ profile, char, avatar, talentData }) {
     let charCalcData = await Calc.getCharCalcRule(char.name);
 
     //avatar.element;
@@ -251,7 +276,7 @@ let Calc = {
       talent
     }
 
-    let {buffs, details, defParams} = charCalcData;
+    let { buffs, details, defParams } = charCalcData;
 
     defParams = defParams || {};
 
@@ -267,7 +292,7 @@ let Calc = {
 
     buffs = lodash.sortBy(buffs, ["sort"]);
 
-    let {msg} = Calc.calcAttr(originalAttr, buffs, meta, defParams || {});
+    let { msg } = Calc.calcAttr(originalAttr, buffs, meta, defParams || {});
 
     let ret = [];
 
@@ -275,15 +300,15 @@ let Calc = {
 
       let params = lodash.merge({}, defParams, detail.params || {});
 
-      let {attr} = Calc.calcAttr(originalAttr, buffs, meta, params);
+      let { attr } = Calc.calcAttr(originalAttr, buffs, meta, params);
 
-      let dmg = function (pctNum = 0, talent = false) {
-        let {atk, dmg, cdmg, cpct} = attr;
+      let dmg = function (pctNum = 0, talent = false, ele = false) {
+        let { atk, dmg, cdmg, cpct } = attr;
         // 攻击区
         let atkNum = (atk.base + atk.plus + atk.base * atk.pct / 100);
 
         // 增伤区
-        let dmgNum = (1 + dmg.base/100 + dmg.plus / 100);
+        let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100);
 
         //console.log({ base: Format.comma(dmg.base, 2), plus: Format.comma(dmg.plus, 2) })
 
@@ -309,32 +334,42 @@ let Calc = {
         }
 
         // 防御区
-        let enemyLv = 91, lv = 90;
+        let enemyLv = 86, lv = avatar.level;
         let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore));
 
         // 抗性区
         let kNum = 0.9;
 
-        // 计算最终伤害
-        let ret = {
-          dmg: atkNum * pctNum * dmgNum * (1 + cdmgNum) * defNum * kNum,
-          avg: atkNum * pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
+        // 反应区
+        let eleNum = 1;
+        if (ele) {
+          eleNum = { zf: 1.5, rh: 2 }[ele] || 1;
+
+
+          if (attr[ele]) {
+            eleNum = eleNum * (1 + attr[ele] / 100);
+          }
         }
 
-        //console.log(attr, {atkNum, pctNum, dmgNum, cpctNum, cdmgNum, defNum}, ret)
-
+        // 计算最终伤害
+        let ret = {
+          dmg: atkNum * pctNum * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
+          avg: atkNum * pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+        }
+        if (global.debugView === "web-debug") {
+          console.log(attr, { atkNum, pctNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum }, ret)
+        }
         return ret;
       };
 
       if (detail.dmg) {
-        let dmgRet = detail.dmg({attr, talent}, dmg);
+        let dmgRet = detail.dmg({ attr, talent }, dmg);
         ret.push({
           title: detail.title,
           ...dmgRet
         })
       }
     })
-
     return {
       ret,
       msg
