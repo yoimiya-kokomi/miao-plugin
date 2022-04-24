@@ -1,7 +1,7 @@
 import fs from "fs";
 import lodash from "lodash";
 import Format from "./Format.js";
-import { buffs } from "../resources/meta/reliquaries/calc.js";
+import {buffs} from "../resources/meta/reliquaries/calc.js";
 
 let Calc = {
 
@@ -20,7 +20,7 @@ let Calc = {
     }
 
     if (details) {
-      return { details, buffs, defParams }
+      return {details, buffs, defParams}
     }
     return false;
   },
@@ -28,7 +28,7 @@ let Calc = {
   // 获取基础属性
   attr(profile, avatar) {
     let ret = {},
-      { attr } = profile;
+      {attr} = profile;
 
     // 基础属性
     lodash.forEach("atk,def,hp".split(","), (key) => {
@@ -47,7 +47,7 @@ let Calc = {
       }
     })
 
-    lodash.forEach({ cRate: "cpct", cDmg: "cdmg", hInc: "heal" }, (val, key) => {
+    lodash.forEach({cRate: "cpct", cDmg: "cdmg", hInc: "heal"}, (val, key) => {
       ret[val] = {
         base: attr[key] * 1 || 0,
         plus: 0,
@@ -197,7 +197,7 @@ let Calc = {
       if (ds.refine) {
         ds.data = ds.data || {};
         lodash.forEach(ds.refine, (r, key) => {
-          ds.data[key] = ({ refine }) => r[refine] * (ds.buffCount || 1);
+          ds.data[key] = ({refine}) => r[refine] * (ds.buffCount || 1);
         })
       }
     })
@@ -251,7 +251,7 @@ let Calc = {
       talent
     }
 
-    let { buffs, details, defParams } = charCalcData;
+    let {buffs, details, defParams} = charCalcData;
 
     defParams = defParams || {};
 
@@ -267,7 +267,7 @@ let Calc = {
 
     buffs = lodash.sortBy(buffs, ["sort"]);
 
-    let { msg } = Calc.calcAttr(originalAttr, buffs, meta, defParams || {});
+    let {msg} = Calc.calcAttr(originalAttr, buffs, meta, defParams || {});
 
     let ret = [];
 
@@ -275,15 +275,15 @@ let Calc = {
 
       let params = lodash.merge({}, defParams, detail.params || {});
 
-      let { attr } = Calc.calcAttr(originalAttr, buffs, meta, params);
+      let {attr} = Calc.calcAttr(originalAttr, buffs, meta, params);
 
       let dmg = function (pctNum = 0, talent = false) {
-        let { atk, dmg, cdmg, cpct } = attr;
+        let {atk, dmg, cdmg, cpct} = attr;
         // 攻击区
         let atkNum = (atk.base + atk.plus + atk.base * atk.pct / 100);
 
         // 增伤区
-        let dmgNum = (1 + dmg.base + dmg.plus / 100);
+        let dmgNum = (1 + dmg.base/100 + dmg.plus / 100);
 
         //console.log({ base: Format.comma(dmg.base, 2), plus: Format.comma(dmg.plus, 2) })
 
@@ -316,14 +316,18 @@ let Calc = {
         let kNum = 0.9;
 
         // 计算最终伤害
-        return {
+        let ret = {
           dmg: atkNum * pctNum * dmgNum * (1 + cdmgNum) * defNum * kNum,
           avg: atkNum * pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
         }
+
+        console.log(attr, {atkNum, pctNum, dmgNum, cpctNum, cdmgNum, defNum}, ret)
+
+        return ret;
       };
 
       if (detail.dmg) {
-        let dmgRet = detail.dmg({ attr, talent }, dmg);
+        let dmgRet = detail.dmg({attr, talent}, dmg);
         ret.push({
           title: detail.title,
           ...dmgRet
