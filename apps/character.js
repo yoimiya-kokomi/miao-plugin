@@ -585,6 +585,9 @@ export async function renderProfile(e, char, render) {
   let avatar = await getAvatar(e, char, MysApi);
   let talent = await getTalent(e, avatar);
 
+  if(!talent.id){
+    return true;
+  }
 
   let posIdx = {
     "生之花": {
@@ -636,8 +639,8 @@ export async function renderProfile(e, char, render) {
   let dmgCalc = await Calc.calcData(profile, char, avatar, talent);
   if (dmgCalc && dmgCalc.ret) {
     lodash.forEach(dmgCalc.ret, (ds) => {
-      ds.dmg = Format.comma(ds.dmg, 1);
-      ds.avg = Format.comma(ds.avg, 1);
+      ds.dmg = Format.comma(ds.dmg, 0);
+      ds.avg = Format.comma(ds.avg, 0);
       dmgData.push(ds);
     })
     dmgMsg = dmgCalc.msg;
