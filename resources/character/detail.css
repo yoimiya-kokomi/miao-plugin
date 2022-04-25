@@ -371,7 +371,7 @@ body {
 .dmg-notice {
   font-size: 12px;
   text-align: right;
-  color: #eee;
+  color: #f5f5f5;
   margin-right: 15px;
 }
 
@@ -660,4 +660,8 @@ body {
 
 .char-香菱 .main-pic {
   margin-left: -195px;
+}
+
+.char-迪奥娜 .main-pic {
+  margin-left: -180px;
 }

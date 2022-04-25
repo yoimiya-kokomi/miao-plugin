@@ -3,7 +3,11 @@ import lodash from "lodash";
 import Format from "./Format.js";
 
 const eleMap = {
+  Anemo: "风",
+  Cryo: "冰",
   Electro: "雷",
+  Geo: "岩",
+  Hydro: "水",
   Pyro: "火"
 }
 
@@ -93,6 +97,8 @@ let Calc = {
     ret.zf = 0;
     ret.rh = 0;
 
+    ret.kx = 0;
+
     return ret;
 
   },
@@ -133,6 +139,20 @@ let Calc = {
     return ret;
   },
 
+  getDs(attr, meta, params) {
+    return {
+      ...meta,
+      attr,
+      params,
+      refine: attr.refine,
+      weaponType: attr.weaponType,
+      element: eleMap[attr.element] || attr.element,
+      calc(ds) {
+        return (ds.base || 0) + (ds.plus || 0) + ((ds.base || 0) * (ds.pct || 0) / 100)
+      }
+    }
+  },
+
   calcAttr(originalAttr, buffs, meta, params = {}) {
     let attr = lodash.merge({}, originalAttr);
 
@@ -140,19 +160,16 @@ let Calc = {
 
 
     lodash.forEach(buffs, (buff) => {
-      let ds = {
-        ...meta,
-        attr,
-        params,
-        refine: attr.refine,
-        calc(ds) {
-          return (ds.base || 0) + (ds.plus || 0) + ((ds.base || 0) * (ds.pct || 0) / 100)
-        }
-      };
+      let ds = Calc.getDs(attr, meta, params);
 
       // 如果存在rule，则进行计算
       if (buff.check && !buff.check(ds)) {
         return;
+      }
+      if (buff.cons) {
+        if (ds.cons * 1 < buff.cons * 1) {
+          return;
+        }
       }
 
       let title = buff.title;
@@ -189,7 +206,7 @@ let Calc = {
           return;
         }
 
-        if (["zf", "rh"].includes(key)) {
+        if (["zf", "rh", "kx"].includes(key)) {
           attr[key] += val * 1 || 0;
         }
       });
@@ -302,6 +319,10 @@ let Calc = {
 
       let { attr } = Calc.calcAttr(originalAttr, buffs, meta, params);
 
+      if (detail.check && !detail.check(Calc.getDs(attr, meta, params))) {
+        return;
+      }
+
       let dmg = function (pctNum = 0, talent = false, ele = false) {
         let { atk, dmg, cdmg, cpct } = attr;
         // 攻击区
@@ -357,7 +378,7 @@ let Calc = {
           avg: atkNum * pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
         }
         if (global.debugView === "web-debug") {
-         // console.log(attr, { atkNum, pctNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum }, ret)
+          // console.log(attr, { atkNum, pctNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum }, ret)
         }
         return ret;
       };

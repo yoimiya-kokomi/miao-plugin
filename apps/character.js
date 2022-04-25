@@ -128,9 +128,13 @@ export async function wife(e, { render, User }) {
     cookieType: "all",
     actionName: "查询信息"
   });
+
+  if (!MysApi || !MysApi.selfUser) {
+    return true;
+  }
   let selfUser = MysApi.selfUser;
 
-  let selfMysUser = await MysApi.selfUser.getMysUser();
+  let selfMysUser = await selfUser.getMysUser();
   let isSelf = true;
   if (!selfMysUser || selfMysUser.uid !== MysApi.targetUser.uid) {
     isSelf = false;
