@@ -33,7 +33,7 @@ export const buffs = [
       "qDmg": ({ talent }) => talent.e["元素爆发伤害提高"] * 90
     }
   }, {
-    rule: ({ cons }) => cons >= 2,
+    check: ({ cons }) => cons >= 2,
     title: "2命效果：大招无视敌人[qDef]%防御力",
     data: {
       "qIgnore": 60
