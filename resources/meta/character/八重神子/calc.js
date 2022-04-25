@@ -17,10 +17,7 @@ export const details = [{
 export const buffs = [{
   title: `被动天赋：基于元素精通提高杀生樱伤害[eDmg]%`,
   data: {
-    "eDmg": ({ attr, calc }) => {
-      console.log(attr.mastery, calc(attr.mastery))
-      return calc(attr.mastery) * 0.15
-    }
+    "eDmg": ({ attr, calc }) => calc(attr.mastery) * 0.15
   }
 }, {
   check: ({ cons }) => cons >= 4,

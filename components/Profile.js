@@ -259,11 +259,13 @@ let Profile = {
     // 请求成功Bot侧对该uid冷却10分钟
     // 请勿将时间改短，10分钟之内若发起请求会命中服务侧的uid缓存，返回之前的数据，并导致服务侧重新计时
     await redis.set(`miao:role-all:${uid}`, 'pending', { EX: 600 });
+    let leftCount = data.leftCount;
     data = data.data;
     let userData = {};
     if (data && data["角色名称"]) {
       userData = Profile.save(uid, data)
     }
+    userData.leftCount = leftCount;
     return userData;
   },
 
