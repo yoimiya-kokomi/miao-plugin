@@ -112,9 +112,9 @@ export async function updateRes(e) {
   let command = "";
   if (fs.existsSync(`${resPath}/miao-res-plus/`)) {
     e.reply("开始尝试更新，请耐心等待~");
-    command = `git -C "${resPath}/miao-res-plus" pull`;
-    exec(command, function (error, stdout, stderr) {
-      console.log(stdout);
+    command = `git pull`;
+    exec(command, { cwd: `${resPath}/miao-res-plus/` }, function (error, stdout, stderr) {
+      //console.log(stdout);
       if (/Already up to date/.test(stdout)) {
         e.reply("目前所有图片都已经是最新了~");
         return true;
