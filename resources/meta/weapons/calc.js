@@ -16,6 +16,7 @@ let polearm = {
     }
   },
   "匣里灭辰": {
+    check: ({ element }) => ['水', '火'].includes(element),
     title: "对于水或或元素影响的敌人造成伤害提高[dmg]%",
     refine: {
       dmg: [20, 24, 28, 32, 36]
@@ -83,9 +84,8 @@ let polearm = {
   "护摩之杖": {
     title: "角色生命低于50%时额外获得[atkPlus]攻击力",
     data: {
-      atkPlus: ({ attr, refine }) => {
-        let { hp } = attr,
-          totalHp = hp.base + hp.plus + hp.pct * hp.base / 100;
+      atkPlus: ({ attr, refine,calc }) => {
+        let totalHp = calc(attr.hp);
         return totalHp * ([0.8, 1, 1.2, 1.4, 1.6][refine] + [1, 1.2, 1.4, 1.6, 1.8][refine]) / 100
       }
     }

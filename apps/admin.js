@@ -185,7 +185,7 @@ export async function updateMiaoPlugin(e) {
       exec(command, function (error, stdout, stderr) {
         if (error) {
           if (/Yunzai not found/.test(error)) {
-            e.reply("自动重启失败，请使用 npm run start 命令启动Yunzai-Bot");
+            e.reply("自动重启失败，请手动重启以应用新版喵喵。请使用 npm run start 命令启动Yunzai-Bot");
           } else {
             e.reply("重启失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
           }
@@ -195,5 +195,5 @@ export async function updateMiaoPlugin(e) {
     }, 1000);
 
   });
-
+  return true;
 }

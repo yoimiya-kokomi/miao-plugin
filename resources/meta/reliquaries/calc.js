@@ -45,7 +45,7 @@ export const buffs = {
     }
   },
   "流浪大地的乐团4": {
-    check: ({ weaponType }) =>  ['法器', '弓'].includes(weaponType),
+    check: ({ weaponType }) => ['法器', '弓'].includes(weaponType),
     title: "乐团4：角色重击造成的伤害提高35%",
     data: {
       a2Dmg: 35
@@ -71,12 +71,12 @@ export const buffs = {
     }
   },
   "炽烈的炎之魔女4": {
-    check:({element})=>element === "火",
-    title: "魔女4：蒸发、融化伤害提高15%，2层获得15%火元素伤害加成",
+    check: ({ element }) => element === "火",
+    title: "魔女4：蒸发、融化伤害提高15%，1层额外提高7.5%火元素伤害加成",
     data: {
       zf: 15,
       rh: 15,
-      dmg: 15
+      dmg: ({ params }) => (params.mn || 1) * 7.5
     }
   },
   "昔日宗室之仪2": {
@@ -92,14 +92,14 @@ export const buffs = {
     }
   },
   "冰风迷途的勇士4": {
-    check:({element})=>element === "冰",
+    check: ({ element }) => element === "冰",
     title: "冰套4：攻击处于冰元素影响下的敌人时，暴击率提高20%",
     data: {
       cpct: 20
     }
   },
   "沉沦之心4": {
-    check:({element})=>element === "水",
+    check: ({ element }) => element === "水",
     title: "水套4：施放元素战技后，普攻与重击伤害提高30%",
     data: {
       aDmg: 30,
@@ -129,14 +129,14 @@ export const buffs = {
     }
   },
   "平息鸣雷的尊者4": {
-    check:({element})=>element === "雷",
+    check: ({ element }) => element === "雷",
     title: "平雷4：对处于雷元素影响下的敌人造成的伤害提升35%",
     data: {
       dmg: 35
     }
   },
   "渡过烈火的贤人4": {
-    check:({element})=>element === "火",
+    check: ({ element }) => element === "火",
     title: "渡火4：对处于火元素影响下的敌人造成的伤害提升35%",
     data: {
       dmg: 35

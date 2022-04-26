@@ -359,14 +359,18 @@ let Calc = {
         let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore));
 
         // 抗性区
+        let kx = 10 - (attr.kx || 0);
         let kNum = 0.9;
+        if (kx >= 0) {
+          kNum = (100 - kx) / 100;
+        } else {
+          kNum = 1 - kx / 200
+        }
 
         // 反应区
         let eleNum = 1;
         if (ele) {
           eleNum = { zf: 1.5, rh: 2 }[ele] || 1;
-
-
           if (attr[ele]) {
             eleNum = eleNum * (1 + attr[ele] / 100);
           }
