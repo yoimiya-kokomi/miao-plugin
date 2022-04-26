@@ -1,13 +1,26 @@
 import { character, getProfile, wife, wifeReg, enemyLv } from "./apps/character.js";
 import { consStat, abyssPct } from "./apps/stat.js";
 import { wiki } from "./apps/wiki.js";
-import { help } from "./apps/help.js";
+import { help, versionInfo } from "./apps/help.js";
 import lodash from "lodash";
 import common from "../../lib/common.js";
 import { rule as adminRule, updateRes, sysCfg, updateMiaoPlugin } from "./apps/admin.js";
 import { currentVersion, changelogs } from "./components/Changelog.js";
 
-export { character, wife, consStat, abyssPct, wiki, updateRes, updateMiaoPlugin, sysCfg, help, getProfile, enemyLv };
+export {
+  character,
+  wife,
+  consStat,
+  abyssPct,
+  wiki,
+  updateRes,
+  updateMiaoPlugin,
+  sysCfg,
+  help,
+  versionInfo,
+  getProfile,
+  enemyLv
+};
 
 
 let rule = {
@@ -42,6 +55,10 @@ let rule = {
   enemyLv: {
     reg: "^#敌人等级\\s*\\d{1,3}\\s*$",
     describe: "【#角色】 设置伤害计算中目标敌人的等级",
+  },
+  versionInfo: {
+    reg: "#喵喵版本",
+    describe: "【#帮助】 喵喵版本介绍",
   },
   ...adminRule
 };

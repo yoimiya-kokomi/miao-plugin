@@ -1,7 +1,8 @@
-import { Character } from "../components/models.js";
 import { Cfg } from "../components/index.js";
 import { segment } from "oicq";
 import lodash from "lodash";
+import { currentVersion, changelogs } from "../components/Changelog.js";
+import common from "../../../lib/common.js";
 
 const _path = process.cwd();
 const helpFilePath = `${_path}/plugins/miao-plugin/resources/help/help-list.js`;
@@ -45,5 +46,11 @@ export async function help(e, { render }) {
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
   }
+  return true;
+}
+
+export async function versionInfo(e) {
+  let msgs = [`当前喵喵版本: ${currentVersion}`, ...changelogs];
+  e.reply(msgs.join("\n"));
   return true;
 }
