@@ -3,10 +3,11 @@ import { consStat, abyssPct } from "./apps/stat.js";
 import { wiki } from "./apps/wiki.js";
 import { help } from "./apps/help.js";
 import lodash from "lodash";
+import common from "../../lib/common.js";
+import { rule as adminRule, updateRes, sysCfg, updateMiaoPlugin } from "./apps/admin.js";
+import { currentVersion, changelogs } from "./components/Changelog.js";
 
-import { rule as adminRule, updateRes, sysCfg } from "./apps/admin.js";
-
-export { character, wife, consStat, abyssPct, wiki, updateRes, sysCfg, help, getProfile, enemyLv };
+export { character, wife, consStat, abyssPct, wiki, updateRes, updateMiaoPlugin, sysCfg, help, getProfile, enemyLv };
 
 
 let rule = {
@@ -54,3 +55,14 @@ lodash.forEach(rule, (r) => {
 export { rule };
 
 console.log("喵喵插件初始化~");
+
+setTimeout(async function () {
+  let msgStr = await redis.get("miao:restart-msg");
+  if (msgStr) {
+    let msg = JSON.parse(msgStr);
+    await common.relpyPrivate(msg.qq, msg.msg);
+    await redis.del("miao:restart-msg");
+    let msgs = [`当前喵喵版本: ${currentVersion}`, ...changelogs];
+    await common.relpyPrivate(msg.qq, msgs.join("\n"));
+  }
+}, 1000);
