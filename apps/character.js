@@ -345,8 +345,8 @@ async function renderCard(e, avatar, render, renderType = "card") {
       bg,
       ...getCharacterData(avatar),
       ds: char.getData("name,id,title,desc"),
-      cfgScale: Cfg.scale(1.25)
-    }, "png");
+      cfgScale: Cfg.scale(1.6)
+    });
     if (base64) {
       e.reply(segment.image(`base64://${base64}`));
     }

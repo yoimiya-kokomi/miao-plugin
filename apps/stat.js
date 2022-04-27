@@ -78,8 +78,8 @@ export async function consStat(e, { render }) {
     pct: function (num) {
       return (num * 100).toFixed(2);
     },
-    cfgScale: Cfg.scale(1.4)
-  }, "png");
+    cfgScale: Cfg.scale(1.5)
+  });
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
   }
@@ -156,8 +156,8 @@ export async function abyssPct(e, { render }) {
     pct: function (num) {
       return (num * 100).toFixed(2);
     },
-    cfgScale: Cfg.scale(1.4)
-  }, "png");
+    cfgScale: Cfg.scale(1.5)
+  });
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
   }

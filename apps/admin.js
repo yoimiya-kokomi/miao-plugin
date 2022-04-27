@@ -94,8 +94,8 @@ export async function sysCfg(e, { render }) {
 
   let base64 = await render("admin", "index", {
     ...cfg,
-    cfgScale: Cfg.scale(1.2)
-  }, "png");
+    cfgScale: Cfg.scale(1.4)
+  });
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
   }

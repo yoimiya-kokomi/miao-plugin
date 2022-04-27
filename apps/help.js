@@ -41,8 +41,8 @@ export async function help(e, { render }) {
 
   let base64 = await render("help", "index", {
     helpCfg: helpGroup,
-    cfgScale: Cfg.scale(1.05)
-  }, "png");
+    cfgScale: Cfg.scale(1.2)
+  });
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
   }

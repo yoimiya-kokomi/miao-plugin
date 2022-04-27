@@ -393,7 +393,7 @@ let Calc = {
           avg: atkNum * pctNum * (1 + multiNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
         }
 
-        console.log(attr, { atkNum, pctNum, multiNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
+        // console.log(attr, { atkNum, pctNum, multiNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
 
         return ret;
       };
