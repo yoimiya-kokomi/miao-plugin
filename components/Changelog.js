@@ -7,26 +7,35 @@ const _logPath = `${_path}/plugins/miao-plugin/CHANGELOG.md`;
 let logs = {};
 let changelogs = [];
 let currentVersion;
-let isNew = 1;
+let versionCount = 2;
 try {
   if (fs.existsSync(_logPath)) {
     logs = fs.readFileSync(_logPath, "utf8") || "";
     logs = logs.split("\n");
     lodash.forEach(logs, (line) => {
-      if (isNew === -1) {
+      if (versionCount === -1) {
         return false;
       }
       let versionRet = /^#\s*([0-9\\.]+)\s*$/.exec(line);
       if (versionRet && versionRet[1]) {
         let v = versionRet[1];
+
+
         if (!currentVersion) {
           currentVersion = v;
         }
-        isNew--;
+        versionCount--;
+        versionCount === 0 && changelogs.push(" ");
+        versionCount > -1 && changelogs.push(`【 版本: ${v} 】`)
+
         return;
       }
-      if (isNew > -1) {
-        changelogs.push(line);
+      if (versionCount > -1) {
+        line = line.trim();
+        line = line.replace(/`/g, "");
+        if (line) {
+          changelogs.push(line);
+        }
       }
     });
   }
