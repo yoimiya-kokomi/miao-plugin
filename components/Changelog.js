@@ -31,9 +31,8 @@ try {
         return;
       }
       if (versionCount > -1) {
-        line = line.trim();
         line = line.replace(/`/g, "");
-        if (line) {
+        if (line.trim()) {
           changelogs.push(line);
         }
       }
