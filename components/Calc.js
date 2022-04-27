@@ -75,12 +75,15 @@ let Calc = {
     lodash.forEach("a,a2,a3,e,q".split(","), (key) => {
       ret[key] = {
         pct: 0, // 倍率加成
-        def: 0, // 防御降低
-        ignore: 0, // 无视防御
+        multi: 0, // 独立倍率乘区加成
+
         plus: 0, // 伤害值提高
         dmg: 0, // 伤害提高
         cpct: 0,// 暴击提高
-        cdmg: 0 //爆伤提高
+        cdmg: 0, //爆伤提高
+
+        def: 0, // 防御降低
+        ignore: 0, // 无视防御
       }
     })
 
@@ -93,6 +96,8 @@ let Calc = {
     ret.weaponType = avatar.weapon.type_name;
     ret.element = eleMap[avatar.element];
     ret.refine = (avatar.weapon.affix_level * 1 - 1) || 0;
+
+    ret.multi = 0;
 
     ret.zf = 0;
     ret.rh = 0;
@@ -121,7 +126,8 @@ let Calc = {
         lodash.forEach(val.split("/"), (v, idx) => {
           let valNum = 0;
           lodash.forEach(v.split("+"), (v) => {
-            valNum += v.replace("%", "").trim() * 1;
+            v = v.split("*")
+            valNum += v[0].replace("%", "").trim() * (v[1] || 1);
           })
           valArr.push(valNum);
         });
@@ -191,7 +197,7 @@ let Calc = {
 
         title = title.replace(`[${key}]`, Format.comma(val, 1));
         // 技能提高
-        let tRet = /^(a|a2|a3|e|q)(Def|Ignore|Dmg|Plus|Pct|Cpct|Cdmg)$/.exec(key);
+        let tRet = /^(a|a2|a3|e|q)(Def|Ignore|Dmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key);
         if (tRet) {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0;
           return;
@@ -328,6 +334,10 @@ let Calc = {
         // 攻击区
         let atkNum = (atk.base + atk.plus + atk.base * atk.pct / 100);
 
+
+        // 倍率独立乘区
+        let multiNum = attr.multi / 100;
+
         // 增伤区
         let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100);
 
@@ -352,6 +362,7 @@ let Calc = {
           cdmgNum += ds.cdmg / 100;
           enemyDef += ds.def / 100;
           enemyIgnore += ds.ignore / 100;
+          multiNum += ds.multi / 100;
         }
 
         // 防御区
@@ -378,12 +389,12 @@ let Calc = {
 
         // 计算最终伤害
         let ret = {
-          dmg: atkNum * pctNum * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
-          avg: atkNum * pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+          dmg: atkNum * pctNum * (1 + multiNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
+          avg: atkNum * pctNum * (1 + multiNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
         }
-        if (global.debugView === "web-debug") {
-          // console.log(attr, { atkNum, pctNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum }, ret)
-        }
+
+        console.log(attr, { atkNum, pctNum, multiNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
+
         return ret;
       };
 

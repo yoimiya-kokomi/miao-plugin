@@ -84,7 +84,7 @@ let polearm = {
   "护摩之杖": {
     title: "角色生命低于50%时额外获得[atkPlus]攻击力",
     data: {
-      atkPlus: ({ attr, refine,calc }) => {
+      atkPlus: ({ attr, refine, calc }) => {
         let totalHp = calc(attr.hp);
         return totalHp * ([0.8, 1, 1.2, 1.4, 1.6][refine] + [1, 1.2, 1.4, 1.6, 1.8][refine]) / 100
       }
@@ -342,11 +342,6 @@ let bow = {
     }
   }],
   "飞雷之弦振": [{
-    title: "攻击力提高[atkPct]%",
-    refine: {
-      atkPckt: [20, 25, 30, 35, 40]
-    }
-  }, {
     title: "满Buff下提高普攻伤害[aDmg]%",
     refine: {
       aDmg: [40, 50, 60, 70, 80]

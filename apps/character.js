@@ -673,8 +673,8 @@ export async function renderProfile(e, char, render) {
     usefulTitles,
     usefulMark,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
-    cfgScale: Cfg.scale(1.5)
-  }, "png");
+    cfgScale: Cfg.scale(1.8)
+  });
   if (base64) {
     e.reply(segment.image(`base64://${base64}`));
   }
