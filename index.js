@@ -1,4 +1,4 @@
-import { character, getProfile, wife, wifeReg, enemyLv } from "./apps/character.js";
+import { character, getProfile, wife, wifeReg, enemyLv, getArtis, getProfileAll } from "./apps/character.js";
 import { consStat, abyssPct } from "./apps/stat.js";
 import { wiki } from "./apps/wiki.js";
 import { help, versionInfo } from "./apps/help.js";
@@ -19,7 +19,9 @@ export {
   help,
   versionInfo,
   getProfile,
-  enemyLv
+  enemyLv,
+  getArtis,
+  getProfileAll
 };
 
 
@@ -27,6 +29,14 @@ let rule = {
   character: {
     reg: "^#(喵喵)?(.*)(详情|详细|面板|面版)?(更新)?$",
     describe: "【#角色】角色详情",
+  },
+  getArtis: {
+    reg: "#圣遗物列表",
+    describe: "【#角色】圣遗物列表",
+  },
+  getProfileAll: {
+    reg: "#面板角色列表",
+    describe: "【#角色】查看当前已获取面板数据的角色列表",
   },
   wife: {
     reg: wifeReg,

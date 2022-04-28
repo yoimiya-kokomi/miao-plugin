@@ -420,7 +420,7 @@ body {
   display: block;
 }
 
-.artis .item img {
+.artis .item  .arti-icon img {
   width: 60px;
   height: 60px;
 }

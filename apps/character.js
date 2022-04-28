@@ -63,13 +63,15 @@ export async function character(e, { render, User }) {
   }
 
   let mode = 'card';
+  let name = msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
+
   if (/(详情|详细|面板|面版)$/.test(msg)) {
     mode = 'profile';
-  } else if (/(详情|详细|面板|面版)更新$/.test(msg)) {
+    name = name.replace(/(详情|详细|面板|面版)/, "").trim();
+  } else if (/(详情|详细|面板|面版)更新/.test(msg)) {
     mode = "refresh";
+    name = name.replace(/(详情|详细|面板|面版)更新/, "").trim();
   }
-
-  let name = msg.replace(/#|老婆|老公|详情|详细|面板|面版|更新|[1|2|5][0-9]{8}/g, "").trim();
   let char = Character.get(name);
 
   if (!char) {
@@ -710,6 +712,95 @@ export async function enemyLv(e) {
     lv = await selfUser.getCfg("char.enemyLv", 91);
     e.reply(`敌人等级已经设置为${lv}`);
     return true;
+  }
+  return true;
+
+}
+
+export async function getArtis(e, { render }) {
+  let MysApi = await e.getMysApi({
+    auth: "cookie",
+    targetType: "self",
+    cookieType: "self",
+    actionName: "查询角色天赋命座等信息"
+  });
+  if (!MysApi) {
+    return true;
+  }
+
+  let selfUser = e.selfUser,
+    uid = selfUser.uid;
+
+  let artis = [],
+    profiles = Profile.getAll(uid) || {};
+
+  if (!profiles || profiles.length === 0) {
+    e.reply("暂无角色圣遗物详情");
+    return true;
+  }
+
+
+  lodash.forEach(profiles || [], (ds) => {
+    let name = ds.name;
+    if (!name) {
+      return;
+    }
+    let { mark: usefulMark } = Reliquaries.getUseful(name);
+    /* 处理圣遗物 */
+    if (ds.artis) {
+      lodash.forEach(ds.artis, (arti) => {
+        let mark = Reliquaries.getMark(name, arti.attrs);
+        let maxMark = Reliquaries.getMaxMark(name, arti.main[0] || "");
+        arti.mark = Format.comma(mark, 1);
+        arti._mark = mark;
+        arti.markType = Reliquaries.getMarkScore(mark, maxMark);
+        arti.main = Profile.formatArti(arti.main);
+        arti.attrs = Profile.formatArti(arti.attrs);
+        arti.usefulMark = usefulMark;
+        arti.avatar = name;
+        artis.push(arti);
+      })
+    }
+  });
+
+  artis = lodash.sortBy(artis, "_mark");
+  artis = artis.reverse();
+  artis = artis.slice(0, 20);
+
+
+  let base64 = await render("character", "artis", {
+    save_id: uid,
+    uid: uid,
+    artis,
+    cfgScale: Cfg.scale(1.4)
+  });
+  if (base64) {
+    e.reply(segment.image(`base64://${base64}`));
+  }
+  return true;
+}
+
+export async function getProfileAll(e) {
+  let MysApi = await e.getMysApi({
+    auth: "cookie",
+    targetType: "self",
+    cookieType: "self",
+    actionName: "查询角色天赋命座等信息"
+  });
+  if (!MysApi) {
+    return true;
+  }
+  let uid = MysApi.selfUser.uid;
+
+  let profiles = Profile.getAll(uid) || {};
+  if (profiles.length === 0) {
+    e.reply("尚未获取任何角色数据");
+  } else {
+    let chars = [];
+    lodash.forEach(profiles, (ds) => {
+      ds.name && chars.push(ds.name)
+    });
+    e.reply("当前已获取面板角色： " + chars.join(", "));
   }
   return true;
 

@@ -381,7 +381,8 @@ let Calc = {
         // 反应区
         let eleNum = 1;
         if (ele) {
-          eleNum = { zf: 1.5, rh: 2 }[ele] || 1;
+          // todo 更详细
+          eleNum = (attr.element === "水" ? { zf: 2 } : { zf: 1.5, rh: 2 })[ele] || 1;
           if (attr[ele]) {
             eleNum = eleNum * (1 + attr[ele] / 100);
           }
