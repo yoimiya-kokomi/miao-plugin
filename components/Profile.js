@@ -248,8 +248,11 @@ let Profile = {
       return false;
     }
     await redis.set(`miao:role-all:${uid}`, 'loading', { EX: 20 });
-    e.reply("开始获取角色展柜中展示的角色详情，数据获取可能会需要一定时间~");
-    const api = `${cfg.api}?uid=${uid}&qq=${cfg.qq}&token=${cfg.token}`;
+    e.reply("开始获取数据，可能会需要一定时间~");
+    let api = `${cfg.api}?uid=${uid}&qq=${cfg.qq}&token=${cfg.token}`;
+    if (e.avatar) {
+      api += `&avatar=${e.avatar}`;
+    }
     let req = await fetch(api);
     let data = await req.json();
     if (data.status !== 0 || !data.data) {

@@ -65,16 +65,24 @@ export async function character(e, { render, User }) {
   let mode = 'card';
   if (/(详情|详细|面板|面版)$/.test(msg)) {
     mode = 'profile';
+  } else if (/(详情|详细|面板|面版)更新$/.test(msg)) {
+    mode = "refresh";
   }
 
-  let name = msg.replace(/#|老婆|老公|详情|详细|面板|面版|[1|2|5][0-9]{8}/g, "").trim();
+  let name = msg.replace(/#|老婆|老公|详情|详细|面板|面版|更新|[1|2|5][0-9]{8}/g, "").trim();
   let char = Character.get(name);
+
   if (!char) {
     return false;
   }
 
+
   if (mode === "profile") {
     return renderProfile(e, char, render);
+  } else if (mode === "refresh") {
+    e.avatar = char.id;
+    await getProfile(e);
+    return true;
   } else {
     return renderAvatar(e, char.name, render);
   }
@@ -563,13 +571,17 @@ export async function renderProfile(e, char, render) {
     cookieType: "self",
     actionName: "查询角色天赋命座等信息"
   });
+  if (!MysApi) {
+    return true;
+  }
 
   let selfUser = e.selfUser,
     uid = selfUser.uid;
 
   let profile = Profile.get(uid, char.id);
   if (!profile) {
-    e.reply(`请先发送 #获取游戏角色详情 命令获取 ${char.name} 的面板详情。\n请确认已将需要获取的8位角色展示在【游戏内】的“角色展柜”中，并已打开“显示角色详情”。如刚进行设置请等待5分钟后再进行使用，以免浪费请求次数。 `)
+    e.reply(`请先发送 #${char.name}面板更新\n来获取${char.name}的面板详情`);
+    e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/character/imgs/help.jpg`))
     return true;
   }
 
