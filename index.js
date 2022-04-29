@@ -1,4 +1,13 @@
-import { character, getProfile, wife, wifeReg, enemyLv, getArtis, getProfileAll } from "./apps/character.js";
+import {
+  character,
+  getProfile,
+  wife,
+  wifeReg,
+  enemyLv,
+  getArtis,
+  getProfileAll,
+  profileHelp
+} from "./apps/character.js";
 import { consStat, abyssPct } from "./apps/stat.js";
 import { wiki } from "./apps/wiki.js";
 import { help, versionInfo } from "./apps/help.js";
@@ -21,13 +30,14 @@ export {
   getProfile,
   enemyLv,
   getArtis,
-  getProfileAll
+  getProfileAll,
+  profileHelp
 };
 
 
 let rule = {
   character: {
-    reg: "^#(喵喵)?(.*)(详情|详细|面板|面版)?(更新)?$",
+    reg: "^#(喵喵)?(更新)?(.*)(详情|详细|面板|面版)?(更新)?$",
     describe: "【#角色】角色详情",
   },
   getArtis: {
@@ -35,7 +45,11 @@ let rule = {
     describe: "【#角色】圣遗物列表",
   },
   getProfileAll: {
-    reg: "#面板角色列表",
+    reg: "#(面板角色|角色面板)列表",
+    describe: "【#角色】查看当前已获取面板数据的角色列表",
+  },
+  profileHelp: {
+    reg: "#角色面板帮助",
     describe: "【#角色】查看当前已获取面板数据的角色列表",
   },
   wife: {
@@ -59,11 +73,11 @@ let rule = {
     describe: "【#帮助】 #喵喵帮助",
   },
   getProfile: {
-    reg: "^#(全部面板更新|获取游戏角色详情)$",
+    reg: "^#(全部面板更新|更新全部面板|获取游戏角色详情)$",
     describe: "【#角色】 获取游戏橱窗详情数据",
   },
   enemyLv: {
-    reg: "^#敌人等级\\s*\\d{1,3}\\s*$",
+    reg: "^#(敌人|怪物)等级\\s*\\d{1,3}\\s*$",
     describe: "【#角色】 设置伤害计算中目标敌人的等级",
   },
   versionInfo: {

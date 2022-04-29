@@ -65,13 +65,14 @@ export async function character(e, { render, User }) {
   let mode = 'card';
   let name = msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
 
-  if (/(详情|详细|面板|面版)$/.test(msg)) {
+  if (/(详情|详细|面板|面版)$/.test(msg) && !/更新/.test(msg)) {
     mode = 'profile';
     name = name.replace(/(详情|详细|面板|面版)/, "").trim();
-  } else if (/(详情|详细|面板|面版)更新/.test(msg)) {
+  } else if (/(详情|详细|面板|面版)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板|面版)$/.test(msg))) {
     mode = "refresh";
-    name = name.replace(/(详情|详细|面板|面版)更新/, "").trim();
+    name = name.replace(/详情|详细|面板|面版|更新/g, "").trim();
   }
+
   let char = Character.get(name);
 
   if (!char) {
@@ -582,8 +583,8 @@ export async function renderProfile(e, char, render) {
 
   let profile = Profile.get(uid, char.id);
   if (!profile) {
-    e.reply(`请先发送 #${char.name}面板更新\n来获取${char.name}的面板详情`);
-    e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/character/imgs/help.jpg`))
+    e.reply(`请先发送 #更新${char.name}面板\n来获取${char.name}的面板详情`);
+    await profileHelp(e);
     return true;
   }
 
@@ -695,6 +696,7 @@ export async function renderProfile(e, char, render) {
   return true;
 }
 
+/* #敌人等级 */
 export async function enemyLv(e) {
   let selfUser = await e.checkAuth({
     auth: "self"
@@ -703,9 +705,9 @@ export async function enemyLv(e) {
   if (!selfUser || !e.msg) {
     return true;
   }
-  let ret = /敌人等级\s*(\d{1,3})\s*$/.exec(e.msg);
-  if (ret && ret[1]) {
-    let lv = ret[1] * 1;
+  let ret = /(敌人|怪物)等级\s*(\d{1,3})\s*$/.exec(e.msg);
+  if (ret && ret[2]) {
+    let lv = ret[2] * 1;
 
     await selfUser.setCfg("char.enemyLv", lv);
 
@@ -763,6 +765,12 @@ export async function getArtis(e, { render }) {
     }
   });
 
+
+  if (artis.length === 0) {
+    e.reply("请先获取角色面板数据后再查看圣遗物列表...");
+    await profileHelp(e);
+    return true;
+  }
   artis = lodash.sortBy(artis, "_mark");
   artis = artis.reverse();
   artis = artis.slice(0, 20);
@@ -793,15 +801,23 @@ export async function getProfileAll(e) {
   let uid = MysApi.selfUser.uid;
 
   let profiles = Profile.getAll(uid) || {};
-  if (profiles.length === 0) {
-    e.reply("尚未获取任何角色数据");
-  } else {
-    let chars = [];
-    lodash.forEach(profiles, (ds) => {
-      ds.name && chars.push(ds.name)
-    });
-    e.reply("当前已获取面板角色： " + chars.join(", "));
-  }
-  return true;
 
+  let chars = [];
+  lodash.forEach(profiles || [], (ds) => {
+    ds.name && chars.push(ds.name)
+  });
+
+  if (chars.length === 0) {
+    e.reply("尚未获取任何角色数据");
+    await profileHelp(e);
+    return true;
+  }
+  e.reply("当前已获取面板角色： " + chars.join(", "));
+
+  return true;
+}
+
+export async function profileHelp(e) {
+  e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/character/imgs/help.jpg`))
+  return true;
 }

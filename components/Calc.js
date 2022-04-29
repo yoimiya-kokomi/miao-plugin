@@ -354,6 +354,8 @@ let Calc = {
 
         pctNum = pctNum / 100;
 
+        let plusNum = 0;
+
         if (talent && attr[talent]) {
           let ds = attr[talent];
           pctNum += ds.pct / 100;
@@ -363,6 +365,7 @@ let Calc = {
           enemyDef += ds.def / 100;
           enemyIgnore += ds.ignore / 100;
           multiNum += ds.multi / 100;
+          plusNum += ds.plus;
         }
 
         // 防御区
@@ -390,11 +393,11 @@ let Calc = {
 
         // 计算最终伤害
         let ret = {
-          dmg: atkNum * pctNum * (1 + multiNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
-          avg: atkNum * pctNum * (1 + multiNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+          dmg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
+          avg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
         }
 
-        // console.log(attr, { atkNum, pctNum, multiNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
+       // console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
 
         return ret;
       };
