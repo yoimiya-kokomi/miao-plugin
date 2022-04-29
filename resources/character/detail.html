@@ -50,7 +50,7 @@
       </div>
       {{if dmgData.length > 0}}
       <div class="dmg-cont cont">
-        <div class="tr th">
+        <div class="tr thead">
           <div class="title">伤害类型</div>
           <div>暴击伤害</div>
           <div>平均伤害(计算暴击率)</div>
@@ -66,6 +66,7 @@
       <div class="dmg-notice">目标为{{enemyLv}}级小宝，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置</div>
       {{/if}}
 
+      {{if mode === "profile"}}
       <div class="artis">
         <div>
           <div class="item weapon">
@@ -106,6 +107,24 @@
         </div>
         {{/each}}
       </div>
+      {{/if}}
+
+      {{if mode === "dmg"}}
+      <div class="dmg-cont dmg-msg cont">
+        <div class="tr thead">
+          <div class="title">
+            Buff列表
+          </div>
+          <div class="info">部分Buff的触发条件以及层数可能影响实际伤害结果</div>
+        </div>
+        {{each dmgMsg msg}}
+        <div class="tr">
+          <div class="th">{{msg[0]}}</div>
+          <div class="td">{{msg[1]}}</div>
+        </div>
+        {{/each}}
+      </div>
+      {{/if}}
       <div class="copyright">Created By Yunzai-Bot & Miao-Plugin</div>
     </div>
   </body>

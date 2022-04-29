@@ -303,8 +303,7 @@ body {
 
 
 /***  dmg ***/
-
-.dmg-cont {
+.cont {
   border-radius: 10px;
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
@@ -312,10 +311,13 @@ body {
   position: relative;
   box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
   overflow: hidden;
-  display: table;
-  width: calc(100% - 25px);
   color: #fff;
   font-size: 16px;
+}
+
+.dmg-cont {
+  display: table;
+  width: calc(100% - 25px);
 }
 
 .dmg-cont .tr {
@@ -335,11 +337,11 @@ body {
   box-shadow: 0 0 1px 0 #fff;
 }
 
-.dmg-cont .th {
+.dmg-cont .thead {
   text-align: center;
 }
 
-.dmg-cont .th > div {
+.dmg-cont .thead > div {
   font-family: YS;
   color: #d3bc8e;
   background: rgba(0, 0, 0, .4);
@@ -348,12 +350,14 @@ body {
 }
 
 
-.dmg-cont .title {
+.dmg-cont .title,
+.dmg-cont .th {
   font-family: YS;
   color: #d3bc8e;
   padding-right: 15px;
   text-align: right;
   background: rgba(0, 0, 0, .4);
+  min-width: 100px;
 }
 
 
@@ -420,7 +424,7 @@ body {
   display: block;
 }
 
-.artis .item  .arti-icon img {
+.artis .item .arti-icon img {
   width: 60px;
   height: 60px;
 }
@@ -641,6 +645,28 @@ body {
   font-size: 30px;
   font-family: Number;
   line-height: 40px;
+}
+
+.dmg-msg {
+  font-family: Number, YS;
+  font-size: 13px;
+  font-weight: normal;
+  margin-top: 15px;
+}
+
+.dmg-msg .th {
+  width: 33%;
+}
+
+.dmg-msg .tr .td {
+  padding: 8px 10px;
+}
+
+.dmg-msg .info {
+  font-size: 12px;
+  text-align: left;
+  padding-left: 10px;
+  font-weight: normal;
 }
 
 

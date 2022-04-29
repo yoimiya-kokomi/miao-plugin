@@ -241,7 +241,7 @@ let Calc = {
     }
 
     lodash.forEach(weaponCfg, (ds) => {
-      ds.title = `${weaponName}：${ds.title}`;
+      ds.title = `${weaponName}效果：${ds.title}`;
       if (ds.refine) {
         ds.data = ds.data || {};
         lodash.forEach(ds.refine, (r, key) => {
@@ -391,13 +391,18 @@ let Calc = {
           }
         }
 
+        cpctNum = Math.max(0, Math.min(1, cpctNum));
+        if (cpctNum === 0) {
+          cdmgNum = 0;
+        }
+
         // 计算最终伤害
         let ret = {
           dmg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
           avg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
         }
 
-       // console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
+        // console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
 
         return ret;
       };

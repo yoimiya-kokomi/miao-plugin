@@ -68,6 +68,9 @@ export async function character(e, { render, User }) {
   if (/(详情|详细|面板|面版)$/.test(msg) && !/更新/.test(msg)) {
     mode = 'profile';
     name = name.replace(/(详情|详细|面板|面版)/, "").trim();
+  } else if (/伤害$/.test(msg)) {
+    mode = 'dmg';
+    name = name.replace(/伤害/, "").trim();
   } else if (/(详情|详细|面板|面版)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板|面版)$/.test(msg))) {
     mode = "refresh";
     name = name.replace(/详情|详细|面板|面版|更新/g, "").trim();
@@ -80,8 +83,8 @@ export async function character(e, { render, User }) {
   }
 
 
-  if (mode === "profile") {
-    return renderProfile(e, char, render);
+  if (mode === "profile" || mode === "dmg") {
+    return renderProfile(e, char, render, mode);
   } else if (mode === "refresh") {
     e.avatar = char.id;
     await getProfile(e);
@@ -561,7 +564,7 @@ async function getAvatar(e, char, MysApi) {
 }
 
 
-export async function renderProfile(e, char, render) {
+export async function renderProfile(e, char, render, mode = "profile") {
 
   if (['荧', '空', '主角', '旅行者'].includes(char.name)) {
     e.reply("暂不支持主角的面板信息查看");
@@ -664,7 +667,10 @@ export async function renderProfile(e, char, render) {
       ds.avg = Format.comma(ds.avg, 0);
       dmgData.push(ds);
     })
-    dmgMsg = dmgCalc.msg;
+    lodash.forEach(dmgCalc.msg, (msg) => {
+      msg.replace(":", "：");
+      dmgMsg.push(msg.split("："))
+    })
   }
 
   let base64 = await render("character", "detail", {
@@ -688,6 +694,7 @@ export async function renderProfile(e, char, render) {
     usefulTitles,
     usefulMark,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
+    mode,
     cfgScale: Cfg.scale(1.8)
   });
   if (base64) {

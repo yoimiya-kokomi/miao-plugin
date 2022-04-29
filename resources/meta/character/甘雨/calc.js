@@ -17,13 +17,13 @@ export const details = [{
 
 export const buffs = [{
   cons: 1,
-  title: "1命效果：霜华失命中减少敌人15%冰抗",
+  title: "甘雨1命：霜华失命中减少敌人15%冰抗",
   data: {
     kx: ({ params }) => params.q ? 0 : 15
   }
 }, {
   cons: 4,
-  title: "4命效果：大招领域内敌人受到的伤害提升25%",
+  title: "甘雨4命：大招领域内敌人受到的伤害提升25%",
   data: {
     dmg: ({ params }) => params.q ? 25 : 0
   }

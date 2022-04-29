@@ -13,7 +13,7 @@ export const details = [{
 }];
 
 export const buffs = [{
-  title: "宵宫E：开启后额外提升普通[aMulti]%伤害",
+  title: "焰硝庭火舞：开启E后额外提升普通[aMulti]%伤害",
   data: {
     aMulti: ({ talent }) => talent.e["炽焰箭伤害"] - 100
   }
@@ -23,7 +23,7 @@ export const buffs = [{
     dmg: ({ params }) => params.num ? params.num * 2 : 20
   }
 }, {
-  title: "命座2：宵宫造成暴击后获得25%火伤加成",
+  title: "宵宫2命：宵宫造成暴击后获得25%火伤加成",
   cons: 2,
   data: {
     dmg: ({ params }) => params.num > 1 ? 25 : 0
