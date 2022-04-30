@@ -19,6 +19,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a["低空/高空坠地冲击伤害"][1], "a3")
 }];
 
+export const defDmgIdx = 3;
+export const mainAttr = "atk,cpct,cdmg";
 
 export const defParams = {
   layer: 0

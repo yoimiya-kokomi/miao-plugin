@@ -15,6 +15,9 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['冰棱伤害'], 'q')
 }];
 
+export const defDmgIdx = 2;
+export const mainAttr = "atk,cpct,cdmg,mastery";
+
 export const buffs = [{
   cons: 1,
   title: "甘雨1命：霜华失命中减少敌人15%冰抗",
@@ -27,4 +30,7 @@ export const buffs = [{
   data: {
     dmg: ({ params }) => params.q ? 25 : 0
   }
+}, {
+  title: "元素精通：融化伤害提高[rh]%",
+  mastery: "rh"
 }];

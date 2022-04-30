@@ -37,7 +37,7 @@ export {
 
 let rule = {
   character: {
-    reg: "^#(喵喵)?(更新)?(.*)(详情|详细|面板|面版|伤害)?(更新)?$",
+    reg: "^#(喵喵)?(更新)?(.*)(详情|详细|面板|面版|伤害[1-7]?)?(更新)?$",
     describe: "【#角色】角色详情",
   },
   getArtis: {
@@ -95,7 +95,7 @@ lodash.forEach(rule, (r) => {
 
 export { rule };
 
-console.log("喵喵插件初始化~");
+console.log(`喵喵插件${currentVersion}初始化~`);
 
 setTimeout(async function () {
   let msgStr = await redis.get("miao:restart-msg");

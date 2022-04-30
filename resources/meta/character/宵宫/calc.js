@@ -1,6 +1,6 @@
 export const details = [{
   title: "开E后首段普攻",
-  params: { num: 1},
+  params: { num: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 }, {
   title: "开E满Buff普攻尾箭",
@@ -8,9 +8,11 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a')
 }, {
   title: "开E满Buff尾箭蒸发",
-  params: { num: 10},
+  params: { num: 10 },
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'zf')
 }];
+
+export const mainAttr = "atk,cpct,cdmg,mastery";
 
 export const buffs = [{
   title: "焰硝庭火舞：开启E后额外提升普通[aMulti]%伤害",

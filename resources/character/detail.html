@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css"/>
     <link rel="stylesheet" type="text/css" href="{{_res_path}}/character/detail.css"/>
   </head>
-  <body {{cfgScale}} class="elem_{{elem}} char-{{name}}">
+  <body {{cfgScale}} class="elem_{{elem}} char-{{name}} {{mode}}-mode">
     <div class="container" id="container">
       <div class="basic">
         <div class="main-pic"
@@ -49,21 +49,30 @@
         </div>
       </div>
       {{if dmgData.length > 0}}
-      <div class="dmg-cont cont">
-        <div class="tr thead">
-          <div class="title">伤害类型</div>
-          <div>暴击伤害</div>
-          <div>平均伤害(计算暴击率)</div>
+      <div class="dmg-cont dmg-list cont">
+        <div class="cont-title">
+          伤害计算<span>目标为{{enemyLv}}级小宝，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置</span>
         </div>
-        {{each dmgData dmg idx}}
-        <div class="dmg tr">
-          <div class="title">{{dmg.title}}</div>
-          <div class="value">{{dmg.dmg}}</div>
-          <div class="value">{{dmg.avg}}</div>
+        <div class="cont-table">
+          <div class="tr thead">
+            <div class="title dmg-idx">#</div>
+            <div class="title dmg-title">伤害类型</div>
+            <div>暴击伤害</div>
+            <div>平均伤害(计算暴击率)</div>
+          </div>
+          {{each dmgData dmg idx}}
+          <div class="dmg tr">
+            <div class="title dmg-idx">{{idx+1}}</div>
+            <div class="title dmg-title">{{dmg.title}}</div>
+            <div class="value">{{dmg.dmg}}</div>
+            <div class="value">{{dmg.avg}}</div>
+          </div>
+          {{/each}}
         </div>
-        {{/each}}
+        <div class="cont-footer dmg-desc">
+          使用命令<strong>#{{name}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
+        </div>
       </div>
-      <div class="dmg-notice">目标为{{enemyLv}}级小宝，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置</div>
       {{/if}}
 
       {{if mode === "profile"}}
@@ -110,19 +119,66 @@
       {{/if}}
 
       {{if mode === "dmg"}}
-      <div class="dmg-cont dmg-msg cont">
-        <div class="tr thead">
-          <div class="title">
-            Buff列表
+
+      {{if dmgCfg && dmgCfg.attr && dmgCfg.attr.length>0}}
+      <div class="dmg-calc dmg-cont cont">
+        <div class="cont-title">
+          词条伤害计算<span>#{{name}}伤害{{dmgCfg.userIdx+1}}: 当前计算为[{{dmgCfg.title}}]的 平均伤害</span>
+        </div>
+        <div class="cont-table">
+          <div class="tr thead ">
+            <div class="td">词条变化</div>
+            {{each dmgCfg.attr attr}}
+            <div class="td">
+              <strong>{{attr.title}}</strong>
+              <span>+{{attr.text}}</span>
+            </div>
+            {{/each}}
           </div>
-          <div class="info">部分Buff的触发条件以及层数可能影响实际伤害结果</div>
+          {{each dmgRet row rowIdx}}
+          <div class="tr">
+            <div class="title">
+              <strong>{{dmgCfg.attr[rowIdx].title}}</strong>
+              <span>-{{dmgCfg.attr[rowIdx].text}}</span>
+            </div>
+            {{each row cell colIdx}}
+            {{if cell.type === "na"}}
+            <div class="td na">
+              <strong>-</strong>
+              <span>{{dmgCfg.basicRet.avg}}/{{dmgCfg.basicRet.dmg}}</span>
+            </div>
+            {{else}}
+            <div class="td {{cell.type}}">
+              <strong>{{cell.val}}</strong>
+              <span>{{cell.avg}}/{{cell.dmg}}</span>
+            </div>
+            {{/if}}
+            {{/each}}
+          </div>
+          {{/each}}
         </div>
-        {{each dmgMsg msg}}
-        <div class="tr">
-          <div class="th">{{msg[0]}}</div>
-          <div class="td">{{msg[1]}}</div>
+        <div class="cont-footer dmg-desc">
+          <ul>
+            <li>大数字的含义为圣遗物副词条置换后<strong>平均伤害</strong>的变化，下方的详情数字为<strong>平均伤害</strong>/<strong>暴击伤害</strong>。</li>
+            <li><strong>平均伤害</strong>：是将暴击率计算在内的伤害期望，能反映综合的输出能力，不等于实际伤害数字。</li>
+            <li>可用于评估当前面板下圣遗物副词条的侧重方向。实际游戏情况更加复杂，结果供参考~</li>
+            <li>如需更换计算的伤害类型，可使用命令 <strong>#{{name}}伤害+序号</strong>来切换，序号参见伤害计算板块</li>
+
+          </ul>
         </div>
-        {{/each}}
+      </div>
+      {{/if}}
+
+      <div class="dmg-cont dmg-msg cont">
+        <div class="cont-title">Buff列表<span>部分Buff的触发条件以及层数可能影响实际伤害结果</span></div>
+        <div class="cont-table">
+          {{each dmgMsg msg}}
+          <div class="tr">
+            <div class="th">{{msg[0]}}</div>
+            <div class="td">{{msg[1]}}</div>
+          </div>
+          {{/each}}
+        </div>
       </div>
       {{/if}}
       <div class="copyright">Created By Yunzai-Bot & Miao-Plugin</div>

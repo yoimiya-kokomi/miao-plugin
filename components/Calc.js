@@ -11,6 +11,17 @@ const eleMap = {
   Pyro: "火"
 }
 
+const attrMap = {
+  atk: { type: "pct", val: 5.83, title: "大攻击", text: "5.8%" },
+  hp: { type: "pct", val: 5.83, title: "大生命", text: "5.8%" },
+  def: { type: "pct", val: 7.29, title: "大防御", text: "7.3%" },
+  recharge: { type: "plus", val: 6.48, title: "元素充能", text: "6.5%" },
+  mastery: { type: "plus", val: 23.31, title: "元素精通", text: "23.3" },
+  cpct: { type: "plus", val: 3.89, title: "暴击率", text: "3.9%" },
+  cdmg: { type: "plus", val: 7.77, title: "暴击伤害", text: "7.8%" },
+}
+
+
 let Calc = {
 
   async getCharCalcRule(name) {
@@ -19,16 +30,22 @@ let Calc = {
     const cfgPath = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc.js`;
 
 
-    let details, buffs = [], defParams = {};
+    let details, buffs = [], defParams = {}, defDmgIdx = -1, mainAttr = "atk,cpct,cdmg";
     if (fs.existsSync(cfgPath)) {
       let fileData = await import (`file://${cfgPath}`);
       details = fileData.details || false;
       buffs = fileData.buffs || [];
       defParams = fileData.defParams || {};
+      if (fileData.defDmgIdx) {
+        defDmgIdx = fileData.defDmgIdx;
+      }
+      if (fileData.mainAttr) {
+        mainAttr = fileData.mainAttr;
+      }
     }
 
     if (details) {
-      return { details, buffs, defParams }
+      return { details, buffs, defParams, defDmgIdx, mainAttr }
     }
     return false;
   },
@@ -159,11 +176,18 @@ let Calc = {
     }
   },
 
-  calcAttr(originalAttr, buffs, meta, params = {}) {
+  calcAttr(originalAttr, buffs, meta, params = {}, incAttr = '', reduceAttr = '') {
     let attr = lodash.merge({}, originalAttr);
-
     let msg = [];
 
+    if (incAttr && attrMap[incAttr]) {
+      let aCfg = attrMap[incAttr];
+      attr[incAttr][aCfg.type] += aCfg.val;
+    }
+    if (reduceAttr && attrMap[reduceAttr]) {
+      let aCfg = attrMap[reduceAttr];
+      attr[reduceAttr][aCfg.type] -= aCfg.val;
+    }
 
     lodash.forEach(buffs, (buff) => {
       let ds = Calc.getDs(attr, meta, params);
@@ -284,7 +308,89 @@ let Calc = {
     })
     return retBuffs;
   },
-  async calcData({ profile, char, avatar, talentData, enemyLv = 91 }) {
+
+  getDmgFn({ attr, avatar, enemyLv }) {
+    return function (pctNum = 0, talent = false, ele = false) {
+      let { atk, dmg, cdmg, cpct } = attr;
+      // 攻击区
+      let atkNum = (atk.base + atk.plus + atk.base * atk.pct / 100);
+
+
+      // 倍率独立乘区
+      let multiNum = attr.multi / 100;
+
+      // 增伤区
+      let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100);
+
+      //console.log({ base: Format.comma(dmg.base, 2), plus: Format.comma(dmg.plus, 2) })
+
+      let cpctNum = cpct.base / 100 + cpct.plus / 100;
+
+      // 爆伤区
+      let cdmgNum = cdmg.base / 100 + cdmg.plus / 100;
+
+
+      let enemyDef = attr.enemy.def / 100;
+      let enemyIgnore = attr.enemy.ignore / 100;
+
+      pctNum = pctNum / 100;
+
+      let plusNum = 0;
+
+      if (talent && attr[talent]) {
+        let ds = attr[talent];
+        pctNum += ds.pct / 100;
+        dmgNum += ds.dmg / 100;
+        cpctNum += ds.cpct / 100;
+        cdmgNum += ds.cdmg / 100;
+        enemyDef += ds.def / 100;
+        enemyIgnore += ds.ignore / 100;
+        multiNum += ds.multi / 100;
+        plusNum += ds.plus;
+      }
+
+      // 防御区
+      let lv = avatar.level;
+      let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore));
+
+      // 抗性区
+      let kx = 10 - (attr.kx || 0);
+      let kNum = 0.9;
+      if (kx >= 0) {
+        kNum = (100 - kx) / 100;
+      } else {
+        kNum = 1 - kx / 200
+      }
+
+      // 反应区
+      let eleNum = 1;
+      if (ele) {
+        // todo 更详细
+        eleNum = (attr.element === "水" ? { zf: 2 } : { zf: 1.5, rh: 2 })[ele] || 1;
+        if (attr[ele]) {
+          eleNum = eleNum * (1 + attr[ele] / 100);
+        }
+      }
+
+      cpctNum = Math.max(0, Math.min(1, cpctNum));
+      if (cpctNum === 0) {
+        cdmgNum = 0;
+      }
+
+      // 计算最终伤害
+      let ret = {
+        dmg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
+        avg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+      }
+
+      // console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
+
+      return ret;
+    };
+  },
+
+
+  async calcData({ profile, char, avatar, talentData, enemyLv = 91, mode = 'profile', dmgIdx = 0 }) {
     let charCalcData = await Calc.getCharCalcRule(char.name);
 
     //avatar.element;
@@ -299,7 +405,7 @@ let Calc = {
       talent
     }
 
-    let { buffs, details, defParams } = charCalcData;
+    let { buffs, details, defParams, mainAttr, defDmgIdx } = charCalcData;
 
     defParams = defParams || {};
 
@@ -317,110 +423,78 @@ let Calc = {
 
     let { msg } = Calc.calcAttr(originalAttr, buffs, meta, defParams || {});
 
-    let ret = [];
+    let ret = [], detailMap = [], dmgRet = [], dmgDetail = {};
 
-    lodash.forEach(details, (detail) => {
 
+    lodash.forEach(details, (detail, detailSysIdx) => {
       let params = lodash.merge({}, defParams, detail.params || {});
-
       let { attr } = Calc.calcAttr(originalAttr, buffs, meta, params);
-
       if (detail.check && !detail.check(Calc.getDs(attr, meta, params))) {
         return;
       }
-
-      let dmg = function (pctNum = 0, talent = false, ele = false) {
-        let { atk, dmg, cdmg, cpct } = attr;
-        // 攻击区
-        let atkNum = (atk.base + atk.plus + atk.base * atk.pct / 100);
-
-
-        // 倍率独立乘区
-        let multiNum = attr.multi / 100;
-
-        // 增伤区
-        let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100);
-
-        //console.log({ base: Format.comma(dmg.base, 2), plus: Format.comma(dmg.plus, 2) })
-
-        let cpctNum = cpct.base / 100 + cpct.plus / 100;
-
-        // 爆伤区
-        let cdmgNum = cdmg.base / 100 + cdmg.plus / 100;
-
-
-        let enemyDef = attr.enemy.def / 100;
-        let enemyIgnore = attr.enemy.ignore / 100;
-
-        pctNum = pctNum / 100;
-
-        let plusNum = 0;
-
-        if (talent && attr[talent]) {
-          let ds = attr[talent];
-          pctNum += ds.pct / 100;
-          dmgNum += ds.dmg / 100;
-          cpctNum += ds.cpct / 100;
-          cdmgNum += ds.cdmg / 100;
-          enemyDef += ds.def / 100;
-          enemyIgnore += ds.ignore / 100;
-          multiNum += ds.multi / 100;
-          plusNum += ds.plus;
-        }
-
-        // 防御区
-        let lv = avatar.level;
-        let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore));
-
-        // 抗性区
-        let kx = 10 - (attr.kx || 0);
-        let kNum = 0.9;
-        if (kx >= 0) {
-          kNum = (100 - kx) / 100;
-        } else {
-          kNum = 1 - kx / 200
-        }
-
-        // 反应区
-        let eleNum = 1;
-        if (ele) {
-          // todo 更详细
-          eleNum = (attr.element === "水" ? { zf: 2 } : { zf: 1.5, rh: 2 })[ele] || 1;
-          if (attr[ele]) {
-            eleNum = eleNum * (1 + attr[ele] / 100);
-          }
-        }
-
-        cpctNum = Math.max(0, Math.min(1, cpctNum));
-        if (cpctNum === 0) {
-          cdmgNum = 0;
-        }
-
-        // 计算最终伤害
-        let ret = {
-          dmg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
-          avg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
-        }
-
-        // console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
-
-        return ret;
-      };
-
+      let dmg = Calc.getDmgFn({ attr, avatar, enemyLv }),
+        basicDmgRet;
       if (detail.dmg) {
-        let dmgRet = detail.dmg({ attr, talent }, dmg);
+        basicDmgRet = detail.dmg({ attr, talent }, dmg);
+        detail.userIdx = detailMap.length;
+        detailMap.push(detail);
         ret.push({
           title: detail.title,
-          ...dmgRet
+          ...basicDmgRet
         })
       }
     })
+
+    if (mode === "dmg") {
+      let detail;
+      if (dmgIdx && detailMap[dmgIdx - 1]) {
+        detail = detailMap[dmgIdx - 1];
+      } else if (!lodash.isUndefined(defDmgIdx) && details[defDmgIdx]) {
+        detail = details[defDmgIdx];
+      } else {
+        detail = detailMap[0];
+      }
+
+      dmgDetail = {
+        title: detail.title,
+        userIdx: detail.userIdx,
+        basicRet: lodash.merge({}, ret[detail.userIdx]),
+        attr: []
+      };
+
+
+      mainAttr = mainAttr.split(",");
+      let params = lodash.merge({}, defParams, detail.params || {});
+      let basicDmg = dmgDetail.basicRet;
+      lodash.forEach(mainAttr, (reduceAttr) => {
+        dmgDetail.attr.push(attrMap[reduceAttr])
+        let rowData = [];
+        lodash.forEach(mainAttr, (incAttr) => {
+          if (incAttr === reduceAttr) {
+            rowData.push({ type: 'na' });
+            return;
+          }
+          let { attr } = Calc.calcAttr(originalAttr, buffs, meta, params, incAttr, reduceAttr);
+          let dmg = Calc.getDmgFn({ attr, avatar, enemyLv });
+          if (detail.dmg) {
+            let dmgCalcRet = detail.dmg({ attr, talent }, dmg);
+            rowData.push({
+              type: dmgCalcRet.avg === basicDmg.avg ? "avg" : (dmgCalcRet.avg > basicDmg.avg ? "gt" : "lt"),
+              ...dmgCalcRet
+            })
+          }
+        })
+        dmgRet.push(rowData);
+      })
+    }
+
     return {
       ret,
-      msg
+      msg,
+      dmgRet,
+      dmgCfg: dmgDetail
     }
   }
-
 
 }
 

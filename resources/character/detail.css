@@ -318,6 +318,41 @@ body {
 .dmg-cont {
   display: table;
   width: calc(100% - 25px);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.dmg-mode .dmg-list .cont-footer {
+  display: none;
+}
+
+.cont-title {
+  background: rgba(0, 0, 0, .4);
+  color: #d3bc8e;
+  font-family: YS;
+  padding: 10px 20px;
+  text-align: left;
+}
+
+.cont-title span {
+  font-size: 12px;
+  color: #aaa;
+  margin-left: 10px;
+  font-family: Number, YS;
+  font-weight: normal;
+}
+
+.cont-footer {
+  padding: 10px 15px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  font-family: YS;
+  font-weight: normal;
+}
+
+.cont-table {
+  display: table;
+  width: 100%;
 }
 
 .dmg-cont .tr {
@@ -360,6 +395,30 @@ body {
   min-width: 100px;
 }
 
+.profile-mode .dmg-idx {
+  display: none !important;
+}
+
+.profile-mode .dmg-title {
+  width: 33.3333%;
+}
+
+.dmg-mode .dmg-idx {
+  display: table-cell;
+  width: 5%;
+  min-width: initial;
+  padding-right: 0;
+  text-align: center;
+}
+
+.dmg-mode .dmg-title {
+  width: 31%;
+  min-width: initial;
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 0;
+}
+
 
 .dmg .value {
   text-align: center;
@@ -369,7 +428,7 @@ body {
   font-size: 18px;
   font-family: Number;
   line-height: 40px;
-  width: 33.333%
+  width: 32%
 }
 
 .dmg-notice {
@@ -651,11 +710,16 @@ body {
   font-family: Number, YS;
   font-size: 13px;
   font-weight: normal;
-  margin-top: 15px;
+}
+
+.dmg-msg .thead > div {
+  text-align: left;
+  padding-left: 10px;
 }
 
 .dmg-msg .th {
-  width: 33%;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .dmg-msg .tr .td {
@@ -666,6 +730,84 @@ body {
   font-size: 12px;
   text-align: left;
   padding-left: 10px;
+  font-weight: normal;
+}
+
+
+.dmg-calc {
+
+}
+
+.dmg-calc .thead {
+
+}
+
+.dmg-calc .thead > div {
+  line-height: initial;
+}
+
+.dmg-calc .cont-table div {
+  vertical-align: middle;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.dmg-calc .title {
+  text-align: center;
+  padding-right: 0;
+  min-width: 70px;
+
+}
+
+.dmg-calc .td {
+  padding: 5px 0;
+}
+
+.dmg-calc strong {
+  font-weight: normal;
+  display: block;
+  font-family: Number, YS;
+}
+
+.dmg-calc span {
+  font-size: 12px;
+  color: #aaa;
+  font-family: Number, YS;
+}
+
+.dmg-calc .na,
+.dmg-calc .eq {
+  background: rgba(50, 50, 50, .5);
+}
+
+.dmg-calc .na {
+  color: #888;
+}
+
+.dmg-calc .lt {
+  background: rgba(23, 112, 41, 0.5);
+}
+
+.dmg-calc .gt {
+  background: rgba(112, 23, 23, 0.5);
+}
+
+.dmg-desc {
+  color: #aaa;
+}
+
+.dmg-desc ul {
+  padding-left: 10px;
+}
+
+.dmg-desc ul li {
+  color: #aaa;
+}
+
+.dmg-desc strong {
+  color: #d3bc8e;
+  display: inline;
+  padding: 0 3px;
   font-weight: normal;
 }
 

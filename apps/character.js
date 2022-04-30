@@ -64,13 +64,17 @@ export async function character(e, { render, User }) {
 
   let mode = 'card';
   let name = msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
+  let dmgRet = /伤害(\d?)$/.exec(msg), dmgIdx = 0;
 
   if (/(详情|详细|面板|面版)$/.test(msg) && !/更新/.test(msg)) {
     mode = 'profile';
     name = name.replace(/(详情|详细|面板|面版)/, "").trim();
-  } else if (/伤害$/.test(msg)) {
+  } else if (dmgRet) {
     mode = 'dmg';
-    name = name.replace(/伤害/, "").trim();
+    name = name.replace(/伤害[0-5]?/, "").trim();
+    if (dmgRet[1]) {
+      dmgIdx = dmgRet[1] * 1;
+    }
   } else if (/(详情|详细|面板|面版)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板|面版)$/.test(msg))) {
     mode = "refresh";
     name = name.replace(/详情|详细|面板|面版|更新/g, "").trim();
@@ -84,7 +88,7 @@ export async function character(e, { render, User }) {
 
 
   if (mode === "profile" || mode === "dmg") {
-    return renderProfile(e, char, render, mode);
+    return renderProfile(e, char, render, mode, { dmgIdx });
   } else if (mode === "refresh") {
     e.avatar = char.id;
     await getProfile(e);
@@ -564,7 +568,7 @@ async function getAvatar(e, char, MysApi) {
 }
 
 
-export async function renderProfile(e, char, render, mode = "profile") {
+export async function renderProfile(e, char, render, mode = "profile", params = {}) {
 
   if (['荧', '空', '主角', '旅行者'].includes(char.name)) {
     e.reply("暂不支持主角的面板信息查看");
@@ -660,7 +664,15 @@ export async function renderProfile(e, char, render, mode = "profile") {
 
   let enemyLv = await selfUser.getCfg(`char.enemyLv`, 91);
   let dmgMsg = [], dmgData = [];
-  let dmgCalc = await Calc.calcData({ profile, char, avatar, talentData: talent, enemyLv });
+  let dmgCalc = await Calc.calcData({
+    profile,
+    char,
+    avatar,
+    talentData: talent,
+    enemyLv,
+    mode,
+    ...params
+  });
   if (dmgCalc && dmgCalc.ret) {
     lodash.forEach(dmgCalc.ret, (ds) => {
       ds.dmg = Format.comma(ds.dmg, 0);
@@ -671,6 +683,20 @@ export async function renderProfile(e, char, render, mode = "profile") {
       msg.replace(":", "：");
       dmgMsg.push(msg.split("："))
     })
+  }
+
+  if (mode === "dmg") {
+    let basic = dmgCalc.dmgCfg.basicRet;
+    lodash.forEach(dmgCalc.dmgRet, (row) => {
+      lodash.forEach(row, (ds) => {
+        ds.val = (ds.avg > basic.avg ? "+" : "") + Format.comma(ds.avg - basic.avg);
+        ds.dmg = Format.comma(ds.dmg, 0);
+        ds.avg = Format.comma(ds.avg, 0);
+
+      })
+    });
+    basic.dmg = Format.comma(basic.dmg);
+    basic.avg = Format.comma(basic.avg);
   }
 
   let base64 = await render("character", "detail", {
@@ -685,6 +711,8 @@ export async function renderProfile(e, char, render, mode = "profile") {
     elem: char.elem,
     dmgData,
     dmgMsg,
+    dmgRet: dmgCalc.dmgRet,
+    dmgCfg: dmgCalc.dmgCfg,
     reliquaries,
     enemyLv,
     totalMark: c(totalMark, 1),

@@ -12,6 +12,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害·近战'], 'q','zf')
 }];
 
+export const mainAttr = "atk,cpct,cdmg,mastery";
+
 export const buffs = [{
   title: "元素精通：蒸发伤害提高[zf]%",
   mastery: "zf"

@@ -26,6 +26,9 @@ export const defParams = {
   type: 0
 };
 
+export const defDmgIdx = 1;
+export const mainAttr = "atk,cpct,cdmg,recharge";
+
 export const buffs = [
   {
     title: `恶曜开眼：开E元素爆发伤害提升[qDmg]%`,
@@ -39,7 +42,7 @@ export const buffs = [
     }
   }, {
     check: ({ cons }) => cons >= 2,
-    title: "雷神2命：大招无视敌人[qDef]%防御力",
+    title: "雷神2命：大招无视敌人[qIgnore]%防御力",
     data: {
       "qIgnore": 60
     }

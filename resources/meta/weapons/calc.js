@@ -543,10 +543,7 @@ let sword = {
   "磐岩结绿": [{
     title: "基于生命值上限提高攻击力[atkPlus]",
     data: {
-      atkPlus: ({ attr, calc, refine }) => {
-        console.log('panyan', calc(attr.hp), step(1.2)[refine]);
-        return calc(attr.hp) * step(1.2)[refine] / 100
-      }
+      atkPlus: ({ attr, calc, refine }) => calc(attr.hp) * step(1.2)[refine] / 100
     }
   }],
   "斫峰之刃": [{

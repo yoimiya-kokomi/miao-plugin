@@ -9,6 +9,9 @@ export const details = [{
   dmg: ({ talent, attr }, dmg) => dmg(talent.q["低血量时技能伤害"], "q")
 }];
 
+export const defDmgIdx = 1;
+export const mainAttr = "hp,atk,cpct,cdmg,mastery";
+
 export const buffs = [{
   title: "蝶引来生：开E获得[atkPlus]点攻击力加成",
   data: {

@@ -9,6 +9,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['切割伤害'], 'q')
 }];
 
+export const mainAttr = "atk,cpct,cdmg";
 
 export const buffs = [{
   passive: 1,

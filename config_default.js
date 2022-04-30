@@ -1,6 +1,6 @@
 /*
 * 请将此文件复制一份，命名为 config.js 放置在miao-plugin的根目录
-* 申请API Token请在Bot群内联系 @喵喵 或者 @九章
+* 由于服务侧压力过大，目前已经暂停 #角色面板 token的发放，请见谅~
 * */
 
 export const config = {

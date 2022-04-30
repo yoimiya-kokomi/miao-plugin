@@ -10,6 +10,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['水花剑伤害'], 'q')
 }];
 
+export const defDmgIdx = 1;
+export const mainAttr = "hp,atk,cpct,cdmg,mastery";
 
 export const buffs = [{
   cons: 2,

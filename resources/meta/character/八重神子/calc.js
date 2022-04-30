@@ -14,6 +14,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + talent.q['天狐霆雷伤害'] * 3, 'q')
 }];
 
+export const mainAttr = "atk,cpct,cdmg,mastery";
+
 export const buffs = [{
   title: `被动天赋：基于元素精通提高杀生樱伤害[eDmg]%`,
   data: {
