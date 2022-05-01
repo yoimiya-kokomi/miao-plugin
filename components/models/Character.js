@@ -39,7 +39,7 @@ class Character extends Base {
 
     let list = {};
     let imgs = fs.readdirSync(charImgPath);
-    imgs = imgs.filter((img) => /\.(png|jpg|webp)/i.test(img));
+    imgs = imgs.filter((img) => /\.(png|jpg|webp|jpeg)/i.test(img));
 
     lodash.forEach(imgs, (img) => {
       list[img] = `character-img/${name}/${img}`
@@ -53,7 +53,7 @@ class Character extends Base {
       }
 
       imgs = fs.readdirSync(charImgPlusPath);
-      imgs = imgs.filter((img) => /\.(png|jpg|webp)/i.test(img));
+      imgs = imgs.filter((img) => /\.(png|jpg|webp|jpeg)/i.test(img));
 
       lodash.forEach(imgs, (img) => {
         list[img] = `miao-res-plus/character-img/${name}/${img}`
