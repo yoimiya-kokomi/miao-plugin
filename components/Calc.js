@@ -138,13 +138,14 @@ let Calc = {
       lodash.forEach(char.talent[key].tables, (tr) => {
         let val = tr.values[lv - 1];
         val = val.replace(/[^\x00-\xff]/g, "").trim();
-
-        let valArr = [];
+        let valArr = [], valArr2 = [];
         lodash.forEach(val.split("/"), (v, idx) => {
           let valNum = 0;
           lodash.forEach(v.split("+"), (v) => {
             v = v.split("*")
-            valNum += v[0].replace("%", "").trim() * (v[1] || 1);
+            let v1 = v[0].replace("%", "").trim();
+            valNum += v1 * (v[1] || 1);
+            valArr2.push(v1)
           })
           valArr.push(valNum);
         });
@@ -156,6 +157,7 @@ let Calc = {
         } else {
           map[tr.name] = valArr;
         }
+        map[tr.name + "2"] = valArr2;
       })
       ret[key] = map;
     })
@@ -205,7 +207,7 @@ let Calc = {
       let title = buff.title;
 
       if (buff.mastery) {
-        let mastery = attr.mastery.base + attr.mastery.plus;
+        let mastery = Math.max(0, attr.mastery.base + attr.mastery.plus);
         let masteryNum = 2.78 * mastery / (mastery + 1400) * 100;
         buff.data = buff.data || {};
         lodash.forEach(buff.mastery.split(","), (key) => {
@@ -312,6 +314,7 @@ let Calc = {
   },
 
   getDmgFn({ attr, avatar, enemyLv }) {
+
     return function (pctNum = 0, talent = false, ele = false) {
       let { atk, dmg, cdmg, cpct } = attr;
       // 攻击区
@@ -335,11 +338,12 @@ let Calc = {
       let enemyDef = attr.enemy.def / 100;
       let enemyIgnore = attr.enemy.ignore / 100;
 
-      pctNum = pctNum / 100;
 
       let plusNum = 0;
 
       if (talent && attr[talent]) {
+        pctNum = pctNum / 100;
+
         let ds = attr[talent];
         pctNum += ds.pct / 100;
         dmgNum += ds.dmg / 100;
@@ -379,10 +383,18 @@ let Calc = {
         cdmgNum = 0;
       }
 
-      // 计算最终伤害
-      let ret = {
-        dmg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
-        avg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+      let ret = {};
+      if (talent === "dmgRet") {
+        ret = {
+          dmg: pctNum * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
+          avg: pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+        }
+      } else {
+        // 计算最终伤害
+        ret = {
+          dmg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
+          avg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+        }
       }
 
       // console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
@@ -436,8 +448,15 @@ let Calc = {
       }
       let dmg = Calc.getDmgFn({ attr, avatar, enemyLv }),
         basicDmgRet;
-      if (detail.dmg) {
-        basicDmgRet = detail.dmg({ attr, talent }, dmg);
+      let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params));
+
+      if (detail.dmg || detail.heal) {
+        basicDmgRet = detail.dmg ? detail.dmg(ds, dmg) : detail.heal(ds, function (num) {
+          let { attr, calc } = ds;
+          return {
+            avg: num * (1 + calc(attr.heal) / 100)
+          }
+        });
         detail.userIdx = detailMap.length;
         detailMap.push(detail);
         ret.push({
@@ -478,8 +497,15 @@ let Calc = {
           }
           let { attr } = Calc.calcAttr(originalAttr, buffs, meta, params, incAttr, reduceAttr);
           let dmg = Calc.getDmgFn({ attr, avatar, enemyLv });
-          if (detail.dmg) {
-            let dmgCalcRet = detail.dmg({ attr, talent }, dmg);
+          let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params));
+
+          if (detail.dmg || detail.heal) {
+            let dmgCalcRet = detail.dmg ? detail.dmg(ds, dmg) : detail.heal(ds, function (num) {
+              let { attr, calc } = ds;
+              return {
+                avg: num * (1 + calc(attr.heal) / 100)
+              }
+            });
             rowData.push({
               type: dmgCalcRet.avg === basicDmg.avg ? "avg" : (dmgCalcRet.avg > basicDmg.avg ? "gt" : "lt"),
               ...dmgCalcRet

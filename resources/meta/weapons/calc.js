@@ -222,12 +222,12 @@ let catalyst = {
     }
   },
   "不灭月华": {
-    title: "治疗加成提高[heal]%，普攻伤害增加[aPlus]",
+    title: "治疗加成提高[_heal]%，普攻伤害增加[aPlus]",
     refine: {
-      heal: step(10, 2.5)
+      _heal: step(10, 2.5)
     },
     data: {
-      aPlus: ({ attr, calc }) => calc(attr.hp) / 100
+      aPlus: ({ attr, calc, refine }) => calc(attr.hp) * step(1, 0.5)[refine] / 100
     }
   },
   "神乐之真意": {

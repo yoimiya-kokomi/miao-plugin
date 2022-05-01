@@ -64,8 +64,13 @@
           <div class="dmg tr">
             <div class="title dmg-idx">{{idx+1}}</div>
             <div class="title dmg-title">{{dmg.title}}</div>
+            {{if dmg.dmg === "NaN"}}
+            <div class="value value-full">{{dmg.avg}}</div>
+            <div class="value value-none"></div>
+            {{else}}
             <div class="value">{{dmg.dmg}}</div>
             <div class="value">{{dmg.avg}}</div>
+            {{/if}}
           </div>
           {{/each}}
         </div>
@@ -123,7 +128,7 @@
       {{if dmgCfg && dmgCfg.attr && dmgCfg.attr.length>0}}
       <div class="dmg-calc dmg-cont cont">
         <div class="cont-title">
-          词条伤害计算<span>#{{name}}伤害{{dmgCfg.userIdx+1}}: 当前计算为[{{dmgCfg.title}}]的 平均伤害</span>
+          词条伤害计算<span>#{{name}}伤害{{dmgCfg.userIdx+1}}: 当前计算为[{{dmgCfg.title}}]</span>
         </div>
         <div class="cont-table">
           <div class="tr thead ">
@@ -145,12 +150,13 @@
             {{if cell.type === "na"}}
             <div class="td na">
               <strong>-</strong>
-              <span>{{dmgCfg.basicRet.avg}}/{{dmgCfg.basicRet.dmg}}</span>
+              <span>{{dmgCfg.basicRet.avg}}{{dmgCfg.basicRet.dmg!="NaN"?`/${dmgCfg.basicRet.dmg}`:''}}</span>
             </div>
             {{else}}
             <div class="td {{cell.type}}">
               <strong>{{cell.val}}</strong>
-              <span>{{cell.avg}}/{{cell.dmg}}</span>
+
+              <span>{{cell.avg}}{{cell.dmg!="NaN"?`/${cell.dmg}`:''}}</span>
             </div>
             {{/if}}
             {{/each}}
@@ -160,7 +166,7 @@
         <div class="cont-footer dmg-desc">
           <ul>
             <li>大数字的含义为圣遗物副词条置换后<strong>平均伤害</strong>的变化，下方的详情数字为<strong>平均伤害</strong>/<strong>暴击伤害</strong>。</li>
-            <li><strong>平均伤害</strong>：是将暴击率计算在内的伤害期望，能反映综合的输出能力，不等于实际伤害数字。</li>
+            <li>关于<strong>平均伤害</strong>：是将暴击率计算在内的伤害期望，能反映综合的输出能力，不等于实际伤害数字。</li>
             <li>可用于评估当前面板下圣遗物副词条的侧重方向。实际游戏情况更加复杂，结果供参考~</li>
             <li>如需更换计算的伤害类型，可使用命令 <strong>#{{name}}伤害+序号</strong>来切换，序号参见伤害计算板块</li>
 

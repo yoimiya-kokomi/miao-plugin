@@ -372,6 +372,15 @@ body {
   box-shadow: 0 0 1px 0 #fff;
 }
 
+.dmg-cont .tr > div.value-full {
+  display: table;
+  width: 200%;
+}
+
+.dmg-cont .tr > div.value-none {
+  box-shadow: none;
+}
+
 .dmg-cont .thead {
   text-align: center;
 }
