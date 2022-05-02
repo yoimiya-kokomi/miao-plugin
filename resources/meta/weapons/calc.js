@@ -73,13 +73,18 @@ let polearm = {
     title: "满层元素爆发伤害提高[qDmg]%",
     refine: { qDmg: step(40) }
   },
-  "贯虹之槊": {
+  "贯虹之槊": [{
     title: "护盾满层状态提高攻击力[atkPct]%",
     buffCount: 10,
     refine: {
       atkPct: step(4)
     }
-  },
+  }, {
+    title: "护盾强效提高[shield]%",
+    refine: {
+      shield: step(20)
+    }
+  }],
   "和璞鸢": {
     title: "满层攻击力提高[atkPct]%，伤害提升[dmg]%",
     refine: {
@@ -88,9 +93,9 @@ let polearm = {
     }
   },
   "天空之脊": {
-    title: "暴击率提升[cpct]%",
+    title: "暴击率提升[_cpct]%",
     refine: {
-      cpct: step(8)
+      _cpct: step(8)
     }
   },
   "护摩之杖": {
@@ -214,13 +219,19 @@ let catalyst = {
       dmg: step(12)
     }
   },
-  "尘世之锁": {
+  "尘世之锁": [{
+    title: "护盾强效提升[shield]%",
+    refine: {
+      shield: step(20)
+    }
+  }, {
     title: "护盾+满层情况下攻击力提高[atkPct]%",
     buffCount: 10,
     refine: {
-      atkPct: step(4)
+      atkPct: step(4),
+      shield: step(20)
     }
-  },
+  }],
   "不灭月华": {
     title: "治疗加成提高[_heal]%，普攻伤害增加[aPlus]",
     refine: {
@@ -386,9 +397,9 @@ let bow = {
     }
   }],
   "天空之翼": {
-    title: "暴击伤害提高[cdmg]%",
+    title: "暴击伤害提高20%",
     refine: {
-      cdmg: step(20)
+      //cdmg: step(20)
     }
   },
   "若水": {
@@ -547,9 +558,9 @@ let sword = {
     }
   }],
   "斫峰之刃": [{
-    title: "护盾强效提升[shild]%",
+    title: "护盾强效提升[shield]%",
     refine: {
-      shild: step(20)
+      shield: step(20)
     }
   }, {
     title: "满Buff提高攻击力[atkPct]%",
@@ -559,9 +570,9 @@ let sword = {
     }
   }],
   "天空之刃": [{
-    title: "暴击率提高[cpct]%",
+    title: "暴击率提高[_cpct]%",
     refine: {
-      cpct: step(4)
+      _cpct: step(4)
     }
   }, {
     title: "普攻与重击的伤害值提高[aPlus]",

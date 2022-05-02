@@ -3,14 +3,14 @@ import lodash from "lodash";
 export const details = [{
   check: ({ cons }) => cons < 2,
   title: "水母每跳治疗",
-  heal: ({ attr, talent, calc }, heal) => {
+  dmg: ({ attr, talent, calc }, { heal }) => {
     let t = talent.e['治疗量2'], hp = calc(attr.hp);
     return heal(hp * t[0] / 100 + t[1] * 1);
   }
 }, {
   cons: 2,
   title: "半血水母每跳治疗",
-  heal: ({ attr, talent, calc }, heal) => {
+  dmg: ({ attr, talent, calc }, { heal }) => {
     let t = talent.e['治疗量2'], hp = calc(attr.hp);
     return heal(hp * t[0] / 100 + t[1] * 1 + hp * 0.045);
   }
@@ -25,12 +25,12 @@ export const details = [{
   dmg: ({ attr, talent, cons, calc }, dmg) => {
     let ret = { dmg: 0, avg: 0 };
     lodash.forEach('一二三'.split(""), (num) => {
-      let dmgRet = dmg(talent.a['三段伤害'], 'a');
+      let dmgRet = dmg(talent.a[`${num}段伤害`], 'a');
       ret.dmg += dmgRet.dmg;
       ret.avg += dmgRet.avg;
     });
     if (cons > 0) {
-      let dmgRet = dmg(calc(attr.hp) * 0.3, 'dmgRet');
+      let dmgRet = dmg.basic(calc(attr.hp) * 0.3);
       ret.dmg += dmgRet.dmg;
       ret.avg += dmgRet.avg;
     }

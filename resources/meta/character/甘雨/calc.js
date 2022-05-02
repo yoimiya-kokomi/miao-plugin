@@ -20,6 +20,12 @@ export const mainAttr = "atk,cpct,cdmg,mastery";
 
 export const buffs = [{
   cons: 1,
+  title: "甘雨被动：霜华矢发射后的5秒内霜华矢暴击率提高20%",
+  data: {
+    a2Cpct: 20
+  }
+}, {
+  cons: 1,
   title: "甘雨1命：霜华失命中减少敌人15%冰抗",
   data: {
     kx: ({ params }) => params.q ? 0 : 15

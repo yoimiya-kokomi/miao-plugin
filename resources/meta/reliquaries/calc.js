@@ -87,6 +87,7 @@ export const buffs = {
   },
   "昔日宗室之仪4": {
     title: "宗室4：施放元素爆发后，攻击力提升20%",
+    check: ({ currentTalent }) => !currentTalent || currentTalent === "q",
     data: {
       atkPct: 20
     }

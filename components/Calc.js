@@ -77,7 +77,7 @@ let Calc = {
         base: attr[key] * 1 || 0,
         plus: 0,
         pct: 0,
-        inc: 0
+        inc: 100
       }
     })
 
@@ -89,7 +89,7 @@ let Calc = {
       }
     })
 
-    // a
+    // 技能属性记录
     lodash.forEach("a,a2,a3,e,q".split(","), (key) => {
       ret[key] = {
         pct: 0, // 倍率加成
@@ -109,6 +109,12 @@ let Calc = {
       def: 0, // 降低防御
       ignore: 0, // 无视防御
       phy: 0  // 物理防御
+    }
+
+    ret.shield = {
+      base: 100, // 基础
+      plus: 0, // 护盾强效
+      inc: 100, // 吸收倍率
     }
 
     ret.weaponType = avatar.weapon.type_name;
@@ -179,7 +185,7 @@ let Calc = {
     }
   },
 
-  calcAttr(originalAttr, buffs, meta, params = {}, incAttr = '', reduceAttr = '') {
+  calcAttr({ originalAttr, buffs, meta, params = {}, incAttr = '', reduceAttr = '', talent = '' }) {
     let attr = lodash.merge({}, originalAttr);
     let msg = [];
 
@@ -194,6 +200,8 @@ let Calc = {
 
     lodash.forEach(buffs, (buff) => {
       let ds = Calc.getDs(attr, meta, params);
+
+      ds.currentTalent = talent;
 
       // 如果存在rule，则进行计算
       if (buff.check && !buff.check(ds)) {
@@ -229,7 +237,7 @@ let Calc = {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0;
           return;
         }
-        let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|phy)(Plus|Pct|Inc)?$/.exec(key);
+        let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|phy|shield)(Plus|Pct|Inc)?$/.exec(key);
         if (aRet) {
           attr[aRet[1]][aRet[2] ? aRet[2].toLowerCase() : "plus"] += val * 1 || 0;
           return;
@@ -269,7 +277,7 @@ let Calc = {
 
     lodash.forEach(weaponCfg, (ds) => {
       if (!/：/.test(ds.title)) {
-        ds.title = `${weaponName}效果：${ds.title}`;
+        ds.title = `${weaponName}：${ds.title}`;
       }
       if (ds.refine) {
         ds.data = ds.data || {};
@@ -314,12 +322,14 @@ let Calc = {
     return retBuffs;
   },
 
-  getDmgFn({ attr, avatar, enemyLv }) {
+  getDmgFn({ ds, attr, avatar, enemyLv, showDetail = false }) {
 
-    return function (pctNum = 0, talent = false, ele = false) {
+    let { calc } = ds;
+
+    let dmgFn = function (pctNum = 0, talent = false, ele = false, mode = "talent") {
       let { atk, dmg, cdmg, cpct } = attr;
       // 攻击区
-      let atkNum = (atk.base + atk.plus + atk.base * atk.pct / 100);
+      let atkNum = calc(atk);
 
 
       // 倍率独立乘区
@@ -391,7 +401,7 @@ let Calc = {
       }
 
       let ret = {};
-      if (talent === "dmgRet") {
+      if (mode === "basic") {
         ret = {
           dmg: pctNum * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
           avg: pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
@@ -404,10 +414,30 @@ let Calc = {
         }
       }
 
-      // console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
+      if (showDetail) {
+        console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
+      }
 
       return ret;
     };
+
+    dmgFn.basic = function (pctNum = 0, talent = false, ele = false) {
+      return dmgFn(pctNum, talent, ele, "basic");
+    }
+
+    dmgFn.heal = function (num) {
+      return {
+        avg: num * (1 + calc(attr.heal) / 100) * (attr.heal.inc / 100)
+      }
+    }
+
+    dmgFn.shield = function (num) {
+      return {
+        avg: num * (calc(attr.shield) / 100) * (attr.shield.inc / 100)
+      };
+    }
+
+    return dmgFn;
   },
 
 
@@ -442,31 +472,27 @@ let Calc = {
 
     buffs = lodash.sortBy(buffs, ["sort"]);
 
-    let { msg } = Calc.calcAttr(originalAttr, buffs, meta, defParams || {});
+    let { msg } = Calc.calcAttr({ originalAttr, buffs, meta, params: defParams || {} });
 
     let ret = [], detailMap = [], dmgRet = [], dmgDetail = {};
 
 
     lodash.forEach(details, (detail, detailSysIdx) => {
       let params = lodash.merge({}, defParams, detail.params || {});
-      let { attr } = Calc.calcAttr(originalAttr, buffs, meta, params);
+      let { attr } = Calc.calcAttr({ originalAttr, buffs, meta, params, talent: detail.talent || "" });
       if (detail.check && !detail.check(Calc.getDs(attr, meta, params))) {
         return;
       }
       if (detail.cons && meta.cons * 1 < detail.cons * 1) {
         return;
       }
-      let dmg = Calc.getDmgFn({ attr, avatar, enemyLv }),
-        basicDmgRet;
       let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params));
 
-      if (detail.dmg || detail.heal) {
-        basicDmgRet = detail.dmg ? detail.dmg(ds, dmg) : detail.heal(ds, function (num) {
-          let { attr, calc } = ds;
-          return {
-            avg: num * (1 + calc(attr.heal) / 100) * (1 + attr.heal.inc / 100)
-          }
-        });
+      let dmg = Calc.getDmgFn({ ds, attr, avatar, enemyLv, showDetail: detail.showDetail }),
+        basicDmgRet;
+
+      if (detail.dmg) {
+        basicDmgRet = detail.dmg(ds, dmg);
         detail.userIdx = detailMap.length;
         detailMap.push(detail);
         ret.push({
@@ -505,17 +531,19 @@ let Calc = {
             rowData.push({ type: 'na' });
             return;
           }
-          let { attr } = Calc.calcAttr(originalAttr, buffs, meta, params, incAttr, reduceAttr);
-          let dmg = Calc.getDmgFn({ attr, avatar, enemyLv });
+          let { attr } = Calc.calcAttr({
+            originalAttr,
+            buffs,
+            meta,
+            params,
+            incAttr,
+            reduceAttr,
+            talent: detail.talent || ""
+          });
           let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params));
-
-          if (detail.dmg || detail.heal) {
-            let dmgCalcRet = detail.dmg ? detail.dmg(ds, dmg) : detail.heal(ds, function (num) {
-              let { attr, calc } = ds;
-              return {
-                avg: num * (1 + calc(attr.heal) / 100) * (1 + attr.heal.inc / 100)
-              }
-            });
+          let dmg = Calc.getDmgFn({ ds, attr, avatar, enemyLv });
+          if (detail.dmg) {
+            let dmgCalcRet = detail.dmg(ds, dmg);
             rowData.push({
               type: dmgCalcRet.avg === basicDmg.avg ? "avg" : (dmgCalcRet.avg > basicDmg.avg ? "gt" : "lt"),
               ...dmgCalcRet
