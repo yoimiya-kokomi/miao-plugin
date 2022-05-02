@@ -41,15 +41,15 @@ let rule = {
     describe: "【#角色】角色详情",
   },
   getArtis: {
-    reg: "#圣遗物列表",
+    reg: "^#圣遗物列表$",
     describe: "【#角色】圣遗物列表",
   },
   getProfileAll: {
-    reg: "#(面板角色|角色面板)列表",
+    reg: "^#(面板角色|角色面板)列表$",
     describe: "【#角色】查看当前已获取面板数据的角色列表",
   },
   profileHelp: {
-    reg: "#角色面板帮助",
+    reg: "^#角色面板帮助$",
     describe: "【#角色】查看当前已获取面板数据的角色列表",
   },
   wife: {
@@ -81,7 +81,7 @@ let rule = {
     describe: "【#角色】 设置伤害计算中目标敌人的等级",
   },
   versionInfo: {
-    reg: "#喵喵版本",
+    reg: "^#喵喵版本$",
     describe: "【#帮助】 喵喵版本介绍",
   },
   ...adminRule
