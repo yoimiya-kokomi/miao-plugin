@@ -76,7 +76,8 @@ let Calc = {
       ret[val] = {
         base: attr[key] * 1 || 0,
         plus: 0,
-        pct: 0
+        pct: 0,
+        inc: 0
       }
     })
 
@@ -228,7 +229,7 @@ let Calc = {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0;
           return;
         }
-        let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|phy)(Plus|Pct)?$/.exec(key);
+        let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|phy)(Plus|Pct|Inc)?$/.exec(key);
         if (aRet) {
           attr[aRet[1]][aRet[2] ? aRet[2].toLowerCase() : "plus"] += val * 1 || 0;
           return;
@@ -372,7 +373,13 @@ let Calc = {
       let eleNum = 1;
       if (ele) {
         // todo 更详细
-        eleNum = (attr.element === "水" ? { zf: 2 } : { zf: 1.5, rh: 2 })[ele] || 1;
+        let eleMap = {
+          '水': { zf: 2 },
+          '火': { zf: 1.5, rh: 2 },
+          '冰': { rh: 1.5 }
+        }
+
+        eleNum = (eleMap[attr.element] || {})[ele] || 1;
         if (attr[ele]) {
           eleNum = eleNum * (1 + attr[ele] / 100);
         }
@@ -446,6 +453,9 @@ let Calc = {
       if (detail.check && !detail.check(Calc.getDs(attr, meta, params))) {
         return;
       }
+      if (detail.cons && meta.cons * 1 < detail.cons * 1) {
+        return;
+      }
       let dmg = Calc.getDmgFn({ attr, avatar, enemyLv }),
         basicDmgRet;
       let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params));
@@ -454,7 +464,7 @@ let Calc = {
         basicDmgRet = detail.dmg ? detail.dmg(ds, dmg) : detail.heal(ds, function (num) {
           let { attr, calc } = ds;
           return {
-            avg: num * (1 + calc(attr.heal) / 100)
+            avg: num * (1 + calc(attr.heal) / 100) * (1 + attr.heal.inc / 100)
           }
         });
         detail.userIdx = detailMap.length;
@@ -503,7 +513,7 @@ let Calc = {
             let dmgCalcRet = detail.dmg ? detail.dmg(ds, dmg) : detail.heal(ds, function (num) {
               let { attr, calc } = ds;
               return {
-                avg: num * (1 + calc(attr.heal) / 100)
+                avg: num * (1 + calc(attr.heal) / 100) * (1 + attr.heal.inc / 100)
               }
             });
             rowData.push({

@@ -184,5 +184,11 @@ export const buffs = {
     data: {
       aPlus: ({ attr }) => (attr.atk.base + attr.atk.plus + attr.atk.pct * attr.atk.base / 100) * 0.7
     }
+  },
+  "被怜爱的少女4": {
+    title: "释放E或Q的10秒内，受治疗加成提高20%",
+    data: {
+      healInc: 20
+    }
   }
 }

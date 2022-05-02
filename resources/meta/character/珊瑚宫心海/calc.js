@@ -5,7 +5,7 @@ export const details = [{
   title: "水母每跳治疗",
   heal: ({ attr, talent, calc }, heal) => {
     let t = talent.e['治疗量2'], hp = calc(attr.hp);
-    return heal(hp * t[0] / 100 + t[1]);
+    return heal(hp * t[0] / 100 + t[1] * 1);
   }
 }, {
   cons: 2,
