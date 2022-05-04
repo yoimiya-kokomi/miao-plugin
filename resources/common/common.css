@@ -199,3 +199,123 @@ body {
 .elem-pyro .elem-bg {
   background-image: url(../common/bg/bg-pyro.jpg);
 }
+
+
+/* cont */
+
+.cont {
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 5px 15px 5px 10px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
+  overflow: hidden;
+  color: #fff;
+  font-size: 16px;
+}
+
+
+.cont-title {
+  background: rgba(0, 0, 0, .4);
+  box-shadow: 0 0 1px 0 #fff;
+  color: #d3bc8e;
+  font-family: YS;
+  padding: 10px 20px;
+  text-align: left;
+  border-radius: 10px 10px 0 0;
+}
+
+.cont-title span {
+  font-size: 12px;
+  color: #aaa;
+  margin-left: 10px;
+  font-family: Number, YS;
+  font-weight: normal;
+}
+
+.cont-body {
+  padding: 10px 15px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px 0 #fff;
+  font-family: YS;
+  font-weight: normal;
+}
+
+ul.cont-msg {
+  padding-left: 15px;
+}
+
+ul.cont-msg li {
+  margin: 5px 0;
+}
+
+ul.cont-msg li strong {
+  font-weight: normal;
+  margin: 0 2px;
+  color: #d3bc8e;
+}
+
+.cont-footer {
+  padding: 10px 15px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  font-family: YS;
+  font-weight: normal;
+}
+
+.cont-table {
+  display: table;
+  width: 100%;
+}
+
+.cont-table .tr {
+  display: table-row;
+}
+
+.cont-table .tr:nth-child(even) {
+  background: rgba(0, 0, 0, .4);
+}
+
+.cont-table .tr:nth-child(odd) {
+  background: rgba(50, 50, 50, .4);
+}
+
+.cont-table .tr > div {
+  display: table-cell;
+  box-shadow: 0 0 1px 0 #fff;
+}
+
+.cont-table .tr > div.value-full {
+  display: table;
+  width: 200%;
+}
+
+.cont-table .tr > div.value-none {
+  box-shadow: none;
+}
+
+.cont-table .thead {
+  text-align: center;
+}
+
+.cont-table .thead > div {
+  font-family: YS;
+  color: #d3bc8e;
+  background: rgba(0, 0, 0, .4);
+  line-height: 40px;
+  height: 40px;
+}
+
+
+.cont-table .title,
+.cont-table .th {
+  font-family: YS;
+  color: #d3bc8e;
+  padding-right: 15px;
+  text-align: right;
+  background: rgba(0, 0, 0, .4);
+  min-width: 100px;
+  vertical-align: middle;
+}

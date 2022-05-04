@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css?v=1.0"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/abyss-team.css?v=1.0"/>
+    <link rel="preload" href="{{_res_path}}/font/tttgbnumber.ttf" as="font">
+  </head>
+  <body id="container" class="body_box" {{cfgScale}}>
+    <div class="container">
+      <div class="info_box">
+        <div class="head-box type{{bgType}}">
+          <div class="title">深渊配队建议</div>
+          <img class="genshin_logo" src="{{_sys_res_path}}/genshin/roleAll/原神.png"/>
+        </div>
+
+        <div class="cont">
+          <div class="cont-title">深渊配队说明</div>
+          <div class="cont-body">
+            <ul class="cont-msg">
+              <li>根据<strong>当前账号的角色练度</strong>及本期深渊出场数据，推荐较匹配的配队方案</li>
+              <li>若当前记录可用配队方案少于4组时，会使用未持有角色的方案进行补充</li>
+              <li>深渊出场数据来自<strong>胡桃API</strong>，为SnapGenshin用户自主上传的深渊挑战记录，感谢SG团队</li>
+              <li>月初及月中深渊刚刷新后挑战数据可能不足，请等待几天之后数据会逐步稳定</li>
+              <li>配队列表<strong>仅供参考</strong>，可根据账号实际情况及个人倾向进行灵活调整</li>
+            </ul>
+          </div>
+        </div>
+
+        {{each teams floorTeam floor}}
+        <div class="cont">
+
+          <div class="cont-table">
+            <div class="tr thead">
+              <div>{{floor}}层</div>
+              <div>上半</div>
+              <div>下半</div>
+            </div>
+            {{each floorTeam team idx}}
+            <div class="tr">
+              <div class="title">配队{{idx+1}}<span class="team-count">{{team.count}}场记录</span></div>
+              {{each team teamData key}}
+              {{if key === "up" || key === "down"}}
+              <div>
+                <div class="card-list">
+                  {{each teamData.teamArr id}}
+                  <div
+                      class="card star{{avatars[id].star == 4 ? 4:5}} {{avatars[id].level*1 === 0 ? 'no-character':'has-character'}}">
+                    <img class="role"
+                         src="{{_sys_res_path}}/genshin/logo/role/{{avatars[id].name}}.png"
+                    />
+                    <span class="cons cons-{{avatars[id].cons}} for-has">{{avatars[id].cons}}</span>
+                    <span class="lvl for-has">Lv.{{avatars[id].level}}</span>
+                    <span class="for-no no-label">暂无</span>
+                  </div>
+
+                  {{/each}}
+                </div>
+              </div>
+              {{/if}}
+              {{/each}}
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/each}}
+        <div class="copyright"> Created By Yunzai-Bot & Miao-Plugin</div>
+      </div>
+    </div>
+
+  </body>
+</html>

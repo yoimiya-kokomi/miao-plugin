@@ -142,4 +142,28 @@ Character.getRandomImg = function (type) {
   return lodash.sample(ret);
 }
 
+
+let charPosIdx = {
+  1: '宵宫,雷神,胡桃,甘雨,优菈,一斗,绫人,魈,可莉,迪卢克,凝光,刻晴,辛焱,烟绯,雷泽',
+  2: '夜兰,八重,九条,行秋,香菱,安柏,凯亚,丽莎,北斗,菲谢尔,重云,罗莎莉亚,埃洛伊',
+  3: '申鹤,莫娜,早柚,云堇,久岐忍,五郎,砂糖,万叶,温迪',
+  4: '班尼特,心海,琴,芭芭拉,七七,迪奥娜,托马,空,荧,阿贝多,钟离'
+}
+
+let idSort = {};
+lodash.forEach(charPosIdx, (chars, pos) => {
+  chars = chars.split(",");
+  lodash.forEach(chars, (name, idx) => {
+    let id = YunzaiApps.mysInfo['roleIdToName'](name);
+    if (id) {
+      idSort[id] = pos * 100 + idx;
+    }
+  })
+})
+
+
+Character.sortIds = function (arr) {
+  return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300));
+}
+
 export default Character;

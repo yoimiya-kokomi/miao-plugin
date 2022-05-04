@@ -2,10 +2,8 @@
 * 胡桃API Miao-Plugin 封装
 * https://github.com/DGP-Studio/DGP.Genshin.HutaoAPI
 *
-*
 * */
 
-import Base from "./Base.js";
 import fetch from "node-fetch";
 
 const host = "http://49.232.91.210:88/miaoPlugin/hutaoApi";
@@ -27,11 +25,12 @@ let HutaoApi = {
       method: "GET",
     });
     let retData = await response.json();
-    let d = new Date();
-     retData.lastUpdate = `${d.toLocaleDateString()} ${d.toTimeString().substr(0, 5)}`;
-    await redis.set(`hutao:${url}`, JSON.stringify(retData), { EX: 3600 });
+    if (retData && retData.data) {
+      let d = new Date();
+      retData.lastUpdate = `${d.toLocaleDateString()} ${d.toTimeString().substr(0, 5)}`;
+      await redis.set(`hutao:${url}`, JSON.stringify(retData), { EX: 3600 });
+    }
     return retData;
-
   },
 
   // 角色持有及命座分布
@@ -41,8 +40,11 @@ let HutaoApi = {
 
   async getAbyssPct() {
     return await HutaoApi.req("/Statistics/AvatarParticipation");
-  }
+  },
 
+  async getAbyssTeam() {
+    return await HutaoApi.req("/Statistics/TeamCombination");
+  }
 };
 
 

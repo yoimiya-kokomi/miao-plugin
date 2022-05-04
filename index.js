@@ -8,7 +8,7 @@ import {
   getProfileAll,
   profileHelp
 } from "./apps/character.js";
-import { consStat, abyssPct } from "./apps/stat.js";
+import { consStat, abyssPct, abyssTeam } from "./apps/stat.js";
 import { wiki } from "./apps/wiki.js";
 import { help, versionInfo } from "./apps/help.js";
 import lodash from "lodash";
@@ -21,6 +21,7 @@ export {
   wife,
   consStat,
   abyssPct,
+  abyssTeam,
   wiki,
   updateRes,
   updateMiaoPlugin,
@@ -37,7 +38,8 @@ export {
 
 let rule = {
   character: {
-    reg: "^#(喵喵)?(更新)?(.*)(详情|详细|面板|面版|伤害[1-7]?)?(更新)?$",
+    //reg: "^#(喵喵)?(更新)?(.*)(详情|详细|面板|面版|伤害[1-7]?)?(更新)?$",
+    reg: "noCheck",
     describe: "【#角色】角色详情",
   },
   getArtis: {
@@ -63,6 +65,10 @@ let rule = {
   abyssPct: {
     reg: "^#(喵喵)?深渊(第?.{1,2}层)?(角色)?出场(率|统计)*$",
     describe: "【#统计】 #深渊出场率 #深渊12层出场率",
+  },
+  abyssTeam: {
+    reg: "#深渊(组队|配队)",
+    describe: "【#角色】 #深渊组队",
   },
   wiki: {
     reg: "^(#|喵喵)?.*(天赋|技能|命座|命之座|资料|照片|写真|图片|插画)$",
