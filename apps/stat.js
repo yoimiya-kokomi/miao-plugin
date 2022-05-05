@@ -15,10 +15,9 @@ export async function consStat(e, { render }) {
 
   let consData = await HutaoApi.getCons();
   if (!consData) {
-    e.reply("暂时无法查询");
+    e.reply("角色持有数据获取失败，请稍后重试~");
     return true;
   }
-
 
 
   let msg = e.msg;
@@ -95,7 +94,7 @@ export async function abyssPct(e, { render }) {
 
   let abyssData = await HutaoApi.getAbyssPct();
   if (!abyssData) {
-    e.reply("暂时无法查询");
+    e.reply("深渊出场数据获取失败，请稍后重试~");
     return true;
   }
 
@@ -207,13 +206,13 @@ export async function abyssTeam(e, { render }) {
 
   let abyssData = await HutaoApi.getAbyssTeam();
   if (!abyssData || !abyssData.data) {
-    e.reply("暂时无法查询");
+    e.reply("深渊组队数据获取失败，请稍后重试~");
     return true;
   }
   abyssData = abyssData.data;
   let talentData = await getTalentData(e);
   if (!talentData || talentData.length === 0) {
-    e.reply("暂时无法获得角色信息");
+    e.reply("暂时未能获得角色的练度信息，请使用【#练度统计】命令尝试手工获取...");
     return true;
   }
 

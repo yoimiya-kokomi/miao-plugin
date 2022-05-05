@@ -167,6 +167,10 @@ let Data = {
     await Data.asyncPool(10, fileList, cacheFn);
     return ret;
 
+  },
+
+  sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
 

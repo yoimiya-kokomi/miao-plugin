@@ -87,6 +87,10 @@ let posIdx = {
   }
 };
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 let Data = {
   getData(uid, data) {
     let ret = {
@@ -249,6 +253,9 @@ let Profile = {
     }
     await redis.set(`miao:role-all:${uid}`, 'loading', { EX: 20 });
     e.reply("开始获取数据，可能会需要一定时间~");
+
+    await sleep(1000);
+
     let api = `${cfg.api}?uid=${uid}&qq=${cfg.qq}&token=${cfg.token}`;
     if (e.avatar) {
       api += `&avatar=${e.avatar}`;
