@@ -14,6 +14,7 @@ export const mainAttr = "atk,cpct,cdmg";
 
 export const buffs = [{
   title: "刻晴6命：4层获得24%雷伤加成",
+  cons: 6,
   data: {
     dmg: 24
   }
