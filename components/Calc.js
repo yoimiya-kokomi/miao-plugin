@@ -326,7 +326,7 @@ let Calc = {
 
     let { calc } = ds;
 
-    let dmgFn = function (pctNum = 0, talent = false, ele = false, mode = "talent") {
+    let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = "talent") {
       let { atk, dmg, cdmg, cpct } = attr;
       // 攻击区
       let atkNum = calc(atk);
@@ -403,8 +403,8 @@ let Calc = {
       let ret = {};
       if (mode === "basic") {
         ret = {
-          dmg: pctNum * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
-          avg: pctNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+          dmg: basicNum * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
+          avg: basicNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
         }
       } else {
         // 计算最终伤害
@@ -421,8 +421,8 @@ let Calc = {
       return ret;
     };
 
-    dmgFn.basic = function (pctNum = 0, talent = false, ele = false) {
-      return dmgFn(pctNum, talent, ele, "basic");
+    dmgFn.basic = function (basicNum = 0, talent = false, ele = false) {
+      return dmgFn(0, talent, ele, basicNum, "basic");
     }
 
     dmgFn.heal = function (num) {

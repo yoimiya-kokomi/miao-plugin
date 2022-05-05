@@ -154,9 +154,11 @@ let idSort = {};
 lodash.forEach(charPosIdx, (chars, pos) => {
   chars = chars.split(",");
   lodash.forEach(chars, (name, idx) => {
-    let id = YunzaiApps.mysInfo['roleIdToName'](name);
-    if (id) {
-      idSort[id] = pos * 100 + idx;
+    if (global.YunzaiApps) {
+      let id = YunzaiApps.mysInfo['roleIdToName'](name);
+      if (id) {
+        idSort[id] = pos * 100 + idx;
+      }
     }
   })
 })

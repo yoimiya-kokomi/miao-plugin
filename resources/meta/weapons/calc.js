@@ -92,12 +92,6 @@ let polearm = {
       dmg: step(12)
     }
   },
-  "天空之脊": {
-    title: "暴击率提升[_cpct]%",
-    refine: {
-      _cpct: step(8)
-    }
-  },
   "护摩之杖": {
     title: "角色生命低于50%时额外获得[atkPlus]攻击力",
     data: {
@@ -396,12 +390,7 @@ let bow = {
       a2Dmg: step(8)
     }
   }],
-  "天空之翼": {
-    title: "暴击伤害提高20%",
-    refine: {
-      //cdmg: step(20)
-    }
-  },
+
   "若水": {
     title: "生命值提高[hpPct]%，伤害提高[dmg]%",
     refine: {
@@ -570,11 +559,6 @@ let sword = {
     }
   }],
   "天空之刃": [{
-    title: "暴击率提高[_cpct]%",
-    refine: {
-      _cpct: step(4)
-    }
-  }, {
     title: "普攻与重击的伤害值提高[aPlus]",
     data: {
       aPlus: ({ attr, calc, refine }) => calc(attr.atk) * step(20)[refine] / 100,
