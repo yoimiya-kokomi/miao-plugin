@@ -9,7 +9,7 @@ import {
   profileHelp
 } from "./apps/character.js";
 import { consStat, abyssPct, abyssTeam } from "./apps/stat.js";
-import { wiki } from "./apps/wiki.js";
+import { wiki, calendar } from "./apps/wiki.js";
 import { help, versionInfo } from "./apps/help.js";
 import lodash from "lodash";
 import common from "../../lib/common.js";
@@ -32,7 +32,8 @@ export {
   enemyLv,
   getArtis,
   getProfileAll,
-  profileHelp
+  profileHelp,
+  calendar
 };
 
 
@@ -89,6 +90,10 @@ let rule = {
   versionInfo: {
     reg: "^#喵喵版本$",
     describe: "【#帮助】 喵喵版本介绍",
+  },
+  calendar: {
+    reg: "^#喵喵日历$",
+    describe: "【#日历】 活动日历",
   },
   ...adminRule
 };

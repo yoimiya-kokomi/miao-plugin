@@ -282,7 +282,8 @@ ul.cont-msg li strong {
   background: rgba(50, 50, 50, .4);
 }
 
-.cont-table .tr > div {
+.cont-table .tr > div,
+.cont-table .tr > td{
   display: table-cell;
   box-shadow: 0 0 1px 0 #fff;
 }
@@ -300,7 +301,8 @@ ul.cont-msg li strong {
   text-align: center;
 }
 
-.cont-table .thead > div {
+.cont-table .thead > div,
+.cont-table .thead > td{
   font-family: YS;
   color: #d3bc8e;
   background: rgba(0, 0, 0, .4);

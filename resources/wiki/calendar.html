@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/calendar.css"/>
+  </head>
+  <body class="elem-hydro">
+    <div class="container elem-bg" id="container">
+      <div class="calendar">
+        <div class="cal-bg">
+          <table class="cont-table" border-collapse="collapse">
+            <tr class="tr thead">
+              {{each dateList d}}
+              <td colspan="{{d.date.length}}" class="td month">{{d.month}}月</td>
+              {{/each}}
+            </tr>
+            <tr class="tr thead">
+              {{each dateList d}}{{each d.date dn}}
+              <td class="td date">{{dn}}日</td>
+              {{/each}} {{/each}}
+            </tr>
+            <tr class="tr">
+              {{each dateList d}}{{each d.date dn}}
+              <td class="line"></td>
+              {{/each}} {{/each}}
+            </tr>
+          </table>
+        </div>
+        <div class="cal-list">
+          {{each list li}}
+          <div class="cal-item type-{{li.type}} {{li.elem?'elem-'+li.elem:''}}"
+               style="{{`margin-left:${li.left}%;width:${li.width}%`}}"
+               data-id="{{li.id}}"
+               data-type="{{li.type}}">
+            {{if li.banner2}}
+            <div class="banner" style="background-image:url('{{_res_path}}{{li.banner2}}')"></div>
+            {{else if li.banner}}
+            <div class="banner" style="background-image:url('{{li.banner}}')"></div>
+            {{/if}}
+            <div class="info">
+              {{if li.type === "character"}}
+              <img src="{{_res_path}}meta/character/{{li.character}}/face.png" class="character-img"/>
+              {{else}}
+              <img src="{{li.icon}}" class="cal-icon"/>
+              {{/if}}
+              <strong>{{li.title}}</strong>
+              <span>{{li.label}}</span>
+            </div>
+
+          </div>
+          {{/each}}
+        </div>
+
+        <div class="now-line" style="left:{{now}}%"></div>
+      </div>
+      <div class="now-time">
+        <span>当前时间：{{nowTime}}</span>
+      </div>
+      <div class="logo">Created By Yunzai-Bot & Miao-Plugin</div>
+    </div>
+  </body>
+</html>
