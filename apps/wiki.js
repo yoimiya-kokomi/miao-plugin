@@ -155,12 +155,12 @@ export async function calendar(e, { render }) {
   let totalRange = endTime - startTime;
 
   let list = [];
-  let getList = (ds, showBanner = false) => {
-    let type = showBanner ? "activity" : "normal",
+  let getList = (ds, isAct = false) => {
+    let type = isAct ? "activity" : "normal",
       id = ds.ann_id,
       title = ds.title,
-      banner = showBanner ? ds.banner : '',
-      extra = { sort: showBanner ? 5 : 10 };
+      banner = isAct ? ds.banner : '',
+      extra = { sort: isAct ? 5 : 10 };
 
     if (ignoreIds.includes(id) || ignoreReg.test(title)) {
       return;
@@ -199,9 +199,12 @@ export async function calendar(e, { render }) {
 
     let label = "";
     if (now > sDate && eDate > now) {
-      label = eDate.format("MM-DD HH:mm") + " (" + moment.duration(eDate - now).humanize() + ")结束"
+      label = eDate.format("MM-DD HH:mm") + " (" + moment.duration(eDate - now).humanize() + "后结束)"
+      if (width > (isAct ? 38 : 55)) {
+        label = sDate.format("MM-DD HH:mm") + " ~ " + label;
+      }
     } else if (sDate > now) {
-      label = sDate.format("MM-DD HH:mm") + " (" + moment.duration(sDate - now).humanize() + ")开始"
+      label = sDate.format("MM-DD HH:mm") + " (" + moment.duration(sDate - now).humanize() + "后开始)"
     }
 
     list.push({
