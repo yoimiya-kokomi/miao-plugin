@@ -18,19 +18,30 @@
             </tr>
             <tr class="tr thead">
               {{each dateList d}}{{each d.date dn}}
-              <td class="td date">{{dn}}日</td>
+              <td class="td date {{dn === nowDate ? 'current-date':''}}">{{dn}}日</td>
               {{/each}} {{/each}}
             </tr>
             <tr class="tr">
               {{each dateList d}}{{each d.date dn}}
-              <td class="line"></td>
+              <td class="line {{dn === nowDate ? 'current-date':''}}"></td>
               {{/each}} {{/each}}
             </tr>
           </table>
         </div>
         <div class="cal-list">
+          <div class="cal-abyss-cont">
+            {{each abyss li}}
+            <div class="cal-item type-abyss" style="{{`left:${li.left}%;width:${li.width}%`}}">
+              <div class="info">
+                <img src="{{_res_path}}/wiki/imgs/abyss-icon.png" class="cal-icon"/>
+                <strong>{{li.title}}</strong>
+                <span>{{li.label}}</span>
+              </div>
+            </div>
+            {{/each}}
+          </div>
           {{each list li}}
-          <div class="cal-item type-{{li.type}} {{li.elem?'elem-'+li.elem:''}}"
+          <div class="cal-item type-{{li.type}} {{li.elem?'elem-'+li.elem:''}} {{li.width<20 ? 'small-mode':''}}"
                style="{{`margin-left:${li.left}%;width:${li.width}%`}}"
                data-id="{{li.id}}"
                data-type="{{li.type}}">
@@ -52,8 +63,8 @@
           </div>
           {{/each}}
         </div>
-
-        <div class="now-line" style="left:{{now}}%"></div>
+        <div class="now-line" style="left:{{nowLeft}}%"></div>
+        <div class="now-line line2" style="left:{{nowLeft}}%"></div>
       </div>
       <div class="now-time">
         <span>当前时间：{{nowTime}}</span>
