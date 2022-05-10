@@ -1,0 +1,25 @@
+{{set ds = $data[0]}}
+{{set {_res_path,_char,_sys_res_path} = $data[1]}}
+{{if ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
+<div class="item arti-detail">
+  <div class="avatar-icon">
+    <img src="{{_res_path}}/meta/character/{{ds.avatar}}/side.png" onerror="whenError(this)"/>
+  </div>
+  <div class="arti-icon">
+    <img src="{{_sys_res_path}}/genshin/logo/reliquaries/{{ds.name}}.png"/>
+  </div>
+  <div class="head">
+    <strong>{{ds.name}}</strong>
+    <span class="mark mark-{{ds.markType}}"><span>{{ds.mark}}分</span> - {{ds.markType}}</span>
+  </div>
+  <ul class="detail">
+    <li class="arti-main"><span class="title">{{ds.main[0]}}</span><span class="val">+{{ds.main[1]}}</span></li>
+    {{each ds.attrs attr}}
+    {{if attr[0]}}
+    <li class="{{ds.usefulMark[attr[0]] ? `useful`:`nouse`}}"><span class="title">{{attr[0]}}</span><span
+        class="val">+{{attr[1]}}</span></li>
+    {{/if}}
+    {{/each}}
+  </ul>
+</div>
+{{/if}}

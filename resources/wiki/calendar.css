@@ -1,17 +1,21 @@
+.font-ys {
+  font-family: YS;
+}
+.font-number {
+  font-family: Number, YS;
+}
 @font-face {
   font-family: "tttgbnumber";
   src: url("../common/font/tttgbnumber.ttf");
   font-weight: normal;
   font-style: normal;
 }
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   user-select: none;
 }
-
 body {
   font-size: 18px;
   color: #1e1f20;
@@ -20,31 +24,27 @@ body {
   transform-origin: 0 0;
   width: 996px;
 }
-
 .container {
   width: 996px;
   padding: 10px 0px 10px 0px;
   background-size: 100% 100%;
 }
-
 .logo {
   font-size: 18px;
-  font-family: "tttgbnumber";
   text-align: center;
   color: #fff;
   margin: 20px 0 10px 0;
+  font-family: Number, YS;
 }
-
 .calendar {
   min-height: 400px;
   position: relative;
   padding: 1px 0;
   width: 956px;
   margin: 20px;
-  box-shadow: 0 0 0 10px rgba(0, 0, 0, .6);
+  box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
-
 .cal-bg {
   position: absolute;
   width: 956px;
@@ -59,51 +59,37 @@ body {
   border-radius: 10px;
   overflow: hidden;
 }
-
 .cal-bg table {
   height: 100%;
 }
-
-
 .cal-bg .tr.thead {
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, 0.8);
   height: 40px;
-
 }
-
 .cal-bg .tr.thead td {
-  font-family: Number, YS;
+  font-family: YS;
 }
-
 .cal-bg td {
   box-shadow: 0 0 1px 0 #fff;
 }
-
 .cal-bg td.date {
   width: 7.692%;
-
 }
-
 .cal-bg td.date.current-date {
   background: #d3bc8e;
   border: 1px solid #d3bc8e;
   color: #000;
 }
-
-
 .cal-bg td.line {
   background: rgba(0, 0, 0, 0.4);
 }
-
 .cal-bg td.line.current-date {
-  background: rgba(211, 188, 142, .4)
+  background: rgba(211, 188, 142, 0.4);
 }
-
 .cal-list {
   position: relative;
   padding-top: 80px;
 }
-
 .cal-list .cal-item {
   margin-bottom: 15px;
   border-radius: 5px;
@@ -111,10 +97,9 @@ body {
   text-overflow: ellipsis;
   position: relative;
   overflow: hidden;
-  background: rgba(232, 226, 216, 1);
+  background: #e8e2d8;
   z-index: 1;
 }
-
 .cal-list .cal-item:after {
   content: "";
   display: block;
@@ -126,16 +111,14 @@ body {
   box-shadow: 0 0 1px 0 #000 inset, 0 0 2px 0 #222a3b;
   border-radius: 4px;
 }
-
 .cal-list .cal-item .info {
   position: relative;
   display: inline-block;
   padding: 15px 50px 15px 55px;
   min-width: calc(100% - 400px);
   border-radius: 5px;
-  background-image: linear-gradient(to right, rgba(232, 226, 216, 1), rgba(232, 226, 216, 1) 80%, rgba(232, 226, 216, 0) 100%);
+  background-image: linear-gradient(to right, #E8E2D8, #E8E2D8 80%, rgba(232, 226, 216, 0) 100%);
 }
-
 .cal-list .cal-item .banner {
   position: absolute;
   width: 100%;
@@ -145,72 +128,70 @@ body {
   right: 0;
   background-size: 100% auto;
   background-position: left 40%;
-
 }
-
 .cal-list .cal-item strong {
   display: block;
   font-family: YS;
   font-weight: normal;
 }
-
 .cal-list .cal-item span {
   display: block;
-  font-family: Number, YS;
   font-size: 12px;
-
+  font-family: Number, YS;
 }
-
-/*
-.cal-list .cal-item.type-weapon .info,
-.cal-list .cal-item.type-character .info {
-  background-image: linear-gradient(to right, rgba(227, 164, 111), rgba(227, 164, 111) 80%, rgba(227, 164, 111, 0) 100%);
-}
-*/
-
 .cal-list .cal-item.type-character {
   overflow: visible;
   margin-top: 20px;
 }
-
 .cal-list .cal-item.type-character .info {
   padding-left: 65px;
-
 }
-
 .cal-list .cal-item.type-character .character-img {
   width: 65px;
   position: absolute;
   bottom: 0;
   left: 0;
   z-index: 10;
-
 }
-
 .cal-list .cal-item.type-normal {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
 .cal-list .cal-item.type-normal:last-child {
   margin-bottom: 15px;
 }
-
 .cal-list .cal-item.type-normal:after {
   display: none;
 }
-
-
 .cal-list .cal-item.type-normal:first-of-type {
   margin-top: 20px;
 }
-
 .cal-list .cal-item.type-normal .info {
   padding: 8px 20px 8px 15px;
   line-height: 16px;
   color: #4b5366;
 }
-
+.cal-list .cal-item.type-normal .cal-icon {
+  width: 23px;
+  height: 23px;
+  top: 6px;
+  margin-left: -3px;
+  margin-right: 5px;
+}
+.cal-list .cal-item.type-normal strong {
+  font-size: 16px;
+}
+.cal-list .cal-item.type-normal .info {
+  padding-left: 38px;
+}
+.cal-list .cal-item.type-normal strong,
+.cal-list .cal-item.type-normal span {
+  display: inline;
+}
+.cal-list .cal-item.type-normal.small-mode span {
+  display: block;
+  margin-left: 0;
+}
 .cal-list .cal-item .cal-icon {
   position: absolute;
   width: 40px;
@@ -218,36 +199,6 @@ body {
   left: 10px;
   top: 10px;
 }
-
-.cal-list .cal-item.type-normal .cal-icon {
-
-  width: 23px;
-  height: 23px;
-  top: 6px;
-  margin-left: -3px;
-  margin-right: 5px;
-}
-
-.cal-list .cal-item.type-normal strong {
-  font-size: 16px;
-}
-
-.cal-list .cal-item.type-normal .info {
-  padding-left: 38px;
-}
-
-
-.cal-list .cal-item.type-normal strong,
-.cal-list .cal-item.type-normal span {
-  display: inline;
-}
-
-.cal-list .cal-item.type-normal.small-mode span {
-  display: block;
-  margin-left: 0;
-}
-
-
 .calendar .now-line {
   position: absolute;
   top: 84px;
@@ -255,9 +206,8 @@ body {
   width: 2px;
   box-shadow: 0 0 5px 0 #fff;
   background: #fff;
-  opacity: .8;
+  opacity: 0.8;
 }
-
 .calendar .now-line:after {
   content: "";
   display: block;
@@ -269,27 +219,20 @@ body {
   position: absolute;
   bottom: 0;
   left: -9px;
-  transform: scaleY(.7);
+  transform: scaleY(0.7);
   transform-origin: bottom center;
 }
-
-.calendar .now-line.line2 {
+.calendar .now-line:after.line2 {
   z-index: 3;
-  opacity: .5;
-  background: rgb(211, 188, 141);
+  opacity: 0.5;
+  background: #d3bc8d;
   width: 2px;
   box-shadow: none;
-
 }
-
-.calendar .now-line.line2:after {
-}
-
 .now-time {
   text-align: center;
   padding-top: 5px;
 }
-
 .now-time span {
   color: #fff;
   font-family: Number, YS;
@@ -298,24 +241,22 @@ body {
   padding: 10px 15px;
   border: 1px solid #fff;
 }
-
 .cal-abyss-cont {
   padding-top: 15px;
   height: 80px;
   position: relative;
 }
-
 .cal-abyss-cont .cal-item {
   border-radius: 0;
   background: url("./imgs/abyss.jpg") #333465 top right no-repeat;
   position: absolute;
 }
-
 .cal-abyss-cont .cal-item .info {
   background: none;
-  color: rgba(211, 188, 141, 1);
+  color: #d3bc8d;
+  background-image: linear-gradient(to right, #333465, #333465 80%, rgba(51, 52, 101, 0) 100%);
 }
-
-.cal-list .cal-abyss-cont .cal-item:after {
+.cal-abyss-cont .cal-item:after {
   box-shadow: 0 0 1px 0 #fff;
 }
+/*# sourceMappingURL=calendar.css.map */

@@ -4,30 +4,35 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "Number";
   src: url("../common/font/tttgbnumber.ttf");
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "NZBZ";
   src: url("../common/font/NZBZ.ttf");
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "YS";
   src: url("../common/font/HYWH-85W.ttf");
   font-weight: normal;
   font-style: normal;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   user-select: none;
 }
+
 body {
   font-size: 18px;
   color: #1e1f20;
@@ -38,45 +43,58 @@ body {
   background-size: contain;
   width: 600px;
 }
+
 .container {
   width: 600px;
   padding: 20px 15px 10px 15px;
+
   background-size: contain;
 }
+
+
 .head-box {
   border-radius: 15px;
   padding: 10px 20px;
   position: relative;
   color: #fff;
   margin-top: 30px;
+
 }
+
 .head-box .title {
   font-size: 36px;
   font-family: NZBZ, sans-serif;
-  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
 }
+
+
 .head-box .genshin_logo {
   position: absolute;
   top: 1px;
   right: 15px;
   width: 97px;
 }
+
 .head-box .label {
   font-size: 16px;
-  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
 }
+
+
 .notice {
   color: #888;
   font-size: 12px;
   text-align: right;
   padding: 12px 5px 5px;
 }
+
 .notice-center {
   color: #fff;
   text-align: center;
   margin-bottom: 10px;
   text-shadow: 1px 1px 1px #333;
 }
+
 .copyright {
   font-size: 16px;
   font-family: Number, sans-serif;
@@ -87,99 +105,59 @@ body {
   text-shadow: 1px 1px 1px #000;
   margin-bottom: 10px;
 }
+
 /* */
-.cons-0 {
-  border-radius: 4px;
-  background: #666;
-  color: #fff;
+
+.cons(@idx, @bg, @color:#fff) {
+  .cons-@{idx} {
+    border-radius: 4px;
+    background: @bg;
+    color: @color;
+  }
 }
-.cons-1 {
-  border-radius: 4px;
-  background: #71b1b7;
-  color: #fff;
-}
-.cons-2 {
-  border-radius: 4px;
-  background: #369961;
-  color: #fff;
-}
-.cons-3 {
-  border-radius: 4px;
-  background: #4596b9;
-  color: #fff;
-}
-.cons-4 {
-  border-radius: 4px;
-  background: #4560b9;
-  color: #fff;
-}
-.cons-5 {
-  border-radius: 4px;
-  background: #531ba9cf;
-  color: #fff;
-}
-.cons-6 {
-  border-radius: 4px;
-  background: #ff5722;
-  color: #fff;
-}
+
+.cons(0, #666);
+.cons(1, #71b1b7);
+.cons(2, #369961);
+.cons(3, #4596b9);
+.cons(4, #4560b9);
+.cons(5, #531ba9cf);
+.cons(6, #ff5722);
+
+
 /********  ELEM  ********/
-.elem-anemo .talent-icon {
-  background-image: url("./bg/talent-anemo.png");
-}
-.elem-anemo .elem-bg,
-.anemo-bg {
-  background-image: url("./bg/bg-anemo.jpg");
-}
-.elem-cryo .talent-icon {
-  background-image: url("./bg/talent-cryo.png");
-}
-.elem-cryo .elem-bg,
-.cryo-bg {
-  background-image: url("./bg/bg-cryo.jpg");
-}
-.elem-electro .talent-icon {
-  background-image: url("./bg/talent-electro.png");
-}
-.elem-electro .elem-bg,
-.electro-bg {
-  background-image: url("./bg/bg-electro.jpg");
-}
-.elem-geo .talent-icon {
-  background-image: url("./bg/talent-geo.png");
-}
-.elem-geo .elem-bg,
-.geo-bg {
-  background-image: url("./bg/bg-geo.jpg");
-}
-.elem-hydro .talent-icon {
-  background-image: url("./bg/talent-hydro.png");
-}
-.elem-hydro .elem-bg,
-.hydro-bg {
-  background-image: url("./bg/bg-hydro.jpg");
-}
-.elem-pyro .talent-icon {
-  background-image: url("./bg/talent-pyro.png");
-}
-.elem-pyro .elem-bg,
-.pyro-bg {
-  background-image: url("./bg/bg-pyro.jpg");
-}
+
+@elems: anemo, cryo, electro, geo, hydro, pyro;
+
+each(@elems, {
+  .elem-@{value} .talent-icon {
+    background-image: url("./bg/talent-@{value}.png");
+  }
+
+  .elem-@{value} .elem-bg,
+  .@{value}-bg {
+    background-image: url("./bg/bg-@{value}.jpg");
+  }
+})
+
+
 /* cont */
+
 .cont {
   border-radius: 10px;
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
   margin: 5px 15px 5px 10px;
   position: relative;
-  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
   overflow: hidden;
   color: #fff;
   font-size: 16px;
 }
+
+
 .cont-title {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4);
   box-shadow: 0 0 1px 0 #fff;
   color: #d3bc8e;
   font-family: YS;
@@ -187,6 +165,7 @@ body {
   text-align: left;
   border-radius: 10px 10px 0 0;
 }
+
 .cont-title span {
   font-size: 12px;
   color: #aaa;
@@ -194,6 +173,7 @@ body {
   font-family: Number, YS;
   font-weight: normal;
 }
+
 .cont-body {
   padding: 10px 15px;
   font-size: 12px;
@@ -202,17 +182,21 @@ body {
   font-family: YS;
   font-weight: normal;
 }
+
 ul.cont-msg {
   padding-left: 15px;
 }
+
 ul.cont-msg li {
   margin: 5px 0;
 }
+
 ul.cont-msg li strong {
   font-weight: normal;
   margin: 0 2px;
   color: #d3bc8e;
 }
+
 .cont-footer {
   padding: 10px 15px;
   font-size: 12px;
@@ -220,50 +204,60 @@ ul.cont-msg li strong {
   font-family: YS;
   font-weight: normal;
 }
+
 .cont-table {
   display: table;
   width: 100%;
 }
+
 .cont-table .tr {
   display: table-row;
 }
+
 .cont-table .tr:nth-child(even) {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4);
 }
+
 .cont-table .tr:nth-child(odd) {
-  background: rgba(50, 50, 50, 0.4);
+  background: rgba(50, 50, 50, .4);
 }
+
 .cont-table .tr > div,
 .cont-table .tr > td {
   display: table-cell;
   box-shadow: 0 0 1px 0 #fff;
 }
+
 .cont-table .tr > div.value-full {
   display: table;
   width: 200%;
 }
+
 .cont-table .tr > div.value-none {
   box-shadow: none;
 }
+
 .cont-table .thead {
   text-align: center;
 }
+
 .cont-table .thead > div,
 .cont-table .thead > td {
   font-family: YS;
   color: #d3bc8e;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4);
   line-height: 40px;
   height: 40px;
 }
+
+
 .cont-table .title,
 .cont-table .th {
   font-family: YS;
   color: #d3bc8e;
   padding-right: 15px;
   text-align: right;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4);
   min-width: 100px;
   vertical-align: middle;
 }
-/*# sourceMappingURL=common.css.map */

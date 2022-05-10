@@ -1,0 +1,116 @@
+.arti-detail {
+  width: 185px;
+  border-radius: 10px;
+  background: url("../cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 5px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  height: 205px;
+  overflow: hidden;
+}
+.arti-detail .arti-icon {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 2px;
+  top: 3px;
+}
+.arti-detail .arti-icon span {
+  position: absolute;
+  right: 2px;
+  bottom: 0;
+  margin-left: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 3px;
+  color: #fff;
+  font-size: 12px;
+  display: block;
+}
+.arti-detail .arti-icon img {
+  width: 60px;
+  height: 60px;
+}
+.arti-detail .head {
+  color: #fff;
+  padding: 12px 0 8px 68px;
+}
+.arti-detail .head strong {
+  font-size: 15px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  font-font: YS;
+}
+.arti-detail .head span {
+  font-size: 14px;
+}
+.arti-detail .head .mark {
+  font-family: Number, YS;
+}
+.arti-detail ul.detail {
+  width: 100%;
+  padding: 0;
+  position: initial;
+  font-family: YS;
+}
+.arti-detail ul.detail li {
+  padding: 0 3px;
+  font-size: 14px;
+  position: initial;
+  width: 100%;
+  display: table;
+  line-height: 26px;
+  height: 26px;
+}
+.arti-detail ul.detail li.nouse span {
+  color: #888;
+}
+.arti-detail ul.detail li.arti-main {
+  font-size: 16px;
+  padding: 3px 3px;
+  font-weight: bold;
+}
+.arti-detail ul.detail li span {
+  position: initial;
+  display: table-cell;
+  color: #fff;
+  font-family: YS;
+}
+.arti-detail ul.detail li.title {
+  text-align: left;
+  padding-left: 10px;
+}
+.arti-detail ul.detail li.val {
+  text-align: right;
+  padding-right: 10px;
+  font-family: Number;
+}
+.arti-detail ul.detail:nth-child(even) {
+  background: rgba(0, 0, 0, 0.4);
+}
+.arti-detail ul.detail:nth-child(odd) {
+  background: rgba(50, 50, 50, 0.4);
+}
+.arti-detail .avatar {
+  position: absolute;
+  left: 32px;
+  top: 26px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 3;
+}
+.arti-detail .avatar img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.arti-detail .arti-icon img {
+  width: 52px;
+  height: 52px;
+}
+/*# sourceMappingURL=artis-detail.css.map */

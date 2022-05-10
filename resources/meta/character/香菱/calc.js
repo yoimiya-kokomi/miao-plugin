@@ -6,7 +6,6 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['喷火伤害'], 'e', 'zf')
 }, {
   title: "旋火轮单次伤害",
-  showDetail: true,
   dmg: ({ talent, }, dmg) => dmg(talent.q['旋火轮伤害'], 'q')
 }, {
   title: "旋火轮单次蒸发",

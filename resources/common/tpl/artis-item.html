@@ -1,0 +1,19 @@
+{{set ds = $data[0]}}
+{{set {_res_path,_char,_sys_res_path} = $data[1]}}
+
+<div class="item-card">
+  <span class="badge">
+      <img src="{{_sys_res_path}}/genshin/logo/side/{{ds.avatar==`旅行者`?`荧`:ds.avatar}}.png"/>
+      </span>
+  <div class="box">
+    {{ if ds.affix_level>1}}
+    <span class="item-life life{{ds.affix_level}}">
+      {{ds.affix_level}}
+    </span>
+    {{/if}}
+    <div class="item-bg bg{{ds.rarity}}"></div>
+    <img class="item-img" src="{{_sys_res_path}}/genshin/logo/reliquaries/{{ds.name}}.png"/>
+    <div class="item-desc artis-lvl">Lv.{{ds.level}}</div>
+    <div class="item-desc artis-name">{{ds.name}}</div>
+  </div>
+</div>

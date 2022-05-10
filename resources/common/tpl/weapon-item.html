@@ -1,0 +1,17 @@
+{{ set weapon = $data[0] }}
+{{ set {_sys_res_path} = $data[1] }}
+
+<div class="item-card">
+  <span class="badge">
+      <img src="{{_sys_res_path}}/genshin/logo/side/{{weapon.avatar==`旅行者`?`荧`:weapon.avatar}}.png"/>
+      </span>
+  <div class="box">
+    {{ if weapon.affix_level>1}}
+    <span class="item-life life{{weapon.affix_level}}">{{weapon.affix_level}}</span>
+    {{/if}}
+    <div class="item-bg bg{{weapon.rarity}}"></div>
+    <img class="item-img" src="{{_sys_res_path}}genshin/logo/weapon/{{weapon.name}}.png"/>
+    <div class="item-desc weapon-lv">Lv.{{weapon.level}}</div>
+    <div class="item-desc weapon-name">{{weapon.showName || weapon.name}}</div>
+  </div>
+</div>

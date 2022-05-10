@@ -1,0 +1,120 @@
+
+.item-card {
+  width: 66px;
+  margin: 4px;
+  position: relative;
+  border-radius: 5px;
+
+
+  .badge {
+    overflow: hidden;
+    border-radius: 5px;
+    position: relative;
+    background: #e9e5dc;
+    box-shadow: 0 2px 6px 0 rgb(132 93 90 / 30%);
+  }
+
+  .badge img {
+    width: 100%;
+    overflow: hidden;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    /*filter: contrast(95%);*/
+  }
+
+  .item-bg {
+    width: 100%;
+    padding: 100% 0 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+  }
+
+  each(range(5), {
+    .bg@{value} {
+      background-image: url("./item/bg@{value}.png");
+
+    }
+  })
+
+  .box {
+    border-radius: 5px;
+    overflow: hidden;
+
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 15px;
+      right: 0;
+      bottom: 15px;
+    }
+
+    .item-desc {
+      display: block;
+      font-weight: 500;
+      text-align: center;
+      bottom: 0;
+      background: #e9e5dc;
+      width: 100%;
+      font-size: 12px;
+      line-height: 16px;
+      font-family: Number, YS;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0 3px;
+
+      &:last-child {
+        padding-bottom: 2px;
+      }
+    }
+
+    .name {
+      overflow: hidden;
+      white-space: nowrap;
+      margin-top: 5px;
+      font-weight: 500;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .item-img {
+      width: 100%;
+      overflow: hidden;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .item-life {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 9;
+    font-size: 13px;
+    text-align: center;
+    color: #fff;
+    border-radius: 2px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: "tttgbnumber";
+  }
+
+  .life(@idx, @color) {
+    .life@{idx} {
+      background-color: @color;
+    }
+  }
+
+  .life(1, #62a8ea);
+  .life(2, #62a8ea);
+  .life(3, #62a8ea);
+  .life(4, #ff5722);
+  .life(5, #ff5722);
+}
+

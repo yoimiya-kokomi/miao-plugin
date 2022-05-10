@@ -1,0 +1,18 @@
+{{set avatar = $data[0]}}
+{{set {_res_path,_char} = $data[1]}}
+
+<div class="item">
+  <div class="item-bg elem-{{avatar.element}}">
+    <div class="role-box char-{{avatar.name}}">
+      <img class="role" src="{{_res_path}}{{_char}}/{{avatar.name}}/gacha_card.png"/>
+    </div>
+    {{ if avatar.cons>0}}
+    <div class="role-life life{{avatar.cons}}">{{avatar.cons}}命</div>
+    {{/if}}
+    <div class="role-name">{{avatar.name}}</div>
+    <div class="role-lv">
+      <div class="text">Lv {{avatar.level}}</div>
+      <div class="text-bg"></div>
+    </div>
+  </div>
+</div>

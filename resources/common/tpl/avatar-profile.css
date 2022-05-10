@@ -1,0 +1,204 @@
+.profile {
+  position: relative;
+  margin-bottom: 10px;
+}
+.profile:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 8px;
+  top: 115px;
+  bottom: 0;
+  right: 8px;
+  box-shadow: 0 0 2px 0 #fff;
+  border-radius: 5px;
+  z-index: 1;
+}
+.profile .main-pic {
+  width: 800px;
+  height: 500px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: -260px;
+  position: relative;
+  z-index: 2;
+}
+.profile .detail {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  color: #fff;
+  z-index: 3;
+}
+.profile .char-name {
+  font-size: 50px;
+  font-family: NZBZ;
+  text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-align: right;
+}
+.profile .char-lv {
+  font-family: Number;
+  margin-bottom: 20px;
+  text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-align: right;
+}
+.profile .attr {
+  border-radius: 4px;
+  overflow: hidden;
+}
+.profile .detail li {
+  width: 300px;
+  font-size: 17px;
+  list-style: none;
+  padding: 0 100px 0 35px;
+  position: relative;
+  font-family: YS;
+  height: 32px;
+  line-height: 32px;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.profile .attr li i {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-image: url("../../character/icon.png");
+  background-size: auto 20px;
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  opacity: 0.9;
+  transform: scale(0.9);
+}
+.profile .i-hp {
+  background-position: -20px 0;
+}
+.profile .i-atk {
+  background-position: -40px 0;
+}
+.profile .i-def {
+  background-position: -60px 0;
+}
+.profile .i-mastery {
+  background-position: -80px 0;
+}
+.profile .i-cr {
+  background-position: -100px 0;
+}
+.profile .i-cd {
+  background-position: -140px 0;
+}
+.profile .i-re {
+  background-position: -120px 0;
+}
+.profile .i-dmg {
+  background-position: -160px 0;
+}
+.profile .detail li:nth-child(even) {
+  background: rgba(0, 0, 0, 0.4);
+}
+.profile .detail li:nth-child(odd) {
+  background: rgba(50, 50, 50, 0.4);
+}
+.profile .detail li strong {
+  display: inline-block;
+  position: absolute;
+  right: 85px;
+  text-align: right;
+  font-family: Number, sans-serif;
+  font-weight: normal;
+}
+.profile .detail li span {
+  position: absolute;
+  right: 0;
+  text-align: left;
+  width: 75px;
+  display: inline-block;
+  font-family: Number, sans-serif;
+  color: #90e800;
+  font-size: 15px;
+}
+.profile .talent-icon {
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  display: table;
+  border-radius: 50%;
+  position: relative;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 90;
+}
+.profile .talent-icon img,
+.profile .talent-icon .profile .talent-icon-img {
+  width: 46%;
+  height: 46%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -22% 0 0 -23%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.profile .talent-icon span {
+  background: #fff;
+  width: 34px;
+  height: 26px;
+  line-height: 26px;
+  font-size: 17px;
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  margin-left: -15px;
+  color: #000;
+  box-shadow: 0 0 5px 0 #000;
+  font-family: Number;
+}
+.profile .talent-icon.talent-plus span {
+  background: #2e353e;
+  color: #ffdfa0;
+  font-weight: bold;
+  box-shadow: 0 0 1px 0 #d3bc8e, 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+}
+.profile .talent-icon.talent-crown:after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 28px;
+  background: url("../character/imgs/crown.png") no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -14px;
+}
+.profile .char-talents {
+  display: flex;
+  width: 300px;
+  margin-bottom: 10px;
+}
+.profile .char-cons .talent-item,
+.profile .char-talents .talent-item {
+  flex: 1;
+}
+.profile .char-cons {
+  display: flex;
+  width: 250px;
+  position: absolute;
+  bottom: 5px;
+  left: 20px;
+}
+.profile .char-cons .talent-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 -5px;
+}
+.profile .char-cons .talent-icon.off {
+  filter: grayscale(100%);
+  opacity: 0.4;
+}
+/*# sourceMappingURL=avatar-profile.css.map */

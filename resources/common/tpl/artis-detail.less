@@ -1,0 +1,137 @@
+.arti-detail {
+  width: 185px;
+  border-radius: 10px;
+  background: url("./cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 5px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
+  height: 205px;
+  overflow: hidden;
+
+  .arti-icon {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 2px;
+    top: 3px;
+
+    span {
+      position: absolute;
+      right: 2px;
+      bottom: 0;
+      margin-left: 5px;
+      background: rgba(0, 0, 0, .5);
+      border-radius: 5px;
+      height: 18px;
+      line-height: 18px;
+      padding: 0 3px;
+      color: #fff;
+      font-size: 12px;
+      display: block;
+    }
+
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  .head {
+    color: #fff;
+    padding: 12px 0 8px 68px;
+
+    strong {
+      font-size: 15px;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      font-font: YS;
+    }
+
+    span {
+      font-size: 14px;
+    }
+
+    .mark {
+      font-family: Number, YS;
+    }
+  }
+
+  ul.detail {
+    width: 100%;
+    padding: 0;
+    position: initial;
+    font-family: YS;
+
+    li {
+      padding: 0 3px;
+      font-size: 14px;
+      position: initial;
+      width: 100%;
+      display: table;
+      line-height: 26px;
+      height: 26px;
+
+      &.nouse span {
+        color: #888;
+      }
+
+      &.arti-main {
+        font-size: 16px;
+        padding: 3px 3px;
+        font-weight: bold;
+      }
+
+      span {
+        position: initial;
+        display: table-cell;
+        color: #fff;
+        font-family: YS;
+
+
+        &.title {
+          text-align: left;
+          padding-left: 10px;
+        }
+
+        &.val {
+          text-align: right;
+          padding-right: 10px;
+          font-family: Number;
+        }
+      }
+
+
+      &:nth-child(even) {
+        background: rgba(0, 0, 0, .4)
+      }
+
+      &:nth-child(odd) {
+        background: rgba(50, 50, 50, .4)
+      }
+    }
+  }
+
+  .avatar-icon {
+    position: absolute;
+    left: 32px;
+    top: 26px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 3;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .arti-icon img {
+    width: 52px;
+    height: 52px;
+  }
+
+}
