@@ -87,7 +87,14 @@ body {
   text-shadow: 1px 1px 1px #000;
   margin-bottom: 10px;
 }
-/* */
+/*  */
+.cons {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-family: Number, YS;
+}
 .cons-0 {
   border-radius: 4px;
   background: #666;

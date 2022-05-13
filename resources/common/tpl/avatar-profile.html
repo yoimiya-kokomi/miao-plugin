@@ -9,7 +9,7 @@
     <div class="char-name">{{ds.name}}</div>
     <div class="char-lv">
       {{if uid}}UID {{uid}} - {{/if}}
-      {{if ds.lv}} Lv.{{ds.lv}}{{/if}}
+      <span class="cons cons-{{ds.cons}}">{{ds.cons}}命</span> {{if ds.lv}} Lv.{{ds.lv}}{{/if}}
     </div>
     <div class="char-talents">
       {{each ds.talentMap tName key}}

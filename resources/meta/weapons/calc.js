@@ -566,9 +566,9 @@ let sword = {
     }
   }],
   "风鹰剑": {
-    title: "攻击力提高[atkPct]%",
+    title: "攻击力提高[_atkPct]%",
     refine: {
-      atkPct: step(20)
+      _atkPct: step(20)
     }
   },
 

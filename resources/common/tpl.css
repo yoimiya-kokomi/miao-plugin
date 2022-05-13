@@ -6,19 +6,25 @@
 }
 .item-card .badge {
   overflow: hidden;
-  border-radius: 5px;
-  position: relative;
+  border-radius: 50%;
+  display: block;
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  right: -4px;
+  top: -4px;
   background: #e9e5dc;
-  box-shadow: 0 2px 6px 0 rgba(132, 93, 90, 0.3);
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.8), 2px 2px 2px rgba(50, 50, 50, 0.5);
+  z-index: 10;
 }
 .item-card .badge img {
-  width: 100%;
+  width: 140%;
+  left: -27%;
+  top: -45%;
   overflow: hidden;
   background-size: 100%;
   background-repeat: no-repeat;
   position: absolute;
-  top: 0;
-  /*filter: contrast(95%);*/
 }
 .item-card .item-bg {
   width: 100%;
@@ -29,30 +35,28 @@
 }
 .item-card .bg1 {
   background-image: url("./item/bg1.png");
+  border-radius: 5px 5px 15px 0;
 }
 .item-card .bg2 {
   background-image: url("./item/bg2.png");
+  border-radius: 5px 5px 15px 0;
 }
 .item-card .bg3 {
   background-image: url("./item/bg3.png");
+  border-radius: 5px 5px 15px 0;
 }
 .item-card .bg4 {
   background-image: url("./item/bg4.png");
+  border-radius: 5px 5px 15px 0;
 }
 .item-card .bg5 {
   background-image: url("./item/bg5.png");
+  border-radius: 5px 5px 15px 0;
 }
 .item-card .box {
   border-radius: 5px;
   overflow: hidden;
-}
-.item-card .box:after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 15px;
-  right: 0;
-  bottom: 15px;
+  background: #e9e5dc;
 }
 .item-card .box .item-desc {
   display: block;
@@ -163,6 +167,7 @@
 .profile .attr {
   border-radius: 4px;
   overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
 }
 .profile .detail li {
   width: 300px;

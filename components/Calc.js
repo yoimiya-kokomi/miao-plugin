@@ -426,6 +426,9 @@ let Calc = {
     }
 
     dmgFn.heal = function (num) {
+      if(showDetail){
+        console.log(num, calc(attr.heal), attr.heal.inc)
+      }
       return {
         avg: num * (1 + calc(attr.heal) / 100) * (attr.heal.inc / 100)
       }
