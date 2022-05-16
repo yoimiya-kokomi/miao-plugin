@@ -257,7 +257,7 @@ body {
 
 .calendar .now-line {
   position: absolute;
-  top: 84px;
+  top: 86px;
   bottom: -18px;
   width: 2px;
   box-shadow: 0 0 5px 0 #fff;
@@ -277,16 +277,16 @@ body {
     left: -9px;
     transform: scaleY(.7);
     transform-origin: bottom center;
+  }
 
-    &.line2 {
-      z-index: 3;
-      opacity: .5;
-      background: rgb(211, 188, 141);
-      width: 2px;
-      box-shadow: none;
+  &.line2 {
+    z-index: 3;
+    opacity: .5;
+    background: rgb(211, 188, 141);
+    width: 2px;
+    box-shadow: none;
 
-      &:after {
-      }
+    &:after {
     }
   }
 }
@@ -321,8 +321,66 @@ body {
       .linear-bg(#333465);
     }
 
+    &:before {
+      content: "";
+      display: block;
+      width: 3px;
+      left: 0;
+      top: 1px;
+      bottom: 1px;
+      position: absolute;
+      background: #d3bc8d;
+      z-index: 8;
+
+    }
+
     &:after {
       box-shadow: 0 0 1px 0 #fff;
+      border-radius: 0;
     }
+  }
+}
+
+.calendar-mode {
+  .for-list-mode {
+    display: none;
+  }
+}
+
+.list-mode {
+
+  .container {
+    width: 740px;
+  }
+
+  .for-calendar-mode {
+    display: none;
+  }
+
+  .cal-bg {
+    width: initial;
+  }
+
+  .cal-list {
+    padding: 45px 10px 0;
+  }
+
+  .calendar {
+    width: 700px;
+  }
+
+  .cal-abyss-cont {
+    height: initial !important;
+  }
+
+  .cal-item {
+    position: relative;
+    margin-left: 0 !important;
+    width: initial !important;
+    left: 0 !important;
+  }
+
+  .now-line {
+    display: none;
   }
 }

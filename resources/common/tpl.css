@@ -37,7 +37,15 @@
   background-image: url("./item/bg1.png");
   border-radius: 5px 5px 15px 0;
 }
+.item-card .bg-1 {
+  background-image: url("./item/bg1.png");
+  border-radius: 5px 5px 15px 0;
+}
 .item-card .bg2 {
+  background-image: url("./item/bg2.png");
+  border-radius: 5px 5px 15px 0;
+}
+.item-card .bg-2 {
   background-image: url("./item/bg2.png");
   border-radius: 5px 5px 15px 0;
 }
@@ -45,11 +53,23 @@
   background-image: url("./item/bg3.png");
   border-radius: 5px 5px 15px 0;
 }
+.item-card .bg-3 {
+  background-image: url("./item/bg3.png");
+  border-radius: 5px 5px 15px 0;
+}
 .item-card .bg4 {
   background-image: url("./item/bg4.png");
   border-radius: 5px 5px 15px 0;
 }
+.item-card .bg-4 {
+  background-image: url("./item/bg4.png");
+  border-radius: 5px 5px 15px 0;
+}
 .item-card .bg5 {
+  background-image: url("./item/bg5.png");
+  border-radius: 5px 5px 15px 0;
+}
+.item-card .bg-5 {
   background-image: url("./item/bg5.png");
   border-radius: 5px 5px 15px 0;
 }

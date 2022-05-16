@@ -3,13 +3,14 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css"/>
     <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/character.css"/>
   </head>
   <body>
     <style>
 
     </style>
-    <div class="container elem_{{elem}}" id="container">
+    <div class="container elem-{{elem}}" id="container">
       <div class="head-box" style="background-image:url('{{_res_path}}/{{_char}}/party.png')">
         <div class="head">
           <img src="{{_res_path}}{{_char}}/face.png"/>
@@ -42,8 +43,8 @@
       {{if mode == "talent"}}
 
       {{each talent skill type}}
-      <div class="talent-box">
-        <div class="talent-detail">
+      <div class="talent-box elem-bg">
+        <div class="talent-detail cont">
           <div class="talent-line">
             <div class="talent-icon">
               <img src="{{_res_path}}{{_char}}/talent_{{type}}.png"/>
@@ -61,7 +62,7 @@
               </div>
             </div>
             {{if skill.tables && skill.tables.length > 0}}
-            <table class="talent-table">
+            <table class="talent-table cont-table">
               <tr class="tr">
                 <td class="th"></td>
                 {{each skill.lvs lv idx}}
@@ -72,11 +73,11 @@
               </tr>
               {{each skill.tables tr}}
               <tr class="tr">
-                <td class="th talent_name">
+                <td class="th talent-name">
                   {{tr.name}}
                 </td>
                 {{if tr.isSame}}
-                <td class="td colspan"  colspan="{{type == a ? 6 : 8}}" class="td">{{tr.values[0]}} </td>
+                <td class="td colspan" colspan="{{type == a ? 6 : 8}}" class="td">{{tr.values[0]}}</td>
                 {{else}}
                 {{each tr.values v idx}}
                 {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
@@ -93,7 +94,7 @@
       </div>
       {{/each}}
 
-      <div class="talent-box">
+      <div class="talent-box elem-bg">
         <div class="talent-detail passive">
           {{each passive pass idx}}
           <div class="talent-line">
@@ -131,7 +132,7 @@
       {{/if}}
 
       {{if mode == "cons"}}
-      <div class="talent-box">
+      <div class="talent-box elem-bg">
         <div class="talent-detail">
           {{each cons con idx}}
           <div class="talent-line">

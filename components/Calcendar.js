@@ -151,6 +151,8 @@ let Cal = {
       }
     } else if (sDate > now) {
       label = sDate.format("MM-DD HH:mm") + " (" + moment.duration(sDate - now).humanize() + "后开始)"
+    } else if (isAct) {
+      label = sDate.format("MM-DD HH:mm") + " ~ " + eDate.format("MM-DD HH:mm");
     }
 
     target.push({

@@ -92,7 +92,7 @@ let rule = {
     describe: "【#帮助】 喵喵版本介绍",
   },
   calendar: {
-    reg: "^#喵喵日历$",
+    reg: "^#喵喵(日历|活动|日历列表)$",
     describe: "【#日历】 活动日历",
   },
   ...adminRule

@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css"/>
     <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/calendar.css"/>
   </head>
-  <body class="elem-hydro">
+  <body class="elem-hydro {{displayMode}}-mode">
     <div class="container elem-bg" id="container">
       <div class="calendar">
-        <div class="cal-bg">
+        <div class="cal-bg for-calendar-mode">
           <table class="cont-table" border-collapse="collapse">
             <tr class="tr thead">
               {{each dateList d}}
@@ -25,6 +25,16 @@
               {{each dateList d}}{{each d.date dn}}
               <td class="line {{dn === nowDate ? 'current-date':''}}"></td>
               {{/each}} {{/each}}
+            </tr>
+          </table>
+        </div>
+        <div class="cal-bg for-list-mode">
+          <table class="cont-table" border-collapse="collapse">
+            <tr class="tr thead">
+              <td class="td month">活动列表</td>
+            </tr>
+            <tr class="tr">
+              <td class="line"></td>
             </tr>
           </table>
         </div>

@@ -4,6 +4,8 @@
   box-sizing: border-box;
   user-select: none;
 }
+
+
 body {
   font-size: 16px;
   color: #fff;
@@ -11,20 +13,23 @@ body {
   transform-origin: 0 0;
   font-family: Number, YS;
 }
+
 .container {
   position: relative;
   background-color: #1234;
   width: 100%;
   padding: 0;
 }
+
 .container img.bg {
   width: 100%;
   margin-bottom: -1px;
   display: block;
 }
+
 .info {
   position: absolute;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, .5);
   bottom: 0px;
   left: 0px;
   right: 0px;
@@ -32,15 +37,20 @@ body {
   padding: 5px 10px 10px 150px;
   text-shadow: 0 0 1px #000, 1px 1px 3px #000;
   font-family: Number, YS;
+
 }
+
 .role_box {
   padding: 5px 10px;
   background-repeat: no-repeat;
   position: relative;
 }
+
 .title {
   font-size: 36px;
 }
+
+
 .char_name {
   font-family: "NZBZ";
   font-size: 60px;
@@ -55,6 +65,7 @@ body {
   height: 85px;
   text-shadow: 0 0 3px #000, 3px 3px 5px #000;
 }
+
 .char_name:after {
   content: "";
   display: block;
@@ -70,6 +81,7 @@ body {
   box-shadow: 0 0 2px 0 #000;
   bottom: 1px;
 }
+
 .char_name .uid {
   font-size: 24px;
   position: absolute;
@@ -80,6 +92,7 @@ body {
   letter-spacing: 0;
   top: 90px;
 }
+
 .cons {
   display: inline-block;
   width: 55px;
@@ -95,6 +108,7 @@ body {
   text-shadow: 0 0 3px #000;
   margin-right: 15px;
 }
+
 .crown {
   width: 30px;
   height: 30px;
@@ -104,19 +118,29 @@ body {
   vertical-align: bottom;
   background-image: url("./imgs/crown.png");
 }
+
 .crown.crown_0 {
   background-image: none;
 }
+
+.crown.crown_1 {
+
+}
+
 .crown.crown_2 {
   width: 60px;
 }
+
 .crown.crown_3 {
   width: 90px;
 }
+
 .detail {
   font-size: 26px;
   margin: 10px 5px 2px 5px;
 }
+
+
 .weapon {
   text-align: center;
   font-size: 20px;
@@ -124,6 +148,8 @@ body {
   position: absolute;
   background: rgba(0, 0, 0, 0.2);
 }
+
+
 .weapon_lv {
   position: absolute;
   bottom: 0px;
@@ -134,6 +160,7 @@ body {
   background-color: rgba(0, 0, 0, var(--bg-opacity));
   --bg-opacity: 0.75;
 }
+
 .weapon_affix {
   position: absolute;
   top: 0;
@@ -147,18 +174,22 @@ body {
   border-radius: 5px;
   padding: 1px 3px;
 }
+
 .weapon_cont {
   position: relative;
 }
+
 .weapon_cont img {
   width: 100%;
   height: 100%;
 }
+
 .weapon_name {
   height: 30px;
   line-height: 30px;
   font-size: 15px;
 }
+
 .equiv .img_box {
   width: 46px;
   height: 46px;
@@ -166,10 +197,13 @@ body {
   border-radius: 5px;
   overflow: hidden;
 }
+
 .equiv img {
   width: 100%;
   transform: scale(1.2, 1.2);
 }
+
+
 .detail {
   margin-left: 5px;
   width: 300px;
@@ -178,6 +212,7 @@ body {
   display: flex;
   position: relative;
 }
+
 .talent {
   margin-left: 5px;
   width: 300px;
@@ -186,11 +221,16 @@ body {
   position: relative;
   font-size: 20px;
 }
+
 .text_box::before {
   content: "";
   display: block;
   position: absolute;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(to right,
+  rgba(255, 255, 255, 0) 0%,
+  rgba(255, 255, 255, 0.5) 20%,
+  rgba(255, 255, 255, 0.5) 80%,
+  rgba(255, 255, 255, 0) 100%);
   width: 0%;
   height: 1px;
   top: 0;
@@ -199,11 +239,16 @@ body {
   opacity: 1;
   transition: width 0.3s 0.1s, opacity 0.3s 0.1s;
 }
+
 .text_box::after {
   content: "";
   display: block;
   position: absolute;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(to right,
+  rgba(255, 255, 255, 0) 0%,
+  rgba(255, 255, 255, 0.5) 20%,
+  rgba(255, 255, 255, 0.5) 80%,
+  rgba(255, 255, 255, 0) 100%);
   width: 0%;
   height: 1px;
   bottom: 0;
@@ -212,6 +257,7 @@ body {
   opacity: 1;
   transition: width 0.3s 0.1s, opacity 0.3s 0.1s;
 }
+
 .detail p,
 .talent div {
   margin-right: 4px;
@@ -219,22 +265,27 @@ body {
   width: 90px;
   white-space: nowrap;
 }
+
 .no_skill {
   padding: 10px 0;
 }
+
 .star {
   width: 16px;
   vertical-align: -2px;
   margin-right: 1px;
 }
+
 .equiv {
   margin-top: 12px;
 }
+
 .row {
   display: flex;
   flex-wrap: wrap;
   /*margin-bottom: 5px;*/
 }
+
 .equiv {
   margin: 0 10px 8px 10px;
   text-align: center;
@@ -247,6 +298,7 @@ body {
   position: relative;
   display: flex;
 }
+
 .equiv .num {
   position: absolute;
   bottom: 0px;
@@ -258,6 +310,8 @@ body {
   --bg-opacity: 0.75;
   border-radius: 9999px;
 }
+
+
 .equiv .img_box {
   width: 46px;
   height: 46px;
@@ -265,10 +319,12 @@ body {
   border-radius: 5px;
   overflow: hidden;
 }
+
 .equiv img {
   width: 100%;
   transform: scale(1.2, 1.2);
 }
+
 .equiv_info {
   display: inline-block;
   font-size: 15px;
@@ -278,8 +334,11 @@ body {
   margin-left: 5px;
   margin-top: 0px;
 }
+
 .equiv_info .text {
   margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -287,12 +346,16 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 body.bottom_mode {
   width: 500px;
 }
+
 .bottom_mode .info {
   height: 158px;
 }
+
+
 .bottom_mode .weapon {
   left: 0;
   bottom: 0;
@@ -300,49 +363,61 @@ body.bottom_mode {
   padding-top: 120px;
   width: 140px;
 }
+
 .bottom_mode .weapon_affix {
   display: none;
 }
+
 .bottom_mode .weapon_cont {
   position: absolute;
   top: 0;
   width: 100%;
 }
+
 .bottom_mode .weapon_lv {
   border-radius: 8px 0 0 0;
   padding-left: 8px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, .5);
   bottom: -8px;
   font-size: 15px;
 }
+
 .bottom_mode .weapon_cont img {
   width: 110px;
   height: 110px;
 }
+
 .bottom_mode .weapon_name {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, .5);
   height: 35px;
   line-height: 35px;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+
 }
+
 .equiv_info {
   width: calc(100% - 20px);
 }
+
 .bottom_mode .detail {
   font-family: NZBZ;
   margin-top: 0px;
 }
+
 .bottom_mode .for_left {
   display: none;
 }
+
+
 /******** left mode **********/
 .left_mode {
   width: 800px;
   transform: scale(1);
 }
+
 .left_mode .info {
   right: initial;
   padding: 10px 10px 5px 10px;
@@ -350,6 +425,8 @@ body.bottom_mode {
   left: 10px;
   bottom: 10px;
 }
+
+
 .left_mode .weapon {
   top: -110px;
   width: 270px;
@@ -359,6 +436,7 @@ body.bottom_mode {
   background: rgba(0, 0, 0, 0.8);
   border-radius: 8px;
 }
+
 .left_mode .weapon_cont {
   width: 100px;
   padding: 3px 10px 0 0;
@@ -367,14 +445,17 @@ body.bottom_mode {
   position: absolute;
   top: 0;
 }
+
 .left_mode .for_bottom,
 .left_mode .weapon_lv,
 .left_mode .weapon_affix {
   display: none;
 }
+
 .left_mode .for_left {
   display: block;
 }
+
 .left_mode .weapon_name {
   height: 50px;
   font-size: 20px;
@@ -382,36 +463,43 @@ body.bottom_mode {
   line-height: 30px;
   padding: 20px 0 0 110px;
 }
+
 .left_mode .detail {
   width: auto;
   margin-top: -5px;
 }
+
 .left_mode .talent {
   padding-left: 0;
   margin-right: -5px;
   width: 250px;
 }
+
 .left_mode .info,
 .left_mode .weapon {
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 5px 1px #000;
 }
+
 .left_mode .equiv_info {
   padding: 0;
   background: none;
   margin-top: 5px;
 }
+
 .copyright {
   position: absolute;
   font-family: Number, YS;
   margin-bottom: 0;
 }
+
 .left_mode .copyright {
   bottom: 5px;
   right: 9px;
   text-shadow: 1px 1px 1px #000;
   line-height: 20px;
 }
+
 .bottom_mode .copyright {
   bottom: 1px;
   right: 7px;
@@ -419,4 +507,3 @@ body.bottom_mode {
   line-height: 20px;
   font-size: 10px;
 }
-/*# sourceMappingURL=card.css.map */

@@ -99,12 +99,15 @@ async function wikiCache(e) {
 }
 
 export async function calendar(e, { render }) {
-
-
   let calData = await Calcendar.get();
+  let mode = "calendar";
+  if (/(日历列表|活动)$/.test(e.msg)) {
+    mode = "list";
+  }
 
   let base64 = await render("wiki", "calendar", {
     ...calData,
+    displayMode: mode,
     cfgScale: Cfg.scale(1.1)
   });
 

@@ -26,6 +26,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "YS2";
+  src: url("../common/font/HYWH-65W.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -39,15 +46,12 @@ body {
   font-family: PingFangSC-Medium, PingFang SC, sans-serif;
   transform: scale(1.4);
   transform-origin: 0 0;
-  background: top left no-repeat #2a3860;
-  background-size: contain;
   width: 600px;
 }
 
 .container {
   width: 600px;
   padding: 20px 15px 10px 15px;
-
   background-size: contain;
 }
 
@@ -114,23 +118,45 @@ body {
   padding: 0 5px;
   border-radius: 4px;
   font-family: Number, YS;
+  border-radius: 4px;
 }
+
+
+
+
+
 
 .cons(@idx, @bg, @color:#fff) {
   .cons-@{idx} {
-    border-radius: 4px;
     background: @bg;
     color: @color;
   }
 }
 
 .cons(0, #666);
-.cons(1, #71b1b7);
-.cons(2, #369961);
-.cons(3, #4596b9);
-.cons(4, #4560b9);
+.cons(n0, #404949);
+.cons(1, #5cbac2);
+.cons(2, #339d61);
+.cons(3, #3e95b9);
+.cons(4, #3955b7);
 .cons(5, #531ba9cf);
 .cons(6, #ff5722);
+
+.cons2(@idx, @bg, @color:#fff) {
+  .cons2-@{idx} {
+    border-radius: 4px;
+    background: @bg;
+    color: @color;
+  }
+}
+
+.cons2(0, #666);
+.cons2(1, #71b1b7);
+.cons2(2, #369961);
+.cons2(3, #4596b9);
+.cons2(4, #4560b9);
+.cons2(5, #531ba9cf);
+.cons2(6, #ff5722);
 
 
 /********  ELEM  ********/

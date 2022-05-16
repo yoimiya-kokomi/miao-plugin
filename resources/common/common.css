@@ -22,6 +22,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "YS2";
+  src: url("../common/font/HYWH-65W.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 * {
   margin: 0;
   padding: 0;
@@ -34,8 +40,6 @@ body {
   font-family: PingFangSC-Medium, PingFang SC, sans-serif;
   transform: scale(1.4);
   transform-origin: 0 0;
-  background: top left no-repeat #2a3860;
-  background-size: contain;
   width: 600px;
 }
 .container {
@@ -92,40 +96,72 @@ body {
   display: inline-block;
   vertical-align: middle;
   padding: 0 5px;
-  border-radius: 4px;
   font-family: Number, YS;
+  border-radius: 4px;
 }
 .cons-0 {
-  border-radius: 4px;
   background: #666;
   color: #fff;
 }
+.cons-n0 {
+  background: #404949;
+  color: #fff;
+}
 .cons-1 {
-  border-radius: 4px;
-  background: #71b1b7;
+  background: #5cbac2;
   color: #fff;
 }
 .cons-2 {
-  border-radius: 4px;
-  background: #369961;
+  background: #339d61;
   color: #fff;
 }
 .cons-3 {
-  border-radius: 4px;
-  background: #4596b9;
+  background: #3e95b9;
   color: #fff;
 }
 .cons-4 {
-  border-radius: 4px;
-  background: #4560b9;
+  background: #3955b7;
   color: #fff;
 }
 .cons-5 {
-  border-radius: 4px;
   background: #531ba9cf;
   color: #fff;
 }
 .cons-6 {
+  background: #ff5722;
+  color: #fff;
+}
+.cons2-0 {
+  border-radius: 4px;
+  background: #666;
+  color: #fff;
+}
+.cons2-1 {
+  border-radius: 4px;
+  background: #71b1b7;
+  color: #fff;
+}
+.cons2-2 {
+  border-radius: 4px;
+  background: #369961;
+  color: #fff;
+}
+.cons2-3 {
+  border-radius: 4px;
+  background: #4596b9;
+  color: #fff;
+}
+.cons2-4 {
+  border-radius: 4px;
+  background: #4560b9;
+  color: #fff;
+}
+.cons2-5 {
+  border-radius: 4px;
+  background: #531ba9cf;
+  color: #fff;
+}
+.cons2-6 {
   border-radius: 4px;
   background: #ff5722;
   color: #fff;

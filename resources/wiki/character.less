@@ -4,6 +4,7 @@
   box-sizing: border-box;
   user-select: none;
 }
+
 body {
   font-size: 18px;
   color: #1e1f20;
@@ -11,13 +12,15 @@ body {
   transform: scale(1);
   transform-origin: 0 0;
 }
+
 .container {
   width: 800px;
   padding: 0 0 10px 0;
   background-color: #ececec;
 }
+
 .head-box {
-  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 5px 0 rgb(0 0 0 / 25%);
   width: 100%;
   height: 355px;
   overflow: hidden;
@@ -27,109 +30,129 @@ body {
   text-shadow: 0px 0px 3px rgba(0 0 0 / 70%);
   margin: 0 0 25px;
   border-radius: 0;
+
+
+  .head {
+    position: absolute;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    border: 2px solid #f0efe0;
+    box-shadow: 0 0 3px 6px rgb(0 0 0 / 10%);
+    position: absolute;
+    left: 52px;
+    top: 35px;
+    background-size: cover;
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+    }
+  }
+
+  .head-astro {
+    position: absolute;
+    width: 128px;
+    top: 198px;
+    font-size: 17px;
+    left: 52px;
+    text-align: center;
+  }
+
+  .head-icon {
+    position: absolute;
+    left: 35px;
+    top: 238px;
+    width: 172px;
+    background: rgba(0, 0, 0, 0.2);
+    height: 52px;
+    border-radius: 26px;
+
+    img {
+      width: 42px;
+      height: 42px;
+      float: left;
+      margin: 4px 6px;
+    }
+  }
+
+  .head-detail {
+    position: absolute;
+    left: 240px;
+    top: 35px;
+    width: 540px;
+    font-size: 18px;
+  }
+
+  .name {
+    font-size: 38px;
+  }
+
+  .desc {
+    font-size: 20px;
+    margin-top: 17px;
+    height: 86px;
+  }
+
+  .ascension {
+    font-size: 17px;
+    height: 43px;
+  }
+
+  .material {
+    display: block;
+  }
+
+  .meterial_group {
+    float: left;
+    margin-right: 25px;
+  }
+
+  .material span {
+    display: block;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .meterial_group div {
+    width: 34px;
+    height: 40px;
+    overflow: hidden;
+    padding: 2px;
+    border-radius: 4px;
+    float: left;
+    background-size: cover;
+    margin-right: 5px;
+    box-shadow: 0 0 3px 0px rgb(0 0 0 / 20%);
+  }
+
+  .material span.meterial_desc {
+    display: block;
+    overflow: hidden;
+    clear: left;
+    padding-top: 5px;
+  }
+
+  .meterial_group div img {
+    width: 30px;
+    vertical-align: baseline;
+    vertical-align: -webkit-baseline-middle;
+  }
+
+  .genshin_logo {
+    position: absolute;
+    top: 1px;
+    right: 15px;
+    width: 97px;
+  }
 }
-.head-box .head {
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
-  border: 2px solid #f0efe0;
-  box-shadow: 0 0 3px 6px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  left: 52px;
-  top: 35px;
-  background-size: cover;
-}
-.head-box .head img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-}
-.head-box .head-astro {
-  position: absolute;
-  width: 128px;
-  top: 198px;
-  font-size: 17px;
-  left: 52px;
-  text-align: center;
-}
-.head-box .head-icon {
-  position: absolute;
-  left: 35px;
-  top: 238px;
-  width: 172px;
-  background: rgba(0, 0, 0, 0.2);
-  height: 52px;
-  border-radius: 26px;
-}
-.head-box .head-icon img {
-  width: 42px;
-  height: 42px;
-  float: left;
-  margin: 4px 6px;
-}
-.head-box .head-detail {
-  position: absolute;
-  left: 240px;
-  top: 35px;
-  width: 540px;
-  font-size: 18px;
-}
-.head-box .name {
-  font-size: 38px;
-}
-.head-box .desc {
-  font-size: 20px;
-  margin-top: 17px;
-  height: 86px;
-}
-.head-box .ascension {
-  font-size: 17px;
-  height: 43px;
-}
-.head-box .material {
-  display: block;
-}
-.head-box .meterial_group {
-  float: left;
-  margin-right: 25px;
-}
-.head-box .material span {
-  display: block;
-  height: 24px;
-  font-size: 10px;
-}
-.head-box .meterial_group div {
-  width: 34px;
-  height: 40px;
-  overflow: hidden;
-  padding: 2px;
-  border-radius: 4px;
-  float: left;
-  background-size: cover;
-  margin-right: 5px;
-  box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.2);
-}
-.head-box .material span.meterial_desc {
-  display: block;
-  overflow: hidden;
-  clear: left;
-  padding-top: 5px;
-}
-.head-box .meterial_group div img {
-  width: 30px;
-  vertical-align: baseline;
-  vertical-align: -webkit-baseline-middle;
-}
-.head-box .genshin_logo {
-  position: absolute;
-  top: 1px;
-  right: 15px;
-  width: 97px;
-}
+
 .base_info {
   position: relative;
   padding-left: 10px;
 }
+
 .uid:before {
   content: " ";
   position: absolute;
@@ -140,27 +163,31 @@ body {
   top: 0;
   background: #d3bc8d;
 }
+
 .head-box .data-box {
   margin-top: 220px;
   color: #000;
   text-shadow: none;
+
+  .tab-label {
+    width: 170px;
+    left: 20px;
+    border-radius: 8px;
+    background: #272f43;
+  }
 }
-.head-box .data-box .tab-label {
-  width: 170px;
-  left: 20px;
-  border-radius: 8px;
-  background: #272f43;
-}
+
 .data-box {
   border-radius: 15px;
   margin: 30px 15px;
   padding: 30px 15px 5px 15px;
   background: #f5f5f5;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
   position: relative;
   background-size: contain;
   color: #000;
 }
+
 .tab-label {
   position: absolute;
   top: -18px;
@@ -172,19 +199,23 @@ body {
   border-radius: 15px 0px 15px 15px;
   z-index: 20;
 }
+
 .data-line {
   display: flex;
   justify-content: space-around;
   margin-bottom: 14px;
 }
+
 .data_line_item {
   flex: 1;
   text-align: center;
   /*margin: 0 20px;*/
 }
+
 .num {
   font-size: 40px;
 }
+
 .data-box .label {
   font-size: 18px;
   color: #7f858a;
@@ -193,20 +224,23 @@ body {
   text-shadow: none;
   white-space: nowrap;
 }
+
 .talent-box {
   border-radius: 25px;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
   position: relative;
   margin: 20px 15px 15px 15px;
   background-size: 100% 100%;
   overflow: hidden;
 }
+
 .talent-detail {
   padding: 30px 15px 5px 15px;
   background: url(card-bg.png) left top repeat-x;
   background-size: auto 100%;
   margin: 0;
 }
+
 .talent-info {
   position: relative;
   padding-left: 140px;
@@ -216,6 +250,7 @@ body {
   padding-bottom: 15px;
   color: #fff;
 }
+
 .talent-icon {
   width: 120px;
   height: 120px;
@@ -230,6 +265,7 @@ body {
   background-position: center center;
   z-index: 90;
 }
+
 .talent-icon img {
   width: 46%;
   height: 46%;
@@ -238,9 +274,11 @@ body {
   left: 50%;
   margin: -22% 0 0 -23%;
 }
+
 .talent-info .talent-detail-table {
   margin-left: -140px;
 }
+
 .talent-name {
   display: block;
   font-size: 32px;
@@ -249,12 +287,14 @@ body {
   line-height: 45px;
   font-weight: normal;
 }
+
 .talent-desc {
   font-size: 18px;
   line-height: 26px;
   padding-right: 10px;
   font-family: Number, YS2;
 }
+
 .talent-desc strong {
   margin-top: 15px;
   margin-bottom: 5px;
@@ -263,16 +303,19 @@ body {
   font-weight: normal;
   color: #d3bc8e;
 }
+
 .talent-line {
   position: relative;
   min-height: 100px;
   margin-top: 50px;
   margin-bottom: 25px;
 }
+
 .talent-line:first-child {
   margin-top: 0;
   margin-bottom: 0;
 }
+
 .talent-table {
   text-align: center;
   border-collapse: collapse;
@@ -282,30 +325,39 @@ body {
   overflow: hidden;
   width: calc(100% + 30px);
   color: #fff;
+
+  .th {
+    min-width: 0;
+    text-align: center;
+  }
+
+  .td {
+    font-size: 14px;
+
+  }
+
+  .talent-name {
+    min-width: 100px;
+    font-size: 18px;
+  }
+
+  .td, .th {
+    padding: 7px;
+    line-height: 24px;
+    font-family: Number, YS;
+  }
+
+  .tr:last-child .td {
+    padding-bottom: 12px;
+  }
+
+  .tr > div:last-child {
+    padding-right: 5px;
+  }
+
 }
-.talent-table .th {
-  min-width: 0;
-  text-align: center;
-}
-.talent-table .td {
-  font-size: 14px;
-}
-.talent-table .talent-name {
-  min-width: 100px;
-  font-size: 18px;
-}
-.talent-table .td,
-.talent-table .th {
-  padding: 7px;
-  line-height: 24px;
-  font-family: Number, YS;
-}
-.talent-table .tr:last-child .td {
-  padding-bottom: 12px;
-}
-.talent-table .tr > div:last-child {
-  padding-right: 5px;
-}
+
+
 /*
 
 .talent-table .td,
@@ -350,15 +402,17 @@ body {
 
 
 */
+
 .passive .talent-table {
   margin-right: 20px;
   width: 100%;
   margin-bottom: -15px;
 }
+
+
 .logo {
   font-size: 24px;
   text-align: center;
   color: #7994a7;
   margin: 20px 0 10px 0;
 }
-/*# sourceMappingURL=character.less.map */

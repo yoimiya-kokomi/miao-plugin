@@ -63,7 +63,7 @@ export const usefulAttr = {
   "云堇": "def,recharge",
   "荒泷一斗": "def,cRate,cDmg",
   "五郎": "def,recharge",
-  "班尼特": "hp,cRate,cDmg,recharge",
+  "班尼特": "hp,atk,cRate,cDmg,recharge",
   "枫原万叶": "mastery,cRate,cDmg,recharge",
   "雷电将军": "atk,cRate,cDmg,recharge",
   "行秋": "atk,cRate,cDmg,recharge",

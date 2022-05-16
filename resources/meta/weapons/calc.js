@@ -544,6 +544,7 @@ let sword = {
     title: "基于生命值上限提高攻击力[atkPlus]",
     data: {
       atkPlus: ({ attr, calc, refine }) => calc(attr.hp) * step(1.2)[refine] / 100
+
     }
   }],
   "斫峰之刃": [{

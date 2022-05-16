@@ -3,9 +3,13 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css?v=1.0"/>
     <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
     <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/character.css?v=1.0"/>
     <link rel="preload" href="{{_res_path}}/font/tttgbnumber.ttf" as="font">
+    <% let pct = function (num) {
+    return (num * 100).toFixed(2);
+    } %>
   </head>
   <body id="container" class="body_box" {{cfgScale}}>
     <div class="container">
@@ -30,15 +34,15 @@
                 角色
               </div>
               <div class="lvl">持有率</div>
-              <div class="cons">
+              <div class="char-cons">
                 <div class="cons-pct">
-                  <div class="life0">0命</div>
-                  <div class="life1">1命</div>
-                  <div class="life2">2命</div>
-                  <div class="life3">3命</div>
-                  <div class="life4">4命</div>
-                  <div class="life5">5命</div>
-                  <div class="life6">6命</div>
+                  <div class="cons-n0">0命</div>
+                  <div class="cons-1">1命</div>
+                  <div class="cons-2">2命</div>
+                  <div class="cons-3">3命</div>
+                  <div class="cons-4">4命</div>
+                  <div class="cons-5">5命</div>
+                  <div class="cons-6">6命</div>
                   {{if mode === "char"}}
                   <div class="life_bg">无</div>
                   {{/if}}
@@ -60,7 +64,7 @@
                 </div>
               </div>
               <div class="pct">{{pct(char.hold)}}</div>
-              <div class="cons">
+              <div class="char-cons">
                 <div class="cons-pct">
                   {{each char.cons con idx}}
                   <div>{{pct(con.value)}}</div>
@@ -71,14 +75,14 @@
                 </div>
                 <div class="cons-bg">
                   {{each char.cons con idx}}
-                  <div class="life{{con.id}}" style='{{"width:"+pct(con.value)+"%"}}'></div>
+                  <div class="cons-{{con.id ===0?'n0':con.id}}" style='{{"width:"+pct(con.value)+"%"}}'></div>
                   {{/each}}
                 </div>
               </div>
             </div>
             {{/each}}
           </div>
-          <p class="notice"> 数据来源：DGP-Studio-胡桃API  .  最后更新时间：{{lastUpdate}} </p>
+          <p class="notice"> 数据来源：DGP-Studio-胡桃API . 最后更新时间：{{lastUpdate}} </p>
         </div>
         <div class="copyright"> Created By Yunzai-Bot & Miao-Plugin</div>
       </div>
