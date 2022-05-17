@@ -260,7 +260,7 @@ async function down() {
         }
       }
       if (key === "heizo") {
-        name = "鹿野苑平藏"
+        name = "鹿野院平藏"
       }
 
       await saveCharData(url, key, name);
