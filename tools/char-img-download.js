@@ -47,10 +47,11 @@ lodash.forEach(readDir, (c) => {
     img(char, char.imgs.side, "face.png");
 
     // 天赋
-    img(char, char.talent.a.icon, "talent_a.png");
-    img(char, char.talent.e.icon, "talent_e.png");
-    img(char, char.talent.q.icon, "talent_q.png");
-
+    if (char.talent) {
+      img(char, char.talent.a.icon, "talent_a.png");
+      img(char, char.talent.e.icon, "talent_e.png");
+      img(char, char.talent.q.icon, "talent_q.png");
+    }
     // 被动天赋
     lodash.forEach(char.passive, (p, idx) => {
       img(char, p.icon, `passive_${idx}.png`);

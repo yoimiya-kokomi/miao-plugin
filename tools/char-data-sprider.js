@@ -218,6 +218,13 @@ async function saveCharData(url, key, name) {
 
   let data = await getCharData(url, key, name);
 
+  name = name || data.name;
+
+  if(!name){
+    console.log("角色名不存在"+url);
+    return ;
+  }
+
   let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${data.name}/`
   if (!fs.existsSync(charPath)) {
     fs.mkdirSync(charPath);
@@ -252,6 +259,9 @@ async function down() {
           return
         }
       }
+      if (key === "heizo") {
+        name = "鹿野苑平藏"
+      }
 
       await saveCharData(url, key, name);
     }
@@ -259,10 +269,10 @@ async function down() {
 
 }
 
-await saveCharData("https://genshin.honeyhunterworld.com/db/char/ayaka/?lang=CHS", "ayaka");
+//await saveCharData("https://genshin.honeyhunterworld.com/db/char/ayaka/?lang=CHS", "ayaka");
 
 
-//await down();
+await down();
 
 
 

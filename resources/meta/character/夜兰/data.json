@@ -11,7 +11,7 @@
 	"astro": "幽客座",
 	"cncv": "？？？",
 	"jpcv": "？？？",
-	"desc": "测试角色",
+	"desc": "自称供职于总务司的神秘人士，却又是总务司名录里的「不存在之人」。",
 	"lvStat": {
 		"lvs": [
 			"1",
@@ -370,8 +370,8 @@
 				"<strong>点按</strong>",
 				"快速向前疾走一段距离。",
 				"<strong>长按</strong>",
-				"持续疾走。",
-				"期间，夜兰可以控制冲刺的方向，并能通过再次施放技能，提前结束疾走状态。",
+				"持续疾走，并在该状态下提高夜兰的抗打断能力。",
+				"期间，夜兰可以控制疾走的方向，并能通过再次施放技能，提前结束疾走状态。",
 				"此外，「络命丝」爆发时，依照标记敌人的数量，夜兰将有概率获得「破局」状态：每个标记的敌人能使概率提升34%。",
 				""
 			],
@@ -624,7 +624,7 @@
 			"desc": "「玄掷玲珑」协同攻击时，会发射一枚额外的水箭，造成相当于夜兰生命值上限14%的水元素伤害。 该效果每1.8秒至多触发一次。"
 		},
 		"3": {
-			"icon": "/img/skills/c_605.png",
+			"icon": "/img/skills/c_603.png",
 			"name": "晃盅者，琼畟药骰",
 			"desc": "渊图玲珑骰的技能等级提高3级。 至多提升至15级。"
 		},
@@ -634,7 +634,7 @@
 			"desc": "依照「络命丝」标记敌人的数量，每次标记将在爆发时使队伍中所有角色的生命值上限提升10%，持续25秒。通过这种方式，生命值上限至多获得40%提升。"
 		},
 		"5": {
-			"icon": "/img/skills/c_603.png",
+			"icon": "/img/skills/c_605.png",
 			"name": "坐庄者，三仙戏法",
 			"desc": "萦络纵命索的技能等级提高3级。 至多提升至15级。"
 		},
@@ -646,9 +646,9 @@
 	},
 	"imgs": {
 		"face": "/img/char/yelan_face.png",
-		"side": "/img/char/yelan_side.png",
-		"gacha_card": "/img/char/yelan_gacha_card.png",
-		"gacha_splash": "/img/char/yelan_gacha_splash.png",
+		"side": "/img/char/yelan_gacha_card.png",
+		"gacha_card": "/img/char/yelan_gacha_splash.png",
+		"gacha_splash": "/img/scr/char/10000060/face.png",
 		"profile": "/img/cardicon/i_7115_profile.png",
 		"party": "/img/cardicon/i_7115_party.png"
 	}
