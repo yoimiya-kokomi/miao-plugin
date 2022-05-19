@@ -20,6 +20,7 @@ export const buffs = [{
   }
 }, {
   title: "一斗6命：重击的暴击伤害提高70%",
+  cons:6,
   data: {
     a2Cdmg: 70
   }
