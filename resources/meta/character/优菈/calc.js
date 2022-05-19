@@ -24,7 +24,6 @@ export const details = [{
     }
   }
 }, ({ cons, weapon }) => {
-
   let buffCount = 12;
   if (weapon.name === "松籁响起之时") {
     buffCount = 13;

@@ -32,7 +32,7 @@ let polearm = {
     title: "对于水或或元素影响的敌人造成伤害提高[dmg]%",
     refine: {
       dmg: step(20, 4),
-      phy:step(20, 4),
+      phy: step(20, 4),
     }
   },
   "千岩长枪": {
@@ -91,7 +91,7 @@ let polearm = {
     refine: {
       atkPct: [3.2 * 7, 3.9 * 7, 4.6 * 7, 5.3 * 7, 6 * 7],
       dmg: step(12),
-      phy:step(12)
+      phy: step(12)
     }
   },
   "护摩之杖": {
@@ -453,7 +453,7 @@ let sword = {
     title: "角色造成的伤害提升[dmg]%",
     refine: {
       dmg: step(12),
-      phy:step(12)
+      phy: step(12)
     }
   },
   "宗室长剑": {
@@ -476,7 +476,7 @@ let sword = {
     title: "对处于火元素或雷元素影响下的敌人，造成的伤害提高[dmg]%",
     refine: {
       dmg: step(20, 4),
-      phy:step(20,4)
+      phy: step(20, 4)
     }
   },
   "铁蜂刺": {
@@ -484,7 +484,7 @@ let sword = {
     buffCount: 2,
     refine: {
       dmg: step(6),
-      phy:step(6)
+      phy: step(6)
     }
   },
   "黑岩长剑": {
@@ -518,7 +518,7 @@ let sword = {
     title: "对处于水或冰元素影响的敌人伤害提高[dmg]%",
     refine: {
       dmg: step(12),
-      phy:step(12)
+      phy: step(12)
     }
   },
   "波乱月白经津": [{
@@ -642,6 +642,7 @@ let claymore = {
   },
   "螭骨剑": {
     title: "满Buff提高伤害[dmg]%",
+    buffCount: 5,
     refine: {
       dmg: step(6, 1),
       phy: step(6, 1)
@@ -707,7 +708,7 @@ let claymore = {
     }
   },
   "赤角石溃杵": {
-    title: "普通攻击与重击造成的伤害值提高[aPlus]%",
+    title: "普通攻击与重击造成的伤害值提高[aPlus]",
     data: {
       aPlus: ({ attr, calc, refine }) => calc(attr.def) * step(40)[refine] / 100,
       a2Plus: ({ attr, calc, refine }) => calc(attr.def) * step(40)[refine] / 100

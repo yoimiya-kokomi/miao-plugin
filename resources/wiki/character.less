@@ -165,7 +165,10 @@ body {
 }
 
 .head-box .data-box {
-  margin-top: 220px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 180px;
   color: #000;
   text-shadow: none;
 
@@ -181,7 +184,7 @@ body {
   border-radius: 15px;
   margin: 30px 15px;
   padding: 30px 15px 5px 15px;
-  background: #f5f5f5;
+  background: rgba(245, 245, 245, 0.8);
   box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
   position: relative;
   background-size: contain;
@@ -281,7 +284,7 @@ body {
 
 .talent-name {
   display: block;
-  font-size: 32px;
+  font-size: 30px;
   margin: 0 0 15px 0;
   color: #d3bc8e;
   line-height: 45px;
@@ -307,7 +310,7 @@ body {
 .talent-line {
   position: relative;
   min-height: 100px;
-  margin-top: 50px;
+  margin-top: 35px;
   margin-bottom: 25px;
 }
 
@@ -403,7 +406,8 @@ body {
 
 */
 
-.passive .talent-table {
+.passive-talent .talent-table {
+  display: none;
   margin-right: 20px;
   width: 100%;
   margin-bottom: -15px;
