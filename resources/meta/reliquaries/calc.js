@@ -169,6 +169,7 @@ export const buffs = {
   },
   "华馆梦醒形骸记4": {
     title: "华馆4：满层获得24%防御及24%岩伤加成",
+    sort: 0,
     data: {
       defPct: 24,
       dmg: 24
@@ -176,6 +177,7 @@ export const buffs = {
   },
   "辰砂往生录4": {
     title: "辰砂4：满层提高48%攻击力",
+
     data: {
       atkPct: 48
     }

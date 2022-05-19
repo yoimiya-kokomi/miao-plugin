@@ -30,7 +30,7 @@ let Calc = {
     const cfgPath = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc.js`;
 
 
-    let details, buffs = [], defParams = {}, defDmgIdx = -1, mainAttr = "atk,cpct,cdmg";
+    let details, buffs = [], defParams = {}, defDmgIdx = -1, mainAttr = "atk,cpct,cdmg", enemyName = "小宝";
     if (fs.existsSync(cfgPath)) {
       let fileData = await import (`file://${cfgPath}`);
       details = fileData.details || false;
@@ -42,10 +42,13 @@ let Calc = {
       if (fileData.mainAttr) {
         mainAttr = fileData.mainAttr;
       }
+      if (fileData.enemyName) {
+        enemyName = fileData.enemyName;
+      }
     }
 
     if (details) {
-      return { details, buffs, defParams, defDmgIdx, mainAttr }
+      return { details, buffs, defParams, defDmgIdx, mainAttr, enemyName }
     }
     return false;
   },
@@ -118,6 +121,7 @@ let Calc = {
     }
 
     ret.weaponType = avatar.weapon.type_name;
+    ret.weapon = avatar.weapon;
     ret.element = eleMap[avatar.element];
     ret.refine = (avatar.weapon.affix_level * 1 - 1) || 0;
 
@@ -178,6 +182,7 @@ let Calc = {
       params,
       refine: attr.refine,
       weaponType: attr.weaponType,
+      weapon: attr.weapon,
       element: eleMap[attr.element] || attr.element,
       calc(ds) {
         return (ds.base || 0) + (ds.plus || 0) + ((ds.base || 0) * (ds.pct || 0) / 100)
@@ -327,7 +332,7 @@ let Calc = {
     let { calc } = ds;
 
     let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = "talent") {
-      let { atk, dmg, cdmg, cpct } = attr;
+      let { atk, dmg, phy, cdmg, cpct } = attr;
       // 攻击区
       let atkNum = calc(atk);
 
@@ -337,6 +342,10 @@ let Calc = {
 
       // 增伤区
       let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100);
+
+      if (ele === "phy") {
+        dmgNum = (1 + phy.base / 100 + phy.plus / 100);
+      }
 
       //console.log({ base: Format.comma(dmg.base, 2), plus: Format.comma(dmg.plus, 2) })
 
@@ -381,7 +390,9 @@ let Calc = {
 
       // 反应区
       let eleNum = 1;
-      if (ele) {
+      if (ele === "phy") {
+        //do nothing
+      } else if (ele) {
         // todo 更详细
         let eleMap = {
           '水': { zf: 2 },
@@ -426,7 +437,7 @@ let Calc = {
     }
 
     dmgFn.heal = function (num) {
-      if(showDetail){
+      if (showDetail) {
         console.log(num, calc(attr.heal), attr.heal.inc)
       }
       return {
@@ -459,7 +470,7 @@ let Calc = {
       talent
     }
 
-    let { buffs, details, defParams, mainAttr, defDmgIdx } = charCalcData;
+    let { buffs, details, defParams, mainAttr, defDmgIdx, enemyName } = charCalcData;
 
     defParams = defParams || {};
 
@@ -481,6 +492,11 @@ let Calc = {
 
 
     lodash.forEach(details, (detail, detailSysIdx) => {
+      if (lodash.isFunction(detail)) {
+        let { attr } = Calc.calcAttr({ originalAttr, buffs, meta });
+        let ds = lodash.merge({ talent }, Calc.getDs(attr, meta));
+        detail = detail({ ...ds, attr, avatar });
+      }
       let params = lodash.merge({}, defParams, detail.params || {});
       let { attr } = Calc.calcAttr({ originalAttr, buffs, meta, params, talent: detail.talent || "" });
       if (detail.check && !detail.check(Calc.getDs(attr, meta, params))) {
@@ -561,6 +577,7 @@ let Calc = {
       ret,
       msg,
       dmgRet,
+      enemyName,
       dmgCfg: dmgDetail
     }
   }

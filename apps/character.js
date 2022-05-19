@@ -715,6 +715,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     dmgCfg: dmgCalc.dmgCfg,
     reliquaries,
     enemyLv,
+    enemyName: dmgCalc.enemyName || "小宝",
     totalMark: c(totalMark, 1),
     totalMaxMark,
     markScore: Reliquaries.getMarkScore(totalMark, totalMaxMark),
