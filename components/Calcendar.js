@@ -19,11 +19,36 @@ let Cal = {
     let listApi = "https://hk4e-api.mihoyo.com/common/hk4e_cn/announcement/api/getAnnList?game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000";
 
     let request = await fetch(listApi);
-    let calendarData = await request.json();
+    let listData = await request.json();
 
-    return calendarData;
-
-
+    let timeMap;
+    let timeMapCache = await redis.get("cache:calendar:detail");
+    if (timeMapCache) {
+      timeMap = JSON.parse(timeMapCache) || {};
+    } else {
+      let detailApi = "https://hk4e-api.mihoyo.com/common/hk4e_cn/announcement/api/getAnnContent?game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000";
+      let request2 = await fetch(detailApi);
+      let detailData = await request2.json();
+      timeMap = {}
+      if (detailData && detailData.data && detailData.data.list) {
+        lodash.forEach(detailData.data.list, (ds) => {
+          let { ann_id, content } = ds;
+          content = content.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\)\,\\.]+(>|&gt;)/g, "");
+          let timeRet = /活动时间(?:〓|\s)*([0-9\\/\\: ~]*)/.exec(content);
+          if (timeRet && timeRet[1]) {
+            let times = timeRet[1].split("~");
+            if (times.length === 2) {
+              timeMap[ann_id] = {
+                start: times[0].trim().replace(/\//g,"-"),
+                end: times[1].trim().replace(/\//g,"-")
+              }
+            }
+          }
+        })
+      }
+      await redis.set("cache:calendar:detail", JSON.stringify(timeMap), { EX: 60 * 30 });
+    }
+    return { listData, timeMap };
   },
 
   getDateList() {
@@ -81,10 +106,10 @@ let Cal = {
       next = now.add(1, "M").format(f),
       nextM = now.format("MMMM");
 
-    check.push([moment(`${last}-16 04:00`), moment(`${curr}-01 03:59`), lastM + "下半"]);
-    check.push([moment(`${curr}-01 04:00`), moment(`${curr}-16 03:59`), currM + "上半"]);
-    check.push([moment(`${curr}-16 04:00`), moment(`${next}-01 03:59`), currM + "下半"]);
-    check.push([moment(`${next}-01 04:00`), moment(`${next}-16 03:59`), nextM + "上半"]);
+    check.push([moment(`${last}-16 04:00:00`), moment(`${curr}-01 03:59:59`), lastM + "下半"]);
+    check.push([moment(`${curr}-01 04:00:00`), moment(`${curr}-16 03:59:59`), currM + "上半"]);
+    check.push([moment(`${curr}-16 04:00:00`), moment(`${next}-01 03:59:59`), currM + "下半"]);
+    check.push([moment(`${next}-01 04:00:00`), moment(`${next}-16 03:59:59`), nextM + "上半"]);
 
     let ret = [];
     lodash.forEach(check, (ds) => {
@@ -96,12 +121,14 @@ let Cal = {
     return ret;
   },
 
-  getList(ds, target, { startTime, endTime, totalRange, now }, isAct = false,) {
+  getList(ds, target, { startTime, endTime, totalRange, now, timeMap = {} }, isAct = false,) {
     let type = isAct ? "activity" : "normal",
       id = ds.ann_id,
       title = ds.title,
       banner = isAct ? ds.banner : '',
-      extra = { sort: isAct ? 5 : 10 };
+      extra = { sort: isAct ? 5 : 10 },
+      detail = timeMap[id] || {};
+
 
     if (ignoreIds.includes(id) || ignoreReg.test(title)) {
       return;
@@ -128,8 +155,8 @@ let Cal = {
       }
     }
 
-    let sDate = moment(ds.start_time),
-      eDate = moment(ds.end_time);
+    let sDate = moment(detail.start || ds.start_time),
+      eDate = moment(detail.end || ds.end_time);
     let sTime = moment.max(sDate, startTime),
       eTime = moment.min(eDate, endTime);
 
@@ -177,15 +204,14 @@ let Cal = {
 
     let now = moment();
 
-    let calendarData = await Cal.reqCalData();
+    let { listData, timeMap } = await Cal.reqCalData();
 
     let dl = Cal.getDateList();
 
-
     let list = [], abyss = [];
 
-    lodash.forEach(calendarData.data.list[1].list, (ds) => Cal.getList(ds, list, { ...dl, now }, true))
-    lodash.forEach(calendarData.data.list[0].list, (ds) => Cal.getList(ds, list, { ...dl, now }, false));
+    lodash.forEach(listData.data.list[1].list, (ds) => Cal.getList(ds, list, { ...dl, now, timeMap }, true))
+    lodash.forEach(listData.data.list[0].list, (ds) => Cal.getList(ds, list, { ...dl, now, timeMap }, false));
 
     let abyssCal = Cal.getAbyssCal(dl.startTime, dl.endTime);
     lodash.forEach(abyssCal, (t) => {
