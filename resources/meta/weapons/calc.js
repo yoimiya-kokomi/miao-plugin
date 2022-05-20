@@ -694,13 +694,18 @@ let claymore = {
       atkPct: step(40)
     }
   },
-  "无工之剑": {
+  "无工之剑": [{
+    title: "护盾强效提高[shield]%",
+    refine: {
+      shield: step(20)
+    }
+  }, {
     title: "满Buff护盾下攻击力提高[atkPct]%",
     buffCount: 10,
     refine: {
       atkPct: step(4)
     }
-  },
+  }],
   "松籁响起之时": {
     title: "Buff状态下提高攻击力[atkPct]%",
     refine: {

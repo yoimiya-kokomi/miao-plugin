@@ -72,11 +72,12 @@ export const buffs = {
   },
   "炽烈的炎之魔女4": {
     check: ({ element }) => element === "火",
-    title: "魔女4：蒸发、融化伤害提高15%，1层额外提高7.5%火元素伤害加成",
+    title: "魔女4：蒸发、融化伤害提高15%，[buffCount]层额外提高[dmg]%火元素伤害加成",
     data: {
       zf: 15,
       rh: 15,
-      dmg: ({ params }) => (params.mn || 1) * 7.5
+      dmg: ({ params }) => (params.monv || 1) * 7.5,
+      buffCount: ({ params }) => params.monv || 1
     }
   },
   "昔日宗室之仪2": {
@@ -149,12 +150,6 @@ export const buffs = {
       mastery: 120
     }
   },
-  "少女4": {
-    title: "少女4：施放元素战技或元素爆发，受治疗效果加成提高20%",
-    data: {
-      heal: 20
-    }
-  },
   "千岩牢固4": {
     title: "千岩4：元素战技命中敌人后，攻击力提升20%",
     data: {
@@ -189,7 +184,7 @@ export const buffs = {
     }
   },
   "被怜爱的少女4": {
-    title: "释放E或Q的10秒内，受治疗加成提高20%",
+    title: "少女4：施放元素战技或元素爆发后，受治疗效果加成提高20%",
     data: {
       healInc: 20
     }

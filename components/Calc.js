@@ -80,7 +80,7 @@ let Calc = {
         base: attr[key] * 1 || 0,
         plus: 0,
         pct: 0,
-        inc: 100
+        inc: 0
       }
     })
 
@@ -441,7 +441,7 @@ let Calc = {
         console.log(num, calc(attr.heal), attr.heal.inc)
       }
       return {
-        avg: num * (1 + calc(attr.heal) / 100) * (attr.heal.inc / 100)
+        avg: num * (1 + calc(attr.heal) / 100 + attr.heal.inc / 100)
       }
     }
 
