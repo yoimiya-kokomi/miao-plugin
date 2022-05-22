@@ -1,16 +1,21 @@
+
 body {
   width: 600px;
 }
+
 .container {
   width: 600px;
   padding: 0;
   background-size: cover;
   overflow: hidden;
 }
+
+
 .basic {
   position: relative;
   margin-bottom: 10px;
 }
+
 .basic:after {
   content: "";
   display: block;
@@ -23,6 +28,7 @@ body {
   border-radius: 5px;
   z-index: 1;
 }
+
 .main-pic {
   width: 800px;
   height: 500px;
@@ -33,6 +39,7 @@ body {
   position: relative;
   z-index: 2;
 }
+
 .detail {
   position: absolute;
   right: 20px;
@@ -40,22 +47,26 @@ body {
   color: #fff;
   z-index: 3;
 }
+
 .char-name {
   font-size: 50px;
   font-family: NZBZ;
-  text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, .7);
   text-align: right;
 }
+
 .char-lv {
   font-family: Number;
   margin-bottom: 20px;
-  text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, .7);
   text-align: right;
 }
+
 .attr {
   border-radius: 4px;
   overflow: hidden;
 }
+
 .detail li {
   width: 300px;
   font-size: 17px;
@@ -65,8 +76,9 @@ body {
   font-family: YS;
   height: 32px;
   line-height: 32px;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 1px rgba(0, 0, 0, .5);
 }
+
 .attr li i {
   display: inline-block;
   height: 20px;
@@ -76,39 +88,51 @@ body {
   position: absolute;
   left: 10px;
   top: 8px;
-  opacity: 0.9;
-  transform: scale(0.9);
+  opacity: .9;
+  transform: scale(.9);
+
 }
+
 .i-hp {
   background-position: -20px 0;
 }
+
 .i-atk {
   background-position: -40px 0;
 }
+
 .i-def {
   background-position: -60px 0;
 }
+
 .i-mastery {
   background-position: -80px 0;
 }
+
 .i-cr {
   background-position: -100px 0;
 }
+
 .i-cd {
   background-position: -140px 0;
 }
+
 .i-re {
   background-position: -120px 0;
 }
+
 .i-dmg {
   background-position: -160px 0;
 }
+
 .detail li:nth-child(even) {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4)
 }
+
 .detail li:nth-child(odd) {
-  background: rgba(50, 50, 50, 0.4);
+  background: rgba(50, 50, 50, .4)
 }
+
 .detail li strong {
   display: inline-block;
   position: absolute;
@@ -117,6 +141,7 @@ body {
   font-family: Number, sans-serif;
   font-weight: normal;
 }
+
 .detail li span {
   position: absolute;
   right: 0;
@@ -127,6 +152,7 @@ body {
   color: #90e800;
   font-size: 15px;
 }
+
 .talent-icon {
   width: 100px;
   height: 100px;
@@ -139,6 +165,7 @@ body {
   background-position: center center;
   z-index: 90;
 }
+
 .talent-icon img,
 .talent-icon .talent-icon-img {
   width: 46%;
@@ -151,6 +178,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .talent-icon span {
   background: #fff;
   width: 34px;
@@ -167,12 +195,14 @@ body {
   box-shadow: 0 0 5px 0 #000;
   font-family: Number;
 }
+
 .talent-icon.talent-plus span {
   background: #2e353e;
   color: #ffdfa0;
   font-weight: bold;
   box-shadow: 0 0 1px 0 #d3bc8e, 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
 }
+
 .talent-icon.talent-crown:after {
   content: "";
   display: block;
@@ -185,11 +215,14 @@ body {
   top: 0;
   margin-left: -14px;
 }
+
+
 .char-talents {
   display: flex;
   width: 300px;
   margin-bottom: 10px;
 }
+
 .char-cons {
   display: flex;
   width: 250px;
@@ -197,55 +230,78 @@ body {
   bottom: 5px;
   left: 20px;
 }
+
 .char-cons .talent-item,
 .char-talents .talent-item {
   flex: 1;
 }
+
 .char-cons .talent-icon {
   width: 50px;
   height: 50px;
-  margin: 0 -5px;
+  margin: 0 -5px
 }
+
 .char-cons .talent-icon.off {
   filter: grayscale(100%);
-  opacity: 0.4;
+  opacity: .4;
 }
+
+
 .elem_anemo .talent-icon {
-  background-image: url(../common/bg/talent-anemo.png);
+  background-image: url(../common/bg/talent-anemo.png)
 }
+
 .elem_anemo .container {
   background-image: url(../common/bg/bg-anemo.jpg);
 }
+
+
 .elem_cryo .talent-icon {
-  background-image: url(../common/bg/talent-cryo.png);
+  background-image: url(../common/bg/talent-cryo.png)
 }
+
 .elem_cryo .container {
   background-image: url(../common/bg/bg-cryo.jpg);
 }
+
+
 .elem_electro .talent-icon {
-  background-image: url(../common/bg/talent-electro.png);
+  background-image: url(../common/bg/talent-electro.png)
 }
+
 .elem_electro .container {
   background-image: url(../common/bg/bg-electro.jpg);
 }
+
+
 .elem_geo .talent-icon {
-  background-image: url(../common/bg/talent-geo.png);
+  background-image: url(../common/bg/talent-geo.png)
 }
+
 .elem_geo .container {
   background-image: url(../common/bg/bg-geo.jpg);
 }
+
+
 .elem_hydro .talent-icon {
-  background-image: url(../common/bg/talent-hydro.png);
+  background-image: url(../common/bg/talent-hydro.png)
 }
+
 .elem_hydro .container {
   background-image: url(../common/bg/bg-hydro.jpg);
 }
+
+
 .elem_pyro .talent-icon {
-  background-image: url(../common/bg/talent-pyro.png);
+  background-image: url(../common/bg/talent-pyro.png)
 }
+
 .elem_pyro .container {
   background-image: url(../common/bg/bg-pyro.jpg);
 }
+
+
 /***  dmg ***/
 .cont {
   border-radius: 10px;
@@ -253,27 +309,31 @@ body {
   background-size: auto 100%;
   margin: 5px 15px 5px 10px;
   position: relative;
-  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
   overflow: hidden;
   color: #fff;
   font-size: 16px;
 }
+
 .dmg-cont {
   display: table;
   width: calc(100% - 25px);
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .dmg-mode .dmg-list .cont-footer {
   display: none;
 }
+
 .cont-title {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4);
   color: #d3bc8e;
   font-family: YS;
   padding: 10px 20px;
   text-align: left;
 }
+
 .cont-title span {
   font-size: 12px;
   color: #aaa;
@@ -281,6 +341,7 @@ body {
   font-family: Number, YS;
   font-weight: normal;
 }
+
 .cont-footer {
   padding: 10px 15px;
   font-size: 12px;
@@ -288,55 +349,69 @@ body {
   font-family: YS;
   font-weight: normal;
 }
+
 .cont-table {
   display: table;
   width: 100%;
 }
+
 .dmg-cont .tr {
   display: table-row;
 }
+
 .dmg-cont .tr:nth-child(even) {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4);
 }
+
 .dmg-cont .tr:nth-child(odd) {
-  background: rgba(50, 50, 50, 0.4);
+  background: rgba(50, 50, 50, .4);
 }
+
 .dmg-cont .tr > div {
   display: table-cell;
   box-shadow: 0 0 1px 0 #fff;
 }
+
 .dmg-cont .tr > div.value-full {
   display: table;
   width: 200%;
 }
+
 .dmg-cont .tr > div.value-none {
   box-shadow: none;
 }
+
 .dmg-cont .thead {
   text-align: center;
 }
+
 .dmg-cont .thead > div {
   font-family: YS;
   color: #d3bc8e;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4);
   line-height: 40px;
   height: 40px;
 }
+
+
 .dmg-cont .title,
 .dmg-cont .th {
   font-family: YS;
   color: #d3bc8e;
   padding-right: 15px;
   text-align: right;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, .4);
   min-width: 100px;
 }
+
 .profile-mode .dmg-idx {
   display: none !important;
 }
+
 .profile-mode .dmg-title {
   width: 33.3333%;
 }
+
 .dmg-mode .dmg-idx {
   display: table-cell;
   width: 5%;
@@ -344,6 +419,7 @@ body {
   padding-right: 0;
   text-align: center;
 }
+
 .dmg-mode .dmg-title {
   width: 31%;
   min-width: initial;
@@ -351,6 +427,8 @@ body {
   padding-left: 10px;
   padding-right: 0;
 }
+
+
 .dmg .value {
   text-align: center;
   color: #fff;
@@ -359,14 +437,17 @@ body {
   font-size: 18px;
   font-family: Number;
   line-height: 40px;
-  width: 32%;
+  width: 32%
 }
+
 .dmg-notice {
   font-size: 12px;
   text-align: right;
   color: #f5f5f5;
   margin-right: 15px;
 }
+
+
 /*** artis***/
 .artis {
   display: flex;
@@ -375,6 +456,7 @@ body {
   margin-bottom: 5px;
   padding: 5px;
 }
+
 .artis .item {
   width: 185px;
   border-radius: 10px;
@@ -383,8 +465,10 @@ body {
   margin: 5px;
   height: 210px;
   position: relative;
-  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
 }
+
+
 .artis .item .arti-icon {
   width: 60px;
   height: 60px;
@@ -392,12 +476,13 @@ body {
   left: 2px;
   top: 3px;
 }
+
 .artis .item .arti-icon span {
   position: absolute;
   right: 2px;
   bottom: 0;
   margin-left: 5px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, .5);
   border-radius: 5px;
   height: 18px;
   line-height: 18px;
@@ -406,14 +491,17 @@ body {
   font-size: 12px;
   display: block;
 }
+
 .artis .item .arti-icon img {
   width: 60px;
   height: 60px;
 }
+
 .artis .head {
   color: #fff;
   padding: 12px 0 8px 68px;
 }
+
 .artis .head strong {
   font-size: 15px;
   display: block;
@@ -421,37 +509,46 @@ body {
   overflow: hidden;
   font-font: YS;
 }
+
 .artis .head span {
   font-size: 14px;
 }
+
 .artis .head .mark {
   font-family: Number, YS;
 }
+
 .mark-ACE,
 .mark-ACE² {
   color: #e85656;
   font-weight: bold;
 }
+
 .mark-SSS,
 .mark-SS {
   color: #ffe699;
   font-weight: bold;
 }
+
 .mark-S,
 .mark-A {
   color: #d699ff;
   font-weight: bold;
 }
+
 .arti-main {
   color: #fff;
   padding: 6px 15px;
 }
+
+
 .artis ul.detail {
   width: 100%;
   padding: 0;
   position: initial;
   font-family: YS;
 }
+
 .artis ul.detail li {
   padding: 0 3px;
   font-size: 14px;
@@ -461,29 +558,36 @@ body {
   line-height: 26px;
   height: 26px;
 }
+
+
 .artis ul.detail li.nouse span {
   color: #888;
 }
+
 .artis ul.detail li.arti-main {
   font-size: 16px;
   padding: 3px 3px;
   font-weight: bold;
 }
+
 .artis ul.detail li span {
   position: initial;
   display: table-cell;
   color: #fff;
   font-family: YS;
 }
+
 .artis ul.detail li span.title {
   text-align: left;
   padding-left: 10px;
 }
+
 .artis ul.detail li span.val {
   text-align: right;
   padding-right: 10px;
   font-family: Number;
 }
+
 .artis .weapon .star {
   height: 20px;
   width: 100px;
@@ -493,22 +597,29 @@ body {
   transform-origin: 100px 10px;
   display: inline-block;
 }
+
 .artis .weapon .star.star-2 {
   background-position: 0 -20px;
 }
+
 .artis .weapon .star.star-3 {
   background-position: 0 -40px;
 }
+
 .artis .weapon .star.star-4 {
   background-position: 0 -60px;
 }
+
 .artis .weapon .star.star-5 {
   background-position: 0 -80px;
 }
+
+
 .artis .weapon {
   overflow: hidden;
   height: 100px;
 }
+
 .artis .weapon img {
   width: 100px;
   height: 100px;
@@ -517,6 +628,7 @@ body {
   position: absolute;
   z-index: 2;
 }
+
 .artis .weapon .head {
   position: absolute;
   bottom: 0;
@@ -527,18 +639,23 @@ body {
   z-index: 3;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
 }
+
 .artis .weapon .head strong {
   font-size: 18px;
   margin-bottom: 3px;
   font-weight: normal;
   font-family: YS;
 }
+
 .artis .weapon .head > span {
   display: block;
+
 }
+
 .artis .weapon span {
   font-size: 16px;
 }
+
 .artis .weapon .affix {
   color: #000;
   padding: 0 7px;
@@ -546,40 +663,50 @@ body {
   margin-left: 5px;
   font-size: 16px;
 }
+
+
 .artis .weapon .affix-1 {
   box-shadow: 0 0 4px 0 #a3a3a3 inset;
   background: #ebebebaa;
 }
+
 .artis .weapon .affix-2 {
   box-shadow: 0 0 4px 0 #51b72fbd inset;
   background: #ddffdeaa;
 }
+
 .artis .weapon .affix-3 {
   box-shadow: 0 0 4px 0 #396cdecf inset;
   background: #ddebffaa;
 }
+
 .artis .weapon .affix-4 {
   box-shadow: 0 0 4px 0 #c539debf inset;
   background: #ffddf0aa;
 }
+
 .artis .weapon .affix-5 {
   box-shadow: 0 0 4px 0 #deaf39 inset;
   background: #fff6dd;
 }
+
 .artis .stat {
   height: 100px;
   margin-top: 10px;
 }
+
 .artis .stat {
   display: table-row;
   padding: 18px 10px;
   display: table;
 }
+
 .artis .stat > div {
   display: table-cell;
   text-align: center;
   color: #fff;
 }
+
 .artis .stat strong {
   display: block;
   height: 40px;
@@ -587,100 +714,135 @@ body {
   font-family: Number;
   line-height: 40px;
 }
+
 .dmg-msg {
   font-family: Number, YS;
   font-size: 13px;
   font-weight: normal;
 }
+
 .dmg-msg .thead > div {
   text-align: left;
   padding-left: 10px;
 }
+
 .dmg-msg .th {
   text-align: left;
   padding-left: 10px;
 }
+
 .dmg-msg .tr .td {
   padding: 8px 10px;
 }
+
 .dmg-msg .info {
   font-size: 12px;
   text-align: left;
   padding-left: 10px;
   font-weight: normal;
 }
+
+
+.dmg-calc {
+
+}
+
+.dmg-calc .thead {
+
+}
+
 .dmg-calc .thead > div {
   line-height: initial;
 }
+
 .dmg-calc .cont-table div {
   vertical-align: middle;
   text-align: center;
   white-space: nowrap;
 }
+
 .dmg-calc .title {
   text-align: center;
   padding-right: 0;
   min-width: 70px;
+
 }
+
 .dmg-calc .td {
   padding: 5px 0;
 }
+
 .dmg-calc strong {
   font-weight: normal;
   display: block;
   font-family: Number, YS;
 }
+
 .dmg-calc span {
   font-size: 12px;
   color: #aaa;
   font-family: Number, YS;
 }
+
 .dmg-calc .na,
 .dmg-calc .eq {
-  background: rgba(50, 50, 50, 0.5);
+  background: rgba(50, 50, 50, .5);
 }
+
 .dmg-calc .na {
   color: #888;
 }
+
 .dmg-calc .lt {
   background: rgba(23, 112, 41, 0.5);
 }
+
 .dmg-calc .gt {
   background: rgba(112, 23, 23, 0.5);
 }
+
 .dmg-desc {
   color: #aaa;
 }
+
 .dmg-desc ul {
   padding-left: 10px;
 }
+
 .dmg-desc ul li {
   color: #aaa;
 }
+
 .dmg-desc strong {
   color: #d3bc8e;
   display: inline;
   padding: 0 3px;
   font-weight: normal;
 }
+
+
 .artis .stat span {
   font-size: 13px;
   line-height: 20px;
   color: #bbb;
 }
+
 .char-优菈 .main-pic {
   margin-left: -175px;
 }
+
 .char-烟绯 .main-pic {
   margin-left: -135px;
 }
+
 .char-香菱 .main-pic {
   margin-left: -195px;
 }
+
 .char-迪奥娜 .main-pic {
   margin-left: -180px;
 }
+
 .char-可莉 .main-pic {
   margin-left: -210px;
 }
-/*# sourceMappingURL=detail.css.map */

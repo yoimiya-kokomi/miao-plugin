@@ -4,16 +4,17 @@ import lodash from "lodash";
 import { createRequire } from "module";
 import { exec } from "child_process";
 import { Cfg } from "../components/index.js";
+import Common from "../components/Common.js";
 
 
 const require = createRequire(import.meta.url);
 
 let cfgMap = {
   "角色": "char.char",
+  "面板": "char.profile",
   "老婆": "char.wife",
   "查他人": "char.queryOther",
-  "天赋": "wiki.talent",
-  "命座": "wiki.cons",
+  "图鉴": "wiki.wiki",
   "图片": "wiki.pic",
   "深渊": "wiki.abyss",
   "渲染": "sys.scale",
@@ -81,10 +82,10 @@ export async function sysCfg(e, { render }) {
 
   let cfg = {
     chars: getStatus("char.char"),
+    profile: getStatus("char.profile"),
     wife: getStatus("char.wife"),
     other: getStatus("char.queryOther"),
-    talent: getStatus("wiki.talent"),
-    cons: getStatus("wiki.cons"),
+    wiki: getStatus("wiki.wiki"),
     pic: getStatus("wiki.pic"),
     abyss: getStatus("wiki.abyss"),
     imgPlus: fs.existsSync(plusPath),
@@ -92,14 +93,10 @@ export async function sysCfg(e, { render }) {
     scale: Cfg.get("sys.scale", 100)
   }
 
-  let base64 = await render("admin", "index", {
+  //渲染图像
+  return await Common.render("admin/index", {
     ...cfg,
-    cfgScale: Cfg.scale(1.4)
-  });
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
-  }
-  return true;
+  }, { e, render, scale: 1.4 });
 }
 
 const getStatus = function (rote, def = true) {
@@ -167,17 +164,17 @@ export async function updateMiaoPlugin(e) {
   exec(command, { cwd: `${_path}/plugins/miao-plugin/` }, function (error, stdout, stderr) {
     //console.log(stdout);
     if (/Already up to date/.test(stdout)) {
-      e.reply("目前已经是最新版了~");
+      e.reply("目前已经是最新版喵喵了~");
       return true;
     }
     if (error) {
-      e.reply("更新失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
+      e.reply("喵喵更新失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
       return true;
     }
-    e.reply("更新成功，尝试重新启动Yunzai以应用更新...");
+    e.reply("喵喵更新成功，尝试重新启动Yunzai以应用更新...");
     timer && clearTimeout(timer);
     redis.set("miao:restart-msg", JSON.stringify({
-      msg: "重启成功，新版喵喵Plugin已经生效",
+      msg: "重启成功，新版喵喵已经生效",
       qq: e.user_id
     }), { EX: 30 });
     timer = setTimeout(function () {

@@ -7,6 +7,7 @@ import { Cfg } from "../components/index.js";
 import lodash from "lodash";
 import { segment } from "oicq";
 import fs from "fs";
+import Common from "../components/Common.js";
 
 export async function consStat(e, { render }) {
   if (Cfg.isDisable(e, "wiki.abyss")) {
@@ -68,8 +69,8 @@ export async function consStat(e, { render }) {
   } else {
     ret = lodash.sortBy(ret, ['hold']);
   }
-
-  let base64 = await render("stat", "character", {
+  //渲染图像
+  return await Common.render("stat/character", {
     chars: ret,
     abbr: Character.getAbbr(),
     mode: mode,
@@ -78,12 +79,7 @@ export async function consStat(e, { render }) {
     pct: function (num) {
       return (num * 100).toFixed(2);
     },
-    cfgScale: Cfg.scale(1.5)
-  });
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
-  }
-  return true;
+  }, { e, render, scale: 1.5 });
 }
 
 export async function abyssPct(e, { render }) {
@@ -144,8 +140,7 @@ export async function abyssPct(e, { render }) {
     });
   })
 
-
-  let base64 = await render("stat", "abyss-pct", {
+  return await Common.render("stat/abyss-pct", {
     abyss: ret,
     floorName,
     chooseFloor,
@@ -153,12 +148,7 @@ export async function abyssPct(e, { render }) {
     pct: function (num) {
       return (num * 100).toFixed(2);
     },
-    cfgScale: Cfg.scale(1.5)
-  });
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
-  }
-  return true;
+  }, { e, render, scale: 1.5 });
 
 }
 
@@ -381,15 +371,8 @@ export async function abyssTeam(e, { render }) {
     }
   })
 
-
-  let base64 = await render("stat", "abyss-team", {
+  return await Common.render("stat/abyss-team", {
     teams: ret,
     avatars: avatarMap,
-    cfgScale: Cfg.scale(1.5)
-  });
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
-  }
-
-  return true;
+  }, { e, render, scale: 1.5 });
 }

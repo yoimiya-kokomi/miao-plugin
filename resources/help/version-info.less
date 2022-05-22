@@ -1,0 +1,83 @@
+.linear-bg(@color) {
+  background-image: linear-gradient(to right, @color, @color 80%, fade(@color, 0) 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  font-size: 18px;
+  color: #1e1f20;
+  font-family: Number, YS2;
+  transform: scale(1.3);
+  transform-origin: 0 0;
+  width: 520px;
+}
+
+.container {
+  width: 520px;
+  padding: 10px 0 10px 0;
+  background-size: 100% 100%;
+}
+
+.log-cont {
+  margin-bottom: 10px;
+
+  .cont-title {
+    font-size: 16px;
+    padding: 10px 20px 6px;
+
+    &.current-version {
+      font-size: 20px;
+    }
+  }
+
+  .cont-body {
+    font-family: Number, YS2;
+  }
+
+  ul {
+    font-size: 14px;
+    padding-left: 20px;
+
+    li {
+      margin: 3px 0;
+    }
+
+    &.sub-log-ul {
+      li {
+        margin: 1px 0;
+      }
+    }
+  }
+
+  .cmd {
+    font-family: Number, YS;
+    color: #d3bc8e;
+    display: inline-block;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0 3px;
+    margin: 1px 3px;
+  }
+
+  .new {
+    display: inline-block;
+    width: 18px;
+    margin: 0 -3px 0 1px;
+  }
+
+  .new:before {
+    content: "NEW";
+    font-family: Number;
+    display: inline-block;
+    transform: scale(0.6);
+    transform-origin: 0 0;
+    color: #d3bc8e;
+    white-space: nowrap;
+  }
+}

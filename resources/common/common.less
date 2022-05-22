@@ -43,7 +43,7 @@
 body {
   font-size: 18px;
   color: #1e1f20;
-  font-family: PingFangSC-Medium, PingFang SC, sans-serif;
+  font-family: Number, YS2, PingFangSC-Medium, PingFang SC, sans-serif;
   transform: scale(1.4);
   transform-origin: 0 0;
   width: 600px;
@@ -107,8 +107,16 @@ body {
   position: relative;
   padding-left: 10px;
   text-shadow: 1px 1px 1px #000;
-  margin-bottom: 10px;
+  margin: 10px 0;
+
+  .version {
+    font-size: 13px;
+    color: #d3bc8e;
+    display: inline-block;
+    padding: 0 3px;
+  }
 }
+
 
 /*  */
 
@@ -120,10 +128,6 @@ body {
   font-family: Number, YS;
   border-radius: 4px;
 }
-
-
-
-
 
 
 .cons(@idx, @bg, @color:#fff) {
@@ -194,7 +198,7 @@ each(@elems, {
   background: rgba(0, 0, 0, .4);
   box-shadow: 0 0 1px 0 #fff;
   color: #d3bc8e;
-  font-family: YS;
+  font-family: Number, YS;
   padding: 10px 20px;
   text-align: left;
   border-radius: 10px 10px 0 0;
@@ -294,4 +298,11 @@ ul.cont-msg li strong {
   background: rgba(0, 0, 0, .4);
   min-width: 100px;
   vertical-align: middle;
+}
+
+.logo {
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+  margin: 20px 0 10px 0;
 }

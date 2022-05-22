@@ -1,55 +1,47 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <link rel="shortcut icon" href="#"/>
-    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css?v=1.0"/>
-    <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
-    <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/abyss-pct.css?v=1.0"/>
-    <link rel="preload" href="{{_res_path}}/font/tttgbnumber.ttf" as="font">
-  </head>
-  <body id="container" class="body_box" {{cfgScale}}>
-    <div class="container">
-      <div class="info_box">
-        <div class="head-box type{{bgType}}">
-          {{if chooseFloor == -1}}
-          <div class="title">深渊出场率统计</div>
-          <div class="label">全角色出场率统计（出场记录/总记录）</div>
-          {{else}}
-          <div class="title">深渊第{{floorName[chooseFloor]}}出场率</div>
-          <div class="label">全角色出场率统计（出场记录/总记录）</div>
-          {{/if}}
-          <img class="genshin_logo" src="{{_sys_res_path}}/genshin/roleAll/原神.png"/>
-        </div>
-        <% let pct = function (num) {
-        return (num * 100).toFixed(2);
-        } %>
-        {{each abyss ds}}
-        {{if chooseFloor == -1 || chooseFloor == ds.floor}}
-        <div class="info_box_border">
-          <div class="line_box">
-            <span class="line"></span>
-            <span class="text">第{{floorName[ds.floor]}}</span>
-            <span class="line"></span>
-          </div>
-          <div class="card-list">
-            {{each ds.avatars char}}
-            <div class="item star{{char.star == 4? 4:5}}">
-              <img class="role"
-                   src="{{_sys_res_path}}/genshin/logo/role/{{char.name}}.png"
-              />
-              <div class="num_name">{{pct(char.value)}}%</div>
-            </div>
-            {{/each}}
-          </div>
-        </div>
+{{extend defaultLayout}}
 
-        {{/if}}
-        {{/each}}
-        <p class="notice notice-center"> 数据来源：DGP-Studio-胡桃API . 最后更新时间：{{lastUpdate}} </p>
-        <div class="copyright"> Created By Yunzai-Bot & Miao-Plugin</div>
-      </div>
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/abyss-pct.css?v=1.0"/>
+{{/block}}
+
+{{block 'main'}}
+<div class="info_box">
+  <div class="head-box type{{bgType}}">
+    {{if chooseFloor == -1}}
+    <div class="title">深渊出场率统计</div>
+    <div class="label">全角色出场率统计（出场记录/总记录）</div>
+    {{else}}
+    <div class="title">深渊第{{floorName[chooseFloor]}}出场率</div>
+    <div class="label">全角色出场率统计（出场记录/总记录）</div>
+    {{/if}}
+    <img class="genshin_logo" src="{{_sys_res_path}}/genshin/roleAll/原神.png"/>
+  </div>
+  <% let pct = function (num) {
+  return (num * 100).toFixed(2);
+  } %>
+  {{each abyss ds}}
+  {{if chooseFloor == -1 || chooseFloor == ds.floor}}
+  <div class="info_box_border">
+    <div class="line_box">
+      <span class="line"></span>
+      <span class="text">第{{floorName[ds.floor]}}</span>
+      <span class="line"></span>
     </div>
+    <div class="card-list">
+      {{each ds.avatars char}}
+      <div class="item star{{char.star == 4? 4:5}}">
+        <img class="role"
+             src="{{_sys_res_path}}/genshin/logo/role/{{char.name}}.png"
+        />
+        <div class="num_name">{{pct(char.value)}}%</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
 
-  </body>
-</html>
+  {{/if}}
+  {{/each}}
+  <p class="notice notice-center"> 数据来源：DGP-Studio-胡桃API . 最后更新时间：{{lastUpdate}} </p>
+</div>
+{{/block}}

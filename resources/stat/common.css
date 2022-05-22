@@ -9,7 +9,7 @@ body {
   color: #1e1f20;
   transform: scale(1.4);
   transform-origin: 0 0;
-  background: url("./bg1.png") top left no-repeat #2a3860;
+  background: url("./imgs/bg1.png") top left no-repeat #2a3860;
   background-size: contain;
   width: 600px;
   font-family: Number, YS2;
@@ -17,7 +17,7 @@ body {
 .container {
   width: 600px;
   padding: 20px 15px 10px 15px;
-  background: url("./footer.png") left bottom no-repeat;
+  background: url("./imgs/footer.png") left bottom no-repeat;
   background-size: contain;
 }
 .head-box {

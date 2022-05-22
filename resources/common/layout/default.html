@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css"/>
+    {{block 'css'}}
+    {{/block}}
+  </head>
+  <body class="elem-{{element||elem||`hydro`}} {{displayMode || mode || `default`}}-mode  {{bodyClass}}" {{sys.scale}}>
+    <div class="container" id="container">
+      {{block 'main'}}{{/block}}
+      <div class="copyright">{{@sys.copyright}}</div>
+    </div>
+  </body>
+</html>

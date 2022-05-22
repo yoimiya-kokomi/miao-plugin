@@ -2,7 +2,7 @@ import { Cfg } from "../components/index.js";
 import { segment } from "oicq";
 import lodash from "lodash";
 import { currentVersion, changelogs } from "../components/Changelog.js";
-import common from "../../../lib/common.js";
+import Common from "../components/Common.js";
 
 const _path = process.cwd();
 const helpFilePath = `${_path}/plugins/miao-plugin/resources/help/help-list.js`;
@@ -39,18 +39,15 @@ export async function help(e, { render }) {
     helpGroup.push(group);
   });
 
-  let base64 = await render("help", "index", {
+  return await Common.render("help/index", {
     helpCfg: helpGroup,
-    cfgScale: Cfg.scale(1.2)
-  });
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
-  }
-  return true;
+    element: 'default'
+  }, { e, render, scale: 1.2 })
 }
 
-export async function versionInfo(e) {
-  let msgs = [`当前喵喵版本: ${currentVersion}`, ...changelogs];
-  e.reply(msgs.join("\n"));
-  return true;
+export async function versionInfo(e, { render }) {
+  return await Common.render("help/version-info", {
+    currentVersion,
+    changelogs,
+  }, { e, render, scale: 1.2 })
 }

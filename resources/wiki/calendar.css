@@ -4,12 +4,6 @@
 .font-number {
   font-family: Number, YS;
 }
-@font-face {
-  font-family: "tttgbnumber";
-  src: url("../common/font/tttgbnumber.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
 * {
   margin: 0;
   padding: 0;
@@ -217,7 +211,7 @@ body {
   border-right: 10px solid transparent;
   border-bottom: 20px solid #fff;
   position: absolute;
-  bottom: 0;
+  bottom: -8px;
   left: -9px;
   transform: scaleY(0.7);
   transform-origin: bottom center;
@@ -232,6 +226,7 @@ body {
 .now-time {
   text-align: center;
   padding-top: 5px;
+  margin-bottom: 5px;
 }
 .now-time span {
   color: #fff;
@@ -240,6 +235,7 @@ body {
   border-radius: 30px;
   padding: 10px 15px;
   border: 1px solid #fff;
+  display: inline-block;
 }
 .cal-abyss-cont {
   padding-top: 15px;

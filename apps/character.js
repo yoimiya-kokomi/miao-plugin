@@ -7,6 +7,7 @@ import Format from "../components/Format.js"
 import Reliquaries from "../components/models/Reliquaries.js";
 import Calc from "../components/Calc.js";
 import fs from "fs";
+import Common from "../components/Common.js";
 
 
 //角色昵称
@@ -58,9 +59,6 @@ export async function character(e, { render, User }) {
   if (!msg) {
     return;
   }
-  if (Cfg.isDisable(e, "char.char")) {
-    return;
-  }
 
   let mode = 'card';
   let name = msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
@@ -78,6 +76,12 @@ export async function character(e, { render, User }) {
   } else if (/(详情|详细|面板|面版)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板|面版)$/.test(msg))) {
     mode = "refresh";
     name = name.replace(/详情|详细|面板|面版|更新/g, "").trim();
+  }
+
+  if (
+    (mode === "card" && Common.isDisable(e, "char.char")) ||
+    (mode !== "card" && Common.isDisable(e, "char.profile"))) {
+    return;
   }
 
   let char = Character.get(name);
@@ -353,22 +357,18 @@ async function renderCard(e, avatar, render, renderType = "card") {
     e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + bg.img));
   } else {
     //渲染图像
-    let base64 = await render("character", "card", {
+    return await Common.render("character/card", {
       save_id: uid,
       uid: uid,
       talent,
       crownNum,
       talentMap: { a: "普攻", e: "战技", q: "爆发" },
-      //bg: getCharacterImg(avatar.name),
       bg,
       ...getCharacterData(avatar),
       ds: char.getData("name,id,title,desc"),
-      cfgScale: Cfg.scale(1.6)
-    });
-    if (base64) {
-      e.reply(segment.image(`base64://${base64}`));
-    }
+    }, { e, render, scale: 1.6 });
   }
+
 
   return true;
 }
@@ -698,8 +698,8 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     basic.dmg = Format.comma(basic.dmg);
     basic.avg = Format.comma(basic.avg);
   }
-
-  let base64 = await render("character", "detail", {
+  //渲染图像
+  return await Common.render("character/detail", {
     save_id: uid,
     uid: uid,
     data: profile,
@@ -723,13 +723,9 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     usefulTitles,
     usefulMark,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
+    bodyClass: `char-${char.name}`,
     mode,
-    cfgScale: Cfg.scale(1.8)
-  });
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
-  }
-  return true;
+  }, { e, render, scale: 1.6 });
 }
 
 /* #敌人等级 */
@@ -811,17 +807,12 @@ export async function getArtis(e, { render }) {
   artis = artis.reverse();
   artis = artis.slice(0, 20);
 
-
-  let base64 = await render("character", "artis", {
+  //渲染图像
+  return await Common.render("character/artis", {
     save_id: uid,
     uid: uid,
     artis,
-    cfgScale: Cfg.scale(1.4)
-  });
-  if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
-  }
-  return true;
+  }, { e, render, scale: 1.4 });
 }
 
 export async function getProfileAll(e) {

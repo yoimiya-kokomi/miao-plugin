@@ -1,85 +1,79 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <link rel="shortcut icon" href="#"/>
-    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css"/>
-    <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/calendar.css"/>
-  </head>
-  <body class="elem-hydro {{displayMode}}-mode">
-    <div class="container elem-bg" id="container">
-      <div class="calendar">
-        <div class="cal-bg for-calendar-mode">
-          <table class="cont-table" border-collapse="collapse">
-            <tr class="tr thead">
-              {{each dateList d}}
-              <td colspan="{{d.date.length}}" class="td month">{{d.month}}月</td>
-              {{/each}}
-            </tr>
-            <tr class="tr thead">
-              {{each dateList d}}{{each d.date dn}}
-              <td class="td date {{dn === nowDate ? 'current-date':''}}">{{dn}}日</td>
-              {{/each}} {{/each}}
-            </tr>
-            <tr class="tr">
-              {{each dateList d}}{{each d.date dn}}
-              <td class="line {{dn === nowDate ? 'current-date':''}}"></td>
-              {{/each}} {{/each}}
-            </tr>
-          </table>
-        </div>
-        <div class="cal-bg for-list-mode">
-          <table class="cont-table" border-collapse="collapse">
-            <tr class="tr thead">
-              <td class="td month">活动列表</td>
-            </tr>
-            <tr class="tr">
-              <td class="line"></td>
-            </tr>
-          </table>
-        </div>
-        <div class="cal-list">
-          <div class="cal-abyss-cont">
-            {{each abyss li}}
-            <div class="cal-item type-abyss" style="{{`left:${li.left}%;width:${li.width}%`}}">
-              <div class="info">
-                <img src="{{_res_path}}/wiki/imgs/abyss-icon.png" class="cal-icon"/>
-                <strong>{{li.title}}</strong>
-                <span>{{li.label}}</span>
-              </div>
-            </div>
-            {{/each}}
-          </div>
-          {{each list li}}
-          <div class="cal-item type-{{li.type}} {{li.elem?'elem-'+li.elem:''}} {{li.width<20 ? 'small-mode':''}}"
-               style="{{`margin-left:${li.left}%;width:${li.width}%`}}"
-               data-id="{{li.id}}"
-               data-type="{{li.type}}">
-            {{if li.banner2}}
-            <div class="banner" style="background-image:url('{{_res_path}}{{li.banner2}}')"></div>
-            {{else if li.banner}}
-            <div class="banner" style="background-image:url('{{li.banner}}')"></div>
-            {{/if}}
-            <div class="info">
-              {{if li.type === "character"}}
-              <img src="{{_res_path}}meta/character/{{li.character}}/face.png" class="character-img"/>
-              {{else}}
-              <img src="{{li.icon}}" class="cal-icon"/>
-              {{/if}}
-              <strong>{{li.title}}</strong>
-              <span>{{li.label}}</span>
-            </div>
+{{extend elemLayout}}
 
-          </div>
-          {{/each}}
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/calendar.css"/>
+{{/block}}
+
+{{block 'main'}}
+<div class="calendar">
+  <div class="cal-bg for-calendar-mode">
+    <table class="cont-table" border-collapse="collapse">
+      <tr class="tr thead">
+        {{each dateList d}}
+        <td colspan="{{d.date.length}}" class="td month">{{d.month}}月</td>
+        {{/each}}
+      </tr>
+      <tr class="tr thead">
+        {{each dateList d}}{{each d.date dn}}
+        <td class="td date {{dn === nowDate ? 'current-date':''}}">{{dn}}日</td>
+        {{/each}} {{/each}}
+      </tr>
+      <tr class="tr">
+        {{each dateList d}}{{each d.date dn}}
+        <td class="line {{dn === nowDate ? 'current-date':''}}"></td>
+        {{/each}} {{/each}}
+      </tr>
+    </table>
+  </div>
+  <div class="cal-bg for-list-mode">
+    <table class="cont-table" border-collapse="collapse">
+      <tr class="tr thead">
+        <td class="td month">活动列表</td>
+      </tr>
+      <tr class="tr">
+        <td class="line"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="cal-list">
+    <div class="cal-abyss-cont">
+      {{each abyss li}}
+      <div class="cal-item type-abyss" style="{{`left:${li.left}%;width:${li.width}%`}}">
+        <div class="info">
+          <img src="{{_res_path}}/wiki/imgs/abyss-icon.png" class="cal-icon"/>
+          <strong>{{li.title}}</strong>
+          <span>{{li.label}}</span>
         </div>
-        <div class="now-line" style="left:{{nowLeft}}%"></div>
-        <div class="now-line line2" style="left:{{nowLeft}}%"></div>
       </div>
-      <div class="now-time">
-        <span>当前时间：{{nowTime}}</span>
-      </div>
-      <div class="logo">Created By Yunzai-Bot & Miao-Plugin</div>
+      {{/each}}
     </div>
-  </body>
-</html>
+    {{each list li}}
+    <div class="cal-item type-{{li.type}} {{li.elem?'elem-'+li.elem:''}} {{li.width<20 ? 'small-mode':''}}"
+         style="{{`margin-left:${li.left}%;width:${li.width}%`}}"
+         data-id="{{li.id}}"
+         data-type="{{li.type}}">
+      {{if li.banner2}}
+      <div class="banner" style="background-image:url('{{_res_path}}{{li.banner2}}')"></div>
+      {{else if li.banner}}
+      <div class="banner" style="background-image:url('{{li.banner}}')"></div>
+      {{/if}}
+      <div class="info">
+        {{if li.type === "character"}}
+        <img src="{{_res_path}}meta/character/{{li.character}}/face.png" class="character-img"/>
+        {{else}}
+        <img src="{{li.icon}}" class="cal-icon"/>
+        {{/if}}
+        <strong>{{li.title}}</strong>
+        <span>{{li.label}}</span>
+      </div>
+
+    </div>
+    {{/each}}
+  </div>
+  <div class="now-line" style="left:{{nowLeft}}%"></div>
+  <div class="now-line line2" style="left:{{nowLeft}}%"></div>
+</div>
+<div class="now-time">
+  <span>当前时间：{{nowTime}}</span>
+</div>
+{{/block}}
