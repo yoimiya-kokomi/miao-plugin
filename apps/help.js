@@ -49,5 +49,6 @@ export async function versionInfo(e, { render }) {
   return await Common.render("help/version-info", {
     currentVersion,
     changelogs,
+    elem: "cryo",
   }, { e, render, scale: 1.2 })
 }

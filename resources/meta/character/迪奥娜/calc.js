@@ -2,7 +2,7 @@ export const details = [{
   title: "长按E总伤害",
   dmg: ({ talent }, dmg) => dmg(talent.e['猫爪伤害'] * 5, 'e')
 }, {
-  title: "长按E总伤害",
+  title: "长按E护盾量",
   dmg: ({ talent, attr, calc }, { shield }) =>
     shield(talent.e['护盾基础吸收量2'][0] * calc(attr.hp) / 100 + talent.e['护盾基础吸收量2'][1] * 1)
 }, ({ cons }) => {

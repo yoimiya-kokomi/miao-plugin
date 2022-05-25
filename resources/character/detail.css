@@ -52,6 +52,9 @@ body {
   text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, 0.7);
   text-align: right;
 }
+.char-lv .cons {
+  vertical-align: bottom;
+}
 .attr {
   border-radius: 4px;
   overflow: hidden;
@@ -373,7 +376,7 @@ body {
   width: 600px;
   flex-wrap: wrap;
   margin-bottom: 5px;
-  padding: 5px;
+  padding: 0 5px;
 }
 .artis .item {
   width: 185px;
@@ -381,9 +384,10 @@ body {
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
   margin: 5px;
-  height: 210px;
+  height: 200px;
   position: relative;
   box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
 }
 .artis .item .arti-icon {
   width: 60px;
@@ -525,7 +529,6 @@ body {
   text-align: right;
   padding: 13px 12px 13px 0;
   z-index: 3;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
 }
 .artis .weapon .head strong {
   font-size: 18px;
@@ -567,12 +570,12 @@ body {
   background: #fff6dd;
 }
 .artis .stat {
-  height: 100px;
+  height: 90px;
   margin-top: 10px;
 }
 .artis .stat {
   display: table-row;
-  padding: 18px 10px;
+  padding: 13px 10px;
   display: table;
 }
 .artis .stat > div {
@@ -682,5 +685,11 @@ body {
 }
 .char-可莉 .main-pic {
   margin-left: -210px;
+}
+.char-凝光 .main-pic {
+  margin-left: -320px;
+}
+.char-班尼特 .main-pic {
+  margin-left: -220px;
 }
 /*# sourceMappingURL=detail.css.map */

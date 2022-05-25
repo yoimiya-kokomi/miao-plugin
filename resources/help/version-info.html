@@ -6,27 +6,29 @@
 
 {{block 'main'}}
 {{each changelogs ds idx}}
-<div class="cont log-cont">
-  {{if idx === 0 }}
-  <div class="cont-title current-version">当前版本 {{ds.version}}</div>
-  {{else}}
-  <div class="cont-title">喵喵版本 {{ds.version}}</div>
-  {{/if}}
-  <div class="cont-body">
-    <ul class="log-ul">
-      {{each ds.logs log}}
-      <li>
-        <p>{{@log.title}}</p>
-        {{if log.logs.length > 0}}
-        <ul class="sub-log-ul">
-          {{each log.logs ls}}
-          <li>{{@ls}}</li>
-          {{/each}}
-        </ul>
-        {{/if}}
-      </li>
-      {{/each}}
-    </ul>
+<div class="hydro-bg log-cont">
+  <div class="cont">
+    {{if idx === 0 }}
+    <div class="cont-title current-version">当前版本 {{ds.version}}</div>
+    {{else}}
+    <div class="cont-title">喵喵版本 {{ds.version}}</div>
+    {{/if}}
+    <div class="cont-body">
+      <ul class="log-ul">
+        {{each ds.logs log}}
+        <li>
+          <p>{{@log.title}}</p>
+          {{if log.logs.length > 0}}
+          <ul class="sub-log-ul">
+            {{each log.logs ls}}
+            <li>{{@ls}}</li>
+            {{/each}}
+          </ul>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
   </div>
 </div>
 {{/each}}

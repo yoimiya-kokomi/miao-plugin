@@ -18,7 +18,12 @@ body {
   background-size: 100% 100%;
 }
 .log-cont {
-  margin-bottom: 10px;
+  background-size: cover;
+  margin: 5px 15px 5px 10px;
+  border-radius: 10px;
+}
+.log-cont .cont {
+  margin: 0;
 }
 .log-cont .cont-title {
   font-size: 16px;

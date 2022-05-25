@@ -24,8 +24,21 @@ export const buffs = [{
   }
 }, {
   title: "迪卢克1命：对于生命值高于50%的敌人，造成伤害提高15%",
+  cons: 1,
   data: {
     dmg: 15
+  }
+}, {
+  title: "迪卢克2命：受伤3层提高攻击力30%",
+  cons: 2,
+  data: {
+    atkPct: 30
+  }
+}, {
+  title: "迪卢克4命：间隔2秒释放E提高伤害40%",
+  cons: 4,
+  data: {
+    eDmg: 40
   }
 }, {
   title: "元素精通：蒸发伤害提高[zf]%",

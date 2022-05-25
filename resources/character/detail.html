@@ -9,7 +9,8 @@
        style="background-image:url({{_res_path}}/meta/character/{{name}}/gacha_splash.png)"></div>
   <div class="detail">
     <div class="char-name">{{name}}</div>
-    <div class="char-lv">UID {{uid}} - Lv.{{data.lv}}</div>
+    <div class="char-lv">UID {{uid}} - Lv.{{data.lv}}
+      <span class="cons cons-{{avatar.actived_constellation_num}}">{{avatar.actived_constellation_num}}命</span></div>
     <div class="char-talents">
       {{each talentMap tName key}}
       <div class="talent-item">
