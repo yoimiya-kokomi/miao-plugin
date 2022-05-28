@@ -23,7 +23,7 @@ let Cal = {
 
     let timeMap;
     let timeMapCache = await redis.get("cache:calendar:detail");
-    if (timeMapCache && false) {
+    if (timeMapCache) {
       timeMap = JSON.parse(timeMapCache) || {};
     } else {
       let detailApi = "https://hk4e-api.mihoyo.com/common/hk4e_cn/announcement/api/getAnnContent?game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000";
@@ -86,7 +86,7 @@ let Cal = {
           }
         })
       }
-      await redis.set("cache:calendar:detail", JSON.stringify(timeMap), { EX: 60 * 30 });
+      await redis.set("cache:calendar:detail", JSON.stringify(timeMap), { EX: 60 * 10 });
     }
     return { listData, timeMap };
   },
