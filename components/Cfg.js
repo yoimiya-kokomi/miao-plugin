@@ -21,6 +21,10 @@ let Cfg = {
     lodash.set(cfg, rote, val);
     fs.writeFileSync(_cfgPath + "cfg.json", JSON.stringify(cfg, null, "\t"));
   },
+  del(rote) {
+    lodash.set(cfg, rote, undefined);
+    fs.writeFileSync(_cfgPath + "cfg.json", JSON.stringify(cfg, null, "\t"));
+  },
   scale(pct = 1) {
     let scale = Cfg.get("sys.scale", 100);
     scale = Math.min(2, Math.max(0.5, scale / 100));

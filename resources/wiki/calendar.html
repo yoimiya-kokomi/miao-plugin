@@ -35,7 +35,7 @@
       </tr>
     </table>
   </div>
-  <div class="cal-list">
+  <div class="cal-list {{charMode}}">
     <div class="cal-abyss-cont">
       {{each abyss li}}
       <div class="cal-item type-abyss" style="{{`left:${li.left}%;width:${li.width}%`}}">
@@ -48,7 +48,7 @@
       {{/each}}
     </div>
     {{each list li}}
-    <div class="cal-item type-{{li.type}} {{li.elem?'elem-'+li.elem:''}} {{li.width<20 ? 'small-mode':''}}"
+    <div class="cal-item type-{{li.type}} {{li.idx? `li-idx-${li.idx}`:``}} {{li.elem?'elem-'+li.elem:''}} {{li.width<20 ? 'small-mode':''}}"
          style="{{`margin-left:${li.left}%;width:${li.width}%`}}"
          data-id="{{li.id}}"
          data-type="{{li.type}}">

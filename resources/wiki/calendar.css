@@ -141,7 +141,7 @@ body {
   padding-left: 65px;
 }
 .cal-list .cal-item.type-character .character-img {
-  width: 65px;
+  height: 75px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -192,6 +192,20 @@ body {
   height: 40px;
   left: 10px;
   top: 10px;
+}
+.cal-list.char-2-1 .type-character.li-idx-2,
+.cal-list.char-3-1 .type-character.li-idx-2 {
+  margin-top: -82px;
+}
+.cal-list.char-3-2 .type-character.li-idx-3 {
+  margin-top: -82px;
+}
+.cal-list.char-4-2 .type-character.li-idx-3,
+.cal-list.char-4-2 .type-character.li-idx-4 {
+  margin-top: -164px;
+}
+.cal-list .type-weapon.li-idx-2 {
+  margin-top: -82px;
 }
 .calendar .now-line {
   position: absolute;

@@ -11,7 +11,7 @@ const ignoreIds = [495,// 有奖问卷调查开启！
   762,  // 《原神》公平运营声明
 ]
 
-const ignoreReg = /(内容专题页|版本更新说明|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查)/;
+const ignoreReg = /(内容专题页|版本更新说明|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时返场)/;
 const fulltimeReg = /(魔神任务)/;
 
 let Cal = {
@@ -23,7 +23,7 @@ let Cal = {
 
     let timeMap;
     let timeMapCache = await redis.get("cache:calendar:detail");
-    if (timeMapCache) {
+    if (timeMapCache && false) {
       timeMap = JSON.parse(timeMapCache) || {};
     } else {
       let detailApi = "https://hk4e-api.mihoyo.com/common/hk4e_cn/announcement/api/getAnnContent?game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000";
@@ -31,17 +31,57 @@ let Cal = {
       let detailData = await request2.json();
       timeMap = {}
       if (detailData && detailData.data && detailData.data.list) {
+        let versionTime = {};
         lodash.forEach(detailData.data.list, (ds) => {
-          let { ann_id, content } = ds;
+          let vRet = /(\d\.\d)版本更新时间/.exec(ds.title)
+          if (vRet && vRet[1]) {
+            let tRet = /([0-9\\/\\: ]){9,}/.exec(ds.content);
+            if (tRet && tRet[0]) {
+              versionTime[vRet[1]] = tRet[0].replace("06:00", "11:00");
+            }
+          }
+        })
+        lodash.forEach(detailData.data.list, (ds) => {
+          let { ann_id, content, title } = ds;
+          if (ignoreReg.test(title)) {
+            return;
+          }
           content = content.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\)\,\\.]+(>|&gt;)/g, "");
+          content = /(?:活动时间|祈愿介绍|任务开放时间|冒险....包)\s*〓([^〓]+)(〓|$)/.exec(content);
+          if (!content || !content[1]) {
+            return;
+          }
+          content = content[1];
+          let annTime = [];
+
+          // 第一种简单格式
           let timeRet = /活动时间(?:〓|\s)*([0-9\\/\\: ~]*)/.exec(content);
           if (timeRet && timeRet[1]) {
-            let times = timeRet[1].split("~");
-            if (times.length === 2) {
-              timeMap[ann_id] = {
-                start: times[0].trim().replace(/\//g,"-"),
-                end: times[1].trim().replace(/\//g,"-")
+            annTime = timeRet[1].split("~");
+          } else if (/\d\.\d版本更新后/.test(content)) {
+            let vRet = /(\d\.\d)版本更新后/.exec(content);
+            let vTime = '';
+            if (vRet && vRet[1] && versionTime[vRet[1]]) {
+              vTime = versionTime[vRet[1]];
+            }
+            if (!vTime) {
+              return;
+            }
+            if (/永久开放/.test(content)) {
+              annTime = [vTime, '2099/01/01 00:00:00'];
+            } else {
+              timeRet = /([0-9\\/\\: ]){9,}/.exec(content);
+              if (timeRet && timeRet[0]) {
+                annTime = [vTime, timeRet[0]];
               }
+            }
+
+          }
+
+          if (annTime.length === 2) {
+            timeMap[ann_id] = {
+              start: annTime[0].trim().replace(/\//g, "-"),
+              end: annTime[1].trim().replace(/\//g, "-")
             }
           }
         })
@@ -167,9 +207,11 @@ let Cal = {
       width = eRange / totalRange * 100 - left;
 
     let label = "";
-    if (fulltimeReg.test(title)) {
-      left = 0;
-      width = 100;
+    if (fulltimeReg.test(title) || eDate - sDate > 365 * 24 * 3600 * 1000) {
+      if (sDate < now) {
+        left = 0;
+        width = 100;
+      }
       label = "永久有效";
     } else if (now > sDate && eDate > now) {
       label = eDate.format("MM-DD HH:mm") + " (" + moment.duration(eDate - now).humanize() + "后结束)"
@@ -222,12 +264,27 @@ let Cal = {
       }, abyss, { ...dl, now }, true)
     });
 
-    list = lodash.sortBy(list, ["sort", 'duration', 'start']);
+    list = lodash.sortBy(list, ["sort", 'start', 'duration']);
+
+    let charCount = 0, charOld = 0;
+    let weaponCount = 0;
+    lodash.forEach(list, (li) => {
+      if (li.type === "character") {
+        charCount++;
+        li.left === 0 && charOld++;
+        li.idx = charCount;
+      }
+      if (li.type === "weapon") {
+        weaponCount++;
+        li.idx = weaponCount;
+      }
+    })
 
     return {
       ...dl,
       list,
       abyss,
+      charMode: `char-${charCount}-${charOld}`,
       nowTime: now.format("YYYY-MM-DD HH:mm"),
       nowDate: now.date(),
     }

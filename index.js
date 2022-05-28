@@ -13,7 +13,7 @@ import { wiki, calendar } from "./apps/wiki.js";
 import { help, versionInfo } from "./apps/help.js";
 import lodash from "lodash";
 import common from "../../lib/common.js";
-import { rule as adminRule, updateRes, sysCfg, updateMiaoPlugin } from "./apps/admin.js";
+import { rule as adminRule, updateRes, sysCfg, updateMiaoPlugin, profileCfg } from "./apps/admin.js";
 import { currentVersion } from "./components/Changelog.js";
 
 export {
@@ -33,7 +33,8 @@ export {
   getArtis,
   getProfileAll,
   profileHelp,
-  calendar
+  calendar,
+  profileCfg
 };
 
 

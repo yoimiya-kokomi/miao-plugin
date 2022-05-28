@@ -36,6 +36,11 @@ export const rule = {
     hashMark: true,
     reg: sysCfgReg,
     describe: "【#管理】系统设置"
+  },
+  profileCfg: {
+    hashMark: true,
+    reg: "^#喵喵面板(?:设置)?.*",
+    describe: "【#管理】面板设置"
   }
 };
 
@@ -105,7 +110,6 @@ const getStatus = function (rote, def = true) {
   } else {
     return `<div class="cfg-status status-off">已关闭</div>`;
   }
-
 }
 
 export async function updateRes(e) {
@@ -117,7 +121,6 @@ export async function updateRes(e) {
     e.reply("开始尝试更新，请耐心等待~");
     command = `git pull`;
     exec(command, { cwd: `${resPath}/miao-res-plus/` }, function (error, stdout, stderr) {
-      //console.log(stdout);
       if (/Already up to date/.test(stdout)) {
         e.reply("目前所有图片都已经是最新了~");
         return true;
@@ -162,7 +165,6 @@ export async function updateMiaoPlugin(e) {
     e.reply("正在执行更新操作，请稍等");
   }
   exec(command, { cwd: `${_path}/plugins/miao-plugin/` }, function (error, stdout, stderr) {
-    //console.log(stdout);
     if (/Already up to date/.test(stdout)) {
       e.reply("目前已经是最新版喵喵了~");
       return true;
@@ -193,4 +195,66 @@ export async function updateMiaoPlugin(e) {
 
   });
   return true;
+}
+
+export async function profileCfg(e, { render }) {
+  if (!await checkAuth(e)) {
+    return true;
+  }
+
+  let keyMap = {
+    "好友": "friend",
+    "群": "group",
+    "陌生人": "stranger"
+  }
+
+  let regRet = /喵喵面板(?:设置)?\s*(好友|群|群聊|陌生人)?\s*(\d*)\s*(开启|关闭|删除)?\s*$/.exec(e.msg);
+
+  if (!regRet) {
+    return;
+  }
+
+  let [, target, groupId, actionType] = regRet;
+  if (target === "群聊") {
+    target = "群";
+  }
+
+  if (target) {
+    if (groupId && (target === "群" || !target)) {
+      if (actionType === "删除") {
+        Cfg.del(`profile.groups.群${groupId}`);
+      } else {
+        Cfg.set(`profile.groups.群${groupId}.status`, actionType !== "关闭");
+      }
+    } else {
+      Cfg.set(`profile.${keyMap[target]}.status`, actionType !== "关闭");
+    }
+  }
+
+  let cfg = {
+    groups: []
+  }
+
+  lodash.forEach(['friend', 'group', 'stranger'], (key) => {
+    cfg[key] = getStatus(`profile.${key}.status`, true)
+  });
+
+  let groups = Cfg.get('profile.groups', {});
+  lodash.forEach(lodash.keys(groups), (group, idx) => {
+
+    if (lodash.isUndefined(groups[group])) {
+      return;
+    }
+    cfg.groups.push({
+      group,
+      idx: idx + 1,
+      status: getStatus(`profile.groups.${group}.status`, true)
+    })
+  })
+
+  //渲染图像
+  return await Common.render("admin/profile", {
+    ...cfg,
+  }, { e, render, scale: 1.4 });
+
 }

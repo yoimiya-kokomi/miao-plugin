@@ -1,0 +1,59 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/admin/index.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/admin/index.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/admin/profile.css"/>
+{{/block}}
+
+{{block 'main'}}
+
+<div class="info_box">
+  <div class="head-box type{{bgType}}">
+    <div class="label">#喵喵面板设置</div>
+    <div class="title">角色面板管理</div>
+  </div>
+</div>
+<div class="cfg-box">
+  <div class="cfg-group">#角色面板开放范围</div>
+  <ul class="cfg-ul">
+    <li class="cfg-li">
+      <div class="cfg-line">
+        好友
+        <span class="cfg-hint"> #喵喵面板设置好友 + 开启/关闭</span>
+        {{@friend}}
+      </div>
+    </li>
+    <li class="cfg-li">
+      <div class="cfg-line">
+        陌生人
+        <span class="cfg-hint"> #喵喵面板设置陌生人 + 开启/关闭</span>
+        {{@stranger}}
+      </div>
+    </li>
+    <li class="cfg-li">
+      <div class="cfg-line">
+        群
+        <span class="cfg-hint"> #喵喵面板设置群 + 开启/关闭</span>
+        {{@group}}
+      </div>
+      <div class="cfg-desc">若下方无指定群设置，默认使用此设置</div>
+    </li>
+  </ul>
+</div>
+<div class="cfg-box">
+  <div class="cfg-group">指定群设置</div>
+  <div class="cfg-desc">#喵喵面板设置群123456 + 开启/关闭/删除。对应群号会优先使用</div>
+  <ul class="cfg-ul">
+    {{each groups group}}
+    <li class="cfg-li">
+      <div class="cfg-line">
+        {{group.group}}
+        {{@group.status}}
+      </div>
+    </li>
+    {{/each}}
+
+  </ul>
+</div>
+{{/block}}

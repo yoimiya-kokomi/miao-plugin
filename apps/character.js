@@ -78,11 +78,29 @@ export async function character(e, { render, User }) {
     name = name.replace(/详情|详细|面板|面版|更新/g, "").trim();
   }
 
-  if (
-    (mode === "card" && Common.isDisable(e, "char.char")) ||
-    (mode !== "card" && Common.isDisable(e, "char.profile"))) {
+
+  if (mode === "card" && Common.isDisable(e, "char.char")) {
     return;
   }
+
+  if (mode !== "card" && !e.isMaster) {
+    if (Common.isDisable(e, "char.profile")) {
+      // 面板开关关闭
+      return;
+    }
+    if (e.isPrivate) {
+      if ((e.sub_type === "friend" && Cfg.get("profile.friend.status") === false) ||
+        (e.sub_type === "group" && Cfg.get("profile.stranger.status") === false)) {
+        return;
+      }
+    } else if (e.isGroup) {
+      let groupCfg = Cfg.get(`profile.groups.群${e.group_id}.status`);
+      if (groupCfg === false || (groupCfg !== true && Cfg.get(`profile.group.status`) === false)) {
+        return;
+      }
+    }
+  }
+
 
   let char = Character.get(name);
 
