@@ -33,11 +33,14 @@ let Cal = {
       if (detailData && detailData.data && detailData.data.list) {
         let versionTime = {};
         lodash.forEach(detailData.data.list, (ds) => {
-          let vRet = /(\d\.\d)版本更新时间/.exec(ds.title)
+          let vRet = /(\d\.\d)版本更新通知/.exec(ds.title)
           if (vRet && vRet[1]) {
-            let tRet = /([0-9\\/\\: ]){9,}/.exec(ds.content);
-            if (tRet && tRet[0]) {
-              versionTime[vRet[1]] = tRet[0].replace("06:00", "11:00");
+            let content = /(?:更新时间)\s*〓([^〓]+)(?:〓|$)/.exec(ds.content);
+            if (content && content[1]) {
+              let tRet = /([0-9\\/\\: ]){9,}/.exec(content[1]);
+              if (tRet && tRet[0]) {
+                versionTime[vRet[1]] = tRet[0].replace("06:00", "11:00");
+              }
             }
           }
         })
