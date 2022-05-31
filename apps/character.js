@@ -63,19 +63,28 @@ export async function character(e, { render, User }) {
   let mode = 'card';
   let name = msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
   let dmgRet = /伤害(\d?)$/.exec(msg), dmgIdx = 0;
+  msg = msg.replace("面版", "面板")
 
-  if (/(详情|详细|面板|面版)$/.test(msg) && !/更新/.test(msg)) {
+  if (/(详情|详细|面板|面版)$/.test(msg) && !/更新|录入|输入/.test(msg)) {
     mode = 'profile';
-    name = name.replace(/(详情|详细|面板|面版)/, "").trim();
+    name = name.replace(/(详情|详细|面板)/, "").trim();
   } else if (dmgRet) {
     mode = 'dmg';
     name = name.replace(/伤害[0-5]?/, "").trim();
     if (dmgRet[1]) {
       dmgIdx = dmgRet[1] * 1;
     }
-  } else if (/(详情|详细|面板|面版)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板|面版)$/.test(msg))) {
+  } else if (/(详情|详细|面板)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板)$/.test(msg))) {
     mode = "refresh";
-    name = name.replace(/详情|详细|面板|面版|更新/g, "").trim();
+    name = name.replace(/详情|详细|面板|更新/g, "").trim();
+  } else if (/(录入|输入)/.test(msg) && /(详情|详细|面板)/.test(msg)) {
+    mode = "input";
+    let nameRet = /(?:录入|输入)(.+)(?:面板|详细|详情|数据)+/.exec(name);
+    if (nameRet) {
+      name = nameRet[1];
+    }
+    e.inputData = msg.replace(nameRet[0], "");
+    name = name.replace(/录入|输入|详情|详细|面板|数据|[0-9]|\.|\+/g, "").trim()
   }
 
 
@@ -111,9 +120,9 @@ export async function character(e, { render, User }) {
 
   if (mode === "profile" || mode === "dmg") {
     return renderProfile(e, char, render, mode, { dmgIdx });
-  } else if (mode === "refresh") {
+  } else if (mode === "refresh" || mode === "input") {
     e.avatar = char.id;
-    await getProfile(e);
+    await getProfile(e, mode);
     return true;
   } else {
     return renderAvatar(e, char.name, render);
@@ -443,7 +452,7 @@ async function getTalent(e, avatars) {
   return skill;
 }
 
-export async function getProfile(e) {
+export async function getProfile(e, mode = "refresh") {
   let MysApi = await e.getMysApi({
     auth: "cookie",
     targetType: "self",
@@ -459,6 +468,26 @@ export async function getProfile(e) {
     e.reply("此功能仅绑定cookie用户可用")
     return true;
   }
+  if (mode === "input") {
+    if (e.inputData.trim().length < 5) {
+      e.reply(`【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0
+`)
+      return await profileHelp(e);
+    }
+
+    let ret = Profile.inputProfile(selfUser.uid, e);
+    let char = Character.get(e.avatar);
+    if (ret) {
+      e.reply(`${char.name}信息手工录入完成，你可以使用 #角色名+面板 / #角色名+伤害 来查看详细角色面板属性了`)
+    } else {
+      e.reply(`${char.name}信息手工录入失败，请检查录入格式。回复 #角色面板帮助 可查看录入提示`);
+      e.reply(`【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0
+`)
+    }
+    return true;
+  }
+
+  // 数据更新
   let data = await Profile.request(selfUser.uid, e);
   if (!data) {
     return true;
@@ -483,6 +512,7 @@ export async function getProfile(e) {
       e.reply(`获取角色面板数据成功！本次获取成功角色: ${ret.join(", ")} 。\n你可以使用 #角色名+面板 来查看详细角色面板属性了。${leftMsg}`)
     }
   }
+
 
   return true;
 }
@@ -658,7 +688,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
 
   lodash.forEach(avatar.reliquaries, (ds) => {
     let pos = ds.pos_name;
-    let arti = profile.artis[`arti${posIdx[pos].idx}`];
+    let arti = profile.artis && profile.artis[`arti${posIdx[pos].idx}`];
     if (arti) {
       let mark = Reliquaries.getMark(avatar.name, arti.attrs);
       let maxMark = Reliquaries.getMaxMark(char.name, arti.main[0] || "");
@@ -727,6 +757,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     cons: char.cons,
     name: char.name,
     elem: char.elem,
+    dataSource: profile.dataSource,
     dmgData,
     dmgMsg,
     dmgRet: dmgCalc.dmgRet,

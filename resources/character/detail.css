@@ -431,6 +431,28 @@ body {
 .artis .head .mark {
   font-family: Number, YS;
 }
+.artis.input-mode .item {
+  height: 100px;
+  margin: 5px 3px;
+}
+.artis.input-mode .item.weapon {
+  margin-left: 5px;
+}
+.artis.input-mode .item.arti {
+  width: 72px;
+}
+.artis.input-mode .item.arti .arti-icon,
+.artis.input-mode .item.arti img {
+  width: 68px;
+  height: 68px;
+}
+.artis.input-mode .item.arti .head {
+  padding: 78px 0 0 0;
+}
+.artis.input-mode .item.arti .head strong {
+  font-size: 12px;
+  text-align: center;
+}
 .mark-ACE,
 .mark-ACE² {
   color: #e85656;

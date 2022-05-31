@@ -397,6 +397,69 @@ let Profile = {
       totalMaxMark,
       markScore: Reliquaries.getMarkScore(totalMark * 1.05, totalMaxMark)
     }
+  },
+
+  inputProfile(uid, e) {
+    let { avatar, inputData } = e;
+    inputData = inputData.replace(/，|；|、|\n|\t/g, ",");
+    let attr = {};
+    let attrMap = {
+      hp: /生命/,
+      def: /防御/,
+      atk: /攻击/,
+      mastery: /精通/,
+      cRate: /(暴击率|爆率|暴击$)/,
+      cDmg: /(爆伤|暴击伤害)/,
+      hInc: /治疗/,
+      recharge: /充能/,
+      dmgBonus: /[火|水|雷|草|风|岩|冰|素|^]伤/,
+      phyBonus: /(物理|物伤)/
+    }
+    lodash.forEach(inputData.split(","), (ds, idx) => {
+      ds = ds.trim();
+      if (!ds) {
+        return;
+      }
+      let dRet = /(.*?)([0-9\.\+\s]+)/.exec(ds);
+      if (!dRet || !dRet[1] || !dRet[2]) {
+        return;
+      }
+      let name = dRet[1].trim(),
+        data = dRet[2].trim();
+      lodash.forEach(attrMap, (reg, key) => {
+        if (reg.test(name)) {
+          if (['hp', 'def', 'atk'].includes(key)) {
+            let tmp = data.split("+");
+            attr[key] = Math.max(0, Math.min(60000, tmp[0].trim() * 1 + tmp[1].trim() * 1 || 0));
+            attr[key + "Base"] = Math.max(0, Math.min(40000, tmp[0].trim() * 1 || 0));
+          } else {
+            attr[key] = Math.max(0, Math.min(400, data * 1 || 0));
+          }
+          return false;
+        }
+      })
+    })
+
+    if (lodash.keys(attr) < 3) {
+      return false;
+    }
+
+    let char = Character.get(avatar);
+    let data = {
+      id: char.id,
+      name: char.name,
+      dataSource: "input",
+      attr
+    }
+    let userData = {};
+    const userFile = `${userPath}/${uid}.json`;
+    if (fs.existsSync(userFile)) {
+      userData = JSON.parse(fs.readFileSync(userFile, "utf8")) || {};
+    }
+    userData.chars = userData.chars || {};
+    userData.chars[avatar] = data;
+    fs.writeFileSync(userFile, JSON.stringify(userData), "", " ");
+    return true;
   }
 };
 export default Profile;

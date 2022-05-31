@@ -401,9 +401,9 @@ let bow = {
   }],
 
   "若水": {
-    title: "生命值提高[hpPct]%，伤害提高[dmg]%",
+    title: "生命值提高[_hpPct]%，伤害提高[dmg]%",
     refine: {
-      hpPct: step(16),
+      _hpPct: step(16),
       dmg: step(20)
     }
   },

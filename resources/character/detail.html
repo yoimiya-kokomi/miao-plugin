@@ -77,7 +77,7 @@
 </div>
 {{/if}}
 
-{{if mode === "profile"}}
+{{if mode === "profile" && dataSource !== "input"}}
 <div class="artis">
   <div>
     <div class="item weapon">
@@ -118,6 +118,41 @@
   </div>
   {{/each}}
 </div>
+{{/if}}
+
+{{if mode === "profile" && dataSource === "input"}}
+<div class="cont">
+  <div class="cont-footer  dmg-desc">
+    面板信息来源于手工输入，面板信息及伤害计算可能不准确。通过<strong>#录入{{name}}面板</strong>可录入面板数据
+  </div>
+</div>
+<div class="artis input-mode">
+
+  <div class="item weapon">
+    <img src="{{_sys_res_path}}/genshin/logo/weapon/{{weapon.name}}.png"/>
+    <div class="head">
+      <strong>{{weapon.name}}</strong>
+      <div class="star star-{{weapon.rarity}}"></div>
+      <span>Lv.{{weapon.level}} <span
+          class="affix affix-{{weapon.affix_level}}">精{{weapon.affix_level}}</span></span>
+    </div>
+  </div>
+
+  {{each reliquaries ds}}
+  <div class="item arti">
+    {{if ds.name }}
+    <div class="arti-icon">
+      <img src="{{_sys_res_path}}/genshin/logo/reliquaries/{{ds.name}}.png"/>
+      <span>+{{ds.level}}</span>
+    </div>
+    <div class="head">
+      <strong>{{ds.name}}</strong>
+    </div>
+    {{/if}}
+  </div>
+  {{/each}}
+</div>
+
 {{/if}}
 
 {{if mode === "dmg"}}

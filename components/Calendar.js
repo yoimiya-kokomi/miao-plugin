@@ -11,7 +11,7 @@ const ignoreIds = [495,// 有奖问卷调查开启！
   762,  // 《原神》公平运营声明
 ]
 
-const ignoreReg = /(内容专题页|版本更新说明|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时返场)/;
+const ignoreReg = /(内容专题页|版本更新说明|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时|周边上新)/;
 const fulltimeReg = /(魔神任务)/;
 
 let Cal = {
@@ -31,7 +31,9 @@ let Cal = {
       let detailData = await request2.json();
       timeMap = {}
       if (detailData && detailData.data && detailData.data.list) {
-        let versionTime = {};
+        let versionTime = {
+          '2.7': "2022-05-31 11:00:00"
+        };
         lodash.forEach(detailData.data.list, (ds) => {
           let vRet = /(\d\.\d)版本更新通知/.exec(ds.title)
           if (vRet && vRet[1]) {

@@ -459,68 +459,104 @@ body {
   flex-wrap: wrap;
   margin-bottom: 5px;
   padding: 0 5px;
-}
-
-.artis .item {
-  width: 185px;
-  border-radius: 10px;
-  background: url("../common/cont/card-bg.png") top left repeat-x;
-  background-size: auto 100%;
-  margin: 5px;
-  height: 200px;
-  position: relative;
-  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
-  overflow: hidden;
-}
 
 
-.artis .item .arti-icon {
-  width: 60px;
-  height: 60px;
-  position: absolute;
-  left: 2px;
-  top: 3px;
-}
+  .item {
+    width: 185px;
+    border-radius: 10px;
+    background: url("../common/cont/card-bg.png") top left repeat-x;
+    background-size: auto 100%;
+    margin: 5px;
+    height: 200px;
+    position: relative;
+    box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
+    overflow: hidden;
 
-.artis .item .arti-icon span {
-  position: absolute;
-  right: 2px;
-  bottom: 0;
-  margin-left: 5px;
-  background: rgba(0, 0, 0, .5);
-  border-radius: 5px;
-  height: 18px;
-  line-height: 18px;
-  padding: 0 3px;
-  color: #fff;
-  font-size: 12px;
-  display: block;
-}
 
-.artis .item .arti-icon img {
-  width: 60px;
-  height: 60px;
-}
+    .arti-icon {
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      left: 2px;
+      top: 3px;
+    }
 
-.artis .head {
-  color: #fff;
-  padding: 12px 0 8px 68px;
-}
+    .arti-icon span {
+      position: absolute;
+      right: 2px;
+      bottom: 0;
+      margin-left: 5px;
+      background: rgba(0, 0, 0, .5);
+      border-radius: 5px;
+      height: 18px;
+      line-height: 18px;
+      padding: 0 3px;
+      color: #fff;
+      font-size: 12px;
+      display: block;
+    }
 
-.artis .head strong {
-  font-size: 15px;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  font-font: YS;
-}
+    .arti-icon img {
+      width: 60px;
+      height: 60px;
+    }
+  }
 
-.artis .head span {
-  font-size: 14px;
-}
+  .head {
+    color: #fff;
+    padding: 12px 0 8px 68px;
 
-.artis .head .mark {
-  font-family: Number, YS;
+    strong {
+      font-size: 15px;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      font-font: YS;
+    }
+
+    span {
+      font-size: 14px;
+    }
+
+    .mark {
+      font-family: Number, YS;
+    }
+  }
+
+  &.input-mode {
+    .item {
+      height: 100px;
+      margin: 5px 3px;
+
+      &.weapon {
+        margin-left: 5px;
+      }
+
+      &.arti {
+        width: 72px;
+
+
+        .arti-icon, img {
+          width: 68px;
+          height: 68px;
+        }
+
+        span {
+
+        }
+
+        .head {
+          padding: 78px 0 0 0;
+
+          strong {
+            font-size: 12px;
+            text-align: center;
+          }
+
+        }
+      }
+    }
+  }
 }
 
 .mark-ACE,
