@@ -401,6 +401,7 @@ let Profile = {
 
   inputProfile(uid, e) {
     let { avatar, inputData } = e;
+    inputData = inputData.replace("#", "");
     inputData = inputData.replace(/，|；|、|\n|\t/g, ",");
     let attr = {};
     let attrMap = {
