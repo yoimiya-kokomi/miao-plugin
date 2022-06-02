@@ -156,7 +156,7 @@ let Data = {
     };
     lodash.forEach(attrKey, (cfg, key) => {
       if (typeof (cfg) === "string") {
-        cfg = { title: cfg };
+        cfg = {title: cfg};
       }
       let val = data[cfg.title] || "";
       if (cfg.pct) {
@@ -232,8 +232,203 @@ let Data = {
   }
 }
 
+let Data2 = {
+  getData(uid, data) {
+
+    let ret = {
+      uid,
+      chars: {}
+    }
+
+    lodash.forEach({
+      name: "nickname",
+      avatar: "profilePicture.avatarId",
+      lv: "level"
+    }, (src, key) => {
+      ret[key] = lodash.get(data.playerInfo, src, "");
+    })
+
+    lodash.forEach(data.avatarInfoList, (ds) => {
+      let char = Data2.getAvatar(ds);
+      ret.chars[char.id] = char;
+    })
+
+    return ret;
+
+  },
+  getAvatar(data) {
+    let char = Character.get(data.avatarId);
+    return {
+      id: data["avatarId"],
+      name: char ? char.name : "",
+      dataSource: "shin",
+      lv: data.propMap['4001'].val * 1,
+      attr: Data2.getAttr(data.fightPropMap),
+      // weapon: Data.getWeapon(data),
+      artis: Data2.getArtifact(data.equipList),
+      //cons: data["命之座数量"] * 1 || 0,
+      //talent: Data.getTalent(data)
+    };
+  },
+  getAttr(data) {
+    let ret = {};
+    let attrKey = {
+      // atk: 2001,
+      atkBase: 4,
+      def: 2002,
+      defBase: 7,
+      hp: 2000,
+      hpBase: 1,
+      mastery: 28,
+      cRate: {
+        src: 20,
+        pct: true
+      },
+      cDmg: {
+        src: 22,
+        pct: true
+      },
+      hInc: {
+        src: 26,
+        pct: true
+      },
+      recharge: {
+        src: 23,
+        pct: true
+      }
+    };
+    lodash.forEach(attrKey, (cfg, key) => {
+      if (!lodash.isObject(cfg)) {
+        cfg = {src: cfg};
+      }
+      let val = data[cfg.src] || 0;
+      if (cfg.pct) {
+        val = val * 100
+      }
+      ret[key] = val;
+    });
+    ret.atk = data['4'] * (1 + data['6']) + data['5'];
+    let maxDmg = 0;
+    // 火40  水42 风44 岩45 冰46 雷46
+    // 41 雷
+    lodash.forEach("40,41,42,43,44,45,45,46".split(","), (key) => {
+      maxDmg = Math.max(data[key] * 1, maxDmg);
+    });
+    // phy 30
+    ret.dmgBonus = maxDmg * 100;
+    ret.phyBonus = data['30'] * 100;
+
+    return ret;
+  },
+
+  getArtifact(data) {
+    let ret = {};
+
+    let artiIdx = {
+      EQUIP_BRACER: 1,
+      EQUIP_NECKLACE: 2,
+      EQUIP_SHOES: 3,
+      EQUIP_RING: 4,
+      EQUIP_DRESS: 5
+    }
+    let attrMap = {
+      HP: "小生命",
+      HP_PERCENT: "大生命",
+      ATTACK: "小攻击",
+      ATTACK_PERCENT: "大攻击",
+      DEFENSE: "小防御",
+      DEFENSE_PERCENT: "大防御",
+      FIRE_ADD_HURT: "火元素伤害加成",
+      ICE_ADD_HURT: "冰元素伤害加成",
+      ROCK_ADD_HURT: "岩元素伤害加成",
+      ELEC_ADD_HURT: "雷元素伤害加成",
+      WIND_ADD_HURT: "风元素伤害加成",
+      WATER_ADD_HURT: "水元素伤害加成",
+      PHYSICAL_ADD_HURT: "物理伤害加成",
+      HEAL_ADD: "治疗加成",
+      ELEMENT_MASTERY: "元素精通",
+      CRITICAL: "暴击率",
+      CRITICAL_HURT: "暴击伤害",
+      CHARGE_EFFICIENCY: "充能效率",
+    }
+
+    let get = function (d) {
+      if (!d) {
+        return [];
+      }
+      let id = d.appendPropId || d.mainPropId || "";
+      id = id.replace("FIGHT_PROP_", "");
+      if (!attrMap[id]) {
+        return [];
+      }
+      return [attrMap[id], d.statValue];
+
+    }
+    lodash.forEach(data, (ds) => {
+      let flat = ds.flat || {}, sub = flat.reliquarySubstats || [];
+      let idx = artiIdx[flat.equipType];
+      if (!idx) {
+        return;
+      }
+
+      ret[`arti${idx}`] = {
+        name: "",
+        id: ds.itemId,
+        main: get(flat.reliquaryMainstat),
+        attrs: [
+          get(sub[0]),
+          get(sub[1]),
+          get(sub[2]),
+          get(sub[3])
+        ]
+      }
+    })
+    return ret;
+  },
+};
+
 let Profile = {
   async request(uid, e) {
+    let api = `https://enka.shinshin.moe/u/${uid}/__data.json`;
+    let inCd = await redis.get(`miao:role-all:${uid}`);
+    if (inCd === 'loading') {
+      e.reply("请求过快，请稍后重试..");
+      return false;
+    } else if (inCd === 'pending') {
+      e.reply("距上次请求刷新成功间隔小于2分钟，请稍后重试..");
+      return false;
+    }
+    await redis.set(`miao:role-all:${uid}`, 'loading', {EX: 20});
+    e.reply("开始获取数据，可能会需要一定时间~");
+    await sleep(1000);
+    let data;
+    try {
+      let req = await fetch(api);
+      data = await req.json();
+      if (!data.playerInfo) {
+        e.reply(`请求失败:${data.msg || "请求错误，请稍后重试"}`);
+        return false;
+      }
+      let details = data.avatarInfoList;
+      if (!details || details.length === 0 || !details[0].propMap) {
+        e.reply(`请打开角色展柜的显示详情`);
+        return false;
+      }
+    } catch (err) {
+      e.reply(`请求失败`);
+    }
+    // 请求成功Bot侧对该uid冷却10分钟
+    // 请勿将时间改短，10分钟之内若发起请求会命中服务侧的uid缓存，返回之前的数据，并导致服务侧重新计时
+    await redis.set(`miao:role-all:${uid}`, 'pending', {EX: 120});
+
+    let userData = {};
+    userData = Profile.save(uid, data, true)
+
+    userData.leftCount = 99;
+    return userData;
+
+  },
+  async request_bak(uid, e) {
     let cfg = config.miaoApi || {};
     if (!cfg.api) {
       e.reply("该功能为小范围非公开功能，需具备Token才可使用~");
@@ -251,7 +446,7 @@ let Profile = {
       e.reply("距上次请求刷新成功间隔小于10分钟，请稍后重试..");
       return false;
     }
-    await redis.set(`miao:role-all:${uid}`, 'loading', { EX: 20 });
+    await redis.set(`miao:role-all:${uid}`, 'loading', {EX: 20});
     e.reply("开始获取数据，可能会需要一定时间~");
 
     await sleep(1000);
@@ -268,7 +463,7 @@ let Profile = {
     }
     // 请求成功Bot侧对该uid冷却10分钟
     // 请勿将时间改短，10分钟之内若发起请求会命中服务侧的uid缓存，返回之前的数据，并导致服务侧重新计时
-    await redis.set(`miao:role-all:${uid}`, 'pending', { EX: 600 });
+    await redis.set(`miao:role-all:${uid}`, 'pending', {EX: 600});
     let leftCount = data.leftCount;
     data = data.data;
     let userData = {};
@@ -279,13 +474,19 @@ let Profile = {
     return userData;
   },
 
-  save(uid, ds) {
+  save(uid, ds, isNewFormat = false) {
     let userData = {};
     const userFile = `${userPath}/${uid}.json`;
     if (fs.existsSync(userFile)) {
       userData = JSON.parse(fs.readFileSync(userFile, "utf8")) || {};
     }
-    let data = Data.getData(uid, ds);
+    let data;
+    if (isNewFormat) {
+      data = Data2.getData(uid, ds);
+    } else {
+      data = Data.getData(uid, ds);
+    }
+
     lodash.assignIn(userData, lodash.pick(data, "uid,name,lv,avatar".split(",")));
     userData.chars = userData.chars || {};
     lodash.forEach(data.chars, (char, charId) => {
@@ -400,7 +601,7 @@ let Profile = {
   },
 
   inputProfile(uid, e) {
-    let { avatar, inputData } = e;
+    let {avatar, inputData} = e;
     inputData = inputData.replace("#", "");
     inputData = inputData.replace(/，|；|、|\n|\t/g, ",");
     let attr = {};

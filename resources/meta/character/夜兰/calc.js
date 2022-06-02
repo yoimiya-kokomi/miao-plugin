@@ -7,12 +7,12 @@ export const details = [{
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
 
 }, {
-  title: "Q协同攻击伤害",
+  title: "Q协同单段伤害",
   dmg: ({ talent, attr, calc, cons }, { basic }) =>
-    basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 100), 'q')
+    basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
 }];
 
-export const mainAttr = "hp,atk,cpct,cdmg";
+export const mainAttr = "hp,cpct,cdmg";
 
 export const buffs = [{
   title: "夜兰被动：有4个不同元素类型角色时，夜兰生命值上限提高30%",

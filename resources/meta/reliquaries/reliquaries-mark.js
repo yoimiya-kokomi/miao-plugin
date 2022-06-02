@@ -105,4 +105,5 @@ export const usefulAttr = {
   "辛焱": "atk,cRate,cDmg",
   "砂糖": "mastery,recharge",
   "雷泽": "atk,cRate,cDmg",
+  "夜兰": "hp,cRate,cDmg,recharge",
 }

@@ -1,4 +1,4 @@
-import { attrMark, maxMark, attrMap, usefulAttr } from "../../resources/meta/reliquaries/reliquaries-mark.js";
+import {attrMark, maxMark, attrMap, usefulAttr} from "../../resources/meta/reliquaries/reliquaries-mark.js";
 import lodash from "lodash";
 
 let Reliquaries = {
@@ -48,6 +48,7 @@ let Reliquaries = {
     let total = 0;
     let markMap = Reliquaries.getUseful(char).mark;
     lodash.forEach(data, (ret) => {
+      ret = ret || [];
       let title = ret[0], val = ret[1];
       if (title && val) {
         if (markMap[title]) {

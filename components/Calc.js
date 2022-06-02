@@ -58,6 +58,8 @@ let Calc = {
     let ret = {},
       { attr } = profile;
 
+    ret.dataSource = profile.dataSource || "miao";
+
     // 基础属性
     lodash.forEach("atk,def,hp".split(","), (key) => {
       ret[key] = {
