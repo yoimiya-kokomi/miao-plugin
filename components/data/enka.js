@@ -119,7 +119,7 @@ let Data = {
       }
       ret[key] = val;
     });
-    ret.atk = data['4'] * (1 + data['6']) + data['5'];
+    ret.atk = data['4'] * (1 + (data['6'] || 0)) + (data['5'] || 0);
     let maxDmg = 0;
     // 火40  水42 风44 岩45 冰46 雷46
     // 41 雷

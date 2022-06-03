@@ -40,7 +40,7 @@ let Profile = {
       e.reply("距上次请求刷新成功间隔小于5分钟，请稍后重试..");
       return false;
     }
-    await redis.set(`miao:role-all:${uid}`, 'loading', {EX: 20});
+    await redis.set(`miao:role-all:${uid}`, 'loading', { EX: 20 });
     e.reply("开始获取数据，可能会需要一定时间~");
     await sleep(1000);
     let data;
@@ -48,7 +48,13 @@ let Profile = {
       let req = await fetch(api);
       data = await req.json();
       if (!data.playerInfo) {
-        e.reply(`请求失败:${data.msg || "请求错误，请稍后重试"}`);
+        if ((uid + '')[0] === '2') {
+          e.reply(`请求失败:暂时不支持以2开头的UID角色面板更新，请等待服务后续升级`);
+        } else if ((uid + '')[0] === '5') {
+          e.reply(`请求失败:暂时不支持B服角色面板更新，请等待服务后续升级`);
+        } else {
+          e.reply(`请求失败:${data.msg || "请求错误，请稍后重试"}`);
+        }
         return false;
       }
       let details = data.avatarInfoList;
@@ -58,7 +64,7 @@ let Profile = {
       }
 
       // enka服务测冷却时间5分钟
-      await redis.set(`miao:role-all:${uid}`, 'pending', {EX: 300});
+      await redis.set(`miao:role-all:${uid}`, 'pending', { EX: 300 });
       let userData = {};
       userData = Profile.save(uid, data, 'enka')
       return userData;
@@ -67,7 +73,6 @@ let Profile = {
       e.reply(`请求失败`);
       return false;
     }
-
   },
 
   save(uid, ds, dataSource = 'enka') {
@@ -194,7 +199,7 @@ let Profile = {
   },
 
   inputProfile(uid, e) {
-    let {avatar, inputData} = e;
+    let { avatar, inputData } = e;
     inputData = inputData.replace("#", "");
     inputData = inputData.replace(/，|；|、|\n|\t/g, ",");
     let attr = {};
