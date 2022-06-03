@@ -111,7 +111,7 @@ let Data = {
     };
     lodash.forEach(attrKey, (cfg, key) => {
       if (!lodash.isObject(cfg)) {
-        cfg = {src: cfg};
+        cfg = { src: cfg };
       }
       let val = data[cfg.src] || 0;
       if (cfg.pct) {
@@ -156,8 +156,8 @@ let Data = {
       }
 
       let setName = meta[flat.setNameTextMapHash] || "";
-      let setCfg = relisMap[setName] || {name: "", sets: {}},
-        artiCfg = setCfg.sets[`arti${idx}`] || {name: ""};
+      let setCfg = relisMap[setName] || { name: "", sets: {} },
+        artiCfg = setCfg.sets[`arti${idx}`] || { name: "" };
 
       ret[`arti${idx}`] = {
         name: artiCfg.name,
@@ -182,20 +182,20 @@ let Data = {
         return false;
       }
     })
-    let {weapon, flat} = ds;
+    let { weapon, flat } = ds;
     return {
       name: meta[flat.nameTextMapHash],
       star: flat.rankLevel,
       leve: weapon.level,
       promote: weapon.promoteLevel,
-      affix: lodash.values(weapon.affixMap)[0]
+      affix: (lodash.values(weapon.affixMap)[0] || 0) + 1
     }
   },
   getTalent(charid, ds = {}, ext = {}) {
     let cm = cmeta[charid] || {};
     let cn = cm.Skills || {}, ce = cm.ProudMap;
     let idx = 1;
-    let idxMap = {1: 'a', 2: 'e', 3: 'q', 'a': 'a', 's': 'e', 'e': 'q'};
+    let idxMap = { 1: 'a', 2: 'e', 3: 'q', 'a': 'a', 's': 'e', 'e': 'q' };
     lodash.forEach(cn, (n, id) => {
       let nRet = /skill_(\w)/.exec(n.toLowerCase());
       idxMap[id] = nRet && nRet[1] ? idxMap[nRet[1]] : idxMap[idx];
@@ -223,7 +223,7 @@ let Data = {
   },
   dataFix(ret) {
 
-    let {attr, id} = ret;
+    let { attr, id } = ret;
     id = id * 1;
     switch (id) {
       case 10000052:
