@@ -1,6 +1,9 @@
 import {attrMark, maxMark, attrMap, usefulAttr} from "../../resources/meta/reliquaries/reliquaries-mark.js";
 import lodash from "lodash";
 
+//let meta = Data.readJSON("../../resources/meta/reliquaries", "data.json");
+
+
 let Reliquaries = {
   getUseful(char) {
     let attrKey = usefulAttr[char] || "";
@@ -76,6 +79,14 @@ let Reliquaries = {
     for (let idx = 0; idx < scoreMap.length; idx++) {
       if (pct < scoreMap[idx][1]) {
         return scoreMap[idx][0];
+      }
+    }
+  },
+
+  getSet(name) {
+    for (let idx in meta) {
+      if (meta[idx].name === name) {
+        return meta[idx];
       }
     }
   }

@@ -493,9 +493,7 @@ export async function getProfile(e, mode = "refresh") {
     return true;
   }
   let leftMsg = "";
-  if (!lodash.isUndefined(data.leftCount)) {
-    leftMsg = `今日剩余${data.leftCount}次请求机会。`
-  }
+
   if (!data.chars) {
     e.reply("获取角色面板数据失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~");
   } else {
@@ -832,6 +830,9 @@ export async function getArtis(e, { render }) {
     /* 处理圣遗物 */
     if (ds.artis) {
       lodash.forEach(ds.artis, (arti) => {
+        if (!arti.name) {
+          return;
+        }
         let mark = Reliquaries.getMark(name, arti.attrs);
         let maxMark = Reliquaries.getMaxMark(name, arti.main[0] || "");
         arti.mark = Format.comma(mark, 1);
@@ -845,7 +846,6 @@ export async function getArtis(e, { render }) {
       })
     }
   });
-
 
   if (artis.length === 0) {
     e.reply("请先获取角色面板数据后再查看圣遗物列表...");
