@@ -375,7 +375,7 @@ async function renderCard(e, avatar, render, renderType = "card") {
   // 计算皇冠个数
   let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length;
 
-  let uid = e.uid || e.targetUser.uid;
+  let uid = e.uid || (e.targetUser && e.targetUser.uid);
 
   let char = Character.get(avatar);
 
@@ -464,7 +464,15 @@ async function autoRefresh(e) {
     cookieType: "all",
     actionName: "更新角色信息"
   });
+
+  if (!MysApi || !e.targetUser) {
+    return;
+  }
+
   let uid = e.uid || e.targetUser.uid;
+  if (!uid) {
+    return true;
+  }
   let refreshMark = await redis.get(`miao:profile-refresh-cd:${uid}`);
   let inCd = await redis.get(`miao:role-all:${uid}`);
 
@@ -475,7 +483,7 @@ async function autoRefresh(e) {
   await redis.set(`miao:profile-refresh-cd:${uid}`, "TRUE", { EX: 3600 * 12 });
 
   // 数据更新
-  let data = await Profile.request(e.uid || e.targetUser.uid, e);
+  let data = await Profile.request(uid, e);
   if (!data) {
     return false;
   }
@@ -511,9 +519,10 @@ export async function getProfile(e, mode = "refresh") {
     actionName: "更新角色信息"
   });
 
-  if (!MysApi) {
+  if (!MysApi || !e.targetUser) {
     return false;
   }
+
   if (mode === "input") {
     if (e.inputData.trim().length < 5) {
       e.reply(`【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0`)
@@ -676,7 +685,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     cookieType: "all",
     actionName: "查询角色天赋命座等信息"
   });
-  if (!MysApi) {
+  if (!MysApi || !e.targetUser) {
     return true;
   }
 
@@ -830,7 +839,7 @@ export async function getArtis(e, { render }) {
     cookieType: "all",
     actionName: "查询角色天赋命座等信息"
   });
-  if (!MysApi) {
+  if (!MysApi || !e.targetUser) {
     return true;
   }
 
@@ -900,10 +909,12 @@ export async function getProfileAll(e) {
     cookieType: "all",
     actionName: "查询角色天赋命座等信息"
   });
-  if (!MysApi && MysApi.targetUser) {
+
+  if (!MysApi || !e.targetUser) {
     return true;
   }
-  let uid = MysApi.targetUser.uid;
+
+  let uid = e.targetUser.uid;
 
   let profiles = Profile.getAll(uid) || {};
 
