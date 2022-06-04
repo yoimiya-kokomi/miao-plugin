@@ -915,9 +915,15 @@ export async function getProfileAll(e) {
     ds.name && chars.push(ds.name)
   });
 
+
   if (chars.length === 0) {
-    e.reply("尚未获取任何角色数据");
-    await profileHelp(e);
+    if (await autoRefresh(e)) {
+      await getProfileAll(e);
+      return true;
+    } else {
+      e.reply("尚未获取任何角色数据");
+      await profileHelp(e);
+    }
     return true;
   }
 
