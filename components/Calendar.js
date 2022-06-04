@@ -248,7 +248,6 @@ let Cal = {
   async get() {
 
     moment.locale("zh-cn");
-
     let now = moment();
 
     let { listData, timeMap } = await Cal.reqCalData();

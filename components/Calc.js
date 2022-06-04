@@ -1,14 +1,15 @@
 import fs from "fs";
 import lodash from "lodash";
 import Format from "./Format.js";
+import { Character } from "./models.js"
 
 const eleMap = {
-  Anemo: "风",
-  Cryo: "冰",
-  Electro: "雷",
-  Geo: "岩",
-  Hydro: "水",
-  Pyro: "火"
+  anemo: "风",
+  cryo: "冰",
+  electro: "雷",
+  geo: "岩",
+  hydro: "水",
+  pyro: "火"
 }
 
 const attrMap = {
@@ -54,7 +55,7 @@ let Calc = {
   },
 
   // 获取基础属性
-  attr(profile, avatar) {
+  attr(profile) {
     let ret = {},
       { attr } = profile;
 
@@ -122,10 +123,12 @@ let Calc = {
       inc: 100, // 吸收倍率
     }
 
-    ret.weaponType = avatar.weapon.type_name;
-    ret.weapon = avatar.weapon;
-    ret.element = eleMap[avatar.element];
-    ret.refine = (avatar.weapon.affix_level * 1 - 1) || 0;
+    let char = Character.get(profile.id);
+    //ret.weaponType = avatar.weapon.type_name;
+    ret.weaponType = "";
+    ret.weapon = profile.weapon;
+    ret.element = eleMap[char.elem.toLowerCase()];
+    ret.refine = (profile.weapon.affix * 1 - 1) || 0;
 
     ret.multi = 0;
 
@@ -139,8 +142,10 @@ let Calc = {
   },
 
   // 获取天赋数据
-  talent(talentData, char) {
+  talent(profile, char) {
     let ret = {};
+
+    let talentData = profile.talent;
 
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let lv = talentData[key].level_current * 1 || 1,
@@ -311,7 +316,7 @@ let Calc = {
 
     lodash.forEach(sets, (set) => {
       if (set && set.set) {
-        let name = set.set.name
+        let name = set.set
         setMap[name] = (setMap[name] || 0) + 1
       }
     });
@@ -329,7 +334,7 @@ let Calc = {
     return retBuffs;
   },
 
-  getDmgFn({ ds, attr, avatar, enemyLv, showDetail = false }) {
+  getDmgFn({ ds, attr, profile, enemyLv, showDetail = false }) {
 
     let { calc } = ds;
 
@@ -378,7 +383,7 @@ let Calc = {
       }
 
       // 防御区
-      let lv = avatar.level;
+      let lv = profile.lv;
       let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore));
 
       // 抗性区
@@ -457,18 +462,16 @@ let Calc = {
   },
 
 
-  async calcData({ profile, char, avatar, talentData, enemyLv = 91, mode = 'profile', dmgIdx = 0 }) {
+  async calcData({ profile, char, enemyLv = 91, mode = 'profile', dmgIdx = 0 }) {
     let charCalcData = await Calc.getCharCalcRule(char.name);
-
-    //avatar.element;
 
     if (!charCalcData) {
       return false;
     }
-    let talent = Calc.talent(talentData, char);
+    let talent = Calc.talent(profile, char);
 
     let meta = {
-      cons: avatar.actived_constellation_num * 1,
+      cons: profile.cons * 1,
       talent
     }
 
@@ -476,10 +479,10 @@ let Calc = {
 
     defParams = defParams || {};
 
-    let originalAttr = Calc.attr(profile, avatar);
+    let originalAttr = Calc.attr(profile);
 
-    let weaponBuffs = await Calc.weapon(avatar.weapon.name);
-    let reliBuffs = await Calc.reliquaries(avatar.reliquaries);
+    let weaponBuffs = await Calc.weapon(profile.weapon.name);
+    let reliBuffs = await Calc.reliquaries(profile.artis);
     buffs = lodash.concat(buffs, weaponBuffs, reliBuffs);
 
     lodash.forEach(buffs, (buff) => {
@@ -497,7 +500,7 @@ let Calc = {
       if (lodash.isFunction(detail)) {
         let { attr } = Calc.calcAttr({ originalAttr, buffs, meta });
         let ds = lodash.merge({ talent }, Calc.getDs(attr, meta));
-        detail = detail({ ...ds, attr, avatar });
+        detail = detail({ ...ds, attr, profile });
       }
       let params = lodash.merge({}, defParams, detail.params || {});
       let { attr } = Calc.calcAttr({ originalAttr, buffs, meta, params, talent: detail.talent || "" });
@@ -509,7 +512,7 @@ let Calc = {
       }
       let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params));
 
-      let dmg = Calc.getDmgFn({ ds, attr, avatar, enemyLv, showDetail: detail.showDetail }),
+      let dmg = Calc.getDmgFn({ ds, attr, profile, enemyLv, showDetail: detail.showDetail }),
         basicDmgRet;
 
       if (detail.dmg) {
@@ -562,7 +565,7 @@ let Calc = {
             talent: detail.talent || ""
           });
           let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params));
-          let dmg = Calc.getDmgFn({ ds, attr, avatar, enemyLv });
+          let dmg = Calc.getDmgFn({ ds, attr, profile, enemyLv });
           if (detail.dmg) {
             let dmgCalcRet = detail.dmg(ds, dmg);
             rowData.push({

@@ -61,10 +61,14 @@ export async function character(e, { render, User }) {
   }
 
   let mode = 'card';
-  let name = msg.replace(/#|老婆|老公|[1|2|5][0-9]{8}/g, "").trim();
-  let dmgRet = /伤害(\d?)$/.exec(msg), dmgIdx = 0;
+  let uidRet = /[0-9]{9}/.exec(msg);
+  if (uidRet) {
+    e.uid = uidRet[0];
+    msg = msg.replace(uidRet[0], "");
+  }
+  let name = msg.replace(/#|老婆|老公/g, "").trim();
   msg = msg.replace("面版", "面板")
-
+  let dmgRet = /伤害(\d?)$/.exec(msg), dmgIdx = 0;
   if (/(详情|详细|面板|面版)$/.test(msg) && !/更新|录入|输入/.test(msg)) {
     mode = 'profile';
     name = name.replace(/(详情|详细|面板)/, "").trim();
@@ -82,8 +86,8 @@ export async function character(e, { render, User }) {
     let nameRet = /(?:录入|输入)(.+)(?:面板|详细|详情|数据)+/.exec(name);
     if (nameRet) {
       name = nameRet[1];
+      e.inputData = msg.replace(nameRet[0], "");
     }
-    e.inputData = msg.replace(nameRet[0], "");
     name = name.replace(/录入|输入|详情|详细|面板|数据|[0-9]|\.|\+/g, "").trim()
   }
 
@@ -371,7 +375,7 @@ async function renderCard(e, avatar, render, renderType = "card") {
   // 计算皇冠个数
   let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length;
 
-  let uid = e.targetUser.uid;
+  let uid = e.uid || e.targetUser.uid;
 
   let char = Character.get(avatar);
 
@@ -452,30 +456,71 @@ async function getTalent(e, avatars) {
   return skill;
 }
 
+
+async function autoRefresh(e) {
+  let MysApi = await e.getMysApi({
+    auth: "all",
+    targetType: "all",
+    cookieType: "all",
+    actionName: "更新角色信息"
+  });
+  let uid = e.uid || e.targetUser.uid;
+  let refreshMark = await redis.get(`miao:profile-refresh-cd:${uid}`);
+  let inCd = await redis.get(`miao:role-all:${uid}`);
+
+  if (refreshMark || inCd) {
+    return false;
+  }
+
+  await redis.set(`miao:profile-refresh-cd:${uid}`, "TRUE", { EX: 3600 * 12 });
+
+  // 数据更新
+  let data = await Profile.request(e.uid || e.targetUser.uid, e);
+  if (!data) {
+    return false;
+  }
+
+  if (!data.chars) {
+    e.reply("请确认角色已在【游戏内】橱窗展示并开放了查看详情。设置完毕后请5分钟后使用 #面板更新 重新获取");
+    return false;
+  } else {
+    let ret = [];
+    lodash.forEach(data.chars, (ds) => {
+      let char = Character.get(ds.id);
+      if (char) {
+        ret.push(char.name);
+      }
+    })
+    if (ret.length === 0) {
+      e.reply("请确认角色已在【游戏内】橱窗展示并开放了查看详情。设置完毕后请5分钟后使用 #面板更新 重新获取")
+      return false;
+    } else {
+      e.reply(`本次获取成功角色: ${ret.join(", ")} `)
+      return true;
+    }
+  }
+  return true;
+}
+
+
 export async function getProfile(e, mode = "refresh") {
   let MysApi = await e.getMysApi({
-    auth: "cookie",
-    targetType: "self",
-    cookieType: "self",
+    auth: "all",
+    targetType: "all",
+    cookieType: "all",
     actionName: "更新角色信息"
   });
 
   if (!MysApi) {
     return false;
   }
-  let selfUser = e.selfUser;
-  if (!selfUser.isCookieUser) {
-    e.reply("此功能仅绑定cookie用户可用")
-    return true;
-  }
   if (mode === "input") {
     if (e.inputData.trim().length < 5) {
-      e.reply(`【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0
-`)
+      e.reply(`【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0`)
       return await profileHelp(e);
     }
 
-    let ret = Profile.inputProfile(selfUser.uid, e);
+    let ret = Profile.inputProfile(e.selfUser.uid, e);
     let char = Character.get(e.avatar);
     if (ret) {
       e.reply(`${char.name}信息手工录入完成，你可以使用 #角色名+面板 / #角色名+伤害 来查看详细角色面板属性了`)
@@ -488,11 +533,10 @@ export async function getProfile(e, mode = "refresh") {
   }
 
   // 数据更新
-  let data = await Profile.request(selfUser.uid, e);
+  let data = await Profile.request(e.uid || e.targetUser.uid, e);
   if (!data) {
     return true;
   }
-  let leftMsg = "";
 
   if (!data.chars) {
     e.reply("获取角色面板数据失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~");
@@ -507,11 +551,9 @@ export async function getProfile(e, mode = "refresh") {
     if (ret.length === 0) {
       e.reply("获取角色面板数据失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~")
     } else {
-      e.reply(`获取角色面板数据成功！本次获取成功角色: ${ret.join(", ")} 。\n你可以使用 #角色名+面板 来查看详细角色面板属性了。${leftMsg}`)
+      e.reply(`获取角色面板数据成功！本次获取成功角色: ${ret.join(", ")} 。\n你可以使用 #角色名+面板 来查看详细角色面板属性了。`)
     }
   }
-
-
   return true;
 }
 
@@ -613,7 +655,6 @@ async function getAvatar(e, char, MysApi) {
   return avatars[char.id];
 }
 
-
 export async function renderProfile(e, char, render, mode = "profile", params = {}) {
 
   if (['荧', '空', '主角', '旅行者'].includes(char.name)) {
@@ -621,10 +662,18 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     return true;
   }
 
+  let refresh = async () => {
+    let refreshRet = await autoRefresh(e);
+    if (refreshRet) {
+      await renderProfile(e, char, render, mode, params);
+    }
+    return refreshRet;
+  }
+
   let MysApi = await e.getMysApi({
-    auth: "cookie",
-    targetType: "self",
-    cookieType: "self",
+    auth: "all",
+    targetType: "all",
+    cookieType: "all",
     actionName: "查询角色天赋命座等信息"
   });
   if (!MysApi) {
@@ -632,12 +681,21 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
   }
 
   let selfUser = e.selfUser,
-    uid = selfUser.uid;
+    uid = e.uid || e.targetUser.uid;
 
   let profile = Profile.get(uid, char.id);
   if (!profile) {
-    e.reply(`请先发送 #更新${char.name}面板\n来获取${char.name}的面板详情`);
+    if (await refresh()) {
+      return true;
+    } else {
+      e.reply(`请使用 #更新面板\n来获取${char.name}的面板详情，请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。`);
+    }
     await profileHelp(e);
+    return true;
+  } else if (profile.dataSource !== "enka") {
+    if (!await refresh()) {
+      e.reply(`由于数据格式升级，请重新获取面板信息后查看`);
+    }
     return true;
   }
 
@@ -658,63 +716,34 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     dmgBonus: p(Math.max(a.dmgBonus * 1 || 0, a.phyBonus * 1 || 0))
   };
 
+  /*
   let avatar = await getAvatar(e, char, MysApi);
   let talent = await getTalent(e, avatar);
-
-
-  if (global.debugView === "web-debug") {
-    let file = process.cwd() + "/tools/avatar.json";
-    avatar._talent = talent;
-    fs.writeFileSync(file, JSON.stringify(avatar));
-  }
-
-  if (!talent.id) {
-    return true;
-  }
-
-  let posIdx = {
-    "生之花": { idx: 1 },
-    "死之羽": { idx: 2 },
-    "时之沙": { idx: 3 },
-    "空之杯": { idx: 4 },
-    "理之冠": { idx: 5 }
-  };
+*/
 
   let reliquaries = [], totalMark = 0, totalMaxMark = 0;
 
-  let { titles: usefulTitles, mark: usefulMark } = Reliquaries.getUseful(avatar.name);
+  let { titles: usefulTitles, mark: usefulMark } = Reliquaries.getUseful(char.name);
 
-  lodash.forEach(avatar.reliquaries, (ds) => {
-    let pos = ds.pos_name;
-    let arti = profile.artis && profile.artis[`arti${posIdx[pos].idx}`];
-    if (arti) {
-      let mark = Reliquaries.getMark(avatar.name, arti.attrs);
-      let maxMark = Reliquaries.getMaxMark(char.name, arti.main[0] || "");
-      totalMark += mark;
-      totalMaxMark += maxMark;
-      ds.mark = c(mark, 1);
-      ds.markType = Reliquaries.getMarkScore(mark, maxMark);
-      ds.main = Profile.formatArti(arti.main);
-      ds.attrs = Profile.formatArti(arti.attrs);
-    }
-    posIdx[pos].data = ds;
+  lodash.forEach(profile.artis, (arti) => {
+    let ds = arti;
+    let mark = Reliquaries.getMark(char.name, arti.attrs);
+    let maxMark = Reliquaries.getMaxMark(char.name, arti.main[0] || "");
+    totalMark += mark;
+    totalMaxMark += maxMark;
+    ds.mark = c(mark, 1);
+    ds.markType = Reliquaries.getMarkScore(mark, maxMark);
+    ds.main = Profile.formatArti(arti.main);
+    ds.attrs = Profile.formatArti(arti.attrs);
+    reliquaries.push(ds);
   });
 
-  lodash.forEach(posIdx, (ds) => {
-    if (ds && ds.data) {
-      reliquaries.push(ds.data);
-    } else {
-      reliquaries.push({});
-    }
-  });
 
   let enemyLv = await selfUser.getCfg(`char.enemyLv`, 91);
   let dmgMsg = [], dmgData = [];
   let dmgCalc = await Calc.calcData({
     profile,
     char,
-    avatar,
-    talentData: talent,
     enemyLv,
     mode,
     ...params
@@ -750,12 +779,9 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     uid: uid,
     data: profile,
     attr,
-    avatar,
-    talent,
     cons: char.cons,
     name: char.name,
     elem: char.elem,
-    dataSource: profile.dataSource,
     dmgData,
     dmgMsg,
     dmgRet: dmgCalc.dmgRet,
@@ -766,7 +792,6 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     totalMark: c(totalMark, 1),
     totalMaxMark,
     markScore: Reliquaries.getMarkScore(totalMark, totalMaxMark),
-    weapon: avatar.weapon,
     usefulTitles,
     usefulMark,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
@@ -800,17 +825,21 @@ export async function enemyLv(e) {
 
 export async function getArtis(e, { render }) {
   let MysApi = await e.getMysApi({
-    auth: "cookie",
-    targetType: "self",
-    cookieType: "self",
+    auth: "all",
+    targetType: "all",
+    cookieType: "all",
     actionName: "查询角色天赋命座等信息"
   });
   if (!MysApi) {
     return true;
   }
 
-  let selfUser = e.selfUser,
-    uid = selfUser.uid;
+  let uidRet = /[0-9]{9}/.exec(e.msg);
+  if (uidRet) {
+    e.uid = uidRet[0];
+  }
+
+  let uid = e.uid || e.targetUser.uid;
 
   let artis = [],
     profiles = Profile.getAll(uid) || {};
@@ -866,20 +895,23 @@ export async function getArtis(e, { render }) {
 
 export async function getProfileAll(e) {
   let MysApi = await e.getMysApi({
-    auth: "cookie",
-    targetType: "self",
-    cookieType: "self",
+    auth: "all",
+    targetType: "all",
+    cookieType: "all",
     actionName: "查询角色天赋命座等信息"
   });
-  if (!MysApi) {
+  if (!MysApi && MysApi.targetUser) {
     return true;
   }
-  let uid = MysApi.selfUser.uid;
+  let uid = MysApi.targetUser.uid;
 
   let profiles = Profile.getAll(uid) || {};
 
   let chars = [];
   lodash.forEach(profiles || [], (ds) => {
+    if (ds.dataSource !== "enka") {
+      return;
+    }
     ds.name && chars.push(ds.name)
   });
 
@@ -888,6 +920,7 @@ export async function getProfileAll(e) {
     await profileHelp(e);
     return true;
   }
+
   e.reply("当前已获取面板角色： " + chars.join(", "));
 
   return true;

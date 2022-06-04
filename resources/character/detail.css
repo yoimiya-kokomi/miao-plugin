@@ -53,6 +53,7 @@ body {
   text-align: right;
 }
 .char-lv .cons {
+  margin-left: 5px;
   vertical-align: bottom;
 }
 .attr {

@@ -24,14 +24,16 @@ if (!fs.existsSync(userPath)) {
   fs.mkdirSync(userPath);
 }
 
-
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 let Profile = {
   async request(uid, e) {
-    let api = `https://enka.shinshin.moe/u/${uid}/__data.json`;
+    let profileApi = config.profileApi || function (uid) {
+      return `https://enka.shinshin.moe/u/${uid}/__data.json`
+    };
+    let api = profileApi(uid);
     let inCd = await redis.get(`miao:role-all:${uid}`);
     if (inCd === 'loading') {
       e.reply("请求过快，请稍后重试..");
@@ -161,43 +163,6 @@ let Profile = {
     return total;
   },
 
-  getArtiDetail(profile, avatar) {
-
-    let reliquaries = [],
-      totalMark = 0,
-      totalMaxMark = 0;
-
-    lodash.forEach(avatar.reliquaries, (ds) => {
-      let pos = ds.pos_name;
-      let arti = profile.artis[`arti${posIdx[pos].idx}`];
-      if (arti) {
-        let mark = Reliquaries.getMark(avatar.name, arti.attrs);
-        let maxMark = Reliquaries.getMaxMark(avatar.name, arti.main[0] || "");
-        totalMark += mark;
-        totalMaxMark += maxMark;
-        ds.mark = Format.comma(mark, 1);
-        ds.markType = Reliquaries.getMarkScore(mark, maxMark);
-        ds.main = Profile.formatArti(arti.main);
-        ds.attrs = Profile.formatArti(arti.attrs);
-      }
-      posIdx[pos].data = ds;
-    })
-    lodash.forEach(posIdx, (ds) => {
-      if (ds && ds.data) {
-        reliquaries.push(ds.data);
-      } else {
-        reliquaries.push({});
-      }
-    });
-
-    return {
-      reliquaries,
-      totalMark,
-      totalMaxMark,
-      markScore: Reliquaries.getMarkScore(totalMark * 1.05, totalMaxMark)
-    }
-  },
-
   inputProfile(uid, e) {
     let { avatar, inputData } = e;
     inputData = inputData.replace("#", "");
@@ -226,16 +191,39 @@ let Profile = {
       }
       let name = dRet[1].trim(),
         data = dRet[2].trim();
+      let range = (src, min = 0, max = 1200) => Math.max(min, Math.min(max, src * 1 || 0));
+
       lodash.forEach(attrMap, (reg, key) => {
         if (reg.test(name)) {
-          if (['hp', 'def', 'atk'].includes(key)) {
-            let tmp = data.split("+");
-            attr[key] = Math.max(0, Math.min(60000, tmp[0].trim() * 1 + tmp[1].trim() * 1 || 0));
-            attr[key + "Base"] = Math.max(0, Math.min(40000, tmp[0].trim() * 1 || 0));
-          } else {
-            attr[key] = Math.max(0, Math.min(400, data * 1 || 0));
+          let tmp = data.split("+");
+          switch (key) {
+            case "hp":
+              attr[key + "Base"] = range(tmp[0].trim(), 0, 16000);
+              attr[key] = range(tmp[0].trim() * 1 + tmp[1].trim() * 1, attr[key + "Base"], 50000);
+              break;
+            case "def":
+            case "atk":
+              attr[key + "Base"] = range(tmp[0].trim(), 0, 1100);
+              attr[key] = range(tmp[0].trim() * 1 + tmp[1].trim() * 1, attr[key + "Base"], 4500);
+              break;
+            case "mastery":
+              attr[key] = range(data, 0, 1200);
+              break;
+            case "cRate":
+              attr[key] = range(data, -95, 120);
+              break;
+            case "cDmg":
+              attr[key] = range(data, 0, 320);
+              break;
+            case "recharge":
+            case "hInc":
+              attr[key] = range(data, 0, 400);
+              break;
+            case "dmgBonus":
+            case "phyBonus":
+              attr[key] = range(data, 0, 200);
+              break;
           }
-          return false;
         }
       })
     })

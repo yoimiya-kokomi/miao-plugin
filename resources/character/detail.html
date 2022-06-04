@@ -1,7 +1,13 @@
 {{extend elemLayout}}
+
 {{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/character/detail.css"/>
 {{/block}}
+
+{{set weapon = data.weapon}}
+{{set talent = data.talent}}
+{{set dataSrouce = data.dataSource}}
+
 
 {{block 'main'}}
 <div class="basic">
@@ -10,7 +16,7 @@
   <div class="detail">
     <div class="char-name">{{name}}</div>
     <div class="char-lv">UID {{uid}} - Lv.{{data.lv}}
-      <span class="cons cons-{{avatar.actived_constellation_num}}">{{avatar.actived_constellation_num}}命</span></div>
+      <span class="cons cons-{{data.cons}}">{{data.cons}}命</span></div>
     <div class="char-talents">
       {{each talentMap tName key}}
       <div class="talent-item">
@@ -38,44 +44,13 @@
   <div class="char-cons">
     {{each cons con idx}}
     <div class="cons-item">
-      <div class="talent-icon {{idx * 1 > avatar.actived_constellation_num * 1 ? 'off' : '' }}">
+      <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
         <img src="{{_res_path}}/meta/character/{{name}}/cons_{{idx}}.png"/>
       </div>
     </div>
     {{/each}}
   </div>
 </div>
-{{if dmgData.length > 0}}
-<div class="dmg-cont dmg-list cont">
-  <div class="cont-title">
-    伤害计算<span>目标为{{enemyLv}}级{{enemyName}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置</span>
-  </div>
-  <div class="cont-table">
-    <div class="tr thead">
-      <div class="title dmg-idx">#</div>
-      <div class="title dmg-title">伤害类型</div>
-      <div>暴击伤害</div>
-      <div>平均伤害(计算暴击率)</div>
-    </div>
-    {{each dmgData dmg idx}}
-    <div class="dmg tr">
-      <div class="title dmg-idx">{{idx+1}}</div>
-      <div class="title dmg-title">{{dmg.title}}</div>
-      {{if dmg.dmg === "NaN"}}
-      <div class="value value-full">{{dmg.avg}}</div>
-      <div class="value value-none"></div>
-      {{else}}
-      <div class="value">{{dmg.dmg}}</div>
-      <div class="value">{{dmg.avg}}</div>
-      {{/if}}
-    </div>
-    {{/each}}
-  </div>
-  <div class="cont-footer dmg-desc">
-    使用命令<strong>#{{name}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
-  </div>
-</div>
-{{/if}}
 
 {{if mode === "profile" && dataSource !== "input"}}
 <div class="artis">
@@ -84,9 +59,9 @@
       <img src="{{_sys_res_path}}/genshin/logo/weapon/{{weapon.name}}.png"/>
       <div class="head">
         <strong>{{weapon.name}}</strong>
-        <div class="star star-{{weapon.rarity}}"></div>
-        <span>Lv.{{weapon.level}} <span
-            class="affix affix-{{weapon.affix_level}}">精{{weapon.affix_level}}</span></span>
+        <div class="star star-{{weapon.star}}"></div>
+        <span>Lv.{{weapon.leve || weapon.level}} <span
+            class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
       </div>
     </div>
     <div class="item stat">
@@ -154,6 +129,39 @@
 </div>
 
 {{/if}}
+
+{{if dmgData.length > 0}}
+<div class="dmg-cont dmg-list cont">
+  <div class="cont-title">
+    伤害计算<span>目标为{{enemyLv}}级{{enemyName}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置</span>
+  </div>
+  <div class="cont-table">
+    <div class="tr thead">
+      <div class="title dmg-idx">#</div>
+      <div class="title dmg-title">伤害类型</div>
+      <div>暴击伤害</div>
+      <div>平均伤害(计算暴击率)</div>
+    </div>
+    {{each dmgData dmg idx}}
+    <div class="dmg tr">
+      <div class="title dmg-idx">{{idx+1}}</div>
+      <div class="title dmg-title">{{dmg.title}}</div>
+      {{if dmg.dmg === "NaN"}}
+      <div class="value value-full">{{dmg.avg}}</div>
+      <div class="value value-none"></div>
+      {{else}}
+      <div class="value">{{dmg.dmg}}</div>
+      <div class="value">{{dmg.avg}}</div>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+  <div class="cont-footer dmg-desc">
+    使用命令<strong>#{{name}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
+  </div>
+</div>
+{{/if}}
+
 
 {{if mode === "dmg"}}
 

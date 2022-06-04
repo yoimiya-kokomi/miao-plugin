@@ -3,6 +3,10 @@ import Character from "../models/Character.js";
 import meta from "./enka_meta.js";
 import cmeta from "./enka_char.js";
 import _Data from "../Data.js";
+import moment from "moment";
+
+moment.locale("zh-cn");
+
 
 let _path = process.cwd();
 let relis = _Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/reliquaries/`, "data.json") || {};
@@ -68,10 +72,12 @@ let Data = {
   },
   getAvatar(data) {
     let char = Character.get(data.avatarId);
+    let now = moment();
     let ret = {
       id: data["avatarId"],
       name: char ? char.name : "",
       dataSource: "enka",
+      updateTime: now.format("YYYY-MM-DD HH:mm:ss"),
       lv: data.propMap['4001'].val * 1,
       fetter: data.fetterInfo.expLevel,
       attr: Data.getAttr(data.fightPropMap),
@@ -186,7 +192,7 @@ let Data = {
     return {
       name: meta[flat.nameTextMapHash],
       star: flat.rankLevel,
-      leve: weapon.level,
+      level: weapon.level,
       promote: weapon.promoteLevel,
       affix: (lodash.values(weapon.affixMap)[0] || 0) + 1
     }
@@ -222,7 +228,9 @@ let Data = {
     return ret;
   },
   dataFix(ret) {
-
+    if (ret._fix) {
+      return ret;
+    }
     let { attr, id } = ret;
     id = id * 1;
     switch (id) {
@@ -234,7 +242,15 @@ let Data = {
         // 莫娜被动fix
         attr.dmgBonus = Math.min(0, attr.dmgBonus - attr.recharge * 0.2)
         break;
+      /*
+            case 10000060:
+              // 夜兰被动fix
+              attr.hp = attr.hp - attr.hpBase * 0.3
+              break;
+      */
+
     }
+    ret._fix = true;
     return ret;
   }
 };
