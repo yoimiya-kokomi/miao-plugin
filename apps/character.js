@@ -688,7 +688,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     if (await refresh()) {
       return true;
     } else {
-      e.reply(`请使用 #更新面板\n来获取${char.name}的面板详情，请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。`);
+      e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`);
     }
     await profileHelp(e);
     return true;
