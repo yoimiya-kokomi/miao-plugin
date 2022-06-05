@@ -236,11 +236,11 @@ let Data = {
     switch (id) {
       case 10000052:
         // 雷神被动加成fix
-        attr.dmgBonus = Math.min(0, attr.dmgBonus - (attr.recharge - 100) * 0.4)
+        attr.dmgBonus = Math.max(0, attr.dmgBonus - (attr.recharge - 100) * 0.4)
         break;
       case 10000041:
         // 莫娜被动fix
-        attr.dmgBonus = Math.min(0, attr.dmgBonus - attr.recharge * 0.2)
+        attr.dmgBonus = Math.max(0, attr.dmgBonus - attr.recharge * 0.2)
         break;
       /*
             case 10000060:

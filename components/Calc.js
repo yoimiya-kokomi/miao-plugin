@@ -124,9 +124,8 @@ let Calc = {
     }
 
     let char = Character.get(profile.id);
-    //ret.weaponType = avatar.weapon.type_name;
-    ret.weaponType = "";
     ret.weapon = profile.weapon;
+    ret.weaponType = char.weaponType;
     ret.element = eleMap[char.elem.toLowerCase()];
     ret.refine = (profile.weapon.affix * 1 - 1) || 0;
 

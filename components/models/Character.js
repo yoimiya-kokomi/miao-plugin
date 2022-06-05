@@ -78,7 +78,6 @@ class Character extends Base {
   }
 
   checkAvatars(avatars) {
-
     if (!lodash.includes([20000000, 10000005, 10000007], this.id * 1)) {
       return;
     }
@@ -96,6 +95,18 @@ class Character extends Base {
       // 荧
       lodash.extend(this, getMeta('荧'));
     }
+  }
+
+  get weaponType() {
+    const map = {
+      sword: "单手剑",
+      catalyst: "法器",
+      bow: "弓",
+      claymore: "双手剑",
+      polearm: "长柄武器"
+    }
+    let weaponType = this.weapon || "";
+    return map[weaponType.toLowerCase()] || "";
   }
 }
 
