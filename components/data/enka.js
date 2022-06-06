@@ -6,8 +6,6 @@ import _Data from "../Data.js";
 import moment from "moment";
 
 moment.locale("zh-cn");
-
-
 let _path = process.cwd();
 let relis = _Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/reliquaries/`, "data.json") || {};
 

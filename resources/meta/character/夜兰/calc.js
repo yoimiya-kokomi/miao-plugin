@@ -8,9 +8,7 @@ export const details = [{
 
 }, {
   title: "Q协同单段伤害",
-  shwoDetail: true,
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    console.log('hp', attr.hp, calc(attr.hp), talent.q['玄掷玲珑伤害'] / 3)
     return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
   }
 }];

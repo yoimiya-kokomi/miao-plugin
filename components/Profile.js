@@ -30,6 +30,9 @@ function sleep(ms) {
 
 let Profile = {
   async request(uid, e) {
+    if (uid.toString().length !== 9) {
+      return false;
+    }
     let profileApi = config.profileApi || function (uid) {
       return `https://enka.shinshin.moe/u/${uid}/__data.json`
     };
@@ -39,7 +42,7 @@ let Profile = {
       e.reply("请求过快，请稍后重试..");
       return false;
     } else if (inCd === 'pending') {
-      e.reply("距上次请求刷新成功间隔小于5分钟，请稍后重试..");
+      e.reply("#ref距上次请求刷新成功间隔小于5分钟，请稍后重试..");
       return false;
     }
     await redis.set(`miao:role-all:${uid}`, 'loading', { EX: 20 });

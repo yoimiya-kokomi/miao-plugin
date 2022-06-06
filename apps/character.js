@@ -390,7 +390,7 @@ async function renderCard(e, avatar, render, renderType = "card") {
     //渲染图像
     return await Common.render("character/card", {
       save_id: uid,
-      uid: uid,
+      uid,
       talent,
       crownNum,
       talentMap: { a: "普攻", e: "战技", q: "爆发" },
@@ -458,21 +458,12 @@ async function getTalent(e, avatars) {
 
 
 async function autoRefresh(e) {
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: "all",
-    cookieType: "all",
-    actionName: "更新角色信息"
-  });
 
-  if (!MysApi || !e.targetUser) {
-    return;
+  let uid = await getTargetUid(e);
+  if (!uid || e.isRefreshed) {
+    return false;
   }
 
-  let uid = e.uid || e.targetUser.uid;
-  if (!uid) {
-    return true;
-  }
   let refreshMark = await redis.get(`miao:profile-refresh-cd:${uid}`);
   let inCd = await redis.get(`miao:role-all:${uid}`);
 
@@ -481,6 +472,7 @@ async function autoRefresh(e) {
   }
 
   await redis.set(`miao:profile-refresh-cd:${uid}`, "TRUE", { EX: 3600 * 12 });
+  e.isRefreshed = true;
 
   // 数据更新
   let data = await Profile.request(uid, e);
@@ -512,15 +504,10 @@ async function autoRefresh(e) {
 
 
 export async function getProfile(e, mode = "refresh") {
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: "all",
-    cookieType: "all",
-    actionName: "更新角色信息"
-  });
-
-  if (!MysApi || !e.targetUser) {
-    return false;
+  let uid = await getTargetUid(e);
+  console.log('uid', uid)
+  if (!uid) {
+    return true;
   }
 
   if (mode === "input") {
@@ -542,7 +529,7 @@ export async function getProfile(e, mode = "refresh") {
   }
 
   // 数据更新
-  let data = await Profile.request(e.uid || e.targetUser.uid, e);
+  let data = await Profile.request(uid, e);
   if (!data) {
     return true;
   }
@@ -664,7 +651,45 @@ async function getAvatar(e, char, MysApi) {
   return avatars[char.id];
 }
 
+async function getTargetUid(e) {
+  let uidReg = /[1-9][0-9]{8}/;
+
+  if (e.uid && uidReg.test(e.uid)) {
+    return e.uid;
+  }
+
+  let uidRet = uidReg.exec(e.msg);
+  if (uidRet) {
+    return uidRet[0]
+  }
+
+  let MysApi = await e.getMysApi({
+    auth: "all",
+    targetType: "all",
+    cookieType: "all"
+  });
+
+  if (!MysApi || !e.targetUser) {
+    return false;
+  }
+
+  let uid = e.targetUser.uid;
+  if (!uid || !uidReg.test(uid)) {
+    e.reply("请先发送【#绑定+你的UID】来绑定查询目标")
+    return false;
+  }
+
+  return uid;
+}
+
 export async function renderProfile(e, char, render, mode = "profile", params = {}) {
+
+  let MysApi = await e.getMysApi({
+    auth: "all",
+    targetType: "all",
+    cookieType: "all"
+  })
+  let { selfUser } = MysApi;
 
   if (['荧', '空', '主角', '旅行者'].includes(char.name)) {
     e.reply("暂不支持主角的面板信息查看");
@@ -679,18 +704,10 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     return refreshRet;
   }
 
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: "all",
-    cookieType: "all",
-    actionName: "查询角色天赋命座等信息"
-  });
-  if (!MysApi || !e.targetUser) {
+  let uid = await getTargetUid(e);
+  if (!uid) {
     return true;
   }
-
-  let selfUser = e.selfUser,
-    uid = e.uid || e.targetUser.uid;
 
   let profile = Profile.get(uid, char.id);
   if (!profile) {
@@ -843,12 +860,10 @@ export async function getArtis(e, { render }) {
     return true;
   }
 
-  let uidRet = /[0-9]{9}/.exec(e.msg);
-  if (uidRet) {
-    e.uid = uidRet[0];
+  let uid = await getTargetUid(e);
+  if (!uid) {
+    return true;
   }
-
-  let uid = e.uid || e.targetUser.uid;
 
   let artis = [],
     profiles = Profile.getAll(uid) || {};
@@ -903,18 +918,11 @@ export async function getArtis(e, { render }) {
 }
 
 export async function getProfileAll(e) {
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: "all",
-    cookieType: "all",
-    actionName: "查询角色天赋命座等信息"
-  });
 
-  if (!MysApi || !e.targetUser) {
+  let uid = await getTargetUid(e);
+  if (!uid) {
     return true;
   }
-
-  let uid = e.targetUser.uid;
 
   let profiles = Profile.getAll(uid) || {};
 

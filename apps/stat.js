@@ -58,6 +58,7 @@ export async function consStat(e, { render }) {
     } else {
       data.cons = ds.rate
     }
+    data.cons = lodash.sortBy(data.cons, ['id'])
 
 
     ret.push(data);
@@ -123,7 +124,7 @@ export async function abyssPct(e, { render }) {
       if (char) {
         avatars.push({
           name: char.name,
-          star: char.rarity,
+          star: char.star,
           value: ds.value * 8
         })
       }
