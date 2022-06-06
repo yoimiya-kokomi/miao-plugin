@@ -121,7 +121,7 @@ export async function updateRes(e) {
     e.reply("开始尝试更新，请耐心等待~");
     command = `git pull`;
     exec(command, { cwd: `${resPath}/miao-res-plus/` }, function (error, stdout, stderr) {
-      if (/Already up to date/.test(stdout)) {
+      if (/Already up[ -]to[ -]date/.test(stdout)) {
         e.reply("目前所有图片都已经是最新了~");
         return true;
       }
@@ -165,7 +165,7 @@ export async function updateMiaoPlugin(e) {
     e.reply("正在执行更新操作，请稍等");
   }
   exec(command, { cwd: `${_path}/plugins/miao-plugin/` }, function (error, stdout, stderr) {
-    if (/Already up to date/.test(stdout)) {
+    if (/Already up[ -]to[ -]date/.test(stdout)) {
       e.reply("目前已经是最新版喵喵了~");
       return true;
     }
