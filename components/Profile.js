@@ -53,9 +53,7 @@ let Profile = {
       let req = await fetch(api);
       data = await req.json();
       if (!data.playerInfo) {
-        if ((uid + '')[0] === '2') {
-          e.reply(`请求失败:暂时不支持以2开头的UID角色面板更新，请等待服务后续升级`);
-        } else if ((uid + '')[0] === '5') {
+        if ((uid + '')[0] === '5') {
           e.reply(`请求失败:暂时不支持B服角色面板更新，请等待服务后续升级`);
         } else {
           e.reply(`请求失败:${data.msg || "请求错误，请稍后重试"}`);
