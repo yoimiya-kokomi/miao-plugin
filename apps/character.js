@@ -5,8 +5,8 @@ import { Cfg } from "../components/index.js";
 import Profile from "../components/Profile.js";
 import Format from "../components/Format.js"
 import Reliquaries from "../components/models/Reliquaries.js";
+import Reliquaries2 from "../components/models/Reliquaries2.js";
 import Calc from "../components/Calc.js";
-import fs from "fs";
 import Common from "../components/Common.js";
 
 
@@ -14,6 +14,8 @@ import Common from "../components/Common.js";
 let nameID = "";
 let genshin = {};
 await init();
+
+const isNewScore = true;
 
 const relationMap = {
   wife: {
@@ -495,7 +497,7 @@ async function autoRefresh(e) {
       e.reply("请确认角色已在【游戏内】橱窗展示并开放了查看详情。设置完毕后请5分钟后使用 #面板更新 重新获取")
       return false;
     } else {
-      e.reply(`本次获取成功角色: ${ret.join(", ")} `)
+      // e.reply(`本次获取成功角色: ${ret.join(", ")} `)
       return true;
     }
   }
@@ -505,7 +507,6 @@ async function autoRefresh(e) {
 
 export async function getProfile(e, mode = "refresh") {
   let uid = await getTargetUid(e);
-  console.log('uid', uid)
   if (!uid) {
     return true;
   }
@@ -742,27 +743,34 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     dmgBonus: p(Math.max(a.dmgBonus * 1 || 0, a.phyBonus * 1 || 0))
   };
 
-  /*
-  let avatar = await getAvatar(e, char, MysApi);
-  let talent = await getTalent(e, avatar);
-*/
-
   let reliquaries = [], totalMark = 0, totalMaxMark = 0;
 
-  let { titles: usefulTitles, mark: usefulMark } = Reliquaries.getUseful(char.name);
+  let newScore = Reliquaries2.getArtisMark(char.name, profile.artis);
 
-  lodash.forEach(profile.artis, (arti) => {
+  lodash.forEach(profile.artis, (arti, idx) => {
+    idx = idx.replace("arti", "");
     let ds = arti;
-    let mark = Reliquaries.getMark(char.name, arti.attrs);
+    let mark = isNewScore ? newScore[idx] : Reliquaries.getMark(char.name, arti.attrs);
     let maxMark = Reliquaries.getMaxMark(char.name, arti.main[0] || "");
     totalMark += mark;
     totalMaxMark += maxMark;
     ds.mark = c(mark, 1);
-    ds.markType = Reliquaries.getMarkScore(mark, maxMark);
+    ds.markType = isNewScore ? Reliquaries2.getMarkScore(mark) : Reliquaries.getMarkScore(mark, maxMark);
     ds.main = Profile.formatArti(arti.main);
     ds.attrs = Profile.formatArti(arti.attrs);
     reliquaries.push(ds);
   });
+
+  let markScore, usefulMark;
+  if (isNewScore) {
+    let charCfg = Reliquaries2.getCharCfg(char.name);
+    usefulMark = charCfg.titleWeight;
+    markScore = Reliquaries2.getMarkScore(totalMark / 5);
+  } else {
+    let usefulData = Reliquaries.getUseful(char.name);
+    usefulMark = usefulData.mark;
+    markScore = Reliquaries.getMarkScore(totalMark, totalMaxMark);
+  }
 
 
   let enemyLv = await selfUser.getCfg(`char.enemyLv`, 91);
@@ -816,9 +824,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     enemyLv,
     enemyName: dmgCalc.enemyName || "小宝",
     totalMark: c(totalMark, 1),
-    totalMaxMark,
-    markScore: Reliquaries.getMarkScore(totalMark, totalMaxMark),
-    usefulTitles,
+    markScore,
     usefulMark,
     talentMap: { a: "普攻", e: "战技", q: "爆发" },
     bodyClass: `char-${char.name}`,
@@ -876,21 +882,25 @@ export async function getArtis(e, { render }) {
 
   lodash.forEach(profiles || [], (ds) => {
     let name = ds.name;
-    if (!name) {
+    if (!name || name === "空" || name === "荧") {
       return;
     }
     let { mark: usefulMark } = Reliquaries.getUseful(name);
+
     /* 处理圣遗物 */
     if (ds.artis) {
-      lodash.forEach(ds.artis, (arti) => {
+      let newScore = Reliquaries2.getArtisMark(name, ds.artis);
+
+      lodash.forEach(ds.artis, (arti, idx) => {
         if (!arti.name) {
           return;
         }
-        let mark = Reliquaries.getMark(name, arti.attrs);
+        idx = idx.replace("arti", "");
+        let mark = isNewScore ? newScore[idx] : Reliquaries.getMark(name, arti.attrs);
         let maxMark = Reliquaries.getMaxMark(name, arti.main[0] || "");
         arti.mark = Format.comma(mark, 1);
         arti._mark = mark;
-        arti.markType = Reliquaries.getMarkScore(mark, maxMark);
+        arti.markType = isNewScore ? Reliquaries2.getMarkScore(mark) : Reliquaries.getMarkScore(mark, maxMark);
         arti.main = Profile.formatArti(arti.main);
         arti.attrs = Profile.formatArti(arti.attrs);
         arti.usefulMark = usefulMark;

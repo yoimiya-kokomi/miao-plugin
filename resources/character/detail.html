@@ -84,7 +84,7 @@
       <li class="arti-main"><span class="title">{{ds.main[0]}}</span><span class="val">+{{ds.main[1]}}</span></li>
       {{each ds.attrs attr}}
       {{if attr[0]}}
-      <li class="{{usefulMark[attr[0]] ? `useful`:`nouse`}}"><span class="title">{{attr[0]}}</span><span
+      <li class="{{usefulMark[attr[0]]*1 > 79.9 ?`great`:(usefulMark[attr[0]]*1>0 ? `useful`:`nouse`)}}"><span class="title">{{attr[0]}} </span><span
           class="val">+{{attr[1]}}</span></li>
       {{/if}}
       {{/each}}
