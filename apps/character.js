@@ -391,7 +391,7 @@ async function renderCard(e, avatar, render, renderType = "card") {
     e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + bg.img));
   } else {
     //渲染图像
-    return await Common.render("character/card", {
+    let msgRes = await Common.render("character/card", {
       save_id: uid,
       uid,
       talent,
@@ -401,6 +401,11 @@ async function renderCard(e, avatar, render, renderType = "card") {
       ...getCharacterData(avatar),
       ds: char.getData("name,id,title,desc"),
     }, { e, render, scale: 1.6 });
+    if (msgRes && msgRes.message_id) {
+      // 如果消息发送成功，就将message_id和图片路径存起来，1小时过期
+      await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, {EX: 3600});
+    }
+    return msgRes;
   }
   return true;
 }
@@ -976,5 +981,36 @@ export async function getProfileAll(e) {
 
 export async function profileHelp(e) {
   e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/character/imgs/help.jpg`))
+  return true;
+}
+
+/** 获取角色卡片的原图 */
+export async function getOriginalPicture(e) {
+  if (!e.hasReply) {
+    return;
+  }
+  // 引用的消息不是自己的消息
+  if (e.source.user_id !== e.self_id) {
+    return;
+  }
+  // 引用的消息不是纯图片
+  if (!/^\[图片]$/.test(e.source.message)) {
+    return;
+  }
+  // 获取原消息
+  let source;
+  if (e.isGroup) {
+    source = (await e.group.getChatHistory(e.source.seq, 1)).pop();
+  } else {
+    source = (await e.friend.getChatHistory(e.source.time, 1)).pop();
+  }
+  if (source) {
+    let imgPath = await redis.get(`miao:original-picture:${source.message_id}`);
+    if (imgPath) {
+      e.reply([segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + imgPath)]);
+      return true;
+    }
+  }
+  e.reply("消息太过久远了，俺也忘了原图是啥了，下次早点来吧~");
   return true;
 }
