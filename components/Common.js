@@ -18,7 +18,7 @@ export const render = async function (path, params, cfg) {
   });
 
   if (base64) {
-    e.reply(segment.image(`base64://${base64}`));
+    return await e.reply(segment.image(`base64://${base64}`));
   }
 
   return true;
