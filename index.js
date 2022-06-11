@@ -6,7 +6,8 @@ import {
   enemyLv,
   getArtis,
   getProfileAll,
-  profileHelp
+  profileHelp,
+  getOriginalPicture
 } from "./apps/character.js";
 import { consStat, abyssPct, abyssTeam } from "./apps/stat.js";
 import { wiki, calendar } from "./apps/wiki.js";
@@ -34,7 +35,8 @@ export {
   getProfileAll,
   profileHelp,
   calendar,
-  profileCfg
+  profileCfg,
+  getOriginalPicture
 };
 
 
@@ -59,6 +61,10 @@ let rule = {
   wife: {
     reg: wifeReg,
     describe: "【#角色】#老公 #老婆 查询",
+  },
+  getOriginalPicture: {
+    reg: "^#(获取|给我|我要|求|发|发下|发个|发一下)?原图(吧|呗)?$",
+    describe: "【#原图】 回复角色卡片，可获取原图",
   },
   consStat: {
     reg: "^#(喵喵)?角色(持有|持有率|命座|命之座|.命)(分布|统计|持有|持有率)?$",
