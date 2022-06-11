@@ -6,7 +6,7 @@
 
 {{set weapon = data.weapon}}
 {{set talent = data.talent}}
-{{set dataSrouce = data.dataSource}}
+{{set dataSource = data.dataSource}}
 
 
 {{block 'main'}}
@@ -52,7 +52,7 @@
   </div>
 </div>
 
-{{if mode === "profile" && dataSource !== "input"}}
+{{if mode === "profile" && dataSource !== "input2"}}
 <div class="artis">
   <div>
     <div class="item weapon">
@@ -84,7 +84,8 @@
       <li class="arti-main"><span class="title">{{ds.main[0]}}</span><span class="val">+{{ds.main[1]}}</span></li>
       {{each ds.attrs attr}}
       {{if attr[0]}}
-      <li class="{{usefulMark[attr[0]]*1 > 79.9 ?`great`:(usefulMark[attr[0]]*1>0 ? `useful`:`nouse`)}}"><span class="title">{{attr[0]}} </span><span
+      <li class="{{usefulMark[attr[0]]*1 > 79.9 ?`great`:(usefulMark[attr[0]]*1>0 ? `useful`:`nouse`)}}"><span
+          class="title">{{attr[0]}} </span><span
           class="val">+{{attr[1]}}</span></li>
       {{/if}}
       {{/each}}
@@ -95,21 +96,24 @@
 </div>
 {{/if}}
 
-{{if mode === "profile" && dataSource === "input"}}
+{{if dataSource === "input2"}}
 <div class="cont">
   <div class="cont-footer  dmg-desc">
     面板信息来源于手工输入，面板信息及伤害计算可能不准确。通过<strong>#录入{{name}}面板</strong>可录入面板数据
   </div>
 </div>
+{{/if}}
+
+{{if mode === "profile" && dataSource === "input2"}}
 <div class="artis input-mode">
 
   <div class="item weapon">
     <img src="{{_sys_res_path}}/genshin/logo/weapon/{{weapon.name}}.png"/>
     <div class="head">
       <strong>{{weapon.name}}</strong>
-      <div class="star star-{{weapon.rarity}}"></div>
-      <span>Lv.{{weapon.level}} <span
-          class="affix affix-{{weapon.affix_level}}">精{{weapon.affix_level}}</span></span>
+      <div class="star star-{{weapon.star}}"></div>
+      <span>Lv.{{weapon.leve || weapon.level}} <span
+          class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
     </div>
   </div>
 

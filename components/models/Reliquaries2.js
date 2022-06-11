@@ -1,11 +1,5 @@
-import {
-  attrValue,
-  attrNameMap,
-  attrMap,
-  mainAttr,
-  subAttr,
-  usefulAttr
-} from "../../resources/meta/reliquaries/reliquaries-mark-new.js";
+import { attrValue, attrNameMap, attrMap, mainAttr, subAttr, usefulAttr }
+  from "../../resources/meta/reliquaries/reliquaries-mark-new.js";
 import { Character } from "../models.js";
 import lodash from "lodash";
 
@@ -37,14 +31,19 @@ let Reliquaries = {
     let maxMark = Reliquaries.getMaxMark(attrWeight);
     let titleMark = {}, titleWeight = {};
     lodash.forEach(attrMark, (mark, attr) => {
-      titleMark[attrMap[attr]] = mark;
-      titleWeight[attrMap[attr]] = attrWeight[attr] || 0;
-      if (/大/.test(attrMap[attr])) {
-        let newAttr = attrMap[attr];
-        let newArr = newAttr.replace("大", "小");
-        titleWeight[newArr] = attrWeight[attr] || 0;
+      let aTitle = attrMap[attr];
+      if (/小/.test(aTitle)) {
+        return;
+      }
+      titleMark[aTitle] = mark;
+      titleWeight[aTitle] = attrWeight[attr] || 0;
+      if (/大/.test(aTitle)) {
+        let sTitle = aTitle.replace("大", "小");
+        console.log(sTitle, aTitle, attrWeight[attr])
+        titleWeight[sTitle] = titleWeight[aTitle];
       }
     })
+    console.log(titleWeight);
     charCfg[name] = {
       weight: attrWeight,
       mark: attrMark,

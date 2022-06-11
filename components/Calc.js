@@ -144,7 +144,7 @@ let Calc = {
   talent(profile, char) {
     let ret = {};
 
-    let talentData = profile.talent;
+    let talentData = profile.talent || {};
 
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let lv = talentData[key].level_current * 1 || 1,

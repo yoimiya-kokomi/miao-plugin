@@ -288,6 +288,7 @@ export async function wife(e, { render, User }) {
   return true;
 }
 
+/* 接管戳一戳面板，尚未完成 */
 async function pokeCharacter(e, { render }) {
   let MysApi = await e.getMysApi({
     auth: "all",
@@ -401,8 +402,6 @@ async function renderCard(e, avatar, render, renderType = "card") {
       ds: char.getData("name,id,title,desc"),
     }, { e, render, scale: 1.6 });
   }
-
-
   return true;
 }
 
@@ -458,7 +457,9 @@ async function getTalent(e, avatars) {
   return skill;
 }
 
-
+/*
+* 自动更新面板数据
+* */
 async function autoRefresh(e) {
 
   let uid = await getTargetUid(e);
@@ -514,17 +515,21 @@ export async function getProfile(e, mode = "refresh") {
   if (mode === "input") {
     if (e.inputData.trim().length < 5) {
       e.reply(`【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0`)
-      return await profileHelp(e);
+      return true;
+      //await profileHelp(e);
     }
 
-    let ret = Profile.inputProfile(e.selfUser.uid, e);
+
+    let ret = Profile.inputProfile(uid, e);
     let char = Character.get(e.avatar);
-    if (ret) {
+    if (lodash.isString(ret)) {
+      e.reply(ret);
+      return true;
+    } else if (ret) {
       e.reply(`${char.name}信息手工录入完成，你可以使用 #角色名+面板 / #角色名+伤害 来查看详细角色面板属性了`)
     } else {
       e.reply(`${char.name}信息手工录入失败，请检查录入格式。回复 #角色面板帮助 可查看录入提示`);
-      e.reply(`【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0
-`)
+      e.reply(`【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0`)
     }
     return true;
   }
@@ -554,7 +559,9 @@ export async function getProfile(e, mode = "refresh") {
   return true;
 }
 
-// 获取角色数据
+/*
+* 获取角色数据
+* */
 function getCharacterData(avatars) {
   let list = [];
   let set = {};
@@ -719,7 +726,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     }
     await profileHelp(e);
     return true;
-  } else if (profile.dataSource !== "enka") {
+  } else if (!['enka', 'input2'].includes(profile.dataSource)) {
     if (!await refresh()) {
       e.reply(`由于数据格式升级，请重新获取面板信息后查看`);
     }
@@ -855,6 +862,9 @@ export async function enemyLv(e) {
 
 }
 
+/*
+* 圣遗物列表
+* */
 export async function getArtis(e, { render }) {
   let MysApi = await e.getMysApi({
     auth: "all",
@@ -927,6 +937,9 @@ export async function getArtis(e, { render }) {
   }, { e, render, scale: 1.4 });
 }
 
+/*
+* 获取面板列表
+* */
 export async function getProfileAll(e) {
 
   let uid = await getTargetUid(e);

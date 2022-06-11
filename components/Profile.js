@@ -166,9 +166,14 @@ let Profile = {
 
   inputProfile(uid, e) {
     let { avatar, inputData } = e;
+    let char = Character.get(avatar);
+    let originalData = Profile.get(uid, char.id);
+    if (!originalData || originalData.dataSource !== "enka") {
+      return `请先获取${char.name}的面板数据后，再进行面板数据更新`;
+    }
     inputData = inputData.replace("#", "");
     inputData = inputData.replace(/，|；|、|\n|\t/g, ",");
-    let attr = {};
+    let attr = originalData.attr || {};
     let attrMap = {
       hp: /生命/,
       def: /防御/,
@@ -233,20 +238,16 @@ let Profile = {
       return false;
     }
 
-    let char = Character.get(avatar);
-    let data = {
-      id: char.id,
-      name: char.name,
-      dataSource: "input",
-      attr
-    }
+    originalData.dataSource = "input2";
+    originalData.attr = attr;
+
     let userData = {};
     const userFile = `${userPath}/${uid}.json`;
     if (fs.existsSync(userFile)) {
       userData = JSON.parse(fs.readFileSync(userFile, "utf8")) || {};
     }
     userData.chars = userData.chars || {};
-    userData.chars[avatar] = data;
+    userData.chars[avatar] = originalData;
     fs.writeFileSync(userFile, JSON.stringify(userData), "", " ");
     return true;
   }

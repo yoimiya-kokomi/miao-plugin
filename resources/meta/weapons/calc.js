@@ -29,7 +29,7 @@ let polearm = {
   },
   "匣里灭辰": {
     check: ({ element }) => ['水', '火'].includes(element),
-    title: "对于水或或元素影响的敌人造成伤害提高[dmg]%",
+    title: "对于水或火元素影响的敌人造成伤害提高[dmg]%",
     refine: {
       dmg: step(20, 4),
       phy: step(20, 4),
