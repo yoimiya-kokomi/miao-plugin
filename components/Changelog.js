@@ -15,6 +15,8 @@ const getLine = function (line) {
   line = line.replace(/(^\s*\*|\r)/g, '');
   line = line.replace(/\s*`([^`]+`)/g, '<span class="cmd">$1');
   line = line.replace(/`\s*/g, '</span>');
+  line = line.replace(/\s*\*\*([^\*]+\*\*)/g, '<span class="strong">$1')
+  line = line.replace(/\*\*\s*/g, '</span>');
   line = line.replace(/ⁿᵉʷ/g, '<span class="new"></span>');
   return line;
 }

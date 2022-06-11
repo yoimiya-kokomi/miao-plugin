@@ -52,7 +52,11 @@ body {
   border-radius: 3px;
   background: rgba(0, 0, 0, 0.5);
   padding: 0 3px;
-  margin: 1px 3px;
+  margin: 1px 2px;
+}
+.log-cont .strong {
+  font-family: Number, YS;
+  color: #24d5cd;
 }
 .log-cont .new {
   display: inline-block;

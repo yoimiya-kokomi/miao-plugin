@@ -60,7 +60,7 @@ let Cal = {
           let annTime = [];
 
           // 第一种简单格式
-          let timeRet = /活动时间(?:〓|\s)*([0-9\\/\\: ~]*)/.exec(content);
+          let timeRet = /(?:活动时间)?(?:〓|\s)*([0-9\\/\\: ~]*)/.exec(content);
           if (timeRet && timeRet[1]) {
             annTime = timeRet[1].split("~");
           } else if (/\d\.\d版本更新后/.test(content)) {
@@ -80,9 +80,7 @@ let Cal = {
                 annTime = [vTime, timeRet[0]];
               }
             }
-
           }
-
           if (annTime.length === 2) {
             timeMap[ann_id] = {
               start: annTime[0].trim().replace(/\//g, "-"),
