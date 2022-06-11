@@ -168,7 +168,7 @@ let Profile = {
     let { avatar, inputData } = e;
     let char = Character.get(avatar);
     let originalData = Profile.get(uid, char.id);
-    if (!originalData || originalData.dataSource !== "enka") {
+    if (!originalData || !['enka', 'input2'].includes(originalData.dataSource)) {
       return `请先获取${char.name}的面板数据后，再进行面板数据更新`;
     }
     inputData = inputData.replace("#", "");

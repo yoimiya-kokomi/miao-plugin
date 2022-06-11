@@ -39,11 +39,9 @@ let Reliquaries = {
       titleWeight[aTitle] = attrWeight[attr] || 0;
       if (/大/.test(aTitle)) {
         let sTitle = aTitle.replace("大", "小");
-        console.log(sTitle, aTitle, attrWeight[attr])
         titleWeight[sTitle] = titleWeight[aTitle];
       }
     })
-    console.log(titleWeight);
     charCfg[name] = {
       weight: attrWeight,
       mark: attrMark,

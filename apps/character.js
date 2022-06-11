@@ -403,7 +403,7 @@ async function renderCard(e, avatar, render, renderType = "card") {
     }, { e, render, scale: 1.6 });
     if (msgRes && msgRes.message_id) {
       // 如果消息发送成功，就将message_id和图片路径存起来，1小时过期
-      await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, {EX: 3600});
+      await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 });
     }
     return msgRes;
   }
@@ -676,20 +676,33 @@ async function getTargetUid(e) {
     return uidRet[0]
   }
 
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: "all",
-    cookieType: "all"
-  });
+  let uid = false;
 
-  if (!MysApi || !e.targetUser) {
-    return false;
-  }
+  try {
+    let MysApi = await e.getMysApi({
+      auth: "all",
+      targetType: "all",
+      cookieType: "all"
+    });
 
-  let uid = e.targetUser.uid;
-  if (!uid || !uidReg.test(uid)) {
-    e.reply("请先发送【#绑定+你的UID】来绑定查询目标")
-    return false;
+    if (!MysApi || !e.targetUser) {
+      return false;
+    }
+
+    uid = e.targetUser.uid;
+    if (!uid || !uidReg.test(uid)) {
+      e.reply("请先发送【#绑定+你的UID】来绑定查询目标")
+      return false;
+    }
+  } catch (e) {
+    let qq = e.user_id;
+    uid = await redis.get(`genshin:id-uid:${qq}`) || await Cache.get(`genshin:uid:${qq}`);
+    if (uid && uidReg.test(uid)) {
+      return uid;
+    } else {
+      e.reply("请先发送【#绑定+你的UID】来绑定查询目标");
+      return false;
+    }
   }
 
   return uid;
@@ -956,7 +969,7 @@ export async function getProfileAll(e) {
 
   let chars = [];
   lodash.forEach(profiles || [], (ds) => {
-    if (ds.dataSource !== "enka") {
+    if (!['enka', 'input2'].includes(ds.dataSource)) {
       return;
     }
     ds.name && chars.push(ds.name)
