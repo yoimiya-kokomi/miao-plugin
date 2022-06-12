@@ -696,7 +696,13 @@ async function getTargetUid(e) {
     }
   } catch (e) {
     let qq = e.user_id;
-    uid = await redis.get(`genshin:id-uid:${qq}`) || await Cache.get(`genshin:uid:${qq}`);
+    if (NoteCookie && NoteCookie[qq]) {
+      let nc = NoteCookie[qq];
+      if (nc.uid && uidReg.test(nc.uid)) {
+        return nc.uid;
+      }
+    }
+    uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`genshin:uid:${qq}`);
     if (uid && uidReg.test(uid)) {
       return uid;
     } else {
@@ -704,7 +710,6 @@ async function getTargetUid(e) {
       return false;
     }
   }
-
   return uid;
 }
 
