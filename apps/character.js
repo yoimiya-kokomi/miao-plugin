@@ -71,7 +71,7 @@ export async function character(e, { render, User }) {
   let name = msg.replace(/#|老婆|老公/g, "").trim();
   msg = msg.replace("面版", "面板")
   let dmgRet = /伤害(\d?)$/.exec(msg), dmgIdx = 0;
-  if (/(详情|详细|面板|面版)$/.test(msg) && !/更新|录入|输入/.test(msg)) {
+  if (/(详情|详细|面板|面版)\s*$/.test(msg) && !/更新|录入|输入/.test(msg)) {
     mode = 'profile';
     name = name.replace(/(详情|详细|面板)/, "").trim();
   } else if (dmgRet) {
@@ -92,7 +92,6 @@ export async function character(e, { render, User }) {
     }
     name = name.replace(/录入|输入|详情|详细|面板|数据|[0-9]|\.|\+/g, "").trim()
   }
-
 
   if (mode === "card" && Common.isDisable(e, "char.char")) {
     return;
@@ -117,7 +116,7 @@ export async function character(e, { render, User }) {
   }
 
 
-  let char = Character.get(name);
+  let char = Character.get(name.trim());
 
   if (!char) {
     return false;
@@ -675,8 +674,20 @@ async function getTargetUid(e) {
   if (uidRet) {
     return uidRet[0]
   }
-
   let uid = false;
+
+
+  let qq = e.user_id;
+  if (NoteCookie && NoteCookie[qq]) {
+    let nc = NoteCookie[qq];
+    if (nc.uid && uidReg.test(nc.uid)) {
+      return nc.uid;
+    }
+  }
+  uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`genshin:uid:${qq}`);
+  if (uid && uidReg.test(uid)) {
+    return uid;
+  }
 
   try {
     let MysApi = await e.getMysApi({
@@ -694,33 +705,17 @@ async function getTargetUid(e) {
       e.reply("请先发送【#绑定+你的UID】来绑定查询目标")
       return false;
     }
-  } catch (e) {
-    let qq = e.user_id;
-    if (NoteCookie && NoteCookie[qq]) {
-      let nc = NoteCookie[qq];
-      if (nc.uid && uidReg.test(nc.uid)) {
-        return nc.uid;
-      }
-    }
-    uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`genshin:uid:${qq}`);
-    if (uid && uidReg.test(uid)) {
-      return uid;
-    } else {
-      e.reply("请先发送【#绑定+你的UID】来绑定查询目标");
-      return false;
-    }
+  } catch (err) {
+    console.log(err);
   }
-  return uid;
+  return uid || false;
 }
 
 export async function renderProfile(e, char, render, mode = "profile", params = {}) {
 
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: "all",
-    cookieType: "all"
+  let selfUser = await e.checkAuth({
+    auth: "self"
   })
-  let { selfUser } = MysApi;
 
   if (['荧', '空', '主角', '旅行者'].includes(char.name)) {
     e.reply("暂不支持主角的面板信息查看");
@@ -740,16 +735,16 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     return true;
   }
 
-  let profile = Profile.get(uid, char.id);
+  let profile = await Profile.get(uid, char.id);
   if (!profile) {
     if (await refresh()) {
       return true;
     } else {
       e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`);
     }
-    await profileHelp(e);
+    //await profileHelp(e);
     return true;
-  } else if (!['enka', 'input2'].includes(profile.dataSource)) {
+  } else if (!['enka', 'input2', 'ysin', 'ysin-pre'].includes(profile.dataSource)) {
     if (!await refresh()) {
       e.reply(`由于数据格式升级，请重新获取面板信息后查看`);
     }
@@ -889,15 +884,6 @@ export async function enemyLv(e) {
 * 圣遗物列表
 * */
 export async function getArtis(e, { render }) {
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: "all",
-    cookieType: "all",
-    actionName: "查询角色天赋命座等信息"
-  });
-  if (!MysApi || !e.targetUser) {
-    return true;
-  }
 
   let uid = await getTargetUid(e);
   if (!uid) {
@@ -974,7 +960,7 @@ export async function getProfileAll(e) {
 
   let chars = [];
   lodash.forEach(profiles || [], (ds) => {
-    if (!['enka', 'input2'].includes(ds.dataSource)) {
+    if (!['enka', 'input2', 'ysin-pre', 'ysin'].includes(ds.dataSource)) {
       return;
     }
     ds.name && chars.push(ds.name)
@@ -992,7 +978,7 @@ export async function getProfileAll(e) {
     return true;
   }
 
-  e.reply("当前已获取面板角色： " + chars.join(", "));
+  e.reply(`uid${uid} 已获取面板角色： ` + chars.join(", "));
 
   return true;
 }
