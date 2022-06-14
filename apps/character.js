@@ -744,7 +744,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     }
     //await profileHelp(e);
     return true;
-  } else if (!['enka', 'input2', 'ysin', 'ysin-pre'].includes(profile.dataSource)) {
+  } else if (!['enka', 'input2', 'miao', 'miao-pre'].includes(profile.dataSource)) {
     if (!await refresh()) {
       e.reply(`由于数据格式升级，请重新获取面板信息后查看`);
     }
@@ -960,7 +960,7 @@ export async function getProfileAll(e) {
 
   let chars = [];
   lodash.forEach(profiles || [], (ds) => {
-    if (!['enka', 'input2', 'ysin-pre', 'ysin'].includes(ds.dataSource)) {
+    if (!['enka', 'input2', 'miao-pre', 'miao'].includes(ds.dataSource)) {
       return;
     }
     ds.name && chars.push(ds.name)

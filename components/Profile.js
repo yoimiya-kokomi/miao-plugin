@@ -6,7 +6,7 @@ import Character from "./models/Character.js";
 import Reliquaries from "./models/Reliquaries.js";
 
 import Data from "./data/enka.js";
-import Ysin from "./profile/ysin.js";
+import Miao from "./profile/miao.js";
 import Enka from "./profile/enka.js";
 
 const _path = process.cwd();
@@ -32,7 +32,7 @@ function sleep(ms) {
 
 function getServ(uid) {
   if ((uid + '')[0] === '5') {
-    return Ysin;
+    return Miao;
   }
   return Enka;
 }
@@ -79,7 +79,7 @@ let Profile = {
     userData.chars = userData.chars || {};
     lodash.forEach(data.chars, (char, charId) => {
       let original = userData.chars[charId] || {};
-      if (char.dataSource === "ysin-pre" && original && original.dataSource) {
+      if (char.dataSource === "miao-pre" && original && original.dataSource) {
         original.dataSource = char.dataSource;
       } else {
         userData.chars[charId] = char;

@@ -2,13 +2,13 @@ import fetch from "node-fetch";
 import lodash from "lodash";
 import Character from "../models/Character.js";
 import moment from "moment";
-import { artiIdx, artiSetMap, attrMap } from "./ysin_meta.js";
+import { artiIdx, artiSetMap, attrMap } from "./miao_meta.js";
 import cmeta from "../data/enka_char.js";
 
 const url = "http://miaoapi.cn/profile";
 
-let Ysin = {
-  key: "ysin",
+let Miao = {
+  key: "miao",
   cd: 1,
   async request({ e, uid, avatar = '' }) {
     let api = `${url}/list?uid=${uid}`;
@@ -25,7 +25,7 @@ let Ysin = {
       return false;
     }
 
-    return Ysin.getData(uid, data);
+    return Miao.getData(uid, data);
 
   },
 
@@ -43,7 +43,7 @@ let Ysin = {
       ret[key] = lodash.get(data, src, "");
     })
     lodash.forEach(data.uidListData, (ds) => {
-      let char = Ysin.getAvatar(ds);
+      let char = Miao.getAvatar(ds);
       ret.chars[char.id] = char;
     })
     return ret;
@@ -55,14 +55,14 @@ let Ysin = {
     return {
       id: ds.usernameid,
       name: char ? char.name : "",
-      dataSource: "ysin-pre",
+      dataSource: "miao-pre",
       updateTime: now.format("YYYY-MM-DD HH:mm:ss"),
       lv: ds.level
     };
   },
 
   async getCharData(uid, ds, saveCharData) {
-    if (ds.dataSource === "ysin") {
+    if (ds.dataSource === "miao") {
       return ds;
     }
     try {
@@ -70,7 +70,7 @@ let Ysin = {
       let req = await fetch(api);
       let data = await req.json();
       if (data.status === 0 && data.uidData) {
-        data = Ysin.getAvatarDetail(data);
+        data = Miao.getAvatarDetail(data);
         if (data) {
           saveCharData(uid, data);
           return data;
@@ -89,15 +89,15 @@ let Ysin = {
     return {
       id: ds.id,
       name: char ? char.name : "",
-      dataSource: "ysin",
+      dataSource: "miao",
       updateTime: now.format("YYYY-MM-DD HH:mm:ss"),
       lv: ds.level,
       fetter: ds.fetterLevel,
-      attr: Ysin.getAttr(data.uidDataCombatValue),
-      weapon: Ysin.getWeapon(ds.weapon),
-      artis: Ysin.getArtifact(data.uidDataByReliquary),
+      attr: Miao.getAttr(data.uidDataCombatValue),
+      weapon: Miao.getWeapon(ds.weapon),
+      artis: Miao.getArtifact(data.uidDataByReliquary),
       cons: ds.constellationNum,
-      talent: Ysin.getTalent(char.id, ds.skill),
+      talent: Miao.getTalent(char.id, ds.skill),
       _priority: 10
     };
   },
@@ -217,4 +217,4 @@ let Ysin = {
   },
 }
 
-export default Ysin;
+export default Miao;
