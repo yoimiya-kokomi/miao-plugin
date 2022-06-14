@@ -5,7 +5,7 @@ import moment from "moment";
 import { artiIdx, artiSetMap, attrMap } from "./miao_meta.js";
 import cmeta from "../data/enka_char.js";
 
-const url = "http://miaoapi.cn/profile";
+const url = "http://49.232.91.210/profile";
 
 let Miao = {
   key: "miao",
