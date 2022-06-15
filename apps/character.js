@@ -675,17 +675,28 @@ async function getTargetUid(e) {
     return uidRet[0]
   }
   let uid = false;
-
-
-  let qq = e.user_id;
-  if (NoteCookie && NoteCookie[qq]) {
-    let nc = NoteCookie[qq];
-    if (nc.uid && uidReg.test(nc.uid)) {
-      return nc.uid;
+  let getUid = async function (qq) {
+    if (NoteCookie && NoteCookie[qq]) {
+      let nc = NoteCookie[qq];
+      if (nc.uid && uidReg.test(nc.uid)) {
+        return nc.uid;
+      }
+    }
+    uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`genshin:uid:${qq}`);
+    if (uid && uidReg.test(uid)) {
+      return uid;
     }
   }
-  uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`genshin:uid:${qq}`);
-  if (uid && uidReg.test(uid)) {
+
+  if (e.at && e.at != BotConfig.account.qq) {
+    uid = await getUid(e.at);
+    if (uid) {
+      return uid;
+    }
+  }
+
+  uid = await getUid(e.user_id);
+  if (uid) {
     return uid;
   }
 
@@ -904,7 +915,16 @@ export async function getArtis(e, { render }) {
     if (!name || name === "空" || name === "荧") {
       return;
     }
-    let { mark: usefulMark } = Reliquaries.getUseful(name);
+
+
+    let  usefulMark;
+    if (isNewScore) {
+      let charCfg = Reliquaries2.getCharCfg(name);
+      usefulMark = charCfg.titleWeight;
+    } else {
+      let usefulData = Reliquaries.getUseful(name);
+      usefulMark = usefulData.mark;
+    }
 
     /* 处理圣遗物 */
     if (ds.artis) {

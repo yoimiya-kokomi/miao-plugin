@@ -119,7 +119,7 @@ let Profile = {
   async get(uid, charId) {
     let data = Profile._get(uid, charId);
     let Serv = getServ(uid);
-    if (Serv.getCharData) {
+    if (Serv.getCharData && data && data.id) {
       return await Serv.getCharData(uid, data, Profile.saveCharData);
     }
     return data;

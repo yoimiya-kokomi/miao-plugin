@@ -62,7 +62,7 @@ let Miao = {
   },
 
   async getCharData(uid, ds, saveCharData) {
-    if (ds.dataSource === "miao") {
+    if (ds.dataSource !== "miao-pre" || !ds.id) {
       return ds;
     }
     try {
@@ -137,14 +137,13 @@ let Miao = {
       }
       ret[key] = val;
     })
-    let maxDmg = 0, dmg = data.addHurt || {};
+    let maxDmg = 0, hurt = data.addHurt || {};
     lodash.forEach("fire,elec,water,grass,wind,rock,ice".split(","), (key) => {
-      maxDmg = Math.max(dmg[key] * 100, maxDmg);
+      maxDmg = Math.max(hurt[key] * 100, maxDmg);
     });
-    ret.dmg = maxDmg;
-    ret.phy = dmg.physical * 100;
+    ret.dmgBonus = maxDmg;
+    ret.phyBonus = hurt.physical * 100;
     return ret;
-
   },
   getWeapon(weapon) {
     return {
