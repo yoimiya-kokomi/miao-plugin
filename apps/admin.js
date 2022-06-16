@@ -180,7 +180,10 @@ export async function updateMiaoPlugin(e) {
       qq: e.user_id
     }), { EX: 30 });
     timer = setTimeout(function () {
-      let command = "npm run restart";
+      let command = `npm run start`;
+      if(process.argv[1].includes("pm2")){
+        command = `npm run restart`;
+      }
       exec(command, function (error, stdout, stderr) {
         if (error) {
           if (/Yunzai not found/.test(error)) {
