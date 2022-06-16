@@ -186,8 +186,7 @@ export async function updateMiaoPlugin(e) {
       }
       exec(command, function (error, stdout, stderr) {
         if (error) {
-          redis.del('miao:restart-msg');
-          e.reply("重启失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
+          e.reply("自动重启失败，请手动重启以应用新版喵喵。\nError code: " + error.code + "\n" + error.stack + "\n");
           Bot.logger.error('重启失败\n${error.stack}');
           return true;
         }
