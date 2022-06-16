@@ -181,7 +181,7 @@ export async function updateMiaoPlugin(e) {
     }), { EX: 30 });
     timer = setTimeout(function () {
       let command = `npm run start`;
-      if(process.argv[1].includes("pm2")){
+      if (process.argv[1].includes("pm2")) {
         command = `npm run restart`;
       }
       exec(command, function (error, stdout, stderr) {
