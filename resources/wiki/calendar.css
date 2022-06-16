@@ -83,6 +83,7 @@ body {
 .cal-list {
   position: relative;
   padding-top: 80px;
+  overflow: hidden;
 }
 .cal-list .cal-item {
   margin-bottom: 15px;

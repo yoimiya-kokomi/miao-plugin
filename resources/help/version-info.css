@@ -65,7 +65,6 @@ body {
 }
 .log-cont .new:before {
   content: "NEW";
-  font-family: Number;
   display: inline-block;
   transform: scale(0.6);
   transform-origin: 0 0;

@@ -384,7 +384,7 @@ async function renderCard(e, avatar, render, renderType = "card") {
   if (!char) {
     return false;
   }
-  let bg = char.getCardImg();
+  let bg = char.getCardImg(Cfg.get("char.se", false));
 
   if (renderType === "photo") {
     e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + bg.img));
@@ -917,7 +917,7 @@ export async function getArtis(e, { render }) {
     }
 
 
-    let  usefulMark;
+    let usefulMark;
     if (isNewScore) {
       let charCfg = Reliquaries2.getCharCfg(name);
       usefulMark = charCfg.titleWeight;

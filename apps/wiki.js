@@ -3,6 +3,7 @@ import { Character } from "../components/models.js";
 import lodash from "lodash";
 import Calendar from "../components/Calendar.js";
 import Common from "../components/Common.js";
+import { Cfg } from "../components/index.js";
 
 
 let action = {
@@ -43,7 +44,7 @@ export async function wiki(e, { render }) {
   }
 
   if (mode === "pic") {
-    let img = char.getCardImg(false);
+    let img = char.getCardImg(Cfg.get("char.se", false),false);
     if (img && img.img) {
       e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + img.img));
     } else {

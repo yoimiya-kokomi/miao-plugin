@@ -28,40 +28,41 @@ class Character extends Base {
     }
   }
 
-  getCardImg(def = true) {
+
+  getCardImg(se = false, def = true) {
     let name = this.name;
 
     const charImgPath = `./plugins/miao-plugin/resources/character-img/${name}/`;
 
-    if (!fs.existsSync(charImgPath)) {
-      fs.mkdirSync(charImgPath);
+
+    let list = [];
+
+    let addImg = function (charImgPath, disable = false) {
+      let dirPath = `./plugins/miao-plugin/resources/${charImgPath}`;
+
+      if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath);
+      }
+      if (disable) {
+        return
+      }
+
+      let imgs = fs.readdirSync(dirPath);
+      imgs = imgs.filter((img) => /\.(png|jpg|webp|jpeg)/i.test(img));
+      lodash.forEach(imgs, (img) => {
+        list.push(`${charImgPath}/${img}`);
+      });
     }
-
-    let list = {};
-    let imgs = fs.readdirSync(charImgPath);
-    imgs = imgs.filter((img) => /\.(png|jpg|webp|jpeg)/i.test(img));
-
-    lodash.forEach(imgs, (img) => {
-      list[img] = `character-img/${name}/${img}`
-    });
+    addImg(`character-img/${name}`);
+    addImg(`character-img/${name}/se`, !se)
 
     const plusPath = `./plugins/miao-plugin/resources/miao-res-plus/`;
     if (fs.existsSync(plusPath)) {
-      const charImgPlusPath = `${plusPath}/character-img/${name}/`;
-      if (!fs.existsSync(charImgPlusPath)) {
-        fs.mkdirSync(charImgPlusPath);
-      }
-
-      imgs = fs.readdirSync(charImgPlusPath);
-      imgs = imgs.filter((img) => /\.(png|jpg|webp|jpeg)/i.test(img));
-
-      lodash.forEach(imgs, (img) => {
-        list[img] = `miao-res-plus/character-img/${name}/${img}`
-      });
+      addImg(`miao-res-plus/character-img/${name}`);
+      addImg(`miao-res-plus/character-img/${name}/se`, !se);
     }
 
-    let img = lodash.sample(lodash.values(list));
-
+    let img = lodash.sample(list);
 
     if (!img) {
       if (def) {
