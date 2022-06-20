@@ -1,7 +1,4 @@
 export const details = [{
-  title: "扩散反应伤害",
-  dmg: ({}, { ks }) => ks()
-}, {
   title: "E长按伤害",
   dmg: ({ talent }, dmg) => dmg(talent.e['长按技能伤害'], 'e')
 }, {
@@ -10,6 +7,9 @@ export const details = [{
 }, {
   title: "Q无转化每段伤害",
   dmg: ({ talent }, dmg) => dmg(talent.q['持续伤害'], 'q')
+}, {
+  title: "扩散反应伤害",
+  dmg: ({}, { ks }) => ks()
 }];
 
 export const mainAttr = "atk,cpct,cdmg,mastery";
