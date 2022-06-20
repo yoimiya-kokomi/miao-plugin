@@ -11,7 +11,7 @@ const require = createRequire(import.meta.url);
 
 let cfgMap = {
   "角色": "char.char",
-  "面板": "char.profile",
+  "面板": "char.profile-data",
   "老婆": "char.wife",
   "小清新": "char.se",
   "查他人": "char.queryOther",
@@ -88,7 +88,7 @@ export async function sysCfg(e, { render }) {
 
   let cfg = {
     chars: getStatus("char.char"),
-    profile: getStatus("char.profile"),
+    profile: getStatus("char.profile-data"),
     wife: getStatus("char.wife"),
     se: getStatus("char.se", false),
     other: getStatus("char.queryOther"),
@@ -245,7 +245,7 @@ export async function profileCfg(e, { render }) {
     cfg[key] = getStatus(`profile.${key}.status`, true)
   });
 
-  let groups = Cfg.get('profile.groups', {});
+  let groups = Cfg.get('profile-data.groups', {});
   lodash.forEach(lodash.keys(groups), (group, idx) => {
 
     if (lodash.isUndefined(groups[group])) {
@@ -259,7 +259,7 @@ export async function profileCfg(e, { render }) {
   })
 
   //渲染图像
-  return await Common.render("admin/profile", {
+  return await Common.render("admin/profile-data", {
     ...cfg,
   }, { e, render, scale: 1.4 });
 

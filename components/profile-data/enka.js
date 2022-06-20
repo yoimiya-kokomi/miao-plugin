@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import Data from "../data/enka.js";
+import Data from "./enka-data.js";
 
 let Enka = {
   key: "enka",

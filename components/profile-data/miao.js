@@ -2,8 +2,8 @@ import fetch from "node-fetch";
 import lodash from "lodash";
 import Character from "../models/Character.js";
 import moment from "moment";
-import { artiIdx, artiSetMap, attrMap } from "./miao_meta.js";
-import cmeta from "../data/enka_char.js";
+import { artiIdx, artiSetMap, attrMap } from "./miao-meta.js";
+import cmeta from "./enka-char.js";
 
 const url = "http://49.232.91.210/profile";
 

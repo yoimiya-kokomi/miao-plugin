@@ -16,6 +16,9 @@ export const details = [{
       avg: basic.avg + fj.avg
     }
   }
+}, {
+  title: "扩散反应伤害",
+  dmg: ({}, { ks }) => ks()
 }];
 
 export const mainAttr = "atk,cpct,cdmg";
@@ -38,4 +41,7 @@ export const buffs = [{
   data: {
     kx: ({ params }) => params.q ? 20 : 0
   }
+}, {
+  title: "元素精通：扩散伤害提高[ks]%",
+  mastery: "ks"
 }];

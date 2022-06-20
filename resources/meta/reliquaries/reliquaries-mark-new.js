@@ -43,7 +43,7 @@ export const subAttr = "atk,def,hp,mastery,recharge,cp,cd".split(",")
 
 export const usefulAttr = {
   '神里绫人': { hp: 50, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },
-  '八重神子': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
+  '八重神子': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   '申鹤': { hp: 0, atk: 100, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 70, heal: 0 },
   '云堇': { hp: 0, atk: 0, def: 100, cp: 50, cd: 50, mastery: 0, dmg: 25, phy: 0, recharge: 90, heal: 0 },
   '荒泷一斗': { hp: 0, atk: 50, def: 100, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },
@@ -60,8 +60,8 @@ export const usefulAttr = {
   '甘雨': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
   '甘雨-永冻': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   '温迪': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 65, heal: 0 },
-  '珊瑚宫心海': { hp: 100, atk: 50, def: 0, cp: 0, cd: 0, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 100 },
-  '莫娜': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 80, heal: 0 },
+  '珊瑚宫心海': { hp: 100, atk: 50, def: 0, cp: 0, cd: 0, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 100 },
+  '莫娜': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   '阿贝多': { hp: 0, atk: 0, def: 100, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },
   '迪奥娜': { hp: 100, atk: 0, def: 0, cp: 0, cd: 0, mastery: 0, dmg: 65, phy: 0, recharge: 55, heal: 100 },
   '优菈': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 40, phy: 100, recharge: 40, heal: 0 },
@@ -78,7 +78,7 @@ export const usefulAttr = {
   '刻晴': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 100, recharge: 0, heal: 0 },
   '托马': { hp: 100, atk: 0, def: 0, cp: 50, cd: 50, mastery: 0, dmg: 75, phy: 0, recharge: 55, heal: 0 },
   '迪卢克': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
-  '芭芭拉': { hp: 100, atk: 0, def: 0, cp: 0, cd: 0, mastery: 0, dmg: 80, phy: 0, recharge: 55, heal: 100 },
+  '芭芭拉': { hp: 100, atk: 50, def: 0, cp: 75, cd: 75, mastery: 0, dmg: 80, phy: 0, recharge: 55, heal: 100 },
   '芭芭拉-暴力': { hp: 50, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 50 },
   '诺艾尔': { hp: 0, atk: 75, def: 100, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 70, heal: 0 },
   '旅行者': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
@@ -94,4 +94,5 @@ export const usefulAttr = {
   '砂糖': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 100, dmg: 40, phy: 0, recharge: 70, heal: 0 },
   '雷泽': { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 50, phy: 100, recharge: 0, heal: 0 },
   '夜兰': { hp: 80, atk: 0, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 0 },
+  '久岐忍': { hp: 100, atk: 0, def: 0, cp: 80, cd: 80, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 100 },
 };

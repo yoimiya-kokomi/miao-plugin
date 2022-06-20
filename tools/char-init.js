@@ -11,7 +11,7 @@ lodash.forEach(roleId, (names, id) => {
 })
 
 let _root = process.cwd();
-let characterMeta = Data.readJSON("./plugins/miao-plugin/components/meta", "characters.json");
+let characterMeta = [];//Data.readJSON("./plugins/miao-plugin/components/meta", "characters.json");
 let characters = {};
 let pathName = process.cwd() + "/plugins/miao-plugin/resources/meta/character/";
 

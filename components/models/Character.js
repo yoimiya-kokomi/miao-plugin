@@ -124,7 +124,6 @@ Character.get = function (val) {
     name = val.name || YunzaiApps.mysInfo['roleIdToName'](roleid, true);
   } else {
     roleid = YunzaiApps.mysInfo['roleIdToName'](val);
-
   }
   if (!name) {
     name = YunzaiApps.mysInfo['roleIdToName'](roleid, true);

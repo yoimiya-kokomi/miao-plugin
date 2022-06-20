@@ -1,7 +1,7 @@
 import lodash from "lodash";
 import Character from "../models/Character.js";
-import meta from "./enka_meta.js";
-import cmeta from "./enka_char.js";
+import meta from "./enka-meta.js";
+import cmeta from "./enka-char.js";
 import _Data from "../Data.js";
 import moment from "moment";
 

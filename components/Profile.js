@@ -1,13 +1,10 @@
 import fs from "fs";
-import fetch from "node-fetch";
 import lodash from "lodash";
 import Format from "./Format.js";
 import Character from "./models/Character.js";
 import Reliquaries from "./models/Reliquaries.js";
-
-import Data from "./data/enka.js";
-import Miao from "./profile/miao.js";
-import Enka from "./profile/enka.js";
+import Miao from "./profile-data/miao.js";
+import Enka from "./profile-data/enka.js";
 
 const _path = process.cwd();
 const cfgPath = `${_path}/plugins/miao-plugin/config.js`;

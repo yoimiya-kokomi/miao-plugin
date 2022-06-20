@@ -3,24 +3,8 @@ import lodash from "lodash";
 import Format from "./Format.js";
 import { Character } from "./models.js"
 
-const eleMap = {
-  anemo: "风",
-  cryo: "冰",
-  electro: "雷",
-  geo: "岩",
-  hydro: "水",
-  pyro: "火"
-}
-
-const attrMap = {
-  atk: { type: "pct", val: 5.83, title: "大攻击", text: "5.8%" },
-  hp: { type: "pct", val: 5.83, title: "大生命", text: "5.8%" },
-  def: { type: "pct", val: 7.29, title: "大防御", text: "7.3%" },
-  recharge: { type: "plus", val: 6.48, title: "元素充能", text: "6.5%" },
-  mastery: { type: "plus", val: 23.31, title: "元素精通", text: "23.3" },
-  cpct: { type: "plus", val: 3.89, title: "暴击率", text: "3.9%" },
-  cdmg: { type: "plus", val: 7.77, title: "暴击伤害", text: "7.8%" },
-}
+import { eleBaseDmg, eleMap, attrMap } from "./calc/calc-meta.js";
+import { Mastery } from "./calc/mastery.js";
 
 
 let Calc = {
@@ -123,7 +107,7 @@ let Calc = {
       inc: 100, // 吸收倍率
     }
 
-    let char = Character.get(profile.id);
+    let char = Character.get(profile);
     ret.weapon = profile.weapon;
     ret.weaponType = char.weaponType;
     ret.element = eleMap[char.elem.toLowerCase()];
@@ -133,8 +117,11 @@ let Calc = {
 
     ret.zf = 0;
     ret.rh = 0;
+    ret.gd = 0;
+    ret.ks = 0;
 
     ret.kx = 0;
+    ret.fykx = 0;
 
     return ret;
 
@@ -228,10 +215,11 @@ let Calc = {
 
       if (buff.mastery) {
         let mastery = Math.max(0, attr.mastery.base + attr.mastery.plus);
-        let masteryNum = 2.78 * mastery / (mastery + 1400) * 100;
+        // let masteryNum = 2.78 * mastery / (mastery + 1400) * 100;
         buff.data = buff.data || {};
         lodash.forEach(buff.mastery.split(","), (key) => {
-          buff.data[key] = masteryNum;
+          buff.data[key] = Mastery.getMultiple(key, mastery);
+          //  buff.data[key] = masteryNum;
         })
       }
 
@@ -258,7 +246,7 @@ let Calc = {
           return;
         }
 
-        if (["zf", "rh", "kx"].includes(key)) {
+        if (["zf", "rh", "kx", 'gd', 'ks', 'fykx'].includes(key)) {
           attr[key] += val * 1 || 0;
         }
       });
@@ -371,6 +359,7 @@ let Calc = {
         pctNum = pctNum / 100;
 
         let ds = attr[talent];
+
         pctNum += ds.pct / 100;
         dmgNum += ds.dmg / 100;
         cpctNum += ds.cpct / 100;
@@ -379,6 +368,7 @@ let Calc = {
         enemyIgnore += ds.ignore / 100;
         multiNum += ds.multi / 100;
         plusNum += ds.plus;
+
       }
 
       // 防御区
@@ -386,7 +376,11 @@ let Calc = {
       let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore));
 
       // 抗性区
-      let kx = 10 - (attr.kx || 0);
+      let kx = attr.kx;
+      if (talent === "fy") {
+        kx = attr.fykx;
+      }
+      kx = 10 - (kx || 0);
       let kNum = 0.9;
       if (kx >= 0) {
         kNum = (100 - kx) / 100;
@@ -395,18 +389,17 @@ let Calc = {
       }
 
       // 反应区
-      let eleNum = 1;
+      let eleNum = 1, eleBase = 0;
+
+      if (ele === "ks" || ele === "gd") {
+        eleBase = eleBaseDmg[lv] || 0;
+      }
+
       if (ele === "phy") {
         //do nothing
       } else if (ele) {
-        // todo 更详细
-        let eleMap = {
-          '水': { zf: 2 },
-          '火': { zf: 1.5, rh: 2 },
-          '冰': { rh: 1.5 }
-        }
+        eleNum = Mastery.getBasePct(ele, attr.element);
 
-        eleNum = (eleMap[attr.element] || {})[ele] || 1;
         if (attr[ele]) {
           eleNum = eleNum * (1 + attr[ele] / 100);
         }
@@ -422,6 +415,10 @@ let Calc = {
         ret = {
           dmg: basicNum * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
           avg: basicNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+        }
+      } else if (eleBase) {
+        ret = {
+          avg: eleBase * kNum * eleNum
         }
       } else {
         // 计算最终伤害
@@ -455,6 +452,9 @@ let Calc = {
       return {
         avg: num * (calc(attr.shield) / 100) * (attr.shield.inc / 100)
       };
+    }
+    dmgFn.ks = function () {
+      return dmgFn(0, 'fy', 'ks');
     }
 
     return dmgFn;

@@ -374,12 +374,14 @@ let bow = {
     }
   }],
   "终末嗟叹之诗": [{
-    title: "元素精通提高[mastery]",
+    title: "元素精通提高[_mastery]",
+    sort: 0,
     refine: {
-      mastery: step(60)
+      _mastery: step(60)
     }
   }, {
     title: "Buff下提高元素精通[mastery],攻击力[atkPct]%",
+    sort: 0,
     refine: {
       mastery: step(100),
       atkPct: step(20)

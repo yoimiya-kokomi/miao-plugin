@@ -98,13 +98,13 @@ export async function character(e, { render, User }) {
   }
 
   if (mode !== "card" && !e.isMaster) {
-    if (Common.isDisable(e, "char.profile")) {
+    if (Common.isDisable(e, "char.profile-data")) {
       // 面板开关关闭
       return;
     }
     if (e.isPrivate) {
-      if ((e.sub_type === "friend" && Cfg.get("profile.friend.status") === false) ||
-        (e.sub_type === "group" && Cfg.get("profile.stranger.status") === false)) {
+      if ((e.sub_type === "friend" && Cfg.get("profile-data.friend.status") === false) ||
+        (e.sub_type === "group" && Cfg.get("profile-data.stranger.status") === false)) {
         return;
       }
     } else if (e.isGroup) {
@@ -873,22 +873,18 @@ export async function enemyLv(e) {
   let selfUser = await e.checkAuth({
     auth: "self"
   })
-
   if (!selfUser || !e.msg) {
     return true;
   }
   let ret = /(敌人|怪物)等级\s*(\d{1,3})\s*$/.exec(e.msg);
   if (ret && ret[2]) {
     let lv = ret[2] * 1;
-
     await selfUser.setCfg("char.enemyLv", lv);
-
     lv = await selfUser.getCfg("char.enemyLv", 91);
     e.reply(`敌人等级已经设置为${lv}`);
     return true;
   }
   return true;
-
 }
 
 /*
