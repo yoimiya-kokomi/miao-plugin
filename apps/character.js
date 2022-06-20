@@ -794,7 +794,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     ds.markType = isNewScore ? Reliquaries2.getMarkScore(mark) : Reliquaries.getMarkScore(mark, maxMark);
     ds.main = Profile.formatArti(arti.main);
     ds.attrs = Profile.formatArti(arti.attrs);
-    reliquaries.push(ds);
+    reliquaries[idx * 1 - 1] = ds;
   });
 
   let markScore, usefulMark;
