@@ -3,6 +3,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: "E每跳治疗",
+  showDetail: true,
   dmg: ({ talent, calc, attr }, { heal }) => {
     let ec = talent.e['越祓草轮治疗量2'];
     return heal(calc(attr.hp) * ec[0] / 100 + ec[1] * 1 + calc(attr.mastery) * 0.75)
@@ -20,9 +21,9 @@ export const buffs = [{
     heal: 15
   }
 }, {
-  title: "久岐忍被动：基于元素精通提高治疗量[healInc]，伤害[ePlus]",
+  title: "久岐忍被动：基于元素精通提高治疗量[healNum]，伤害[ePlus]",
   data: {
-    healInc: ({ attr, calc }) => calc(attr.mastery) * 0.75,
+    healNum: ({ attr, calc }) => calc(attr.mastery) * 0.75,
     ePlus: ({ attr, calc }) => calc(attr.mastery) * 0.25
   }
 }];

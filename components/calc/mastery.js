@@ -17,7 +17,7 @@ export const Mastery = {
   getBasePct(type, element) {
     let typeCfg = erType[type];
     if (typeCfg) {
-      return typeCfg.num(element) || 1;
+      return typeCfg.num({ element }) || 1;
     }
     return 1;
   }

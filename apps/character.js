@@ -952,7 +952,7 @@ export async function getArtis(e, { render }) {
   }
   artis = lodash.sortBy(artis, "_mark");
   artis = artis.reverse();
-  artis = artis.slice(0, 20);
+  artis = artis.slice(0, 28);
 
   //渲染图像
   return await Common.render("character/artis", {
@@ -1024,11 +1024,20 @@ export async function getOriginalPicture(e) {
   } else {
     source = (await e.friend.getChatHistory(e.source.time, 1)).pop();
   }
+  console.log(source)
   if (source) {
     let imgPath = await redis.get(`miao:original-picture:${source.message_id}`);
     if (imgPath) {
       e.reply([segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + imgPath)]);
       return true;
+    }
+    if (source.time) {
+      let time = new Date();
+      // 对at错图像的增加嘲讽...
+      if (time / 1000 - source.time < 3600) {
+        e.reply([segment.image(process.cwd() + "/plugins/miao-plugin/resources/common/face/what.jpg")]);
+        return true;
+      }
     }
   }
   e.reply("消息太过久远了，俺也忘了原图是啥了，下次早点来吧~");

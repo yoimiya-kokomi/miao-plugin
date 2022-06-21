@@ -40,6 +40,10 @@ body {
 .head-box .label {
   font-size: 16px;
 }
+.msg-cont {
+  margin-left: 0;
+  margin-right: 0;
+}
 .notice {
   color: #888;
   font-size: 12px;

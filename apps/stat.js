@@ -15,11 +15,11 @@ export async function consStat(e, { render }) {
   }
 
   let consData = await HutaoApi.getCons();
+
   if (!consData) {
     e.reply("角色持有数据获取失败，请稍后重试~");
     return true;
   }
-
 
   let msg = e.msg;
 
@@ -39,9 +39,16 @@ export async function consStat(e, { render }) {
     return true;
   }
 
+  let data = consData.data;
+
+  let Lumine = lodash.filter(data, (ds) => ds.avatar === 10000007)[0] || {},
+    Aether = lodash.filter(data, (ds) => ds.avatar === 10000005)[0] || {};
+
+  Lumine.holdingRate = (1 - Aether.holdingRate) || Lumine.holdingRate;
+
   let ret = [];
 
-  lodash.forEach(consData.data, (ds) => {
+  lodash.forEach(data, (ds) => {
     let char = Character.get(ds.avatar);
 
     let data = {

@@ -83,7 +83,6 @@ body {
 }
 .copyright {
   font-size: 16px;
-  font-family: Number, sans-serif;
   text-align: center;
   color: #fff;
   position: relative;
@@ -102,7 +101,6 @@ body {
   display: inline-block;
   vertical-align: middle;
   padding: 0 5px;
-  font-family: Number, YS;
   border-radius: 4px;
 }
 .cons-0 {
@@ -231,7 +229,6 @@ body {
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 1px 0 #fff;
   color: #d3bc8e;
-  font-family: Number, YS;
   padding: 10px 20px;
   text-align: left;
   border-radius: 10px 10px 0 0;
@@ -240,7 +237,6 @@ body {
   font-size: 12px;
   color: #aaa;
   margin-left: 10px;
-  font-family: Number, YS;
   font-weight: normal;
 }
 .cont-body {
@@ -248,7 +244,6 @@ body {
   font-size: 12px;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 1px 0 #fff;
-  font-family: YS;
   font-weight: normal;
 }
 ul.cont-msg {
@@ -266,7 +261,6 @@ ul.cont-msg li strong {
   padding: 10px 15px;
   font-size: 12px;
   background: rgba(0, 0, 0, 0.5);
-  font-family: YS;
   font-weight: normal;
 }
 .cont-table {
@@ -299,7 +293,6 @@ ul.cont-msg li strong {
 }
 .cont-table .thead > div,
 .cont-table .thead > td {
-  font-family: YS;
   color: #d3bc8e;
   background: rgba(0, 0, 0, 0.4);
   line-height: 40px;
@@ -307,7 +300,6 @@ ul.cont-msg li strong {
 }
 .cont-table .title,
 .cont-table .th {
-  font-family: YS;
   color: #d3bc8e;
   padding-right: 15px;
   text-align: right;

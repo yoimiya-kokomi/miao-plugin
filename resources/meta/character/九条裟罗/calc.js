@@ -1,5 +1,5 @@
 export const details = [{
-  title: "E提升伤害",
+  title: "E提升攻击力",
   dmg: ({ talent, attr }) => {
     return {
       avg: talent.e['攻击力加成比例'] * attr.atk.base / 100

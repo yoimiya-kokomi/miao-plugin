@@ -71,7 +71,7 @@
   </div>
   {{each reliquaries ds}}
   <div class="item arti">
-    {{if ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
+    {{if ds && ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
     <div class="arti-icon">
       <img src="{{_sys_res_path}}/genshin/logo/reliquaries/{{ds.name}}.png"/>
       <span>+{{ds.level}}</span>
