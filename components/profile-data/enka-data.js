@@ -232,21 +232,22 @@ let Data = {
     let { attr, id } = ret;
     id = id * 1;
     switch (id) {
-      case 10000052:
-        // 雷神被动加成fix
-        attr.dmgBonus = Math.max(0, attr.dmgBonus - (attr.recharge - 100) * 0.4)
-        break;
+      /*
+        case 10000052:
+          // 雷神被动加成fix
+          attr.dmgBonus = Math.max(0, attr.dmgBonus - (attr.recharge - 100) * 0.4)
+          break;
+      */
       case 10000041:
         // 莫娜被动fix
         attr.dmgBonus = Math.max(0, attr.dmgBonus - attr.recharge * 0.2)
         break;
       /*
-            case 10000060:
-              // 夜兰被动fix
-              attr.hp = attr.hp - attr.hpBase * 0.3
-              break;
+        case 10000060:
+          // 夜兰被动fix
+          attr.hp = attr.hp - attr.hpBase * 0.3
+          break;
       */
-
     }
     ret._fix = true;
     return ret;
