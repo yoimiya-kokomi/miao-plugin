@@ -23,7 +23,7 @@ let Reliquaries = {
       attrMark.hpPlus = attrMark.hp / baseAttr[0] * 100;
     }
     if (attrMark.atk) {
-      attrMark.atkPlus = attrMark.atk / (baseAttr[1] + 400) * 100;
+      attrMark.atkPlus = attrMark.atk / (parseInt(baseAttr[1]) + 400) * 100;
     }
     if (attrMark.def) {
       attrMark.defPlus = attrMark.def / baseAttr[2] * 100;
