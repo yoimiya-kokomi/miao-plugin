@@ -24,7 +24,8 @@ let Artifact = {
       attrMark.hpPlus = attrMark.hp / baseAttr[0] * 100;
     }
     if (attrMark.atk) {
-      attrMark.atkPlus = attrMark.atk / (baseAttr[1] * 1 + 400) * 100;
+      // 以520作为武器白值均值计算
+      attrMark.atkPlus = attrMark.atk / (baseAttr[1] * 1 + 520) * 100;
     }
     if (attrMark.def) {
       attrMark.defPlus = attrMark.def / baseAttr[2] * 100;
