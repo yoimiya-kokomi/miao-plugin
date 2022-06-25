@@ -115,7 +115,6 @@ export function getArtis(char, artisData) {
   let artis = [];
 
   lodash.forEach(artisData, (arti, idx) => {
-    console.log(artisData);
     idx = idx.replace("arti", "");
     let ds = arti;
     let mark = newScore[idx];

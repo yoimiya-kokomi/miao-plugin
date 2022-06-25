@@ -2,6 +2,9 @@ body,
 .container {
   width: 650px;
 }
+.container > .cont {
+  margin-left: 15px;
+}
 .basic .detail .cont {
   margin: 10px 0;
 }
@@ -10,6 +13,7 @@ body,
 }
 .arti-stat {
   width: 100%;
+  margin-right: 0;
 }
 .mark-table {
   text-align: center;
@@ -53,6 +57,7 @@ body,
   width: 650px;
   position: relative;
   z-index: 2;
+  padding: 0 10px;
 }
 .artis .no-bg {
   opacity: 0;
@@ -85,6 +90,6 @@ body,
 }
 .artis .item {
   height: inherit;
-  width: 203px;
+  width: 200px;
 }
 /*# sourceMappingURL=artis-mark.css.map */
