@@ -47,7 +47,6 @@ body {
   text-align: right;
 }
 .char-lv {
-  font-family: Number;
   margin-bottom: 20px;
   text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, 0.7);
   text-align: right;
@@ -60,18 +59,17 @@ body {
   border-radius: 4px;
   overflow: hidden;
 }
-.detail li {
+.detail ul.attr li {
   width: 300px;
   font-size: 17px;
   list-style: none;
   padding: 0 100px 0 35px;
   position: relative;
-  font-family: YS;
   height: 32px;
   line-height: 32px;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
-.attr li i {
+.detail ul.attr li i {
   display: inline-block;
   height: 20px;
   width: 20px;
@@ -107,27 +105,29 @@ body {
 .i-dmg {
   background-position: -160px 0;
 }
-.detail li:nth-child(even) {
+.detail .attr li:nth-child(even),
+.detail.attr li:nth-child(even) {
   background: rgba(0, 0, 0, 0.4);
 }
-.detail li:nth-child(odd) {
+.detail .attr li:nth-child(odd),
+.detail.attr li:nth-child(odd) {
   background: rgba(50, 50, 50, 0.4);
 }
-.detail li strong {
+.detail .attr li strong,
+.detail.attr li strong {
   display: inline-block;
   position: absolute;
   right: 85px;
   text-align: right;
-  font-family: Number, sans-serif;
   font-weight: normal;
 }
-.detail li span {
+.detail .attr li span,
+.detail.attr li span {
   position: absolute;
   right: 0;
   text-align: left;
   width: 75px;
   display: inline-block;
-  font-family: Number, sans-serif;
   color: #90e800;
   font-size: 15px;
 }
@@ -169,7 +169,6 @@ body {
   margin-left: -15px;
   color: #000;
   box-shadow: 0 0 5px 0 #000;
-  font-family: Number;
 }
 .talent-icon.talent-plus span {
   background: #2e353e;
@@ -274,7 +273,6 @@ body {
 .cont-title {
   background: rgba(0, 0, 0, 0.4);
   color: #d3bc8e;
-  font-family: YS;
   padding: 10px 20px;
   text-align: left;
 }
@@ -282,14 +280,12 @@ body {
   font-size: 12px;
   color: #aaa;
   margin-left: 10px;
-  font-family: Number, YS;
   font-weight: normal;
 }
 .cont-footer {
   padding: 10px 15px;
   font-size: 12px;
   background: rgba(0, 0, 0, 0.5);
-  font-family: YS;
   font-weight: normal;
 }
 .cont-table {
@@ -320,7 +316,6 @@ body {
   text-align: center;
 }
 .dmg-cont .thead > div {
-  font-family: YS;
   color: #d3bc8e;
   background: rgba(0, 0, 0, 0.4);
   line-height: 40px;
@@ -328,7 +323,6 @@ body {
 }
 .dmg-cont .title,
 .dmg-cont .th {
-  font-family: YS;
   color: #d3bc8e;
   padding-right: 15px;
   text-align: right;
@@ -361,7 +355,6 @@ body {
   display: block;
   height: 40px;
   font-size: 18px;
-  font-family: Number;
   line-height: 40px;
   width: 32%;
 }
@@ -385,7 +378,6 @@ body {
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
   margin: 5px;
-  height: 200px;
   position: relative;
   box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
   overflow: hidden;
@@ -428,9 +420,6 @@ body {
 }
 .artis .head span {
   font-size: 14px;
-}
-.artis .head .mark {
-  font-family: Number, YS;
 }
 .artis.input-mode .item {
   height: 100px;
@@ -477,14 +466,14 @@ body {
   width: 100%;
   padding: 0;
   position: initial;
-  font-family: YS;
+  display: table;
 }
 .artis ul.detail li {
   padding: 0 3px;
   font-size: 14px;
   position: initial;
   width: 100%;
-  display: table;
+  display: table-row;
   line-height: 26px;
   height: 26px;
 }
@@ -503,7 +492,6 @@ body {
   position: initial;
   display: table-cell;
   color: #fff;
-  font-family: YS;
 }
 .artis ul.detail li span.title {
   text-align: left;
@@ -512,7 +500,6 @@ body {
 .artis ul.detail li span.val {
   text-align: right;
   padding-right: 10px;
-  font-family: Number;
 }
 .artis .weapon .star {
   height: 20px;
@@ -537,7 +524,7 @@ body {
 }
 .artis .weapon {
   overflow: hidden;
-  height: 100px;
+  height: 97px;
 }
 .artis .weapon img {
   width: 100px;
@@ -560,7 +547,6 @@ body {
   font-size: 18px;
   margin-bottom: 3px;
   font-weight: normal;
-  font-family: YS;
 }
 .artis .weapon .head > span {
   display: block;
@@ -595,29 +581,27 @@ body {
   box-shadow: 0 0 4px 0 #deaf39 inset;
   background: #fff6dd;
 }
-.artis .stat {
+.artis .arti-stat {
+  height: 85px;
+}
+.arti-stat {
   height: 90px;
   margin-top: 10px;
-}
-.artis .stat {
-  display: table-row;
   padding: 13px 10px;
   display: table;
 }
-.artis .stat > div {
+.arti-stat > div {
   display: table-cell;
   text-align: center;
   color: #fff;
 }
-.artis .stat strong {
+.arti-stat strong {
   display: block;
   height: 40px;
   font-size: 30px;
-  font-family: Number;
   line-height: 40px;
 }
 .dmg-msg {
-  font-family: Number, YS;
   font-size: 13px;
   font-weight: normal;
 }
@@ -657,12 +641,10 @@ body {
 .dmg-calc strong {
   font-weight: normal;
   display: block;
-  font-family: Number, YS;
 }
 .dmg-calc span {
   font-size: 12px;
   color: #aaa;
-  font-family: Number, YS;
 }
 .dmg-calc .na,
 .dmg-calc .eq {
@@ -692,7 +674,7 @@ body {
   padding: 0 3px;
   font-weight: normal;
 }
-.artis .stat span {
+.arti-stat span {
   font-size: 13px;
   line-height: 20px;
   color: #bbb;

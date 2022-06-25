@@ -101,7 +101,6 @@ export const buffs = {
     }
   },
   "沉沦之心4": {
-    check: ({ element }) => element === "水",
     title: "水套4：施放元素战技后，普攻与重击伤害提高30%",
     data: {
       aDmg: 30,

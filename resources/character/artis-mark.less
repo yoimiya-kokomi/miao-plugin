@@ -1,0 +1,119 @@
+body, .container {
+  width: 650px;
+}
+
+
+.basic {
+  .detail {
+    .cont {
+      margin: 10px 0;
+    }
+  }
+
+  &:after {
+    display: none;
+  }
+}
+
+.arti-stat {
+  width: 100%;
+}
+
+.mark-table {
+  text-align: center;
+  font-size: 14px;
+  line-height: 27px;
+
+  .thead > div {
+    height: 35px;
+    line-height: 35px;
+    vertical-align: middle;
+    width: 16%;
+
+    &.th {
+      width: 20%;
+    }
+
+    .text {
+      line-height: 23px;
+      display: block;
+    }
+
+    .desc {
+      font-size: 12px;
+      display: block;
+      line-height: 18px;
+    }
+  }
+
+  .th {
+    min-width: initial;
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .td {
+    font-weight: normal;
+  }
+}
+
+.cont-msg {
+  li {
+    font-size: 12px;
+  }
+}
+
+.arti-icon {
+  width: 30px;
+}
+
+.artis {
+  margin-top: -280px;
+  width: 650px;
+  position: relative;
+  z-index: 2;
+
+  .no-bg {
+    opacity: 0;
+  }
+
+  ul.detail li span {
+    width: initial;
+
+    &.mark {
+      text-align: right;
+      padding-right: 10px;
+
+      &:after {
+        content: "分";
+        font-size: 12px;
+        display: inline-block;
+        transform: scale(.8);
+        margin-right: -1px;
+
+      }
+    }
+  }
+
+  .mark-calc {
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 0 0 5px 5px;
+
+    li.result {
+      background: rgba(0, 0, 0, 0.7);
+      height: 30px;
+      line-height: 30px;
+
+      .mark {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .item {
+    height: inherit;
+    width: 203px;
+  }
+
+
+}

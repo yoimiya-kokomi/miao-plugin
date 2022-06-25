@@ -56,7 +56,6 @@ body {
 }
 
 .char-lv {
-  font-family: Number;
   margin-bottom: 20px;
   text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, .7);
   text-align: right;
@@ -72,30 +71,31 @@ body {
   overflow: hidden;
 }
 
-.detail li {
-  width: 300px;
-  font-size: 17px;
-  list-style: none;
-  padding: 0 100px 0 35px;
-  position: relative;
-  font-family: YS;
-  height: 32px;
-  line-height: 32px;
-  text-shadow: 0 0 1px rgba(0, 0, 0, .5);
-}
+.detail ul.attr {
+  li {
+    width: 300px;
+    font-size: 17px;
+    list-style: none;
+    padding: 0 100px 0 35px;
+    position: relative;
+    height: 32px;
+    line-height: 32px;
+    text-shadow: 0 0 1px rgba(0, 0, 0, .5);
 
-.attr li i {
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  background-image: url("./imgs/icon.png");
-  background-size: auto 20px;
-  position: absolute;
-  left: 10px;
-  top: 8px;
-  opacity: .9;
-  transform: scale(.9);
+    i {
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+      background-image: url("./imgs/icon.png");
+      background-size: auto 20px;
+      position: absolute;
+      left: 10px;
+      top: 8px;
+      opacity: .9;
+      transform: scale(.9);
 
+    }
+  }
 }
 
 .i-hp {
@@ -130,32 +130,34 @@ body {
   background-position: -160px 0;
 }
 
-.detail li:nth-child(even) {
-  background: rgba(0, 0, 0, .4)
-}
+.detail .attr, .detail.attr {
+  li {
+    &:nth-child(even) {
+      background: rgba(0, 0, 0, .4)
+    }
 
-.detail li:nth-child(odd) {
-  background: rgba(50, 50, 50, .4)
-}
+    &:nth-child(odd) {
+      background: rgba(50, 50, 50, .4)
+    }
 
-.detail li strong {
-  display: inline-block;
-  position: absolute;
-  right: 85px;
-  text-align: right;
-  font-family: Number, sans-serif;
-  font-weight: normal;
-}
+    strong {
+      display: inline-block;
+      position: absolute;
+      right: 85px;
+      text-align: right;
+      font-weight: normal;
+    }
 
-.detail li span {
-  position: absolute;
-  right: 0;
-  text-align: left;
-  width: 75px;
-  display: inline-block;
-  font-family: Number, sans-serif;
-  color: #90e800;
-  font-size: 15px;
+    span {
+      position: absolute;
+      right: 0;
+      text-align: left;
+      width: 75px;
+      display: inline-block;
+      color: #90e800;
+      font-size: 15px;
+    }
+  }
 }
 
 .talent-icon {
@@ -169,58 +171,56 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   z-index: 90;
-}
 
-.talent-icon img,
-.talent-icon .talent-icon-img {
-  width: 46%;
-  height: 46%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -22% 0 0 -23%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
+  img,
+  .talent-icon-img {
+    width: 46%;
+    height: 46%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -22% 0 0 -23%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 
-.talent-icon span {
-  background: #fff;
-  width: 34px;
-  height: 26px;
-  line-height: 26px;
-  font-size: 17px;
-  text-align: center;
-  border-radius: 5px;
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  margin-left: -15px;
-  color: #000;
-  box-shadow: 0 0 5px 0 #000;
-  font-family: Number;
-}
+  span {
+    background: #fff;
+    width: 34px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 17px;
+    text-align: center;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    margin-left: -15px;
+    color: #000;
+    box-shadow: 0 0 5px 0 #000;
+  }
 
-.talent-icon.talent-plus span {
-  background: #2e353e;
-  color: #ffdfa0;
-  font-weight: bold;
-  box-shadow: 0 0 1px 0 #d3bc8e, 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
-}
+  &.talent-plus span {
+    background: #2e353e;
+    color: #ffdfa0;
+    font-weight: bold;
+    box-shadow: 0 0 1px 0 #d3bc8e, 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+  }
 
-.talent-icon.talent-crown:after {
-  content: "";
-  display: block;
-  width: 28px;
-  height: 28px;
-  background: url("../character/imgs/crown.png") no-repeat;
-  background-size: contain;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  margin-left: -14px;
+  &.talent-crown:after {
+    content: "";
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: url("../character/imgs/crown.png") no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -14px;
+  }
 }
-
 
 .char-talents {
   display: flex;
@@ -334,7 +334,6 @@ body {
 .cont-title {
   background: rgba(0, 0, 0, .4);
   color: #d3bc8e;
-  font-family: YS;
   padding: 10px 20px;
   text-align: left;
 }
@@ -343,7 +342,6 @@ body {
   font-size: 12px;
   color: #aaa;
   margin-left: 10px;
-  font-family: Number, YS;
   font-weight: normal;
 }
 
@@ -351,7 +349,6 @@ body {
   padding: 10px 15px;
   font-size: 12px;
   background: rgba(0, 0, 0, 0.5);
-  font-family: YS;
   font-weight: normal;
 }
 
@@ -391,7 +388,6 @@ body {
 }
 
 .dmg-cont .thead > div {
-  font-family: YS;
   color: #d3bc8e;
   background: rgba(0, 0, 0, .4);
   line-height: 40px;
@@ -401,7 +397,6 @@ body {
 
 .dmg-cont .title,
 .dmg-cont .th {
-  font-family: YS;
   color: #d3bc8e;
   padding-right: 15px;
   text-align: right;
@@ -440,7 +435,6 @@ body {
   display: block;
   height: 40px;
   font-size: 18px;
-  font-family: Number;
   line-height: 40px;
   width: 32%
 }
@@ -468,7 +462,7 @@ body {
     background: url("../common/cont/card-bg.png") top left repeat-x;
     background-size: auto 100%;
     margin: 5px;
-    height: 200px;
+    //height: 200px;
     position: relative;
     box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
     overflow: hidden;
@@ -520,7 +514,6 @@ body {
     }
 
     .mark {
-      font-family: Number, YS;
     }
   }
 
@@ -588,7 +581,7 @@ body {
   width: 100%;
   padding: 0;
   position: initial;
-  font-family: YS;
+  display: table;
 }
 
 .artis ul.detail li {
@@ -596,7 +589,7 @@ body {
   font-size: 14px;
   position: initial;
   width: 100%;
-  display: table;
+  display: table-row;
   line-height: 26px;
   height: 26px;
 }
@@ -619,7 +612,6 @@ body {
   position: initial;
   display: table-cell;
   color: #fff;
-  font-family: YS;
 }
 
 .artis ul.detail li span.title {
@@ -630,7 +622,6 @@ body {
 .artis ul.detail li span.val {
   text-align: right;
   padding-right: 10px;
-  font-family: Number;
 }
 
 .artis .weapon .star {
@@ -662,7 +653,7 @@ body {
 
 .artis .weapon {
   overflow: hidden;
-  height: 100px;
+  height: 97px;
 }
 
 .artis .weapon img {
@@ -689,7 +680,6 @@ body {
   font-size: 18px;
   margin-bottom: 3px;
   font-weight: normal;
-  font-family: YS;
 }
 
 .artis .weapon .head > span {
@@ -734,34 +724,30 @@ body {
   box-shadow: 0 0 4px 0 #deaf39 inset;
   background: #fff6dd;
 }
-
-.artis .stat {
+.artis .arti-stat{
+  height: 85px;
+}
+.arti-stat {
   height: 90px;
   margin-top: 10px;
-}
-
-.artis .stat {
-  display: table-row;
   padding: 13px 10px;
   display: table;
-}
 
-.artis .stat > div {
-  display: table-cell;
-  text-align: center;
-  color: #fff;
-}
+  & > div {
+    display: table-cell;
+    text-align: center;
+    color: #fff;
+  }
 
-.artis .stat strong {
-  display: block;
-  height: 40px;
-  font-size: 30px;
-  font-family: Number;
-  line-height: 40px;
+  strong {
+    display: block;
+    height: 40px;
+    font-size: 30px;
+    line-height: 40px;
+  }
 }
 
 .dmg-msg {
-  font-family: Number, YS;
   font-size: 13px;
   font-weight: normal;
 }
@@ -820,13 +806,11 @@ body {
 .dmg-calc strong {
   font-weight: normal;
   display: block;
-  font-family: Number, YS;
 }
 
 .dmg-calc span {
   font-size: 12px;
   color: #aaa;
-  font-family: Number, YS;
 }
 
 .dmg-calc .na,
@@ -866,7 +850,7 @@ body {
 }
 
 
-.artis .stat span {
+.arti-stat span {
   font-size: 13px;
   line-height: 20px;
   color: #bbb;

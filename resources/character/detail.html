@@ -45,7 +45,7 @@
     {{each cons con idx}}
     <div class="cons-item">
       <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
-        <img src="{{_res_path}}/meta/character/{{name}}/cons_{{idx}}.png"/>
+        <div class="talent-icon-img" style="background-image:url({{_res_path}}/meta/character/{{name}}/cons_{{idx}}.png)"></div>
       </div>
     </div>
     {{/each}}
@@ -64,29 +64,29 @@
             class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
       </div>
     </div>
-    <div class="item stat">
-      <div><strong class="mark-{{markScore}}">{{markScore}}</strong><span>圣遗物评级</span></div>
+    <div class="item arti-stat">
+      <div><strong class="mark-{{totalMarkClass}}">{{totalMarkClass}}</strong><span>圣遗物评级</span></div>
       <div><strong>{{totalMark}}</strong><span>圣遗物总分</span></div>
     </div>
   </div>
-  {{each reliquaries ds}}
+  {{each artis ds}}
   <div class="item arti">
-    {{if ds && ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
+    {{if ds && ds.name && ds.main && ds.main.title && ds.main.title!="undefined"}}
     <div class="arti-icon">
       <img src="{{_sys_res_path}}/genshin/logo/reliquaries/{{ds.name}}.png"/>
       <span>+{{ds.level}}</span>
     </div>
     <div class="head">
       <strong>{{ds.name}}</strong>
-      <span class="mark mark-{{ds.markType}}"><span>{{ds.mark}}分</span> - {{ds.markType}}</span>
+      <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
     </div>
-    <ul class="detail">
-      <li class="arti-main"><span class="title">{{ds.main[0]}}</span><span class="val">+{{ds.main[1]}}</span></li>
+    <ul class="detail attr">
+      <li class="arti-main"><span class="title">{{ds.main.title}}</span><span class="val">+{{ds.main.val}}</span></li>
       {{each ds.attrs attr}}
-      {{if attr[0]}}
-      <li class="{{usefulMark[attr[0]]*1 > 79.9 ?`great`:(usefulMark[attr[0]]*1>0 ? `useful`:`nouse`)}}"><span
-          class="title">{{attr[0]}} </span><span
-          class="val">+{{attr[1]}}</span></li>
+      {{if attr.title}}
+      <li class="{{usefulMark[attr.title]*1 > 79.9 ?`great`:(usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}"><span
+          class="title">{{attr.title}} </span><span
+          class="val">+{{attr.val}}</span></li>
       {{/if}}
       {{/each}}
     </ul>
@@ -117,7 +117,7 @@
     </div>
   </div>
 
-  {{each reliquaries ds}}
+  {{each artis ds}}
   <div class="item arti">
     {{if ds.name }}
     <div class="arti-icon">
@@ -213,7 +213,6 @@
       <li>关于<strong>平均伤害</strong>：是将暴击率计算在内的伤害期望，能反映综合的输出能力，不等于实际伤害数字。</li>
       <li>可用于评估当前面板下圣遗物副词条的侧重方向。实际游戏情况更加复杂，结果供参考~</li>
       <li>如需更换计算的伤害类型，可使用命令 <strong>#{{name}}伤害+序号</strong>来切换，序号参见伤害计算板块</li>
-
     </ul>
   </div>
 </div>

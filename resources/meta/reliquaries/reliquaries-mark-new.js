@@ -11,23 +11,25 @@ export const attrValue = {
   heal: 4.487
 };
 export const attrMap = {
-  atk: "大攻击",
-  atkPlus: "小攻击",
-  def: "大防御",
-  defPlus: "小防御",
-  hp: "大生命",
-  hpPlus: "小生命",
-  cp: "暴击率",
-  cd: "暴击伤害",
-  mastery: "元素精通",
-  recharge: "充能效率",
-  dmg: "元素伤害",
-  phy: "物伤加成",
-  heal: "治疗加成",
+  atk: { title: "大攻击", format: "pct", type: "normal", value: 5.83, text: "5.83%" },
+  atkPlus: { title: "小攻击", format: "comma", type: "plus", },
+  def: { title: "大防御", format: "pct", type: "normal", value: 7.29, text: "7.29%" },
+  defPlus: { title: "小防御", format: "comma", type: "plus" },
+  hp: { title: "大生命", format: "pct", type: "normal", value: 5.83, text: "5.83%" },
+  hpPlus: { title: "小生命", format: "comma", type: "plus" },
+  cp: { title: "暴击率", format: "pct", type: "normal", value: 3.89, text: "3.89%" },
+  cd: { title: "暴击伤害", format: "pct", type: "normal", value: 7.77, text: "7.77%" },
+  mastery: { title: "元素精通", format: "comma", type: "normal", value: 23.31, text: "23.31" },
+  recharge: { title: "充能效率", format: "pct", type: "normal", value: 23.31, text: "23.31" },
+  dmg: { title: "元素伤害", format: "pct", type: "normal", value: 5.825, text: "5.83%" },
+  phy: { title: "物伤加成", format: "pct", type: "normal", value: 7.288, text: "7.29%" },
+  heal: { title: "治疗加成", format: "pct", type: "normal", value: 4.487, text: "4.49%" },
 };
+
+
 let anMap = {};
 for (let attr in attrMap) {
-  anMap[attrMap[attr]] = attr;
+  anMap[attrMap[attr].title] = attr;
 }
 
 export const attrNameMap = anMap;

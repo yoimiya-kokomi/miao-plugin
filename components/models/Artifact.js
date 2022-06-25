@@ -2,9 +2,10 @@ import { attrValue, attrNameMap, attrMap, mainAttr, subAttr, usefulAttr }
   from "../../resources/meta/reliquaries/reliquaries-mark-new.js";
 import { Character } from "../models.js";
 import lodash from "lodash";
+import Format from "../Format.js";
 
 let charCfg = {};
-let Reliquaries = {
+let Artifact = {
   getCharCfg(name) {
     if (charCfg[name]) {
       return charCfg[name]
@@ -23,15 +24,15 @@ let Reliquaries = {
       attrMark.hpPlus = attrMark.hp / baseAttr[0] * 100;
     }
     if (attrMark.atk) {
-      attrMark.atkPlus = attrMark.atk / (baseAttr[1] + 400) * 100;
+      attrMark.atkPlus = attrMark.atk / (baseAttr[1] * 1 + 400) * 100;
     }
     if (attrMark.def) {
       attrMark.defPlus = attrMark.def / baseAttr[2] * 100;
     }
-    let maxMark = Reliquaries.getMaxMark(attrWeight);
+    let maxMark = Artifact.getMaxMark(attrWeight);
     let titleMark = {}, titleWeight = {};
     lodash.forEach(attrMark, (mark, attr) => {
-      let aTitle = attrMap[attr];
+      let aTitle = attrMap[attr].title;
       if (/小/.test(aTitle)) {
         return;
       }
@@ -74,12 +75,12 @@ let Reliquaries = {
       } else if (idx === 2) {
         mAttr = "atkPlus";
       } else if (idx >= 3) {
-        mAttr = Reliquaries.getMaxAttr(attrWeight, mainAttr[idx])[0];
+        mAttr = Artifact.getMaxAttr(attrWeight, mainAttr[idx])[0];
         mMark = attrWeight[mAttr];
         totalMark += attrWeight[mAttr] * 2;
       }
 
-      let sAttr = Reliquaries.getMaxAttr(attrWeight, subAttr, 4, mAttr);
+      let sAttr = Artifact.getMaxAttr(attrWeight, subAttr, 4, mAttr);
       lodash.forEach(sAttr, (attr, aIdx) => {
         totalMark += attrWeight[attr] * (aIdx === 0 ? 6 : 1)
       });
@@ -102,23 +103,23 @@ let Reliquaries = {
     if (!ds || !ds[1]) {
       return 0;
     }
-    let attr = Reliquaries.getAttr(ds);
+    let attr = Artifact.getAttr(ds);
     let val = ds[1];
     return (attrMark[attr] || 0) * val;
   },
   getMark(charCfg, posIdx, mainAttr, subAttr) {
     let ret = 0;
     let { mark, maxMark, weight } = charCfg;
-    let mAttr = Reliquaries.getAttr(mainAttr);
+    let mAttr = Artifact.getAttr(mainAttr);
 
     let fixPct = 1;
     if (posIdx >= 3) {
       fixPct = Math.max(0, Math.min(1, (weight[mAttr] || 0) / (maxMark['m' + posIdx])));
-      ret += Reliquaries.getAttrMark(mark, mainAttr) / 4
+      ret += Artifact.getAttrMark(mark, mainAttr) / 4
     }
 
     lodash.forEach(subAttr, (ds) => {
-      ret += Reliquaries.getAttrMark(mark, ds)
+      ret += Artifact.getAttrMark(mark, ds)
     });
 
     return ret * (1 + fixPct) / 2 / maxMark[posIdx] * 66;
@@ -126,15 +127,15 @@ let Reliquaries = {
 
   getArtisMark(charName = "", artis = {}) {
     let total = 0;
-    let charCfg = Reliquaries.getCharCfg(charName);
+    let charCfg = Artifact.getCharCfg(charName);
     let ret = {}
     lodash.forEach(artis, (ds, idx) => {
       idx = idx.replace("arti", "");
-      ret[idx] = Reliquaries.getMark(charCfg, idx, ds.main, ds.attrs)
+      ret[idx] = Artifact.getMark(charCfg, idx, ds.main, ds.attrs)
     });
     return ret;
   },
-  getMarkScore(mark) {
+  getMarkClass(mark) {
     let pct = mark;
     let scoreMap = [["D", 10], ["C", 16.5], ["B", 23.1], ["A", 29.7], ["S", 36.3], ["SS", 42.9], ["SSS", 49.5], ["ACE", 56.1], ["ACE²", 66]];
     for (let idx = 0; idx < scoreMap.length; idx++) {
@@ -149,6 +150,53 @@ let Reliquaries = {
         return meta[idx];
       }
     }
-  }
+  },
+  getMeta() {
+    return {
+      attrMap
+    }
+  },
+
+
+  formatArti(ds, markCfg = false, isMain = false) {
+    if (lodash.isArray(ds[0])) {
+      let ret = [];
+      lodash.forEach(ds, (d) => {
+        ret.push(Artifact.formatArti(d, markCfg, isMain));
+      })
+      return ret;
+    }
+    let title = ds[0], key = "", val = ds[1], num = ds[1];
+    if (!title || title === "undefined") {
+      return [];
+    }
+    if (/伤害加成/.test(title) && val < 1) {
+      val = Format.pct(val * 100);
+      num = num * 100;
+    } else if (/伤害加成|大|暴|充能|治疗/.test(title)) {
+      val = Format.pct(val);
+    } else {
+      val = Format.comma(val, 1);
+    }
+
+    if (/元素伤害加成/.test(title)) {
+      title = title.replace("元素伤害", "伤");
+      key = "dmg";
+    } else if (title === "物理伤害加成") {
+      title = "物伤加成";
+      key = "phy";
+    }
+
+    key = key || attrNameMap[title];
+
+    let mark = markCfg[key] * num;
+    if (markCfg) {
+      if (isMain) {
+        mark = mark / 4 + 0.01;
+      }
+      mark = Format.comma(mark || 0);
+    }
+    return { title, val, mark };
+  },
 }
-export default Reliquaries;
+export default Artifact;

@@ -1,14 +1,15 @@
-import {
+export {
   character,
   getProfile,
   wife,
-  wifeReg,
   enemyLv,
-  getArtis,
+  profileArtisList,
   getProfileAll,
   profileHelp,
   getOriginalPicture
 } from "./apps/character.js";
+import { wifeReg } from "./apps/character.js";
+
 import { consStat, abyssPct, abyssTeam } from "./apps/stat.js";
 import { wiki, calendar } from "./apps/wiki.js";
 import { help, versionInfo } from "./apps/help.js";
@@ -18,8 +19,6 @@ import { rule as adminRule, updateRes, sysCfg, updateMiaoPlugin, profileCfg } fr
 import { currentVersion } from "./components/Changelog.js";
 
 export {
-  character,
-  wife,
   consStat,
   abyssPct,
   abyssTeam,
@@ -29,14 +28,8 @@ export {
   sysCfg,
   help,
   versionInfo,
-  getProfile,
-  enemyLv,
-  getArtis,
-  getProfileAll,
-  profileHelp,
   calendar,
   profileCfg,
-  getOriginalPicture
 };
 
 

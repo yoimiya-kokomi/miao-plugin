@@ -259,7 +259,7 @@ export async function profileCfg(e, { render }) {
   })
 
   //渲染图像
-  return await Common.render("admin/profile-data", {
+  return await Common.render("admin/profile", {
     ...cfg,
   }, { e, render, scale: 1.4 });
 

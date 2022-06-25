@@ -134,33 +134,45 @@ let Profile = {
     return false;
   },
 
-  formatArti(ds) {
+  formatArti(ds, markCfg = false, isMain = false) {
     if (lodash.isArray(ds[0])) {
       let ret = [];
       lodash.forEach(ds, (d) => {
-        ret.push(Profile.formatArti(d));
+        ret.push(Profile.formatArti(d, markCfg, isMain));
       })
       return ret;
     }
-    let title = ds[0], val = ds[1];
+    let title = ds[0], key = "", val = ds[1], num = ds[1];
     if (!title || title === "undefined") {
       return [];
     }
     if (/伤害加成/.test(title) && val < 1) {
       val = Format.pct(val * 100);
+      num = num * 100;
     } else if (/伤害加成|大|暴|充能|治疗/.test(title)) {
       val = Format.pct(val);
     } else {
       val = Format.comma(val, 1);
     }
 
-
     if (/元素伤害加成/.test(title)) {
       title = title.replace("元素伤害", "伤");
+      key = "dmg";
     } else if (title === "物理伤害加成") {
       title = "物伤加成";
+      key = "phy";
     }
-    return [title, val];
+
+    key = key || keyMap[title];
+
+    let mark = 0;
+    if (markCfg) {
+      mark = Format.comma(markCfg[title] * num || 0);
+      if (isMain) {
+        mark = mark / 4;
+      }
+    }
+    return { title, val, mark };
   },
 
   getArtiMark(data, ds) {

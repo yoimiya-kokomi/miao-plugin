@@ -246,22 +246,31 @@ body {
   box-shadow: 0 0 1px 0 #fff;
   font-weight: normal;
 }
-ul.cont-msg {
-  padding-left: 15px;
-}
-ul.cont-msg li {
-  margin: 5px 0;
-}
-ul.cont-msg li strong {
-  font-weight: normal;
-  margin: 0 2px;
-  color: #d3bc8e;
-}
 .cont-footer {
   padding: 10px 15px;
   font-size: 12px;
   background: rgba(0, 0, 0, 0.5);
   font-weight: normal;
+}
+.cont > ul.cont-msg {
+  display: block;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.5);
+}
+ul.cont-msg,
+.cont-footer ul {
+  padding-left: 15px;
+}
+ul.cont-msg li,
+.cont-footer ul li {
+  margin: 5px 0;
+  margin-left: 15px;
+}
+ul.cont-msg li strong,
+.cont-footer ul li strong {
+  font-weight: normal;
+  margin: 0 2px;
+  color: #d3bc8e;
 }
 .cont-table {
   display: table;
