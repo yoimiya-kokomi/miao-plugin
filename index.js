@@ -16,6 +16,9 @@ import lodash from "lodash";
 import common from "../../lib/common.js";
 import { rule as adminRule, updateRes, sysCfg, updateMiaoPlugin, profileCfg } from "./apps/admin.js";
 import { currentVersion } from "./components/Changelog.js";
+import {
+  uploadCharacterImage
+} from "./apps/uploadCharacterImage.js";
 
 export {
   character,
@@ -36,7 +39,8 @@ export {
   profileHelp,
   calendar,
   profileCfg,
-  getOriginalPicture
+  getOriginalPicture,
+  uploadCharacterImage
 };
 
 
@@ -65,6 +69,10 @@ let rule = {
   getOriginalPicture: {
     reg: "^#?(获取|给我|我要|求|发|发下|发个|发一下)?原图(吧|呗)?$",
     describe: "【#原图】 回复角色卡片，可获取原图",
+  },
+  uploadCharacterImage: {
+    reg: "^#*喵喵(上传|添加)(.+)写真.*$",
+    describe: "喵喵上传角色写真",
   },
   consStat: {
     reg: "^#(喵喵)?角色(持有|持有率|命座|命之座|.命)(分布|统计|持有|持有率)?$",
