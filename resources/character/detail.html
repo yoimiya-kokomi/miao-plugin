@@ -119,7 +119,7 @@
 
   {{each artis ds}}
   <div class="item arti">
-    {{if ds.name }}
+    {{if ds && ds.name }}
     <div class="arti-icon">
       <img src="{{_sys_res_path}}/genshin/logo/reliquaries/{{ds.name}}.png"/>
       <span>+{{ds.level}}</span>

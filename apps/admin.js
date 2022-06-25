@@ -175,7 +175,7 @@ export async function updateMiaoPlugin(e) {
       e.reply("喵喵更新失败！\nError code: " + error.code + "\n" + error.stack + "\n 请稍后重试。");
       return true;
     }
-    e.reply("喵喵更新成功，尝试重新启动Yunzai以应用更新...");
+    e.reply("喵喵更新成功，正在尝试重新启动Yunzai以应用更新...");
     timer && clearTimeout(timer);
     redis.set("miao:restart-msg", JSON.stringify({
       msg: "重启成功，新版喵喵已经生效",

@@ -12,7 +12,7 @@
 
   {{each artis ds}}
   <div class="item arti">
-    {{if ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
+    {{if ds && ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
     <div class="avatar">
       <img src="{{_res_path}}meta/character/{{ds.avatar}}/side.png" onerror="whenError(this)"/>
     </div>
