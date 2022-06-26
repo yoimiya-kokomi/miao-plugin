@@ -117,6 +117,9 @@ let getMeta = function (name) {
 
 Character.get = function (val) {
   let roleid, name;
+  if (!val) {
+    return false;
+  }
   if (typeof (val) === "number" || /^\d*$/.test(val)) {
     roleid = val;
   } else if (val.id) {
@@ -131,8 +134,6 @@ Character.get = function (val) {
   if (!name) {
     return false;
   }
-
-
   return new Character(name, roleid);
 };
 
