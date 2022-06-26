@@ -1,7 +1,7 @@
 //#老婆
 import lodash from "lodash";
 import { Cfg } from "../../components/index.js";
-import {Character} from "../../Components/models.js";
+import {Character} from "../../components/models.js";
 import { getAvatarList, renderAvatar } from "./avatar-card.js";
 
 const relationMap = {
