@@ -68,14 +68,14 @@
     <ul class="detail attr mark-calc">
       <li style="display:none;"></li>
       <li>
-        <span class="title">理论总分对齐</span>
+        <span class="title">总分对齐</span>
         <span class="val">
            *{{( 66 / (46.6/6/100 * charCfg.maxMark[idx+1]) * 100).toFixed(1)}}%
         </span>
       </li>
       {{if idx>1}}
       <li>
-        <span class="title">最优主词条词缀</span>
+        <span class="title">最优主词缀</span>
         <span class="val">
          *{{(100-50*(1-ds.main.mark/charCfg.maxMark["m"+(idx+1)]/2)).toFixed(0)}}%
         </span>
@@ -126,8 +126,9 @@
   </div>
   <ul class="cont-msg">
     <li>每个角色有不同的词条评分权重，后续会逐步扩充不同流派的规则</li>
-    <li>权重值100的单词条理论最高分46.6分，根据词条成长计算每点得分</li>
-
+    <li>以权重值100的单词条理论最高分46.6分为基准，根据权重值及当前词条成长计算每点得分</li>
+    <li><strong>词条得分：</strong> 词条数值 * 当前词条每点得分。小攻击、小防御、小生命折算为对应百分比词条进行计分</li>
+    <li><strong>原始总分：</strong>计算所有副词条的评分之和，沙杯头三个位置附加25%的主词条评分</li>
   </ul>
 </div>
 
@@ -145,8 +146,8 @@
       <div>空之杯</div>
       <div>理之冠</div>
     </div>
-    <div class="tr" style="display:none">
-      <div class="th">主词条最高权重值</div>
+    <div class="tr">
+      <div class="th">最优主词条权重值</div>
       <div>-</div>
       <div>-</div>
       <div>{{charCfg.maxMark.m3}}</div>
@@ -154,7 +155,7 @@
       <div>{{charCfg.maxMark.m5}}</div>
     </div>
     <div class="tr">
-      <div class="th">理论最高原始分</div>
+      <div class="th">理论最高原始总分</div>
       {{each charCfg.maxMark m key}}
       {{if key.length === 1}}
       <div>{{ mark( m / 6 )}}</div>
@@ -171,13 +172,11 @@
     </div>
   </div>
   <ul class="cont-msg">
-    <li><strong>词条原始总分：</strong>计算所有副词条的评分之和，小攻击、小防御、小生命折算为对应百分比词条进行计分。沙杯头三个位置附加25%的主词条评分</li>
-    <li><strong>理论总分对齐: </strong>根据<strong>{{data.name}}</strong>不同圣遗物位置可选词条及评分，计算理论最高原始词条总分。为使不同角色不同位置最终总分对齐，规定圣遗物满分为66分。理论总分对齐比例
-      = 66 / 理论最高原始分 *
-      100%
+    <li><strong>总分对齐比例: </strong>根据<strong>{{data.name}}</strong>不同圣遗物位置可选词条及评分，计算理论最高原始词条总分。为使不同角色不同位置最终总分对齐，规定圣遗物满分为66分。理论总分对齐比例
+      = 66 / 理论最高原始分 * 100%
     </li>
-    <li><strong>最优主词条词缀: </strong>对主词条词缀非最优的圣遗物进行评分惩罚。若装备的圣遗物主词条不是当前位置的最高权重主词条，则依据权重差值比例进行分数扣减，最多扣减50%</li>
-    <li><strong>最终得分：</strong>圣遗物最终得分 = 词条原始总分 * 理论总分对齐比例 * 主词条判定比例</li>
+    <li><strong>最优主词缀比例: </strong>对主词条词缀非最优的圣遗物进行评分惩罚。若装备的圣遗物主词条不是当前位置的最高权重主词条，则依据权重差值比例进行分数扣减，最多扣减50%</li>
+    <li><strong>最终得分：</strong>圣遗物最终得分 = 原始总分 * 总分对齐比例 * 最优主词缀比例</li>
     <li><strong>得分级别：</strong>ACE²(&gt;56.1分) / ACE(&gt;49.5分) / SSS(&gt;42.9分) / SS(&gt;36.3分) / S(&gt;29.7分) / A / B /
       C / D
     </li>
