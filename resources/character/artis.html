@@ -12,7 +12,7 @@
 
   {{each artis ds}}
   <div class="item arti">
-    {{if ds && ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
+    {{if ds && ds.name && ds.main && ds.main.title && ds.main.title!="undefined"}}
     <div class="avatar">
       <img src="{{_res_path}}meta/character/{{ds.avatar}}/side.png" onerror="whenError(this)"/>
     </div>
@@ -23,12 +23,13 @@
       <strong>{{ds.name}}</strong>
       <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
     </div>
-    <ul class="detail">
-      <li class="arti-main"><span class="title">{{ds.main[0]}}</span><span class="val">+{{ds.main[1]}}</span></li>
+    <ul class="detail attr">
+      <li class="arti-main"><span class="title">{{ds.main.title}}</span><span class="val">+{{ds.main.val}}</span></li>
       {{each ds.attrs attr}}
-      {{if attr[0]}}
-      <li class="{{ds.usefulMark[attr[0]]*1 > 79.9 ?`great`:(ds.usefulMark[attr[0]]*1>0 ? `useful`:`nouse`)}}"><span class="title">{{attr[0]}}</span><span
-          class="val">+{{attr[1]}}</span></li>
+      {{if attr.title}}
+      <li class="{{ds.usefulMark[attr.title]*1 > 79.9 ?`great`:(ds.usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}">
+        <span class="title">{{attr.title}}</span><span
+          class="val">+{{attr.val}}</span></li>
       {{/if}}
       {{/each}}
     </ul>

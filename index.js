@@ -39,7 +39,7 @@ let rule = {
     //reg: "noCheck",
     describe: "【#角色】角色详情",
   },
-  getArtis: {
+  profileArtisList: {
     reg: "^#圣遗物列表\\s*(\\d{9})?$",
     describe: "【#角色】圣遗物列表",
   },

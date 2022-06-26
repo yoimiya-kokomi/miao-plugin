@@ -61,12 +61,12 @@ export async function profileArtisList(e, { render }) {
 
     let usefulMark;
 
-    let charCfg = Reliquaries2.getCharCfg(name);
+    let charCfg = Artifact.getCharCfg(name);
     usefulMark = charCfg.titleWeight;
 
     /* 处理圣遗物 */
     if (ds.artis) {
-      let newScore = Reliquaries2.getArtisMark(name, ds.artis);
+      let newScore = Artifact.getArtisMark(name, ds.artis);
 
       lodash.forEach(ds.artis, (arti, idx) => {
         if (!arti.name) {
@@ -74,12 +74,12 @@ export async function profileArtisList(e, { render }) {
         }
         idx = idx.replace("arti", "");
         let mark = newScore[idx];
-        let maxMark = Reliquaries.getMaxMark(name, arti.main[0] || "");
+        let maxMark = Artifact.getMaxMark(name, arti.main[0] || "");
         arti.mark = Format.comma(mark, 1);
         arti._mark = mark;
-        arti.markClass = Reliquaries2.getMarkClass(mark);
-        arti.main = Profile.formatArti(arti.main);
-        arti.attrs = Profile.formatArti(arti.attrs);
+        arti.markClass = Artifact.getMarkClass(mark);
+        arti.main = Artifact.formatArti(arti.main);
+        arti.attrs = Artifact.formatArti(arti.attrs);
         arti.usefulMark = usefulMark;
         arti.avatar = name;
         artis.push(arti);
