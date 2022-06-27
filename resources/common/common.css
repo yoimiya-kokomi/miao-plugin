@@ -213,6 +213,13 @@ body {
 .pyro-bg {
   background-image: url("./bg/bg-pyro.jpg");
 }
+.elem-dendro .talent-icon {
+  background-image: url("./bg/talent-dendro.png");
+}
+.elem-dendro .elem-bg,
+.dendro-bg {
+  background-image: url("./bg/bg-dendro.jpg");
+}
 /* cont */
 .cont {
   border-radius: 10px;

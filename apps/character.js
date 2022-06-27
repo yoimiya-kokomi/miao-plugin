@@ -8,6 +8,9 @@ import { renderProfile } from "./character/profile-detail.js";
 
 export { enemyLv, getOriginalPicture } from "./character/utils.js";
 
+// 角色图像上传
+export { uploadCharacterImg } from "./character/character-img-upload.js";
+
 //
 export { getProfileAll, getProfile, profileHelp };
 

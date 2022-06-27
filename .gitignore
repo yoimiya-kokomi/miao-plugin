@@ -5,3 +5,4 @@
 /components/setting.json
 /config.js
 *.css.map
+/resources/character-img/*/upload/

@@ -54,6 +54,7 @@ class Character extends Base {
       });
     }
     addImg(`character-img/${name}`);
+    addImg(`character-img/${name}/upload`);
     addImg(`character-img/${name}/se`, !se)
 
     const plusPath = `./plugins/miao-plugin/resources/miao-res-plus/`;

@@ -17,6 +17,17 @@
     {{/if}}
     <img class="genshin_logo" src="{{_sys_res_path}}/genshin/roleAll/原神.png"/>
   </div>
+  <div class="cont msg-cont">
+    <div class="cont-title">深渊出场率统计</div>
+    <div class="cont-body">
+      <ul class="cont-msg">
+        <li>数据来自<strong>胡桃API</strong>，为Snap Genshin用户自主上传的角色池信息，感谢SG团队</li>
+        <li>百分比基于全部上传用户的数据进行统计，结果供参考</li>
+        <li>由于是用户自主上传，数据可能有一定滞后。出场率会在深渊开启后一段时间逐步稳定</li>
+        <li>数据最后更新时间：{{lastUpdate}}</li>
+      </ul>
+    </div>
+  </div>
   <% let pct = function (num) {
   return (num * 100).toFixed(2);
   } %>
@@ -39,9 +50,7 @@
       {{/each}}
     </div>
   </div>
-
   {{/if}}
   {{/each}}
-  <p class="notice notice-center"> 数据来源：DGP-Studio-胡桃API . 最后更新时间：{{lastUpdate}} </p>
 </div>
 {{/block}}

@@ -19,7 +19,7 @@ export async function wiki(e, { render }) {
     return false;
   }
 
-  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|照片|写真|图片|插画)$/, msg = e.msg;
+  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|照片|写真|图片|图像)$/, msg = e.msg;
   let ret = reg.exec(msg);
 
   if (!ret || !ret[1] || !ret[2]) {

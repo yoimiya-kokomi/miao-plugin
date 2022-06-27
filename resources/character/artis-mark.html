@@ -107,7 +107,7 @@
       <div>副词条最高分</div>
       <div>主词条最高分</div>
     </div>
-    {{each attrMap ds key}}{{if ds.type!== "plus"}}
+    {{each attrMap ds key}}{{if ds.type!== "plus" && charCfg.weight[key] > 0}}
     <div class="tr">
       <div class="th">{{ds.title}}</div>
       <div class="td">{{charCfg.weight[key]}}</div>
@@ -125,10 +125,10 @@
     {{/if}}{{/each}}
   </div>
   <ul class="cont-msg">
-    <li>每个角色有不同的词条评分权重，后续会逐步扩充不同流派的规则</li>
+    <li>每个角色有不同的词条评分权重（已隐藏权重为0的词条），后续会逐步扩充不同流派的规则</li>
     <li>以权重值100的单词条理论最高分46.6分为基准，根据权重值及当前词条成长计算每点得分</li>
     <li><strong>词条得分：</strong> 词条数值 * 当前词条每点得分。小攻击、小防御、小生命折算为对应百分比词条进行计分</li>
-    <li><strong>原始总分：</strong>计算所有副词条的评分之和，沙杯头三个位置附加25%的主词条评分</li>
+    <li><strong>原始总分（对齐前）：</strong>计算所有副词条的评分之和，沙杯头三个位置附加25%的主词条评分</li>
   </ul>
 </div>
 
@@ -147,15 +147,7 @@
       <div>理之冠</div>
     </div>
     <div class="tr">
-      <div class="th">最优主词条权重值</div>
-      <div>-</div>
-      <div>-</div>
-      <div>{{charCfg.maxMark.m3}}</div>
-      <div>{{charCfg.maxMark.m4}}</div>
-      <div>{{charCfg.maxMark.m5}}</div>
-    </div>
-    <div class="tr">
-      <div class="th">理论最高原始总分</div>
+      <div class="th">最高分(对齐前)</div>
       {{each charCfg.maxMark m key}}
       {{if key.length === 1}}
       <div>{{ mark( m / 6 )}}</div>
@@ -163,12 +155,20 @@
       {{/each}}
     </div>
     <div class="tr">
-      <div class="th">理论总分对齐比例</div>
+      <div class="th">总分对齐比例</div>
       {{each charCfg.maxMark m key}}
       {{if key.length === 1}}
       <div>{{( 66 / (46.6/6/100 * m) * 100).toFixed(1)}}%</div>
       {{/if}}
       {{/each}}
+    </div>
+    <div class="tr">
+      <div class="th">最优主词缀权重</div>
+      <div>-</div>
+      <div>-</div>
+      <div>{{charCfg.maxMark.m3}}</div>
+      <div>{{charCfg.maxMark.m4}}</div>
+      <div>{{charCfg.maxMark.m5}}</div>
     </div>
   </div>
   <ul class="cont-msg">

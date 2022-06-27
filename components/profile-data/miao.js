@@ -10,10 +10,12 @@ const url = "http://49.232.91.210/profile";
 let Miao = {
   key: "miao",
   cd: 1,
-  async request({ e, uid, avatar = '' }) {
-    let api = `${url}/list?uid=${uid}`;
+  async request({ e, uid, avatar = '', config }) {
+    let profileApi = config.miaoApi && lodash.isFunction(config.miaoApi) ? config.miaoApi : function ({ uid }) {
+      return `http://49.232.91.210/profile/list?uid=${uid}`
+    };
+    let api = profileApi({ uid, avatar });
     let data;
-
     let req = await fetch(api);
     data = await req.json();
     if (data.status !== 0) {
@@ -21,7 +23,7 @@ let Miao = {
       return false;
     }
     if (!data.uidListData || data.uidListData.length === 0) {
-      e.reply(`请打开角色展柜的显示详情`);
+      e.reply(`请打开游戏内角色展柜的“显示详情”后，等待5分钟重新获取面板`);
       return false;
     }
 

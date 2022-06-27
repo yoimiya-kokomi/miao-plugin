@@ -4,7 +4,7 @@
 * */
 import lodash from "lodash";
 import { Profile, Common, Models, Format } from "../../components/index.js";
-import { getTargetUid, profileHelp } from "./profile-common.js";
+import { autoRefresh, getTargetUid, profileHelp, autoGetProfile } from "./profile-common.js";
 import { Character, Artifact } from "../../components/models.js";
 
 /*
@@ -13,11 +13,22 @@ import { Character, Artifact } from "../../components/models.js";
 export async function profileArtis(e, { render }) {
   let { uid, avatar } = e;
 
-  let profile = await Profile.get(uid, avatar);
-  let char = Character.get(profile.name);
+  let { profile, char, err } = await autoGetProfile(e, uid, avatar, async () => {
+    await profileArtis(e, { render });
+  });
+
+  if (err) {
+    return;
+  }
 
   let charCfg = Artifact.getCharCfg(profile.name);
   let { artis, totalMark, totalMarkClass, usefulMark } = getArtis(profile.name, profile.artis);
+
+  if (!profile.artis || profile.artis.length === 0) {
+    e.reply("未能获得圣遗物详情，请重新获取面板信息后查看")
+    return true;
+  }
+
   let { attrMap } = Artifact.getMeta();
 
   //渲染图像
@@ -51,7 +62,6 @@ export async function profileArtisList(e, { render }) {
     e.reply("暂无角色圣遗物详情");
     return true;
   }
-
 
   lodash.forEach(profiles || [], (ds) => {
     let name = ds.name;

@@ -28,6 +28,9 @@ function sleep(ms) {
 }
 
 function getServ(uid) {
+  if (config.profileApi) {
+    return config.profileApi({ Enka, Miao })
+  }
   if ((uid + '')[0] === '5') {
     return Miao;
   }

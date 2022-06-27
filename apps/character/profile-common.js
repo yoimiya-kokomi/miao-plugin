@@ -95,7 +95,7 @@ export async function autoRefresh(e) {
   }
 
   if (!data.chars) {
-    e.reply("请确认角色已在【游戏内】橱窗展示并开放了查看详情。设置完毕后请5分钟后使用 #面板更新 重新获取");
+    e.reply("请确认角色已在【游戏内】橱窗展示并开放了查看详情。请在设置完毕5分钟后使用 #面板更新 重新获取");
     return false;
   } else {
     let ret = [];
@@ -106,7 +106,7 @@ export async function autoRefresh(e) {
       }
     })
     if (ret.length === 0) {
-      e.reply("请确认角色已在【游戏内】橱窗展示并开放了查看详情。设置完毕后请5分钟后使用 #面板更新 重新获取")
+      e.reply("请确认角色已在【游戏内】橱窗展示并开放了查看详情。请在设置完毕5分钟后使用 #面板更新 重新获取")
       return false;
     } else {
       // e.reply(`本次获取成功角色: ${ret.join(", ")} `)
@@ -114,6 +114,40 @@ export async function autoRefresh(e) {
     }
   }
   return true;
+}
+
+export async function autoGetProfile(e, uid, avatar, callback) {
+
+  let refresh = async () => {
+    let refreshRet = await autoRefresh(e);
+    if (refreshRet) {
+      await callback();
+    }
+    return refreshRet;
+  }
+
+  let char = Character.get(avatar);
+  if (!char) {
+    return { err: true };
+  }
+
+  let profile = await Profile.get(uid, char.id);
+  if (!profile) {
+    if (await refresh()) {
+      return { err: true };
+    } else {
+      e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`);
+    }
+    return { err: true };
+  } else if (!['enka', 'input2', 'miao', 'miao-pre'].includes(profile.dataSource)) {
+    if (!await refresh()) {
+      e.reply(`由于数据格式升级，请重新获取面板信息后查看`);
+    }
+    return { err: true };
+  }
+
+  return { profile, char, refresh }
+
 }
 
 /*

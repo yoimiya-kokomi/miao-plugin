@@ -6,8 +6,10 @@ export {
   profileArtisList,
   getProfileAll,
   profileHelp,
-  getOriginalPicture
+  getOriginalPicture,
+  uploadCharacterImg
 } from "./apps/character.js";
+
 import { wifeReg } from "./apps/character.js";
 
 import { consStat, abyssPct, abyssTeam } from "./apps/stat.js";
@@ -17,9 +19,7 @@ import lodash from "lodash";
 import common from "../../lib/common.js";
 import { rule as adminRule, updateRes, sysCfg, updateMiaoPlugin, profileCfg } from "./apps/admin.js";
 import { currentVersion } from "./components/Changelog.js";
-import {
-  uploadCharacterImage
-} from "./apps/uploadCharacterImage.js";
+
 
 export {
   consStat,
@@ -32,8 +32,7 @@ export {
   help,
   versionInfo,
   calendar,
-  profileCfg,
-  uploadCharacterImage
+  profileCfg
 };
 
 
@@ -42,6 +41,10 @@ let rule = {
     reg: "^(#(.*)|#*(更新|录入)?(.*)(详细|详情|面板|面版|伤害[1-7]?)(更新)?)$",
     //reg: "noCheck",
     describe: "【#角色】角色详情",
+  },
+  uploadCharacterImg: {
+    reg: "^#*(喵喵)?(上传|添加)(.+)(照片|写真|图片|图像)\\s*$",
+    describe: "喵喵上传角色写真",
   },
   profileArtisList: {
     reg: "^#圣遗物列表\\s*(\\d{9})?$",
@@ -63,10 +66,6 @@ let rule = {
     reg: "^#?(获取|给我|我要|求|发|发下|发个|发一下)?原图(吧|呗)?$",
     describe: "【#原图】 回复角色卡片，可获取原图",
   },
-  uploadCharacterImage: {
-    reg: "^#*喵喵(上传|添加)(.+)写真.*$",
-    describe: "喵喵上传角色写真",
-  },
   consStat: {
     reg: "^#(喵喵)?角色(持有|持有率|命座|命之座|.命)(分布|统计|持有|持有率)?$",
     describe: "【#统计】 #角色持有率 #角色5命统计",
@@ -80,7 +79,7 @@ let rule = {
     describe: "【#角色】 #深渊组队",
   },
   wiki: {
-    reg: "^(#|喵喵)?.*(天赋|技能|命座|命之座|资料|照片|写真|图片|插画)$",
+    reg: "^(#|喵喵)?.*(天赋|技能|命座|命之座|资料|照片|写真|图片|图像)$",
     describe: "【#资料】 #神里天赋 #夜兰命座",
   },
   help: {
@@ -96,11 +95,11 @@ let rule = {
     describe: "【#角色】 设置伤害计算中目标敌人的等级",
   },
   versionInfo: {
-    reg: "^#喵喵版本$",
+    reg: "^#?喵喵版本$",
     describe: "【#帮助】 喵喵版本介绍",
   },
   calendar: {
-    reg: "^#喵喵(日历|活动|日历列表)$",
+    reg: "^#?喵喵(日历|活动|日历列表)$",
     describe: "【#日历】 活动日历",
   },
   ...adminRule

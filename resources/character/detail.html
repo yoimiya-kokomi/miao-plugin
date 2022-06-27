@@ -45,7 +45,8 @@
     {{each cons con idx}}
     <div class="cons-item">
       <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
-        <div class="talent-icon-img" style="background-image:url({{_res_path}}/meta/character/{{name}}/cons_{{idx}}.png)"></div>
+        <div class="talent-icon-img"
+             style="background-image:url({{_res_path}}/meta/character/{{name}}/cons_{{idx}}.png)"></div>
       </div>
     </div>
     {{/each}}
@@ -100,6 +101,12 @@
 <div class="cont">
   <div class="cont-footer  dmg-desc">
     面板信息来源于手工输入，面板信息及伤害计算可能不准确。通过<strong>#录入{{name}}面板</strong>可录入面板数据
+  </div>
+</div>
+{{else if mode === "profile"}}
+<div class="cont">
+  <div class="cont-footer dmg-desc">
+    当前评分为<strong>喵喵版评分规则</strong>，分值仅供参考。可使用<strong>#{{name}}圣遗物</strong>来查看评分详情
   </div>
 </div>
 {{/if}}
