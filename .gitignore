@@ -6,3 +6,5 @@
 /config.js
 *.css.map
 /resources/character-img/*/upload/
+/resources/help/help-list.js
+/resources/help/help-cfg.js

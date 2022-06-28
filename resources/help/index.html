@@ -7,16 +7,16 @@
 {{block 'main'}}
 <div class="info_box">
   <div class="head-box type{{bgType}}">
-    <div class="title">使用帮助</div>
-    <div class="label">Yunzai-Bot & Miao-Plugin</div>
+    <div class="title">{{helpCfg.title||"使用帮助"}}</div>
+    <div class="label">{{helpCfg.subTitle || "Yunzai-Bot & Miao-Plugin"}}</div>
   </div>
 </div>
 
-{{each helpCfg helpGroup}}
+{{each helpGroup group}}
 <div class="cont-box">
-  <div class="help-group">{{helpGroup.group}}</div>
+  <div class="help-group">{{group.group}}</div>
   <div class="help-table">
-    {{each helpGroup.list help idx}}
+    {{each group.list help idx}}
     {{if idx%3 == 0}}
     <div class="tr">
       {{/if}}
@@ -25,7 +25,7 @@
         <strong class="help-title">{{help.title}}</strong>
         <span class="help-desc">{{help.desc}}</span>
       </div>
-      {{if idx%3 ==2 || idx == helpGroup.list.length -1}}
+      {{if idx%3 ==2 || idx == group.list.length -1}}
     </div>
     {{/if}}
     {{/each}}
