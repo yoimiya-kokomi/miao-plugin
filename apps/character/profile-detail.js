@@ -17,6 +17,10 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     e.reply("暂不支持主角的面板信息查看");
     return true;
   }
+  if (char.isCustom) {
+    e.reply(`暂不支持自定义角色${char.name}的面板信息查看`);
+    return true;
+  }
 
   let refresh = async () => {
     let refreshRet = await autoRefresh(e);

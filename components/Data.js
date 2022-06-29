@@ -2,6 +2,8 @@ import lodash from "lodash";
 import fs from "fs";
 import request from "request";
 
+const _path = process.cwd();
+
 let Data = {
 
   /*
@@ -50,6 +52,19 @@ let Data = {
     // 检查并创建目录
     Data.createDir(path, true);
     return fs.writeFileSync(`${path}/${file}`, JSON.stringify(data, null, space));
+  },
+
+  async importModule(path, file, rootPath = _path) {
+    if (!/\.js$/.test(file)) {
+      file = file + ".js";
+    }
+    // 检查并创建目录
+    Data.createDir(_path, path, true);
+    if (fs.existsSync(`${_path}/${path}/${file}`)) {
+      let data = await import (`file://${_path}/${path}/${file}`);
+      return data || {};
+    }
+    return {}
   },
 
   /*
@@ -172,7 +187,6 @@ let Data = {
   sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-
 
 }
 

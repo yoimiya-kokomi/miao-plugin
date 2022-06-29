@@ -56,7 +56,11 @@
         <div class="uid">ID:{{uid}}</div>
         <span>{{ds.name}}</span>
       </div>
+      {{if custom}}
+      <div class="no-info">自定义角色暂无角色信息</div>
+      {{else}}
       <div class="no-info">未能获取到角色信息，请将角色放置在米游社角色展柜中</div>
+      {{/if}}
       {{/if}}
       <div class="copyright">{{@sys.copyright}}</div>
       <div>

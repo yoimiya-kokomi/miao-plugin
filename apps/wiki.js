@@ -44,12 +44,17 @@ export async function wiki(e, { render }) {
   }
 
   if (mode === "pic") {
-    let img = char.getCardImg(Cfg.get("char.se", false),false);
+    let img = char.getCardImg(Cfg.get("char.se", false), false);
     if (img && img.img) {
       e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + img.img));
     } else {
       e.reply("暂无图片");
     }
+    return true;
+  }
+
+  if (char.isCustom) {
+    e.reply("暂不支持自定义角色");
     return true;
   }
 

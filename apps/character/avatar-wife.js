@@ -129,7 +129,7 @@ export async function wife(e, { render, User }) {
       } else {
         wifeList = lodash.map(wifeList, (name) => {
           let char = Character.get(name);
-          if (char && checkWifeType(char.id, targetCfg.type)) {
+          if (char && char.checkWifeType(targetCfg.type)) {
             return char.name;
           }
         });

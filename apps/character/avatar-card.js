@@ -26,7 +26,6 @@ export async function renderAvatar(e, avatar, render, renderType = "card") {
       return false;
     }
 
-
     let MysApi = await e.getMysApi({
       auth: "all",
       targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
@@ -38,21 +37,24 @@ export async function renderAvatar(e, avatar, render, renderType = "card") {
 
     let uid = e.targetUser.uid;
 
-
-    let profile = await Profile.get(uid, char.id, true);
-    if (profile) {
-      // 优先使用Profile数据
-      avatar = profile;
+    if (char.isCustom) {
+      avatar = { id: char.id, name: char.name, detail: false }
     } else {
-      // 使用Mys数据兜底
-      let charData = await MysApi.getCharacter();
-      if (!charData) return true;
+      let profile = await Profile.get(uid, char.id, true);
+      if (profile) {
+        // 优先使用Profile数据
+        avatar = profile;
+      } else {
+        // 使用Mys数据兜底
+        let charData = await MysApi.getCharacter();
+        if (!charData) return true;
 
-      let avatars = charData.avatars;
-      let length = avatars.length;
-      char.checkAvatars(avatars);
-      avatars = lodash.keyBy(avatars, "id");
-      avatar = avatars[char.id] || { id: char.id, name: char.name, detail: false };
+        let avatars = charData.avatars;
+        let length = avatars.length;
+        char.checkAvatars(avatars);
+        avatars = lodash.keyBy(avatars, "id");
+        avatar = avatars[char.id] || { id: char.id, name: char.name, detail: false };
+      }
     }
   }
   return await renderCard(e, avatar, render, renderType);
@@ -61,20 +63,20 @@ export async function renderAvatar(e, avatar, render, renderType = "card") {
 // 渲染角色卡片
 async function renderCard(e, avatar, render, renderType = "card") {
 
-
-  let talent = await getTalent(e, avatar);
-  // 计算皇冠个数
-  let crownNum = lodash.filter(lodash.map(talent, (d) => d.original), (d) => d >= 10).length;
-
-  let uid = e.uid || (e.targetUser && e.targetUser.uid);
-
   let char = Character.get(avatar);
 
   if (!char) {
     return false;
   }
-  let bg = char.getCardImg(Cfg.get("char.se", false));
+  let uid = e.uid || (e.targetUser && e.targetUser.uid);
 
+  let crownNum = 0, talent = {};
+  if (!char.isCustom) {
+    talent = await getTalent(e, avatar);
+    // 计算皇冠个数
+    crownNum = lodash.filter(lodash.map(talent, (d) => d.original), (d) => d >= 10).length;
+  }
+  let bg = char.getCardImg(Cfg.get("char.se", false));
   if (renderType === "photo") {
     e.reply(segment.image(process.cwd() + "/plugins/miao-plugin/resources/" + bg.img));
   } else {
@@ -86,6 +88,7 @@ async function renderCard(e, avatar, render, renderType = "card") {
       crownNum,
       talentMap: { a: "普攻", e: "战技", q: "爆发" },
       bg,
+      custom: char.isCustom,
       ...getCharacterData(avatar),
       ds: char.getData("name,id,title,desc"),
     }, { e, render, scale: 1.6 });
@@ -101,6 +104,10 @@ async function renderCard(e, avatar, render, renderType = "card") {
 //获取角色技能数据
 async function getTalent(e, avatars) {
   let talent = {}, cons = 0, char = Character.get(avatars.id), mode = "level";
+  console.log('isCustom', char.isCustom, char.id);
+  if (char.isCustom) {
+    return {}
+  }
   if (avatars.dataSource && avatars.talent) {
     // profile模式
     talent = avatars.talent || {};
@@ -133,6 +140,7 @@ async function getTalent(e, avatars) {
       }
     }
   }
+
   return char.getAvatarTalent(talent, cons, mode);
 }
 
@@ -257,5 +265,5 @@ export async function getAvatarList(e, type, MysApi) {
 }
 
 export function checkWifeType(id, type) {
-  return genshin.wifeData[type].includes(Number(id));
+  return Chargenshin.wifeData[type].includes(Number(id));
 }

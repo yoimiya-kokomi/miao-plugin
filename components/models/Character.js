@@ -2,15 +2,54 @@ import Base from "./Base.js";
 import lodash from "lodash";
 import fs from "fs";
 import Data from "../Data.js";
-import request from "request";
-import path from "path";
 import sizeOf from "image-size";
+import { customCharacters } from "../../config/character_default.js";
 
-let characterMap = {};
+
+let aliasMap = {}, idMap = {}, abbrMap = {}, wifeMap = {};
 const _path = process.cwd();
-let genshin = await import(`file://${_path}/config/genshin/roleId.js`);
-
 const metaPath = `${_path}/plugins/miao-plugin/resources/meta/character/`
+
+async function init() {
+  let sysCfg = await Data.importModule(`config/genshin`, 'roleId.js'),
+    charCfg = await Data.importModule(`plugins/miao-plugin/config`, 'character_default.js'),
+    custom = await Data.importModule(`plugins/miao-plugin/config`, 'character.js');
+
+  lodash.forEach([charCfg.customCharacters, custom.customCharacters, sysCfg.roleId], (roleIds) => {
+    lodash.forEach(roleIds || {}, (aliases, id) => {
+      aliases = aliases || [];
+      if (aliases.length === 0) {
+        return;
+      }
+      // 建立别名映射
+      lodash.forEach(aliases || [], (alias) => {
+        aliasMap[alias] = id;
+      })
+      aliasMap[id] = id;
+      idMap[id] = aliases[0];
+    })
+  })
+
+  lodash.forEach([sysCfg.wifeData, charCfg.wifeData, custom.wifeData], (wifeData) => {
+    lodash.forEach(wifeData || {}, (ids, type) => {
+      type = { girlfriend: 0, boyfriend: 1, daughter: 2, son: 3 }[type] || type;
+      if (!wifeMap[type]) {
+        wifeMap[type] = {};
+      }
+      lodash.forEach(ids, (id) => {
+        id = idMap[id];
+        if (id) {
+          wifeMap[type][id] = true;
+        }
+      })
+    })
+  })
+
+  abbrMap = sysCfg.abbr;
+}
+
+await init();
+
 
 class Character extends Base {
   constructor(name, id) {
@@ -26,17 +65,14 @@ class Character extends Base {
     if (name === "主角" || name === "旅行者" || /.主/.test(name)) {
       this.id = 20000000;
     }
+    this.id = id;
   }
 
 
   getCardImg(se = false, def = true) {
     let name = this.name;
-
     const charImgPath = `./plugins/miao-plugin/resources/character-img/${name}/`;
-
-
     let list = [];
-
     let addImg = function (charImgPath, disable = false) {
       let dirPath = `./plugins/miao-plugin/resources/${charImgPath}`;
 
@@ -154,6 +190,14 @@ class Character extends Base {
     let weaponType = this.weapon || "";
     return map[weaponType.toLowerCase()] || "";
   }
+
+  get isCustom() {
+    return !/10\d{6}/.test(this.id);
+  }
+
+  checkWifeType(type) {
+    return !!wifeMap[type][this.id];
+  }
 }
 
 let getMeta = function (name) {
@@ -161,30 +205,30 @@ let getMeta = function (name) {
 }
 
 Character.get = function (val) {
-  let roleid, name;
+  let id, name;
   if (!val) {
     return false;
   }
   if (typeof (val) === "number" || /^\d*$/.test(val)) {
-    roleid = val;
+    id = val;
   } else if (val.id) {
-    roleid = val.id;
-    name = val.name || YunzaiApps.mysInfo['roleIdToName'](roleid, true);
+    id = val.id;
+    name = val.name || idMap[id];
   } else {
-    roleid = YunzaiApps.mysInfo['roleIdToName'](val);
+    id = aliasMap[val];
   }
   if (!name) {
-    name = YunzaiApps.mysInfo['roleIdToName'](roleid, true);
+    name = idMap[id];
   }
   if (!name) {
     return false;
   }
-  return new Character(name, roleid);
+  return new Character(name, id);
 };
 
 
 Character.getAbbr = function () {
-  return genshin.abbr;
+  return abbrMap;
 }
 
 Character.getRandomImg = function (type) {
@@ -211,11 +255,9 @@ let idSort = {};
 lodash.forEach(charPosIdx, (chars, pos) => {
   chars = chars.split(",");
   lodash.forEach(chars, (name, idx) => {
-    if (global.YunzaiApps) {
-      let id = YunzaiApps.mysInfo['roleIdToName'](name);
-      if (id) {
-        idSort[id] = pos * 100 + idx;
-      }
+    let id = aliasMap[name];
+    if (id) {
+      idSort[id] = pos * 100 + idx;
     }
   })
 })

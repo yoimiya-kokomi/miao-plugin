@@ -99,6 +99,11 @@ export async function character(e, { render, User }) {
   e.uid = await getTargetUid(e);
   e.avatar = char.id;
 
+  if (char.isCustom) {
+    e.reply("自定义角色暂不支持此功能");
+    return true;
+  }
+
   if (mode === "profile" || mode === "dmg") {
     return renderProfile(e, char, render, mode, { dmgIdx });
   } else if (mode === "refresh" || mode === "input") {
