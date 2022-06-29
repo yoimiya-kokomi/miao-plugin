@@ -37,14 +37,13 @@ async function init() {
         wifeMap[type] = {};
       }
       lodash.forEach(ids, (id) => {
-        id = idMap[id];
+        id = aliasMap[id];
         if (id) {
           wifeMap[type][id] = true;
         }
       })
     })
   })
-
   abbrMap = sysCfg.abbr;
 }
 
