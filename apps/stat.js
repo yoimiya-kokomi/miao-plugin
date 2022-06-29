@@ -120,10 +120,12 @@ export async function abyssPct(e, { render }) {
     }
   });
 
-  lodash.forEach(abyssData.data, (floorData) => {
+  let data = abyssData.data;
+  data = lodash.sortBy(data, "floor");
+
+  lodash.forEach(data, (floorData) => {
     let floor = {
       floor: floorData.floor,
-
     };
     let avatars = [];
     lodash.forEach(floorData.avatarUsage, (ds) => {

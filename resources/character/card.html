@@ -7,12 +7,14 @@
     <link rel="stylesheet" type="text/css" href="{{_res_path}}/character/card.css?v=1.0"/>
   </head>
   <body class="{{bg.mode}}_mode" {{sys.scale}}>
+
     <div class="container" id="container">
+      {{if level}}
       <div class="char_name">
         <div class="uid">ID:{{uid}}</div>
         <span>{{ds.name}}</span>
         <span
-            class="cons cons-{{actived_constellation_num}}">{{actived_constellation_num}}命</span>
+            class="cons cons-{{cons}}">{{cons}}命</span>
       </div>
       <div class="info">
         <div class="detail"> Lv.{{level}} ❤{{fetter}}
@@ -24,11 +26,11 @@
             <img title="{{weapon.name}}" src="{{_sys_res_path}}/genshin/logo/weapon/{{weapon.name}}.png"/>
 
             <p class="weapon_lv">Lv.{{weapon.level}}</p>
-            <p class="weapon_affix">{{weapon.affix_level}}</p>
+            <p class="weapon_affix">{{weapon.affix}}</p>
           </div>
           <p class="weapon_name">
-            <span class="for_left">Lv.{{weapon.level}} 精{{weapon.affix_level}}</span>
-            <span class="for_bottom">精{{weapon.affix_level}} </span>
+            <span class="for_left">Lv.{{weapon.level}} 精{{weapon.affix}}</span>
+            <span class="for_bottom">精{{weapon.affix}} </span>
             {{weapon.name}}
           </p>
         </div>
@@ -36,7 +38,7 @@
         {{ if talent.a }}
         <div class="talent">
           {{each talentMap name key}}
-          <div class="talent_{{key}}">{{name}}: <span>{{ talent[key].level_current}}</span></div>
+          <div class="talent_{{key}}">{{name}}: <span>{{ talent[key].level}}</span></div>
           {{/each}}
         </div>
         {{else}}
@@ -45,10 +47,17 @@
         </div>
         {{/if}}
         <div class="equiv_info">
-          <div class="text">{{text1|| "-"}}</div>
-          <div class="text">{{text2 || "-"}}</div>
+          <div class="text">{{artiEffect[0]|| "-"}}</div>
+          <div class="text">{{artiEffect[1] || "-"}}</div>
         </div>
       </div>
+      {{else}}
+      <div class="char_name">
+        <div class="uid">ID:{{uid}}</div>
+        <span>{{ds.name}}</span>
+      </div>
+      <div class="no-info">未能获取到角色信息，请将角色放置在米游社角色展柜中</div>
+      {{/if}}
       <div class="copyright">{{@sys.copyright}}</div>
       <div>
         <img src="{{_res_path}}{{bg.img}}" title="{{name}}" class="bg"></div>

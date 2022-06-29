@@ -116,7 +116,15 @@ let Profile = {
     return false;
   },
 
-  async get(uid, charId) {
+  async get(uid, charId, onlyAvailable = false) {
+    if (onlyAvailable) {
+      let data = await Profile.get(uid, charId);
+      if (data && data.dataSource && data.dataSource !== "input") {
+        return data;
+      }
+      return false;
+    }
+
     let data = Profile._get(uid, charId);
     let Serv = getServ(uid);
     if (Serv.getCharData && data && data.id) {

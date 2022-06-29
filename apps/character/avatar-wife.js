@@ -1,8 +1,8 @@
 //#老婆
 import lodash from "lodash";
 import { Cfg } from "../../components/index.js";
-import {Character} from "../../components/models.js";
-import { getAvatarList, renderAvatar } from "./avatar-card.js";
+import { Character } from "../../components/models.js";
+import { checkWifeType, getAvatarList, renderAvatar } from "./avatar-card.js";
 
 const relationMap = {
   wife: {
@@ -68,12 +68,10 @@ export async function wife(e, { render, User }) {
     cookieType: "all",
     actionName: "查询信息"
   });
-
   if (!MysApi || !MysApi.selfUser) {
     return true;
   }
   let selfUser = MysApi.selfUser;
-
   let selfMysUser = await selfUser.getMysUser();
   let isSelf = true;
   if (!selfMysUser || selfMysUser.uid !== MysApi.targetUser.uid) {
@@ -131,20 +129,20 @@ export async function wife(e, { render, User }) {
       } else {
         wifeList = lodash.map(wifeList, (name) => {
           let char = Character.get(name);
-          if (char) {
+          if (char && checkWifeType(char.id, targetCfg.type)) {
             return char.name;
           }
         });
         wifeList = lodash.filter(lodash.uniq(wifeList), (d) => !!d);
+        /*
         avatarList = await getAvatarList(e, targetCfg.type, MysApi);
         avatarList = lodash.map(avatarList, (avatar) => avatar.name);
         avatarList = lodash.filter(avatarList, (d) => !!d);
         addRet = lodash.intersection(avatarList, wifeList);
+        */
+        addRet = wifeList;
         if (addRet.length === 0) {
           e.reply(`在可选的${targetCfg.keyword[0]}列表中未能找到 ${actionParam} ~`);
-          if (!MysApi.isSelfCookie) {
-            e.reply("请确认已在米游社展示对应角色，也可以绑定Cookie以查询所有角色..");
-          }
           return true;
         }
       }
@@ -156,12 +154,10 @@ export async function wife(e, { render, User }) {
     case "是":
     case "是谁":
       // 查看当前选择老婆
-
       if (!isSelf) {
         e.reply("只能查看自己的哦~");
         return true;
       }
-
       wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, []);
       if (wifeList && wifeList.length > 0) {
         e.reply(`你的${targetCfg.keyword[0]}是：${wifeList.join("，")}`);

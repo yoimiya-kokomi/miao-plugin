@@ -1,8 +1,8 @@
-import { Character } from "../../components/models.js";
+import { Artifact, Character } from "../../components/models.js";
 import { Cfg } from "../../components/index.js";
 import lodash from "lodash";
 import { segment } from "oicq";
-import Common from "../../components/Common.js";
+import { Common, Profile } from "../../components/index.js";
 
 //角色昵称
 let nameID = "";
@@ -26,42 +26,45 @@ export async function renderAvatar(e, avatar, render, renderType = "card") {
       return false;
     }
 
+
     let MysApi = await e.getMysApi({
       auth: "all",
       targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
       cookieType: "all",
       actionName: "查询信息"
     });
+
     if (!MysApi) return true;
 
-    let charData = await MysApi.getCharacter();
-    if (!charData) return true;
+    let uid = e.targetUser.uid;
 
-    let avatars = charData.avatars;
-    let length = avatars.length;
-    char.checkAvatars(avatars);
-    avatars = lodash.keyBy(avatars, "id");
 
-    if (!avatars[char.id]) {
-      let name = lodash.truncate(e.sender.card, { length: 8 });
-      if (length > 8) {
-        e.reply([segment.at(e.user_id, name), `\n没有${e.msg}`]);
-      } else {
-        e.reply([segment.at(e.user_id, name), "\n请先在米游社展示该角色"]);
-      }
-      return true;
+    let profile = await Profile.get(uid, char.id, true);
+    if (profile) {
+      // 优先使用Profile数据
+      avatar = profile;
+    } else {
+      // 使用Mys数据兜底
+      let charData = await MysApi.getCharacter();
+      if (!charData) return true;
+
+      let avatars = charData.avatars;
+      let length = avatars.length;
+      char.checkAvatars(avatars);
+      avatars = lodash.keyBy(avatars, "id");
+      avatar = avatars[char.id] || { id: char.id, name: char.name, detail: false };
     }
-    avatar = avatars[char.id];
   }
   return await renderCard(e, avatar, render, renderType);
-
 }
 
 // 渲染角色卡片
 async function renderCard(e, avatar, render, renderType = "card") {
+
+
   let talent = await getTalent(e, avatar);
   // 计算皇冠个数
-  let crownNum = lodash.filter(lodash.map(talent, (d) => d.level_original), (d) => d >= 10).length;
+  let crownNum = lodash.filter(lodash.map(talent, (d) => d.original), (d) => d >= 10).length;
 
   let uid = e.uid || (e.targetUser && e.targetUser.uid);
 
@@ -97,54 +100,40 @@ async function renderCard(e, avatar, render, renderType = "card") {
 
 //获取角色技能数据
 async function getTalent(e, avatars) {
-
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
-    cookieType: "all",
-    actionName: "查询信息"
-  });
-  if (!MysApi && !MysApi.isSelfCookie) return {};
-
-  let skill = {};
-
-  let skillRes = await MysApi.getAvatar(avatars.id);
-
-  if (skillRes && skillRes.skill_list) {
-    skill.id = avatars.id;
-    let skill_list = lodash.orderBy(skillRes.skill_list, ["id"], ["asc"]);
-
-    for (let val of skill_list) {
-      val.level_original = val.level_current;
-      if (val.name.includes("普通攻击")) {
-        skill.a = val;
-        continue;
-      }
-      if (val.max_level >= 10 && !skill.e) {
-        skill.e = val;
-        continue;
-      }
-      if (val.max_level >= 10 && !skill.q) {
-        skill.q = val;
-
-      }
-    }
-    if (avatars.actived_constellation_num >= 3) {
-      if (avatars.constellations[2].effect.includes(skill.e.name)) {
-        skill.e.level_current += 3;
-      } else if (avatars.constellations[2].effect.includes(skill.q.name)) {
-        skill.q.level_current += 3;
-      }
-    }
-    if (avatars.actived_constellation_num >= 5) {
-      if (avatars.constellations[4].effect.includes(skill.e.name)) {
-        skill.e.level_current += 3;
-      } else if (avatars.constellations[4].effect.includes(skill.q.name)) {
-        skill.q.level_current += 3;
+  let talent = {}, cons = 0, char = Character.get(avatars.id), mode = "level";
+  if (avatars.dataSource && avatars.talent) {
+    // profile模式
+    talent = avatars.talent || {};
+    cons = avatars.cons || 0;
+  } else {
+    let MysApi = await e.getMysApi({
+      auth: "all",
+      targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
+      cookieType: "all",
+      actionName: "查询信息"
+    });
+    if (!MysApi && !MysApi.isSelfCookie) return {};
+    let skillRes = await MysApi.getAvatar(avatars.id);
+    cons = avatars.actived_constellation_num
+    mode = "original";
+    if (skillRes && skillRes.skill_list) {
+      let skill_list = lodash.orderBy(skillRes.skill_list, ["id"], ["asc"]);
+      for (let val of skill_list) {
+        if (val.name.includes("普通攻击")) {
+          talent.a = val;
+          continue;
+        }
+        if (val.max_level >= 10 && !talent.e) {
+          talent.e = val;
+          continue;
+        }
+        if (val.max_level >= 10 && !talent.q) {
+          talent.q = val;
+        }
       }
     }
   }
-  return skill;
+  return char.getAvatarTalent(talent, cons, mode);
 }
 
 
@@ -181,54 +170,41 @@ async function pokeCharacter(e, { render }) {
 function getCharacterData(avatars) {
   let list = [];
   let set = {};
-  let setArr = [];
-  let text1 = "";
-  let text2 = "";
-
+  let artiEffect = [];
+  let w = avatars.weapon || {};
   let weapon = {
     type: "weapon",
-    name: avatars.weapon.name,
-    showName: genshin.abbr[avatars.weapon.name] ? genshin.abbr[avatars.weapon.name] : avatars.weapon.name,
-    level: avatars.weapon.level,
-    affix_level: avatars.weapon.affix_level,
-  };
+    name: w.name || "",
+    showName: genshin.abbr[w.name] || w.name || "",
+    level: w.level || 1,
+    affix: w.affix || w.affix_level || 0
+  }
 
-  for (let val of avatars.reliquaries) {
-    if (set[val.set.name]) {
-      set[val.set.name]++;
+  let artis = avatars.artis || avatars.reliquaries;
 
-      if (set[val.set.name] == 2) {
-        if (text1) {
-          text2 = "2件套：" + val.set.affixes[0].effect;
-        } else {
-          text1 = "2件套：" + val.set.affixes[0].effect;
+  if (artis) {
+    lodash.forEach(artis, (val) => {
+      let setCfg = Artifact.getSetByArti(val.name);
+      if (!setCfg) {
+        return;
+      }
+      let setName = setCfg.name;
+      if (set[setName]) {
+        set[setName]++;
+        if (set[setName] === 2) {
+          artiEffect.push("2件套：" + setCfg.effect['2'])
         }
+        if (set[setName] === 4) {
+          artiEffect.push("4件套：" + setCfg.name);
+        }
+      } else {
+        set[setName] = 1;
       }
+    })
 
-      if (set[val.set.name] == 4) {
-        text2 = "4件套：" + val.set.name;
-      }
-    } else {
-      set[val.set.name] = 1;
+    if (artiEffect.length === 0) {
+      artiEffect = ["无套装效果"];
     }
-
-    list.push({
-      type: "reliquaries",
-      name: val.name,
-      level: val.level,
-    });
-  }
-
-  for (let val of Object.keys(set)) {
-    setArr.push({
-      name: val,
-      num: set[val],
-      showName: genshin.abbr[val] ? genshin.abbr[val] : val,
-    });
-  }
-
-  if (avatars.reliquaries.length >= 2 && !text1) {
-    text1 = "无套装效果";
   }
 
   if (avatars.id == "10000005") {
@@ -241,14 +217,12 @@ function getCharacterData(avatars) {
   return {
     name: avatars.name,
     showName: genshin.abbr[avatars.name] ? genshin.abbr[avatars.name] : avatars.name,
-    level: avatars.level,
+    level: avatars.lv || avatars.level,
     fetter: avatars.fetter,
-    actived_constellation_num: avatars.actived_constellation_num,
+    cons: avatars.cons || avatars.actived_constellation_num,
     weapon,
-    text1,
-    text2,
-    reliquaries,
-    set: setArr,
+    artiEffect,
+    reliquaries
   };
 }
 
@@ -280,4 +254,8 @@ export async function getAvatarList(e, type, MysApi) {
   let sortKey = "level,fetter,weapon_level,rarity,weapon_rarity,cons,weapon_affix_level";
   list = lodash.orderBy(list, sortKey, lodash.repeat("desc,", sortKey.length).split(","));
   return list;
+}
+
+export function checkWifeType(id, type) {
+  return genshin.wifeData[type].includes(Number(id));
 }

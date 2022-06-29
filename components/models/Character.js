@@ -99,6 +99,50 @@ class Character extends Base {
     }
   }
 
+  getAvatarTalent(talent = {}, cons = 0, mode = "level") {
+    let ret = {};
+    let consTalent = this.getConsTalent();
+    lodash.forEach(['a', 'e', 'q'], (key) => {
+      let ds = talent[key];
+      if (ds) {
+        let level;
+        if (lodash.isNumber(ds)) {
+          level = ds;
+        } else {
+          level = mode === "level" ? ds.level || ds.level_current || ds.original || ds.level_original :
+            ds.original || ds.level_original || ds.level || ds.level_current;
+        }
+        if (mode === "level") {
+          // 基于level计算original
+          ret[key] = {
+            level,
+            original: (key !== "a" && cons >= consTalent[key]) ? (level - 3) : level
+          }
+        } else {
+          // 基于original计算level
+          ret[key] = {
+            original: level,
+            level: (key !== "a" && cons >= consTalent[key]) ? (level + 3) : level
+          }
+        }
+
+
+      }
+    })
+    return ret;
+  }
+
+  getConsTalent() {
+    let e = this.talent.e.name,
+      q = this.talent.q.name;
+    let c3 = this.cons['3'].desc,
+      c5 = this.cons['5'].desc;
+    return {
+      e: c3.includes(e) ? 3 : 5,
+      q: c5.includes(q) ? 5 : 3,
+    }
+  }
+
   get weaponType() {
     const map = {
       sword: "单手剑",

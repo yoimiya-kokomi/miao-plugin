@@ -59,7 +59,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
   };
 
 
-  let { artis,totalMark, totalMarkClass,usefulMark } = getArtis(char.name, profile.artis);
+  let { artis, totalMark, totalMarkClass, usefulMark } = getArtis(char.name, profile.artis);
 
 
   let enemyLv = await selfUser.getCfg(`char.enemyLv`, 91);
@@ -105,6 +105,7 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
     cons: char.cons,
     name: char.name,
     elem: char.elem,
+    talent: char.getAvatarTalent(profile.talent, profile.cons),
     dmgData,
     dmgMsg,
     dmgRet: dmgCalc.dmgRet,

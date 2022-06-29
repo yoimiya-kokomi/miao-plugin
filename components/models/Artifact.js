@@ -3,6 +3,17 @@ import { attrValue, attrNameMap, attrMap, mainAttr, subAttr, usefulAttr }
 import { Character } from "../models.js";
 import lodash from "lodash";
 import Format from "../Format.js";
+import _Data from "../Data.js";
+
+let _path = process.cwd();
+let artis = _Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/reliquaries/`, "data.json") || {};
+
+let artisMap = {}
+
+lodash.forEach(artis, (ds) => {
+  artisMap[ds.name] = ds;
+})
+
 
 let charCfg = {};
 let Artifact = {
@@ -53,6 +64,7 @@ let Artifact = {
     };
     return charCfg[name];
   },
+
   getMaxAttr(charAttr = {}, list2 = [], maxLen = 1, banAttr = "") {
     let tmp = [];
     lodash.forEach(list2, (attr) => {
@@ -66,6 +78,7 @@ let Artifact = {
     lodash.forEach(tmp, (ds) => ret.push(ds.attr));
     return ret.slice(0, maxLen);
   },
+
   getMaxMark(attrWeight) {
     let ret = {};
     for (let idx = 1; idx <= 5; idx++) {
@@ -90,6 +103,7 @@ let Artifact = {
     }
     return ret;
   },
+
   getAttr(ds) {
     let title = ds[0]
     let attr = attrNameMap[title];
@@ -100,6 +114,7 @@ let Artifact = {
     }
     return attr;
   },
+
   getAttrMark(attrMark, ds) {
     if (!ds || !ds[1]) {
       return 0;
@@ -108,6 +123,7 @@ let Artifact = {
     let val = ds[1];
     return (attrMark[attr] || 0) * val;
   },
+
   getMark(charCfg, posIdx, mainAttr, subAttr) {
     let ret = 0;
     let { mark, maxMark, weight } = charCfg;
@@ -136,6 +152,7 @@ let Artifact = {
     });
     return ret;
   },
+
   getMarkClass(mark) {
     let pct = mark;
     let scoreMap = [["D", 10], ["C", 16.5], ["B", 23.1], ["A", 29.7], ["S", 36.3], ["SS", 42.9], ["SSS", 49.5], ["ACE", 56.1], ["ACE²", 66]];
@@ -145,19 +162,23 @@ let Artifact = {
       }
     }
   },
-  getSet(name) {
-    for (let idx in meta) {
-      if (meta[idx].name === name) {
-        return meta[idx];
+
+  getSetByArti(name) {
+    for (let idx in artisMap) {
+      for (let idx2 in artisMap[idx].sets) {
+        if (artisMap[idx].sets[idx2].name === name) {
+          return artisMap[idx];
+        }
       }
     }
+    return false;
   },
+
   getMeta() {
     return {
       attrMap
     }
   },
-
 
   formatArti(ds, markCfg = false, isMain = false) {
     if (lodash.isArray(ds[0])) {

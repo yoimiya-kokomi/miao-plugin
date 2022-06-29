@@ -5,7 +5,6 @@
 {{/block}}
 
 {{set weapon = data.weapon}}
-{{set talent = data.talent}}
 {{set dataSource = data.dataSource}}
 
 
@@ -21,11 +20,11 @@
       {{each talentMap tName key}}
       <div class="talent-item">
         <div class="talent-icon
-               {{talent[key].level_current > talent[key].level_original ? `talent-plus`:``}}
-                {{talent[key].level_original == 10 ? `talent-crown`:``}}">
+               {{talent[key].level > talent[key].original ? `talent-plus`:``}}
+                {{talent[key].original == 10 ? `talent-crown`:``}}">
           <div class="talent-icon-img"
                style="background-image:url({{_res_path}}/meta/character/{{name}}/talent_{{key}}.png)"></div>
-          <span>{{talent[key].level_current}}</span>
+          <span>{{talent[key].level}}</span>
         </div>
       </div>
       {{/each}}
