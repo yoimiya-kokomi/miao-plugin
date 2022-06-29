@@ -121,7 +121,7 @@ export async function wife(e, { render, User }) {
         return true;
       }
       // 选择老婆
-      actionParam = actionParam.replace(/，/g, ",");
+      actionParam = actionParam.replace(/(，|、|;|；)/g, ",");
       wifeList = actionParam.split(",");
       let addRet = [];
       if (lodash.intersection(["全部", "任意", "随机", "全都要"], wifeList).length > 0) {
