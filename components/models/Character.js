@@ -168,8 +168,12 @@ class Character extends Base {
   }
 
   getConsTalent() {
-    let e = this.talent.e.name,
-      q = this.talent.q.name;
+    let talent = this.talent || false;
+    if (!talent) {
+      return { e: 3, q: 5 }
+    }
+    let e = talent.e.name,
+      q = talent.q.name;
     let c3 = this.cons['3'].desc,
       c5 = this.cons['5'].desc;
     return {

@@ -25,7 +25,7 @@ let sysCfgReg = `^#喵喵设置\s*(${lodash.keys(cfgMap).join("|")})?\s*(.*)$`;
 export const rule = {
   updateRes: {
     hashMark: true,
-    reg: "^#喵喵更新图像$",
+    reg: "^#喵喵(更新图像|图像更新)$",
     describe: "【#管理】更新素材",
   },
   updateMiaoPlugin: {
