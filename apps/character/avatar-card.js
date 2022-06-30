@@ -1,8 +1,7 @@
 import { Artifact, Character } from "../../components/models.js";
-import { Cfg } from "../../components/index.js";
+import { Cfg, Data, Common, Profile } from "../../components/index.js";
 import lodash from "lodash";
 import { segment } from "oicq";
-import { Common, Profile } from "../../components/index.js";
 
 //角色昵称
 let nameID = "";
@@ -104,7 +103,6 @@ async function renderCard(e, avatar, render, renderType = "card") {
 //获取角色技能数据
 async function getTalent(e, avatars) {
   let talent = {}, cons = 0, char = Character.get(avatars.id), mode = "level";
-  console.log('isCustom', char.isCustom, char.id);
   if (char.isCustom) {
     return {}
   }
@@ -225,9 +223,9 @@ function getCharacterData(avatars) {
   return {
     name: avatars.name,
     showName: genshin.abbr[avatars.name] ? genshin.abbr[avatars.name] : avatars.name,
-    level: avatars.lv || avatars.level,
+    level: Data.def(avatars.lv, avatars.level),
     fetter: avatars.fetter,
-    cons: avatars.cons || avatars.actived_constellation_num,
+    cons: Data.def(avatars.cons, avatars.actived_constellation_num),
     weapon,
     artiEffect,
     reliquaries

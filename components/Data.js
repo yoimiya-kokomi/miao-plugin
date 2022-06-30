@@ -186,6 +186,25 @@ let Data = {
 
   sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  },
+
+  def() {
+    for (let idx in arguments) {
+      if (!lodash.isUndefined(arguments[idx])) {
+        return arguments[idx];
+      }
+    }
+  },
+  eachStr: (arr, fn) => {
+    if (lodash.isString(arr)) {
+      arr = arr.replace(/\s*(;|；|、|，)\s*/, ",");
+      arr = arr.split(",");
+    }
+    lodash.forEach(arr, (str, idx) => {
+      if (!lodash.isUndefined(str)) {
+        fn(str.trim ? str.trim() : str, idx)
+      }
+    });
   }
 
 }

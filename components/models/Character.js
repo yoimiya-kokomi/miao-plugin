@@ -15,7 +15,7 @@ async function init() {
     charCfg = await Data.importModule(`plugins/miao-plugin/config`, 'character_default.js'),
     custom = await Data.importModule(`plugins/miao-plugin/config`, 'character.js');
 
-  lodash.forEach([charCfg.customCharacters, custom.customCharacters, sysCfg.roleId], (roleIds) => {
+  lodash.forEach([custom.customCharacters, charCfg.customCharacters, sysCfg.roleId], (roleIds) => {
     lodash.forEach(roleIds || {}, (aliases, id) => {
       aliases = aliases || [];
       if (aliases.length === 0) {
@@ -32,11 +32,11 @@ async function init() {
 
   lodash.forEach([sysCfg.wifeData, charCfg.wifeData, custom.wifeData], (wifeData) => {
     lodash.forEach(wifeData || {}, (ids, type) => {
-      type = { girlfriend: 0, boyfriend: 1, daughter: 2, son: 3 }[type] || type;
+      type = Data.def({ girlfriend: 0, boyfriend: 1, daughter: 2, son: 3 }[type], type);
       if (!wifeMap[type]) {
         wifeMap[type] = {};
       }
-      lodash.forEach(ids, (id) => {
+      Data.eachStr(ids, (id) => {
         id = aliasMap[id];
         if (id) {
           wifeMap[type][id] = true;
