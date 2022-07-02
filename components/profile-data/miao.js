@@ -5,7 +5,7 @@ import moment from "moment";
 import { artiIdx, artiSetMap, attrMap } from "./miao-meta.js";
 import cmeta from "./enka-char.js";
 
-const url = "http://49.232.91.210/profile";
+const url = "http://49.232.91.210/profile/detail?token=kokomi";
 
 let Miao = {
   key: "miao",
@@ -63,12 +63,18 @@ let Miao = {
     };
   },
 
-  async getCharData(uid, ds, saveCharData) {
+  async getCharData(uid, ds, saveCharData, { config = {} }) {
     if (ds.dataSource !== "miao-pre" || !ds.id) {
       return ds;
     }
     try {
-      let api = `${url}/detail?uid=${uid}&avatar=${ds.id}`;
+      let profileApi = function ({ uid, avatar }) {
+        return `http://49.232.91.210/profile/detail?uid=${uid}&avatar=${avatar}`
+      };
+      if (config.miaoApi && lodash.isFunction(config.miaoApi)) {
+        profileApi = config.miaoApi;
+      }
+      let api = profileApi({ uid, avatar: ds.id });
       let req = await fetch(api);
       let data = await req.json();
       if (data.status === 0 && data.uidData) {
