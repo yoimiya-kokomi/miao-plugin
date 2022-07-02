@@ -128,7 +128,7 @@ let Profile = {
     let data = Profile._get(uid, charId);
     let Serv = getServ(uid);
     if (Serv.getCharData && data && data.id) {
-f      return await Serv.getCharData(uid, data, Profile.saveCharData, { config });
+      return await Serv.getCharData(uid, data, Profile.saveCharData, { config });
     }
     return data;
   },
