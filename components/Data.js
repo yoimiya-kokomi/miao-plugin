@@ -14,13 +14,13 @@ let Data = {
       nowPath = rootPath;
     pathList.forEach((name, idx) => {
       name = name.trim();
-      //  if (!includeFile && idx <= pathList.length - 1) {
-      nowPath += name + "/";
-      if (name) {
-        if (!fs.existsSync(nowPath)) {
-          fs.mkdirSync(nowPath);
+      if (!includeFile && idx <= pathList.length - 1) {
+        nowPath += name + "/";
+        if (name) {
+          if (!fs.existsSync(nowPath)) {
+            fs.mkdirSync(nowPath);
+          }
         }
-        //  }
       }
     })
   },
