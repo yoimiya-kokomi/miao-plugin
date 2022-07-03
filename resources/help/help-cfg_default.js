@@ -107,6 +107,10 @@ export const helpList = [{
     icon: 86,
     title: "#签到",
     desc: "米游社原神签到"
+  }, {
+    icon: 77,
+    title: "#上传深渊数据",
+    desc: "上传您的深渊数据用于数据统计"
   }]
 }, {
   group: "其他查询指令",

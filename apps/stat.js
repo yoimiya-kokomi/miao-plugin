@@ -3,9 +3,8 @@
 *
 * */
 import { HutaoApi, Character } from "../components/models.js";
-import { Cfg } from "../components/index.js";
+import { Cfg, Data } from "../components/index.js";
 import lodash from "lodash";
-import { segment } from "oicq";
 import fs from "fs";
 import Common from "../components/Common.js";
 
@@ -193,7 +192,6 @@ async function getTalentData(e, isUpdate = false) {
 
 export async function abyssTeam(e, { render }) {
 
-
   let MysApi = await e.getMysApi({
     auth: "cookie", // 所有用户均可查询
     targetType: "self", // 被查询用户可以是任意用户
@@ -224,7 +222,6 @@ export async function abyssTeam(e, { render }) {
   lodash.forEach(talentData, (avatar) => {
     avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon_level) * 100 + Math.max(avatar.a_original, avatar.e_original, avatar.q_original) * 1000
   });
-
 
   let getTeamCfg = (str) => {
     let teams = str.split(",");
@@ -385,4 +382,73 @@ export async function abyssTeam(e, { render }) {
     teams: ret,
     avatars: avatarMap,
   }, { e, render, scale: 1.5 });
+}
+
+export async function uploadData(e) {
+  let MysApi = await e.getMysApi({
+    auth: "cookie",
+    targetType: "self",
+    cookieType: "self",
+    action: "获取信息"
+  });
+  if (!MysApi) return;
+  let ret = {};
+  let uid = e.selfUser.uid;
+  try {
+    let resDetail = await MysApi.getCharacter();
+    let resAbyss = await MysApi.getSpiralAbyss(1);
+    if (!resDetail || !resAbyss || !resDetail.avatars || resDetail.avatars.length <= 3) {
+      e.reply("角色信息获取失败");
+      return true;
+    }
+    let playerAvatars = [];
+    lodash.forEach(resDetail.avatars || [], (avatar) => {
+      let tmp = Data.getData(avatar, "id,level,activedConstellationNum:actived_constellation_num")
+      tmp.weapon = Data.getData(avatar.weapon, "id,level,affixLevel:affix_level");
+      let setMap = {};
+      lodash.forEach(avatar.reliquaries, (ds) => {
+        setMap[ds.set.id] = setMap[ds.set.id] || 0;
+        setMap[ds.set.id]++;
+      })
+      let reliquarySets = [];
+      lodash.forEach(setMap, (count, id) => {
+        reliquarySets.push({ id: id * 1, count })
+      });
+      tmp.reliquarySets = reliquarySets;
+      playerAvatars.push(tmp);
+    })
+    let playerSpiralAbyssesLevels = [];
+    let getBattleData = function (ds) {
+      let avatars = [];
+      lodash.forEach(ds.avatars, (a) => {
+        avatars.push(a.id);
+      })
+      return {
+        battleIndex: ds.index - 1 || 0,
+        avatarIds: avatars
+      }
+    }
+    lodash.forEach(resAbyss.floors || [], (floor) => {
+      lodash.forEach(floor.levels || [], (level) => {
+        playerSpiralAbyssesLevels.push({
+          floorIndex: floor.index,
+          levelIndex: level.index,
+          star: level.star,
+          battles: [getBattleData(level.battles[0] || {}), getBattleData(level.battles[1] || {})]
+        })
+      })
+    });
+    ret = await HutaoApi.upload({
+      uid: uid.toString(),
+      playerAvatars,
+      playerSpiralAbyssesLevels
+    });
+  } catch (err) {
+  }
+  if (ret && ret.retcode === 0) {
+    e.reply(`uid:${uid}本次深渊记录上传成功\n多谢支持，喵~`);
+  } else {
+    e.reply(`${ret.message || "上传失败"}，请稍后重试...`);
+  }
+  return true;
 }

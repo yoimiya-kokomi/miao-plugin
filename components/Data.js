@@ -14,13 +14,13 @@ let Data = {
       nowPath = rootPath;
     pathList.forEach((name, idx) => {
       name = name.trim();
-      if (!includeFile && idx <= pathList.length - 1) {
-        nowPath += name + "/";
-        if (name) {
-          if (!fs.existsSync(nowPath)) {
-            fs.mkdirSync(nowPath);
-          }
+      //  if (!includeFile && idx <= pathList.length - 1) {
+      nowPath += name + "/";
+      if (name) {
+        if (!fs.existsSync(nowPath)) {
+          fs.mkdirSync(nowPath);
         }
+        //  }
       }
     })
   },
@@ -50,8 +50,10 @@ let Data = {
     }
 
     // 检查并创建目录
-    Data.createDir(path, true);
-    return fs.writeFileSync(`${path}/${file}`, JSON.stringify(data, null, space));
+    Data.createDir(_path, path, true);
+    console.log(data);
+    delete data._res;
+    return fs.writeFileSync(`${_path}/${path}/${file}`, JSON.stringify(data, null, space));
   },
 
   async importModule(path, file, rootPath = _path) {

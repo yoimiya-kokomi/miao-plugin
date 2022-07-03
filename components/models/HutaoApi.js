@@ -5,6 +5,7 @@
 * */
 
 import fetch from "node-fetch";
+import lodash from "lodash";
 
 const host = "http://49.232.91.210:88/miaoPlugin/hutaoApi";
 
@@ -15,17 +16,18 @@ function getApi(api) {
 }
 
 let HutaoApi = {
-  async req(url, data) {
+  async req(url, param = {}) {
     let cacheData = await redis.get(`hutao:${url}`);
-    if (cacheData) {
+    if (cacheData && param.method !== "POST") {
       return JSON.parse(cacheData)
     }
 
     let response = await fetch(getApi(`${url}`), {
-      method: "GET",
+      ...param,
+      method: param.method || "GET",
     });
     let retData = await response.json();
-    if (retData && retData.data) {
+    if (retData && retData.data && param.method !== "POST") {
       let d = new Date();
       retData.lastUpdate = `${d.toLocaleDateString()} ${d.toTimeString().substr(0, 5)}`;
       await redis.set(`hutao:${url}`, JSON.stringify(retData), { EX: 3600 });
@@ -44,6 +46,17 @@ let HutaoApi = {
 
   async getAbyssTeam() {
     return await HutaoApi.req("/Statistics/TeamCombination");
+  },
+
+  async upload(data) {
+    let body = JSON.stringify(data);
+    return await HutaoApi.req("/Record/Upload", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'text/json; charset=utf-8',
+      },
+      body
+    });
   }
 };
 

@@ -12,7 +12,7 @@ export {
 
 import { wifeReg } from "./apps/character.js";
 
-import { consStat, abyssPct, abyssTeam } from "./apps/stat.js";
+import { consStat, abyssPct, abyssTeam, uploadData } from "./apps/stat.js";
 import { wiki, calendar } from "./apps/wiki.js";
 import { help, versionInfo } from "./apps/help.js";
 import lodash from "lodash";
@@ -32,7 +32,8 @@ export {
   help,
   versionInfo,
   calendar,
-  profileCfg
+  profileCfg,
+  uploadData
 };
 
 
@@ -101,6 +102,9 @@ let rule = {
   calendar: {
     reg: "^(#|喵喵)+(日历|日历列表)$",
     describe: "【#日历】 活动日历",
+  },
+  uploadData: {
+    reg: "^#上传深渊数据$"
   },
   ...adminRule
 };

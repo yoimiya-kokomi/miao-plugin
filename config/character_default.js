@@ -23,7 +23,9 @@ export const customCharacters = {
   nvshi: ["女士", "炽热的炎之魔女", "炎之魔女"],
   baizhu: ["白术", "长生"],
   yaoyao: ["瑶瑶", "遥遥", "遥遥无期"],
-  fanan: ["伐难", "水夜叉"]
+  fanan: ["伐难", "水夜叉"],
+  yingda: ["应达", "火夜叉", "火鼠大将"],
+  ping: ["萍姥姥", "歌尘浪市真君", "歌尘浪市", "萍儿"]
 }
 
 /*
@@ -32,7 +34,7 @@ export const customCharacters = {
 * */
 export const wifeData = {
   // 老婆&女朋友：成女、少女
-  girlfriend: "伐难, 女士",
+  girlfriend: "伐难, 女士, 萍姥姥",
 
   // 老公&男朋友：成男、少男
   boyfriend: "散兵, 白术",
