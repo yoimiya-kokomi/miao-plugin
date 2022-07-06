@@ -37,15 +37,22 @@ export const wifeReg = `^#?\\s*(${relation.join("|")})\\s*(设置|选择|指定|
 
 export async function wife(e, { render, User }) {
   let msg = e.msg || "";
-  if (!msg) return false;
+  if (!msg && !e.isPoke) return false;
 
-  if (Cfg.isDisable(e, "char.wife")) {
+  if (e.isPoke) {
+    if (Cfg.isDisable(e, "char.poke")) {
+      return false;
+    }
+  } else if (Cfg.isDisable(e, "char.wife")) {
     return false;
   }
 
   let msgRet = (new RegExp(wifeReg)).exec(msg);
-  if (!msgRet) return false;
-
+  if (e.isPoke) {
+    msgRet = [];
+  } else if (!msgRet) {
+    return false;
+  }
   let target = msgRet[1],
     action = msgRet[2] || "卡片",
     actionParam = msgRet[3] || "";
@@ -58,7 +65,7 @@ export async function wife(e, { render, User }) {
     cfg.key = key;
     return cfg.keyword.includes(target);
   });
-  if (!targetCfg) return true;
+  if (!targetCfg && !e.isPoke) return true;
 
   let avatarList = [], avatar = {}, wifeList = [];
 
@@ -87,30 +94,38 @@ export async function wife(e, { render, User }) {
       // 展示老婆卡片
 
       // 如果选择过，则进行展示
-      wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, []);
       let renderType = action === "卡片" ? "card" : "photo";
-      // 存在设置
-      if (wifeList && wifeList.length > 0 && isSelf) {
-        if (wifeList[0] === "随机") {
-          // 如果选择为全部，则从列表中随机选择一个
-          avatarList = await getAvatarList(e, targetCfg.type, MysApi);
-          let avatar = lodash.sample(avatarList);
-          return renderAvatar(e, avatar, render, renderType);
-        } else {
-          // 如果指定过，则展示指定角色
-          return renderAvatar(e, lodash.sample(wifeList), render, renderType);
+      if (!e.isPoke) {
+        wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, []);
+        // 存在设置
+        if (wifeList && wifeList.length > 0 && isSelf && !e.isPoke) {
+          if (wifeList[0] === "随机") {
+            // 如果选择为全部，则从列表中随机选择一个
+            avatarList = await getAvatarList(e, targetCfg.type, MysApi);
+            let avatar = lodash.sample(avatarList);
+            return renderAvatar(e, avatar, render, renderType);
+          } else {
+            // 如果指定过，则展示指定角色
+            return renderAvatar(e, lodash.sample(wifeList), render, renderType);
+          }
+        }
+      }
+      // 如果未指定过，则从列表中排序并随机选择前5个
+      if (e.isPoke) {
+        avatarList = await getAvatarList(e, false, MysApi);
+        if (avatarList && avatarList.length > 0) {
+          avatar = lodash.sample(avatarList);
+          return await renderAvatar(e, avatar, render, renderType);
         }
       } else {
-        // 如果未指定过，则从列表中排序并随机选择前5个
         avatarList = await getAvatarList(e, targetCfg.type, MysApi);
         if (avatarList && avatarList.length > 0) {
           avatar = lodash.sample(avatarList.slice(0, 5));
-          return renderAvatar(e, avatar, render, renderType);
-        } else {
-          e.reply(`在当前米游社公开展示的角色中未能找到适合展示的角色..`);
-          return true;
+          return await renderAvatar(e, avatar, render, renderType);
         }
       }
+      e.reply(`在当前米游社公开展示的角色中未能找到适合展示的角色..`);
+      return true;
       break;
     case "设置":
     case "选择":
@@ -167,4 +182,8 @@ export async function wife(e, { render, User }) {
       break;
   }
   return true;
+}
+
+export async function pokeWife(e, components) {
+  return await wife(e, components);
 }

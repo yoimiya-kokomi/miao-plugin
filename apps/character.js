@@ -18,7 +18,7 @@ export { getProfileAll, getProfile, profileHelp };
 export { profileArtisList } from "./character/profile-artis.js";
 
 // 老婆
-export { wife, wifeReg } from "./character/avatar-wife.js";
+export { wife, pokeWife, wifeReg } from "./character/avatar-wife.js";
 
 import { Character } from "../components/models.js";
 

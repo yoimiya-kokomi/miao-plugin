@@ -2,6 +2,7 @@ export {
   character,
   getProfile,
   wife,
+  pokeWife,
   enemyLv,
   profileArtisList,
   getProfileAll,
@@ -62,6 +63,10 @@ let rule = {
   wife: {
     reg: wifeReg,
     describe: "【#角色】#老公 #老婆 查询",
+  },
+  pokeWife: {
+    reg: "#poke#",
+    describe: "【#角色】戳一戳",
   },
   getOriginalPicture: {
     reg: "^#?(获取|给我|我要|求|发|发下|发个|发一下)?原图(吧|呗)?$",
