@@ -44,7 +44,7 @@ git clone https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugi
 * [Yunzai-Bot](https://github.com/Le-niao/Yunzai-Bot)
 * [Miao-Plugin](https://github.com/yoimiya-kokomi/miao-plugin) ( [gitee](https://github.com/yoimiya-kokomi/miao-plugin)
   / [github](https://github.com/yoimiya-kokomi/miao-plugin))
-* [SnapGenshin](https://www.snapgenshin.com/home/) : 感谢SnapGenshin团队的胡桃API
+* [Snap.Genshin](https://www.snapgenshin.com/home/) : 感谢 DGP Studio 开发的 [胡桃API](https://github.com/DGP-Studio/Snap.HutaoAPI)
 
 
 * Yunzai-Bot 官方QQ群：213938015
