@@ -515,7 +515,7 @@
 			"name": "聚风蹴",
 			"icon": "/img/skills/s_593901.png",
 			"desc": [
-				"腾跃至空中，向敌人踢出不动流 • 真空弹，在命中时炸裂，造成风元素范围伤害。",
+				"腾跃至空中，向敌人踢出不动流 • 真空弹。不动流 • 真空弹将在命中时炸裂，产生缉拿风穴，牵引附近的物体与敌人，造成风元素范围伤害。",
 				"不动流 • 真空弹命中处于水元素/火元素/冰元素/雷元素附着下的敌人时，会为这些敌人施加「聚风真眼」效果，该效果会在片刻后爆发消失，并造成对应元素属性的范围伤害。",
 				"不动流 • 真空弹至多对4名命中的敌人施加「聚风真眼」；敌人无法同时处于多种元素属性的「聚风真眼」状态下。",
 				""
@@ -651,7 +651,7 @@
 		"2": {
 			"icon": "/img/skills/c_592.png",
 			"name": "殊解诸因探案集",
-			"desc": "聚风蹴的不动流 • 真空弹炸裂时，将牵引附近的敌人。"
+			"desc": "聚风蹴产生的缉拿风穴的牵引效果获得提升，并将持续时间延长至1秒。"
 		},
 		"3": {
 			"icon": "/img/skills/c_593.png",
@@ -678,8 +678,6 @@
 		"face": "/img/char/heizo_face.png",
 		"side": "/img/char/heizo_gacha_card.png",
 		"gacha_card": "/img/char/heizo_gacha_splash.png",
-		"gacha_splash": "/img/scr/char/10000059/face.png",
-		"profile": "/img/cardicon/i_7118_profile.png",
-		"party": "/img/cardicon/i_7118_party.png"
+		"gacha_splash": "/img/scr/char/10000059/face.png"
 	}
 }

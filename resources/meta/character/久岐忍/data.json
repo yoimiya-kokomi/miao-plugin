@@ -9,8 +9,8 @@
 	"weapon": "Sword",
 	"britydah": "27 July",
 	"astro": "烦恼刈座",
-	"cncv": "？？？",
-	"jpcv": "？？？",
+	"cncv": "杨凝",
+	"jpcv": "水桥香织",
 	"desc": "干练可靠的「荒泷派」的副手——特别注明：干练可靠形容的不是「荒泷派」而是副手。",
 	"lvStat": {
 		"lvs": [
@@ -693,9 +693,9 @@
 	},
 	"imgs": {
 		"face": "/img/char/shinobu_face.png",
-		"side": "/img/char/shinobu_gacha_card.png",
-		"gacha_card": "/img/char/shinobu_gacha_splash.png",
-		"gacha_splash": "/img/scr/char/10000065/face.png",
+		"side": "/img/char/shinobu_side.png",
+		"gacha_card": "/img/char/shinobu_gacha_card.png",
+		"gacha_splash": "/img/char/shinobu_gacha_splash.png",
 		"profile": "/img/cardicon/i_7116_profile.png",
 		"party": "/img/cardicon/i_7116_party.png"
 	}

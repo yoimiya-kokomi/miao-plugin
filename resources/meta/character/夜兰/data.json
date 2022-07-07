@@ -9,8 +9,8 @@
 	"weapon": "Bow",
 	"britydah": "20 April",
 	"astro": "幽客座",
-	"cncv": "？？？",
-	"jpcv": "？？？",
+	"cncv": "徐慧",
+	"jpcv": "远藤绫",
 	"desc": "自称供职于总务司的神秘人士，却又是总务司名录里的「不存在之人」。",
 	"lvStat": {
 		"lvs": [
@@ -646,9 +646,9 @@
 	},
 	"imgs": {
 		"face": "/img/char/yelan_face.png",
-		"side": "/img/char/yelan_gacha_card.png",
-		"gacha_card": "/img/char/yelan_gacha_splash.png",
-		"gacha_splash": "/img/scr/char/10000060/face.png",
+		"side": "/img/char/yelan_side.png",
+		"gacha_card": "/img/char/yelan_gacha_card.png",
+		"gacha_splash": "/img/char/yelan_gacha_splash.png",
 		"profile": "/img/cardicon/i_7115_profile.png",
 		"party": "/img/cardicon/i_7115_party.png"
 	}
