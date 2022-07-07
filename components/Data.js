@@ -50,7 +50,7 @@ let Data = {
     }
 
     // 检查并创建目录
-    Data.createDir(_path, path, true);
+    Data.createDir(_path, path, false);
     console.log(data);
     delete data._res;
     return fs.writeFileSync(`${_path}/${path}/${file}`, JSON.stringify(data, null, space));

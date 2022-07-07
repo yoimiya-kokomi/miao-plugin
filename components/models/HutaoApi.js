@@ -57,6 +57,17 @@ let HutaoApi = {
       },
       body
     });
+  },
+
+  async uploadData(data = {}) {
+    let body = JSON.stringify(data);
+    return await HutaoApi.req("/Record/UploadData", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'text/json; charset=utf-8',
+      },
+      body
+    });
   }
 };
 

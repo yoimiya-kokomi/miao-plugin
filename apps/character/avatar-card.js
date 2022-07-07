@@ -143,33 +143,6 @@ async function getTalent(e, avatars) {
 }
 
 
-let _pokeCharacter = false;
-
-async function initPoke() {
-  if (!_pokeCharacter) {
-    _pokeCharacter = YunzaiApps.mysInfo.pokeCharacter;
-  }
-  YunzaiApps.mysInfo.pokeCharacter = async function (e, components) {
-    if (Cfg.isDisable('char.poke', true)) {
-      return await _pokeCharacter(e, components);
-    }
-    return await pokeCharacter(e, components);
-  }
-}
-
-async function pokeCharacter(e, { render }) {
-  let MysApi = await e.getMysApi({
-    auth: "all",
-    targetType: Cfg.get("char.queryOther", true) ? "all" : "self",
-    cookieType: "all",
-    actionName: "查询信息"
-  });
-  let avatarList = await getAvatarList(e, false, MysApi);
-  let avatar = lodash.sample(avatarList);
-  return renderAvatar(e, avatar, render, 'card');
-}
-
-
 /*
 * 获取角色数据
 * */

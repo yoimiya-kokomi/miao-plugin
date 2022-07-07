@@ -397,56 +397,41 @@ export async function uploadData(e) {
   try {
     let resDetail = await MysApi.getCharacter();
     let resAbyss = await MysApi.getSpiralAbyss(1);
+    //Data.writeJson('/test-data', 'abyss.json', resAbyss);
     if (!resDetail || !resAbyss || !resDetail.avatars || resDetail.avatars.length <= 3) {
       e.reply("角色信息获取失败");
       return true;
     }
-    let playerAvatars = [];
-    lodash.forEach(resDetail.avatars || [], (avatar) => {
-      let tmp = Data.getData(avatar, "id,level,activedConstellationNum:actived_constellation_num")
-      tmp.weapon = Data.getData(avatar.weapon, "id,level,affixLevel:affix_level");
-      let setMap = {};
-      lodash.forEach(avatar.reliquaries, (ds) => {
-        setMap[ds.set.id] = setMap[ds.set.id] || 0;
-        setMap[ds.set.id]++;
-      })
-      let reliquarySets = [];
-      lodash.forEach(setMap, (count, id) => {
-        reliquarySets.push({ id: id * 1, count })
-      });
-      tmp.reliquarySets = reliquarySets;
-      playerAvatars.push(tmp);
-    })
-    let playerSpiralAbyssesLevels = [];
-    let getBattleData = function (ds) {
-      let avatars = [];
-      lodash.forEach(ds.avatars, (a) => {
-        avatars.push(a.id);
-      })
-      return {
-        battleIndex: ds.index - 1 || 0,
-        avatarIds: avatars
-      }
-    }
-    lodash.forEach(resAbyss.floors || [], (floor) => {
-      lodash.forEach(floor.levels || [], (level) => {
-        playerSpiralAbyssesLevels.push({
-          floorIndex: floor.index,
-          levelIndex: level.index,
-          star: level.star,
-          battles: [getBattleData(level.battles[0] || {}), getBattleData(level.battles[1] || {})]
-        })
-      })
-    });
-    ret = await HutaoApi.upload({
-      uid: uid.toString(),
-      playerAvatars,
-      playerSpiralAbyssesLevels
+    delete resDetail._res;
+    delete resAbyss._res;
+    ret = await HutaoApi.uploadData({
+      uid,
+      resDetail,
+      resAbyss
     });
   } catch (err) {
+    // console.log(err);
   }
   if (ret && ret.retcode === 0) {
-    e.reply(`uid:${uid}本次深渊记录上传成功\n多谢支持，喵~`);
+    let msg = [`uid:${uid}本次深渊记录上传成功，多谢支持，喵~`];
+    if (ret.data) {
+      let addMsg = function (title, ds) {
+        if (!ds && !ds.avatarId && !ds.percent) {
+          return;
+        }
+        let char = Character.get(ds.avatarId);
+        title = `${title}：${char.name} ${(ds.value / 10000).toFixed(1)}W，`;
+        if (ds.percent < 0.2) {
+          msg.push(`${title}少于${(100 - ds.percent * 100).toFixed(1)}%的用户`)
+        } else {
+          msg.push(`${title}超过${(ds.percent * 100).toFixed(1)}%的用户`)
+        }
+      }
+      msg.push("本次深渊排行：");
+      addMsg("最强一击", ret.data.damage || {});
+      addMsg("承受伤害", ret.data.takeDamage || {});
+    }
+    e.reply(msg.join("\n"))
   } else {
     e.reply(`${ret.message || "上传失败"}，请稍后重试...`);
   }
