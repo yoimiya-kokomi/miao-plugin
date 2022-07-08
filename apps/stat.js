@@ -422,9 +422,9 @@ export async function uploadData(e) {
         let char = Character.get(ds.avatarId);
         title = `${title}：${char.name} ${(ds.value / 10000).toFixed(1)}W，`;
         if (ds.percent < 0.2) {
-          msg.push(`${title}少于${(100 - ds.percent * 100).toFixed(1)}%的用户`)
+          msg.push(`${title}少于${(Math.max(0.1, 100 - ds.percent * 100)).toFixed(1)}%的${char.name}用户`)
         } else {
-          msg.push(`${title}超过${(ds.percent * 100).toFixed(1)}%的用户`)
+          msg.push(`${title}超过${(Math.min(99.9, ds.percent * 100)).toFixed(1)}%的${char.name}用户`)
         }
       }
       msg.push("本次深渊排行：");
