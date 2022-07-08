@@ -44,6 +44,10 @@ let HutaoApi = {
     return await HutaoApi.req("/Statistics/AvatarParticipation");
   },
 
+  async getAbyssUse() {
+    return await HutaoApi.req("/Statistics2/AvatarParticipation");
+  },
+
   async getAbyssTeam() {
     return await HutaoApi.req("/Statistics/TeamCombination");
   },

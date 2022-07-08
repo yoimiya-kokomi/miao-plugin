@@ -95,9 +95,21 @@ export async function abyssPct(e, { render }) {
     return;
   }
 
-  let abyssData = await HutaoApi.getAbyssPct();
+  let mode = /使用/.test(e.msg) ? "use" : "pct",
+    modeName, abyssData, modeMulti = 1;
+
+  if (mode === "use") {
+    modeName = "使用率";
+    abyssData = await HutaoApi.getAbyssUse();
+  } else {
+    modeName = "出场率";
+    abyssData = await HutaoApi.getAbyssPct();
+    modeMulti = 8;
+  }
+
+
   if (!abyssData) {
-    e.reply("深渊出场数据获取失败，请稍后重试~");
+    e.reply(`深渊${modeName}数据获取失败，请稍后重试~`);
     return true;
   }
 
@@ -133,7 +145,7 @@ export async function abyssPct(e, { render }) {
         avatars.push({
           name: char.name,
           star: char.star,
-          value: ds.value * 8
+          value: ds.value * modeMulti
         })
       }
     })
@@ -153,12 +165,10 @@ export async function abyssPct(e, { render }) {
     abyss: ret,
     floorName,
     chooseFloor,
-    lastUpdate: abyssData.lastUpdate,
-    pct: function (num) {
-      return (num * 100).toFixed(2);
-    },
+    mode,
+    modeName,
+    lastUpdate: abyssData.lastUpdate
   }, { e, render, scale: 1.5 });
-
 }
 
 async function getTalentData(e, isUpdate = false) {
@@ -413,23 +423,30 @@ export async function uploadData(e) {
     // console.log(err);
   }
   if (ret && ret.retcode === 0) {
-    let msg = [`uid:${uid}本次深渊记录上传成功，多谢支持，喵~`];
+    let msg = [`uid:${uid}本次深渊记录上传成功~ \n多谢支持，φ(>ω<*) 喵~`];
     if (ret.data) {
       let addMsg = function (title, ds) {
         if (!ds && !ds.avatarId && !ds.percent) {
           return;
         }
         let char = Character.get(ds.avatarId);
-        title = `${title}：${char.name} ${(ds.value / 10000).toFixed(1)}W，`;
-        if (ds.percent < 0.2) {
-          msg.push(`${title}少于${(Math.max(0.1, 100 - ds.percent * 100)).toFixed(1)}%的${char.name}用户`)
-        } else {
-          msg.push(`${title}超过${(Math.min(99.9, ds.percent * 100)).toFixed(1)}%的${char.name}用户`)
+        title = `${title}：${char.name}(${(ds.value / 10000).toFixed(1)}W)`;
+
+        let pct = (percent, name) => {
+          if (percent < 0.2) {
+            title += `，少于${(Math.max(0.1, 100 - percent * 100)).toFixed(1)}%的${name}`;
+          } else {
+            title += `，超过${(Math.min(99.9, percent * 100)).toFixed(1)}%的${name}`;
+          }
         }
+        pct(ds.percent, char.name);
+        pct(ds.percentTotal, "总记录");
+        msg.push(title);
       }
-      msg.push("本次深渊排行：");
-      addMsg("最强一击", ret.data.damage || {});
-      addMsg("承受伤害", ret.data.takeDamage || {});
+      msg.push("当前数据记录：");
+      addMsg("【最强一击】", ret.data.damage || {});
+      addMsg("【承受伤害】", ret.data.takeDamage || {});
+      msg.push("排行会随时间而更新，数据仅供参考~");
     }
     e.reply(msg.join("\n"))
   } else {
