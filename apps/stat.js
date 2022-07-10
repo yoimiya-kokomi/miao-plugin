@@ -133,6 +133,7 @@ export async function abyssPct(e, { render }) {
 
   let data = abyssData.data;
   data = lodash.sortBy(data, "floor");
+  data = data.reverse();
 
   lodash.forEach(data, (floorData) => {
     let floor = {
