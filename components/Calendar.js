@@ -32,7 +32,8 @@ let Cal = {
       timeMap = {}
       if (detailData && detailData.data && detailData.data.list) {
         let versionTime = {
-          '2.7': "2022-05-31 11:00:00"
+          "2.7": "2022-05-31 11:00:00",
+          "2.8": "2022-07-13 11:00:00"
         };
         lodash.forEach(detailData.data.list, (ds) => {
           let vRet = /(\d\.\d)版本更新通知/.exec(ds.title)
@@ -41,7 +42,7 @@ let Cal = {
             if (content && content[1]) {
               let tRet = /([0-9\\/\\: ]){9,}/.exec(content[1]);
               if (tRet && tRet[0]) {
-                versionTime[vRet[1]] = tRet[0].replace("06:00", "11:00");
+                versionTime[vRet[1]] = versionTime[vRet[1]] || tRet[0].replace("06:00", "11:00");
               }
             }
           }
@@ -52,7 +53,7 @@ let Cal = {
             return;
           }
           content = content.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\)\,\\.]+(>|&gt;)/g, "");
-          content = /(?:活动时间|祈愿介绍|任务开放时间|冒险....包)\s*〓([^〓]+)(〓|$)/.exec(content);
+          content = /(?:活动时间|祈愿介绍|任务开放时间|冒险....包|折扣时间)\s*〓([^〓]+)(〓|$)/.exec(content);
           if (!content || !content[1]) {
             return;
           }
@@ -60,7 +61,7 @@ let Cal = {
           let annTime = [];
 
           // 第一种简单格式
-          let timeRet = /(?:活动时间)?(?:〓|\s)*([0-9\\/\\: ~]+)/.exec(content);
+          let timeRet = /(?:活动时间)?(?:〓|\s)*([0-9\\/\\: ~]{6,}})/.exec(content);
           if (timeRet && timeRet[1]) {
             annTime = timeRet[1].split("~");
           } else if (/\d\.\d版本更新后/.test(content)) {
