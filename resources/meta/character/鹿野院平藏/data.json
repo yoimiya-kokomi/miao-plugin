@@ -9,8 +9,8 @@
 	"weapon": "Catalyst",
 	"britydah": "24 July",
 	"astro": "幼鹿座",
-	"cncv": "？？？",
-	"jpcv": "？？？",
+	"cncv": "林景",
+	"jpcv": "井口祐一",
 	"desc": "天领奉行的天才少年侦探，直觉敏锐，心思玲珑。",
 	"lvStat": {
 		"lvs": [
@@ -676,8 +676,11 @@
 	},
 	"imgs": {
 		"face": "/img/char/heizo_face.png",
-		"side": "/img/char/heizo_gacha_card.png",
-		"gacha_card": "/img/char/heizo_gacha_splash.png",
-		"gacha_splash": "/img/scr/char/10000059/face.png"
+		"side": "/img/char/heizo_side.png",
+		"gacha_card": "/img/char/heizo_gacha_card.png",
+		"gacha_splash": "/img/char/heizo_gacha_splash.png",
+		"profile": "/img/cardicon/i_7118_profile.png",
+		"party": "/img/cardicon/i_7118_party.png",
+		"char": "/img/char/heizo.png"
 	}
 }

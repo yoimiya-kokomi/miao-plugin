@@ -31,11 +31,17 @@ export async function renderProfile(e, char, render, mode = "profile", params = 
   }
 
   let profile = await Profile.get(uid, char.id);
+
   if (!profile) {
     if (await refresh()) {
       return true;
     } else {
       e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`);
+    }
+    return true;
+  } else if (!profile.attr) {
+    if (!await refresh()) {
+      e.reply(`由于数据Api变更，请重新获取面板信息后查看`);
     }
     return true;
   } else if (!['enka', 'input2', 'miao', 'miao-pre'].includes(profile.dataSource)) {

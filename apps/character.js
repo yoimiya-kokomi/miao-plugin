@@ -96,7 +96,11 @@ export async function character(e, { render, User }) {
     return renderAvatar(e, char.name, render);
   }
 
-  e.uid = await getTargetUid(e);
+  let uid = await getTargetUid(e);
+  if (!uid) {
+    return true;
+  }
+  e.uid = uid;
   e.avatar = char.id;
 
   if (char.isCustom) {
