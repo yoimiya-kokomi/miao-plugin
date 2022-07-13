@@ -1,4 +1,4 @@
-import {Data} from "../components/index.js";
+import { Data } from "../components/index.js";
 import lodash from "lodash";
 import fs from "fs";
 import request from "request";
@@ -31,6 +31,12 @@ lodash.forEach(readDir, (c) => {
   let char = Data.readJSON(`${_cRoot}/${c}/`, 'data.json');
 
   if (char.name) {
+
+    let nameMap = { dori: "多莉", tighnari: "提纳里", collei: "柯莱" }
+    if (!lodash.values(nameMap).includes(char.name)) {
+      return;
+    }
+
     // 正面
 
     // 角色条

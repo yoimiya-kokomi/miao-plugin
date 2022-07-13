@@ -2,7 +2,7 @@ import fs from "fs";
 import cheerio from "cheerio";
 import lodash from "lodash";
 import fetch from "node-fetch";
-import {roleId, abbr} from "../../../config/genshin/roleId.js";
+import { roleId, abbr } from "../../../config/genshin/roleId.js";
 
 const _path = process.cwd();
 let roleIdMap = {};
@@ -220,9 +220,9 @@ async function saveCharData(url, key, name) {
 
   name = name || data.name;
 
-  if(!name){
-    console.log("角色名不存在"+url);
-    return ;
+  if (!name) {
+    console.log("角色名不存在" + url);
+    return;
   }
 
   let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${data.name}/`
@@ -235,7 +235,7 @@ async function saveCharData(url, key, name) {
 }
 
 async function down() {
-  // const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
+  //const url = "https://genshin.honeyhunterworld.com/db/char/characters/?lang=CHS";
   const url = "https://genshin.honeyhunterworld.com/db/char/unreleased-and-upcoming-characters/?lang=CHS";
   let req = await fetch(url);
   let txt = await req.text();
@@ -254,14 +254,16 @@ async function down() {
 
       if (tRet) {
         if (tRet[1] === "girl") {
-          name = {anemo: "风", geo: "岩", electro: "雷"}[tRet[2]] + "主";
+          name = { anemo: "风", geo: "岩", electro: "雷" }[tRet[2]] + "主";
         } else {
           return
         }
       }
-      if (key === "heizo") {
-        name = "鹿野院平藏"
+      let nameMap = { dori: "多莉", tighnari: "提纳里", collei: "柯莱" }
+      if (nameMap[key]) {
+        name = nameMap[key];
       }
+
 
       await saveCharData(url, key, name);
     }
