@@ -134,7 +134,8 @@ let Calc = {
     let talentData = profile.talent || {};
 
     lodash.forEach(['a', 'e', 'q'], (key) => {
-      let lv = talentData[key].level_current * 1 || 1,
+      let td = talentData[key] || {};
+      let lv = td.level_current * 1 || 1,
         lvKey = `Lv${lv}`;
 
       let map = {};
