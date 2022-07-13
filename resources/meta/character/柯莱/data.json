@@ -2,7 +2,7 @@
 	"name": "柯莱",
 	"abbr": "柯莱",
 	"id": "",
-	"title": "",
+	"title": "测试角色",
 	"star": 4,
 	"elem": "dendro",
 	"allegiance": "",
@@ -11,7 +11,7 @@
 	"astro": "",
 	"cncv": "",
 	"jpcv": "",
-	"desc": "测试角色，命座与天赋图标暂缺",
+	"desc": "测试角色",
 	"lvStat": {
 		"lvs": [
 			"1",

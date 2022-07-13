@@ -2,7 +2,7 @@
 	"name": "提纳里",
 	"abbr": "提纳里",
 	"id": "",
-	"title": "",
+	"title": "测试角色",
 	"star": 5,
 	"elem": "dendro",
 	"allegiance": "",
@@ -11,7 +11,7 @@
 	"astro": "",
 	"cncv": "",
 	"jpcv": "",
-	"desc": "测试角色，命座与天赋图标暂缺",
+	"desc": "测试角色",
 	"lvStat": {
 		"lvs": [
 			"1",
