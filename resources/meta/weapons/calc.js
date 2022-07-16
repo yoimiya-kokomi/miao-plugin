@@ -523,6 +523,12 @@ let sword = {
       phy: step(12)
     }
   },
+  "笼钓瓶一心": {
+    title: "触发效果时攻击力提升[atkPct]%",
+    refine: {
+      atkPct: step(15)
+    }
+  },
   "波乱月白经津": [{
     title: "元素伤害加成[dmg]%",
     refine: {
