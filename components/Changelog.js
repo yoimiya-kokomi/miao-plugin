@@ -15,7 +15,7 @@ const getLine = function (line) {
   line = line.replace(/(^\s*\*|\r)/g, '')
   line = line.replace(/\s*`([^`]+`)/g, '<span class="cmd">$1')
   line = line.replace(/`\s*/g, '</span>')
-  line = line.replace(/\s*\*\*([^\\*]+\*\*)/g, '<span class="strong">$1')
+  line = line.replace(/\s*\*\*([^\*]+\*\*)/g, '<span class="strong">$1')
   line = line.replace(/\*\*\s*/g, '</span>')
   line = line.replace(/ⁿᵉʷ/g, '<span class="new"></span>')
   return line
@@ -60,7 +60,7 @@ try {
             logs: []
           }
           temp.logs.push(lastLine)
-        } else if (/^\s{3,}\*/.test(line)) {
+        } else if (/^\s{2,}\*/.test(line)) {
           lastLine.logs.push(getLine(line))
         }
       }
