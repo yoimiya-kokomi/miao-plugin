@@ -15,7 +15,7 @@
     {{/if}}
     <div class="label">【#深渊出场率】出场总数/总记录数</div>
     <div class="label">【#深渊使用率】出场总数/持有该角色的记录数</div>
-    <img class="genshin_logo" src="{{_sys_res_path}}/genshin/roleAll/原神.png"/>
+    <img class="genshin_logo" src="{{_res_path}}/common/cont/logo.png"/>
   </div>
   <div class="cont msg-cont">
     <div class="cont-title">深渊出场率统计</div>
@@ -44,7 +44,7 @@
       {{each ds.avatars char}}
       <div class="item star{{char.star == 4? 4:5}}">
         <img class="role"
-             src="{{_sys_res_path}}/genshin/logo/role/{{char.name}}.png"
+             src="{{_res_path}}/meta/character/{{char.name}}/face.png"
         />
         <div class="num_name">{{pct(char.value)}}%</div>
       </div>

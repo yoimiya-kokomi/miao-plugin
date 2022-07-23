@@ -1,24 +1,23 @@
-import lodash from "lodash";
-import fs from "fs";
-import request from "request";
+import lodash from 'lodash'
+import fs from 'fs'
 
-const _path = process.cwd();
+const _path = process.cwd()
 
 let Data = {
 
   /*
   * 根据指定的path依次检查与创建目录
   * */
-  createDir(rootPath = "", path = "", includeFile = false) {
-    let pathList = path.split("/"),
-      nowPath = rootPath;
+  createDir (rootPath = '', path = '', includeFile = false) {
+    let pathList = path.split('/')
+    let nowPath = rootPath
     pathList.forEach((name, idx) => {
-      name = name.trim();
+      name = name.trim()
       if (!includeFile && idx <= pathList.length - 1) {
-        nowPath += name + "/";
+        nowPath += name + '/'
         if (name) {
           if (!fs.existsSync(nowPath)) {
-            fs.mkdirSync(nowPath);
+            fs.mkdirSync(nowPath)
           }
         }
       }
@@ -28,15 +27,15 @@ let Data = {
   /*
   * 读取json
   * */
-  readJSON(root, path) {
+  readJSON (root, path) {
     if (!/\.json$/.test(path)) {
-      path = path + ".json";
+      path = path + '.json'
     }
     // 检查并创建目录
-    Data.createDir(root, path, true);
+    Data.createDir(root, path, true)
     if (fs.existsSync(`${root}/${path}`)) {
-      let jsonRet = fs.readFileSync(`${root}/${path}`, "utf8");
-      return JSON.parse(jsonRet);
+      let jsonRet = fs.readFileSync(`${root}/${path}`, 'utf8')
+      return JSON.parse(jsonRet)
     }
     return {}
   },
@@ -44,27 +43,27 @@ let Data = {
   /*
   * 写JSON
   * */
-  writeJson(path, file, data, space = "\t") {
+  writeJson (path, file, data, space = '\t') {
     if (!/\.json$/.test(file)) {
-      file = file + ".json";
+      file = file + '.json'
     }
 
     // 检查并创建目录
-    Data.createDir(_path, path, false);
-    console.log(data);
-    delete data._res;
-    return fs.writeFileSync(`${_path}/${path}/${file}`, JSON.stringify(data, null, space));
+    Data.createDir(_path, path, false)
+    console.log(data)
+    delete data._res
+    return fs.writeFileSync(`${_path}/${path}/${file}`, JSON.stringify(data, null, space))
   },
 
-  async importModule(path, file, rootPath = _path) {
+  async importModule (path, file, rootPath = _path) {
     if (!/\.js$/.test(file)) {
-      file = file + ".js";
+      file = file + '.js'
     }
     // 检查并创建目录
-    Data.createDir(_path, path, true);
+    Data.createDir(_path, path, true)
     if (fs.existsSync(`${_path}/${path}/${file}`)) {
-      let data = await import (`file://${_path}/${path}/${file}`);
-      return data || {};
+      let data = await import(`file://${_path}/${path}/${file}`)
+      return data || {}
     }
     return {}
   },
@@ -80,42 +79,42 @@ let Data = {
   *
   * */
 
-  getData(target, keyList = "", cfg = {}) {
-    target = target || {};
-    let defaultData = cfg.defaultData || {};
-    let ret = {};
+  getData (target, keyList = '', cfg = {}) {
+    target = target || {}
+    let defaultData = cfg.defaultData || {}
+    let ret = {}
     // 分割逗号
-    if (typeof (keyList) === "string") {
-      keyList = keyList.split(",");
+    if (typeof (keyList) === 'string') {
+      keyList = keyList.split(',')
     }
 
     lodash.forEach(keyList, (keyCfg) => {
       // 处理通过:指定 toKey & fromKey
-      let _keyCfg = keyCfg.split(":");
-      let keyTo = _keyCfg[0].trim(),
-        keyFrom = (_keyCfg[1] || _keyCfg[0]).trim(),
-        keyRet = keyTo;
+      let _keyCfg = keyCfg.split(':')
+      let keyTo = _keyCfg[0].trim()
+      let keyFrom = (_keyCfg[1] || _keyCfg[0]).trim()
+      let keyRet = keyTo
       if (cfg.lowerFirstKey) {
-        keyRet = lodash.lowerFirst(keyRet);
+        keyRet = lodash.lowerFirst(keyRet)
       }
       if (cfg.keyPrefix) {
-        keyRet = cfg.keyPrefix + keyRet;
+        keyRet = cfg.keyPrefix + keyRet
       }
       // 通过Data.getVal获取数据
-      ret[keyRet] = Data.getVal(target, keyFrom, defaultData[keyTo], cfg);
+      ret[keyRet] = Data.getVal(target, keyFrom, defaultData[keyTo], cfg)
     })
-    return ret;
+    return ret
   },
 
-  getVal(target, keyFrom, defaultValue) {
-    return lodash.get(target, keyFrom, defaultValue);
+  getVal (target, keyFrom, defaultValue) {
+    return lodash.get(target, keyFrom, defaultValue)
   },
 
-  getUrlPath(url) {
-    let reg = /^https*:\/\/(.*)\/(\w+\.(png|jpg|jpeg|webp))(\?.*)?$/;
-    let ret = reg.exec(url);
+  getUrlPath (url) {
+    let reg = /^https*:\/\/(.*)\/(\w+\.(png|jpg|jpeg|webp))(\?.*)?$/
+    let ret = reg.exec(url)
     if (!ret) {
-      return false;
+      return false
     }
     return {
       path: ret[1],
@@ -124,91 +123,68 @@ let Data = {
       url
     }
   },
-  pathExists(root, path) {
-    if (fs.existsSync(root + "/" + path)) {
-      return true;
+  pathExists (root, path) {
+    if (fs.existsSync(root + '/' + path)) {
+      return true
     }
-    path = path.replace("\\", "/");
-    const dirList = path.split("/");
-    let currentDir = root;
+    path = path.replace('\\', '/')
+    const dirList = path.split('/')
+    let currentDir = root
 
     for (let dir of dirList) {
-      currentDir = currentDir + "/" + dir;
+      currentDir = currentDir + '/' + dir
       if (!fs.existsSync(currentDir)) {
-        fs.mkdirSync(currentDir);
+        fs.mkdirSync(currentDir)
       }
     }
-    return true;
+    return true
   },
-  async asyncPool(poolLimit, array, iteratorFn) {
-    const ret = []; // 存储所有的异步任务
-    const executing = []; // 存储正在执行的异步任务
+  async asyncPool (poolLimit, array, iteratorFn) {
+    const ret = [] // 存储所有的异步任务
+    const executing = [] // 存储正在执行的异步任务
     for (const item of array) {
       // 调用iteratorFn函数创建异步任务
-      const p = Promise.resolve().then(() => iteratorFn(item, array));
+      const p = Promise.resolve().then(() => iteratorFn(item, array))
       // 保存新的异步任务
-      ret.push(p);
+      ret.push(p)
 
       // 当poolLimit值小于或等于总任务个数时，进行并发控制
       if (poolLimit <= array.length) {
         // 当任务完成后，从正在执行的任务数组中移除已完成的任务
-        const e = p.then(() => executing.splice(executing.indexOf(e), 1));
-        executing.push(e); // 保存正在执行的异步任务
+        const e = p.then(() => executing.splice(executing.indexOf(e), 1))
+        executing.push(e) // 保存正在执行的异步任务
         if (executing.length >= poolLimit) {
           // 等待较快的任务执行完成
-          await Promise.race(executing);
+          await Promise.race(executing)
         }
       }
     }
-    return Promise.all(ret);
+    return Promise.all(ret)
   },
 
-  async cacheFile(fileList, cacheRoot) {
-
-    let ret = {};
-    let cacheFn = async function (url) {
-      let path = Data.getUrlPath(url);
-      if (fs.existsSync(`${cacheRoot}/${path.path}/${path.filename}`)) {
-        console.log("已存在，跳过 " + path.path + "/" + path.filename);
-        ret[url] = `${path.path}/${path.filename}`;
-        return true;
-      }
-
-      Data.pathExists(cacheRoot, path.path);
-      await request(url).pipe(fs.createWriteStream(`${cacheRoot}/${path.path}/` + path.filename));
-      console.log("下载成功: " + path.path + "/" + path.filname);
-      ret[url] = `${path.path}/${path.filename}`;
-      return true;
-    };
-
-    await Data.asyncPool(10, fileList, cacheFn);
-    return ret;
-
+  sleep (ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
   },
 
-  sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  },
-
-  def() {
+  def () {
     for (let idx in arguments) {
       if (!lodash.isUndefined(arguments[idx])) {
-        return arguments[idx];
+        return arguments[idx]
       }
     }
   },
   eachStr: (arr, fn) => {
     if (lodash.isString(arr)) {
-      arr = arr.replace(/\s*(;|；|、|，)\s*/, ",");
-      arr = arr.split(",");
+      arr = arr.replace(/\s*(;|；|、|，)\s*/, ',')
+      arr = arr.split(',')
     }
     lodash.forEach(arr, (str, idx) => {
       if (!lodash.isUndefined(str)) {
         fn(str.trim ? str.trim() : str, idx)
       }
-    });
+    })
   }
 
 }
 
-export default Data;
+export default Data

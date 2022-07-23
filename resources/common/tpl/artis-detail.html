@@ -1,12 +1,12 @@
 {{set ds = $data[0]}}
-{{set {_res_path,_char,_sys_res_path} = $data[1]}}
+{{set {_res_path,_char} = $data[1]}}
 {{if ds.name && ds.main && ds.main[0] && ds.main[0]!="undefined"}}
 <div class="item arti-detail">
   <div class="avatar-icon">
     <img src="{{_res_path}}/meta/character/{{ds.avatar}}/side.png" onerror="whenError(this)"/>
   </div>
   <div class="arti-icon">
-    <img src="{{_sys_res_path}}/genshin/logo/reliquaries/{{ds.name}}.png"/>
+    <img src="{{_res_path}}/meta/reliquaries/icon/{{ds.name}}.png"/>
   </div>
   <div class="head">
     <strong>{{ds.name}}</strong>
