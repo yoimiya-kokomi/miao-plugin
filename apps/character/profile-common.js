@@ -34,8 +34,8 @@ export async function getTargetUid (e) {
       return uid
     }
   }
-
-  if (e.at && e.at != global?.BotConfig?.account?.qq) {
+  let botQQ = global.BotConfig ? global.BotConfig.account.qq : false
+  if (e.at && e.at !== botQQ) {
     uid = await getUid(e.at)
     if (uid) {
       return uid

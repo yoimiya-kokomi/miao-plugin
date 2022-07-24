@@ -6,7 +6,6 @@ export * from './apps/index.js'
 let index = { miao: {} }
 if (isV3) {
   index = await Data.importModule('/plugins/miao-plugin/adapter', 'index.js')
-  console.log(index)
 }
 export const miao = index.miao || {}
 
@@ -15,6 +14,12 @@ console.log(`喵喵插件${currentVersion}初始化~`)
 setTimeout(async function () {
   let msgStr = await redis.get('miao:restart-msg')
   let relpyPrivate = async function () {
+  }
+  if (!isV3) {
+    let common = await Data.importModule('/lib', 'common.js')
+    if (common && common.relpyPrivate) {
+      relpyPrivate = common.relpyPrivate
+    }
   }
   if (msgStr) {
     let msg = JSON.parse(msgStr)
