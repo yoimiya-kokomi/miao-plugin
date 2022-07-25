@@ -17,8 +17,8 @@ setTimeout(async function () {
   }
   if (!isV3) {
     let common = await Data.importModule('/lib', 'common.js')
-    if (common && common.relpyPrivate) {
-      relpyPrivate = common.relpyPrivate
+    if (common && common.default && common.default.relpyPrivate) {
+      relpyPrivate = common.default.relpyPrivate
     }
   }
   if (msgStr) {
