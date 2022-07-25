@@ -1,11 +1,10 @@
 import { Common, Cfg } from '../components/index.js'
 import { renderAvatar } from './character/avatar-card.js'
 import { getTargetUid, getProfile, profileHelp, getProfileAll } from './character/profile-common.js'
-
 import { profileArtis } from './character/profile-artis.js'
 import { renderProfile } from './character/profile-detail.js'
-
 import { Character } from '../components/models.js'
+import { isV3 } from '../components/Changelog.js'
 
 export { enemyLv, getOriginalPicture } from './character/utils.js'
 
@@ -23,7 +22,7 @@ export { wife, pokeWife, wifeReg } from './character/avatar-wife.js'
 
 // 查看当前角色
 export async function character (e, { render }) {
-  let msg = e.raw_message || e.msg
+  let msg = isV3 ? e.raw_message : e.msg
   if (!msg) {
     return
   }

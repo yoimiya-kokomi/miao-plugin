@@ -110,5 +110,21 @@ export async function getMysApi (e, cfg) {
 }
 
 export async function checkAuth (e, cfg) {
-  return new User({ id: e.user_id })
+  let { auth = 'all' } = cfg
+  let uid = await MysInfo.getUid(e)
+  if (!uid) return false
+
+  if (auth === 'master' && !e.isMaster) {
+    return false
+  }
+
+  /* 检查user ck */
+  let isCookieUser = await MysInfo.checkUidBing(uid)
+  if (auth === 'cookie' && !isCookieUser) {
+    e.reply('尚未绑定Cookie...')
+    return false
+  }
+
+  e.selfUser = new User({ id: e.user_id, uid })
+  return e.selfUser
 }
