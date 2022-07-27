@@ -5,6 +5,7 @@ import lodash from 'lodash'
 import { segment } from 'oicq'
 import Profile from '../../components/Profile.js'
 import { Character } from '../../components/models.js'
+import { isV3 } from '../../components/Changelog.js'
 
 /*
 * 获取面板查询的 目标uid
@@ -34,17 +35,19 @@ export async function getTargetUid (e) {
       return uid
     }
   }
-  let botQQ = global.BotConfig ? global.BotConfig.account.qq : false
-  if (e.at && e.at !== botQQ) {
-    uid = await getUid(e.at)
+  if (!isV3) {
+    let botQQ = global.BotConfig ? global.BotConfig.account.qq : false
+    if (e.at && e.at !== botQQ) {
+      uid = await getUid(e.at)
+      if (uid) {
+        return uid
+      }
+    }
+
+    uid = await getUid(e.user_id)
     if (uid) {
       return uid
     }
-  }
-
-  uid = await getUid(e.user_id)
-  if (uid) {
-    return uid
   }
 
   try {

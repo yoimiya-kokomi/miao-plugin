@@ -1,8 +1,6 @@
 /*
-* 请不要直接修改此或删除此文件，防止后续更新冲突
 * 如需新增自定义角色可【复制】此文件，改名为character.js
 * 复制的character.js中可按格式及自己需求进行配置
-* 最终character.js character_default.js两份配置会叠加生效
 *
 * 暂未做热更新，修改完毕请重启yunzai
 * */
@@ -22,7 +20,7 @@ export const customCharacters = {
 }
 
 /*
-* 追加设置每个关系的可选角色，会与yunzai的设置同时起作用
+* 追加设置每个关系的可选角色，会与原有设置同时起作用
 * 一个角色可以在多个关系中
 * */
 export const wifeData = {

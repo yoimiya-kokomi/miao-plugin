@@ -8,3 +8,5 @@
 /resources/character-img/*/upload/
 /resources/help/help-list.js
 /resources/help/help-cfg.js
+/config/character.js
+/config/profile.js
