@@ -7,11 +7,8 @@
 /*
 * Enka面板服务API配置
 * *
-* 若enka服务无法正常访问，可尝试修改下配置文件中的地址
 * 默认地址：https://enka.shinshin.moe/
-* 国内服务：https://enka.microgg.cn/
 * */
-
 export const enkaApi = {
   url: 'https://enka.shinshin.moe/'
 }
@@ -19,7 +16,6 @@ export const enkaApi = {
 /*
 * MiaoApi面板更新地址，暂时只支持B服角色
 * */
-
 export const miaoApi = {
   url: 'http://49.232.91.210/profile',
   token: 'miao-token'
