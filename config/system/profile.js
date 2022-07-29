@@ -23,6 +23,7 @@ export const miaoApi = {
 
 export const enkaApi = {
   url: 'https://enka.shinshin.moe/',
+  userAgent: 'Miao-Plugin/3.0',
   listApi: ({ url, uid }) => {
     return `${url}u/${uid}/__data.json`
   }

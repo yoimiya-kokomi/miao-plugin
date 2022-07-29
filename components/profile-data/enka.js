@@ -9,10 +9,10 @@ let Enka = {
     let url = diyCfg?.enkaApi?.url || sysCfg.enkaApi.url
     let profileApi = diyCfg?.enkaApi?.listApi || sysCfg.enkaApi.listApi
     let api = profileApi({ url, uid, avatar })
-    if(diyCfg?.enkaApi?.apiKey) {
+    if (diyCfg?.enkaApi?.apiKey) {
       api += '?key=' + diyCfg.enkaApi.apiKey
     }
-    let headers = {headers: {'User-Agent': diyCfg?.enkaApi?.userAgent || sysCfg.enkaApi.userAgent}}
+    let headers = { headers: { 'User-Agent': diyCfg?.enkaApi?.userAgent || sysCfg.enkaApi.userAgent } }
     let req = await fetch(api, headers)
     let data = await req.json()
     if (!data.playerInfo) {

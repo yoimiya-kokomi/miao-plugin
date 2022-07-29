@@ -7,7 +7,9 @@
 /*
 * Enka面板服务API配置
 * *
-* 默认地址：https://enka.shinshin.moe/
+* Enka官网：https://enka.shinshin.moe/
+* *
+* 其余API待确认后添加
 * */
 export const enkaApi = {
   url: 'https://enka.shinshin.moe/',
