@@ -13,7 +13,8 @@
 * */
 
 export const enkaApi = {
-  url: 'https://enka.shinshin.moe/'
+  url: 'https://enka.shinshin.moe/',
+  userAgent: 'Miao-Plugin/3.0'
 }
 
 /*
