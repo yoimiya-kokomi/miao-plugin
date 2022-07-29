@@ -9,7 +9,11 @@ let Enka = {
     let url = diyCfg?.enkaApi?.url || sysCfg.enkaApi.url
     let profileApi = diyCfg?.enkaApi?.listApi || sysCfg.enkaApi.listApi
     let api = profileApi({ url, uid, avatar })
-    let req = await fetch(api)
+    if(diyCfg?.enkaApi?.apiKey) {
+      api += '?key=' + diyCfg.enkaApi.apiKey
+    }
+    let headers = {headers: {'User-Agent': diyCfg?.enkaApi?.userAgent || sysCfg.enkaApi.userAgent}}
+    let req = await fetch(api, headers)
     let data = await req.json()
     if (!data.playerInfo) {
       e.reply(`请求失败:${data.msg || '可能是面板服务并发过高，请稍后重试'}`)
