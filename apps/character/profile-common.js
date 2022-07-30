@@ -116,7 +116,6 @@ export async function autoRefresh (e) {
       return true
     }
   }
-  return true
 }
 
 export async function autoGetProfile (e, uid, avatar, callback) {

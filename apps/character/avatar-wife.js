@@ -66,8 +66,8 @@ export async function wife (e, { render, User }) {
   })
   if (!targetCfg && !e.isPoke) return true
 
-  let avatarList = [];
-  let avatar = {};
+  let avatarList = []
+  let avatar = {}
   let wifeList = []
 
   let MysApi = await e.getMysApi({
@@ -165,7 +165,6 @@ export async function wife (e, { render, User }) {
       await selfUser.setCfg(`wife.${targetCfg.key}`, addRet)
       e.reply(`${targetCfg.keyword[0]}已经设置：${addRet.join('，')}`)
       return true
-      break
     case '列表':
     case '是':
     case '是谁':

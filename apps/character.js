@@ -22,7 +22,7 @@ export { wife, pokeWife, wifeReg } from './character/avatar-wife.js'
 
 // 查看当前角色
 export async function character (e, { render }) {
-  let msg = isV3 ? e.raw_message : e.msg
+  let msg = e.original_msg || e.msg
   if (!msg) {
     return
   }

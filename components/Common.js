@@ -17,11 +17,11 @@ export const render = async function (path, params, cfg) {
     }
   })
 
+  let ret = true
   if (base64) {
-    return isV3 ? await e.reply(base64) : await e.reply(segment.image(`base64://${base64}`))
+    ret = isV3 ? await e.reply(base64) : await e.reply(segment.image(`base64://${base64}`))
   }
-
-  return true
+  return cfg.retMsgId ? ret : true
 }
 
 export const todoV3 = function (e) {
