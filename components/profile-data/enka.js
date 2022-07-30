@@ -1,6 +1,5 @@
 import fetch from 'node-fetch'
 import EnkaData from './enka-data.js'
-import Data from '../Data.js'
 
 let Enka = {
   key: 'enka',
@@ -21,7 +20,7 @@ let Enka = {
     }
     let details = data.avatarInfoList
     if (!details || details.length === 0 || !details[0].propMap) {
-      e.reply('请打开游戏内角色展柜的“显示详情”后，等待5分钟重新获取面板')
+      e.reply('请打开游戏内角色展柜的【显示详情】后，等待5分钟重新获取面板')
       return false
     }
     return EnkaData.getData(uid, data)

@@ -1,7 +1,10 @@
-# 1.9.1
+# 1.9.2
 
-* `#更新面板`支持配置更新API
-  * 若面板更新失败可尝试在**miao-plugin/config/profile.js**文件中配置切换更新API
+* `#更新面板`支持配置更新API，适配Enka新校验逻辑
+  * B服角色使用Enka服务进行面板信息获取
+  * 感谢Enka官方 **@Algoinde**的官方授权及UA校验
+  * 感谢 **@MiniGrayGay**提供的Enka服务中转，若面板更新失败可尝试在**miao-plugin/config/profile.js**文件中配置切换更新API
+  * 更新面板增加单用户更新间隔控制，默认5分钟
 * 修正部分V3Yunzai下的适配问题
 
 # 1.9.0

@@ -2,7 +2,6 @@ import fs from 'fs'
 import lodash from 'lodash'
 import Format from './Format.js'
 import Character from './models/Character.js'
-import Reliquaries from './models/Reliquaries.js'
 import Miao from './profile-data/miao.js'
 import Enka from './profile-data/enka.js'
 import Data from './Data.js'
@@ -23,8 +22,10 @@ function sleep (ms) {
 }
 
 function getServ (uid) {
-  return (diyCfg.profileApi || sysCfg.profileApi)({ uid, Miao, Enka })
+  return (diyCfg.profileApi || sysCfg.profileApi)({ uid, Miao, Enka, diyCfg })
 }
+
+const requestInterval = diyCfg.requestInterval || sysCfg.requestInterval || 5
 
 let Profile = {
   async request (uid, e) {
@@ -37,8 +38,8 @@ let Profile = {
     if (inCd === 'loading') {
       e.reply('请求过快，请稍后重试..')
       return false
-    } else if (inCd === 'pending' && false) {
-      e.reply(`距上次请求刷新成功间隔小于${Serv.cd}分钟，请稍后重试..`)
+    } else if (inCd === 'pending') {
+      e.reply(`距上次请求刷新成功间隔小于${requestInterval}分钟，请稍后重试..`)
       return false
     }
 
@@ -49,7 +50,7 @@ let Profile = {
     try {
       data = await Serv.request({ uid, e, sysCfg, diyCfg })
       // enka服务测冷却时间5分钟
-      await redis.set(`miao:role-all:${uid}`, 'pending', { EX: Serv.cd * 60 })
+      await redis.set(`miao:role-all:${uid}`, 'pending', { EX: requestInterval * 60 })
       return Profile.save(uid, data, Serv.key)
     } catch (err) {
       console.log(err)
@@ -143,7 +144,6 @@ let Profile = {
       return ret
     }
     let title = ds[0]
-    let key = ''
     let val = ds[1]
     let num = ds[1]
     if (!title || title === 'undefined') {
@@ -160,13 +160,9 @@ let Profile = {
 
     if (/元素伤害加成/.test(title)) {
       title = title.replace('元素伤害', '伤')
-      key = 'dmg'
     } else if (title === '物理伤害加成') {
       title = '物伤加成'
-      key = 'phy'
     }
-
-    key = key || keyMap[title]
 
     let mark = 0
     if (markCfg) {
@@ -178,20 +174,6 @@ let Profile = {
     return { title, val, mark }
   },
 
-  getArtiMark (data, ds) {
-    Reliquaries.getMark(data)
-    let total = 0
-    lodash.forEach(data, (ret) => {
-      if (ret[0] && ret[1]) {
-        total += mark[ret[0]] * ret[1]
-      }
-    })
-    if (ds && /暴/.test(ds[0])) {
-      total += 20
-    }
-    return total
-  },
-
   inputProfile (uid, e) {
     let { avatar, inputData } = e
     let char = Character.get(avatar)
@@ -200,7 +182,7 @@ let Profile = {
       return `请先获取${char.name}的面板数据后，再进行面板数据更新`
     }
     inputData = inputData.replace('#', '')
-    inputData = inputData.replace(/，|；|、|\n|\t/g, ',')
+    inputData = inputData.replace(/[，；、\n\t]/g, ',')
     let attr = originalData.attr || {}
     let attrMap = {
       hp: /生命/,
@@ -211,7 +193,7 @@ let Profile = {
       cDmg: /(暴伤|暴击伤害)/,
       hInc: /治疗/,
       recharge: /充能/,
-      dmgBonus: /[火|水|雷|草|风|岩|冰|素|^]伤/,
+      dmgBonus: /[火水雷草风岩冰素]伤|^伤/,
       phyBonus: /(物理|物伤)/
     }
     lodash.forEach(inputData.split(','), (ds, idx) => {
@@ -219,7 +201,7 @@ let Profile = {
       if (!ds) {
         return
       }
-      let dRet = /(.*?)([0-9\.\+\s]+)/.exec(ds)
+      let dRet = /(.*?)([0-9.+\s]+)/.exec(ds)
       if (!dRet || !dRet[1] || !dRet[2]) {
         return
       }

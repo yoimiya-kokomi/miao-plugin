@@ -4,9 +4,9 @@ import fs from 'fs'
 import Data from '../Data.js'
 import sizeOf from 'image-size'
 
-let aliasMap = {};
-let idMap = {};
-let abbrMap = {};
+let aliasMap = {}
+let idMap = {}
+let abbrMap = {}
 let wifeMap = {}
 const _path = process.cwd()
 const metaPath = `${_path}/plugins/miao-plugin/resources/meta/character/`
@@ -229,7 +229,7 @@ Character.getAbbr = function () {
 }
 
 Character.checkWifeType = function (charid, type) {
-  return !!wifeMap[type][charid];
+  return !!wifeMap[type][charid]
 }
 
 Character.getRandomImg = function (type) {

@@ -90,33 +90,33 @@ export const eleBaseDmg = {
   88: 1636,
   89: 1686,
   90: 1736
-};
+}
 
 export const eleMap = {
-  anemo: "风",
-  cryo: "冰",
-  electro: "雷",
-  geo: "岩",
-  hydro: "水",
-  pyro: "火"
-};
+  anemo: '风',
+  cryo: '冰',
+  electro: '雷',
+  geo: '岩',
+  hydro: '水',
+  pyro: '火'
+}
 
 // 元素反应类型及基数
 // 暂无需考虑碎冰
 export const erType = {
-  zf: { type: "pct", num: ({ element }) => element === "水" ? 2 : 1.5 },
-  rh: { type: "pct", num: ({ element }) => element === "火" ? 2 : 1.5 },
-  gd: { type: "fusion", num: () => 1 },
-  cz: { type: "fusion", num: () => 4 / 2.4 },
-  ks: { type: "fusion", num: () => 0.5 }
+  zf: { type: 'pct', num: ({ element }) => element === '水' ? 2 : 1.5 },
+  rh: { type: 'pct', num: ({ element }) => element === '火' ? 2 : 1.5 },
+  gd: { type: 'fusion', num: () => 1 },
+  cz: { type: 'fusion', num: () => 4 / 2.4 },
+  ks: { type: 'fusion', num: () => 0.5 }
 }
 
 export const attrMap = {
-  atk: { type: "pct", val: 5.83, title: "大攻击", text: "5.8%" },
-  hp: { type: "pct", val: 5.83, title: "大生命", text: "5.8%" },
-  def: { type: "pct", val: 7.29, title: "大防御", text: "7.3%" },
-  recharge: { type: "plus", val: 6.48, title: "元素充能", text: "6.5%" },
-  mastery: { type: "plus", val: 23.31, title: "元素精通", text: "23.3" },
-  cpct: { type: "plus", val: 3.89, title: "暴击率", text: "3.9%" },
-  cdmg: { type: "plus", val: 7.77, title: "暴击伤害", text: "7.8%" },
-};
+  atk: { type: 'pct', val: 5.83, title: '大攻击', text: '5.8%' },
+  hp: { type: 'pct', val: 5.83, title: '大生命', text: '5.8%' },
+  def: { type: 'pct', val: 7.29, title: '大防御', text: '7.3%' },
+  recharge: { type: 'plus', val: 6.48, title: '元素充能', text: '6.5%' },
+  mastery: { type: 'plus', val: 23.31, title: '元素精通', text: '23.3' },
+  cpct: { type: 'plus', val: 3.89, title: '暴击率', text: '3.9%' },
+  cdmg: { type: 'plus', val: 7.77, title: '暴击伤害', text: '7.8%' }
+}

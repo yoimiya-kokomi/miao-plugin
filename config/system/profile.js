@@ -3,8 +3,9 @@
 * 如需自定义配置请复制修改上一级profile_default.js
 * */
 
-export const profileApi = ({ uid, Miao, Enka }) => {
-  if ((uid + '')[0] === '5') {
+export const profileApi = ({ uid, Miao, Enka, diyCfg }) => {
+  let token = diyCfg?.miaoApi?.token
+  if (token && token.length === 32) {
     return Miao
   }
   return Enka
@@ -28,3 +29,6 @@ export const enkaApi = {
     return `${url}u/${uid}/__data.json`
   }
 }
+
+/* 请求面板的冷却时间，单位分钟 */
+export const requestInterval = 5
