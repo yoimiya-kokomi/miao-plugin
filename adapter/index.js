@@ -17,8 +17,12 @@ export class miao extends plugin {
     })
   }
 
+  accept () {
+    this.e.original_msg = this.e.msg
+  }
+
   async dispatch (e) {
-    let msg = e.raw_message
+    let msg = e.original_msg
     e.checkAuth = async function (cfg) {
       return await checkAuth(e, cfg)
     }
@@ -33,7 +37,6 @@ export class miao extends plugin {
           render
         })
         if (ret === true) {
-          console.log('ret true')
           return true
         }
       }

@@ -79,7 +79,7 @@ async function renderCard (e, avatar, render, renderType = 'card') {
       custom: char.isCustom,
       ...getCharacterData(avatar),
       ds: char.getData('name,id,title,desc')
-    }, { e, render, scale: 1.6 })
+    }, { e, render, scale: 1.6, retMsgId: true })
     if (msgRes && msgRes.message_id) {
       // 如果消息发送成功，就将message_id和图片路径存起来，1小时过期
       await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 })
