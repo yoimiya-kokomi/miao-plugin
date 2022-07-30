@@ -5,6 +5,7 @@ Miao-Plugin是一个Yunzai-Bot的升级插件，提供包括角色查询等升�
 具体功能可在安装插件后 通过 #喵喵帮助 进行查看。如需进行设置可通过 #喵喵设置 命令进行管理。
 
 ---
+
 # 安装与更新
 
 请将miao-plugin放置在Yunzai-Bot的plugins目录下，重启Yunzai-Bot后即可使用。
@@ -63,7 +64,8 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 `#更新面板` 依赖于面板查询API，面板服务由 http://enka.shinshin.moe/ 提供
 
 查询功能经Enka官方授权([issue#63](https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199348789))，感谢Enka提供的面板查询服务
-若如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在[Enka官网](http://enka.shinshin.moe/) Discord联系
+
+如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在[Enka官网](http://enka.shinshin.moe/) Discord联系
 
 [issue#63](https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199734496) :
 国内网络如Enka服务访问不稳定，可尝试更换 [@MiniGrayGay](https://github.com/MiniGrayGay) 大佬提供的中转服务 复制`config/profile_default.js`
@@ -103,7 +105,7 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 * [Snap.Genshin](https://www.snapgenshin.com/home/) : 感谢 DGP Studio
   开发的 [胡桃API](https://github.com/DGP-Studio/Snap.HutaoAPI)
 * QQ群（暂时停止新加入，请见谅）
-  * Yunzai-Bot 官方QQ群：213938015
-  * 喵喵Miao-Plugin QQ群：607710456
+    * Yunzai-Bot 官方QQ群：213938015
+    * 喵喵Miao-Plugin QQ群：607710456
 * [爱发电](https://afdian.net/@kokomi) 欢迎老板打赏，喵~
 
