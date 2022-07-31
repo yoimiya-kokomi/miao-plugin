@@ -1,0 +1,225 @@
+body, .container {
+  width: 690px;
+}
+
+.container {
+  padding: 5px 0 10px 5px;
+}
+
+.abyss-stat {
+  display: flex;
+  padding: 5px;
+
+  .cont {
+    margin: 5px;
+  }
+
+  strong {
+    text-shadow: 0 0 3px #000;
+  }
+
+  .stat-title {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    width: 100%;
+    text-shadow: 0 0 1px #000;
+
+    span {
+      display: block;
+      font-weight: normal;
+      font-family: NZBZ, sans-serif;
+      font-size: 24px;
+    }
+
+    strong {
+      display: block;
+      font-size: 30px;
+    }
+  }
+
+  .stat-msg {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 5px 10px;
+    width: 100%;
+    text-shadow: 0 0 1px #000;
+    font-size: 12px;
+
+    .msg {
+      display: block;
+
+      strong {
+        font-size: 15px;
+        padding: 0 2px;
+        font-weight: normal;
+        color: #d3bc8e;
+      }
+    }
+  }
+
+  .abyss-notice {
+    width: 325px;
+
+    .cont-body {
+      height: 221px;
+    }
+
+    ul {
+      padding-left: 0;
+
+      li {
+        margin-bottom: 13px;
+        list-style: none;
+        margin-left: 0;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.avatar-banner {
+  margin-top: -10px;
+  height: 270px;
+  width: 158px;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: top center;
+}
+
+
+.cont-title {
+  .abyss-star {
+    font-size: 15px;
+    color: #fff;
+
+    &:before {
+      content: "";
+      vertical-align: bottom;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: url("./imgs/star.png") center no-repeat;
+      background-size: contain;
+      margin-right: 5px;
+    }
+
+  }
+}
+
+.abyss-floor-team {
+  display: flex;
+
+  .line {
+    width: 1px;
+    background: rgba(255, 255, 255, .5);
+    height: 80px;
+    vertical-align: middle;
+    margin: 15px 10px 0;
+  }
+}
+
+.abyss-team {
+
+  display: flex;
+}
+
+.abyss-detail {
+  display: flex;
+  width: calc(100% + 40px);
+  margin: 10px -15px -10px;
+}
+
+
+.abyss-level {
+  padding: 5px 10px 7px;
+  width: 33%;
+  box-shadow: 0 0 1px 0 #fff;
+
+  &:nth-child(even) {
+    background: rgba(255, 255, 255, .1)
+  }
+
+
+  .info {
+    margin-bottom: 5px;
+    display: flex;
+  }
+
+  .title {
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  .star {
+    height: 15px;
+    display: inline-block;
+    background: url(./imgs/star.png);
+    background-size: 15px 15px;
+    margin-left: 5px;
+
+    &.star1 {
+      width: 15px;
+      margin-right: 30px;
+    }
+
+    &.star2 {
+      width: 30px;
+      margin-right: 15px;
+    }
+
+    &.star3 {
+      width: 45px;
+      margin-right: 0;
+    }
+  }
+
+  .time {
+    text-align: right;
+    width: 60%;
+    color: #aaa;
+  }
+
+  .avatars {
+    display: flex;
+    width: 100%;
+
+    .avatar-list {
+      display: flex;
+      position: relative;
+
+      &.up {
+        padding-right: 10px;
+      }
+
+      &.up:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: 16px;
+        background: rgba(255, 255, 255, .3);
+        right: 5px;
+        top: 50%;
+        margin-top: -8px;
+      }
+    }
+
+    .avatar-icon {
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      margin-right: 1px;
+
+      .img {
+        background-size: auto 100%;
+        background-position: center;
+        width: 20px;
+        height: 20px;
+        margin: 2px;
+      }
+    }
+  }
+}

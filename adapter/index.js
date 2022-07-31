@@ -24,7 +24,7 @@ export class miao extends plugin {
   async dispatch (e) {
     let msg = e.original_msg || ''
     if (!msg) {
-      return
+      return false
     }
     e.checkAuth = async function (cfg) {
       return await checkAuth(e, cfg)
@@ -32,7 +32,8 @@ export class miao extends plugin {
     e.getMysApi = async function (cfg) {
       return await getMysApi(e, cfg)
     }
-    msg = '#' + msg.replace('#', '')
+    msg = msg.replace('#', '').trim()
+    msg = '#' + msg
     for (let fn in Miao.rule) {
       let cfg = Miao.rule[fn]
       if (Miao[fn] && new RegExp(cfg.reg).test(msg)) {

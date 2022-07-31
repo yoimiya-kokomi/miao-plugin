@@ -1,15 +1,36 @@
-{{set avatar = $data[0]}}
-{{set {_res_path,_char} = $data[1]}}
-{{set _char = _char || "meta/character/"}}
+{{set avatar = $data[0] || {} }}
+{{set {_res_path} = $data[1]}}
+{{set weapon = avatar.weapon || {} }}
 
-<div class="item">
-  <div class="item-bg elem-{{avatar.element}}">
-    <div class="role-box char-{{avatar.name}}">
-      <img class="role" src="{{_res_path}}{{_char}}/{{avatar.name}}/gacha_card.png"/>
+<div class="avatar-card">
+  <div class="card">
+    <div class="avatar-face item-icon star{{avatar.star==4?4:5}}">
+      <span class="img"
+            style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/face_2.png)"></span>
+      <span class="cons cons-{{avatar.cons}}">{{avatar.cons}}</span>
+      <div class="avatar-level">Lv{{avatar.level}}</div>
     </div>
-    {{ if avatar.cons>0}}
-    <div class="role-life life{{avatar.cons}}">{{avatar.cons}}命</div>
-    {{/if}}
-    <div class="role-name">{{avatar.label || avatar.name}}</div>
+    <div class="avatar-talent">10-13-13</div>
+    <div class="avatar-detail">
+      <div class="item avatar-weapon">
+        <div class="item-icon star{{weapon.star}}">
+          <span class="img" style="background-image:url({{_res_path}}/meta/weapons/icon/{{weapon.name}}.png)"></span>
+          <span class="cons cons-{{weapon.affix}}">{{weapon.affix}}</span>
+        </div>
+      </div>
+      <div class="item avatar-artis artis{{avatar.sets.length}}">
+
+        <div class="artis item-icon">
+          {{each avatar.sets name}}
+          <span class="img"
+                style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{name}}.png)"></span>
+          {{/each}}
+        </div>
+
+      </div>
+    </div>
+
   </div>
+
+
 </div>

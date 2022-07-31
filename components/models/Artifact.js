@@ -172,6 +172,14 @@ let Artifact = {
     return false
   },
 
+  getArtiBySet (name, idx = 1) {
+    let set = artisMap[name]
+    if (!set) {
+      return ''
+    }
+    return set.sets[`arti${idx}`].name
+  },
+
   getMeta () {
     return {
       attrMap

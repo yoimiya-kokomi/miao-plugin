@@ -1,0 +1,98 @@
+<script src="../../../../../Yunzai-Botconfig/miao-diy/app/main.js"></script>{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/abyss-summary.css?v=1.0"/>
+{{/block}}
+
+{{block 'main'}}
+{{ set upDown = {up:'上半', down:'下半'} }}
+<div class="info_box">
+  <div class="head-box type">
+    <div class="title">上传深渊数据</div>
+    <img class="genshin_logo" src="{{_res_path}}/common/cont/logo.png"/>
+  </div>
+  <div class="abyss-stat">
+    {{each stat ds}}
+    {{set avatar = avatars[ds.id]}}
+    <div class="cont">
+      <div class="stat-title">
+        <span>{{ds.title}}</span>
+        <strong>{{ds.value}}</strong>
+      </div>
+      <div class="avatar-banner"
+           style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/gacha_card.png)"></div>
+      <div class="stat-msg">
+        {{each ds.msg msg}}
+        <div class="msg">{{msg.title}}<strong>{{msg.value}}%</strong>的{{msg.name}}</div>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+    <div class="cont abyss-notice">
+      <div class="cont-title">多谢支持，(>ω<*)喵~</div>
+      <div class="cont-body">
+        <ul class="cont-msg">
+          <li>本次深渊记录上传成功</li>
+          <li>仅会上传您的角色列表及当期深渊挑战数据，<strong>不会上传其他额外信息</strong></li>
+          <li>上传的数据将会用于<strong>#深渊使用率</strong><strong>#角色持有率</strong>等统计</li>
+          <li>统计服务由SG团队<strong>胡桃API</strong>提供</li>
+          <li>排行为本期排行，会随时间而更新，数据仅供娱乐</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {{each abyss?.floors floor}}
+  <div class="cont">
+    <div class="cont-title">
+      第{{floor.index}}层
+      <span class="abyss-star">{{floor.star}}/9</span>
+    </div>
+    <div class="cont-body">
+      <div class="abyss-floor-team">
+        <div class="abyss-team">
+          {{each floor.display.up.avatars id}}
+          <% include(_layout_path+'../tpl/avatar-card.html', [avatars[id],{_res_path}]) %>
+          {{/each}}
+        </div>
+        <div class="line"></div>
+        <div class="abyss-team">
+          {{each floor.display.down.avatars id}}
+          <% include(_layout_path+'../tpl/avatar-card.html', [avatars[id],{_res_path}]) %>
+          {{/each}}
+        </div>
+      </div>
+      <div class="abyss-detail">
+        {{each floor.levels level idx}}
+        <div class="abyss-level">
+          <div class="info">
+            <div class="title">
+              第{{idx}}间
+            </div>
+            <span class="star star{{level.star}}"></span>
+            <div class="time">{{level.up.time}}</div>
+          </div>
+          <div class="avatars">
+            {{each upDown v k}}
+            <div class="avatar-list {{k}}">
+              {{each level[k].avatars id}}
+              {{set avatar = avatars[id]}}
+              <div class="avatar-icon item-icon star{{avatar.star==4?4:5}}">
+      <span class="img"
+            style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/side.png)"></span>
+              </div>
+              {{/each}}
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  {{/each}}
+
+
+</div>
+{{/block}}

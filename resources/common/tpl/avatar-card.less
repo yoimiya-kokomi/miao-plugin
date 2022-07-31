@@ -1,0 +1,136 @@
+.item-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+
+  .img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &.star5 {
+    background-image: url(../common/item/bg5.png);
+  }
+
+  &.star4 {
+    background-image: url(../common/item/bg4.png);
+  }
+}
+
+.avatar-card {
+  margin: 3px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
+
+
+  .card {
+    border-radius: 7px;
+    box-shadow: 0 2px 6px 0 rgb(132 93 90 / 30%);
+    position: relative;
+    overflow: hidden;
+    background: #e7e5d9;
+    width: 70px;
+  }
+
+  .avatar-face {
+    width: 70px;
+    height: 70px;
+    border-radius: 7px 7px 20px 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+
+    .img {
+      background-position: center bottom;
+    }
+
+    .cons {
+      border-radius: 0 0 0 5px;
+      padding: 2px 5px;
+    }
+
+    .avatar-level {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      left: 0;
+      padding: 2px 5px 2px 3px;
+      border-radius: 0 4px 0 0;
+
+    }
+
+
+  }
+
+  .avatar-talent {
+    height: 18px;
+    line-height: 18px;
+    font-size: 12px;
+    width: 100%;
+    color: #222;
+    text-align: center;
+    display: none;
+  }
+
+  .cons {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.avatar-detail {
+  display: flex;
+  padding: 0 1px 2px;
+
+  .item {
+    width: 31px;
+    height: 31px;
+    border-radius: 4px;
+    margin: 1px;
+  }
+}
+
+.avatar-weapon {
+  .icon {
+    border-radius: 4px;
+  }
+
+  .cons {
+    top: initial;
+    bottom: 0;
+    padding: 1px 3px;
+    border-radius: 3px 0 0 0;
+  }
+}
+
+.avatar-artis {
+  position: relative;
+
+  .artis {
+    background: rgba(0, 0, 0, 0.5)
+  }
+
+  &.artis2 {
+    .img {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+
+      &:first-child {
+        left: -2px;
+        top: -2px;
+      }
+
+      &:last-child {
+        right: -2px;
+        bottom: -2px;
+      }
+    }
+  }
+}

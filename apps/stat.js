@@ -7,6 +7,8 @@ import { Cfg } from '../components/index.js'
 import lodash from 'lodash'
 import fs from 'fs'
 import Common from '../components/Common.js'
+import Abyss from '../components/models/Abyss.js'
+import Avatars from '../components/models/Avatars.js'
 
 export async function consStat (e, { render }) {
   if (Cfg.isDisable(e, 'wiki.abyss')) {
@@ -392,7 +394,7 @@ export async function abyssTeam (e, { render }) {
   }, { e, render, scale: 1.5 })
 }
 
-export async function uploadData (e) {
+export async function uploadData (e, { render }) {
   let MysApi = await e.getMysApi({
     auth: 'cookie',
     targetType: 'self',
@@ -402,9 +404,10 @@ export async function uploadData (e) {
   if (!MysApi) return
   let ret = {}
   let uid = e.selfUser.uid
+  let resDetail, resAbyss
   try {
-    let resDetail = await MysApi.getCharacter()
-    let resAbyss = await MysApi.getSpiralAbyss(1)
+    resDetail = await MysApi.getCharacter()
+    resAbyss = await MysApi.getSpiralAbyss(1)
     // Data.writeJson('/test-data', 'abyss.json', resAbyss);
     if (!resDetail || !resAbyss || !resDetail.avatars || resDetail.avatars.length <= 3) {
       e.reply('角色信息获取失败')
@@ -421,32 +424,59 @@ export async function uploadData (e) {
     // console.log(err);
   }
   if (ret && ret.retcode === 0) {
-    let msg = [`uid:${uid}本次深渊记录上传成功~ \n多谢支持，φ(>ω<*) 喵~`]
+    let stat = []
     if (ret.data) {
+      if (resAbyss.floors.length === 0) {
+        e.reply('暂未获得本期深渊挑战数据...')
+        return true
+      }
+      let abyss = new Abyss(resAbyss)
+      let avatars = new Avatars(resDetail.avatars)
+      let avatarIds = abyss.getDisplayAvatars()
       let addMsg = function (title, ds) {
+        let tmp = {}
         if (!ds && !ds.avatarId && !ds.percent) {
           return
         }
         let char = Character.get(ds.avatarId)
-        title = `${title}：${char.name}(${(ds.value / 10000).toFixed(1)}W)`
-
+        tmp.title = title
+        tmp.id = char.id
+        avatarIds.push(char.id)
+        tmp.value = `${(ds.value / 10000).toFixed(1)}W`
+        let msg = []
+        tmp.msg = msg
         let pct = (percent, name) => {
           if (percent < 0.2) {
-            title += `，少于${(Math.max(0.1, 100 - percent * 100)).toFixed(1)}%的${name}`
+            msg.push({
+              title: '少于',
+              value: (Math.max(0.1, 100 - percent * 100)).toFixed(1),
+              name: name
+            })
           } else {
-            title += `，超过${(Math.min(99.9, percent * 100)).toFixed(1)}%的${name}`
+            msg.push({
+              title: '超过',
+              value: (Math.min(99.9, percent * 100)).toFixed(1),
+              name: name
+            })
           }
         }
         pct(ds.percent, char.name)
         pct(ds.percentTotal, '总记录')
-        msg.push(title)
+        stat.push(tmp)
       }
-      msg.push('当前数据记录：')
-      addMsg('【最强一击】', ret.data.damage || {})
-      addMsg('【承受伤害】', ret.data.takeDamage || {})
-      msg.push('排行会随时间而更新，数据仅供参考~')
+      addMsg('最强一击', ret.data.damage || {})
+      addMsg('最高承伤', ret.data.takeDamage || {})
+      let avatarData = avatars.getData(avatarIds, true)
+      return await Common.render('stat/abyss-summary', {
+        abyss: abyss.getData(),
+        avatars: avatarData,
+        stat,
+        save_id: uid
+      }, { e, render, scale: 1.8 })
+    } else {
+      e.reply('暂未获得本期深渊挑战数据...')
+      return true
     }
-    e.reply(msg.join('\n'))
   } else {
     e.reply(`${ret.message || '上传失败'}，请稍后重试...`)
   }
