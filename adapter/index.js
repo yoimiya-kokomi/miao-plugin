@@ -18,11 +18,14 @@ export class miao extends plugin {
   }
 
   accept () {
-    this.e.original_msg = this.e.msg
+    this.e.original_msg = this.e.original_msg || this.e.msg
   }
 
   async dispatch (e) {
-    let msg = e.original_msg
+    let msg = e.original_msg || ''
+    if (!msg) {
+      return
+    }
     e.checkAuth = async function (cfg) {
       return await checkAuth(e, cfg)
     }
