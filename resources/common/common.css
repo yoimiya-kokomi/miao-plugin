@@ -171,6 +171,13 @@ body {
   color: #fff;
 }
 /********  ELEM  ********/
+.elem-hydro .talent-icon {
+  background-image: url("./bg/talent-hydro.png");
+}
+.elem-hydro .elem-bg,
+.hydro-bg {
+  background-image: url("./bg/bg-hydro.jpg");
+}
 .elem-anemo .talent-icon {
   background-image: url("./bg/talent-anemo.png");
 }
@@ -198,13 +205,6 @@ body {
 .elem-geo .elem-bg,
 .geo-bg {
   background-image: url("./bg/bg-geo.jpg");
-}
-.elem-hydro .talent-icon {
-  background-image: url("./bg/talent-hydro.png");
-}
-.elem-hydro .elem-bg,
-.hydro-bg {
-  background-image: url("./bg/bg-hydro.jpg");
 }
 .elem-pyro .talent-icon {
   background-image: url("./bg/talent-pyro.png");

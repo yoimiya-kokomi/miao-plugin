@@ -32,9 +32,14 @@ export const todoV3 = function (e) {
   return false
 }
 
+function sleep (ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
 export default {
   render,
   cfg: Cfg.get,
   isDisable: Cfg.isDisable,
-  todoV3
+  todoV3,
+  sleep
 }

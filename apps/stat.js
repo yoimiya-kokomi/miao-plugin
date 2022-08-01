@@ -431,8 +431,8 @@ export async function uploadData (e, { render }) {
         return true
       }
       let abyss = new Abyss(resAbyss)
-      let avatars = new Avatars(resDetail.avatars)
-      let avatarIds = abyss.getDisplayAvatars()
+      let avatars = new Avatars(uid, resDetail.avatars)
+      let avatarIds = abyss.getAvatars()
       let addMsg = function (title, ds) {
         let tmp = {}
         if (!ds && !ds.avatarId && !ds.percent) {
@@ -441,7 +441,6 @@ export async function uploadData (e, { render }) {
         let char = Character.get(ds.avatarId)
         tmp.title = title
         tmp.id = char.id
-        avatarIds.push(char.id)
         tmp.value = `${(ds.value / 10000).toFixed(1)}W`
         let msg = []
         tmp.msg = msg
@@ -466,7 +465,7 @@ export async function uploadData (e, { render }) {
       }
       addMsg('最强一击', ret.data.damage || {})
       addMsg('最高承伤', ret.data.takeDamage || {})
-      let avatarData = avatars.getData(avatarIds, true)
+      let avatarData = await avatars.getTalentData(avatarIds, MysApi)
       return await Common.render('stat/abyss-summary', {
         abyss: abyss.getData(),
         avatars: avatarData,

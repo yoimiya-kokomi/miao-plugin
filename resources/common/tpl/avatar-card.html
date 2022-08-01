@@ -1,8 +1,9 @@
 {{set avatar = $data[0] || {} }}
 {{set {_res_path} = $data[1]}}
 {{set weapon = avatar.weapon || {} }}
+{{set talentMap = ['a','e','q'] }}
 
-<div class="avatar-card">
+<div class="avatar-card elem-{{avatar.elem}} avatar-{{avatar.name}}">
   <div class="card">
     <div class="avatar-face item-icon star{{avatar.star==4?4:5}}">
       <span class="img"
@@ -10,7 +11,17 @@
       <span class="cons cons-{{avatar.cons}}">{{avatar.cons}}</span>
       <div class="avatar-level">Lv{{avatar.level}}</div>
     </div>
-    <div class="avatar-talent">10-13-13</div>
+    {{set talent = avatar.talent || {} }}
+    {{if talent.a && talent.a.current }}
+    <div class="avatar-talent">
+      {{each talentMap k}}
+      {{set t = talent[k] || {} }}
+      <span class="talent-item talent-{{k}} talent-{{t.crown?'crown':'none'}} talent-{{t.plus?'plus':'none'}}">{{t.current}}</span>
+      {{/each}}
+    </div>
+    {{else}}
+    <div class="avatar-talent"> -</div>
+    {{/if}}
     <div class="avatar-detail">
       <div class="item avatar-weapon">
         <div class="item-icon star{{weapon.star}}">

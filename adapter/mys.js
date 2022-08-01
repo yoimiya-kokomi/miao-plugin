@@ -41,6 +41,7 @@ class Mys {
     this.MysApi = MysApi
     e.targetUser = this.targetUser
     e.selfUser = this.selfUser
+    e.isSelfCookie = true
   }
 
   async getData (api, data) {
@@ -98,14 +99,18 @@ export async function getMysApi (e, cfg) {
 
   /* 检查user ck */
   let isCookieUser = await MysInfo.checkUidBing(uid)
-  if (auth === 'cookie' && !isCookieUser) {
-    e.reply('尚未绑定Cookie...')
-    return false
+  if (auth === 'cookie') {
+    if (!isCookieUser) {
+      e.reply('尚未绑定Cookie...')
+      return false
+    }
+    e.isSelfCookie = true
   }
   let MysApi = await MysInfo.init(e, 'roleIndex')
   if (!MysApi) {
     return false
   }
+  MysApi.isSelfCookie = !!e.isSelfCookie
   return new Mys(e, uid, MysApi)
 }
 

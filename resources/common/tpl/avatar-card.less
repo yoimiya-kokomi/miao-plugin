@@ -61,20 +61,58 @@
       left: 0;
       padding: 2px 5px 2px 3px;
       border-radius: 0 4px 0 0;
-
     }
 
 
   }
 
   .avatar-talent {
-    height: 18px;
-    line-height: 18px;
+    height: 21px;
+    padding: 3px 5px 2px;
     font-size: 12px;
     width: 100%;
     color: #222;
     text-align: center;
-    display: none;
+    display: flex;
+
+    .talent-item {
+      width: 20px;
+      height: 16px;
+      line-height: 17px;
+      margin: 0 2px;
+      text-align: center;
+      display: block;
+      background-size: contain;
+      opacity: 0.8;
+      position: relative;
+      border-radius: 3px;
+      box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+
+      /*
+            &.talent-crown:before {
+              content: "";
+              display: block;
+              width: 10px;
+              height: 10px;
+              position: absolute;
+              left: 0;
+              top: 0;
+              background: url("../character/imgs/crown.png") center no-repeat;
+              background-size: contain;
+            }
+      */
+
+      &.talent-plus {
+        font-weight: bold;
+        color: #0284b9;
+      }
+
+      &.talent-crown {
+        background: #d3bc8e;
+        color: #3a2702;
+        box-shadow: 0 0 2px 0 #000;
+      }
+    }
   }
 
   .cons {

@@ -59,15 +59,23 @@ export default class Abyss extends Base {
     return Data.getData(this, 'reveral,stat,floors')
   }
 
-  getDisplayAvatars () {
+  getAvatars () {
     let ret = {}
+    lodash.forEach(this.reveral, (ds) => {
+      ret[ds.id] = true
+    })
+    lodash.forEach(this.stat, (ds) => {
+      ret[ds.id] = true
+    })
     lodash.forEach(this.floors, (floor) => {
-      let display = floor?.display || {}
-      lodash.forEach(display.up?.avatars || [], (id) => {
-        ret[id] = true
-      })
-      lodash.forEach(display.down?.avatars || [], (id) => {
-        ret[id] = true
+      let levels = floor?.levels || {}
+      lodash.forEach(levels, (level) => {
+        lodash.forEach(level.up?.avatars || [], (id) => {
+          ret[id] = true
+        })
+        lodash.forEach(level.down?.avatars || [], (id) => {
+          ret[id] = true
+        })
       })
     })
     return lodash.keys(ret)
