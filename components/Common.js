@@ -9,6 +9,7 @@ export const render = async function (path, params, cfg) {
   let base64 = await render(paths[0], paths[1], {
     ...params,
     _layout_path: layoutPath,
+    _tpl_path: process.cwd() + '/plugins/miao-plugin/resources/common/tpl/',
     defaultLayout: layoutPath + 'default.html',
     elemLayout: layoutPath + 'elem.html',
     sys: {

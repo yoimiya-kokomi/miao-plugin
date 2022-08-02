@@ -17,6 +17,10 @@ export class miao extends plugin {
     })
   }
 
+  get log () {
+    return !!this.isDispatch
+  }
+
   accept () {
     this.e.original_msg = this.e.original_msg || this.e.msg
   }
@@ -41,6 +45,7 @@ export class miao extends plugin {
           render
         })
         if (ret === true) {
+          this.isDispatch = true
           return true
         }
       }

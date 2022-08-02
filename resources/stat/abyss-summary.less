@@ -6,9 +6,25 @@ body, .container {
   padding: 5px 0 10px 5px;
 }
 
+.head-box {
+  margin-top: 0;
+  padding-top: 0;
+
+  .title {
+    span {
+      font-size: 20px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.abyss-stat-cont {
+  display: flex;
+  padding: 25px 5px 5px;
+}
+
 .abyss-stat {
   display: flex;
-  padding: 5px;
 
   .cont {
     margin: 5px;
@@ -50,47 +66,71 @@ body, .container {
 
     .msg {
       display: block;
+      line-height: 22px;
 
       strong {
-        font-size: 15px;
+        font-size: 16px;
         padding: 0 2px;
         font-weight: normal;
         color: #d3bc8e;
       }
     }
   }
-
-  .abyss-notice {
-    width: 325px;
-
-    .cont-body {
-      height: 221px;
-    }
-
-    ul {
-      padding-left: 0;
-
-      li {
-        margin-bottom: 13px;
-        list-style: none;
-        margin-left: 0;
-        font-size: 13px;
-      }
-    }
-  }
 }
 
+
 .avatar-banner {
-  margin-top: -10px;
+  margin-top: -20px;
   height: 270px;
-  width: 158px;
+  width: 175px;
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: top center;
 }
 
+.abyss-data {
+  display: flex;
+  padding: 0 6px;
 
-.cont-title {
+  .abyss-item {
+    color: #fff;
+    margin: 5px;
+
+    .info {
+      text-align: center;
+      text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+
+      strong {
+        display: block;
+        font-weight: normal;
+        font-family: NZBZ, YS2, sans-serif;
+      }
+
+      span {
+        font-size: 24px;
+        display: block;
+
+        &:after {
+          content: "次";
+          font-size: 15px;
+          margin-left: 2px;
+        }
+      }
+    }
+  }
+}
+
+.abyss-title {
+  margin: -3px 0 8px;
+
+  strong {
+    color: #d3bc8e;
+    font-size: 18px;
+    font-family: Number, NZBZ, YS2, sans-serif;
+    font-weight: normal;
+    margin-right: 10px;
+  }
+
   .abyss-star {
     font-size: 15px;
     color: #fff;
@@ -221,5 +261,23 @@ body, .container {
         margin: 2px;
       }
     }
+  }
+}
+
+.avatar-banner {
+  &.avatar-枫原万叶 {
+    background-position: 0 60px;
+  }
+
+  &.avatar-九条裟罗 {
+    background-position: 0 30px;
+  }
+
+  &.avatar-香菱 {
+    background-position: 0 80px;
+  }
+
+  &.avatar-行秋 {
+    background-position: 0 70px;
   }
 }

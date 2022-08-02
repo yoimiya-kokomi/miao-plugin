@@ -11,7 +11,7 @@ import Abyss from '../components/models/Abyss.js'
 import Avatars from '../components/models/Avatars.js'
 
 export async function consStat (e, { render }) {
-  if (Cfg.isDisable(e, 'wiki.abyss')) {
+  if (Cfg.isDisable(e, 'wiki.stat')) {
     return
   }
 
@@ -91,7 +91,7 @@ export async function consStat (e, { render }) {
 }
 
 export async function abyssPct (e, { render }) {
-  if (Cfg.isDisable(e, 'wiki.abyss')) {
+  if (Cfg.isDisable(e, 'wiki.stat')) {
     return
   }
 
@@ -395,13 +395,17 @@ export async function abyssTeam (e, { render }) {
 }
 
 export async function uploadData (e, { render }) {
+  let isMatch = /^#(喵喵|上传)深渊(数据)?$/.test(e.original_msg || e.msg || '')
+  if (!Cfg.get('wiki.abyss', false) && !isMatch) {
+    return false
+  }
   let MysApi = await e.getMysApi({
     auth: 'cookie',
     targetType: 'self',
     cookieType: 'self',
     action: '获取信息'
   })
-  if (!MysApi) return
+  if (!MysApi) return true
   let ret = {}
   let uid = e.selfUser.uid
   let resDetail, resAbyss
@@ -441,7 +445,7 @@ export async function uploadData (e, { render }) {
         let char = Character.get(ds.avatarId)
         tmp.title = title
         tmp.id = char.id
-        tmp.value = `${(ds.value / 10000).toFixed(1)}W`
+        tmp.value = `${(ds.value / 10000).toFixed(1)} W`
         let msg = []
         tmp.msg = msg
         let pct = (percent, name) => {
@@ -470,7 +474,8 @@ export async function uploadData (e, { render }) {
         abyss: abyss.getData(),
         avatars: avatarData,
         stat,
-        save_id: uid
+        save_id: uid,
+        uid
       }, { e, render, scale: 1.8 })
     } else {
       e.reply('暂未获得本期深渊挑战数据...')

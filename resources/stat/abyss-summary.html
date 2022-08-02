@@ -9,47 +9,57 @@
 {{block 'main'}}
 {{ set upDown = {up:'上半', down:'下半'} }}
 <div class="info_box">
-  <div class="head-box type">
-    <div class="title">上传深渊数据</div>
-    <img class="genshin_logo" src="{{_res_path}}/common/cont/logo.png"/>
-  </div>
-  <div class="abyss-stat">
-    {{each stat ds}}
-    {{set avatar = avatars[ds.id]}}
-    <div class="cont">
-      <div class="stat-title">
-        <span>{{ds.title}}</span>
-        <strong>{{ds.value}}</strong>
+
+  <div class="abyss-stat-cont">
+    <div>
+      <div class="head-box type">
+        <div class="title">喵喵深渊<span>{{abyss.schedule}}</span></div>
+        <div class="label">UID:{{uid}} <span>· {{abyss.total}}次战斗</span></div>
       </div>
-      <div class="avatar-banner"
-           style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/gacha_card.png)"></div>
-      <div class="stat-msg">
-        {{each ds.msg msg}}
-        <div class="msg">{{msg.title}}<strong>{{msg.value}}%</strong>的{{msg.name}}</div>
+
+      <div class="abyss-data cont">
+        {{set st = abyss?.stat || {} }}
+        {{set dataMap = {defeat:"最多击破",e:"元素战技",q:"元素爆发"} }}
+        {{each dataMap title key}}
+        <div class="abyss-item">
+          <div class="info">
+            <strong>{{title}}</strong>
+            <span>{{st[key]?.value}}</span>
+          </div>
+          <% include(_tpl_path+'/avatar-card.html', [avatars[st[key]?.id],{_res_path}]) %>
+
+        </div>
         {{/each}}
       </div>
     </div>
-    {{/each}}
-    <div class="cont abyss-notice">
-      <div class="cont-title">多谢支持，(>ω<*)喵~</div>
-      <div class="cont-body">
-        <ul class="cont-msg">
-          <li>本次深渊记录上传成功</li>
-          <li>仅会上传您的角色列表及当期深渊挑战数据，<strong>不会上传其他额外信息</strong></li>
-          <li>上传的数据将会用于<strong>#深渊使用率</strong><strong>#角色持有率</strong>等统计</li>
-          <li>统计服务由SG团队<strong>胡桃API</strong>提供</li>
-          <li>排行为本期排行，会随时间而更新，数据仅供娱乐</li>
-        </ul>
+    <div class="abyss-stat">
+      {{each stat ds}}
+      {{set avatar = avatars[ds.id]}}
+      <div class="cont">
+        <div class="stat-title">
+          <span>{{ds.title}}</span>
+          <strong>{{ds.value}}</strong>
+        </div>
+        <div class="avatar-banner avatar-{{avatar.name}}"
+             style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/gacha_card.png)"></div>
+        <div class="stat-msg">
+          {{each ds.msg msg}}
+          <div class="msg">{{msg.title}}<strong>{{msg.value}}%</strong>的{{msg.name}}</div>
+          {{/each}}
+        </div>
       </div>
+      {{/each}}
     </div>
+
   </div>
   {{each abyss?.floors floor}}
   <div class="cont">
-    <div class="cont-title">
-      第{{floor.index}}层
-      <span class="abyss-star">{{floor.star}}/9</span>
-    </div>
+
     <div class="cont-body">
+      <div class="abyss-title">
+        <strong>第{{floor.index}}层</strong>
+        <span class="abyss-star">{{floor.star}}/9</span>
+      </div>
       <div class="abyss-floor-team">
         <div class="abyss-team">
           {{each floor.display.up.avatars id}}
@@ -59,7 +69,7 @@
         <div class="line"></div>
         <div class="abyss-team">
           {{each floor.display.down.avatars id}}
-          <% include(_layout_path+'../tpl/avatar-card.html', [avatars[id],{_res_path}]) %>
+          <% include(_tpl_path+'/avatar-card.html', [avatars[id],{_res_path}]) %>
           {{/each}}
         </div>
       </div>
@@ -93,6 +103,14 @@
   </div>
   {{/each}}
 
-
+  <div class="cont abyss-notice">
+    <div class="cont-body">
+      <ul class="cont-msg">
+        <li><strong>#上传深渊</strong>会上传你的角色列表及当期深渊挑战数据，<strong>不会上传其他信息</strong>，感谢支持，喵~</li>
+        <li>统计服务由SG团队<strong>胡桃API</strong>提供，上传的数据将会用于排名以及<strong>#深渊使用率</strong><strong>#角色持有率</strong>等统计</li>
+        <li>深渊排行为本期深渊排行，更新时间{{abyss.time}}。排名会随时间而更新，数据排名仅供娱乐~</li>
+      </ul>
+    </div>
+  </div>
 </div>
 {{/block}}

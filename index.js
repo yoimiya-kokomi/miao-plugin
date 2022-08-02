@@ -8,9 +8,12 @@ if (isV3) {
   index = await Data.importModule('/plugins/miao-plugin/adapter', 'index.js')
 }
 export const miao = index.miao || {}
-Bot.logger.info(`--------------------------`)
-Bot.logger.info(`喵喵插件${currentVersion}初始化~`)
-Bot.logger.info(`--------------------------`)
+if (Bot?.logger?.info) {
+  Bot.logger.info(`---------^_^---------`)
+  Bot.logger.info(`喵喵插件${currentVersion}初始化~`)
+} else {
+  console.log(`喵喵插件${currentVersion}初始化~`)
+}
 
 setTimeout(async function () {
   let msgStr = await redis.get('miao:restart-msg')

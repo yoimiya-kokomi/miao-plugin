@@ -13,6 +13,7 @@ let cfgMap = {
   查他人: 'char.queryOther',
   图鉴: 'wiki.wiki',
   图片: 'wiki.pic',
+  统计: 'wiki.stat',
   深渊: 'wiki.abyss',
   渲染: 'sys.scale',
   帮助: 'sys.help'
@@ -90,7 +91,8 @@ export async function sysCfg (e, { render }) {
     other: getStatus('char.queryOther'),
     wiki: getStatus('wiki.wiki'),
     pic: getStatus('wiki.pic'),
-    abyss: getStatus('wiki.abyss'),
+    stat: getStatus('wiki.stat'),
+    abyss: getStatus('wiki.abyss', false),
     imgPlus: fs.existsSync(plusPath),
     help: getStatus('sys.help', false),
     scale: Cfg.get('sys.scale', 100)

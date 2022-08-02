@@ -5,9 +5,20 @@ body,
 .container {
   padding: 5px 0 10px 5px;
 }
+.head-box {
+  margin-top: 0;
+  padding-top: 0;
+}
+.head-box .title span {
+  font-size: 20px;
+  margin-left: 5px;
+}
+.abyss-stat-cont {
+  display: flex;
+  padding: 25px 5px 5px;
+}
 .abyss-stat {
   display: flex;
-  padding: 5px;
 }
 .abyss-stat .cont {
   margin: 5px;
@@ -44,41 +55,63 @@ body,
 }
 .abyss-stat .stat-msg .msg {
   display: block;
+  line-height: 22px;
 }
 .abyss-stat .stat-msg .msg strong {
-  font-size: 15px;
+  font-size: 16px;
   padding: 0 2px;
   font-weight: normal;
   color: #d3bc8e;
 }
-.abyss-stat .abyss-notice {
-  width: 325px;
-}
-.abyss-stat .abyss-notice .cont-body {
-  height: 221px;
-}
-.abyss-stat .abyss-notice ul {
-  padding-left: 0;
-}
-.abyss-stat .abyss-notice ul li {
-  margin-bottom: 13px;
-  list-style: none;
-  margin-left: 0;
-  font-size: 13px;
-}
 .avatar-banner {
-  margin-top: -10px;
+  margin-top: -20px;
   height: 270px;
-  width: 158px;
+  width: 175px;
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: top center;
 }
-.cont-title .abyss-star {
+.abyss-data {
+  display: flex;
+  padding: 0 6px;
+}
+.abyss-data .abyss-item {
+  color: #fff;
+  margin: 5px;
+}
+.abyss-data .abyss-item .info {
+  text-align: center;
+  text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+}
+.abyss-data .abyss-item .info strong {
+  display: block;
+  font-weight: normal;
+  font-family: NZBZ, YS2, sans-serif;
+}
+.abyss-data .abyss-item .info span {
+  font-size: 24px;
+  display: block;
+}
+.abyss-data .abyss-item .info span:after {
+  content: "次";
+  font-size: 15px;
+  margin-left: 2px;
+}
+.abyss-title {
+  margin: -3px 0 8px;
+}
+.abyss-title strong {
+  color: #d3bc8e;
+  font-size: 18px;
+  font-family: Number, NZBZ, YS2, sans-serif;
+  font-weight: normal;
+  margin-right: 10px;
+}
+.abyss-title .abyss-star {
   font-size: 15px;
   color: #fff;
 }
-.cont-title .abyss-star:before {
+.abyss-title .abyss-star:before {
   content: "";
   vertical-align: bottom;
   display: inline-block;
@@ -180,5 +213,17 @@ body,
   width: 20px;
   height: 20px;
   margin: 2px;
+}
+.avatar-banner.avatar-枫原万叶 {
+  background-position: 0 60px;
+}
+.avatar-banner.avatar-九条裟罗 {
+  background-position: 0 30px;
+}
+.avatar-banner.avatar-香菱 {
+  background-position: 0 80px;
+}
+.avatar-banner.avatar-行秋 {
+  background-position: 0 70px;
 }
 /*# sourceMappingURL=abyss-summary.css.map */
