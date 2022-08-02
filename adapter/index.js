@@ -5,20 +5,20 @@ import { checkAuth, getMysApi } from './mys.js'
 
 export class miao extends plugin {
   constructor () {
+    let rule = {
+      reg: '.+',
+      fnc: 'dispatch'
+    }
     super({
       name: 'miao-plugin',
       desc: '喵喵插件',
       event: 'message',
       priority: 50,
-      rule: [{
-        reg: '.+',
-        fnc: 'dispatch'
-      }]
+      rule: [rule]
     })
-  }
-
-  get log () {
-    return !!this.isDispatch
+    Object.defineProperty(rule, 'log', {
+      get: () => !!this.isDispatch
+    })
   }
 
   accept () {
@@ -50,7 +50,6 @@ export class miao extends plugin {
         }
       }
     }
-
     return false
   }
 }
