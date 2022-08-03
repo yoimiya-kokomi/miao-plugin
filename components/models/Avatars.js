@@ -138,3 +138,7 @@ export default class Avatars extends Base {
     return talent
   }
 }
+
+Avatars.hasTalentCache = async function (uid) {
+  return !!await redis.get(`genshin:avatar-talent:${uid}`)
+}

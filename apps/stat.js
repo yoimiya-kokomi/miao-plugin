@@ -402,17 +402,19 @@ export async function uploadData (e, { render }) {
   let MysApi = await e.getMysApi({
     auth: 'cookie',
     targetType: 'self',
-    cookieType: 'self',
-    action: '获取信息'
+    cookieType: 'all',
+    action: '获取深渊信息'
   })
-  if (!MysApi) return true
+  if (!MysApi || !MysApi.isSelfCookie) return true
   let ret = {}
   let uid = e.selfUser.uid
   let resDetail, resAbyss
   try {
-    resDetail = await MysApi.getCharacter()
     resAbyss = await MysApi.getSpiralAbyss(1)
-    // Data.writeJson('/test-data', 'abyss.json', resAbyss);
+    if (resAbyss.floors.length > 0 && !await Avatars.hasTalentCache(uid)) {
+      e.reply('正在获取用户信息，请稍候...')
+    }
+    resDetail = await MysApi.getCharacter()
     if (!resDetail || !resAbyss || !resDetail.avatars || resDetail.avatars.length <= 3) {
       e.reply('角色信息获取失败')
       return true
