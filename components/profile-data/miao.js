@@ -88,7 +88,7 @@ let Miao = {
     let ds = data.uidData
     let char = Character.get(ds.id)
     let now = moment()
-    return {
+    let ret = {
       id: ds.id,
       name: char ? char.name : '',
       dataSource: 'miao',
@@ -102,6 +102,7 @@ let Miao = {
       talent: Miao.getTalent(char.id, ds.skill),
       _priority: 10
     }
+    return Miao.dataFix(ret)
   },
   getAttr (data) {
     let ret = {}
@@ -215,6 +216,22 @@ let Miao = {
         level_current: ds.level
       }
     })
+    return ret
+  },
+  dataFix (ret) {
+    if (ret._fix) {
+      return ret
+    }
+    let { talent, id } = ret
+    id = id * 1
+    if (id !== 10000033) {
+      let a = talent.a || {}
+      if (a.level_current > 10) {
+        a.level_current = 10
+        a.level_original = 10
+      }
+    }
+    ret._fix = true
     return ret
   }
 }

@@ -2,7 +2,7 @@ import { segment } from 'oicq'
 
 /** 获取角色卡片的原图 */
 export async function getOriginalPicture (e) {
-  if (!e.hasReply) {
+  if (!e.hasReply && !e.source) {
     return
   }
   // 引用的消息不是自己的消息

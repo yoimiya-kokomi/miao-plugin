@@ -226,7 +226,7 @@ let Data = {
     if (ret._fix) {
       return ret
     }
-    let { attr, id } = ret
+    let { attr, talent, id } = ret
     id = id * 1
     switch (id) {
       case 10000052:
@@ -237,12 +237,13 @@ let Data = {
         // 莫娜被动fix
         attr.dmgBonus = Math.max(0, attr.dmgBonus - attr.recharge * 0.2)
         break
-      /*
-            case 10000060:
-              // 夜兰被动fix
-              attr.hp = attr.hp - attr.hpBase * 0.3
-              break;
-      */
+    }
+    if (id !== 10000033) {
+      let a = talent.a || {}
+      if (a.level_current > 10) {
+        a.level_current = 10
+        a.level_original = 10
+      }
     }
     ret._fix = true
     return ret

@@ -159,6 +159,13 @@ class Character extends Base {
         }
       }
     })
+    if (this.id * 1 !== 10000033) {
+      let a = ret.a || {}
+      if (a.level > 10) {
+        a.level = 10
+        a.original = 10
+      }
+    }
     return ret
   }
 

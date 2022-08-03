@@ -21,7 +21,7 @@
       <div class="talent-item">
         <div class="talent-icon
                {{talent[key].level > talent[key].original ? `talent-plus`:``}}
-                {{talent[key].original == 10 ? `talent-crown`:``}}">
+                {{talent[key].original >= 10 ? `talent-crown`:``}}">
           <div class="talent-icon-img"
                style="background-image:url({{_res_path}}/meta/character/{{name}}/talent_{{key}}.png)"></div>
           <span>{{talent[key].level}}</span>
