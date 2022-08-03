@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import EnkaData from './enka-data.js'
-
+import HttpsProxyAgent from "https-proxy-agent";
 let Enka = {
   key: 'enka',
   cd: 5,
@@ -11,8 +11,11 @@ let Enka = {
     if (diyCfg?.enkaApi?.apiKey) {
       api += '?key=' + diyCfg.enkaApi.apiKey
     }
-    let headers = { headers: { 'User-Agent': diyCfg?.enkaApi?.userAgent || sysCfg.enkaApi.userAgent } }
-    let req = await fetch(api, headers)
+    let config = { headers: { 'User-Agent': diyCfg?.enkaApi?.userAgent || sysCfg.enkaApi.userAgent } }
+    if (diyCfg?.enkaApi?.proxyAgent){
+      config.agent=new HttpsProxyAgent(diyCfg.enkaApi.proxyAgent)
+    }
+    let req = await fetch(api, config)
     let data = await req.json()
     if (!data.playerInfo) {
       e.reply(`请求失败:${data.msg || '可能是面板服务并发过高，请稍后重试'}`)

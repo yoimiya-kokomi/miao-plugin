@@ -19,10 +19,13 @@
 * 推荐使用【广州】或【上海】节点，如访问enka官网相对稳定的话推荐优先使用官方地址
 * 感谢@MiniGrayGay 大佬提供的服务(Github: https://github.com/MiniGrayGay)
 *
+* 使用代理(科学上网)可以配置proxyAgent
+* 例如: http://127.0.0.1:1080
 * */
 
 export const enkaApi = {
-  url: 'https://enka.network/'
+  url: 'https://enka.network/',
+  proxyAgent:''
 }
 
 /*
