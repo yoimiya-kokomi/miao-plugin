@@ -6,15 +6,17 @@
 /*
 * Enka面板服务API配置
 *
-* 【Enka官网】：https://enka.shinshin.moe/
+* 【Enka官网】：https://enka.network/
 * 感谢Enka提供的面板查询服务
 * https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199348789
 * 如果可以的话，也可考虑在Patreon上支持Enka，或提供闲置的原神账户，具体可在Discord联系
 *
-*
 * 如Enka服务访问不稳定，可尝试更换MiniGrayGay大佬提供的中转服务
-* 【链接1】：https://enka.microgg.cn/
-* 【链接2】：https://enka.minigg.cn/
+* 【广州节点】：https://3.enka.microgg.cn/
+* 【上海节点】：https://4.enka.microgg.cn/
+* 【韩国节点】：https://1.enka.microgg.cn/
+* 【韩国节点】：https://2.enka.microgg.cn/
+* 推荐使用【广州】或【上海】节点，如访问enka官网相对稳定的话推荐优先使用官方地址
 * 感谢@MiniGrayGay 大佬提供的服务(Github: https://github.com/MiniGrayGay)
 *
 * 使用代理(科学上网)可以配置proxyAgent
@@ -22,7 +24,7 @@
 * */
 
 export const enkaApi = {
-  url: 'https://enka.shinshin.moe/',
+  url: 'https://enka.network/',
   proxyAgent:''
 }
 
