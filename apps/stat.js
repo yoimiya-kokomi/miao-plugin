@@ -400,12 +400,12 @@ export async function uploadData (e, { render }) {
     return false
   }
   let MysApi = await e.getMysApi({
-    auth: 'cookie',
+    auth: 'all',
     targetType: 'self',
     cookieType: 'all',
     action: '获取深渊信息'
   })
-  if (!MysApi || !MysApi.isSelfCookie) return true
+  if (!MysApi || !MysApi.isSelfCookie) return false
   let ret = {}
   let uid = e.selfUser.uid
   let resDetail, resAbyss

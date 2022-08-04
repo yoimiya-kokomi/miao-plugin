@@ -64,6 +64,10 @@ let Data = {
       ret.chars[char.id] = char
     })
 
+    if (data.ttl) {
+      ret.ttl = data.ttl
+    }
+
     return ret
   },
   getAvatar (data) {

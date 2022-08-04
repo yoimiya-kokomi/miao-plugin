@@ -34,29 +34,51 @@ let Profile = {
     }
     let Serv = getServ(uid)
 
-    let inCd = await redis.get(`miao:role-all:${uid}`)
-    if (inCd === 'loading') {
-      e.reply('请求过快，请稍后重试..')
-      return false
-    } else if (inCd === 'pending') {
-      e.reply(`距上次请求刷新成功间隔小于${requestInterval}分钟，请稍后重试..`)
+    let cdTime = await Profile.inCd(uid)
+    if (cdTime) {
+      e.reply(`请求过快，请${cdTime}秒后重试..`)
       return false
     }
 
-    await redis.set(`miao:role-all:${uid}`, 'loading', { EX: 20 })
+    await Profile.setCd(uid, 20) // 发起请求设置20s cd
     e.reply('开始获取数据，可能会需要一定时间~')
-    await sleep(1000)
+    await sleep(500)
     let data
     try {
-      data = await Serv.request({ uid, e, sysCfg, diyCfg })
+      data = await Serv.request({ uid, e, sysCfg, diyCfg, setCd: Profile.setCd })
+      if (!data) {
+        return false
+      }
       // enka服务测冷却时间5分钟
-      await redis.set(`miao:role-all:${uid}`, 'pending', { EX: requestInterval * 60 })
+      let cdTime = requestInterval * 60
+      if (data.ttl) {
+        cdTime = Math.max(cdTime, data.ttl * 1)
+        delete data.ttl
+      }
+      await Profile.setCd(uid, cdTime) // 根据设置设置cd
       return Profile.save(uid, data, Serv.key)
     } catch (err) {
       console.log(err)
       e.reply('请求失败')
       return false
     }
+  },
+
+  async setCd (uid, cdTime = 5 * 60) {
+    let ext = new Date() * 1 + cdTime * 1000
+    await redis.set(`miao:role-all:${uid}`, ext + '', { EX: cdTime })
+  },
+
+  async inCd (uid) {
+    let ext = await redis.get(`miao:role-all:${uid}`)
+    if (!ext || isNaN(ext)) {
+      return false
+    }
+    let cd = new Date() * 1 - ext
+    if (cd < 0) {
+      return Math.ceil(0 - cd / 1000)
+    }
+    return false
   },
 
   save (uid, data, dataSource = 'enka') {

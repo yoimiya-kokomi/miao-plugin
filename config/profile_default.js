@@ -7,6 +7,7 @@
 * Enka面板服务API配置
 *
 * 【Enka官网】：https://enka.network/
+*
 * 感谢Enka提供的面板查询服务
 * https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199348789
 * 如果可以的话，也可考虑在Patreon上支持Enka，或提供闲置的原神账户，具体可在Discord联系
@@ -24,8 +25,8 @@
 * */
 
 export const enkaApi = {
-  url: 'https://enka.network/',
-  proxyAgent:''
+  url: 'https://enka.network/', // 请求API地址，可从上方提供的API地址中进行选择
+  proxyAgent: '' // 请求的proxy配置，如无需proxy则留空
 }
 
 /*
