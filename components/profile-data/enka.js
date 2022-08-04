@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import EnkaData from './enka-data.js'
-import HttpsProxyAgent from "https-proxy-agent";
+//import HttpsProxyAgent from "https-proxy-agent";
 let Enka = {
   key: 'enka',
   cd: 5,
@@ -13,7 +13,7 @@ let Enka = {
     }
     let config = { headers: { 'User-Agent': diyCfg?.enkaApi?.userAgent || sysCfg.enkaApi.userAgent } }
     if (diyCfg?.enkaApi?.proxyAgent){
-      config.agent=new HttpsProxyAgent(diyCfg.enkaApi.proxyAgent)
+     // config.agent=new HttpsProxyAgent(diyCfg.enkaApi.proxyAgent)
     }
     let req = await fetch(api, config)
     let data = await req.json()
