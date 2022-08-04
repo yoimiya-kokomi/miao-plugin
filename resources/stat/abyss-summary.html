@@ -24,10 +24,11 @@
         <div class="abyss-item">
           <div class="info">
             <strong>{{title}}</strong>
-            <span>{{st[key]?.value}}</span>
+            <span>{{st[key]?.value || 0}}</span>
           </div>
+          {{if st[key]}}
           <% include(_tpl_path+'/avatar-card.html', [avatars[st[key]?.id],{_res_path}]) %>
-
+          {{/if}}
         </div>
         {{/each}}
       </div>

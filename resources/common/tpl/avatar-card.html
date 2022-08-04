@@ -1,10 +1,11 @@
-{{set avatar = $data[0] || {} }}
+{{set avatar = $data[0] || false }}
 {{set {_res_path} = $data[1]}}
 {{set weapon = avatar.weapon || {} }}
 {{set talentMap = ['a','e','q'] }}
 
 <div class="avatar-card elem-{{avatar.elem}} avatar-{{avatar.name}}">
   <div class="card">
+    {{if avatar}}
     <div class="avatar-face item-icon star{{avatar.star==4?4:5}}">
       <span class="img"
             style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/face_2.png)"></span>
@@ -40,7 +41,7 @@
 
       </div>
     </div>
-
+    {{/if}}
   </div>
 
 
