@@ -63,13 +63,13 @@
       </div>
       <div class="abyss-floor-team">
         <div class="abyss-team">
-          {{each floor.display.up.avatars id}}
+          {{each floor?.display?.up?.avatars||[] id}}
           <% include(_layout_path+'../tpl/avatar-card.html', [avatars[id],{_res_path}]) %>
           {{/each}}
         </div>
         <div class="line"></div>
         <div class="abyss-team">
-          {{each floor.display.down.avatars id}}
+          {{each floor?.display?.down?.avatars||[] id}}
           <% include(_tpl_path+'/avatar-card.html', [avatars[id],{_res_path}]) %>
           {{/each}}
         </div>
@@ -82,12 +82,12 @@
               第{{idx}}间
             </div>
             <span class="star star{{level.star}}"></span>
-            <div class="time">{{level.up.time}}</div>
+            <div class="time">{{level?.up?.time}}</div>
           </div>
           <div class="avatars">
             {{each upDown v k}}
             <div class="avatar-list {{k}}">
-              {{each level[k].avatars id}}
+              {{each level[k]?.avatars||[] id}}
               {{set avatar = avatars[id] || {} }}
               <div class="avatar-icon item-icon star{{avatar.star==4?4:5}}">
       <span class="img"

@@ -16,7 +16,8 @@ export {
   getProfileAll,
   profileHelp,
   getOriginalPicture,
-  uploadCharacterImg
+  uploadCharacterImg,
+  profileList
 } from './character.js'
 
 export {
@@ -48,7 +49,7 @@ let rule = {
     reg: '^#圣遗物列表\\s*(\\d{9})?$',
     describe: '【#角色】圣遗物列表'
   },
-  getProfileAll: {
+  profileList: {
     reg: '^#(面板角色|角色面板|面板)(列表)?\\s*(\\d{9})?$',
     describe: '【#角色】查看当前已获取面板数据的角色列表'
   },

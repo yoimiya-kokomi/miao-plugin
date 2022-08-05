@@ -1,24 +1,25 @@
 import { Common, Cfg } from '../components/index.js'
 import { renderAvatar } from './character/avatar-card.js'
-import { getTargetUid, getProfile, profileHelp, getProfileAll } from './character/profile-common.js'
+import { getTargetUid, getProfile, profileHelp, getProfileAll, inputProfile } from './character/profile-common.js'
 import { profileArtis } from './character/profile-artis.js'
 import { renderProfile } from './character/profile-detail.js'
 import { Character } from '../components/models.js'
-import { isV3 } from '../components/Changelog.js'
+//
+export { getProfileAll, getProfile, profileHelp }
 
 export { enemyLv, getOriginalPicture } from './character/utils.js'
 
 // 角色图像上传
 export { uploadCharacterImg } from './character/character-img-upload.js'
 
-//
-export { getProfileAll, getProfile, profileHelp }
-
 // 圣遗物列表
 export { profileArtisList } from './character/profile-artis.js'
 
 // 老婆
 export { wife, pokeWife, wifeReg } from './character/avatar-wife.js'
+
+// 面板角色列表
+export { profileList } from './character/profile-list.js'
 
 // 查看当前角色
 export async function character (e, { render }) {
@@ -108,8 +109,11 @@ export async function character (e, { render }) {
 
   if (mode === 'profile' || mode === 'dmg') {
     return renderProfile(e, char, render, mode, { dmgIdx })
-  } else if (mode === 'refresh' || mode === 'input') {
-    await getProfile(e, mode)
+  } else if (mode === 'input') {
+    await inputProfile(e, mode)
+    return true
+  } else if (mode === 'refresh') {
+    await getProfile(e, { render })
     return true
   } else if (mode === 'artis') {
     return profileArtis(e, { render })

@@ -200,6 +200,10 @@ class Character extends Base {
     return !/10\d{6}/.test(this.id)
   }
 
+  get abbr () {
+    return abbrMap[this.name] || this.name
+  }
+
   checkWifeType (type) {
     return !!wifeMap[type][this.id]
   }

@@ -37,6 +37,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -63,25 +64,28 @@ body {
   color: #fff;
   margin-top: 30px;
 
-}
+  .title {
+    font-size: 36px;
+    font-family: NZBZ, sans-serif;
+    text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
+  }
 
-.head-box .title {
-  font-size: 36px;
-  font-family: NZBZ, sans-serif;
-  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
-}
+  .genshin_logo {
+    position: absolute;
+    top: 1px;
+    right: 15px;
+    width: 97px;
+  }
 
+  .label {
+    font-size: 16px;
+    text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
 
-.head-box .genshin_logo {
-  position: absolute;
-  top: 1px;
-  right: 15px;
-  width: 97px;
-}
-
-.head-box .label {
-  font-size: 16px;
-  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
+    span {
+      color: #d3bc8e;
+      padding: 0 2px;
+    }
+  }
 }
 
 
@@ -304,4 +308,29 @@ ul.cont-msg, .cont-footer ul {
   text-align: center;
   color: #fff;
   margin: 20px 0 10px 0;
+}
+
+/* item-icon */
+.item-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+
+  .img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @stars: 1, 2, 3, 4, 5;
+  each(@stars, {
+    &.star@{value} {
+      background-image: url("../common/item/bg@{value}.png");
+    }
+  })
 }

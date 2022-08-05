@@ -3,6 +3,7 @@
 * */
 import lodash from 'lodash'
 import { segment } from 'oicq'
+import { profileList } from './profile-list.js';
 import Profile from '../../components/Profile.js'
 import { Character } from '../../components/models.js'
 import { isV3 } from '../../components/Changelog.js'
@@ -150,33 +151,38 @@ export async function autoGetProfile (e, uid, avatar, callback) {
   return { profile, char, refresh }
 }
 
-/*
-* 面板数据更新
-* */
-export async function getProfile (e, mode = 'refresh') {
+export async function inputProfile (e) {
   let uid = await getTargetUid(e)
   if (!uid) {
     return true
   }
 
-  if (mode === 'input') {
-    if (e.inputData.trim().length < 5) {
-      e.reply('【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0')
-      return true
-      // await profileHelp(e);
-    }
+  if (e.inputData.trim().length < 5) {
+    e.reply('【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0')
+    return true
+    // await profileHelp(e);
+  }
 
-    let ret = Profile.inputProfile(uid, e)
-    let char = Character.get(e.avatar)
-    if (lodash.isString(ret)) {
-      e.reply(ret)
-      return true
-    } else if (ret) {
-      e.reply(`${char.name}信息手工录入完成，你可以使用 #角色名+面板 / #角色名+伤害 来查看详细角色面板属性了`)
-    } else {
-      e.reply(`${char.name}信息手工录入失败，请检查录入格式。回复 #角色面板帮助 可查看录入提示`)
-      e.reply('【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0')
-    }
+  let ret = Profile.inputProfile(uid, e)
+  let char = Character.get(e.avatar)
+  if (lodash.isString(ret)) {
+    e.reply(ret)
+    return true
+  } else if (ret) {
+    e.reply(`${char.name}信息手工录入完成，你可以使用 #角色名+面板 / #角色名+伤害 来查看详细角色面板属性了`)
+  } else {
+    e.reply(`${char.name}信息手工录入失败，请检查录入格式。回复 #角色面板帮助 可查看录入提示`)
+    e.reply('【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0')
+  }
+  return true
+}
+
+/*
+* 面板数据更新
+* */
+export async function getProfile (e, { render }) {
+  let uid = await getTargetUid(e)
+  if (!uid) {
     return true
   }
 
@@ -189,17 +195,18 @@ export async function getProfile (e, mode = 'refresh') {
   if (!data.chars) {
     e.reply('获取角色面板数据失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~')
   } else {
-    let ret = []
+    let ret = {}
     lodash.forEach(data.chars, (ds) => {
       let char = Character.get(ds.id)
       if (char) {
-        ret.push(char.name)
+        ret[char.name] = true
       }
     })
     if (ret.length === 0) {
       e.reply('获取角色面板数据失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~')
     } else {
-      e.reply(`获取角色面板数据成功！\n${ret.length > 8 ? '所有已获取' : '本次获取成功'}角色: ${ret.join(', ')} 。\n你可以使用 #角色名+面板 来查看详细角色面板属性了。`)
+      e.newChar = ret
+      return await profileList(e, { render })
     }
   }
   return true
