@@ -409,7 +409,12 @@ export async function uploadData (e, { render }) {
     cookieType: 'all',
     action: '获取深渊信息'
   })
-  if (!MysApi || !MysApi.isSelfCookie) return false
+  if (!MysApi || !MysApi.isSelfCookie) {
+    if (isMatch) {
+      e.reply(`请绑定ck后再使用${e.original_msg}`)
+    }
+    return false
+  }
   let ret = {}
   let uid = e.selfUser.uid
   let resDetail, resAbyss, overview
