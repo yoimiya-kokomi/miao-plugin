@@ -1,0 +1,241 @@
+.container {
+  background-size: cover;
+}
+
+.lv {
+  &:before {
+    content: "Lv";
+    display: inline-block;
+    font-size: 12px;
+  }
+
+  width: 40px;
+  text-align: right;
+  padding-right: 2px;
+}
+
+#profile-stat {
+  display: table;
+  border-collapse: collapse;
+  width: calc(100% + 30px);
+  margin: 0 -15px -5px;
+  overflow: hidden;
+
+
+  .cont {
+    font-size: 14px;
+    background: none;
+  }
+
+  .cons {
+    height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    width: 19px;
+    padding: 0 0 0 1px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0 3px 3px 0;
+    margin-left: -4px;
+    font-size: 13px;
+  }
+
+  .item-icon, .cons {
+    &.star4 {
+      box-shadow: 0 0 0 1px rgba(223, 190, 255, 1);
+    }
+
+    &.star5 {
+      box-shadow: 0 0 0 1px rgba(255, 228, 180, 1);
+    }
+  }
+
+  .item-name {
+    text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, .8);
+
+    &.star4 {
+      color: #dfbeff;
+    }
+
+    &.star5 {
+      color: #ffe4b4;
+    }
+  }
+
+  .tr {
+
+    & > div {
+
+      text-align: center;
+      height: 36px;
+      vertical-align: middle;
+      line-height: 36px;
+      box-shadow: none;
+
+      * {
+        vertical-align: middle;
+      }
+    }
+
+    .index {
+      color: #333;
+      width: 30px;
+      padding-left: 5px;
+
+    }
+
+    .td-name {
+      text-align: right;
+      width: 110px;
+      padding-right: 8px;
+
+
+      .char-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        display: inline-block;
+      }
+
+      .cons {
+        margin-left: -5px;
+      }
+
+    }
+
+    .th .name {
+      justify-content: center;
+    }
+
+    > div.fetter10 {
+      background: url("./hart.png") center center no-repeat;
+      background-size: contain;
+      color: #fff;
+    }
+
+    .cons span {
+      display: inline-block;
+      width: 14px;
+      height: 18px;
+      line-height: 18px;
+      vertical-align: middle;
+      border-radius: 4px;
+      margin-bottom: 2px;
+    }
+
+    .td-weapon {
+      text-align: left;
+      width: 160px;
+      padding-left: 10px;
+
+
+      .weapon-icon {
+        border-radius: 3px 0 0 3px;
+      }
+
+      .cons {
+        border-radius: 0 3px 3px 0;
+      }
+    }
+
+    .weapon-icon {
+      width: 25px;
+      height: 22px;
+      display: inline-block;
+      overflow: visible;
+      margin-left: 3px;
+
+      .img {
+        width: 32px;
+        height: 32px;
+        margin: -5px 0 0 -3px;
+      }
+    }
+
+
+    .weapon .avatar-weapon {
+      display: flex;
+      align-items: center;
+    }
+
+    .weapon .weapon_lv {
+      width: 30px;
+      margin-left: 8px;
+    }
+
+    .weapon .weapon_alv {
+      width: 14px;
+      text-align: center;
+      height: 18px;
+      line-height: 18px;
+      padding: 0 3px;
+      border-radius: 4px;
+      margin-right: 5px;
+    }
+
+  }
+
+  .tr {
+    .lv1 {
+      background: rgba(60, 63, 65, .2)
+    }
+
+    .lv2 {
+      background: rgba(23, 184, 58, .3)
+    }
+
+    .lv3 {
+      background: rgba(27, 128, 212, .3)
+    }
+
+    .lv4 {
+      background: rgba(146, 90, 255, .35);
+    }
+
+    .lv5 {
+      background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, .35);
+      background-size: contain;
+    }
+
+  }
+
+  .td-artis {
+    width: 120px;
+  }
+
+  .avatar-artis {
+    margin-left: 3px;
+
+    .artis {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background: rgba(255, 255, 255, .3);
+      display: inline-block;
+    }
+
+    &.artis2 {
+      .img {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+
+        &:first-child {
+          left: -2px;
+          top: -2px;
+        }
+
+        &:last-child {
+          right: -2px;
+          bottom: -2px;
+        }
+      }
+    }
+  }
+}
+
+.talent_notice {
+  color: #888;
+  text-align: right;
+  padding: 12px 5px 5px;
+}

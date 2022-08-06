@@ -49,6 +49,10 @@ let HutaoApi = {
     return await HutaoApi.req('/Statistics/TeamCombination')
   },
 
+  async getOverview () {
+    return await HutaoApi.req('/Statistics/Overview')
+  },
+
   async upload (data) {
     let body = JSON.stringify(data)
     return await HutaoApi.req('/Record/Upload', {

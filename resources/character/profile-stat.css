@@ -1,0 +1,187 @@
+.container {
+  background-size: cover;
+}
+.lv {
+  width: 40px;
+  text-align: right;
+  padding-right: 2px;
+}
+.lv:before {
+  content: "Lv";
+  display: inline-block;
+  font-size: 12px;
+}
+#profile-stat {
+  display: table;
+  border-collapse: collapse;
+  width: calc(100% + 30px);
+  margin: 0 -15px -5px;
+  overflow: hidden;
+}
+#profile-stat .cont {
+  font-size: 14px;
+  background: none;
+}
+#profile-stat .cons {
+  height: 22px;
+  line-height: 22px;
+  display: inline-block;
+  width: 19px;
+  padding: 0 0 0 1px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 0 3px 3px 0;
+  margin-left: -4px;
+  font-size: 13px;
+}
+#profile-stat .item-icon.star4,
+#profile-stat .cons.star4 {
+  box-shadow: 0 0 0 1px #dfbeff;
+}
+#profile-stat .item-icon.star5,
+#profile-stat .cons.star5 {
+  box-shadow: 0 0 0 1px #ffe4b4;
+}
+#profile-stat .item-name {
+  text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+#profile-stat .item-name.star4 {
+  color: #dfbeff;
+}
+#profile-stat .item-name.star5 {
+  color: #ffe4b4;
+}
+#profile-stat .tr > div {
+  text-align: center;
+  height: 36px;
+  vertical-align: middle;
+  line-height: 36px;
+  box-shadow: none;
+}
+#profile-stat .tr > div * {
+  vertical-align: middle;
+}
+#profile-stat .tr .index {
+  color: #333;
+  width: 30px;
+  padding-left: 5px;
+}
+#profile-stat .tr .td-name {
+  text-align: right;
+  width: 110px;
+  padding-right: 8px;
+}
+#profile-stat .tr .td-name .char-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  display: inline-block;
+}
+#profile-stat .tr .td-name .cons {
+  margin-left: -5px;
+}
+#profile-stat .tr .th .name {
+  justify-content: center;
+}
+#profile-stat .tr > div.fetter10 {
+  background: url("./hart.png") center center no-repeat;
+  background-size: contain;
+  color: #fff;
+}
+#profile-stat .tr .cons span {
+  display: inline-block;
+  width: 14px;
+  height: 18px;
+  line-height: 18px;
+  vertical-align: middle;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+#profile-stat .tr .td-weapon {
+  text-align: left;
+  width: 160px;
+  padding-left: 10px;
+}
+#profile-stat .tr .td-weapon .weapon-icon {
+  border-radius: 3px 0 0 3px;
+}
+#profile-stat .tr .td-weapon .cons {
+  border-radius: 0 3px 3px 0;
+}
+#profile-stat .tr .weapon-icon {
+  width: 25px;
+  height: 22px;
+  display: inline-block;
+  overflow: visible;
+  margin-left: 3px;
+}
+#profile-stat .tr .weapon-icon .img {
+  width: 32px;
+  height: 32px;
+  margin: -5px 0 0 -3px;
+}
+#profile-stat .tr .weapon .avatar-weapon {
+  display: flex;
+  align-items: center;
+}
+#profile-stat .tr .weapon .weapon_lv {
+  width: 30px;
+  margin-left: 8px;
+}
+#profile-stat .tr .weapon .weapon_alv {
+  width: 14px;
+  text-align: center;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 3px;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+#profile-stat .tr .lv1 {
+  background: rgba(60, 63, 65, 0.2);
+}
+#profile-stat .tr .lv2 {
+  background: rgba(23, 184, 58, 0.3);
+}
+#profile-stat .tr .lv3 {
+  background: rgba(27, 128, 212, 0.3);
+}
+#profile-stat .tr .lv4 {
+  background: rgba(146, 90, 255, 0.35);
+}
+#profile-stat .tr .lv5 {
+  background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, 0.35);
+  background-size: contain;
+}
+#profile-stat .td-artis {
+  width: 120px;
+}
+#profile-stat .avatar-artis {
+  margin-left: 3px;
+}
+#profile-stat .avatar-artis .artis {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.3);
+  display: inline-block;
+}
+#profile-stat .avatar-artis.artis2 .img {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+}
+#profile-stat .avatar-artis.artis2 .img:first-child {
+  left: -2px;
+  top: -2px;
+}
+#profile-stat .avatar-artis.artis2 .img:last-child {
+  right: -2px;
+  bottom: -2px;
+}
+.talent_notice {
+  color: #888;
+  text-align: right;
+  padding: 12px 5px 5px;
+}
+/*# sourceMappingURL=profile-stat.css.map */

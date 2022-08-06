@@ -21,6 +21,9 @@ export { wife, pokeWife, wifeReg } from './character/avatar-wife.js'
 // 面板角色列表
 export { profileList } from './character/profile-list.js'
 
+// 面板练度统计
+export { profileStat } from './character/profile-stat.js'
+
 // 查看当前角色
 export async function character (e, { render }) {
   let msg = e.original_msg || e.msg

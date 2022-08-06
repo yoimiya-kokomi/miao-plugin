@@ -13,10 +13,16 @@ export default class Avatars extends Base {
     }
     this.uid = uid
     let avatars = {}
+    let abbr = Character.getAbbr()
     lodash.forEach(datas, (avatar) => {
       let data = Data.getData(avatar, 'id,name,level,star:rarity,cons:actived_constellation_num,fetter')
+      data.abbr = abbr[data.name] || data.name
       data.elem = (avatar.element || '').toLowerCase() || 'hydro'
       data.weapon = Data.getData(avatar.weapon, 'name,affix:affix_level,level,star:rarity')
+      data.weapon.abbr = abbr[data?.weapon?.name || ''] || data?.weapon?.name
+      if (data.star > 5) {
+        data.star = 5;
+      }
       let artis = {}
       let sets = {}
       lodash.forEach(avatar.reliquaries, (arti) => {
@@ -49,6 +55,14 @@ export default class Avatars extends Base {
     let avatars = this.avatars
     lodash.forEach(ids, (id) => {
       rets[id] = avatars[id] || {}
+    })
+    return rets
+  }
+
+  getIds () {
+    let rets = []
+    lodash.forEach(this.avatars, (ds) => {
+      rets.push(ds.id)
     })
     return rets
   }

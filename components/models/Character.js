@@ -166,6 +166,10 @@ class Character extends Base {
         a.original = 10
       }
     }
+    if (this.id * 1 === 10000033) {
+      let a = ret.a || {}
+      a.original = a.level - 1
+    }
     return ret
   }
 

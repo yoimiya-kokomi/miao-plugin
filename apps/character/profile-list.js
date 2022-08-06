@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { autoRefresh, getTargetUid } from './profile-common.js'
 import { Common, Profile } from '../../components/index.js'
-import { Character } from '../../components/models.js';
+import { Character } from '../../components/models.js'
 
 export async function profileList (e, { render }) {
   let uid = await getTargetUid(e)
@@ -25,6 +25,9 @@ export async function profileList (e, { render }) {
     let { id } = ds
     let char = Character.get(id)
     let tmp = char.getData('id,name,abbr,element,star')
+    if (tmp.name === '荧' || tmp.name === '空') {
+      return
+    }
     tmp.source = ds.dataSource
     tmp.level = ds.lv || 1
     tmp.isNew = newChar[char.name] ? 1 : 0

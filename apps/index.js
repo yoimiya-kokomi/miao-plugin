@@ -17,7 +17,8 @@ export {
   profileHelp,
   getOriginalPicture,
   uploadCharacterImg,
-  profileList
+  profileList,
+  profileStat
 } from './character.js'
 
 export {
@@ -52,6 +53,10 @@ let rule = {
   profileList: {
     reg: '^#(面板角色|角色面板|面板)(列表)?\\s*(\\d{9})?$',
     describe: '【#角色】查看当前已获取面板数据的角色列表'
+  },
+  profileStat: {
+    reg: '^#面板练度统计$',
+    describe: '【#角色】查看当前面板练度统计$'
   },
   profileHelp: {
     reg: '^#角色面板帮助$',

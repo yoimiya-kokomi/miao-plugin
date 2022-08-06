@@ -1,0 +1,88 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-stat.css"/>
+{{/block}}
+
+
+{{block 'main'}}
+<div class="head-box">
+  <div class="title">角色面板练度统计</div>
+  <div class="label">UID:{{uid}} 共{{avatars.length }}名角色</div>
+</div>
+<div id="profile-stat">
+  <div class="cont">
+    <div class="cont-title">角色详情列表</div>
+    <div class="cont-table">
+      <div class="avatar tr thead">
+        <div class="td-level">Lv</div>
+        <div class="td-name">角色</div>
+
+        <div class="td-fetter">好感</div>
+
+        <div class="td-talent">A</div>
+        <div class="td-talent">E</div>
+        <div class="td-talent">Q</div>
+        <div class="td-weapon">武器</div>
+        <div class="td-artis">圣遗物</div>
+      </div>
+      {{each avatars avatar idx}}
+      {{set talent = avatar.talent}}
+      {{set weapon = avatar.weapon}}
+      {{set tk = ['a','e','q'] }}
+      <div class="avatar tr">
+        <div class="td-level"> {{avatar.level}}</div>
+        <div class="td-name star{{avatar.star}}">
+          <div class="avatar-name">
+            <span class="item-name star{{avatar.star}}">{{avatar.abbr||avatar.name}}</span>
+            <div class="item-icon char-icon star{{avatar.star}}">
+              <span class="img"
+                    style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/face.png)"></span>
+            </div>
+            <span class="cons cons-{{avatar.cons}}">{{avatar.cons}}</span>
+          </div>
+        </div>
+
+
+        <div class="td-fetter"> {{avatar.fetter}}</div>
+
+        {{each tk talentKey}}
+        {{set curr = (avatar.talent||{})[talentKey] || {original:1,current:'-'} }}
+        <div class="td-talent lv{{talentLvMap[curr.original]}} {{curr.current>curr.original?'talent-plus':''}}">
+          {{curr.current}}
+        </div>
+        {{/each}}
+
+        <div class="td-weapon  weapon_{{avatar.weapon_rarity}}">
+          {{if weapon?.name}}
+          <span class="lv">{{weapon.level}}</span>
+
+          <div class="item-icon weapon-icon star{{weapon.star}}">
+              <span class="img"
+                    style="background-image:url({{_res_path}}/meta/weapons/icon/{{weapon.name}}.png)"></span>
+          </div>
+          <span class="cons cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
+          <span class="item-name star{{weapon.star}}">{{weapon.abbr}}</span>
+          {{/if}}
+        </div>
+        <div class="td-artis">
+          <div class="item avatar-artis artis{{avatar.sets.length}}">
+            <div class="artis item-icon">
+              {{each avatar.sets name}}
+              <span class="img"
+                    style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{name}}.png)"></span>
+              {{/each}}
+            </div>
+            123.4
+          </div>
+
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <p class="talent_notice">{{talentNotice}}</p>
+  </div>
+</div>
+
+
+{{/block}}

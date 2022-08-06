@@ -16,6 +16,7 @@ export async function consStat (e, { render }) {
   }
 
   let consData = await HutaoApi.getCons()
+  let overview = await HutaoApi.getOverview()
 
   if (!consData) {
     e.reply('角色持有数据获取失败，请稍后重试~')
@@ -83,6 +84,7 @@ export async function consStat (e, { render }) {
     abbr: Character.getAbbr(),
     mode,
     conNum,
+    totalCount: overview?.data?.totalPlayerCount || 0,
     lastUpdate: consData.lastUpdate,
     pct: function (num) {
       return (num * 100).toFixed(2)
@@ -108,6 +110,7 @@ export async function abyssPct (e, { render }) {
     abyssData = await HutaoApi.getAbyssPct()
     modeMulti = 8
   }
+  let overview = await HutaoApi.getOverview()
 
   if (!abyssData) {
     e.reply(`深渊${modeName}数据获取失败，请稍后重试~`)
@@ -168,6 +171,7 @@ export async function abyssPct (e, { render }) {
     chooseFloor,
     mode,
     modeName,
+    totalCount: overview?.data?.collectedPlayerCount || 0,
     lastUpdate: abyssData.lastUpdate
   }, { e, render, scale: 1.5 })
 }
@@ -408,9 +412,10 @@ export async function uploadData (e, { render }) {
   if (!MysApi || !MysApi.isSelfCookie) return false
   let ret = {}
   let uid = e.selfUser.uid
-  let resDetail, resAbyss
+  let resDetail, resAbyss, overview
   try {
     resAbyss = await MysApi.getSpiralAbyss(1)
+    overview = await HutaoApi.getOverview()
     if (resAbyss.floors.length > 0 && !await Avatars.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
@@ -477,6 +482,7 @@ export async function uploadData (e, { render }) {
         avatars: avatarData,
         stat,
         save_id: uid,
+        totalCount: overview?.data?.collectedPlayerCount || 0,
         uid
       }, { e, render, scale: 1.8 })
     } else {

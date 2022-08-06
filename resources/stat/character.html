@@ -35,7 +35,7 @@ return (num * 100).toFixed(2);
         <li>上传命令<strong>仅会上传您的角色列表及当期深渊挑战数据</strong>，不会上传其他额外信息</li>
         <li>由于是用户自主上传，数据可能有一定滞后。新角色的持有率会在卡池结束后一段时间逐步稳定</li>
         <li><strong>未经胡桃API开发团队允许，不得擅自使用或大范围传播此数据</strong>。详情咨询群910780153</li>
-        <li>数据最后更新时间：{{lastUpdate}}</li>
+        <li>{{if totalCount}}统计用户数：<strong>{{totalCount}}</strong>，{{/if}}数据最后更新时间：{{lastUpdate}}</li>
       </ul>
     </div>
   </div>
