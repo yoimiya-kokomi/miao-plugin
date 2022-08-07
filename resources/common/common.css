@@ -175,6 +175,44 @@ body {
   background: #ff5722;
   color: #fff;
 }
+/********  Fetter  ********/
+.fetter {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background: url('./item/fetter.png');
+  background-size: auto 100%;
+}
+.fetter.fetter1 {
+  background-position: 0% 0;
+}
+.fetter.fetter2 {
+  background-position: 11.11111111% 0;
+}
+.fetter.fetter3 {
+  background-position: 22.22222222% 0;
+}
+.fetter.fetter4 {
+  background-position: 33.33333333% 0;
+}
+.fetter.fetter5 {
+  background-position: 44.44444444% 0;
+}
+.fetter.fetter6 {
+  background-position: 55.55555556% 0;
+}
+.fetter.fetter7 {
+  background-position: 66.66666667% 0;
+}
+.fetter.fetter8 {
+  background-position: 77.77777778% 0;
+}
+.fetter.fetter9 {
+  background-position: 88.88888889% 0;
+}
+.fetter.fetter10 {
+  background-position: 100% 0;
+}
 /********  ELEM  ********/
 .elem-hydro .talent-icon {
   background-image: url("./bg/talent-hydro.png");

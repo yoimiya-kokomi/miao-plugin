@@ -7,7 +7,7 @@
 
 {{block 'main'}}
 <div class="head-box">
-  <div class="title">角色面板练度统计</div>
+  <div class="title">#面板练度统计</div>
   <div class="label">UID:{{uid}} 共{{avatars.length }}名角色</div>
 </div>
 <div id="profile-stat">
@@ -32,19 +32,21 @@
       {{set tk = ['a','e','q'] }}
       <div class="avatar tr">
         <div class="td-level"> {{avatar.level}}</div>
-        <div class="td-name star{{avatar.star}}">
+        <div class="td-name">
           <div class="avatar-name">
             <span class="item-name star{{avatar.star}}">{{avatar.abbr||avatar.name}}</span>
             <div class="item-icon char-icon star{{avatar.star}}">
               <span class="img"
                     style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/face.png)"></span>
             </div>
-            <span class="cons cons-{{avatar.cons}}">{{avatar.cons}}</span>
+            <span class="cons cons-{{avatar.cons}} star{{avatar.star}}">{{avatar.cons}}</span>
           </div>
         </div>
 
 
-        <div class="td-fetter"> {{avatar.fetter}}</div>
+        <div class="td-fetter ">
+          <span class="fetter fetter{{['空','荧','旅行者'].includes(avatar.name)?10:avatar.fetter}}"></span>
+        </div>
 
         {{each tk talentKey}}
         {{set curr = (avatar.talent||{})[talentKey] || {original:1,current:'-'} }}
@@ -53,7 +55,7 @@
         </div>
         {{/each}}
 
-        <div class="td-weapon  weapon_{{avatar.weapon_rarity}}">
+        <div class="td-weapon  star-{{weapon.star}}">
           {{if weapon?.name}}
           <span class="lv">{{weapon.level}}</span>
 
@@ -68,19 +70,27 @@
         <div class="td-artis">
           <div class="item avatar-artis artis{{avatar.sets.length}}">
             <div class="artis item-icon">
-              {{each avatar.sets name}}
+              {{each avatar?.artisMark?.sets || avatar?.sets || [] name}}
               <span class="img"
                     style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{name}}.png)"></span>
               {{/each}}
             </div>
-            123.4
+            {{if avatar.artisMark}}
+            {{set mark = avatar.artisMark}}
+            <span class="arti-mark-class class-{{mark.markClass}}">{{mark.markClass}}</span>
+            {{mark.mark}}
+            {{else}}
+            <span class="arti-mark-class class-na">-</span> -
+            {{/if}}
           </div>
 
         </div>
       </div>
       {{/each}}
     </div>
-    <p class="talent_notice">{{talentNotice}}</p>
+    {{if talentNotice}}
+    <p class="cont-notice">{{talentNotice}}</p>
+    {{/if}}
   </div>
 </div>
 

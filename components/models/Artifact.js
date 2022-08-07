@@ -4,6 +4,7 @@ import { Character } from '../models.js'
 import lodash from 'lodash'
 import Format from '../Format.js'
 import _Data from '../Data.js'
+import Data from '../Data.js';
 
 let _path = process.cwd()
 let artis = _Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/reliquaries/`, 'data.json') || {}
@@ -24,7 +25,7 @@ let Artifact = {
     let attrMark = {}
 
     let char = Character.get(name)
-    let baseAttr = char.lvStat.detail['90']
+    let baseAttr = char?.lvStat?.detail['90'] || [400, 500, 300]
     lodash.forEach(attrWeight, (weight, attr) => {
       attrMark[attr] = weight / attrValue[attr]
     })
@@ -41,7 +42,8 @@ let Artifact = {
       attrMark.defPlus = attrMark.def / baseAttr[2] * 100
     }
     let maxMark = Artifact.getMaxMark(attrWeight)
-    let titleMark = {}; let titleWeight = {}
+    let titleMark = {}
+    let titleWeight = {}
     lodash.forEach(attrMark, (mark, attr) => {
       let aTitle = attrMap[attr].title
       if (/小/.test(aTitle)) {
@@ -81,7 +83,8 @@ let Artifact = {
   getMaxMark (attrWeight) {
     let ret = {}
     for (let idx = 1; idx <= 5; idx++) {
-      let totalMark = 0; let mMark = 0
+      let totalMark = 0;
+      let mMark = 0
       let mAttr = ''
       if (idx === 1) {
         mAttr = 'hpPlus'
@@ -151,6 +154,44 @@ let Artifact = {
     return ret
   },
 
+  getTotalMark (charName = '', artis) {
+    let artisMark = Artifact.getArtisMark(charName, artis)
+    let mark = 0
+    for (let k in artisMark) {
+      if (artisMark[k]) {
+        mark += artisMark[k]
+      }
+    }
+    let sets = {}
+    let setMap = {}
+    lodash.forEach(artis, (arti) => {
+      let setName = Artifact.getSetByArti(arti.name)?.name || 'N/A'
+      if (setName) {
+        sets[setName] = (sets[setName] || 0) + 1
+      }
+    })
+    console.log(charName, sets)
+    for (let set in sets) {
+      if (sets[set] >= 4) {
+        setMap[set] = 4
+      } else if (sets[set] >= 2) {
+        setMap[set] = 2
+      }
+    }
+    let setsRet = []
+    lodash.forEach(setMap, (v, k) => {
+      let name = Artifact.getArtiBySet(k)
+      if (name) {
+        setsRet.push(name)
+      }
+    })
+    return {
+      mark: (mark || 0).toFixed(1),
+      markClass: Artifact.getMarkClass(mark / 5),
+      sets: setsRet
+    }
+  },
+
   getMarkClass (mark) {
     let pct = mark
     let scoreMap = [['D', 10], ['C', 16.5], ['B', 23.1], ['A', 29.7], ['S', 36.3], ['SS', 42.9], ['SSS', 49.5], ['ACE', 56.1], ['ACE²', 66]]
@@ -194,7 +235,10 @@ let Artifact = {
       })
       return ret
     }
-    let title = ds[0]; let key = ''; let val = ds[1]; let num = ds[1]
+    let title = ds[0];
+    let key = '';
+    let val = ds[1];
+    let num = ds[1]
     if (!title || title === 'undefined') {
       return []
     }

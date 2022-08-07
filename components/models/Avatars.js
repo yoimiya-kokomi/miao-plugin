@@ -21,7 +21,7 @@ export default class Avatars extends Base {
       data.weapon = Data.getData(avatar.weapon, 'name,affix:affix_level,level,star:rarity')
       data.weapon.abbr = abbr[data?.weapon?.name || ''] || data?.weapon?.name
       if (data.star > 5) {
-        data.star = 5;
+        data.star = 5
       }
       let artis = {}
       let sets = {}

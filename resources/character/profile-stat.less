@@ -2,17 +2,6 @@
   background-size: cover;
 }
 
-.lv {
-  &:before {
-    content: "Lv";
-    display: inline-block;
-    font-size: 12px;
-  }
-
-  width: 40px;
-  text-align: right;
-  padding-right: 2px;
-}
 
 #profile-stat {
   display: table;
@@ -41,6 +30,18 @@
   }
 
   .item-icon, .cons {
+    &.star1 {
+      box-shadow: 0 0 0 1px rgb(171, 171, 171);
+    }
+
+    &.star2 {
+      box-shadow: 0 0 0 1px rgb(208, 255, 190);
+    }
+
+    &.star3 {
+      box-shadow: 0 0 0 1px rgb(190, 208, 255);
+    }
+
     &.star4 {
       box-shadow: 0 0 0 1px rgba(223, 190, 255, 1);
     }
@@ -62,6 +63,24 @@
     }
   }
 
+  .tr.thead {
+    .td-name {
+      padding-right: 22px;
+    }
+
+    .td-talent {
+      box-shadow: none;
+    }
+
+    .td-weapon {
+      padding-left: 50px;
+    }
+
+    .td-artis {
+      text-align: left;
+    }
+  }
+
   .tr {
 
     & > div {
@@ -75,12 +94,39 @@
       * {
         vertical-align: middle;
       }
+
+      &.star1 {
+
+      }
+
+      &.star2 {
+
+      }
+
+      &.star3 {
+
+      }
+
+      &.star4 {
+        background: rgba(102, 59, 143, 0.5);
+      }
+
+      &.star5 {
+        background: rgba(124, 95, 45, 0.5);
+      }
     }
 
     .index {
       color: #333;
       width: 30px;
       padding-left: 5px;
+
+    }
+
+    .td-level {
+
+      width: 30px;
+      text-align: right;
 
     }
 
@@ -95,6 +141,17 @@
         height: 30px;
         border-radius: 5px;
         display: inline-block;
+        overflow: visible;
+
+
+        .img {
+          width: 34px;
+          height: 34px;
+
+          position: relative;
+          top: -3px;
+          left: -2px;
+        }
       }
 
       .cons {
@@ -103,30 +160,40 @@
 
     }
 
-    .th .name {
-      justify-content: center;
+    .td-fetter {
+      width: 40px;
+      text-align: center;
+      padding-right: 5px;
+
+      .fetter {
+        width: 32px;
+        height: 32px;
+      }
     }
 
-    > div.fetter10 {
-      background: url("./hart.png") center center no-repeat;
-      background-size: contain;
-      color: #fff;
-    }
-
-    .cons span {
-      display: inline-block;
-      width: 14px;
-      height: 18px;
-      line-height: 18px;
-      vertical-align: middle;
-      border-radius: 4px;
-      margin-bottom: 2px;
+    .td-talent {
+      width: 36px;
+      box-shadow: 0 0 1px 0 rgba(150, 150, 150, .5);
     }
 
     .td-weapon {
       text-align: left;
-      width: 160px;
       padding-left: 10px;
+
+      .lv {
+        width: 38px;
+        text-align: right;
+        padding-right: 2px;
+        display: inline-block;
+        white-space: nowrap;
+
+        &:before {
+          content: "Lv.";
+          display: inline-block;
+          font-size: 12px;
+          transform: scale(.8)
+        }
+      }
 
 
       .weapon-icon {
@@ -143,53 +210,29 @@
       height: 22px;
       display: inline-block;
       overflow: visible;
-      margin-left: 3px;
 
       .img {
-        width: 32px;
-        height: 32px;
-        margin: -5px 0 0 -3px;
+        width: 36px;
+        height: 36px;
+        margin: -8px 0 0 -7px;
       }
     }
 
 
-    .weapon .avatar-weapon {
-      display: flex;
-      align-items: center;
-    }
-
-    .weapon .weapon_lv {
-      width: 30px;
-      margin-left: 8px;
-    }
-
-    .weapon .weapon_alv {
-      width: 14px;
-      text-align: center;
-      height: 18px;
-      line-height: 18px;
-      padding: 0 3px;
-      border-radius: 4px;
-      margin-right: 5px;
-    }
-
-  }
-
-  .tr {
     .lv1 {
-      background: rgba(60, 63, 65, .2)
+      background: rgba(60, 63, 65, .5)
     }
 
     .lv2 {
-      background: rgba(23, 184, 58, .3)
+      background: rgba(23, 184, 58, .4)
     }
 
     .lv3 {
-      background: rgba(27, 128, 212, .3)
+      background: rgba(27, 128, 212, .4)
     }
 
     .lv4 {
-      background: rgba(146, 90, 255, .35);
+      background: rgba(146, 90, 255, .4);
     }
 
     .lv5 {
@@ -201,16 +244,21 @@
 
   .td-artis {
     width: 120px;
+    text-align: left;
   }
 
   .avatar-artis {
     margin-left: 3px;
+    text-align: left;
+    position: relative;
+    z-index: 10;
 
     .artis {
       position: relative;
       width: 30px;
       height: 30px;
-      background: rgba(255, 255, 255, .3);
+      background: rgba(51, 51, 51, 0.68);
+      box-shadow: 0 0 1px 0 #ffe4b4;
       display: inline-block;
     }
 
@@ -232,10 +280,43 @@
       }
     }
   }
+
+  .arti-mark-class {
+    width: 30px;
+    font-size: 12px;
+    border-radius: 0 4px 4px 0;
+    display: inline-block;
+    text-align: center;
+    background: #888;
+    height: 18px;
+    line-height: 18px;
+    margin-left: -5px;
+    box-shadow: 0 0 1px 0 #ffe4b4;
+    position: relative;
+    z-index: 9;
+
+    &.class- {
+      &ACE,
+      &ACE² {
+        background: #ff5722;
+      }
+
+      &SSS,
+      &SS {
+        background: #ab7e31;
+      }
+
+      &S,
+      &A {
+        background: #8a2cc9;
+      }
+    }
+  }
 }
 
-.talent_notice {
-  color: #888;
+.cont-notice {
+  color: #666;
+  background: rgba(0, 0, 0, .7);
   text-align: right;
-  padding: 12px 5px 5px;
+  padding: 8px;
 }

@@ -163,6 +163,21 @@ body {
 .cons2(5, #531ba9cf);
 .cons2(6, #ff5722);
 
+/********  Fetter  ********/
+
+.fetter {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background: url('./item/fetter.png');
+  background-size: auto 100%;
+  @fetters: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
+  each(@fetters, {
+    &.fetter@{value} {
+      background-position: (-100%/9)+(100%/9)*@value 0;
+    }
+  })
+}
 
 /********  ELEM  ********/
 

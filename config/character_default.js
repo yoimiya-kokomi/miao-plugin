@@ -12,10 +12,10 @@
 export const customCharacters = {
 
   // 已有角色添加别名示例：为魈增加新的别名
-  // roleid请参见Yunzai roleId.js
+  // roleid请参见Yunzai config/genshin/roleId.js
   10000026: ['魈', '风夜叉'],
 
-  // 以下为新增自定义角色，角色id请以小写英文定义
+  // 自定义角色，角色id请以小写英文定义
   sb: ['散兵', '国崩']
 }
 
@@ -32,6 +32,7 @@ export const wifeData = {
 
   // 女儿：萝莉
   daughter: '派蒙, 瑶瑶',
+
   // 儿子：正太
   son: ''
 }

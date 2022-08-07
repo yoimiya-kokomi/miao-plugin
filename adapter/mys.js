@@ -10,7 +10,6 @@ class User {
 
   // 保存用户配置
   async setCfg (path, value) {
-    console.log(this.id)
     let userCfg = await redis.get(`genshin:user-cfg:${this.id}`)
     userCfg = userCfg ? JSON.parse(userCfg) : {}
     lodash.set(userCfg, path, value)

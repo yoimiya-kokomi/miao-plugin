@@ -1,16 +1,6 @@
 .container {
   background-size: cover;
 }
-.lv {
-  width: 40px;
-  text-align: right;
-  padding-right: 2px;
-}
-.lv:before {
-  content: "Lv";
-  display: inline-block;
-  font-size: 12px;
-}
 #profile-stat {
   display: table;
   border-collapse: collapse;
@@ -34,6 +24,18 @@
   margin-left: -4px;
   font-size: 13px;
 }
+#profile-stat .item-icon.star1,
+#profile-stat .cons.star1 {
+  box-shadow: 0 0 0 1px #ababab;
+}
+#profile-stat .item-icon.star2,
+#profile-stat .cons.star2 {
+  box-shadow: 0 0 0 1px #d0ffbe;
+}
+#profile-stat .item-icon.star3,
+#profile-stat .cons.star3 {
+  box-shadow: 0 0 0 1px #bed0ff;
+}
 #profile-stat .item-icon.star4,
 #profile-stat .cons.star4 {
   box-shadow: 0 0 0 1px #dfbeff;
@@ -51,6 +53,18 @@
 #profile-stat .item-name.star5 {
   color: #ffe4b4;
 }
+#profile-stat .tr.thead .td-name {
+  padding-right: 22px;
+}
+#profile-stat .tr.thead .td-talent {
+  box-shadow: none;
+}
+#profile-stat .tr.thead .td-weapon {
+  padding-left: 50px;
+}
+#profile-stat .tr.thead .td-artis {
+  text-align: left;
+}
 #profile-stat .tr > div {
   text-align: center;
   height: 36px;
@@ -61,10 +75,20 @@
 #profile-stat .tr > div * {
   vertical-align: middle;
 }
+#profile-stat .tr > div.star4 {
+  background: rgba(102, 59, 143, 0.5);
+}
+#profile-stat .tr > div.star5 {
+  background: rgba(124, 95, 45, 0.5);
+}
 #profile-stat .tr .index {
   color: #333;
   width: 30px;
   padding-left: 5px;
+}
+#profile-stat .tr .td-level {
+  width: 30px;
+  text-align: right;
 }
 #profile-stat .tr .td-name {
   text-align: right;
@@ -76,31 +100,47 @@
   height: 30px;
   border-radius: 5px;
   display: inline-block;
+  overflow: visible;
+}
+#profile-stat .tr .td-name .char-icon .img {
+  width: 34px;
+  height: 34px;
+  position: relative;
+  top: -3px;
+  left: -2px;
 }
 #profile-stat .tr .td-name .cons {
   margin-left: -5px;
 }
-#profile-stat .tr .th .name {
-  justify-content: center;
+#profile-stat .tr .td-fetter {
+  width: 40px;
+  text-align: center;
+  padding-right: 5px;
 }
-#profile-stat .tr > div.fetter10 {
-  background: url("./hart.png") center center no-repeat;
-  background-size: contain;
-  color: #fff;
+#profile-stat .tr .td-fetter .fetter {
+  width: 32px;
+  height: 32px;
 }
-#profile-stat .tr .cons span {
-  display: inline-block;
-  width: 14px;
-  height: 18px;
-  line-height: 18px;
-  vertical-align: middle;
-  border-radius: 4px;
-  margin-bottom: 2px;
+#profile-stat .tr .td-talent {
+  width: 36px;
+  box-shadow: 0 0 1px 0 rgba(150, 150, 150, 0.5);
 }
 #profile-stat .tr .td-weapon {
   text-align: left;
-  width: 160px;
   padding-left: 10px;
+}
+#profile-stat .tr .td-weapon .lv {
+  width: 38px;
+  text-align: right;
+  padding-right: 2px;
+  display: inline-block;
+  white-space: nowrap;
+}
+#profile-stat .tr .td-weapon .lv:before {
+  content: "Lv.";
+  display: inline-block;
+  font-size: 12px;
+  transform: scale(0.8);
 }
 #profile-stat .tr .td-weapon .weapon-icon {
   border-radius: 3px 0 0 3px;
@@ -113,41 +153,23 @@
   height: 22px;
   display: inline-block;
   overflow: visible;
-  margin-left: 3px;
 }
 #profile-stat .tr .weapon-icon .img {
-  width: 32px;
-  height: 32px;
-  margin: -5px 0 0 -3px;
-}
-#profile-stat .tr .weapon .avatar-weapon {
-  display: flex;
-  align-items: center;
-}
-#profile-stat .tr .weapon .weapon_lv {
-  width: 30px;
-  margin-left: 8px;
-}
-#profile-stat .tr .weapon .weapon_alv {
-  width: 14px;
-  text-align: center;
-  height: 18px;
-  line-height: 18px;
-  padding: 0 3px;
-  border-radius: 4px;
-  margin-right: 5px;
+  width: 36px;
+  height: 36px;
+  margin: -8px 0 0 -7px;
 }
 #profile-stat .tr .lv1 {
-  background: rgba(60, 63, 65, 0.2);
+  background: rgba(60, 63, 65, 0.5);
 }
 #profile-stat .tr .lv2 {
-  background: rgba(23, 184, 58, 0.3);
+  background: rgba(23, 184, 58, 0.4);
 }
 #profile-stat .tr .lv3 {
-  background: rgba(27, 128, 212, 0.3);
+  background: rgba(27, 128, 212, 0.4);
 }
 #profile-stat .tr .lv4 {
-  background: rgba(146, 90, 255, 0.35);
+  background: rgba(146, 90, 255, 0.4);
 }
 #profile-stat .tr .lv5 {
   background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, 0.35);
@@ -155,15 +177,20 @@
 }
 #profile-stat .td-artis {
   width: 120px;
+  text-align: left;
 }
 #profile-stat .avatar-artis {
   margin-left: 3px;
+  text-align: left;
+  position: relative;
+  z-index: 10;
 }
 #profile-stat .avatar-artis .artis {
   position: relative;
   width: 30px;
   height: 30px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(51, 51, 51, 0.68);
+  box-shadow: 0 0 1px 0 #ffe4b4;
   display: inline-block;
 }
 #profile-stat .avatar-artis.artis2 .img {
@@ -179,9 +206,36 @@
   right: -2px;
   bottom: -2px;
 }
-.talent_notice {
-  color: #888;
+#profile-stat .arti-mark-class {
+  width: 30px;
+  font-size: 12px;
+  border-radius: 0 4px 4px 0;
+  display: inline-block;
+  text-align: center;
+  background: #888;
+  height: 18px;
+  line-height: 18px;
+  margin-left: -5px;
+  box-shadow: 0 0 1px 0 #ffe4b4;
+  position: relative;
+  z-index: 9;
+}
+#profile-stat .arti-mark-class.class-ACE,
+#profile-stat .arti-mark-class.class-ACE² {
+  background: #ff5722;
+}
+#profile-stat .arti-mark-class.class-SSS,
+#profile-stat .arti-mark-class.class-SS {
+  background: #ab7e31;
+}
+#profile-stat .arti-mark-class.class-S,
+#profile-stat .arti-mark-class.class-A {
+  background: #8a2cc9;
+}
+.cont-notice {
+  color: #666;
+  background: rgba(0, 0, 0, 0.7);
   text-align: right;
-  padding: 12px 5px 5px;
+  padding: 8px;
 }
 /*# sourceMappingURL=profile-stat.css.map */
