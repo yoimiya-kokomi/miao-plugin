@@ -170,7 +170,6 @@ let Artifact = {
         sets[setName] = (sets[setName] || 0) + 1
       }
     })
-    console.log(charName, sets)
     for (let set in sets) {
       if (sets[set] >= 4) {
         setMap[set] = 4
