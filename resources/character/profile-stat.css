@@ -2,7 +2,7 @@
   background-size: cover;
 }
 .head-box {
-  margin-top: 0px;
+  margin-top: 0;
 }
 #profile-stat {
   display: table;
@@ -40,10 +40,12 @@
   border-radius: 0 3px 3px 0;
   width: 22px;
   margin-right: 5px;
+  text-shadow: 0 0 2px #000;
 }
 #profile-stat .level {
   border-radius: 3px 0 0 3px;
   width: 32px;
+  text-shadow: 0 0 2px #fff;
 }
 #profile-stat .level:before {
   content: "Lv";
@@ -310,13 +312,13 @@
   background: #8a2cc9;
 }
 .cont .arti-na {
-  padding-left: 8px;
+  padding-left: 13px;
   white-space: nowrap;
   transform: scale(0.8);
   transform-origin: left center;
   color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
-  margin-right: -40px;
+  margin-right: -60px;
 }
 .cont-notice {
   color: #666;
