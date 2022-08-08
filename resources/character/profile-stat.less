@@ -51,7 +51,8 @@
   .level {
     border-radius: 3px 0 0 3px;
     width: 32px;
-    text-shadow: 0 0 2px #fff;
+    text-shadow: 0 0 2px #000;
+    color: #fff;
 
     &:before {
       content: "Lv";
@@ -84,8 +85,7 @@
 
       .level {
         box-shadow: 0 0 0 1px @color;
-        color: darken(@color, 50%);
-        background: fadeout(@color, 10%);
+        background: fadeout(darken(@color, 30%), 50%);
       }
     }
   }

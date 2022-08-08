@@ -45,7 +45,8 @@
 #profile-stat .level {
   border-radius: 3px 0 0 3px;
   width: 32px;
-  text-shadow: 0 0 2px #fff;
+  text-shadow: 0 0 2px #000;
+  color: #fff;
 }
 #profile-stat .level:before {
   content: "Lv";
@@ -68,8 +69,7 @@
 }
 #profile-stat .star1 .level {
   box-shadow: 0 0 0 1px #ababab;
-  color: #2b2b2b;
-  background: rgba(171, 171, 171, 0.9);
+  background: rgba(94, 94, 94, 0.5);
 }
 #profile-stat .star2 .item-icon {
   box-shadow: 0 0 0 1px #d0ffbe;
@@ -79,8 +79,7 @@
 }
 #profile-stat .star2 .level {
   box-shadow: 0 0 0 1px #d0ffbe;
-  color: #35be00;
-  background: rgba(208, 255, 190, 0.9);
+  background: rgba(97, 255, 37, 0.5);
 }
 #profile-stat .star3 .item-icon {
   box-shadow: 0 0 0 1px #bed0ff;
@@ -90,8 +89,7 @@
 }
 #profile-stat .star3 .level {
   box-shadow: 0 0 0 1px #bed0ff;
-  color: #0035be;
-  background: rgba(190, 208, 255, 0.9);
+  background: rgba(37, 97, 255, 0.5);
 }
 #profile-stat .star4 .item-icon {
   box-shadow: 0 0 0 1px #dfbeff;
@@ -101,8 +99,7 @@
 }
 #profile-stat .star4 .level {
   box-shadow: 0 0 0 1px #dfbeff;
-  color: #6000be;
-  background: rgba(223, 190, 255, 0.9);
+  background: rgba(148, 37, 255, 0.5);
 }
 #profile-stat .star5 .item-icon {
   box-shadow: 0 0 0 1px #ffe4b4;
@@ -112,8 +109,7 @@
 }
 #profile-stat .star5 .level {
   box-shadow: 0 0 0 1px #ffe4b4;
-  color: #b47300;
-  background: rgba(255, 228, 180, 0.9);
+  background: rgba(255, 173, 27, 0.5);
 }
 .cont {
   font-size: 14px;
