@@ -4,7 +4,6 @@ import { Artifact, Avatars } from '../../components/models.js'
 
 export async function profileStat (e, { render }) {
   // 缓存时间，单位小时
-  let cacheCd = 6
 
   let msg = e.msg.replace('#', '').trim()
   if (msg === '角色统计' || msg === '武器统计') {
@@ -23,6 +22,10 @@ export async function profileStat (e, { render }) {
   let resIndex = await MysApi.getCharacter()
   if (!resIndex) {
     return true
+  }
+
+  if (!await Avatars.hasTalentCache(uid)) {
+    e.reply('正在获取角色信息，请稍候...')
   }
 
   let avatars = new Avatars(uid, resIndex.avatars)
