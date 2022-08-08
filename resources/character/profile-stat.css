@@ -117,6 +117,7 @@
 }
 .cont .item-name {
   text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.8);
+  text-align: center;
 }
 .cont .item-name.star4 {
   color: #dfbeff;
@@ -154,6 +155,9 @@
   text-align: left;
   width: 150px;
   padding-left: 8px;
+}
+.cont .tr .td-name .item-name {
+  width: 50px;
 }
 .cont .tr .td-name .char-icon {
   width: 30px;
@@ -199,6 +203,9 @@
 }
 .cont .tr .td-weapon .cons {
   border-radius: 0 3px 3px 0;
+}
+.cont .tr .td-weapon .item-name {
+  width: 70px;
 }
 .cont .tr .weapon-icon {
   width: 25px;
