@@ -1,3 +1,4 @@
+@import "../common/base.less";
 .profile {
   position: relative;
   margin-bottom: 10px;
@@ -36,13 +37,12 @@
 
   .char-name {
     font-size: 50px;
-    font-family: NZBZ;
+    .font-NZBZ;
     text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, .7);
     text-align: right;
   }
 
   .char-lv {
-    font-family: Number;
     margin-bottom: 20px;
     text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, .7);
     text-align: right;
@@ -60,7 +60,6 @@
     list-style: none;
     padding: 0 100px 0 35px;
     position: relative;
-    font-family: YS;
     height: 32px;
     line-height: 32px;
     text-shadow: 0 0 1px rgba(0, 0, 0, .5);
@@ -127,7 +126,6 @@
       position: absolute;
       right: 85px;
       text-align: right;
-      font-family: Number, sans-serif;
       font-weight: normal;
     }
 
@@ -137,7 +135,6 @@
       text-align: left;
       width: 75px;
       display: inline-block;
-      font-family: Number, sans-serif;
       color: #90e800;
       font-size: 15px;
     }
@@ -183,7 +180,6 @@
       margin-left: -15px;
       color: #000;
       box-shadow: 0 0 5px 0 #000;
-      font-family: Number;
     }
 
     &.talent-plus span {

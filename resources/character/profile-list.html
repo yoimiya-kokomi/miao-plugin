@@ -9,20 +9,30 @@
 {{block 'main'}}
 {{set demo = chars[0]?.abbr || "雷神" }}
 <div class="head-box">
-  <div class="title">角色面板列表</div>
-  <div class="label">UID:{{uid}} {{msg}}</div>
+  <div class="title">#面板列表<div class="label">UID:{{uid}} {{msg}}</div></div>
+
   <div class="label">你可以使用<span>#{{demo}}面板</span>、<span>#{{demo}}伤害</span>、<span>#{{demo}}圣遗物</span>命令来查看面板信息了</div>
 </div>
-<div class="cont char-list">
-  {{each chars char}}
-  <div class="char-item {{char.isNew?'new-char':''}}">
-    <div class="item-icon char-icon star{{char.star}}">
+<div class="cont">
+  <div class="char-list">
+    {{each chars char}}
+    <div class="char-item {{char.isNew&&hasNew ?'new-char':''}}">
+      <div class="item-icon char-icon star{{char.star}}">
        <span class="img"
              style="background-image:url({{_res_path}}/meta/character/{{char.name}}/face.png)"></span>
+      </div>
+      <span class="name">{{char.abbr}}</span>
     </div>
-    <span class="name">{{char.abbr}}</span>
+    {{/each}}
   </div>
-  {{/each}}
+  <div class="cont-footer">
+    {{if hasNew}}
+    <span class="new-tip">本次更新角色</span>
+    {{else}}
+    <span></span>
+    {{/if}}
+    <span class="serv">当前更新服务：{{servName}}</span>
+  </div>
 </div>
 
 

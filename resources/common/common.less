@@ -1,37 +1,15 @@
-@font-face {
-  font-family: "HWZS";
-  src: url("../common/font/华文中宋.TTF");
-  font-weight: normal;
-  font-style: normal;
+.font(@name, @file) {
+  @font-face {
+    font-family: @name;
+    src: url("./font/@{file}.woff") format('woff'), url("./font/@{file}.ttf") format('truetype');
+  }
 }
 
-@font-face {
-  font-family: "Number";
-  src: url("../common/font/tttgbnumber.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
+.font('Number', 'tttgbnumber');
+.font('NZBZ', 'NZBZ');
+.font('YS', 'HYWH-65W');
 
-@font-face {
-  font-family: "NZBZ";
-  src: url("../common/font/NZBZ.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "YS";
-  src: url("../common/font/HYWH-85W.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "YS2";
-  src: url("../common/font/HYWH-65W.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
+@import "base.less";
 
 * {
   margin: 0;
@@ -44,7 +22,7 @@
 body {
   font-size: 18px;
   color: #1e1f20;
-  font-family: Number, YS2, PingFangSC-Medium, PingFang SC, sans-serif;
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   transform: scale(1.4);
   transform-origin: 0 0;
   width: 600px;
@@ -65,9 +43,14 @@ body {
   margin-top: 30px;
 
   .title {
+    .font-NZBZ;
     font-size: 36px;
-    font-family: NZBZ, sans-serif;
     text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .9);
+
+    .label {
+      display: inline-block;
+      margin-left: 10px;
+    }
   }
 
   .genshin_logo {

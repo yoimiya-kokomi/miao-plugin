@@ -10,6 +10,9 @@ export async function profileList (e, { render }) {
   }
 
   let profiles = Profile.getAll(uid) || {}
+  let servName = Profile.getServName(uid)
+  let hasNew = false
+  let newCount = 0
 
   let chars = []
   let msg = ''
@@ -30,7 +33,10 @@ export async function profileList (e, { render }) {
     }
     tmp.source = ds.dataSource
     tmp.level = ds.lv || 1
-    tmp.isNew = newChar[char.name] ? 1 : 0
+    if (newChar[char.name]) {
+      tmp.isNew = 1
+      newCount++
+    }
     chars.push(tmp)
   })
 
@@ -44,6 +50,10 @@ export async function profileList (e, { render }) {
     return true
   }
 
+  if (newCount > 0) {
+    hasNew = newCount <= 8
+  }
+
   chars = lodash.sortBy(chars, ['isNew', 'star', 'level', 'id'])
   chars = chars.reverse()
 
@@ -52,6 +62,8 @@ export async function profileList (e, { render }) {
     save_id: uid,
     uid,
     chars,
+    servName,
+    hasNew,
     msg
   }, { e, render, scale: 1.6 })
 }

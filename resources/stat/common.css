@@ -1,3 +1,9 @@
+.font-YS {
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.font-NZBZ {
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +18,6 @@ body {
   background: url("./imgs/bg1.png") top left no-repeat #2a3860;
   background-size: contain;
   width: 600px;
-  font-family: Number, YS2;
 }
 .container {
   width: 600px;
@@ -29,7 +34,7 @@ body {
 }
 .head-box .title {
   font-size: 36px;
-  font-family: NZBZ;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
 .head-box .genshin_logo {
   position: absolute;

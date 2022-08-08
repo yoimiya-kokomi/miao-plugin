@@ -13,7 +13,6 @@
 body {
   font-size: 18px;
   color: #1e1f20;
-  font-family: PingFangSC-Medium, PingFang SC, sans-serif;
   transform: scale(1);
   transform-origin: 0 0;
   width: 996px;
@@ -28,7 +27,6 @@ body {
   text-align: center;
   color: #fff;
   margin: 20px 0 10px 0;
-  font-family: Number, YS;
 }
 .calendar {
   min-height: 400px;
@@ -132,7 +130,6 @@ body {
 .cal-list .cal-item span {
   display: block;
   font-size: 12px;
-  font-family: Number, YS;
 }
 .cal-list .cal-item.type-character {
   overflow: visible;
@@ -245,7 +242,6 @@ body {
 }
 .now-time span {
   color: #fff;
-  font-family: Number, YS;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 30px;
   padding: 10px 15px;

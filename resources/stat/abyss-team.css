@@ -3,7 +3,6 @@
   margin-bottom: 15px;
 }
 .cont {
-  font-family: YS;
   margin-top: 10px;
 }
 .cont-table .title {
@@ -31,7 +30,6 @@
   overflow: hidden;
   background: #e7e5d9;
   font-size: 12px;
-  font-family: Number;
   color: #000;
   text-align: center;
 }
@@ -46,7 +44,6 @@
 }
 .card-list .no-label {
   font-size: 12px;
-  font-family: YS;
   color: #555;
 }
 .card-list .card img {
@@ -80,7 +77,6 @@
   border-radius: 3px;
   padding: 1px 5px;
   background: rgba(0, 0, 0, 0.5);
-  font-family: Number;
 }
 .card-list .card .name,
 .card-list .card .num_name {

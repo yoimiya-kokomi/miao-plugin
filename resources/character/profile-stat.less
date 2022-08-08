@@ -2,6 +2,10 @@
   background-size: cover;
 }
 
+.head-box {
+  margin-top: 0px;
+}
+
 
 #profile-stat {
   display: table;
@@ -10,46 +14,90 @@
   margin: 0 -15px -5px;
   overflow: hidden;
 
+  .item-banner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 36px;
 
-  .cont {
-    font-size: 14px;
-    background: none;
+    & > * {
+      display: block;
+    }
+
+    .item-icon {
+      z-index: 10;
+    }
   }
 
-  .cons {
+  .cons, .level {
     height: 22px;
     line-height: 22px;
     display: inline-block;
     width: 19px;
-    padding: 0 0 0 1px;
+    padding: 0;
+    margin: 0;
     text-align: center;
     vertical-align: middle;
-    border-radius: 0 3px 3px 0;
-    margin-left: -4px;
     font-size: 13px;
+    position: relative;
   }
 
-  .item-icon, .cons {
-    &.star1 {
-      box-shadow: 0 0 0 1px rgb(171, 171, 171);
-    }
+  .cons {
+    border-radius: 0 3px 3px 0;
+    width: 22px;
+    margin-right: 5px;
+  }
 
-    &.star2 {
-      box-shadow: 0 0 0 1px rgb(208, 255, 190);
-    }
+  .level {
+    border-radius: 3px 0 0 3px;
+    width: 32px;
 
-    &.star3 {
-      box-shadow: 0 0 0 1px rgb(190, 208, 255);
-    }
+    &:before {
+      content: "Lv";
 
-    &.star4 {
-      box-shadow: 0 0 0 1px rgba(223, 190, 255, 1);
-    }
-
-    &.star5 {
-      box-shadow: 0 0 0 1px rgba(255, 228, 180, 1);
     }
   }
+
+  .level:before {
+    display: inline-block;
+    font-size: 12px;
+    transform: scale(.7);
+    transform-origin: right 55%;
+    margin-left: -3px;
+  }
+
+  .level:before {
+    content: "Lv";
+  }
+
+
+  .star(@s, @color) {
+    .star@{s} {
+      .item-icon {
+        box-shadow: 0 0 0 1px @color;
+      }
+
+      .cons {
+        box-shadow: 0 0 0 1px @color;
+      }
+
+      .level {
+        box-shadow: 0 0 0 1px @color;
+        color: darken(@color, 50%);
+        background: fadeout(@color, 10%);
+      }
+    }
+  }
+  .star(1, rgb(171, 171, 171));
+  .star(2, rgb(208, 255, 190));
+  .star(3, rgb(190, 208, 255));
+  .star(4, rgb(223, 190, 255));
+  .star(5, rgb(255, 228, 180));
+}
+
+.cont {
+  font-size: 14px;
+  background: none;
 
   .item-name {
     text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, .8);
@@ -64,55 +112,31 @@
   }
 
   .tr.thead {
-    .td-name {
-      padding-right: 22px;
+    background: rgba(0, 0, 0, .5);
+    font-weight: bold;
+
+    & > div {
+      box-shadow: 0 0 1px 0 rgba(255, 255, 255, .7);
+      text-align: center;
     }
 
     .td-talent {
-      box-shadow: none;
-    }
 
-    .td-weapon {
-      padding-left: 50px;
-    }
-
-    .td-artis {
-      text-align: left;
+      color: #d3bc8e;
     }
   }
 
   .tr {
 
     & > div {
-
       text-align: center;
       height: 36px;
       vertical-align: middle;
       line-height: 36px;
-      box-shadow: none;
+      box-shadow: 0 0 1px 0 rgba(255, 255, 255, .7);
 
       * {
         vertical-align: middle;
-      }
-
-      &.star1 {
-
-      }
-
-      &.star2 {
-
-      }
-
-      &.star3 {
-
-      }
-
-      &.star4 {
-        background: rgba(102, 59, 143, 0.5);
-      }
-
-      &.star5 {
-        background: rgba(124, 95, 45, 0.5);
       }
     }
 
@@ -123,17 +147,10 @@
 
     }
 
-    .td-level {
-
-      width: 30px;
-      text-align: right;
-
-    }
-
     .td-name {
-      text-align: right;
-      width: 110px;
-      padding-right: 8px;
+      text-align: left;
+      width: 150px;
+      padding-left: 8px;
 
 
       .char-icon {
@@ -145,19 +162,14 @@
 
 
         .img {
-          width: 34px;
-          height: 34px;
-
+          width: 33px;
+          height: 33px;
           position: relative;
           top: -3px;
-          left: -2px;
+          left: -1px;
+          border-radius: 0 0 6px 6px;
         }
       }
-
-      .cons {
-        margin-left: -5px;
-      }
-
     }
 
     .td-fetter {
@@ -172,7 +184,7 @@
     }
 
     .td-talent {
-      width: 36px;
+      width: 35px;
       box-shadow: 0 0 1px 0 rgba(150, 150, 150, .5);
     }
 
@@ -186,18 +198,10 @@
         padding-right: 2px;
         display: inline-block;
         white-space: nowrap;
-
-        &:before {
-          content: "Lv.";
-          display: inline-block;
-          font-size: 12px;
-          transform: scale(.8)
-        }
       }
 
-
       .weapon-icon {
-        border-radius: 3px 0 0 3px;
+        border-radius: 0px;
       }
 
       .cons {
@@ -212,43 +216,55 @@
       overflow: visible;
 
       .img {
-        width: 36px;
-        height: 36px;
-        margin: -8px 0 0 -7px;
+        width: 30px;
+        height: 30px;
+        margin: -8px 0 0 -3px;
       }
     }
 
-
-    .lv1 {
-      background: rgba(60, 63, 65, .5)
+    .td-talent {
+      text-shadow: 0 0 1px #000, 0 0 2px rgba(0, 0, 0, .8);
+      color: rgba(255, 255, 255, .85);
     }
 
-    .lv2 {
-      background: rgba(23, 184, 58, .4)
+    .talent-plus {
+      font-weight: bold;
+      color: #48cdda;
+      font-size: 15px;
+      text-shadow: 0 0 1px #000, 0 0 3px #000;
     }
 
-    .lv3 {
-      background: rgba(27, 128, 212, .4)
-    }
+    .lv(@lv, @c1, @c2:#fff) {
+      .lv@{lv} {
+        background: @c1;
 
-    .lv4 {
-      background: rgba(146, 90, 255, .4);
+        &.talent-plus {
+          color: @c2;
+        }
+      }
     }
+    .lv(1, rgba(50, 50, 50, .6));
+    .lv(2, rgba(23, 184, 58, .5));
+    .lv(3, rgba(27, 128, 212, .5));
+    .lv(4, rgba(146, 90, 255, .5));
 
     .lv5 {
       background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, .35);
       background-size: contain;
+      color: #fff;
     }
+
 
   }
 
   .td-artis {
-    width: 120px;
+    width: 115px;
+
     text-align: left;
   }
 
   .avatar-artis {
-    margin-left: 3px;
+    margin-left: 5px;
     text-align: left;
     position: relative;
     z-index: 10;
@@ -287,13 +303,13 @@
     border-radius: 0 4px 4px 0;
     display: inline-block;
     text-align: center;
-    background: #888;
+    background: rgba(51, 51, 51, 0.68);
     height: 18px;
     line-height: 18px;
-    margin-left: -5px;
     box-shadow: 0 0 1px 0 #ffe4b4;
     position: relative;
     z-index: 9;
+    margin-right: 5px;
 
     &.class- {
       &ACE,
@@ -311,6 +327,16 @@
         background: #8a2cc9;
       }
     }
+  }
+
+  .arti-na {
+    padding-left: 8px;
+    white-space: nowrap;
+    transform: scale(.8);
+    transform-origin: left center;
+    color: rgba(255, 255, 255, .5);
+    font-size: 12px;
+    margin-right: -40px;
   }
 }
 

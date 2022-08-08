@@ -1,3 +1,9 @@
+.font-YS {
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.font-NZBZ {
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
 body,
 .container {
   width: 690px;
@@ -37,7 +43,7 @@ body,
 .abyss-stat .stat-title span {
   display: block;
   font-weight: normal;
-  font-family: NZBZ, sans-serif;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   font-size: 24px;
 }
 .abyss-stat .stat-title strong {
@@ -86,7 +92,7 @@ body,
 .abyss-data .abyss-item .info strong {
   display: block;
   font-weight: normal;
-  font-family: NZBZ, YS2, sans-serif;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
 .abyss-data .abyss-item .info span {
   font-size: 24px;
@@ -103,7 +109,7 @@ body,
 .abyss-title strong {
   color: #d3bc8e;
   font-size: 18px;
-  font-family: Number, NZBZ, YS2, sans-serif;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   font-weight: normal;
   margin-right: 10px;
 }

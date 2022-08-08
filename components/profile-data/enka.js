@@ -30,6 +30,11 @@ let Enka = {
       return false
     }
     return EnkaData.getData(uid, data)
+  },
+  getName ({ uid, diyCfg, sysCfg }) {
+    let url = diyCfg?.enkaApi?.url || sysCfg.enkaApi.url
+    url = url.replace('https://', '').replace('/', '').trim()
+    return url
   }
 }
 

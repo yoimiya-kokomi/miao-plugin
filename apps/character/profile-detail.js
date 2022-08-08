@@ -89,8 +89,8 @@ export async function renderProfile (e, char, render, mode = 'profile', params =
     })
   }
 
-  if (mode === 'dmg') {
-    let basic = dmgCalc.dmgCfg.basicRet
+  if (mode === 'dmg' && dmgCalc.dmgRet) {
+    let basic = dmgCalc?.dmgCfg?.basicRet
     lodash.forEach(dmgCalc.dmgRet, (row) => {
       lodash.forEach(row, (ds) => {
         ds.val = (ds.avg > basic.avg ? '+' : '') + Format.comma(ds.avg - basic.avg)
@@ -113,8 +113,8 @@ export async function renderProfile (e, char, render, mode = 'profile', params =
     talent: char.getAvatarTalent(profile.talent, profile.cons),
     dmgData,
     dmgMsg,
-    dmgRet: dmgCalc.dmgRet,
-    dmgCfg: dmgCalc.dmgCfg,
+    dmgRet: dmgCalc.dmgRet || false,
+    dmgCfg: dmgCalc.dmgCfg || false,
     artis,
     enemyLv,
     enemyName: dmgCalc.enemyName || '小宝',

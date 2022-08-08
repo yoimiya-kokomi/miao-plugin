@@ -1,6 +1,9 @@
 .container {
   background-size: cover;
 }
+.head-box {
+  margin-top: 0px;
+}
 #profile-stat {
   display: table;
   border-collapse: collapse;
@@ -8,184 +11,258 @@
   margin: 0 -15px -5px;
   overflow: hidden;
 }
-#profile-stat .cont {
-  font-size: 14px;
-  background: none;
+#profile-stat .item-banner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 36px;
 }
-#profile-stat .cons {
+#profile-stat .item-banner > * {
+  display: block;
+}
+#profile-stat .item-banner .item-icon {
+  z-index: 10;
+}
+#profile-stat .cons,
+#profile-stat .level {
   height: 22px;
   line-height: 22px;
   display: inline-block;
   width: 19px;
-  padding: 0 0 0 1px;
+  padding: 0;
+  margin: 0;
   text-align: center;
   vertical-align: middle;
-  border-radius: 0 3px 3px 0;
-  margin-left: -4px;
   font-size: 13px;
+  position: relative;
 }
-#profile-stat .item-icon.star1,
-#profile-stat .cons.star1 {
+#profile-stat .cons {
+  border-radius: 0 3px 3px 0;
+  width: 22px;
+  margin-right: 5px;
+}
+#profile-stat .level {
+  border-radius: 3px 0 0 3px;
+  width: 32px;
+}
+#profile-stat .level:before {
+  content: "Lv";
+}
+#profile-stat .level:before {
+  display: inline-block;
+  font-size: 12px;
+  transform: scale(0.7);
+  transform-origin: right 55%;
+  margin-left: -3px;
+}
+#profile-stat .level:before {
+  content: "Lv";
+}
+#profile-stat .star1 .item-icon {
   box-shadow: 0 0 0 1px #ababab;
 }
-#profile-stat .item-icon.star2,
-#profile-stat .cons.star2 {
+#profile-stat .star1 .cons {
+  box-shadow: 0 0 0 1px #ababab;
+}
+#profile-stat .star1 .level {
+  box-shadow: 0 0 0 1px #ababab;
+  color: #2b2b2b;
+  background: rgba(171, 171, 171, 0.9);
+}
+#profile-stat .star2 .item-icon {
   box-shadow: 0 0 0 1px #d0ffbe;
 }
-#profile-stat .item-icon.star3,
-#profile-stat .cons.star3 {
+#profile-stat .star2 .cons {
+  box-shadow: 0 0 0 1px #d0ffbe;
+}
+#profile-stat .star2 .level {
+  box-shadow: 0 0 0 1px #d0ffbe;
+  color: #35be00;
+  background: rgba(208, 255, 190, 0.9);
+}
+#profile-stat .star3 .item-icon {
   box-shadow: 0 0 0 1px #bed0ff;
 }
-#profile-stat .item-icon.star4,
-#profile-stat .cons.star4 {
+#profile-stat .star3 .cons {
+  box-shadow: 0 0 0 1px #bed0ff;
+}
+#profile-stat .star3 .level {
+  box-shadow: 0 0 0 1px #bed0ff;
+  color: #0035be;
+  background: rgba(190, 208, 255, 0.9);
+}
+#profile-stat .star4 .item-icon {
   box-shadow: 0 0 0 1px #dfbeff;
 }
-#profile-stat .item-icon.star5,
-#profile-stat .cons.star5 {
+#profile-stat .star4 .cons {
+  box-shadow: 0 0 0 1px #dfbeff;
+}
+#profile-stat .star4 .level {
+  box-shadow: 0 0 0 1px #dfbeff;
+  color: #6000be;
+  background: rgba(223, 190, 255, 0.9);
+}
+#profile-stat .star5 .item-icon {
   box-shadow: 0 0 0 1px #ffe4b4;
 }
-#profile-stat .item-name {
+#profile-stat .star5 .cons {
+  box-shadow: 0 0 0 1px #ffe4b4;
+}
+#profile-stat .star5 .level {
+  box-shadow: 0 0 0 1px #ffe4b4;
+  color: #b47300;
+  background: rgba(255, 228, 180, 0.9);
+}
+.cont {
+  font-size: 14px;
+  background: none;
+}
+.cont .item-name {
   text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
-#profile-stat .item-name.star4 {
+.cont .item-name.star4 {
   color: #dfbeff;
 }
-#profile-stat .item-name.star5 {
+.cont .item-name.star5 {
   color: #ffe4b4;
 }
-#profile-stat .tr.thead .td-name {
-  padding-right: 22px;
+.cont .tr.thead {
+  background: rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
-#profile-stat .tr.thead .td-talent {
-  box-shadow: none;
+.cont .tr.thead > div {
+  box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.7);
+  text-align: center;
 }
-#profile-stat .tr.thead .td-weapon {
-  padding-left: 50px;
+.cont .tr.thead .td-talent {
+  color: #d3bc8e;
 }
-#profile-stat .tr.thead .td-artis {
-  text-align: left;
-}
-#profile-stat .tr > div {
+.cont .tr > div {
   text-align: center;
   height: 36px;
   vertical-align: middle;
   line-height: 36px;
-  box-shadow: none;
+  box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.7);
 }
-#profile-stat .tr > div * {
+.cont .tr > div * {
   vertical-align: middle;
 }
-#profile-stat .tr > div.star4 {
-  background: rgba(102, 59, 143, 0.5);
-}
-#profile-stat .tr > div.star5 {
-  background: rgba(124, 95, 45, 0.5);
-}
-#profile-stat .tr .index {
+.cont .tr .index {
   color: #333;
   width: 30px;
   padding-left: 5px;
 }
-#profile-stat .tr .td-level {
-  width: 30px;
-  text-align: right;
+.cont .tr .td-name {
+  text-align: left;
+  width: 150px;
+  padding-left: 8px;
 }
-#profile-stat .tr .td-name {
-  text-align: right;
-  width: 110px;
-  padding-right: 8px;
-}
-#profile-stat .tr .td-name .char-icon {
+.cont .tr .td-name .char-icon {
   width: 30px;
   height: 30px;
   border-radius: 5px;
   display: inline-block;
   overflow: visible;
 }
-#profile-stat .tr .td-name .char-icon .img {
-  width: 34px;
-  height: 34px;
+.cont .tr .td-name .char-icon .img {
+  width: 33px;
+  height: 33px;
   position: relative;
   top: -3px;
-  left: -2px;
+  left: -1px;
+  border-radius: 0 0 6px 6px;
 }
-#profile-stat .tr .td-name .cons {
-  margin-left: -5px;
-}
-#profile-stat .tr .td-fetter {
+.cont .tr .td-fetter {
   width: 40px;
   text-align: center;
   padding-right: 5px;
 }
-#profile-stat .tr .td-fetter .fetter {
+.cont .tr .td-fetter .fetter {
   width: 32px;
   height: 32px;
 }
-#profile-stat .tr .td-talent {
-  width: 36px;
+.cont .tr .td-talent {
+  width: 35px;
   box-shadow: 0 0 1px 0 rgba(150, 150, 150, 0.5);
 }
-#profile-stat .tr .td-weapon {
+.cont .tr .td-weapon {
   text-align: left;
   padding-left: 10px;
 }
-#profile-stat .tr .td-weapon .lv {
+.cont .tr .td-weapon .lv {
   width: 38px;
   text-align: right;
   padding-right: 2px;
   display: inline-block;
   white-space: nowrap;
 }
-#profile-stat .tr .td-weapon .lv:before {
-  content: "Lv.";
-  display: inline-block;
-  font-size: 12px;
-  transform: scale(0.8);
+.cont .tr .td-weapon .weapon-icon {
+  border-radius: 0px;
 }
-#profile-stat .tr .td-weapon .weapon-icon {
-  border-radius: 3px 0 0 3px;
-}
-#profile-stat .tr .td-weapon .cons {
+.cont .tr .td-weapon .cons {
   border-radius: 0 3px 3px 0;
 }
-#profile-stat .tr .weapon-icon {
+.cont .tr .weapon-icon {
   width: 25px;
   height: 22px;
   display: inline-block;
   overflow: visible;
 }
-#profile-stat .tr .weapon-icon .img {
-  width: 36px;
-  height: 36px;
-  margin: -8px 0 0 -7px;
+.cont .tr .weapon-icon .img {
+  width: 30px;
+  height: 30px;
+  margin: -8px 0 0 -3px;
 }
-#profile-stat .tr .lv1 {
-  background: rgba(60, 63, 65, 0.5);
+.cont .tr .td-talent {
+  text-shadow: 0 0 1px #000, 0 0 2px rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.85);
 }
-#profile-stat .tr .lv2 {
-  background: rgba(23, 184, 58, 0.4);
+.cont .tr .talent-plus {
+  font-weight: bold;
+  color: #48cdda;
+  font-size: 15px;
+  text-shadow: 0 0 1px #000, 0 0 3px #000;
 }
-#profile-stat .tr .lv3 {
-  background: rgba(27, 128, 212, 0.4);
+.cont .tr .lv1 {
+  background: rgba(50, 50, 50, 0.6);
 }
-#profile-stat .tr .lv4 {
-  background: rgba(146, 90, 255, 0.4);
+.cont .tr .lv1.talent-plus {
+  color: #fff;
 }
-#profile-stat .tr .lv5 {
+.cont .tr .lv2 {
+  background: rgba(23, 184, 58, 0.5);
+}
+.cont .tr .lv2.talent-plus {
+  color: #fff;
+}
+.cont .tr .lv3 {
+  background: rgba(27, 128, 212, 0.5);
+}
+.cont .tr .lv3.talent-plus {
+  color: #fff;
+}
+.cont .tr .lv4 {
+  background: rgba(146, 90, 255, 0.5);
+}
+.cont .tr .lv4.talent-plus {
+  color: #fff;
+}
+.cont .tr .lv5 {
   background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, 0.35);
   background-size: contain;
+  color: #fff;
 }
-#profile-stat .td-artis {
-  width: 120px;
+.cont .td-artis {
+  width: 115px;
   text-align: left;
 }
-#profile-stat .avatar-artis {
-  margin-left: 3px;
+.cont .avatar-artis {
+  margin-left: 5px;
   text-align: left;
   position: relative;
   z-index: 10;
 }
-#profile-stat .avatar-artis .artis {
+.cont .avatar-artis .artis {
   position: relative;
   width: 30px;
   height: 30px;
@@ -193,44 +270,53 @@
   box-shadow: 0 0 1px 0 #ffe4b4;
   display: inline-block;
 }
-#profile-stat .avatar-artis.artis2 .img {
+.cont .avatar-artis.artis2 .img {
   position: absolute;
   width: 24px;
   height: 24px;
 }
-#profile-stat .avatar-artis.artis2 .img:first-child {
+.cont .avatar-artis.artis2 .img:first-child {
   left: -2px;
   top: -2px;
 }
-#profile-stat .avatar-artis.artis2 .img:last-child {
+.cont .avatar-artis.artis2 .img:last-child {
   right: -2px;
   bottom: -2px;
 }
-#profile-stat .arti-mark-class {
+.cont .arti-mark-class {
   width: 30px;
   font-size: 12px;
   border-radius: 0 4px 4px 0;
   display: inline-block;
   text-align: center;
-  background: #888;
+  background: rgba(51, 51, 51, 0.68);
   height: 18px;
   line-height: 18px;
-  margin-left: -5px;
   box-shadow: 0 0 1px 0 #ffe4b4;
   position: relative;
   z-index: 9;
+  margin-right: 5px;
 }
-#profile-stat .arti-mark-class.class-ACE,
-#profile-stat .arti-mark-class.class-ACE² {
+.cont .arti-mark-class.class-ACE,
+.cont .arti-mark-class.class-ACE² {
   background: #ff5722;
 }
-#profile-stat .arti-mark-class.class-SSS,
-#profile-stat .arti-mark-class.class-SS {
+.cont .arti-mark-class.class-SSS,
+.cont .arti-mark-class.class-SS {
   background: #ab7e31;
 }
-#profile-stat .arti-mark-class.class-S,
-#profile-stat .arti-mark-class.class-A {
+.cont .arti-mark-class.class-S,
+.cont .arti-mark-class.class-A {
   background: #8a2cc9;
+}
+.cont .arti-na {
+  padding-left: 8px;
+  white-space: nowrap;
+  transform: scale(0.8);
+  transform-origin: left center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  margin-right: -40px;
 }
 .cont-notice {
   color: #666;

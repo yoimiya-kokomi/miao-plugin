@@ -218,6 +218,9 @@ let Miao = {
     })
     return ret
   },
+  getName ({ uid, diyCfg, sysCfg }) {
+    return 'MiaoApi'
+  },
   dataFix (ret) {
     if (ret._fix) {
       return ret

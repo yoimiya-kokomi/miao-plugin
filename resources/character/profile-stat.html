@@ -12,10 +12,8 @@
 </div>
 <div id="profile-stat">
   <div class="cont">
-    <div class="cont-title">角色详情列表</div>
     <div class="cont-table">
       <div class="avatar tr thead">
-        <div class="td-level">Lv</div>
         <div class="td-name">角色</div>
 
         <div class="td-fetter">好感</div>
@@ -23,7 +21,7 @@
         <div class="td-talent">A</div>
         <div class="td-talent">E</div>
         <div class="td-talent">Q</div>
-        <div class="td-weapon">武器</div>
+        <div class="td-weapon">武器 精炼</div>
         <div class="td-artis">圣遗物</div>
       </div>
       {{each avatars avatar idx}}
@@ -31,15 +29,15 @@
       {{set weapon = avatar.weapon}}
       {{set tk = ['a','e','q'] }}
       <div class="avatar tr">
-        <div class="td-level"> {{avatar.level}}</div>
         <div class="td-name">
-          <div class="avatar-name">
-            <span class="item-name star{{avatar.star}}">{{avatar.abbr||avatar.name}}</span>
+          <div class="item-banner star{{avatar.star}}">
+            <span class="level">{{avatar.level}}</span>
             <div class="item-icon char-icon star{{avatar.star}}">
               <span class="img"
                     style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/face.png)"></span>
             </div>
-            <span class="cons cons-{{avatar.cons}} star{{avatar.star}}">{{avatar.cons}}</span>
+            <span class="cons avatar cons-{{avatar.cons}}">{{avatar.cons}}</span>
+            <span class="item-name">{{avatar.abbr||avatar.name}}</span>
           </div>
         </div>
 
@@ -57,18 +55,19 @@
 
         <div class="td-weapon  star-{{weapon.star}}">
           {{if weapon?.name}}
-          <span class="lv">{{weapon.level}}</span>
-
-          <div class="item-icon weapon-icon star{{weapon.star}}">
+          <div class="item-banner star{{weapon.star}}">
+            <span class="level">{{weapon.level}}</span>
+            <div class="item-icon weapon-icon star{{weapon.star}}">
               <span class="img"
                     style="background-image:url({{_res_path}}/meta/weapons/icon/{{weapon.name}}.png)"></span>
+            </div>
+            <span class="cons weapon cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
+            <span class="item-name">{{weapon.abbr}}</span>
           </div>
-          <span class="cons cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
-          <span class="item-name star{{weapon.star}}">{{weapon.abbr}}</span>
           {{/if}}
         </div>
         <div class="td-artis">
-          <div class="item avatar-artis artis{{avatar.sets.length}}">
+          <div class="item item-banner avatar-artis artis{{avatar.sets.length}}">
             <div class="artis item-icon">
               {{each avatar?.artisMark?.sets || avatar?.sets || [] name}}
               <span class="img"
@@ -80,7 +79,7 @@
             <span class="arti-mark-class class-{{mark.markClass}}">{{mark.markClass}}</span>
             {{mark.mark}}
             {{else}}
-            <span class="arti-mark-class class-na">-</span> -
+            <span class="arti-na">暂无面板数据</span>
             {{/if}}
           </div>
 

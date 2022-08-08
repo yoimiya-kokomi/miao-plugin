@@ -1,3 +1,5 @@
+@import "../common/base.less";
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +13,6 @@ body {
   color: #fff;
   transform: scale(1.25);
   transform-origin: 0 0;
-  font-family: Number, YS;
 }
 
 .container {
@@ -36,8 +37,6 @@ body {
   box-shadow: 0 -5px 10px 0 #000;
   padding: 5px 10px 10px 150px;
   text-shadow: 0 0 1px #000, 1px 1px 3px #000;
-  font-family: Number, YS;
-
 }
 
 .role_box {
@@ -52,7 +51,7 @@ body {
 
 
 .char_name {
-  font-family: "NZBZ";
+  .font-NZBZ;
   font-size: 60px;
   letter-spacing: 5px;
   line-height: 90px;
@@ -103,7 +102,6 @@ body {
   vertical-align: middle;
   text-align: center;
   letter-spacing: 0px;
-  font-family: Number, YS;
   box-shadow: 0px 0px 3px 0px #000;
   text-shadow: 0 0 3px #000;
   margin-right: 15px;
@@ -403,7 +401,7 @@ body.bottom_mode {
 }
 
 .bottom_mode .detail {
-  font-family: NZBZ;
+  .font-NZBZ;
   margin-top: 0px;
 }
 
@@ -489,7 +487,7 @@ body.bottom_mode {
 
 .copyright {
   position: absolute;
-  font-family: Number, YS;
+  //font-family: Number, YS;
   margin-bottom: 0;
 }
 

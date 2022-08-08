@@ -7,7 +7,6 @@
 body {
   font-size: 18px;
   color: #1e1f20;
-  font-family: Number, YS;
   transform: scale(1);
   transform-origin: 0 0;
 }
@@ -256,7 +255,6 @@ body {
   font-size: 18px;
   line-height: 26px;
   padding-right: 10px;
-  font-family: Number, YS2;
 }
 .talent-desc strong {
   margin-top: 15px;
@@ -300,7 +298,6 @@ body {
 .talent-table .th {
   padding: 7px;
   line-height: 24px;
-  font-family: Number, YS;
 }
 .talent-table .tr:last-child .td {
   padding-bottom: 12px;

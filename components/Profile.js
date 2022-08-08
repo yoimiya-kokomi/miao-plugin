@@ -283,6 +283,11 @@ let Profile = {
     userData.chars[avatar] = originalData
     fs.writeFileSync(userFile, JSON.stringify(userData), '', ' ')
     return true
+  },
+
+  getServName (uid) {
+    let Serv = getServ(uid)
+    return Serv.getName({ uid, diyCfg, sysCfg })
   }
 }
 export default Profile

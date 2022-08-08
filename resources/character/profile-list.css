@@ -50,4 +50,23 @@ body,
   overflow: hidden;
   border-radius: 50%;
 }
+.cont-footer {
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+}
+.cont-footer span {
+  width: 50%;
+}
+.cont-footer .serv {
+  text-align: right;
+}
+.cont-footer .new-tip:before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #90e800;
+  border-radius: 50%;
+  margin-right: 3px;
+}
 /*# sourceMappingURL=profile-list.css.map */
