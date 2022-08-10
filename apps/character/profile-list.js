@@ -33,6 +33,7 @@ export async function profileList (e, { render }) {
     }
     tmp.source = ds.dataSource
     tmp.level = ds.lv || 1
+    tmp.isNew = 0
     if (newChar[char.name]) {
       tmp.isNew = 1
       newCount++
