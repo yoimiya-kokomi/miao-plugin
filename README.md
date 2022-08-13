@@ -34,10 +34,10 @@ git clone https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugi
 
 ```
 // 使用gitee
-git remote set-url origin https://gitee.com/yoimiya-kokomi/Yunzai-Bot
+git remote set-url origin https://gitee.com/yoimiya-kokomi/Yunzai-Bot.git
 
 // 使用github
-git remote set-url origin https://github.com/yoimiya-kokomi/Yunzai-Bot
+git remote set-url origin https://github.com/yoimiya-kokomi/Yunzai-Bot.git
 ```
 
 即可切换Yunzai远程仓库地址，运行git pull拉取更新即可使用喵喵版V2-Yunzai（版本>2.2.0)
