@@ -1,9 +1,11 @@
 {
 	"name": "荧",
 	"abbr": "荧",
-	"id": "",
+	"id": "10000007",
 	"title": "",
 	"allegiance": "——",
+	"star": 5,
+	"elem": "anemo",
 	"weapon": "Sword",
 	"britydah": " April",
 	"astro": "旅人座",
