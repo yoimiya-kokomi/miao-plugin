@@ -33,7 +33,11 @@ let Cal = {
       if (detailData && detailData.data && detailData.data.list) {
         let versionTime = {
           2.7: '2022-05-31 11:00:00',
-          2.8: '2022-07-13 11:00:00'
+          2.8: '2022-07-13 11:00:00',
+          3.0: '2022-08-24 11:00:00',
+          3.1: '2022-09-28 11:00:00',
+          3.2: '2022-11-02 11:00:00',
+          3.3: '2022-12-07 11:00:00'
         }
         lodash.forEach(detailData.data.list, (ds) => {
           let vRet = /(\d\.\d)版本更新通知/.exec(ds.title)

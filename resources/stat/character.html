@@ -15,10 +15,10 @@ return (num * 100).toFixed(2);
 <div class="info_box">
   <div class="head-box type{{bgType}}">
     {{if mode === "char"}}
-    <div class="title">角色持有率统计</div>
+    <div class="title">#角色持有率</div>
     <div class="label">全角色综合持有率统计</div>
     {{else}}
-    <div class="title">角色{{conNum == -1 ? "命座" : "零一二三四五满"[conNum]+"命"}}分布统计</div>
+    <div class="title">#角色{{conNum == -1 ? "命座" : "零一二三四五满"[conNum]+"命"}}统计</div>
     <div class="label">统计所有角色命座，无论角色是否出场</div>
     {{/if}}
 

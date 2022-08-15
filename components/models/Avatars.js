@@ -96,7 +96,7 @@ export default class Avatars extends Base {
       lodash.forEach(skillRet, (talent) => {
         avatarTalent[talent.id] = talent
       })
-      await redis.set(`genshin:avatar-talent:${this.uid}`, JSON.stringify(avatarTalent), { EX: 3600 * 6 })
+      await redis.set(`genshin:avatar-talent:${this.uid}`, JSON.stringify(avatarTalent), { EX: 3600 * 2 })
     }
     let ret = this.getData(ids)
     lodash.forEach(ret, (avatar, id) => {

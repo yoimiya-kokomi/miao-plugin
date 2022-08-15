@@ -9,8 +9,12 @@
 {{block 'main'}}
 {{set demo = chars[0]?.abbr || "雷神" }}
 <div class="head-box">
-  <div class="title">#面板列表<div class="label">UID:{{uid}} {{msg}}</div></div>
-
+  <div class="title">#面板列表
+    <div class="label">UID:{{uid}}</div>
+  </div>
+  {{if msg}}
+  <div class="label">{{msg}}</div>
+  {{/if}}
   <div class="label">你可以使用<span>#{{demo}}面板</span>、<span>#{{demo}}伤害</span>、<span>#{{demo}}圣遗物</span>命令来查看面板信息了</div>
 </div>
 <div class="cont">
