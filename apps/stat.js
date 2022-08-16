@@ -411,7 +411,7 @@ export async function uploadData (e, { render }) {
   })
   if (!MysApi || !MysApi.isSelfCookie) {
     if (isMatch) {
-      e.reply(`请绑定ck后再使用${e.original_msg}`)
+      e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
     }
     return false
   }
@@ -420,7 +420,7 @@ export async function uploadData (e, { render }) {
   let resDetail, resAbyss, overview
   try {
     resAbyss = await MysApi.getSpiralAbyss(1)
-    overview = await HutaoApi.getOverview()
+    // overview = await HutaoApi.getOverview()
     if (resAbyss.floors.length > 0 && !await Avatars.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
@@ -447,14 +447,19 @@ export async function uploadData (e, { render }) {
         return true
       }
       let abyss = new Abyss(resAbyss)
+      let abyssData = abyss.getData()
       let avatars = new Avatars(uid, resDetail.avatars)
       let avatarIds = abyss.getAvatars()
+      let overview = ret.info || (await HutaoApi.getOverview())?.data || {}
       let addMsg = function (title, ds) {
         let tmp = {}
-        if (!ds && !ds.avatarId && !ds.percent) {
+        if (!ds) {
           return
         }
-        let char = Character.get(ds.avatarId)
+        if (!ds.avatarId && !ds.id) {
+          return
+        }
+        let char = Character.get(ds.avatarId || ds.id)
         tmp.title = title
         tmp.id = char.id
         tmp.value = `${(ds.value / 10000).toFixed(1)} W`
@@ -475,19 +480,25 @@ export async function uploadData (e, { render }) {
             })
           }
         }
-        pct(ds.percent, char.name)
-        pct(ds.percentTotal, '总记录')
+        if (ds.percent) {
+          pct(ds.percent, char.name)
+          pct(ds.percentTotal, '总记录')
+        } else {
+          msg.push({
+            txt: '暂无统计信息'
+          })
+        }
         stat.push(tmp)
       }
-      addMsg('最强一击', ret.data.damage || {})
-      addMsg('最高承伤', ret.data.takeDamage || {})
+      addMsg('最强一击', ret.data?.damage || abyssData?.stat?.dmg || {})
+      addMsg('最高承伤', ret.data?.takeDamage || abyssData?.stat.takeDmg || {})
       let avatarData = await avatars.getTalentData(avatarIds, MysApi)
       return await Common.render('stat/abyss-summary', {
-        abyss: abyss.getData(),
+        abyss: abyssData,
         avatars: avatarData,
         stat,
         save_id: uid,
-        totalCount: overview?.data?.collectedPlayerCount || 0,
+        totalCount: overview?.collectedPlayerCount || 0,
         uid
       }, { e, render, scale: 1.8 })
     } else {

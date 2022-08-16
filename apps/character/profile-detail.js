@@ -41,7 +41,7 @@ export async function renderProfile (e, char, render, mode = 'profile', params =
       e.reply('由于数据Api变更，请重新获取面板信息后查看')
     }
     return true
-  } else if (!['enka', 'input2', 'miao', 'miao-pre'].includes(profile.dataSource)) {
+  } else if (!['enka', 'input2', 'miao'].includes(profile.dataSource)) {
     if (!await refresh()) {
       e.reply('由于数据格式升级，请重新获取面板信息后查看')
     }

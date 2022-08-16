@@ -70,12 +70,11 @@ body,
   color: #d3bc8e;
 }
 .avatar-banner {
-  margin-top: -20px;
-  height: 270px;
+  height: 250px;
   width: 175px;
   background-repeat: no-repeat;
   background-size: 100% auto;
-  background-position: top center;
+  background-position: 0 -30px;
 }
 .abyss-data {
   display: flex;
@@ -221,15 +220,33 @@ body,
   margin: 2px;
 }
 .avatar-banner.avatar-枫原万叶 {
-  background-position: 0 60px;
+  background-position: 0 40px;
 }
 .avatar-banner.avatar-九条裟罗 {
-  background-position: 0 30px;
+  background-position: 0 0;
 }
 .avatar-banner.avatar-香菱 {
-  background-position: 0 80px;
+  background-position: 0 50px;
 }
 .avatar-banner.avatar-行秋 {
-  background-position: 0 70px;
+  background-position: 0 50px;
+}
+.avatar-banner.avatar-甘雨 {
+  background-position: 0 25px;
+}
+.avatar-banner.avatar-刻晴 {
+  background-position: 0 15px;
+}
+.avatar-banner.avatar-神里绫华 {
+  background-position: 0 -40px;
+}
+.avatar-banner.avatar-班尼特 {
+  background-position: 0 -45px;
+}
+.avatar-banner.avatar-五郎 {
+  background-position: 0 -45px;
+}
+.avatar-banner.avatar-托马 {
+  background-position: 0 15px;
 }
 /*# sourceMappingURL=abyss-summary.css.map */

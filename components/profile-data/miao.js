@@ -20,11 +20,11 @@ let Miao = {
       e.reply(data.msg || '请求失败')
       return false
     }
-    if (!data.uidListData || data.uidListData.length === 0) {
+    data = data.data
+    if (!data.showAvatarInfoList || data.showAvatarInfoList.length === 0) {
       e.reply('请打开游戏内角色展柜的“显示详情”后，等待5分钟重新获取面板')
       return false
     }
-
     return Miao.getData(uid, data)
   },
 
@@ -36,56 +36,35 @@ let Miao = {
 
     lodash.forEach({
       name: 'nickname',
-      // avatar: "profilePicture.avatarId",
-      lv: 'level'
+      avatar: 'profilePicture.avatarID',
+      lv: 'level',
+      signature: 'signature'
     }, (src, key) => {
       ret[key] = lodash.get(data, src, '')
     })
-    lodash.forEach(data.uidListData, (ds) => {
-      let char = Miao.getAvatar(ds)
+    lodash.forEach(data.showAvatarInfoList, (ds) => {
+      let char = Miao.getAvatarDetail(ds)
       ret.chars[char.id] = char
     })
+    if (data.cacheExpireAt) {
+      let exp = Math.max(0, Math.round(data.cacheExpireAt - (new Date() / 1000)))
+      ret.ttl = Math.max(60, exp)
+    }
     return ret
   },
 
   getAvatar (ds) {
-    let char = Character.get(ds.usernameid)
+    let char = Character.get(ds.id)
     let now = moment()
     return {
-      id: ds.usernameid,
+      id: ds.id,
       name: char ? char.name : '',
-      dataSource: 'miao-pre',
+      dataSource: 'miao',
       updateTime: now.format('YYYY-MM-DD HH:mm:ss'),
       lv: ds.level
     }
   },
-
-  async getCharData (uid, ds, saveCharData, { diyCfg = {}, sysCfg = {} }) {
-    if (ds.dataSource !== 'miao-pre' || !ds.id) {
-      return ds
-    }
-    try {
-      let url = diyCfg?.miaoApi?.url || sysCfg.miaoApi.url
-      let token = diyCfg?.miaoApi?.token || sysCfg.miaoApi.token
-      let profileApi = diyCfg?.miaoApi?.detailApi || sysCfg.miaoApi.detailApi
-      let api = profileApi({ url, token, uid, avatar: ds.id })
-      let req = await fetch(api)
-      let data = await req.json()
-      if (data.status === 0 && data.uidData) {
-        data = Miao.getAvatarDetail(data)
-        if (data) {
-          saveCharData(uid, data)
-          return data
-        }
-      }
-      return ds
-    } catch (err) {
-      console.log(err)
-      return ds
-    }
-  },
-  getAvatarDetail (data) {
-    let ds = data.uidData
+  getAvatarDetail (ds) {
     let char = Character.get(ds.id)
     let now = moment()
     let ret = {
@@ -95,10 +74,10 @@ let Miao = {
       updateTime: now.format('YYYY-MM-DD HH:mm:ss'),
       lv: ds.level,
       fetter: ds.fetterLevel,
-      attr: Miao.getAttr(data.uidDataCombatValue),
+      attr: Miao.getAttr(ds.combatValue),
       weapon: Miao.getWeapon(ds.weapon),
-      artis: Miao.getArtifact(data.uidDataByReliquary),
-      cons: ds.constellationNum || 0,
+      artis: Miao.getArtifact(ds.reliquary),
+      cons: ds.promoteLevel || 0,
       talent: Miao.getTalent(char.id, ds.skill),
       _priority: 10
     }
@@ -207,13 +186,11 @@ let Miao = {
       idxMap[id] = nRet && nRet[1] ? idxMap[nRet[1]] : idxMap[idx]
       idx++
     })
-
     let ret = {}
     lodash.forEach(data, (ds) => {
       let key = idxMap[ds.id]
       ret[key] = {
-        level_original: ds.level,
-        level_current: ds.level
+        level: ds.level
       }
     })
     return ret
@@ -229,9 +206,8 @@ let Miao = {
     id = id * 1
     if (id !== 10000033) {
       let a = talent.a || {}
-      if (a.level_current > 10) {
-        a.level_current = 10
-        a.level_original = 10
+      if (a.level > 10) {
+        a.level = 10
       }
     }
     ret._fix = true

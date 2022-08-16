@@ -22,7 +22,7 @@ export async function profileList (e, { render }) {
     newChar = e.newChar
   }
   lodash.forEach(profiles || [], (ds) => {
-    if (!['enka', 'input2', 'miao-pre', 'miao'].includes(ds.dataSource)) {
+    if (!['enka', 'input2', 'miao'].includes(ds.dataSource)) {
       return
     }
     let { id } = ds

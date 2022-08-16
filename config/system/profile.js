@@ -15,10 +15,7 @@ export const miaoApi = {
   url: 'http://49.232.91.210/profile',
   token: 'miao-token',
   listApi: ({ url, uid, token }) => {
-    return `${url}/list?uid=${uid}&token=${token}`
-  },
-  detailApi: ({ url, uid, avatar, token }) => {
-    return `${url}/detail?uid=${uid}&avatar=${avatar}&token=${token}`
+    return `${url}/data?uid=${uid}&token=${token}`
   }
 }
 

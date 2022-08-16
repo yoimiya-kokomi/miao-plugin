@@ -67,7 +67,7 @@
           {{/if}}
         </div>
         <div class="td-artis">
-          <div class="item item-banner avatar-artis artis{{avatar.sets.length}}">
+          <div class="item item-banner avatar-artis artis{{avatar?.artisMark?.sets?.length||avatar.sets.length}}">
             <div class="artis item-icon">
               {{each avatar?.artisMark?.sets || avatar?.sets || [] name}}
               <span class="img"
