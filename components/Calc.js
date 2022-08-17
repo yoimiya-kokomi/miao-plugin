@@ -12,7 +12,12 @@ let Calc = {
     const _path = process.cwd()
     const cfgPath = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc.js`
 
-    let details; let buffs = []; let defParams = {}; let defDmgIdx = -1; let mainAttr = 'atk,cpct,cdmg'; let enemyName = '小宝'
+    let details
+    let buffs = []
+    let defParams = {}
+    let defDmgIdx = -1
+    let mainAttr = 'atk,cpct,cdmg'
+    let enemyName = '小宝'
     if (fs.existsSync(cfgPath)) {
       let fileData = await import(`file://${cfgPath}`)
       details = fileData.details || false
@@ -131,14 +136,15 @@ let Calc = {
 
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let td = talentData[key] || {}
-      let lv = td.level_current * 1 || 1
+      let lv = td.level || td.level_current * 1 || 1
 
       let map = {}
 
       lodash.forEach(char.talent[key].tables, (tr) => {
         let val = tr.values[lv - 1]
         val = val.replace(/[^\x00-\xff]/g, '').trim()
-        let valArr = []; let valArr2 = []
+        let valArr = []
+        let valArr2 = []
         lodash.forEach(val.split('/'), (v, idx) => {
           let valNum = 0
           lodash.forEach(v.split('+'), (v) => {
@@ -378,7 +384,8 @@ let Calc = {
       }
 
       // 反应区
-      let eleNum = 1; let eleBase = 0
+      let eleNum = 1
+      let eleBase = 0
 
       if (ele === 'ks' || ele === 'gd') {
         eleBase = eleBaseDmg[lv] || 0
@@ -480,7 +487,10 @@ let Calc = {
 
     let { msg } = Calc.calcAttr({ originalAttr, buffs, meta, params: defParams || {} })
 
-    let ret = []; let detailMap = []; let dmgRet = []; let dmgDetail = {}
+    let ret = []
+    let detailMap = []
+    let dmgRet = []
+    let dmgDetail = {}
 
     lodash.forEach(details, (detail, detailSysIdx) => {
       if (lodash.isFunction(detail)) {

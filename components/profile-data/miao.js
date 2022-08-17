@@ -78,7 +78,7 @@ let Miao = {
       weapon: Miao.getWeapon(ds.weapon),
       artis: Miao.getArtifact(ds.reliquary),
       cons: ds.constellationNum || 0,
-      talent: Miao.getTalent(char.id, ds.skill),
+      talent: Miao.getTalent(char.id, ds.skill, ds.constellationNum || 0),
       _priority: 10
     }
     return Miao.dataFix(ret)
@@ -176,7 +176,7 @@ let Miao = {
     })
     return ret
   },
-  getTalent (charid, data = {}) {
+  getTalent (charid, data = {}, cons = 0) {
     let cm = cmeta[charid] || {}
     let cn = cm.Skills || {}
     let idx = 1
@@ -193,7 +193,8 @@ let Miao = {
         level: ds.level
       }
     })
-    return ret
+    let char = Character.get(charid)
+    return char.getAvatarTalent(ret, cons)
   },
   getName ({ uid, diyCfg, sysCfg }) {
     return 'MiaoApi'
