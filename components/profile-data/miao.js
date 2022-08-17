@@ -77,7 +77,7 @@ let Miao = {
       attr: Miao.getAttr(ds.combatValue),
       weapon: Miao.getWeapon(ds.weapon),
       artis: Miao.getArtifact(ds.reliquary),
-      cons: ds.promoteLevel || 0,
+      cons: ds.constellationNum || 0,
       talent: Miao.getTalent(char.id, ds.skill),
       _priority: 10
     }
