@@ -45,7 +45,7 @@ let EnkaData = {
     lodash.forEach({
       name: 'nickname',
       avatar: 'profilePicture.avatarId',
-      lv: 'level'
+      level: 'level'
     }, (src, key) => {
       ret[key] = lodash.get(data.playerInfo, src, '')
     })

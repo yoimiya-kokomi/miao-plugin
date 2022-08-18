@@ -72,7 +72,7 @@ let Data = {
     lodash.forEach({
       name: '角色名称',
       avatar: '头像ID',
-      lv: '冒险等阶'
+      level: '冒险等阶'
     }, (title, key) => {
       ret[key] = data[title] || ''
     })
@@ -89,7 +89,7 @@ let Data = {
     return {
       id: data['英雄Id'],
       name: char ? char.name : '',
-      lv: data['等级'],
+      level: data['等级'],
       attr: Data.getAttr(data),
       // weapon: Data.getWeapon(data),
       artis: Data.getArtifact(data)
@@ -146,7 +146,7 @@ let Data = {
   getWeapon (data) {
     return {
       name: data['武器名称'],
-      lv: data['武器等级'],
+      level: data['武器等级'],
       refine: data['武器精炼']
     }
   },

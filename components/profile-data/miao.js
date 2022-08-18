@@ -17,7 +17,7 @@ let Miao = {
     lodash.forEach({
       name: 'nickname',
       avatar: 'profilePicture.avatarID',
-      lv: 'level',
+      level: 'level',
       signature: 'signature'
     }, (src, key) => {
       ret[key] = lodash.get(data, src, '')
@@ -41,7 +41,7 @@ let Miao = {
       name: char ? char.name : '',
       dataSource: 'miao',
       updateTime: now.format('YYYY-MM-DD HH:mm:ss'),
-      lv: ds.level
+      level: ds.level
     }
   },
   getAvatarDetail (ds) {
@@ -52,7 +52,7 @@ let Miao = {
       name: char ? char.name : '',
       dataSource: 'miao',
       updateTime: now.format('YYYY-MM-DD HH:mm:ss'),
-      lv: ds.level,
+      level: ds.level,
       fetter: ds.fetterLevel,
       attr: Miao.getAttr(ds.combatValue),
       weapon: Miao.getWeapon(ds.weapon),
