@@ -67,9 +67,9 @@
           {{/if}}
         </div>
         <div class="td-artis">
-          <div class="item item-banner avatar-artis artis{{avatar?.artisMark?.sets?.length||avatar.sets.length}}">
+          <div class="item item-banner avatar-artis artis{{avatar?.artisMark?.names?.length||avatar.names.length}}">
             <div class="artis item-icon">
-              {{each avatar?.artisMark?.sets || avatar?.sets || [] name}}
+              {{each avatar?.artisMark?.names || avatar?.names || [] name}}
               <span class="img"
                     style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{name}}.png)"></span>
               {{/each}}

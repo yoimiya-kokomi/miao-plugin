@@ -3,9 +3,9 @@
 *
 * */
 import lodash from 'lodash'
-import { Profile, Common, Format } from '../../components/index.js'
+import { Profile, Common } from '../../components/index.js'
 import { getTargetUid, profileHelp, autoGetProfile } from './profile-common.js'
-import { Artifact } from '../../components/models.js'
+import { Artifact } from '../../models/index.js'
 
 /*
 * 角色圣遗物面板
@@ -21,13 +21,13 @@ export async function profileArtis (e, { render }) {
     return
   }
 
-  let charCfg = Artifact.getCharCfg(profile.name)
-  let { artis, totalMark, totalMarkClass, usefulMark } = getArtis(profile.name, profile.artis)
-
-  if (!profile.artis || profile.artis.length === 0) {
+  if (!profile.hasArtis()) {
     e.reply('未能获得圣遗物详情，请重新获取面板信息后查看')
     return true
   }
+
+  let charCfg = profile.getCharCfg()
+  let { artis, mark: totalMark, markClass: totalMarkClass, usefulMark } = profile.getArtisMark()
 
   let { attrMap } = Artifact.getMeta()
 
@@ -62,37 +62,17 @@ export async function profileArtisList (e, { render }) {
     return true
   }
 
-  lodash.forEach(profiles || [], (ds) => {
-    let name = ds.name
-    if (!name || name === '空' || name === '荧') {
+  lodash.forEach(profiles || [], (profile) => {
+    let name = profile.name
+    if (!profile.hasData || !profile.hasArtis()) {
       return
     }
-
-    let usefulMark
-
-    let charCfg = Artifact.getCharCfg(name)
-    usefulMark = charCfg.titleWeight
-
-    /* 处理圣遗物 */
-    if (ds.artis) {
-      let newScore = Artifact.getArtisMark(name, ds.artis)
-
-      lodash.forEach(ds.artis, (arti, idx) => {
-        if (!arti.name) {
-          return
-        }
-        idx = idx.replace('arti', '')
-        let mark = newScore[idx]
-        arti.mark = Format.comma(mark, 1)
-        arti._mark = mark
-        arti.markClass = Artifact.getMarkClass(mark)
-        arti.main = Artifact.formatArti(arti.main)
-        arti.attrs = Artifact.formatArti(arti.attrs)
-        arti.usefulMark = usefulMark
-        arti.avatar = name
-        artis.push(arti)
-      })
-    }
+    let profileArtis = profile.getArtisMark()
+    lodash.forEach(profileArtis.artis, (arti, idx) => {
+      arti.usefulMark = profileArtis.usefulMark
+      arti.avatar = name
+      artis.push(arti)
+    })
   })
 
   if (artis.length === 0) {
@@ -110,33 +90,4 @@ export async function profileArtisList (e, { render }) {
     uid,
     artis
   }, { e, render, scale: 1.4 })
-}
-
-/*
-* 获取圣遗物评分及详情
-* */
-export function getArtis (char, artisData) {
-  let charCfg = Artifact.getCharCfg(char)
-  let newScore = Artifact.getArtisMark(char, artisData)
-  let totalMark = 0
-  let artis = []
-
-  lodash.forEach(artisData, (arti, idx) => {
-    idx = idx.replace('arti', '')
-    let ds = arti
-    let mark = newScore[idx]
-    totalMark += mark
-    ds.mark = Format.comma(mark, 1)
-    ds.markClass = Artifact.getMarkClass(mark)
-    ds.main = Artifact.formatArti(arti.main, charCfg.mark, true)
-    ds.attrs = Artifact.formatArti(arti.attrs, charCfg.mark, false)
-    artis[idx * 1 - 1] = ds
-  })
-
-  return {
-    artis,
-    totalMark,
-    totalMarkClass: Artifact.getMarkClass(totalMark / 5),
-    usefulMark: charCfg.titleWeight
-  }
 }

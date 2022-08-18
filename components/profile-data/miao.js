@@ -1,32 +1,12 @@
-import fetch from 'node-fetch'
 import lodash from 'lodash'
-import Character from '../models/Character.js'
 import moment from 'moment'
-import { artiIdx, artiSetMap, attrMap } from './miao-meta.js'
+import { Character, ProfileServ } from '../../models/index.js'
 import cmeta from './enka-char.js'
+import { artiIdx, artiSetMap, attrMap } from './miao-meta.js'
 
 let Miao = {
   key: 'miao',
-  cd: 1,
-  async request ({ e, uid, avatar = '', diyCfg, sysCfg }) {
-    let url = diyCfg?.miaoApi?.url || sysCfg.miaoApi.url
-    let token = diyCfg?.miaoApi?.token || sysCfg.miaoApi.token
-    let profileApi = diyCfg?.miaoApi?.listApi || sysCfg.miaoApi.listApi
-    let api = profileApi({ url, uid, avatar, token })
-    let data
-    let req = await fetch(api)
-    data = await req.json()
-    if (data.status !== 0) {
-      e.reply(data.msg || '请求失败')
-      return false
-    }
-    data = data.data
-    if (!data.showAvatarInfoList || data.showAvatarInfoList.length === 0) {
-      e.reply('请打开游戏内角色展柜的“显示详情”后，等待5分钟重新获取面板')
-      return false
-    }
-    return Miao.getData(uid, data)
-  },
+  name: 'MiaoApi',
 
   getData (uid, data) {
     let ret = {
@@ -93,15 +73,15 @@ let Miao = {
       def: 'defense',
       defBase: 'baseDEF',
       mastery: 'elementMastery',
-      cRate: {
+      cpct: {
         src: 'critRate',
         pct: true
       },
-      cDmg: {
+      cdmg: {
         src: 'critDamage',
         pct: true
       },
-      hInc: {
+      heal: {
         src: 'heal',
         pct: true
       },
@@ -124,8 +104,8 @@ let Miao = {
     lodash.forEach('fire,elec,water,grass,wind,rock,ice'.split(','), (key) => {
       maxDmg = Math.max(hurt[key] * 100, maxDmg)
     })
-    ret.dmgBonus = maxDmg
-    ret.phyBonus = hurt.physical * 100
+    ret.dmg = maxDmg
+    ret.phy = hurt.physical * 100
     return ret
   },
   getWeapon (weapon) {
@@ -216,4 +196,18 @@ let Miao = {
   }
 }
 
-export default Miao
+export default new ProfileServ({
+  key: 'miao',
+  name: 'MiaoApi',
+  cfgKey: 'miaoApi',
+  async response (data, req) {
+    if (data.status !== 0) {
+      return req.err(data.msg || 'error', 60)
+    }
+    data = data.data
+    if (!data.showAvatarInfoList || data.showAvatarInfoList.length === 0) {
+      return req.err('empty', 5 * 60)
+    }
+    return Miao.getData(req.uid, data)
+  }
+})

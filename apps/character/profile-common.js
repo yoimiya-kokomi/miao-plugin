@@ -3,10 +3,9 @@
 * */
 import lodash from 'lodash'
 import { segment } from 'oicq'
-import { profileList } from './profile-list.js';
-import Profile from '../../components/Profile.js'
-import { Character } from '../../components/models.js'
-import { isV3 } from '../../components/Changelog.js'
+import { profileList } from './profile-list.js'
+import { Profile, Version } from '../../components/index.js'
+import { Character } from '../../models/index.js'
 
 /*
 * 获取面板查询的 目标uid
@@ -36,7 +35,7 @@ export async function getTargetUid (e) {
       return uid
     }
   }
-  if (!isV3) {
+  if (!Version.isV3) {
     let botQQ = global.BotConfig ? global.BotConfig.account.qq : false
     if (e.at && e.at !== botQQ) {
       uid = await getUid(e.at)
@@ -133,7 +132,7 @@ export async function autoGetProfile (e, uid, avatar, callback) {
     return { err: true }
   }
 
-  let profile = await Profile.get(uid, char.id)
+  let profile = Profile.get(uid, char.id)
   if (!profile) {
     if (await refresh()) {
       return { err: true }

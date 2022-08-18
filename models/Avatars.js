@@ -1,9 +1,7 @@
 import Base from './Base.js'
 import lodash from 'lodash'
-import Data from '../Data.js'
-import Artifact from './Artifact.js'
-import Character from './Character.js'
-import Common from '../Common.js'
+import { Data, Common } from '../components/index.js'
+import { Artifact, Character } from './index.js'
 
 export default class Avatars extends Base {
   constructor (uid, datas = []) {
@@ -24,27 +22,20 @@ export default class Avatars extends Base {
         data.star = 5
       }
       let artis = {}
-      let sets = {}
+      let setCount = {}
       lodash.forEach(avatar.reliquaries, (arti) => {
         artis[arti.pos] = Data.getData(arti, 'name,level,set:set.name')
-        sets[arti.set.name] = (sets[arti.set.name] || 0) + 1
+        setCount[arti.set.name] = (setCount[arti.set.name] || 0) + 1
       })
       data.artis = artis
-      data.set = {}
-      for (let set in sets) {
-        if (sets[set] >= 4) {
-          data.set[set] = 4
-        } else if (sets[set] >= 2) {
-          data.set[set] = 2
+      data.sets = {}
+      data.names = []
+      for (let set in setCount) {
+        if (setCount[set] >= 2) {
+          data.sets[set] = setCount[set] >= 4 ? 4 : 2
+          data.names.push(Artifact.getArtiBySet(set))
         }
       }
-      data.sets = []
-      lodash.forEach(data.set, (v, k) => {
-        let name = Artifact.getArtiBySet(k)
-        if (name) {
-          data.sets.push(name)
-        }
-      })
       avatars[data.id] = data
     })
     this.avatars = avatars

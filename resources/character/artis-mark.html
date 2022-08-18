@@ -21,7 +21,7 @@
     <div class="cont">
       <div class="item arti-stat">
         <div><strong class="mark-{{totalMarkClass}}">{{totalMarkClass}}</strong><span>圣遗物评级</span></div>
-        <div><strong>{{(totalMark).toFixed(1)}}</strong><span>圣遗物总分</span></div>
+        <div><strong>{{totalMark}}</strong><span>圣遗物总分</span></div>
       </div>
     </div>
   </div>
@@ -29,13 +29,13 @@
 
 
 <div class="artis">
-  <% for(let idx = 0; idx<5; idx++) {
+  <% for(let idx = 1; idx<=5; idx++) {
   let ds = artis[idx]
   %>
-  {{if idx === 0 }}
+  {{if idx === 1 }}
   <div class="item no-bg"></div>
   {{/if}}
-  <div class="item arti">
+  <div class="item arti {{idx}}">
     {{if ds && ds.name && ds.main && ds.main.title && ds.main.title!="undefined"}}
     <div class="arti-icon">
       <img src="{{_res_path}}/meta/reliquaries/icon/{{ds.name}}.png"/>
@@ -48,7 +48,7 @@
     <ul class="detail attr">
       <li class="arti-main">
         <span class="title">{{ds.main.title}}</span>
-        <span class="val">+{{ds.main.val}}</span>
+        <span class="val">+{{ds.main.value}}</span>
         {{if idx >1 }}
         <span class="mark">{{ mark( ds.main.mark / 6 ) }}</span>
         {{else}}
@@ -59,8 +59,8 @@
       {{if attr.title}}
       <li class="{{usefulMark[attr.title]*1 > 79.9 ?`great`:(usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}"><span
           class="title">{{attr.title}} </span><span
-          class="val">+{{attr.val}}</span>
-        <span class="mark">{{ ( 46.6 / 6 / 100 * attr.mark ).toFixed(1) }}</span>
+          class="val">+{{attr.value}}</span>
+        <span class="mark">{{ ( 46.6 / 6 / 100 * attr._mark ).toFixed(1) }}</span>
       </li>
       {{/if}}
       {{/each}}

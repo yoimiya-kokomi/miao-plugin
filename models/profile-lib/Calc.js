@@ -1,10 +1,9 @@
 import fs from 'fs'
 import lodash from 'lodash'
-import Format from './Format.js'
-import { Character } from './models.js'
-
-import { eleBaseDmg, eleMap, attrMap } from './calc/calc-meta.js'
-import { Mastery } from './calc/mastery.js'
+import { Format } from '../../components/index.js'
+import { Character } from '../index.js'
+import { eleBaseDmg, eleMap, attrMap } from './calc-meta.js'
+import Mastery from './Mastery.js'
 
 let Calc = {
 
@@ -45,8 +44,6 @@ let Calc = {
     let ret = {}
     let { attr } = profile
 
-    ret.dataSource = profile.dataSource || 'miao'
-
     // 基础属性
     lodash.forEach('atk,def,hp'.split(','), (key) => {
       ret[key] = {
@@ -56,28 +53,12 @@ let Calc = {
       }
     })
 
-    lodash.forEach('mastery,recharge'.split(','), (key) => {
+    lodash.forEach('mastery,recharge,cpct,cdmg,heal,dmg,phy'.split(','), (key) => {
       ret[key] = {
-        base: attr[key] * 1 || 0,
-        plus: 0,
-        pct: 0
-      }
-    })
-
-    lodash.forEach({ cRate: 'cpct', cDmg: 'cdmg', hInc: 'heal' }, (val, key) => {
-      ret[val] = {
         base: attr[key] * 1 || 0,
         plus: 0,
         pct: 0,
-        inc: 0
-      }
-    })
-
-    lodash.forEach('dmg,phy'.split(','), (key) => {
-      ret[key] = {
-        base: attr[key + 'Bonus'] * 1 || 0,
-        plus: 0,
-        pct: 0
+        inc: 0 // 护盾增效&治疗增效
       }
     })
 
@@ -136,7 +117,7 @@ let Calc = {
 
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let td = talentData[key] || {}
-      let lv = td.level || td.level_current * 1 || 1
+      let lv = (td.level || td.level_current || 1) * 1
 
       let map = {}
 
@@ -367,7 +348,7 @@ let Calc = {
       }
 
       // 防御区
-      let lv = profile.lv
+      let lv = profile.lv || profile.level
       let defNum = (lv + 100) / ((lv + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore))
 
       // 抗性区
@@ -503,7 +484,7 @@ let Calc = {
       if (detail.check && !detail.check(Calc.getDs(attr, meta, params))) {
         return
       }
-      if (detail.cons && meta.cons * 1 < detail.cons * 1) {
+      if (detail.cons && meta.cons < detail.cons * 1) {
         return
       }
       let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params))

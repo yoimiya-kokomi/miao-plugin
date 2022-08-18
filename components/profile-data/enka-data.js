@@ -1,19 +1,10 @@
 import lodash from 'lodash'
-import Character from '../models/Character.js'
-import meta from './enka-meta.js'
-import cmeta from './enka-char.js'
-import _Data from '../Data.js'
 import moment from 'moment'
+import enkaMeta from './enka-meta.js'
+import charMeta from './enka-char.js'
+import { Character, Artifact, ProfileData } from '../../models/index.js'
 
 moment.locale('zh-cn')
-let _path = process.cwd()
-let relis = _Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/reliquaries/`, 'data.json') || {}
-
-let relisMap = {}
-
-lodash.forEach(relis, (ds) => {
-  relisMap[ds.name] = ds
-})
 
 const artiIdx = {
   EQUIP_BRACER: 1,
@@ -44,7 +35,7 @@ const attrMap = {
   CHARGE_EFFICIENCY: '充能效率'
 }
 
-let Data = {
+let EnkaData = {
   getData (uid, data) {
     let ret = {
       uid,
@@ -60,8 +51,8 @@ let Data = {
     })
 
     lodash.forEach(data.avatarInfoList, (ds) => {
-      let char = Data.getAvatar(ds)
-      ret.chars[char.id] = char
+      let char = EnkaData.getAvatar(ds)
+      ret.chars[char.id] = char // .toData()
     })
 
     if (data.ttl) {
@@ -72,21 +63,18 @@ let Data = {
   },
   getAvatar (data) {
     let char = Character.get(data.avatarId)
-    let now = moment()
-    let ret = {
-      id: data.avatarId,
-      name: char ? char.name : '',
-      dataSource: 'enka',
-      updateTime: now.format('YYYY-MM-DD HH:mm:ss'),
-      lv: data.propMap['4001'].val * 1,
-      fetter: data.fetterInfo.expLevel,
-      attr: Data.getAttr(data.fightPropMap),
-      weapon: Data.getWeapon(data.equipList),
-      artis: Data.getArtifact(data.equipList),
+    let profile = new ProfileData({ id: char.id })
+    profile.setBasic({
+      level: data.propMap['4001'].val * 1,
       cons: data.talentIdList ? data.talentIdList.length : 0,
-      talent: Data.getTalent(char.id, data.skillLevelMap, data.proudSkillExtraLevelMap || {})
-    }
-    return Data.dataFix(ret)
+      fetter: data.fetterInfo.expLevel,
+      dataSource: 'enka'
+    })
+    profile.setAttr(EnkaData.getAttr(data.fightPropMap))
+    profile.setWeapon(EnkaData.getWeapon(data.equipList))
+    profile.setArtis(EnkaData.getArtifact(data.equipList))
+    profile.setTalent(EnkaData.getTalent(char.id, data.skillLevelMap), 'original')
+    return EnkaData.dataFix(profile)
   },
   getAttr (data) {
     let ret = {}
@@ -98,15 +86,15 @@ let Data = {
       hp: 2000,
       hpBase: 1,
       mastery: 28,
-      cRate: {
+      cpct: {
         src: 20,
         pct: true
       },
-      cDmg: {
+      cdmg: {
         src: 22,
         pct: true
       },
-      hInc: {
+      heal: {
         src: 26,
         pct: true
       },
@@ -133,8 +121,8 @@ let Data = {
       maxDmg = Math.max(data[key] * 1, maxDmg)
     })
     // phy 30
-    ret.dmgBonus = maxDmg * 100
-    ret.phyBonus = data['30'] * 100
+    ret.dmg = maxDmg * 100
+    ret.phy = data['30'] * 100
 
     return ret
   },
@@ -154,19 +142,18 @@ let Data = {
       return [attrMap[id], d.statValue]
     }
     lodash.forEach(data, (ds) => {
-      let flat = ds.flat || {}; let sub = flat.reliquarySubstats || []
+      let flat = ds.flat || {}
+      let sub = flat.reliquarySubstats || []
       let idx = artiIdx[flat.equipType]
       if (!idx) {
         return
       }
 
-      let setName = meta[flat.setNameTextMapHash] || ''
-      let setCfg = relisMap[setName] || { name: '', sets: {} }
-      let artiCfg = setCfg.sets[`arti${idx}`] || { name: '' }
+      let setName = enkaMeta[flat.setNameTextMapHash] || ''
 
       ret[`arti${idx}`] = {
-        name: artiCfg.name,
-        set: setCfg.name,
+        name: Artifact.getArtiBySet(setName, idx),
+        set: setName,
         level: Math.min(20, ((ds.reliquary && ds.reliquary.level) || 1) - 1),
         main: get(flat.reliquaryMainstat),
         attrs: [
@@ -189,16 +176,17 @@ let Data = {
     })
     let { weapon, flat } = ds
     return {
-      name: meta[flat.nameTextMapHash],
+      name: enkaMeta[flat.nameTextMapHash],
       star: flat.rankLevel,
       level: weapon.level,
       promote: weapon.promoteLevel,
       affix: (lodash.values(weapon.affixMap)[0] || 0) + 1
     }
   },
-  getTalent (charid, ds = {}, ext = {}) {
-    let cm = cmeta[charid] || {}
-    let cn = cm.Skills || {}; let ce = cm.ProudMap
+  getTalent (charid, ds = {}) {
+    let cm = charMeta[charid] || {}
+    let cn = cm.Skills || {}
+    let ce = cm.ProudMap
     let idx = 1
     let idxMap = { 1: 'a', 2: 'e', 3: 'q', a: 'a', s: 'e', e: 'q' }
     lodash.forEach(cn, (n, id) => {
@@ -213,45 +201,30 @@ let Data = {
     lodash.forEach(ds, (lv, id) => {
       let key = idxMap[id]
       ret[key] = {
-        level_original: lv,
-        level_current: lv
+        original: lv
       }
     })
-    lodash.forEach(ext, (lv, id) => {
-      let key = idxMap[id]
-      if (ret[key]) {
-        ret[key].level_current = ret[key].level_current + lv
-      }
-    })
-
     return ret
   },
   dataFix (ret) {
     if (ret._fix) {
       return ret
     }
-    let { attr, talent, id } = ret
+    let { attr, id } = ret
     id = id * 1
     switch (id) {
       case 10000052:
         // 雷神被动加成fix
-        attr.dmgBonus = Math.max(0, attr.dmgBonus - (attr.recharge - 100) * 0.4)
+        attr.dmg = Math.max(0, attr.dmg - (attr.recharge - 100) * 0.4)
         break
       case 10000041:
         // 莫娜被动fix
-        attr.dmgBonus = Math.max(0, attr.dmgBonus - attr.recharge * 0.2)
+        attr.dmg = Math.max(0, attr.dmg - attr.recharge * 0.2)
         break
-    }
-    if (id !== 10000033) {
-      let a = talent.a || {}
-      if (a.level_current > 10) {
-        a.level_current = 10
-        a.level_original = 10
-      }
     }
     ret._fix = true
     return ret
   }
 }
 
-export default Data
+export default EnkaData

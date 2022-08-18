@@ -1,12 +1,11 @@
 import fs from 'fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
-import { Cfg } from '../components/index.js'
-import Common from '../components/Common.js'
+import { Cfg, Common } from '../components/index.js'
 
 let cfgMap = {
   角色: 'char.char',
-  面板: 'char.profile-data',
+  面板: 'char.profile',
   老婆: 'char.wife',
   戳一戳: 'char.poke',
   小清新: 'char.se',
@@ -84,7 +83,7 @@ export async function sysCfg (e, { render }) {
 
   let cfg = {
     chars: getStatus('char.char'),
-    profile: getStatus('char.profile-data'),
+    profile: getStatus('char.profile'),
     wife: getStatus('char.wife'),
     poke: getStatus('char.poke'),
     se: getStatus('char.se', false),
@@ -243,7 +242,7 @@ export async function profileCfg (e, { render }) {
     cfg[key] = getStatus(`profile.${key}.status`, true)
   })
 
-  let groups = Cfg.get('profile-data.groups', {})
+  let groups = Cfg.get('profile.groups', {})
   lodash.forEach(lodash.keys(groups), (group, idx) => {
     if (lodash.isUndefined(groups[group])) {
       return

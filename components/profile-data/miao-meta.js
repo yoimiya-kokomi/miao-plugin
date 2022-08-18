@@ -1,4 +1,4 @@
-import _Data from '../Data.js'
+import { Data } from '../index.js'
 import lodash from 'lodash'
 
 const _path = process.cwd()
@@ -11,7 +11,7 @@ export const artiIdx = {
   理之冠: 5
 }
 
-let relis = _Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/reliquaries/`, 'data.json') || {}
+let relis = Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/reliquaries/`, 'data.json') || {}
 let setMap = {}
 
 lodash.forEach(relis, (ds) => {

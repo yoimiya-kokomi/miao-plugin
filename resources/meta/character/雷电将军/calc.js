@@ -47,10 +47,8 @@ export const buffs = [
       qIgnore: 60
     }
   }, {
-    title: '雷神被动：基于元素充能获得[_dmg]%雷伤加成',
+    title: '雷神被动：基于元素充能获得[dmg]%雷伤加成',
     data: {
-      _dmg: ({ attr }) => Math.max(attr.recharge.base + attr.recharge.plus - 100, 0) * 0.4,
-      dmg: ({ attr }) =>
-        attr.dataSource === 'shin' ? 0 : Math.max(attr.recharge.base + attr.recharge.plus - 100, 0) * 0.4
+      dmg: ({ attr }) => Math.max(attr.recharge.base + attr.recharge.plus - 100, 0) * 0.4
     }
   }]

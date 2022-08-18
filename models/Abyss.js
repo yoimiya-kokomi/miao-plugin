@@ -1,7 +1,7 @@
-import Base from '../models/Base.js'
 import lodash from 'lodash'
-import Data from '../Data.js'
 import moment from 'moment'
+import Base from '../models/Base.js'
+import { Data } from '../components/index.js'
 
 moment.locale('zh-cn')
 
@@ -67,12 +67,12 @@ export default class Abyss extends Base {
   getAvatars () {
     let ret = {}
     lodash.forEach(this.reveral, (ds) => {
-      if(ds.id) {
+      if (ds.id) {
         ret[ds.id] = true
       }
     })
     lodash.forEach(this.stat, (ds) => {
-      if(ds.id) {
+      if (ds.id) {
         ret[ds.id] = true
       }
     })
@@ -80,12 +80,12 @@ export default class Abyss extends Base {
       let levels = floor?.levels || {}
       lodash.forEach(levels, (level) => {
         lodash.forEach(level.up?.avatars || [], (id) => {
-          if(id){
+          if (id) {
             ret[id] = true
           }
         })
         lodash.forEach(level.down?.avatars || [], (id) => {
-          if(id){
+          if (id) {
             ret[id] = true
           }
         })

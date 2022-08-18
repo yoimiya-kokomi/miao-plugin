@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import Data from '../components/Data.js'
+import {Data} from '../components/index.js'
 import puppeteer from '../../../lib/puppeteer/puppeteer.js'
 
 const plugin = 'miao-plugin'

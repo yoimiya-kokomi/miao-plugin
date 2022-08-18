@@ -1,8 +1,8 @@
-import Base from './Base.js'
 import lodash from 'lodash'
 import fs from 'fs'
-import Data from '../Data.js'
 import sizeOf from 'image-size'
+import Base from './Base.js'
+import { Data } from '../components/index.js'
 
 let aliasMap = {}
 let idMap = {}
@@ -12,10 +12,8 @@ const _path = process.cwd()
 const metaPath = `${_path}/plugins/miao-plugin/resources/meta/character/`
 
 async function init () {
-  let sysCfg = await Data.importModule('plugins/miao-plugin/config/system', 'character.js')
-  let custom = await Data.importModule('plugins/miao-plugin/config', 'character.js')
-
-  lodash.forEach([custom.customCharacters, sysCfg.characters], (roleIds) => {
+  let { sysCfg, diyCfg } = await Data.importCfg('character')
+  lodash.forEach([diyCfg.customCharacters, sysCfg.characters], (roleIds) => {
     lodash.forEach(roleIds || {}, (aliases, id) => {
       aliases = aliases || []
       if (aliases.length === 0) {
@@ -31,7 +29,7 @@ async function init () {
     })
   })
 
-  lodash.forEach([sysCfg.wifeData, custom.wifeData], (wifeData) => {
+  lodash.forEach([sysCfg.wifeData, diyCfg.wifeData], (wifeData) => {
     lodash.forEach(wifeData || {}, (ids, type) => {
       type = Data.def({ girlfriend: 0, boyfriend: 1, daughter: 2, son: 3 }[type], type)
       if (!wifeMap[type]) {

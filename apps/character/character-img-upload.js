@@ -5,8 +5,8 @@ import { segment } from 'oicq'
 import MD5 from 'md5'
 import fetch from 'node-fetch'
 import lodash from 'lodash'
-import Data from '../../components/Data.js'
-import { Character } from '../../components/models.js'
+import { Data } from '../../components/index.js'
+import { Character } from '../../models/index.js'
 
 const resPath = process.cwd() + '/plugins/miao-plugin/resources/'
 let regex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:照片|写真|图片|图像)\s*$/

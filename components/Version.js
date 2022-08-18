@@ -73,4 +73,17 @@ try {
 const yunzaiVersion = packageJson.version
 const isV3 = yunzaiVersion[0] === '3'
 
-export { currentVersion, yunzaiVersion, isV3, changelogs }
+let Version = {
+  isV3,
+  get version () {
+    return currentVersion
+  },
+  get yunzai () {
+    return yunzaiVersion
+  },
+  get changelogs () {
+    return changelogs
+  }
+}
+
+export default Version

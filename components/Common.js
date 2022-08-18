@@ -1,6 +1,6 @@
-import { Cfg } from './index.js'
+import Cfg from './Cfg.js'
+import { Version } from './index.js'
 import { segment } from 'oicq'
-import { currentVersion, yunzaiVersion, isV3 } from './Changelog.js'
 
 export const render = async function (path, params, cfg) {
   let paths = path.split('/')
@@ -14,19 +14,19 @@ export const render = async function (path, params, cfg) {
     elemLayout: layoutPath + 'elem.html',
     sys: {
       scale: Cfg.scale(cfg.scale || 1),
-      copyright: `Created By Yunzai-Bot<span class="version">${yunzaiVersion}</span> & Miao-Plugin<span class="version">${currentVersion}</span>`
+      copyright: `Created By Yunzai-Bot<span class="version">${Version.yunzai}</span> & Miao-Plugin<span class="version">${Version.version}</span>`
     }
   })
 
   let ret = true
   if (base64) {
-    ret = isV3 ? await e.reply(base64) : await e.reply(segment.image(`base64://${base64}`))
+    ret = Version.isV3 ? await e.reply(base64) : await e.reply(segment.image(`base64://${base64}`))
   }
   return cfg.retMsgId ? ret : true
 }
 
 export const todoV3 = function (e) {
-  if (isV3) {
+  if (Version.isV3) {
     e.reply('本功能暂时不支持V3版Yunzai...')
     return true
   }

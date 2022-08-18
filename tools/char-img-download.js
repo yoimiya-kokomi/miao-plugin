@@ -40,7 +40,7 @@ lodash.forEach(readDir, (c) => {
     // 正面
 
     // 角色条
-    img(char, char.imgs.profile, "profile-data.png");
+    img(char, char.imgs.profile, "profile.png");
     // 名片
     img(char, char.imgs.party, "party.png");
     // img(char, char.imgs.char, "char.png");

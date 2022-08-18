@@ -34,10 +34,10 @@
       <li><i class="i-atk"></i>攻击力<strong>{{attr.atk}}</strong><span>(+{{attr.atkPlus}})</span></li>
       <li><i class="i-def"></i>防御力<strong>{{attr.def}}</strong><span>(+{{attr.defPlus}})</span></li>
       <li><i class="i-mastery"></i>元素精通<strong>{{attr.mastery}}</strong></li>
-      <li><i class="i-cr"></i>暴击率<strong>{{attr.cRate}}</strong></li>
-      <li><i class="i-cd"></i>暴击伤害<strong>{{attr.cDmg}}</strong></li>
+      <li><i class="i-cr"></i>暴击率<strong>{{attr.cpct}}</strong></li>
+      <li><i class="i-cd"></i>暴击伤害<strong>{{attr.cdmg}}</strong></li>
       <li><i class="i-re"></i>元素充能<strong>{{attr.recharge}}</strong></li>
-      <li><i class="i-dmg"></i>伤害加成<strong>{{attr.dmgBonus}}</strong></li>
+      <li><i class="i-dmg"></i>伤害加成<strong>{{attr.dmg}}</strong></li>
     </ul>
   </div>
   <div class="char-cons">
@@ -69,7 +69,7 @@
       <div><strong>{{totalMark}}</strong><span>圣遗物总分</span></div>
     </div>
   </div>
-  {{each artis ds}}
+  {{each artis ds idx}}
   <div class="item arti">
     {{if ds && ds.name && ds.main && ds.main.title && ds.main.title!="undefined"}}
     <div class="arti-icon">
@@ -81,12 +81,12 @@
       <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
     </div>
     <ul class="detail attr">
-      <li class="arti-main"><span class="title">{{ds.main.title}}</span><span class="val">+{{ds.main.val}}</span></li>
+      <li class="arti-main"><span class="title">{{ds.main.title}}</span><span class="val">+{{ds.main.value}}</span></li>
       {{each ds.attrs attr}}
       {{if attr.title}}
       <li class="{{usefulMark[attr.title]*1 > 79.9 ?`great`:(usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}"><span
           class="title">{{attr.title}} </span><span
-          class="val">+{{attr.val}}</span></li>
+          class="val">+{{attr.value}}</span></li>
       {{/if}}
       {{/each}}
     </ul>

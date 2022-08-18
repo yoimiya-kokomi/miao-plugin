@@ -172,3 +172,5 @@ export const abbr = {
   渡过烈火的贤人: '渡火贤人',
   冰风迷途的勇士: '冰风勇士'
 }
+
+export const isSys = true

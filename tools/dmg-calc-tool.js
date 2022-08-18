@@ -1,6 +1,5 @@
-import Profile from '../components/Profile.js'
-import Calc from '../components/Calc.js'
-import { Character } from '../components/models.js'
+import Calc from '../models/profile-lib/Calc.js'
+import { Character } from '../models/index.js'
 import Miao from '../components/profile-data/miao.js'
 
 export async function calcDmg (inputData, enemyLv = 86) {

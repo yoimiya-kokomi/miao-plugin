@@ -2,13 +2,11 @@
 * 胡桃数据库的统计
 *
 * */
-import { HutaoApi, Character } from '../components/models.js'
-import { Cfg } from '../components/index.js'
 import lodash from 'lodash'
 import fs from 'fs'
-import Common from '../components/Common.js'
-import Abyss from '../components/models/Abyss.js'
-import Avatars from '../components/models/Avatars.js'
+import { Cfg, Common } from '../components/index.js'
+import { Abyss, Avatars, Character } from '../models/index.js'
+import HutaoApi from './stat/HutaoApi.js'
 
 export async function consStat (e, { render }) {
   if (Cfg.isDisable(e, 'wiki.stat')) {

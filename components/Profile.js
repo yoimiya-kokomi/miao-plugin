@@ -1,62 +1,30 @@
 import fs from 'fs'
 import lodash from 'lodash'
-import Format from './Format.js'
-import Character from './models/Character.js'
 import Miao from './profile-data/miao.js'
 import Enka from './profile-data/enka.js'
-import Data from './Data.js'
+import { Character, ProfileReq, ProfileData } from '../models/index.js'
 
 const _path = process.cwd()
-
-let sysCfg = await Data.importModule('plugins/miao-plugin/config/system', 'profile.js')
-let diyCfg = await Data.importModule('plugins/miao-plugin/config/', 'profile.js')
-
 const userPath = `${_path}/data/UserData/`
-
 if (!fs.existsSync(userPath)) {
   fs.mkdirSync(userPath)
 }
 
-function sleep (ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
-function getServ (uid) {
-  return (diyCfg.profileApi || sysCfg.profileApi)({ uid, Miao, Enka, diyCfg })
-}
-
-const requestInterval = diyCfg.requestInterval || sysCfg.requestInterval || 5
+ProfileReq.regServ({ Miao, Enka })
 
 let Profile = {
   async request (uid, e) {
     if (uid.toString().length !== 9) {
       return false
     }
-    let Serv = getServ(uid)
-
-    let cdTime = await Profile.inCd(uid)
-    if (cdTime) {
-      e.reply(`请求过快，请${cdTime}秒后重试..`)
-      return false
-    }
-
-    await Profile.setCd(uid, 20) // 发起请求设置20s cd
-    e.reply('开始获取数据，可能会需要一定时间~')
-    await sleep(500)
+    let req = new ProfileReq({ e, uid })
     let data
     try {
-      data = await Serv.request({ uid, e, sysCfg, diyCfg, setCd: Profile.setCd })
+      data = await req.request()
       if (!data) {
         return false
       }
-      // enka服务测冷却时间5分钟
-      let cdTime = requestInterval * 60
-      if (data.ttl) {
-        cdTime = Math.max(cdTime, data.ttl * 1)
-        delete data.ttl
-      }
-      await Profile.setCd(uid, cdTime) // 根据设置设置cd
-      return Profile.save(uid, data, Serv.key)
+      return Profile.save(uid, data)
     } catch (err) {
       console.log(err)
       e.reply('请求失败')
@@ -64,24 +32,7 @@ let Profile = {
     }
   },
 
-  async setCd (uid, cdTime = 5 * 60) {
-    let ext = new Date() * 1 + cdTime * 1000
-    await redis.set(`miao:role-all:${uid}`, ext + '', { EX: cdTime })
-  },
-
-  async inCd (uid) {
-    let ext = await redis.get(`miao:role-all:${uid}`)
-    if (!ext || isNaN(ext)) {
-      return false
-    }
-    let cd = new Date() * 1 - ext
-    if (cd < 0) {
-      return Math.ceil(0 - cd / 1000)
-    }
-    return false
-  },
-
-  save (uid, data, dataSource = 'enka') {
+  save (uid, data) {
     let userData = {}
     const userFile = `${userPath}/${uid}.json`
     if (fs.existsSync(userFile)) {
@@ -101,21 +52,6 @@ let Profile = {
     return data
   },
 
-  saveCharData (uid, ds) {
-    if (!uid || !ds.id) {
-      return
-    }
-    let userData = {}
-    const userFile = `${userPath}/${uid}.json`
-    if (fs.existsSync(userFile)) {
-      userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
-    }
-    userData.chars = userData.chars || {}
-    userData.chars[ds.id] = ds
-    fs.writeFileSync(userFile, JSON.stringify(userData), '', ' ')
-    return ds
-  },
-
   _get (uid, charId) {
     const userFile = `${userPath}/${uid}.json`
     let userData = {}
@@ -128,21 +64,17 @@ let Profile = {
     return false
   },
 
-  async get (uid, charId, onlyAvailable = false) {
-    if (onlyAvailable) {
-      let data = await Profile.get(uid, charId)
-      if (data && data.dataSource && data.dataSource !== 'input') {
-        return data
+  get (uid, charId, onlyHasData = false) {
+    let data = Profile._get(uid, charId)
+    if (data) {
+      let profile = new ProfileData(data)
+      if (onlyHasData && !profile.hasData) {
+        return false
       }
+      return profile
+    } else {
       return false
     }
-
-    let data = Profile._get(uid, charId)
-    let Serv = getServ(uid)
-    if (Serv.getCharData && data && data.id) {
-      return await Serv.getCharData(uid, data, Profile.saveCharData, { sysCfg, diyCfg })
-    }
-    return data
   },
 
   getAll (uid) {
@@ -152,48 +84,13 @@ let Profile = {
       userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
     }
     if (userData && userData.chars) {
-      return userData.chars
-    }
-    return false
-  },
-
-  formatArti (ds, markCfg = false, isMain = false) {
-    if (lodash.isArray(ds[0])) {
-      let ret = []
-      lodash.forEach(ds, (d) => {
-        ret.push(Profile.formatArti(d, markCfg, isMain))
+      let ret = {}
+      lodash.forEach(userData.chars, (ds, id) => {
+        ret[id] = new ProfileData(ds)
       })
       return ret
     }
-    let title = ds[0]
-    let val = ds[1]
-    let num = ds[1]
-    if (!title || title === 'undefined') {
-      return []
-    }
-    if (/伤害加成/.test(title) && val < 1) {
-      val = Format.pct(val * 100)
-      num = num * 100
-    } else if (/伤害加成|大|暴|充能|治疗/.test(title)) {
-      val = Format.pct(val)
-    } else {
-      val = Format.comma(val, 1)
-    }
-
-    if (/元素伤害加成/.test(title)) {
-      title = title.replace('元素伤害', '伤')
-    } else if (title === '物理伤害加成') {
-      title = '物伤加成'
-    }
-
-    let mark = 0
-    if (markCfg) {
-      mark = Format.comma(markCfg[title] * num || 0)
-      if (isMain) {
-        mark = mark / 4
-      }
-    }
-    return { title, val, mark }
+    return false
   },
 
   inputProfile (uid, e) {
@@ -286,8 +183,8 @@ let Profile = {
   },
 
   getServName (uid) {
-    let Serv = getServ(uid)
-    return Serv.getName({ uid, diyCfg, sysCfg })
+    let Serv = ProfileReq.getServ(uid)
+    return Serv.name
   }
 }
 export default Profile

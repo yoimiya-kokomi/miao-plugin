@@ -17,10 +17,9 @@ export const details = [{
 export const mainAttr = 'atk,hp,cpct,recharge'
 
 export const buffs = [{
-  title: '莫娜被动：基于元素充能效率获得水元素伤害[_dmg]%',
+  title: '莫娜被动：基于元素充能效率获得水元素伤害[dmg]%',
   data: {
-    _dmg: ({ calc, attr }) => calc(attr.recharge) * 0.2,
-    dmg: ({ calc, attr }) => attr.dataSource === 'shin' ? 0 : calc(attr.recharge) * 0.2
+    dmg: ({ calc, attr }) => calc(attr.recharge) * 0.2
   }
 }, {
   title: '莫娜1命：命中星异状态下的敌人水元素相关反应效果提升15%',

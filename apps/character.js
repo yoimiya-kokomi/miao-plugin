@@ -3,7 +3,7 @@ import { renderAvatar } from './character/avatar-card.js'
 import { getTargetUid, getProfile, profileHelp, getProfileAll, inputProfile } from './character/profile-common.js'
 import { profileArtis } from './character/profile-artis.js'
 import { renderProfile } from './character/profile-detail.js'
-import { Character } from '../components/models.js'
+import { Character } from '../models/index.js'
 //
 export { getProfileAll, getProfile, profileHelp }
 

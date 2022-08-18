@@ -1,8 +1,6 @@
-import { Cfg } from '../components/index.js'
 import lodash from 'lodash'
-import { currentVersion, changelogs } from '../components/Changelog.js'
-import Common from '../components/Common.js'
 import fs from 'fs'
+import { Cfg, Version, Common } from '../components/index.js'
 
 const _path = process.cwd()
 const helpPath = `${_path}/plugins/miao-plugin/resources/help`
@@ -12,7 +10,8 @@ export async function help (e, { render }) {
     return false
   }
 
-  let custom = {}; let help = {}
+  let custom = {};
+  let help = {}
   if (fs.existsSync(`${helpPath}/help-cfg.js`)) {
     help = await import(`file://${helpPath}/help-cfg.js?version=${new Date().getTime()}`)
   } else if (fs.existsSync(`${helpPath}/help-list.js`)) {
@@ -46,7 +45,8 @@ export async function help (e, { render }) {
       if (!icon) {
         help.css = 'display:none'
       } else {
-        let x = (icon - 1) % 10; let y = (icon - x - 1) / 10
+        let x = (icon - 1) % 10;
+        let y = (icon - x - 1) / 10
         help.css = `background-position:-${x * 50}px -${y * 50}px`
       }
     })
@@ -63,8 +63,8 @@ export async function help (e, { render }) {
 
 export async function versionInfo (e, { render }) {
   return await Common.render('help/version-info', {
-    currentVersion,
-    changelogs,
+    currentVersion: Version.version,
+    changelogs: Version.changelogs,
     elem: 'cryo'
   }, { e, render, scale: 1.2 })
 }

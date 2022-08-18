@@ -1,7 +1,6 @@
 import lodash from 'lodash'
 import { autoRefresh } from './profile-common.js'
-import { Calc, Common, Format, Profile } from '../../components/index.js'
-import { getArtis } from './profile-artis.js'
+import { Common, Format, Profile } from '../../components/index.js'
 
 export async function renderProfile (e, char, render, mode = 'profile', params = {}) {
   let selfUser = await e.checkAuth({
@@ -27,7 +26,7 @@ export async function renderProfile (e, char, render, mode = 'profile', params =
     return refreshRet
   }
 
-  let profile = await Profile.get(uid, char.id)
+  let profile = Profile.get(uid, char.id)
 
   if (!profile) {
     if (await refresh()) {
@@ -58,21 +57,19 @@ export async function renderProfile (e, char, render, mode = 'profile', params =
     atkPlus: c(a.atk - a.atkBase),
     def: c(a.def),
     defPlus: c(a.def - a.defBase),
-    cRate: p(a.cRate),
-    cDmg: p(a.cDmg),
+    cpct: p(a.cpct),
+    cdmg: p(a.cdmg),
     mastery: c(a.mastery),
     recharge: p(a.recharge),
-    dmgBonus: p(Math.max(a.dmgBonus * 1 || 0, a.phyBonus * 1 || 0))
+    dmg: p(Math.max(a.dmg * 1 || 0, a.phy * 1 || 0))
   }
 
-  let { artis, totalMark, totalMarkClass, usefulMark } = getArtis(char.name, profile.artis)
+  let { artis, mark: totalMark, markClass: totalMarkClass, usefulMark } = profile.getArtisMark()
 
   let enemyLv = await selfUser.getCfg('char.enemyLv', 91)
   let dmgMsg = []
   let dmgData = []
-  let dmgCalc = await Calc.calcData({
-    profile,
-    char,
+  let dmgCalc = await profile.calcDmg({
     enemyLv,
     mode,
     ...params

@@ -1,15 +1,13 @@
-import { Data } from '../index.js'
+import { Data } from '../components/index.js'
 
 export default class Base {
-  constructor () {
-    this.name = ''
-  }
 
   toString () {
-    return this.name
+    return this?.name || ''
   }
 
   getData (arrList = '', cfg = {}) {
+    arrList = arrList || this._dataKey || ''
     return Data.getData(this, arrList, cfg)
   }
 

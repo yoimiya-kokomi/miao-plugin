@@ -1,6 +1,6 @@
 import { erType } from './calc-meta.js'
 
-export const Mastery = {
+let Mastery = {
 
   getType () {
 
@@ -22,3 +22,4 @@ export const Mastery = {
     return 1
   }
 }
+export default Mastery

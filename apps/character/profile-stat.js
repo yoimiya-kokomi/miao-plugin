@@ -1,6 +1,6 @@
 import lodash from 'lodash'
-import { Common, Profile } from '../../components/index.js'
-import { Artifact, Avatars } from '../../components/models.js'
+import { Common, Profile, Data } from '../../components/index.js'
+import { Avatars } from '../../models/index.js'
 
 export async function profileStat (e, { render }) {
   // 缓存时间，单位小时
@@ -40,11 +40,12 @@ export async function profileStat (e, { render }) {
 
   let avatarRet = []
   lodash.forEach(talentData, (avatar) => {
-    let { talent, id, name } = avatar
+    let { talent, id } = avatar
     avatar.aeq = talent?.a?.original + talent?.e?.original + talent?.q?.original || 3
     avatarRet.push(avatar)
-    if (profiles[id]?.artis) {
-      avatar.artisMark = Artifact.getTotalMark(name, profiles[id].artis)
+    if (profiles[id]) {
+      let mark = profiles[id].getArtisMark(false)
+      avatar.artisMark = Data.getData(mark, 'mark,markClass,names')
     }
   })
 

@@ -1,4 +1,4 @@
-import { Artifact, Character } from '../../components/models.js'
+import { Artifact, Character } from '../../models/index.js'
 import { Cfg, Data, Common, Profile } from '../../components/index.js'
 import lodash from 'lodash'
 import { segment } from 'oicq'
@@ -29,7 +29,7 @@ export async function renderAvatar (e, avatar, render, renderType = 'card') {
     if (char.isCustom) {
       avatar = { id: char.id, name: char.name, detail: false }
     } else {
-      let profile = await Profile.get(uid, char.id, true)
+      let profile = Profile.get(uid, char.id, true)
       if (profile) {
         // 优先使用Profile数据
         avatar = profile
