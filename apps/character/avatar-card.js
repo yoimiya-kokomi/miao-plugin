@@ -150,7 +150,7 @@ function getCharacterData (avatars) {
     affix: w.affix || w.affix_level || 0
   }
 
-  let artis = avatars.artis || avatars.reliquaries
+  let artis = avatars?.artis?.artis || avatars.reliquaries
 
   if (artis) {
     lodash.forEach(artis, (val) => {

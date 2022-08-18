@@ -15,11 +15,11 @@ export default class ProfileReq extends Base {
 
   async setCd (seconds = 60) {
     let ext = new Date() * 1 + seconds * 1000
-    await redis.set(`miao:profile-req:${this.uid}`, ext + '', { EX: seconds })
+    await redis.set(`miao:profile-cd:${this.uid}`, ext + '', { EX: seconds })
   }
 
   async inCd () {
-    let ext = await redis.get(`miao:role-all:${this.uid}`)
+    let ext = await redis.get(`miao:profile-cd:${this.uid}`)
     if (!ext || isNaN(ext)) {
       return false
     }
@@ -62,12 +62,9 @@ export default class ProfileReq extends Base {
     this.msg('开始获取数据，可能会需要一定时间~')
     await sleep(100)
     // 发起请求
-    console.log('reqParam', reqParam)
     let req = await fetch(reqParam.url, reqParam.params || {})
     let data = await req.json()
     data = await Serv.response(data, this)
-
-    console.log(data)
     // 设置CD
     cdTime = Serv.getCdTime(data)
     if (cdTime) {

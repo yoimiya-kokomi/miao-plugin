@@ -73,6 +73,5 @@ export default class ProfileServ extends Base {
 }
 
 ProfileServ.getServ = function ({ uid, serv }) {
-  console.log(diyCfg)
   return (diyCfg.getProfileServ || sysCfg.getProfileServ)({ uid, serv, diyCfg })
 }

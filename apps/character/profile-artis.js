@@ -26,7 +26,7 @@ export async function profileArtis (e, { render }) {
     return true
   }
 
-  let charCfg = profile.getCharCfg()
+  let charCfg = profile.artis.getCharCfg()
   let { artis, mark: totalMark, markClass: totalMarkClass, usefulMark } = profile.getArtisMark()
 
   let { attrMap } = Artifact.getMeta()

@@ -13,6 +13,17 @@ export const details = [{
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
+  title: '刻晴被动：释放Q获得15%暴击率',
+  data: {
+    qCpct: 15
+  }
+}, {
+  title: '刻晴4命：触发雷元素相关反应提升攻击力25%',
+  cons: 4,
+  data: {
+    atkPct: 25
+  }
+}, {
   title: '刻晴6命：4层获得24%雷伤加成',
   cons: 6,
   data: {

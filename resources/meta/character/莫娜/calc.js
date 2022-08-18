@@ -14,7 +14,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['泡影破裂伤害'], 'q', 'zf')
 }]
 
-export const mainAttr = 'atk,hp,cpct,recharge'
+export const mainAttr = 'atk,cpct,cdmg,recharge'
 
 export const buffs = [{
   title: '莫娜被动：基于元素充能效率获得水元素伤害[dmg]%',
