@@ -63,28 +63,39 @@ export default class ProfileData extends Base {
     return this.char?.name || ''
   }
 
+  // 判断当前profileData是否具有有效数据
   get hasData () {
-    if (!['enka', 'input2', 'miao'].includes(this.dataSource)) {
+    // 检查数据源
+    if (!this.dataSource || !['enka', 'input2', 'miao'].includes(this.dataSource)) {
       return false
     }
+    // 检查旅行者
     if (['空', '荧'].includes(this.name)) {
+      return false
+    }
+    // 检查属性
+    if (!this.weapon || !this.attr || !this.talent || !this.artis) {
       return false
     }
     return true
   }
 
+  // 判断当前profileData是否具备有效圣遗物信息
   hasArtis () {
     return this.hasData && this.artis.length > 0
   }
 
+  // toJSON 供保存使用
   toJSON () {
     return this.getData('id,name,level,cons,fetter,attr,weapon,talent,artis,updateTime,dataSource')
   }
 
+  // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
   getArtisMark (withDetail = true) {
     return this.artis.getMarkDetail(withDetail)
   }
 
+  // 计算当前profileData的伤害信息
   async calcDmg ({ enemyLv = 91, mode = 'profile', dmgIdx = 0 }) {
     if (!this.dmg) {
       this.dmg = new ProfileDmg(this)

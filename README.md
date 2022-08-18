@@ -51,7 +51,7 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 由于miao-plugin对V3-Yunzai正在适配中，部分功能可能尚未适配或工作不正常，如遇问题可通过issue提报
 
 [issue#13](https://github.com/yoimiya-kokomi/miao-plugin/issues/74) : 如启动时报 Cannot find package 'image-size'
-的错误，直接在yunzai根目录下`npm install image-size --save`即可
+的错误，直接在yunzai根目录下`pnpm add image-size -w` 或使用cnpm、npm等包管理工具安装image-size库即可
 
 ---
 
