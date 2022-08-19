@@ -9,8 +9,8 @@ export default class ProfileServ extends Base {
     super()
     this._name = cfg.name
     this.cfgKey = cfg.cfgKey || cfg.id
-    this.diyCfg = diyCfg[this.cfgKey]
-    this.sysCfg = sysCfg[this.cfgKey]
+    this.diyCfg = diyCfg[this.cfgKey] || {}
+    this.sysCfg = sysCfg[this.cfgKey] || {}
     this._cfg = cfg
   }
 
