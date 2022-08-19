@@ -38,7 +38,7 @@ export default class ProfileDmg extends Base {
     let originalAttr = Calc.attr(profile)
 
     let weaponBuffs = await Calc.weapon(profile.weapon.name)
-    let reliBuffs = await Calc.reliquaries(profile.artis)
+    let reliBuffs = await Calc.reliquaries(profile.artis?.artis||{})
     buffs = lodash.concat(buffs, weaponBuffs, reliBuffs)
 
     lodash.forEach(buffs, (buff) => {

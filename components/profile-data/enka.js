@@ -24,7 +24,7 @@ export default new ProfileServ({
     }
     let details = data.avatarInfoList
     if (!details || details.length === 0 || !details[0].propMap) {
-      return req.err('no-avatar', 5 * 60)
+      return req.err('empty', 5 * 60)
     }
     return EnkaData.getData(req.uid, data)
   }
