@@ -23,7 +23,4 @@ export const buffs = [{
   data: {
     dmg: 15
   }
-}, {
-  title: '元素精通：蒸发伤害提高[zf]%',
-  mastery: 'zf'
-}]
+}, 'zf']

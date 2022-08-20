@@ -1,3 +1,4 @@
+import lodash from 'lodash'
 import Base from './Base.js'
 import ProfileServ from './ProfileServ.js'
 import fetch from 'node-fetch'
@@ -70,7 +71,19 @@ export default class ProfileReq extends Base {
     if (cdTime) {
       await this.setCd(cdTime)
     }
-    return data
+    if (data === false) {
+      return false
+    }
+    let userData = Serv.getUserData(data)
+    let profiles = Serv.getProfileData(data)
+    cdTime = Serv.getCdTime(data)
+    if (cdTime) {
+      await this.setCd(cdTime)
+    }
+    return lodash.extend({
+      uid: this.uid,
+      chars: profiles
+    }, userData)
   }
 }
 

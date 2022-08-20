@@ -23,7 +23,4 @@ export const buffs = [{
   data: {
     eMulti: 50
   }
-}, {
-  title: '元素精通：蒸发融化伤害提高[zf]%',
-  mastery: 'zf,rh'
-}]
+}, 'zf']

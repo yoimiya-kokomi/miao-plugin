@@ -31,7 +31,4 @@ export const buffs = [{
   data: {
     aPlus: ({ attr, calc, talent }) => calc(attr.hp) * talent.e['浪闪伤害值提高'][0] / 100 * 5
   }
-}, {
-  title: '元素精通：蒸发伤害提高[zf]%',
-  mastery: 'zf'
-}]
+}, 'zf']

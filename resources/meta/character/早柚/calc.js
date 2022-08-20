@@ -21,7 +21,4 @@ export const buffs = [{
     qPct: ({ attr, calc }) => Math.min(calc(attr.mastery) * 0.002, 400),
     _heal: ({ attr, calc }) => Math.min(calc(attr.mastery) * 3, 6000)
   }
-}, {
-  title: '元素精通：扩散伤害提高[ks]%',
-  mastery: 'ks'
-}]
+}, 'ks']

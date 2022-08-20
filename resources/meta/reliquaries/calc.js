@@ -146,7 +146,8 @@ export const buffs = {
   教官4: {
     title: '教官4：触发元素反应后，队伍中所有角色的元素精通提高120点',
     data: {
-      mastery: 120
+      mastery: 120,
+      masteryInc: 120
     }
   },
   千岩牢固4: {

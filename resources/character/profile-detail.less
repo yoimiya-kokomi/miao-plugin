@@ -226,7 +226,7 @@ body {
 .char-talents {
   display: flex;
   width: 300px;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
 }
 
 .char-cons {
@@ -305,6 +305,20 @@ body {
 
 .elem_pyro .container {
   background-image: url(../common/bg/bg-pyro.jpg);
+}
+
+.data-info {
+  font-size: 12px;
+  color: rgba(255, 255, 255, .85);
+  text-align: right;
+  text-shadow: 1px 1px 1px #000;
+  z-index: 2;
+  line-height: 20px;
+  padding-right: 5px;
+
+  .time {
+    margin-left: 5px;
+  }
 }
 
 
@@ -725,9 +739,11 @@ body {
   box-shadow: 0 0 4px 0 #deaf39 inset;
   background: #fff6dd;
 }
-.artis .arti-stat{
+
+.artis .arti-stat {
   height: 85px;
 }
+
 .arti-stat {
   height: 90px;
   margin-top: 10px;

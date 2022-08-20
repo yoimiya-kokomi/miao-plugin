@@ -38,10 +38,21 @@ export default class ProfileDmg extends Base {
     let originalAttr = Calc.attr(profile)
 
     let weaponBuffs = await Calc.weapon(profile.weapon.name)
-    let reliBuffs = await Calc.reliquaries(profile.artis?.artis||{})
+    let reliBuffs = await Calc.reliquaries(profile.artis?.artis || {})
     buffs = lodash.concat(buffs, weaponBuffs, reliBuffs)
-
-    lodash.forEach(buffs, (buff) => {
+    let mKey = {
+      zf: '蒸发',
+      rh: '融化',
+      ks: '扩散'
+    }
+    lodash.forEach(buffs, (buff, idx) => {
+      if (lodash.isString(buff) && mKey[buff]) {
+        buff = {
+          title: `元素精通：${mKey[buff]}伤害提高[${buff}]%`,
+          mastery: buff
+        }
+        buffs[idx] = buff
+      }
       buff.sort = lodash.isUndefined(buff.sort) ? 1 : buff.sort
     })
 

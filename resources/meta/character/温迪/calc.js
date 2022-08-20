@@ -42,7 +42,4 @@ export const buffs = [{
   data: {
     kx: ({ params }) => params.q ? 20 : 0
   }
-}, {
-  title: '元素精通：扩散伤害提高[ks]%',
-  mastery: 'ks'
-}]
+}, 'ks']

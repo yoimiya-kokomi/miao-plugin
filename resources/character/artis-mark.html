@@ -1,7 +1,7 @@
 {{extend elemLayout}}
 
 {{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/detail.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-detail.css"/>
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/character/artis-mark.css"/>
 {{/block}}
 
@@ -70,14 +70,14 @@
       <li>
         <span class="title">总分对齐</span>
         <span class="val">
-           *{{( 66 / (46.6/6/100 * charCfg.maxMark[idx+1]) * 100).toFixed(1)}}%
+           *{{( 66 / (46.6/6/100 * charCfg.maxMark[idx]) * 100).toFixed(1)}}%
         </span>
       </li>
-      {{if idx>1}}
+      {{if idx>2}}
       <li>
         <span class="title">最优主词缀</span>
         <span class="val">
-         *{{(100-50*(1-ds.main.mark/charCfg.maxMark["m"+(idx+1)]/2)).toFixed(0)}}%
+         *{{(100-50*(1-ds.main.mark/charCfg.maxMark["m"+idx]/2)).toFixed(0)}}%
         </span>
       </li>
       {{/if}}

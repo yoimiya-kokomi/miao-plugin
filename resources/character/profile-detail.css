@@ -197,7 +197,7 @@ body {
 .char-talents {
   display: flex;
   width: 300px;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
 }
 .char-cons {
   display: flex;
@@ -254,6 +254,18 @@ body {
 }
 .elem_pyro .container {
   background-image: url(../common/bg/bg-pyro.jpg);
+}
+.data-info {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: right;
+  text-shadow: 1px 1px 1px #000;
+  z-index: 2;
+  line-height: 20px;
+  padding-right: 5px;
+}
+.data-info .time {
+  margin-left: 5px;
 }
 /***  dmg ***/
 .cont {
@@ -705,4 +717,4 @@ body {
 .char-班尼特 .main-pic {
   margin-left: -220px;
 }
-/*# sourceMappingURL=detail.css.map */
+/*# sourceMappingURL=profile-detail.css.map */

@@ -1,10 +1,7 @@
 import lodash from 'lodash'
-import moment from 'moment'
 import enkaMeta from './enka-meta.js'
 import charMeta from './enka-char.js'
 import { Character, Artifact, ProfileData } from '../../models/index.js'
-
-moment.locale('zh-cn')
 
 const artiIdx = {
   EQUIP_BRACER: 1,
@@ -36,32 +33,7 @@ const attrMap = {
 }
 
 let EnkaData = {
-  getData (uid, data) {
-    let ret = {
-      uid,
-      chars: {}
-    }
-
-    lodash.forEach({
-      name: 'nickname',
-      avatar: 'profilePicture.avatarId',
-      level: 'level'
-    }, (src, key) => {
-      ret[key] = lodash.get(data.playerInfo, src, '')
-    })
-
-    lodash.forEach(data.avatarInfoList, (ds) => {
-      let char = EnkaData.getAvatar(ds)
-      ret.chars[char.id] = char // .toData()
-    })
-
-    if (data.ttl) {
-      ret.ttl = data.ttl
-    }
-
-    return ret
-  },
-  getAvatar (data) {
+  getProfile (data) {
     let char = Character.get(data.avatarId)
     let profile = new ProfileData({ id: char.id })
     profile.setBasic({

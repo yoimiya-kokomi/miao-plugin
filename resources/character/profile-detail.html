@@ -1,7 +1,7 @@
 {{extend elemLayout}}
 
 {{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/detail.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-detail.css"/>
 {{/block}}
 
 {{set weapon = data.weapon}}
@@ -39,7 +39,16 @@
       <li><i class="i-re"></i>元素充能<strong>{{attr.recharge}}</strong></li>
       <li><i class="i-dmg"></i>伤害加成<strong>{{attr.dmg}}</strong></li>
     </ul>
+    <div class="data-info">
+      {{if data.dataSource}}
+      <span>数据源：{{ {miao:"MiaoApi",enka:"Enka.Network",input:"手工录入"}[data.dataSource]||data.dataSource }}</span>
+      {{/if}}
+      {{if data.updateTime}}
+      <span class="time">{{data.updateTime}}</span>
+      {{/if}}
+    </div>
   </div>
+
   <div class="char-cons">
     {{each cons con idx}}
     <div class="cons-item">

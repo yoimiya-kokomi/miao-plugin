@@ -61,14 +61,26 @@ export default class ProfileServ extends Base {
     }
   }
 
+  execFn (fn, args = [], def = false) {
+    let { _cfg } = this
+    if (_cfg[fn]) {
+      return _cfg[fn].apply(this, args)
+    }
+    return def
+  }
+
   getCdTime (data) {
     const requestInterval = diyCfg.requestInterval || sysCfg.requestInterval || 5
     let cdTime = requestInterval * 60
-    if (data.ttl) {
-      cdTime = Math.max(cdTime, data.ttl * 1)
-      delete data.ttl
-    }
-    return cdTime
+    return Math.max(cdTime, this.execFn('cdTime', [data], 60))
+  }
+
+  getUserData (data) {
+    return this.execFn('userData', [data], {})
+  }
+
+  getProfileData (data) {
+    return this.execFn('profileData', [data], {})
   }
 }
 

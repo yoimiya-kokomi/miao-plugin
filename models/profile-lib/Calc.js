@@ -184,6 +184,20 @@ let Calc = {
 
       ds.currentTalent = talent
 
+      let mKey = {
+        zf: '蒸发',
+        rh: '融化',
+        ks: '扩散'
+      }
+      if (lodash.isString(buff) && mKey[buff]) {
+        buff = {
+          zf: {
+            title: `元素精通：${mKey[buff]}伤害提高[${buff}]%`,
+            mastery: buff
+          }
+        }
+      }
+
       // 如果存在rule，则进行计算
       if (buff.check && !buff.check(ds)) {
         return

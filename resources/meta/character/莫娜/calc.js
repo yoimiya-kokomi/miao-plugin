@@ -40,11 +40,8 @@ export const buffs = [{
     a2Dmg: 180
   }
 }, {
-  title: '元素精通：蒸发融化伤害提高[zf]%',
-  mastery: 'zf,rh'
-}, {
   title: '莫娜天赋：开Q获得[dmg]%伤害加成',
   data: {
     dmg: ({ talent }) => talent.q['伤害加成']
   }
-}]
+}, 'zf']

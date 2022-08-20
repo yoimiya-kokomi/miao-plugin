@@ -31,9 +31,6 @@ export const buffs = [{
     qCpct: 10
   }
 }, {
-  title: '元素精通：蒸发融化伤害提高[zf]%',
-  mastery: 'zf,rh'
-}, {
   title: '安柏2命：瞄准引爆兔兔伯爵伤害提高200%',
   cons: 2
-}]
+}, 'zf']

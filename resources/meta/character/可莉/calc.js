@@ -30,7 +30,4 @@ export const buffs = [{
   data: {
     dmg: ({ params }) => params.q === false ? 0 : 10
   }
-}, {
-  title: '元素精通：蒸发融化伤害提高[zf]%',
-  mastery: 'zf,rh'
-}]
+}, 'zf']

@@ -28,7 +28,4 @@ export const buffs = [{
   data: {
     a2Dmg: ({ talent }) => talent.q['重击伤害额外加成']
   }
-}, {
-  title: '元素精通：蒸发融化伤害提高[zf]%',
-  mastery: 'zf,rh'
-}]
+}, 'zf']

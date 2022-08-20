@@ -94,10 +94,10 @@ export async function renderProfile (e, char, render, mode = 'profile', params =
     basic.avg = Format.comma(basic.avg)
   }
   // 渲染图像
-  return await Common.render('character/detail', {
+  return await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
-    data: profile,
+    data: profile.getData('cons,level,weapon,dataSource,updateTime'),
     attr,
     cons: char.cons,
     name: char.name,

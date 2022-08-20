@@ -14,7 +14,4 @@ export const details = [{
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [{
-  title: '元素精通：蒸发伤害提高[zf]%',
-  mastery: 'zf'
-}]
+export const buffs = ['zf']
