@@ -1,3 +1,4 @@
+import Base from './Base.js'
 import Character from './Character.js'
 import Artifact from './Artifact.js'
 import Avatars from './Avatars.js'
@@ -8,4 +9,4 @@ import ProfileData from './ProfileData.js'
 import ProfileArtis from './ProfileArtis.js'
 import ProfileDmg from './ProfileDmg.js'
 
-export { Abyss, Character, Artifact, Avatars, ProfileServ, ProfileReq, ProfileData, ProfileArtis, ProfileDmg }
+export { Base, Abyss, Character, Artifact, Avatars, ProfileServ, ProfileReq, ProfileData, ProfileArtis, ProfileDmg }

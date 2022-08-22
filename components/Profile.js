@@ -1,8 +1,8 @@
 import fs from 'fs'
 import lodash from 'lodash'
+import { Character, ProfileReq, ProfileData } from '../models/index.js'
 import Miao from './profile-data/miao.js'
 import Enka from './profile-data/enka.js'
-import { Character, ProfileReq, ProfileData } from '../models/index.js'
 
 const _path = process.cwd()
 const userPath = `${_path}/data/UserData/`

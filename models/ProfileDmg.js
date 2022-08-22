@@ -1,64 +1,117 @@
+import fs from 'fs'
+import lodash from 'lodash'
 import Base from './Base.js'
 import { Character } from './index.js'
-import lodash from 'lodash'
 import { attrMap } from './profile-lib/calc-meta.js'
-import Calc from './profile-lib/Calc.js'
+import DmgBuffs from './profile-lib/DmgBuffs.js'
+import DmgAttr from './profile-lib/DmgAttr.js'
+import DmgCalc from './profile-lib/DmgCalc.js'
 
 export default class ProfileDmg extends Base {
-  constructor (profile = false) {
+  constructor (profile = {}) {
     super()
     this.profile = profile
     if (profile && profile.id) {
       let { id } = profile
       this.char = Character.get(id)
     }
+    if (!this.char) {
+      return false
+    }
+  }
+
+  // 获取天赋数据
+  talent () {
+    let char = this.char
+    let profile = this.profile
+    let ret = {}
+    let talentData = profile.talent || {}
+    lodash.forEach(['a', 'e', 'q'], (key) => {
+      let level = lodash.isNumber(talentData[key]) ? talentData[key] : (talentData[key].level || 1)
+
+      let map = {}
+
+      lodash.forEach(char.talent[key].tables, (tr) => {
+        let val = tr.values[level - 1]
+        // eslint-disable-next-line no-control-regex
+        val = val.replace(/[^\x00-\xff]/g, '').trim()
+        let valArr = []
+        let valArr2 = []
+        lodash.forEach(val.split('/'), (v, idx) => {
+          let valNum = 0
+          lodash.forEach(v.split('+'), (v) => {
+            v = v.split('*')
+            let v1 = v[0].replace('%', '').trim()
+            valNum += v1 * (v[1] || 1)
+            valArr2.push(v1)
+          })
+          valArr.push(valNum)
+        })
+
+        if (isNaN(valArr[0])) {
+          map[tr.name] = false
+        } else if (valArr.length === 1) {
+          map[tr.name] = valArr[0]
+        } else {
+          map[tr.name] = valArr
+        }
+        map[tr.name + '2'] = valArr2
+      })
+      ret[key] = map
+    })
+    return ret
+  }
+
+  // 获取buff列表
+  getBuffs (buffs) {
+    return DmgBuffs.getBuffs(this.profile, buffs)
+  }
+
+  async getCalcRule () {
+    const _path = process.cwd()
+    const cfgPath = `${_path}/plugins/miao-plugin/resources/meta/character/${this.char?.name}/calc.js`
+    let cfg = {}
+    if (fs.existsSync(cfgPath)) {
+      cfg = await import(`file://${cfgPath}`)
+      return {
+        details: cfg.details || false, // 计算详情
+        buffs: cfg.buffs || [], // 角色buff
+        defParams: cfg.defParams || {}, // 默认参数，一般为空
+        defDmgIdx: cfg.defDmgIdx || -1, // 默认详情index
+        mainAttr: cfg.mainAttr || 'atk,cpct,cdmg', // 伤害属性
+        enemyName: cfg.enemyName || '小宝' // 敌人名称
+      }
+    }
+    return false
   }
 
   async calcData ({ enemyLv = 91, mode = 'profile', dmgIdx = 0 }) {
     if (!this.char || !this.profile) {
       return false
     }
-    let { profile, char } = this
-    let charCalcData = await Calc.getCharCalcRule(this.char.name)
+    let { profile } = this
+    let charCalcData = await this.getCalcRule()
 
     if (!charCalcData) {
       return false
     }
-    let talent = Calc.talent(profile, char)
+    let { buffs, details, defParams, mainAttr, defDmgIdx, enemyName } = charCalcData
+
+    let talent = this.talent()
 
     let meta = {
       cons: profile.cons * 1,
       talent
     }
-
-    let { buffs, details, defParams, mainAttr, defDmgIdx, enemyName } = charCalcData
+    let { id, weapon, attr } = profile
 
     defParams = defParams || {}
 
-    let originalAttr = Calc.attr(profile)
+    let originalAttr = DmgAttr.getAttr({ id, weapon, attr, char: this.char })
 
-    let weaponBuffs = await Calc.weapon(profile.weapon.name)
-    let reliBuffs = await Calc.reliquaries(profile.artis?.artis || {})
-    buffs = lodash.concat(buffs, weaponBuffs, reliBuffs)
-    let mKey = {
-      zf: '蒸发',
-      rh: '融化',
-      ks: '扩散'
-    }
-    lodash.forEach(buffs, (buff, idx) => {
-      if (lodash.isString(buff) && mKey[buff]) {
-        buff = {
-          title: `元素精通：${mKey[buff]}伤害提高[${buff}]%`,
-          mastery: buff
-        }
-        buffs[idx] = buff
-      }
-      buff.sort = lodash.isUndefined(buff.sort) ? 1 : buff.sort
-    })
+    buffs = this.getBuffs(buffs)
 
-    buffs = lodash.sortBy(buffs, ['sort'])
-
-    let { msg } = Calc.calcAttr({ originalAttr, buffs, meta, params: defParams || {} })
+    let { msg } = DmgAttr.calcAttr({ originalAttr, buffs, meta, params: defParams || {} })
 
     let ret = []
     let detailMap = []
@@ -67,21 +120,21 @@ export default class ProfileDmg extends Base {
 
     lodash.forEach(details, (detail, detailSysIdx) => {
       if (lodash.isFunction(detail)) {
-        let { attr } = Calc.calcAttr({ originalAttr, buffs, meta })
-        let ds = lodash.merge({ talent }, Calc.getDs(attr, meta))
+        let { attr } = DmgAttr.calcAttr({ originalAttr, buffs, meta })
+        let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
         detail = detail({ ...ds, attr, profile })
       }
       let params = lodash.merge({}, defParams, detail.params || {})
-      let { attr } = Calc.calcAttr({ originalAttr, buffs, meta, params, talent: detail.talent || '' })
-      if (detail.check && !detail.check(Calc.getDs(attr, meta, params))) {
+      let { attr } = DmgAttr.calcAttr({ originalAttr, buffs, meta, params, talent: detail.talent || '' })
+      if (detail.check && !detail.check(DmgAttr.getDs(attr, meta, params))) {
         return
       }
       if (detail.cons && meta.cons < detail.cons * 1) {
         return
       }
-      let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params))
+      let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
 
-      let dmg = Calc.getDmgFn({ ds, attr, profile, enemyLv, showDetail: detail.showDetail })
+      let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, showDetail: detail.showDetail })
       let basicDmgRet
 
       if (detail.dmg) {
@@ -123,7 +176,7 @@ export default class ProfileDmg extends Base {
             rowData.push({ type: 'na' })
             return
           }
-          let { attr } = Calc.calcAttr({
+          let { attr } = DmgAttr.calcAttr({
             originalAttr,
             buffs,
             meta,
@@ -132,8 +185,8 @@ export default class ProfileDmg extends Base {
             reduceAttr,
             talent: detail.talent || ''
           })
-          let ds = lodash.merge({ talent }, Calc.getDs(attr, meta, params))
-          let dmg = Calc.getDmgFn({ ds, attr, profile, enemyLv })
+          let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
+          let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv })
           if (detail.dmg) {
             let dmgCalcRet = detail.dmg(ds, dmg)
             rowData.push({

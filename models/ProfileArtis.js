@@ -129,6 +129,30 @@ export default class ProfileArtis extends Base {
     return ret
   }
 
+  getSetData () {
+    let setCount = {}
+    this.forEach((arti, idx) => {
+      setCount[arti.set] = (setCount[arti.set] || 0) + 1
+    })
+    let sets = {}
+    let names = []
+    for (let set in setCount) {
+      if (setCount[set] >= 2) {
+        sets[set] = setCount[set] >= 4 ? 4 : 2
+        names.push(Artifact.getArtiBySet(set))
+      }
+    }
+    return { sets, names }
+  }
+
+  get sets () {
+    return this.getSetData().sets
+  }
+
+  get names () {
+    return this.getSetData().names
+  }
+
   getCharCfg () {
     let char = Character.get(this.charid)
     let name = char.name

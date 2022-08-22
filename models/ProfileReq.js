@@ -63,8 +63,14 @@ export default class ProfileReq extends Base {
     this.msg('开始获取数据，可能会需要一定时间~')
     await sleep(100)
     // 发起请求
-    let req = await fetch(reqParam.url, reqParam.params || {})
-    let data = await req.json()
+    let data = {}
+    try {
+      let req = await fetch(reqParam.url, reqParam.params || {})
+      data = await req.json()
+    } catch (e) {
+      console.log('面板请求错误', e)
+      data = {}
+    }
     data = await Serv.response(data, this)
     // 设置CD
     cdTime = Serv.getCdTime(data)

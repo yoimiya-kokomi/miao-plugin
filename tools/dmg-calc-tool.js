@@ -1,10 +1,10 @@
-import Calc from '../models/profile-lib/Calc.js'
-import { Character } from '../models/index.js'
-import Miao from '../components/profile-data/miao.js'
+import { Data } from '../components/index.js'
+import { ProfileDmg } from '../models/index.js'
 
 export async function calcDmg (inputData, enemyLv = 86) {
-  let profile = Miao.getAvatarDetail(inputData)
-  console.log(profile)
-  let char = Character.get(profile)
-  return await Calc.calcData({ profile, char, enemyLv })
+  let dmg = new ProfileDmg(inputData)
+  let ret = await dmg.calcData({ enemyLv })
+  ret = Data.getData(ret, 'ret,msg,enemyName')
+  ret.enemyLevel = enemyLv
+  return ret
 }

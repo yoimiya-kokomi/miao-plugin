@@ -116,7 +116,10 @@ export default class ProfileData extends Base {
   // 计算当前profileData的伤害信息
   async calcDmg ({ enemyLv = 91, mode = 'profile', dmgIdx = 0 }) {
     if (!this.dmg) {
-      this.dmg = new ProfileDmg(this)
+      let ds = this.getData('id,level,attr,cons,artis:artis.sets')
+      ds.talent = lodash.mapValues(this.talent, 'level')
+      ds.weapon = Data.getData(this.weapon, 'name,affix')
+      this.dmg = new ProfileDmg(ds)
     }
     return await this.dmg.calcData({ enemyLv, mode, dmgIdx })
   }
