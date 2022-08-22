@@ -1,5 +1,6 @@
 *.psd
 .idea
+/tools/char-data-sprider.js
 /components/cfg.json
 /resources/miao-res-plus/
 /components/setting.json

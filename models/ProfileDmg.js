@@ -15,9 +15,6 @@ export default class ProfileDmg extends Base {
       let { id } = profile
       this.char = Character.get(id)
     }
-    if (!this.char) {
-      return false
-    }
   }
 
   // 获取天赋数据
