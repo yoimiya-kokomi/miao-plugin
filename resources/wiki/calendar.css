@@ -1,9 +1,3 @@
-.font-ys {
-  font-family: YS;
-}
-.font-number {
-  font-family: Number, YS;
-}
 * {
   margin: 0;
   padding: 0;
@@ -57,9 +51,6 @@ body {
 .cal-bg .tr.thead {
   background: rgba(0, 0, 0, 0.8);
   height: 40px;
-}
-.cal-bg .tr.thead td {
-  font-family: YS;
 }
 .cal-bg td {
   box-shadow: 0 0 1px 0 #fff;
@@ -124,7 +115,6 @@ body {
 }
 .cal-list .cal-item strong {
   display: block;
-  font-family: YS;
   font-weight: normal;
 }
 .cal-list .cal-item span {
@@ -184,12 +174,18 @@ body {
   display: block;
   margin-left: 0;
 }
+.cal-list .cal-item.type-normal.li-col1 {
+  margin-top: -40px;
+}
 .cal-list .cal-item .cal-icon {
   position: absolute;
   width: 40px;
   height: 40px;
   left: 10px;
   top: 10px;
+}
+.cal-list .cal-item.li-col1 {
+  margin-top: -82px;
 }
 .cal-list.char-2-1 .type-character.li-idx-2,
 .cal-list.char-3-1 .type-character.li-idx-2 {

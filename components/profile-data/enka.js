@@ -21,7 +21,7 @@ export default new ProfileServ({
   // 处理服务返回
   async response (data, req) {
     if (!data.playerInfo) {
-      return req.err(`请求失败:${data.msg}` || 'error', 60)
+      return req.err('error', 60)
     }
     let details = data.avatarInfoList
     if (!details || details.length === 0 || !details[0].propMap) {

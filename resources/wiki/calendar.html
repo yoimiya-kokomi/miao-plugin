@@ -47,11 +47,13 @@
       </div>
       {{/each}}
     </div>
-    {{each list li}}
-    <div class="cal-item type-{{li.type}} {{li.idx? `li-idx-${li.idx}`:``}} {{li.elem?'elem-'+li.elem:''}} {{li.width<20 ? 'small-mode':''}}"
-         style="{{`margin-left:${li.left}%;width:${li.width}%`}}"
-         data-id="{{li.id}}"
-         data-type="{{li.type}}">
+    {{each list lis}}
+    {{each lis li idx}}
+    <div
+        class="cal-item type-{{li.type}} {{li.idx? `li-idx-${li.idx}`:``}} {{li.elem?'elem-'+li.elem:''}} {{li.width<20 ? 'small-mode':''}} li-col{{idx}}"
+        style="{{`margin-left:${li.left}%;width:${li.width}%`}}"
+        data-id="{{li.id}}"
+        data-type="{{li.type}}">
       {{if li.banner2}}
       <div class="banner" style="background-image:url('{{_res_path}}{{li.banner2}}')"></div>
       {{else if li.banner}}
@@ -66,8 +68,8 @@
         <strong>{{li.title}}</strong>
         <span>{{li.label}}</span>
       </div>
-
     </div>
+    {{/each}}
     {{/each}}
   </div>
   <div class="now-line" style="left:{{nowLeft}}%"></div>

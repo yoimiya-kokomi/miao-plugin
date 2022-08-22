@@ -11,7 +11,7 @@ const ignoreIds = [495, // 有奖问卷调查开启！
   762 // 《原神》公平运营声明
 ]
 
-const ignoreReg = /(内容专题页|版本更新说明|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时|周边上新)/
+const ignoreReg = /(内容专题页|版本更新说明|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时|周边上新|角色演示)/
 const fulltimeReg = /(魔神任务)/
 
 let Cal = {
@@ -93,6 +93,17 @@ let Cal = {
             }
           }
         })
+      }
+      let miaoApi = 'http://miaoapi.cn/api/calendar'
+      try {
+        request2 = await fetch(miaoApi)
+        let data = await request2.json()
+        if (data && data.status === 0 && data.data) {
+          lodash.forEach(data.data, (ds, id) => {
+            timeMap[id] = ds
+          })
+        }
+      } catch (e) {
       }
       await redis.set('cache:calendar:detail', JSON.stringify(timeMap), { EX: 60 * 10 })
     }
@@ -181,7 +192,7 @@ let Cal = {
     let extra = { sort: isAct ? 5 : 10 }
     let detail = timeMap[id] || {}
 
-    if (ignoreIds.includes(id) || ignoreReg.test(title)) {
+    if (ignoreIds.includes(id) || ignoreReg.test(title) || detail.display === false) {
       return
     }
 
@@ -198,12 +209,13 @@ let Cal = {
         extra.character = regRet[1]
         extra.elem = char.elem
         extra.sort = 1
-      } else if (/纪行/.test(title)) {
-        type = 'pass'
-      } else if (title === '深渊') {
-        type = 'abyss'
       }
+    } else if (/纪行/.test(title)) {
+      type = 'pass'
+    } else if (title === '深渊') {
+      type = 'abyss'
     }
+
 
     let getDate = (d1, d2) => moment(d1 && d1.length > 6 ? d1 : d2)
     let sDate = getDate(detail.start, ds.start_time)
@@ -220,10 +232,10 @@ let Cal = {
     let label = ''
     if (fulltimeReg.test(title) || eDate - sDate > 365 * 24 * 3600 * 1000) {
       if (sDate < now) {
-        left = 0
-        width = 100
+        label = sDate.format('MM-DD HH:mm') + ' 后永久有效'
+      } else {
+        label = '永久有效'
       }
-      label = '永久有效'
     } else if (now > sDate && eDate > now) {
       label = eDate.format('MM-DD HH:mm') + ' (' + moment.duration(eDate - now).humanize() + '后结束)'
       if (width > (isAct ? 38 : 55)) {
@@ -240,6 +252,7 @@ let Cal = {
       id,
       title,
       type,
+      mergeStatus: ['activity', 'normal'].includes(type) ? 1 : 0,
       banner,
       icon: ds.tag_icon,
       left,
@@ -279,6 +292,7 @@ let Cal = {
     let charCount = 0
     let charOld = 0
     let weaponCount = 0
+    let ret = []
     lodash.forEach(list, (li) => {
       if (li.type === 'character') {
         charCount++
@@ -289,11 +303,25 @@ let Cal = {
         weaponCount++
         li.idx = weaponCount
       }
+      if (li.mergeStatus === 1) {
+        lodash.forEach(list, (li2) => {
+          if (li2.mergeStatus === 1 && li.left + li.width <= li2.left) {
+            li.mergeStatus = 2
+            li2.mergeStatus = 2
+            ret.push([li, li2])
+            return false
+          }
+        })
+      }
+      if (li.mergeStatus !== 2) {
+        li.mergeStatus = 2
+        ret.push([li])
+      }
     })
 
     return {
       ...dl,
-      list,
+      list: ret,
       abyss,
       charMode: `char-${charCount}-${charOld}`,
       nowTime: now.format('YYYY-MM-DD HH:mm'),

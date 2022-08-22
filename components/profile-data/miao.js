@@ -11,7 +11,7 @@ export default new ProfileServ({
     if (data.status !== 0) {
       return req.err(data.msg || 'error', 60)
     }
-    data = data.data
+    data = data.data || {}
     if (!data.showAvatarInfoList || data.showAvatarInfoList.length === 0) {
       return req.err('empty', 5 * 60)
     }
