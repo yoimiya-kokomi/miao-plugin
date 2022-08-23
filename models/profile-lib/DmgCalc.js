@@ -124,8 +124,8 @@ let DmgCalc = {
     return ret
   },
   getDmgFn (data) {
-    let { showDetail, attr } = data
-    let { calc } = attr
+    let { showDetail, attr, ds } = data
+    let { calc } = ds
 
     let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = 'talent') {
       return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode }, data)
