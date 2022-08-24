@@ -10,8 +10,7 @@ export default {
       10018: 232,
       10019: 239,
       10024: 231
-    },
-    NameTextMapHash: 1006042610
+    }
   },
   10000003: {
     SkillOrder: [10031, 10033, 10034],
@@ -25,7 +24,6 @@ export default {
       10033: 332,
       10034: 339
     },
-    NameTextMapHash: 3221566250,
     Costumes: {
       200301: {
         icon: 'UI_AvatarIcon_QinCostumeSea',
@@ -45,9 +43,7 @@ export default {
       10067: 'Skill_S_PlayerWind_01',
       10068: 'Skill_E_PlayerWind_01',
       100543: 'Skill_A_01'
-    },
-    NameTextMapHash: 1533656818,
-    ProudMap: {
+    }, ProudMap: {
       10067: 732,
       10068: 739,
       100543: 730
@@ -64,8 +60,7 @@ export default {
       10060: 431,
       10061: 432,
       10062: 439
-    },
-    NameTextMapHash: 3344622722
+    }
   },
   10000007: {
     SkillOrder: [100553, 10067, 10068],
@@ -73,9 +68,7 @@ export default {
       10067: 'Skill_S_PlayerWind_01',
       10068: 'Skill_E_PlayerWind_01',
       100553: 'Skill_A_01'
-    },
-    NameTextMapHash: 3816664530,
-    ProudMap: {
+    }, ProudMap: {
       10067: 732,
       10068: 739,
       100553: 731
@@ -93,7 +86,6 @@ export default {
       10071: 1432,
       10072: 1439
     },
-    NameTextMapHash: 3775299170,
     Costumes: {
       201401: {
         icon: 'UI_AvatarIcon_BarbaraCostumeSummertime',
@@ -113,8 +105,7 @@ export default {
       10073: 1531,
       10074: 1532,
       10075: 1539
-    },
-    NameTextMapHash: 4119663210
+    }
   },
   10000016: {
     SkillOrder: [10160, 10161, 10165],
@@ -128,7 +119,6 @@ export default {
       10161: 1632,
       10165: 1639
     },
-    NameTextMapHash: 3608180322,
     Costumes: {
       201601: {
         icon: 'UI_AvatarIcon_DilucCostumeFlamme',
@@ -148,8 +138,7 @@ export default {
       10201: 2031,
       10202: 2032,
       10203: 2039
-    },
-    NameTextMapHash: 4160147242
+    }
   },
   10000021: {
     SkillOrder: [10041, 10032, 10017],
@@ -163,7 +152,6 @@ export default {
       10032: 2132,
       10041: 2131
     },
-    NameTextMapHash: 1966438658,
     Costumes: {
       202101: {
         icon: 'UI_AvatarIcon_AmborCostumeWic',
@@ -183,8 +171,7 @@ export default {
       10221: 2231,
       10224: 2232,
       10225: 2239
-    },
-    NameTextMapHash: 2466140362
+    }
   },
   10000023: {
     SkillOrder: [10231, 10232, 10235],
@@ -197,8 +184,7 @@ export default {
       10231: 2331,
       10232: 2332,
       10235: 2339
-    },
-    NameTextMapHash: 1130996346
+    }
   },
   10000024: {
     SkillOrder: [10241, 10242, 10245],
@@ -211,8 +197,7 @@ export default {
       10241: 2431,
       10242: 2432,
       10245: 2439
-    },
-    NameTextMapHash: 2646367730
+    }
   },
   10000025: {
     SkillOrder: [10381, 10382, 10385],
@@ -225,8 +210,7 @@ export default {
       10381: 2531,
       10382: 2532,
       10385: 2539
-    },
-    NameTextMapHash: 4197635682
+    }
   },
   10000026: {
     SkillOrder: [10261, 10262, 10265],
@@ -239,8 +223,7 @@ export default {
       10261: 2631,
       10262: 2632,
       10265: 2639
-    },
-    NameTextMapHash: 1021947690
+    }
   },
   10000027: {
     SkillOrder: [10271, 10272, 10274],
@@ -254,7 +237,6 @@ export default {
       10272: 2732,
       10274: 2739
     },
-    NameTextMapHash: 4127888970,
     Costumes: {
       202701: {
         icon: 'UI_AvatarIcon_NingguangCostumeFloral',
@@ -274,8 +256,7 @@ export default {
       10291: 2931,
       10292: 2932,
       10295: 2939
-    },
-    NameTextMapHash: 3339083250
+    }
   },
   10000030: {
     SkillOrder: [10301, 10302, 10303],
@@ -288,8 +269,7 @@ export default {
       10301: 3031,
       10302: 3032,
       10303: 3039
-    },
-    NameTextMapHash: 3862787418
+    }
   },
   10000031: {
     SkillOrder: [10311, 10312, 10313],
@@ -303,7 +283,6 @@ export default {
       10312: 3132,
       10313: 3139
     },
-    NameTextMapHash: 3277782506,
     Costumes: {
       203101: {
         icon: 'UI_AvatarIcon_FischlCostumeHighness',
@@ -323,8 +302,7 @@ export default {
       10321: 3231,
       10322: 3232,
       10323: 3239
-    },
-    NameTextMapHash: 968893378
+    }
   },
   10000033: {
     SkillOrder: [10331, 10332, 10333],
@@ -337,8 +315,7 @@ export default {
       10331: 3331,
       10332: 3332,
       10333: 3339
-    },
-    NameTextMapHash: 3847143266
+    }
   },
   10000034: {
     SkillOrder: [10341, 10342, 10343],
@@ -351,8 +328,7 @@ export default {
       10341: 3431,
       10342: 3432,
       10343: 3439
-    },
-    NameTextMapHash: 1921418842
+    }
   },
   10000035: {
     SkillOrder: [10351, 10352, 10353],
@@ -365,8 +341,7 @@ export default {
       10351: 3531,
       10352: 3532,
       10353: 3539
-    },
-    NameTextMapHash: 168956722
+    }
   },
   10000036: {
     SkillOrder: [10401, 10402, 10403],
@@ -379,8 +354,7 @@ export default {
       10401: 3631,
       10402: 3632,
       10403: 3639
-    },
-    NameTextMapHash: 2876340530
+    }
   },
   10000037: {
     SkillOrder: [10371, 10372, 10373],
@@ -393,8 +367,7 @@ export default {
       10371: 3731,
       10372: 3732,
       10373: 3739
-    },
-    NameTextMapHash: 2679781122
+    }
   },
   10000038: {
     SkillOrder: [10386, 10387, 10388],
@@ -407,8 +380,7 @@ export default {
       10386: 3831,
       10387: 3832,
       10388: 3839
-    },
-    NameTextMapHash: 4108620722
+    }
   },
   10000039: {
     SkillOrder: [10391, 10392, 10395],
@@ -421,8 +393,7 @@ export default {
       10391: 3931,
       10392: 3932,
       10395: 3939
-    },
-    NameTextMapHash: 1468367538
+    }
   },
   10000041: {
     SkillOrder: [10411, 10412, 10415],
@@ -436,7 +407,6 @@ export default {
       10412: 4132,
       10415: 4139
     },
-    NameTextMapHash: 1113306282,
     Costumes: {
       204101: {
         icon: 'UI_AvatarIcon_MonaCostumeWic',
@@ -457,7 +427,6 @@ export default {
       10422: 4232,
       10425: 4239
     },
-    NameTextMapHash: 1864015138,
     Costumes: {
       204201: {
         icon: 'UI_AvatarIcon_KeqingCostumeFeather',
@@ -477,8 +446,7 @@ export default {
       10431: 4331,
       10432: 4332,
       10435: 4339
-    },
-    NameTextMapHash: 1053433018
+    }
   },
   10000044: {
     SkillOrder: [10441, 10442, 10443],
@@ -491,8 +459,7 @@ export default {
       10441: 4431,
       10442: 4432,
       10443: 4439
-    },
-    NameTextMapHash: 4273845410
+    }
   },
   10000045: {
     SkillOrder: [10451, 10452, 10453],
@@ -506,7 +473,6 @@ export default {
       10452: 4532,
       10453: 4539
     },
-    NameTextMapHash: 4260733330,
     Costumes: {
       204501: {
         icon: 'UI_AvatarIcon_RosariaCostumeWic',
@@ -526,8 +492,7 @@ export default {
       10461: 4631,
       10462: 4632,
       10463: 4639
-    },
-    NameTextMapHash: 1940919994
+    }
   },
   10000047: {
     SkillOrder: [10471, 10472, 10475],
@@ -540,8 +505,7 @@ export default {
       10471: 4731,
       10472: 4732,
       10475: 4739
-    },
-    NameTextMapHash: 88505754
+    }
   },
   10000048: {
     SkillOrder: [10481, 10482, 10485],
@@ -554,8 +518,7 @@ export default {
       10481: 4831,
       10482: 4832,
       10485: 4839
-    },
-    NameTextMapHash: 697277554
+    }
   },
   10000049: {
     SkillOrder: [10491, 10492, 10495],
@@ -568,8 +531,7 @@ export default {
       10491: 4931,
       10492: 4932,
       10495: 4939
-    },
-    NameTextMapHash: 2504399314
+    }
   },
   10000050: {
     SkillOrder: [10501, 10502, 10505],
@@ -582,8 +544,7 @@ export default {
       10501: 5031,
       10502: 5032,
       10505: 5039
-    },
-    NameTextMapHash: 3555115602
+    }
   },
   10000051: {
     SkillOrder: [10511, 10512, 10515],
@@ -596,8 +557,7 @@ export default {
       10511: 5131,
       10512: 5132,
       10515: 5139
-    },
-    NameTextMapHash: 3717667418
+    }
   },
   10000052: {
     SkillOrder: [10521, 10522, 10525],
@@ -610,8 +570,7 @@ export default {
       10521: 5231,
       10522: 5232,
       10525: 5239
-    },
-    NameTextMapHash: 3024507506
+    }
   },
   10000053: {
     SkillOrder: [10531, 10532, 10535],
@@ -624,8 +583,7 @@ export default {
       10531: 5331,
       10532: 5332,
       10535: 5339
-    },
-    NameTextMapHash: 2388785242
+    }
   },
   10000054: {
     SkillOrder: [10541, 10542, 10545],
@@ -638,8 +596,7 @@ export default {
       10541: 5431,
       10542: 5432,
       10545: 5439
-    },
-    NameTextMapHash: 3914045794
+    }
   },
   10000055: {
     SkillOrder: [10551, 10552, 10555],
@@ -652,8 +609,7 @@ export default {
       10551: 5531,
       10552: 5532,
       10555: 5539
-    },
-    NameTextMapHash: 3400133546
+    }
   },
   10000056: {
     SkillOrder: [10561, 10562, 10565],
@@ -666,8 +622,7 @@ export default {
       10561: 5631,
       10562: 5632,
       10565: 5639
-    },
-    NameTextMapHash: 1483922610
+    }
   },
   10000057: {
     SkillOrder: [10571, 10572, 10575],
@@ -680,8 +635,7 @@ export default {
       10571: 5731,
       10572: 5732,
       10575: 5739
-    },
-    NameTextMapHash: 3068316954
+    }
   },
   10000058: {
     SkillOrder: [10581, 10582, 10585],
@@ -694,8 +648,7 @@ export default {
       10581: 5831,
       10582: 5832,
       10585: 5839
-    },
-    NameTextMapHash: 2713453234
+    }
   },
   10000059: {
     SkillOrder: [10591, 10592, 10595],
@@ -708,8 +661,7 @@ export default {
       10591: 5931,
       10592: 5932,
       10595: 5939
-    },
-    NameTextMapHash: 646032090
+    }
   },
   10000060: {
     SkillOrder: [10606, 10607, 10610],
@@ -722,8 +674,7 @@ export default {
       10606: 6031,
       10607: 6032,
       10610: 6039
-    },
-    NameTextMapHash: 2848374378
+    }
   },
   10000062: {
     SkillOrder: [10621, 10622, 10625],
@@ -736,8 +687,7 @@ export default {
       10621: 6231,
       10622: 6232,
       10625: 6239
-    },
-    NameTextMapHash: 3689108098
+    }
   },
   10000063: {
     SkillOrder: [10631, 10632, 10635],
@@ -751,7 +701,6 @@ export default {
       10632: 6332,
       10635: 6339
     },
-    NameTextMapHash: 334242634
   },
   10000064: {
     SkillOrder: [10641, 10642, 10643],
@@ -764,8 +713,7 @@ export default {
       10641: 6431,
       10642: 6432,
       10643: 6439
-    },
-    NameTextMapHash: 655825874
+    }
   },
   10000065: {
     SkillOrder: [10651, 10652, 10655],
@@ -778,8 +726,7 @@ export default {
       10651: 6531,
       10652: 6532,
       10655: 6539
-    },
-    NameTextMapHash: 1940821986
+    }
   },
   10000066: {
     SkillOrder: [10661, 10662, 10665],
@@ -792,10 +739,59 @@ export default {
       10661: 6631,
       10662: 6632,
       10665: 6639
-    },
-    NameTextMapHash: 1588620330
+    }
   },
-  '10000005-501': {},
+  10000067: {
+    SkillOrder: [10671, 10672, 10675],
+    Skills: {
+      10671: 'Skill_A_02',
+      10672: 'Skill_S_Collei_01',
+      10675: 'Skill_E_Collei_01'
+    },
+    ProudMap: {
+      10671: 6731,
+      10672: 6732,
+      10675: 6739
+    }
+  },
+  10000068: {
+    SkillOrder: [10681, 10682, 10685],
+    Skills: {
+      10681: 'Skill_A_04',
+      10682: 'Skill_S_Dori_01',
+      10685: 'Skill_E_Dori_01'
+    },
+    ProudMap: {
+      10681: 6831,
+      10682: 6832,
+      10685: 6839
+    }
+  },
+  10000069: {
+    SkillOrder: [10691, 10692, 10695],
+    Skills: {
+      10691: 'Skill_A_02',
+      10692: 'Skill_S_Tighnari_01',
+      10695: 'Skill_E_Tighnari_01'
+    },
+    ProudMap: {
+      10691: 6931,
+      10692: 6932,
+      10695: 6939
+    }
+  },
+  '10000005-501': {
+    SkillOrder: [100540, 10067, 10068],
+    Skills: {
+      10067: 'None',
+      10068: 'None',
+      100540: 'Skill_A_01'
+    }, ProudMap: {
+      10067: 732,
+      10068: 739,
+      100540: 731
+    }
+  },
   '10000005-502': {},
   '10000005-503': {},
   '10000005-504': {
@@ -804,9 +800,7 @@ export default {
       10067: 'Skill_S_PlayerWind_01',
       10068: 'Skill_E_PlayerWind_01',
       100543: 'Skill_A_01'
-    },
-    NameTextMapHash: 1533656818,
-    ProudMap: {
+    }, ProudMap: {
       10067: 732,
       10068: 739,
       100543: 730
@@ -819,9 +813,7 @@ export default {
       10077: 'Skill_S_PlayerRock_01',
       10078: 'Skill_E_PlayerRock_01',
       100545: 'Skill_A_01'
-    },
-    NameTextMapHash: 1533656818,
-    ProudMap: {
+    }, ProudMap: {
       10077: 932,
       10078: 939,
       100545: 730
@@ -833,15 +825,36 @@ export default {
       10602: 'Skill_S_PlayerElectric_01',
       10605: 'Skill_E_PlayerElectric_01',
       100546: 'Skill_A_01'
-    },
-    NameTextMapHash: 1533656818,
-    ProudMap: {
+    }, ProudMap: {
       10602: 1032,
       10605: 1039,
       100546: 1030
     }
   },
-  '10000007-701': {},
+  '10000005-508': {
+    SkillOrder: [100547, 10117, 10118],
+    Skills: {
+      10117: 'Skill_E_PlayerGrass_01',
+      10118: 'Skill_S_PlayerGrass_01',
+      100547: 'Skill_A_01'
+    }, ProudMap: {
+      10117: 1132,
+      10118: 1139,
+      100547: 1130
+    }
+  },
+  '10000007-701': {
+    SkillOrder: [100550, 10067, 10068],
+    Skills: {
+      10067: 'None',
+      10068: 'None',
+      100550: 'Skill_A_01'
+    }, ProudMap: {
+      10067: 732,
+      10068: 739,
+      100550: 731
+    }
+  },
   '10000007-702': {},
   '10000007-703': {},
   '10000007-704': {
@@ -850,9 +863,7 @@ export default {
       10067: 'Skill_S_PlayerWind_01',
       10068: 'Skill_E_PlayerWind_01',
       100553: 'Skill_A_01'
-    },
-    NameTextMapHash: 3816664530,
-    ProudMap: {
+    }, ProudMap: {
       10067: 732,
       10068: 739,
       100553: 731
@@ -865,9 +876,7 @@ export default {
       10077: 'Skill_S_PlayerRock_01',
       10078: 'Skill_E_PlayerRock_01',
       100555: 'Skill_A_01'
-    },
-    NameTextMapHash: 3816664530,
-    ProudMap: {
+    }, ProudMap: {
       10077: 932,
       10078: 939,
       100555: 731
@@ -879,12 +888,22 @@ export default {
       10602: 'Skill_S_PlayerElectric_01',
       10605: 'Skill_E_PlayerElectric_01',
       100556: 'Skill_A_01'
-    },
-    NameTextMapHash: 3816664530,
-    ProudMap: {
+    }, ProudMap: {
       10602: 1032,
       10605: 1039,
       100556: 1031
+    }
+  },
+  '10000007-708': {
+    SkillOrder: [100557, 10117, 10118],
+    Skills: {
+      10117: 'Skill_E_PlayerGrass_01',
+      10118: 'Skill_S_PlayerGrass_01',
+      100557: 'Skill_A_01'
+    }, ProudMap: {
+      10117: 1132,
+      10118: 1139,
+      100557: 1131
     }
   }
 }

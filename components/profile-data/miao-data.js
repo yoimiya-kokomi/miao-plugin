@@ -147,8 +147,8 @@ let MiaoData = {
       idx++
     })
     let ret = {}
-    lodash.forEach(data, (ds) => {
-      let key = idxMap[ds.id]
+    lodash.forEach(data, (ds, idx) => {
+      let key = idxMap[ds.id] || idxMap[idx]
       ret[key] = {
         level: ds.level
       }
