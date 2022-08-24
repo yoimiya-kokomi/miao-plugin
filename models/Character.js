@@ -11,7 +11,7 @@ let wifeMap = {}
 const _path = process.cwd()
 const metaPath = `${_path}/plugins/miao-plugin/resources/meta/character/`
 
-async function init () {
+async function init() {
   let { sysCfg, diyCfg } = await Data.importCfg('character')
   lodash.forEach([diyCfg.customCharacters, sysCfg.characters], (roleIds) => {
     lodash.forEach(roleIds || {}, (aliases, id) => {
@@ -49,7 +49,7 @@ async function init () {
 await init()
 
 class Character extends Base {
-  constructor (name, id) {
+  constructor(name, id) {
     super()
 
     if (id * 1 === 10000005) {
@@ -65,7 +65,27 @@ class Character extends Base {
     this.id = id
   }
 
-  getCardImg (se = false, def = true) {
+  get weaponType() {
+    const map = {
+      sword: '单手剑',
+      catalyst: '法器',
+      bow: '弓',
+      claymore: '双手剑',
+      polearm: '长柄武器'
+    }
+    let weaponType = this.weapon || ''
+    return map[weaponType.toLowerCase()] || ''
+  }
+
+  get isCustom() {
+    return !/10\d{6}/.test(this.id)
+  }
+
+  get abbr() {
+    return abbrMap[this.name] || this.name
+  }
+
+  getCardImg(se = false, def = true) {
     let name = this.name
     let list = []
     let addImg = function (charImgPath, disable = false) {
@@ -110,7 +130,7 @@ class Character extends Base {
     return ret
   }
 
-  checkAvatars (avatars) {
+  checkAvatars(avatars) {
     if (!lodash.includes([20000000, 10000005, 10000007], this.id * 1)) {
       return
     }
@@ -130,32 +150,34 @@ class Character extends Base {
     }
   }
 
-  getAvatarTalent (talent = {}, cons = 0, mode = 'level') {
+  getAvatarTalent(talent = {}, cons = 0, mode = 'level') {
     let ret = {}
     let consTalent = this.getConsTalent()
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let ds = talent[key]
-      if (ds) {
-        let level
-        if (lodash.isNumber(ds)) {
-          level = ds
-        } else {
-          level = mode === 'level' ? ds.level || ds.level_current || ds.original || ds.level_original : ds.original || ds.level_original || ds.level || ds.level_current
+      if (!ds) {
+        ds = 1
+      }
+      let level
+      if (lodash.isNumber(ds)) {
+        level = ds
+      } else {
+        level = mode === 'level' ? ds.level || ds.level_current || ds.original || ds.level_original : ds.original || ds.level_original || ds.level || ds.level_current
+      }
+      if (mode === 'level') {
+        // 基于level计算original
+        ret[key] = {
+          level,
+          original: (key !== 'a' && cons >= consTalent[key]) ? (level - 3) : level
         }
-        if (mode === 'level') {
-          // 基于level计算original
-          ret[key] = {
-            level,
-            original: (key !== 'a' && cons >= consTalent[key]) ? (level - 3) : level
-          }
-        } else {
-          // 基于original计算level
-          ret[key] = {
-            original: level,
-            level: (key !== 'a' && cons >= consTalent[key]) ? (level + 3) : level
-          }
+      } else {
+        // 基于original计算level
+        ret[key] = {
+          original: level,
+          level: (key !== 'a' && cons >= consTalent[key]) ? (level + 3) : level
         }
       }
+
     })
     if (this.id * 1 !== 10000033) {
       let a = ret.a || {}
@@ -171,7 +193,7 @@ class Character extends Base {
     return ret
   }
 
-  getConsTalent () {
+  getConsTalent() {
     let talent = this.talent || false
     if (!talent) {
       return { e: 3, q: 5 }
@@ -186,27 +208,7 @@ class Character extends Base {
     }
   }
 
-  get weaponType () {
-    const map = {
-      sword: '单手剑',
-      catalyst: '法器',
-      bow: '弓',
-      claymore: '双手剑',
-      polearm: '长柄武器'
-    }
-    let weaponType = this.weapon || ''
-    return map[weaponType.toLowerCase()] || ''
-  }
-
-  get isCustom () {
-    return !/10\d{6}/.test(this.id)
-  }
-
-  get abbr () {
-    return abbrMap[this.name] || this.name
-  }
-
-  checkWifeType (type) {
+  checkWifeType(type) {
     return !!wifeMap[type][this.id]
   }
 }
