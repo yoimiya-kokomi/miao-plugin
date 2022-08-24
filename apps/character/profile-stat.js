@@ -2,7 +2,7 @@ import lodash from 'lodash'
 import { Common, Profile, Data } from '../../components/index.js'
 import { Avatars } from '../../models/index.js'
 
-export async function profileStat (e, { render }) {
+export async function profileStat (e) {
   // 缓存时间，单位小时
 
   let msg = e.msg.replace('#', '').trim()
@@ -68,5 +68,5 @@ export async function profileStat (e, { render }) {
     isSelf: e.isSelf,
     talentNotice,
     elem: 'hydro'
-  }, { e, render, scale: 1.8 })
+  }, { e, scale: 1.8 })
 }

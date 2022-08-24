@@ -2,7 +2,7 @@ import lodash from 'lodash'
 import { autoRefresh } from './profile-common.js'
 import { Common, Format, Profile } from '../../components/index.js'
 
-export async function renderProfile (e, char, render, mode = 'profile', params = {}) {
+export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let selfUser = await e.checkAuth({
     auth: 'self'
   })
@@ -21,7 +21,7 @@ export async function renderProfile (e, char, render, mode = 'profile', params =
   let refresh = async () => {
     let refreshRet = await autoRefresh(e)
     if (refreshRet) {
-      await renderProfile(e, char, render, mode, params)
+      await renderProfile(e, char, mode, params)
     }
     return refreshRet
   }
@@ -116,5 +116,5 @@ export async function renderProfile (e, char, render, mode = 'profile', params =
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
     bodyClass: `char-${char.name}`,
     mode
-  }, { e, render, scale: 1.6 })
+  }, { e, scale: 1.6 })
 }

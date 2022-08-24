@@ -1,55 +1,20 @@
-import plugin from '../../../lib/plugins/plugin.js'
-import * as Miao from '../apps/index.js'
-import { render } from './render.js'
-import { checkAuth, getMysApi } from './mys.js'
+import fs from 'fs'
+import _puppeteer from './lib/puppeteer.js'
+import _plugin from './lib/plugin.js'
 
-export class miao extends plugin {
-  constructor () {
-    let rule = {
-      reg: '.+',
-      fnc: 'dispatch'
-    }
-    super({
-      name: 'miao-plugin',
-      desc: '喵喵插件',
-      event: 'message',
-      priority: 50,
-      rule: [rule]
-    })
-    Object.defineProperty(rule, 'log', {
-      get: () => !!this.isDispatch
-    })
+const importV3 = async function (file, def, key = 'default') {
+  if (fs.existsSync(process.cwd() + file)) {
+    let obj = await import(`file://${process.cwd()}/${file}`)
+    return obj[key] || def
   }
+  return def
+}
 
-  accept () {
-    this.e.original_msg = this.e.original_msg || this.e.msg
-  }
-
-  async dispatch (e) {
-    let msg = e.original_msg || ''
-    if (!msg) {
-      return false
-    }
-    e.checkAuth = async function (cfg) {
-      return await checkAuth(e, cfg)
-    }
-    e.getMysApi = async function (cfg) {
-      return await getMysApi(e, cfg)
-    }
-    msg = msg.replace('#', '').trim()
-    msg = '#' + msg
-    for (let fn in Miao.rule) {
-      let cfg = Miao.rule[fn]
-      if (Miao[fn] && new RegExp(cfg.reg).test(msg)) {
-        let ret = await Miao[fn](e, {
-          render
-        })
-        if (ret === true) {
-          this.isDispatch = true
-          return true
-        }
-      }
-    }
-    return false
-  }
+let MysInfo = await importV3('/plugins/genshin/model/mys/mysInfo.js')
+let plugin = await importV3('lib/plugins/plugin.js', _plugin)
+let puppeteer = await importV3('/lib/puppeteer/puppeteer.js', _puppeteer)
+export {
+  plugin,
+  MysInfo,
+  puppeteer
 }

@@ -11,7 +11,7 @@ let action = {
   }
 }
 
-export async function wiki (e, { render }) {
+export async function wiki (e) {
   if (!e.msg) {
     return false
   }
@@ -62,7 +62,7 @@ export async function wiki (e, { render }) {
     mode,
     line: getLineData(char),
     _char: `/meta/character/${char.name}/`
-  }, { e, render, scale: 1 })
+  }, { e, scale: 1 })
 }
 
 const getLineData = function (data) {
@@ -77,7 +77,7 @@ const getLineData = function (data) {
   return ret
 }
 
-export async function calendar (e, { render }) {
+export async function calendar (e) {
   let calData = await Calendar.get()
   let mode = 'calendar'
   if (/(日历列表|活动)$/.test(e.msg)) {
@@ -87,5 +87,5 @@ export async function calendar (e, { render }) {
   return await Common.render('wiki/calendar', {
     ...calData,
     displayMode: mode
-  }, { e, render, scale: 1.1 })
+  }, { e, scale: 1.1 })
 }

@@ -63,7 +63,6 @@ body {
   color: #495366;
   font-weight: bold;
   border-radius: 0 16px 16px 0;
-  font-family: Number, "微软雅黑", sans-serif;
 }
 .cfg-status.status-off {
   color: #a95151;
@@ -73,4 +72,4 @@ body {
   color: #cbc4be;
   margin: 5px 0 5px 20px;
 }
-/*# sourceMappingURL=index.less.map */
+/*# sourceMappingURL=index.css.map */

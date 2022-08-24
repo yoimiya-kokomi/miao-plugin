@@ -8,7 +8,7 @@ import { Cfg, Common } from '../components/index.js'
 import { Abyss, Avatars, Character } from '../models/index.js'
 import HutaoApi from './stat/HutaoApi.js'
 
-export async function consStat (e, { render }) {
+export async function consStat (e) {
   if (Cfg.isDisable(e, 'wiki.stat')) {
     return
   }
@@ -87,10 +87,10 @@ export async function consStat (e, { render }) {
     pct: function (num) {
       return (num * 100).toFixed(2)
     }
-  }, { e, render, scale: 1.5 })
+  }, { e, scale: 1.5 })
 }
 
-export async function abyssPct (e, { render }) {
+export async function abyssPct (e) {
   if (Cfg.isDisable(e, 'wiki.stat')) {
     return
   }
@@ -171,7 +171,7 @@ export async function abyssPct (e, { render }) {
     modeName,
     totalCount: overview?.data?.collectedPlayerCount || 0,
     lastUpdate: abyssData.lastUpdate
-  }, { e, render, scale: 1.5 })
+  }, { e, scale: 1.5 })
 }
 
 async function getTalentData (e, isUpdate = false) {
@@ -202,7 +202,7 @@ async function getTalentData (e, isUpdate = false) {
   return false
 }
 
-export async function abyssTeam (e, { render }) {
+export async function abyssTeam (e) {
   if (Common.todoV3(e)) {
     return true
   }
@@ -393,10 +393,10 @@ export async function abyssTeam (e, { render }) {
   return await Common.render('stat/abyss-team', {
     teams: ret,
     avatars: avatarMap
-  }, { e, render, scale: 1.5 })
+  }, { e, scale: 1.5 })
 }
 
-export async function uploadData (e, { render }) {
+export async function uploadData (e) {
   let isMatch = /^#(喵喵|上传)深渊(数据)?$/.test(e.original_msg || e.msg || '')
   if (!Cfg.get('wiki.abyss', false) && !isMatch) {
     return false
@@ -498,7 +498,7 @@ export async function uploadData (e, { render }) {
         save_id: uid,
         totalCount: overview?.collectedPlayerCount || 0,
         uid
-      }, { e, render, scale: 1.8 })
+      }, { e, scale: 1.8 })
     } else {
       e.reply('暂未获得本期深渊挑战数据...')
       return true

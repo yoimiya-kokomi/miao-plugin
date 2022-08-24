@@ -6,7 +6,7 @@ import Base from './Base.js'
 import { Artifact, Character } from './index.js'
 import { Format } from '../components/index.js'
 import ArtisMark from './profile-lib/ArtisMark.js'
-import { attrMap, attrValue, usefulAttr } from '../resources/meta/reliquaries/reliquaries-mark-new.js'
+import { attrMap, attrValue, usefulAttr } from '../resources/meta/reliquaries/artis-mark.js'
 
 let charCfg = {}
 

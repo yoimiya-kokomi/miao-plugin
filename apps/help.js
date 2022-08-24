@@ -5,7 +5,7 @@ import { Cfg, Version, Common } from '../components/index.js'
 const _path = process.cwd()
 const helpPath = `${_path}/plugins/miao-plugin/resources/help`
 
-export async function help (e, { render }) {
+export async function help (e) {
   if (!/喵喵/.test(e.msg) && !Cfg.get('sys.help', false)) {
     return false
   }
@@ -58,13 +58,13 @@ export async function help (e, { render }) {
     helpCfg,
     helpGroup,
     element: 'default'
-  }, { e, render, scale: 1.2 })
+  }, { e, scale: 1.2 })
 }
 
-export async function versionInfo (e, { render }) {
+export async function versionInfo (e) {
   return await Common.render('help/version-info', {
     currentVersion: Version.version,
     changelogs: Version.changelogs,
     elem: 'cryo'
-  }, { e, render, scale: 1.2 })
+  }, { e, scale: 1.2 })
 }

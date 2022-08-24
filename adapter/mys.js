@@ -1,5 +1,5 @@
-import MysInfo from '../../genshin/model/mys/mysInfo.js'
 import lodash from 'lodash'
+import { MysInfo } from './index.js'
 
 class User {
   constructor (cfg) {

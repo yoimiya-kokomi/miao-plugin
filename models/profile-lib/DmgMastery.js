@@ -1,10 +1,6 @@
 import { erType } from './calc-meta.js'
 
-let Mastery = {
-
-  getType () {
-
-  },
+let DmgMastery = {
   getMultiple (type = 'zf', mastery = 0) {
     let typeCfg = erType[type]
     if (typeCfg.type === 'pct') {
@@ -22,4 +18,4 @@ let Mastery = {
     return 1
   }
 }
-export default Mastery
+export default DmgMastery

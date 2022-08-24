@@ -52,7 +52,7 @@ export async function uploadCharacterImg (e) {
 }
 
 async function saveImages (e, name, imageMessages) {
-  let imgMaxSize = e.groupConfig.imgMaxSize || 1
+  let imgMaxSize = e?.groupConfig?.imgMaxSize || 5
   let pathSuffix = `character-img/${name}/upload`
   let path = resPath + pathSuffix
 

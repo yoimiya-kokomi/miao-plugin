@@ -133,7 +133,7 @@ export async function autoGetProfile (e, uid, avatar, callback) {
   }
 
   let profile = Profile.get(uid, char.id)
-  if (!profile) {
+  if (!profile || !profile.hasData) {
     if (await refresh()) {
       return { err: true }
     } else {
@@ -179,7 +179,7 @@ export async function inputProfile (e) {
 /*
 * 面板数据更新
 * */
-export async function getProfile (e, { render }) {
+export async function getProfile (e) {
   let uid = await getTargetUid(e)
   if (!uid) {
     return true
@@ -205,7 +205,7 @@ export async function getProfile (e, { render }) {
       e.reply('获取角色面板数据失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~')
     } else {
       e.newChar = ret
-      return await profileList(e, { render })
+      return await profileList(e)
     }
   }
   return true

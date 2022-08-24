@@ -7,7 +7,7 @@ import { segment } from 'oicq'
 
 let abbr = Character.getAbbr()
 
-export async function renderAvatar (e, avatar, render, renderType = 'card') {
+export async function renderAvatar (e, avatar, renderType = 'card') {
   // 如果传递的是名字，则获取
   if (typeof (avatar) === 'string') {
     let char = Character.get(avatar)
@@ -45,11 +45,11 @@ export async function renderAvatar (e, avatar, render, renderType = 'card') {
       }
     }
   }
-  return await renderCard(e, avatar, render, renderType)
+  return await renderCard(e, avatar, renderType)
 }
 
 // 渲染角色卡片
-async function renderCard (e, avatar, render, renderType = 'card') {
+async function renderCard (e, avatar, renderType = 'card') {
   let char = Character.get(avatar)
 
   if (!char) {
@@ -69,7 +69,7 @@ async function renderCard (e, avatar, render, renderType = 'card') {
     e.reply(segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + bg.img))
   } else {
     // 渲染图像
-    let msgRes = await Common.render('character/card', {
+    let msgRes = await Common.render('character/character-card', {
       save_id: uid,
       uid,
       talent,
@@ -79,7 +79,7 @@ async function renderCard (e, avatar, render, renderType = 'card') {
       custom: char.isCustom,
       ...getCharacterData(avatar),
       ds: char.getData('name,id,title,desc')
-    }, { e, render, scale: 1.6, retMsgId: true })
+    }, { e, scale: 1.6, retMsgId: true })
     if (msgRes && msgRes.message_id) {
       // 如果消息发送成功，就将message_id和图片路径存起来，1小时过期
       await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 })

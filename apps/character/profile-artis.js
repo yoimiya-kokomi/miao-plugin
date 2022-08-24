@@ -10,11 +10,11 @@ import { Artifact } from '../../models/index.js'
 /*
 * 角色圣遗物面板
 * */
-export async function profileArtis (e, { render }) {
+export async function profileArtis (e) {
   let { uid, avatar } = e
 
   let { profile, char, err } = await autoGetProfile(e, uid, avatar, async () => {
-    await profileArtis(e, { render })
+    await profileArtis(e)
   })
 
   if (err) {
@@ -42,13 +42,13 @@ export async function profileArtis (e, { render }) {
     usefulMark,
     attrMap,
     charCfg
-  }, { e, render, scale: 1.3 })
+  }, { e, scale: 1.3 })
 }
 
 /*
 * 圣遗物列表
 * */
-export async function profileArtisList (e, { render }) {
+export async function profileArtisList (e) {
   let uid = await getTargetUid(e)
   if (!uid) {
     return true
@@ -85,9 +85,9 @@ export async function profileArtisList (e, { render }) {
   artis = artis.slice(0, 28)
 
   // 渲染图像
-  return await Common.render('character/artis', {
+  return await Common.render('character/artis-list', {
     save_id: uid,
     uid,
     artis
-  }, { e, render, scale: 1.4 })
+  }, { e, scale: 1.4 })
 }

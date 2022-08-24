@@ -2,7 +2,7 @@
 * 伤害计算 - 计算伤害
 * */
 import { eleBaseDmg } from './calc-meta.js'
-import Mastery from './Mastery.js'
+import DmgMastery from './DmgMastery.js'
 
 let DmgCalc = {
   calcRet (fnArgs = {}, data = {}) {
@@ -88,7 +88,7 @@ let DmgCalc = {
     if (ele === 'phy') {
       // do nothing
     } else if (ele) {
-      eleNum = Mastery.getBasePct(ele, attr.element)
+      eleNum = DmgMastery.getBasePct(ele, attr.element)
 
       if (attr[ele]) {
         eleNum = eleNum * (1 + attr[ele] / 100)

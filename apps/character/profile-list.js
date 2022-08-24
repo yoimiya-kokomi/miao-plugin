@@ -2,7 +2,7 @@ import lodash from 'lodash'
 import { autoRefresh, getTargetUid } from './profile-common.js'
 import { Common, Profile } from '../../components/index.js'
 
-export async function profileList (e, { render }) {
+export async function profileList (e) {
   let uid = await getTargetUid(e)
   if (!uid) {
     return true
@@ -38,7 +38,7 @@ export async function profileList (e, { render }) {
 
   if (chars.length === 0) {
     if (await autoRefresh(e)) {
-      await profileList(e, { render })
+      await profileList(e)
       return true
     } else {
       e.reply('尚未获取任何角色数据')
@@ -61,5 +61,5 @@ export async function profileList (e, { render }) {
     servName,
     hasNew,
     msg
-  }, { e, render, scale: 1.6 })
+  }, { e, scale: 1.6 })
 }

@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { Format } from '../../components/index.js'
-import { attrNameMap, mainAttr, subAttr } from '../../resources/meta/reliquaries/reliquaries-mark-new.js'
+import { attrNameMap, mainAttr, subAttr } from '../../resources/meta/reliquaries/artis-mark.js'
 
 let ArtisMark = {
   formatAttr (ds) {

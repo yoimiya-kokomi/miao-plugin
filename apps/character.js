@@ -25,7 +25,7 @@ export { profileList } from './character/profile-list.js'
 export { profileStat } from './character/profile-stat.js'
 
 // 查看当前角色
-export async function character (e, { render }) {
+export async function character (e) {
   let msg = e.original_msg || e.msg
   if (!msg) {
     return
@@ -95,7 +95,7 @@ export async function character (e, { render }) {
   }
 
   if (mode === 'card') {
-    return renderAvatar(e, char.name, render)
+    return renderAvatar(e, char.name)
   }
 
   let uid = await getTargetUid(e)
@@ -111,15 +111,15 @@ export async function character (e, { render }) {
   }
 
   if (mode === 'profile' || mode === 'dmg') {
-    return renderProfile(e, char, render, mode, { dmgIdx })
+    return renderProfile(e, char, mode, { dmgIdx })
   } else if (mode === 'input') {
     await inputProfile(e, mode)
     return true
   } else if (mode === 'refresh') {
-    await getProfile(e, { render })
+    await getProfile(e)
     return true
   } else if (mode === 'artis') {
-    return profileArtis(e, { render })
+    return profileArtis(e)
   }
   return true
 }

@@ -265,7 +265,7 @@
   font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
 .font-NZBZ {
-  font-family: Number, "印品南征北战NZBZ体", NZBZ, PingFangSC-Medium, "PingFang SC", sans-serif;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
 .profile {
   position: relative;
@@ -302,7 +302,7 @@
 }
 .profile .char-name {
   font-size: 50px;
-  font-family: Number, "印品南征北战NZBZ体", NZBZ, PingFangSC-Medium, "PingFang SC", sans-serif;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, 0.7);
   text-align: right;
 }

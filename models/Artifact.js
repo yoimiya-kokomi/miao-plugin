@@ -1,5 +1,4 @@
-import { attrMap }
-  from '../resources/meta/reliquaries/reliquaries-mark-new.js'
+import { attrMap } from '../resources/meta/reliquaries/artis-mark.js'
 import lodash from 'lodash'
 import { Data } from '../components/index.js'
 

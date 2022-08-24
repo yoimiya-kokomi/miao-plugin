@@ -53,7 +53,7 @@ const checkAuth = async function (e) {
   })
 }
 
-export async function sysCfg (e, { render }) {
+export async function sysCfg (e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -100,7 +100,7 @@ export async function sysCfg (e, { render }) {
   // 渲染图像
   return await Common.render('admin/index', {
     ...cfg
-  }, { e, render, scale: 1.4 })
+  }, { e, scale: 1.4 })
 }
 
 const getStatus = function (rote, def = true) {
@@ -200,7 +200,7 @@ export async function updateMiaoPlugin (e) {
   return true
 }
 
-export async function profileCfg (e, { render }) {
+export async function profileCfg (e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -257,5 +257,5 @@ export async function profileCfg (e, { render }) {
   // 渲染图像
   return await Common.render('admin/profile', {
     ...cfg
-  }, { e, render, scale: 1.4 })
+  }, { e, scale: 1.4 })
 }

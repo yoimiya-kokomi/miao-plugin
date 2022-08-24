@@ -34,7 +34,7 @@ const relationMap = {
 const relation = lodash.flatMap(relationMap, (d) => d.keyword)
 export const wifeReg = `^#?\\s*(${relation.join('|')})\\s*(设置|选择|指定|列表|查询|列表|是|是谁|照片|相片|图片|写真|图像)?\\s*([^\\d]*)\\s*(\\d*)$`
 
-export async function wife (e, { render, User }) {
+export async function wife (e, { User }) {
   let msg = e.msg || ''
   if (!msg && !e.isPoke) return false
 
@@ -104,10 +104,10 @@ export async function wife (e, { render, User }) {
             // 如果选择为全部，则从列表中随机选择一个
             avatarList = await getAvatarList(e, targetCfg.type, MysApi)
             let avatar = lodash.sample(avatarList)
-            return renderAvatar(e, avatar, render, renderType)
+            return renderAvatar(e, avatar, renderType)
           } else {
             // 如果指定过，则展示指定角色
-            return renderAvatar(e, lodash.sample(wifeList), render, renderType)
+            return renderAvatar(e, lodash.sample(wifeList), renderType)
           }
         }
       }
@@ -116,13 +116,13 @@ export async function wife (e, { render, User }) {
         avatarList = await getAvatarList(e, false, MysApi)
         if (avatarList && avatarList.length > 0) {
           avatar = lodash.sample(avatarList)
-          return await renderAvatar(e, avatar, render, renderType)
+          return await renderAvatar(e, avatar, renderType)
         }
       } else {
         avatarList = await getAvatarList(e, targetCfg.type, MysApi)
         if (avatarList && avatarList.length > 0) {
           avatar = lodash.sample(avatarList.slice(0, 5))
-          return await renderAvatar(e, avatar, render, renderType)
+          return await renderAvatar(e, avatar, renderType)
         }
       }
       e.reply('在当前米游社公开展示的角色中未能找到适合展示的角色..')

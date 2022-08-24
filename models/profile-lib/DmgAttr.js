@@ -3,7 +3,7 @@
 * */
 import { attrMap, eleMap } from './calc-meta.js'
 import lodash from 'lodash'
-import Mastery from './Mastery.js'
+import DmgMastery from './DmgMastery.js'
 import { Format } from '../../components/index.js'
 
 let DmgAttr = {
@@ -142,8 +142,7 @@ let DmgAttr = {
         // let masteryNum = 2.78 * mastery / (mastery + 1400) * 100;
         buff.data = buff.data || {}
         lodash.forEach(buff.mastery.split(','), (key) => {
-          buff.data[key] = Mastery.getMultiple(key, mastery)
-          //  buff.data[key] = masteryNum;
+          buff.data[key] = DmgMastery.getMultiple(key, mastery)
         })
       }
 
