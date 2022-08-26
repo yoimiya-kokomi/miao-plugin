@@ -437,8 +437,10 @@ let bow = {
     }
   },
   猎人之径: {
-    title: '重击造成的伤害值提高[a2Plus]',
+    title: '元素伤害提高[dmg]%，重击造成的伤害值提高[a2Plus]',
+    sort: 5,
     data: {
+      dmg: ({ refine }) => step(12)[refine],
       a2Plus: ({ attr, calc, refine }) => calc(attr.mastery) * step(160)[refine] / 100
     }
   },

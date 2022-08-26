@@ -25,6 +25,7 @@ const attrMap = {
   WIND_ADD_HURT: '风元素伤害加成',
   WATER_ADD_HURT: '水元素伤害加成',
   PHYSICAL_ADD_HURT: '物理伤害加成',
+  GRASS_ADD_HURT: '草元素伤害加成',
   HEAL_ADD: '治疗加成',
   ELEMENT_MASTERY: '元素精通',
   CRITICAL: '暴击率',

@@ -98,7 +98,8 @@ export const eleMap = {
   electro: '雷',
   geo: '岩',
   hydro: '水',
-  pyro: '火'
+  pyro: '火',
+  dendro: '草'
 }
 
 // 元素反应类型及基数

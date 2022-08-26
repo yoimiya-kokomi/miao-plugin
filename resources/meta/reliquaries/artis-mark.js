@@ -70,12 +70,12 @@ export const usefulAttr = {
   宵宫: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
   九条裟罗: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   琴: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 100, recharge: 55, heal: 100 },
-  菲谢尔: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 60, recharge: 0, heal: 0 },
+  菲谢尔: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 60, recharge: 0, heal: 0 },
   罗莎莉亚: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 70, phy: 80, recharge: 30, heal: 0 },
   可莉: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   凝光: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   北斗: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
-  刻晴: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 100, recharge: 0, heal: 0 },
+  刻晴: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 100, recharge: 0, heal: 0 },
   托马: { hp: 100, atk: 50, def: 0, cp: 50, cd: 50, mastery: 0, dmg: 75, phy: 0, recharge: 90, heal: 0 },
   迪卢克: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
   芭芭拉: { hp: 100, atk: 50, def: 0, cp: 50, cd: 50, mastery: 0, dmg: 80, phy: 0, recharge: 55, heal: 100 },
@@ -95,5 +95,7 @@ export const usefulAttr = {
   雷泽: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 50, phy: 100, recharge: 0, heal: 0 },
   夜兰: { hp: 80, atk: 0, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   久岐忍: { hp: 100, atk: 50, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 100 },
-  鹿野院平藏: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 }
+  鹿野院平藏: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
+  提纳里: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 90, dmg: 100, phy: 0, recharge: 30, heal: 0 },
+  柯莱: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
 }
