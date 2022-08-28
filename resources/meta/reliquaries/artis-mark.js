@@ -20,7 +20,7 @@ export const attrMap = {
   cp: { title: '暴击率', format: 'pct', type: 'normal', value: 3.89, text: '3.89%' },
   cd: { title: '暴击伤害', format: 'pct', type: 'normal', value: 7.77, text: '7.77%' },
   mastery: { title: '元素精通', format: 'comma', type: 'normal', value: 23.31, text: '23.31' },
-  recharge: { title: '充能效率', format: 'pct', type: 'normal', value: 23.31, text: '23.31' },
+  recharge: { title: '充能效率', format: 'pct', type: 'normal', value: 6.48, text: '6.48%' },
   dmg: { title: '元素伤害', format: 'pct', type: 'normal', value: 5.825, text: '5.83%' },
   phy: { title: '物伤加成', format: 'pct', type: 'normal', value: 7.288, text: '7.29%' },
   heal: { title: '治疗加成', format: 'pct', type: 'normal', value: 4.487, text: '4.49%' }
