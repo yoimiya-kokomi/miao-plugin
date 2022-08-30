@@ -10,7 +10,7 @@ const _path = process.cwd()
 
 let puppeteer = {}
 
-let logger = global.logger || Bot.logger
+let logger = global.logger || global.Bot?.logger || {}
 logger.green = logger.green || ((t) => t)
 
 class Puppeteer {

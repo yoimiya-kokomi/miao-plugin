@@ -65,7 +65,9 @@ export default class ProfileReq extends Base {
     // 发起请求
     let data = {}
     try {
-      let req = await fetch(reqParam.url, reqParam.params || {})
+      let params = reqParam.params || {}
+      params.timeout = params.timeout || 1000 * 10
+      let req = await fetch(reqParam.url, params)
       data = await req.json()
     } catch (e) {
       console.log('面板请求错误', e)

@@ -36,7 +36,7 @@ export const attrNameMap = anMap
 export const mainAttr = {
   3: 'atk,def,hp,mastery,recharge'.split(','),
   4: 'atk,def,hp,mastery,dmg,phy'.split(','),
-  5: 'atk,def,hp,mastery,recharge,heal,cp,cd'.split(',')
+  5: 'atk,def,hp,mastery,heal,cp,cd'.split(',')
 }
 
 export const subAttr = 'atk,def,hp,mastery,recharge,cp,cd'.split(',')

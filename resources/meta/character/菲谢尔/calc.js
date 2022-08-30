@@ -10,7 +10,7 @@ export const details = [{
   dmg: ({ talent, cons }, dmg) => dmg(talent.q['落雷伤害'], 'q')
 }]
 
-export const mainAttr = 'atk,hp,cpct,cdmg'
+export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
   title: '皇女2命：施放夜巡影翼时，能额外造成200%攻击力的伤害',
