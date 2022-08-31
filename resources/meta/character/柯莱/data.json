@@ -1,17 +1,17 @@
 {
 	"name": "柯莱",
 	"abbr": "柯莱",
-	"id": "",
-	"title": "测试角色",
+	"id": 10000067,
+	"title": "萃念初蘖",
 	"star": 4,
 	"elem": "dendro",
 	"allegiance": "？？？",
 	"weapon": "Bow",
-	"britydah": "1 January",
+	"britydah": "05-08",
 	"astro": "薮猫座",
-	"cncv": "？？？",
-	"jpcv": "？？？",
-	"desc": "测试角色",
+	"cncv": "秦文静",
+	"jpcv": "前川凉子",
+	"desc": "活跃于道成林的见习巡林员，热情的言行背后是一颗依旧稍显内向的心。",
 	"lvStat": {
 		"lvs": [
 			"1",

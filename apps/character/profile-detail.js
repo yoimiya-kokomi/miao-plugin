@@ -13,6 +13,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     e.reply('暂不支持主角的面板信息查看')
     return true
   }
+
   if (char.isCustom) {
     e.reply(`暂不支持自定义角色${char.name}的面板信息查看`)
     return true
@@ -93,11 +94,13 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     basic.dmg = Format.comma(basic.dmg)
     basic.avg = Format.comma(basic.avg)
   }
+  const costume = profile.costume ? '2' : ''
   // 渲染图像
   return await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
     data: profile.getData('cons,level,weapon,dataSource,updateTime'),
+    costume,
     attr,
     cons: char.cons,
     name: char.name,
@@ -114,7 +117,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     totalMarkClass,
     usefulMark,
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
-    bodyClass: `char-${char.name}`,
+    bodyClass: `char-${char.name}${costume}`,
     mode
   }, { e, scale: 1.6 })
 }

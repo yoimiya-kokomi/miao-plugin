@@ -41,6 +41,7 @@ let EnkaData = {
       level: data.propMap['4001'].val * 1,
       cons: data.talentIdList ? data.talentIdList.length : 0,
       fetter: data.fetterInfo.expLevel,
+      costume: char.checkCostume(data.costumeId) ? data.costumeId : 0,
       dataSource: 'enka'
     })
     profile.setAttr(EnkaData.getAttr(data.fightPropMap))

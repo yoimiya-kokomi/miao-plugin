@@ -26,6 +26,7 @@ export default class ProfileData extends Base {
     this.level = ds.lv || ds.level || 1
     this.cons = ds.cons || 0
     this.fetter = ds.fetter || 0
+    this.costume = ds.costume || 0
     this.dataSource = ds.dataSource || 'enka'
     this._time = ds._time || ds.updateTime || new Date() * 1
   }
@@ -91,7 +92,7 @@ export default class ProfileData extends Base {
 
   // toJSON 供保存使用
   toJSON () {
-    return this.getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,_time')
+    return this.getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,costume,_time')
   }
 
   get updateTime () {

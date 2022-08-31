@@ -1,17 +1,17 @@
 {
 	"name": "提纳里",
 	"abbr": "提纳里",
-	"id": "",
-	"title": "测试角色",
+	"id": 10000069,
+	"title": "浅蔚轻行",
 	"star": 5,
 	"elem": "dendro",
 	"allegiance": "？？？",
 	"weapon": "Bow",
-	"britydah": "1 January",
+	"britydah": "12-29",
 	"astro": "郭狐座",
-	"cncv": "？？？",
-	"jpcv": "？？？",
-	"desc": "测试角色",
+	"cncv": "莫然",
+	"jpcv": "小林沙苗",
+	"desc": "精通植物学的少年学者，现于道成林任巡林官一职。直率热忱，擅长教导脑瓜糊涂的人。",
 	"lvStat": {
 		"lvs": [
 			"1",

@@ -35,6 +35,7 @@ let MiaoData = {
       level: ds.level,
       cons: ds.constellationNum || 0,
       fetter: ds.fetterLevel,
+      costume: char.checkCostume(ds.costumeID) ? ds.costumeID : 0,
       dataSource: 'miao'
     })
     profile.setAttr(MiaoData.getAttr(ds.combatValue))

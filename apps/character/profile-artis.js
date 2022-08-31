@@ -36,6 +36,7 @@ export async function profileArtis (e) {
     uid,
     elem: char.elem,
     data: profile,
+    costume: profile.costume ? '2' : '',
     artis,
     totalMark,
     totalMarkClass,
