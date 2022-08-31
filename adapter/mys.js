@@ -47,7 +47,18 @@ class Mys {
     if (!this.MysApi) {
       return false
     }
+    let e = this.e
+    // 防止错误信息刷屏
+    e._original_reply = e._original_reply || e.reply
+    e.reply = function (msg) {
+      if (!e._isReplyed) {
+        e._isReplyed = true
+        e.reply = e._original_reply
+        return e._original_reply(msg)
+      }
+    }
     let ret = await MysInfo.get(this.e, api, data)
+    e.reply = e._original_reply
     if (!ret) {
       return false
     }
