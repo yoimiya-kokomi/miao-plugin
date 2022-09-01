@@ -5,9 +5,9 @@
 {{/block}}
 
 {{block 'main'}}
-<div class="head-box" style="background-image:url('{{_res_path}}/{{_char}}/party.png')">
+<div class="head-box" style="background-image:url('{{_res_path}}{{imgs.card}}')">
   <div class="head">
-    <img src="{{_res_path}}{{_char}}/face.png"/>
+    <img src="{{_res_path}}{{imgs.face}}"/>
   </div>
   <!-- <div class="head-astro">{{astro}}</div>
    <div class="head-icon">
@@ -41,7 +41,7 @@
   <div class="talent-detail cont">
     <div class="talent-line">
       <div class="talent-icon">
-        <img src="{{_res_path}}{{_char}}/talent_{{type}}.png"/>
+        <img src="{{_res_path}}{{imgs[type]}}"/>
       </div>
       <div class="talent-info">
         <div class="talent-name">{{skill.name}}</div>
@@ -93,7 +93,7 @@
     {{each passive pass idx}}
     <div class="talent-line">
       <div class="talent-icon">
-        <img src="{{_res_path}}{{_char}}/passive_{{idx}}.png"/>
+        <img src="{{_res_path}}{{imgs[`passive${idx}`]}}"/>
       </div>
       <div class="talent-info">
         <strong class="talent-name">{{pass.name}}</strong>
@@ -131,7 +131,7 @@
     {{each cons con idx}}
     <div class="talent-line">
       <div class="talent-icon">
-        <img src="{{_res_path}}{{_char}}/cons_{{idx}}.png"/>
+        <img src="{{_res_path}}{{imgs[`cons${idx}`]}}"/>
       </div>
       <div class="talent-info">
         <strong class="talent-name">{{con.name}}</strong>

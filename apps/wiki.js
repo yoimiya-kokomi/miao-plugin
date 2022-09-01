@@ -59,6 +59,7 @@ export async function wiki (e) {
   return await Common.render('wiki/character', {
     save_id: '天赋' + char.name,
     ...char,
+    imgs: char.getImgs(),
     mode,
     line: getLineData(char),
     _char: `/meta/character/${char.name}/`
@@ -67,11 +68,30 @@ export async function wiki (e) {
 
 const getLineData = function (data) {
   let ret = []
+  const attrMap = {
+    atkBase: '基础攻击',
+    hpBase: '基础生命',
+    defBase: '基础防御',
+    cpct: '成长·爆伤',
+    cdmg: '成长·暴击',
+    recharge: '成长·充能',
+    mastery: '成长·精通',
+    atkPct: '成长·攻击',
+    hpPct: '成长·生命',
+    defPct: '成长·防御'
+  }
   lodash.forEach(data.lvStat.detail['90'], (num, idx) => {
-    ret.push({
-      num,
-      label: data.lvStat.stat[idx]
-    })
+    if (data.lvStat.stat) {
+      ret.push({
+        num,
+        label: data.lvStat.stat[idx]
+      })
+    } else {
+      ret.push({
+        num,
+        label: attrMap[data.lvStat.attrs[idx]] || ''
+      })
+    }
   })
 
   return ret

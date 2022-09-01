@@ -9,7 +9,6 @@ let idMap = {}
 let abbrMap = {}
 let wifeMap = {}
 const _path = process.cwd()
-const metaPath = `${_path}/plugins/miao-plugin/resources/meta/character/`
 
 async function init () {
   let { sysCfg, diyCfg } = await Data.importCfg('character')
@@ -221,6 +220,39 @@ class Character extends Base {
       203101 // 菲谢尔
     ].includes(id * 1)
   }
+
+  getImgs () {
+    if (this._imgs) {
+      return this._imgs
+    }
+    let imgs = {}
+    const mode = this.ver === 1
+    const path = `/meta/character/${this.name}/`
+    let add = (key, path1, path2 = key, type = 'webp') => {
+      if (mode) {
+        imgs[key] = `${path}${path1}.${type}`
+      } else {
+        imgs[key] = `${path}${path2}.png`
+      }
+    }
+    add('face', 'imgs/face')
+    add('side', 'imgs/side')
+    add('gacha', 'imgs/gacha', 'gacha_card')
+    add('splash', 'imgs/splash', 'gacha_splash')
+    add('card', 'imgs/card', 'party')
+    add('banner', 'imgs/banner', 'profile')
+    for (let i = 1; i <= 6; i++) {
+      add(`cons${i}`, `icons/cons-${i}`, `cons_${i}`)
+    }
+    for (let i = 0; i <= 3; i++) {
+      add(`passive${i}`, `icons/passive-${i}`, `passive_${i}`)
+    }
+    for (let k of ['a', 'e', 'q']) {
+      add(k, `icons/talent-${k}`, `talent_${k}`)
+    }
+    this._imgs = imgs
+    return imgs
+  }
 }
 
 let getMeta = function (name) {
@@ -255,18 +287,6 @@ Character.getAbbr = function () {
 
 Character.checkWifeType = function (charid, type) {
   return !!wifeMap[type][charid]
-}
-
-Character.getRandomImg = function (type) {
-  let chars = fs.readdirSync(metaPath)
-  let ret = []
-  type = type === 'party' ? 'party' : 'profile'
-  lodash.forEach(chars, (char) => {
-    if (fs.existsSync(`${metaPath}/${char}/${type}.png`)) {
-      ret.push(`/meta/character/${char}/${type}.png`)
-    }
-  })
-  return lodash.sample(ret)
 }
 
 let charPosIdx = {

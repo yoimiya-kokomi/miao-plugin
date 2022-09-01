@@ -11,7 +11,7 @@
 {{block 'main'}}
 <div class="basic">
   <div class="main-pic"
-       style="background-image:url({{_res_path}}/meta/character/{{name}}/gacha_splash{{costume}}.png)"></div>
+       style="background-image:url({{_res_path}}{{imgs.splash}})"></div>
   <div class="detail">
     <div class="char-name">{{name}}</div>
     <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
@@ -23,7 +23,7 @@
                {{talent[key].level > talent[key].original ? `talent-plus`:``}}
                 {{talent[key].original >= 10 ? `talent-crown`:``}}">
           <div class="talent-icon-img"
-               style="background-image:url({{_res_path}}/meta/character/{{name}}/talent_{{key}}.png)"></div>
+               style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
           <span>{{talent[key].level}}</span>
         </div>
       </div>
@@ -54,7 +54,7 @@
     <div class="cons-item">
       <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
         <div class="talent-icon-img"
-             style="background-image:url({{_res_path}}/meta/character/{{name}}/cons_{{idx}}.png)"></div>
+             style="background-image:url({{_res_path}}{{imgs[`cons${idx}`]}})"></div>
       </div>
     </div>
     {{/each}}
