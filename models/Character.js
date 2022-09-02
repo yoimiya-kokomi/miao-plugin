@@ -221,11 +221,9 @@ class Character extends Base {
     ].includes(id * 1)
   }
 
-  getImgs () {
-    if (this._imgs) {
-      return this._imgs
-    }
+  getImgs (type, costume='') {
     let imgs = {}
+    let cId = this.checkCostume(costume) ? '2':''
     const mode = this.ver === 1
     const path = `/meta/character/${this.name}/`
     let add = (key, path1, path2 = key, type = 'webp') => {
@@ -235,10 +233,10 @@ class Character extends Base {
         imgs[key] = `${path}${path2}.png`
       }
     }
-    add('face', 'imgs/face')
+    add('face', `imgs/face${cId}`)
     add('side', 'imgs/side')
     add('gacha', 'imgs/gacha', 'gacha_card')
-    add('splash', 'imgs/splash', 'gacha_splash')
+    add('splash', `imgs/splash${cId}`, `gacha_splash${cId}`)
     add('card', 'imgs/card', 'party')
     add('banner', 'imgs/banner', 'profile')
     for (let i = 1; i <= 6; i++) {
@@ -250,7 +248,6 @@ class Character extends Base {
     for (let k of ['a', 'e', 'q']) {
       add(k, `icons/talent-${k}`, `talent_${k}`)
     }
-    this._imgs = imgs
     return imgs
   }
 }

@@ -112,7 +112,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     dmgCfg: dmgCalc.dmgCfg || false,
     artis,
     enemyLv,
-    imgs: char.getImgs(),
+    imgs: char.getImgs('all', profile.costume),
     enemyName: dmgCalc.enemyName || '小宝',
     totalMark: c(totalMark, 1),
     totalMarkClass,
