@@ -36,90 +36,18 @@
 
 {{if mode == "talent"}}
 
-{{each talent skill type}}
+{{each detail.talent talent type}}
 <div class="talent-box elem-bg">
   <div class="talent-detail cont">
-    <div class="talent-line">
-      <div class="talent-icon">
-        <img src="{{_res_path}}{{imgs[type]}}"/>
-      </div>
-      <div class="talent-info">
-        <div class="talent-name">{{skill.name}}</div>
-        <div class="talent-desc">
-          {{each skill.desc d}}
-          {{ if d[0] === "<" }}
-          {{@d}}
-          {{else if d!=""}}
-          {{d}}</br>
-          {{/if}}
-          {{/each}}
-        </div>
-      </div>
-      {{if skill.tables && skill.tables.length > 0}}
-      <table class="talent-table cont-table">
-        <tr class="tr">
-          <td class="th"></td>
-          {{each skill.lvs lv idx}}
-          {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
-          <td class="th lv">{{lv}}</td>
-          {{/if}}
-          {{/each}}
-        </tr>
-        {{each skill.tables tr}}
-        <tr class="tr">
-          <td class="th talent-name">
-            {{tr.name}}
-          </td>
-          {{if tr.isSame}}
-          <td class="td colspan" colspan="{{type == a ? 6 : 8}}" class="td">{{tr.values[0]}}</td>
-          {{else}}
-          {{each tr.values v idx}}
-          {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
-          <td class="td">{{v}}</td>
-          {{/if}}
-          {{/each}}
-          {{/if}}
-        </tr>
-        {{/each}}
-      </table>
-      {{/if}}
-    </div>
+    <% include(_tpl_path+'/talent-detail.html', [talent, {_res_path,lvs,type,icon:imgs[type]}]) %>
   </div>
 </div>
 {{/each}}
 
 <div class="talent-box elem-bg">
   <div class="talent-detail passive-talent">
-    {{each passive pass idx}}
-    <div class="talent-line">
-      <div class="talent-icon">
-        <img src="{{_res_path}}{{imgs[`passive${idx}`]}}"/>
-      </div>
-      <div class="talent-info">
-        <strong class="talent-name">{{pass.name}}</strong>
-        <div class="talent-desc">
-          {{if pass.tables}}
-          {{each pass.desc d}}
-          {{ if d[0] === "<" }}
-          {{@d}}
-          {{else if d!=""}}
-          {{d}}</br>
-          {{/if}}
-          {{/each}}
-          <div class="talent-table">
-            {{each pass.tables tr}}
-            <div class="tr">
-              <div class="th">{{tr.name}}</div>
-              <div class="td">{{tr.values[0]}}</div>
-            </div>
-            {{/each}}
-          </div>
-          {{else}}
-          {{@pass.desc}}
-          {{/if}}
-        </div>
-      </div>
-    </div>
+    {{each detail.passive pass idx}}
+    <% include(_tpl_path+'/talent-detail.html', [pass, {_res_path,icon:imgs['passive'+idx]}]) %>
     {{/each}}
   </div>
 </div>
@@ -128,18 +56,8 @@
 {{if mode == "cons"}}
 <div class="talent-box elem-bg">
   <div class="talent-detail">
-    {{each cons con idx}}
-    <div class="talent-line">
-      <div class="talent-icon">
-        <img src="{{_res_path}}{{imgs[`cons${idx}`]}}"/>
-      </div>
-      <div class="talent-info">
-        <strong class="talent-name">{{con.name}}</strong>
-        <div class="talent-desc">
-          {{@con.desc}}
-        </div>
-      </div>
-    </div>
+    {{each detail.cons con idx}}
+    <% include(_tpl_path+'/talent-detail.html', [con, {_res_path,lvs,type,icon:imgs['cons'+idx]}]) %>
     {{/each}}
   </div>
 </div>

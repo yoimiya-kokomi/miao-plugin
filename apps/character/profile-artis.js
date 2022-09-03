@@ -5,7 +5,7 @@
 import lodash from 'lodash'
 import { Profile, Common } from '../../components/index.js'
 import { getTargetUid, profileHelp, autoGetProfile } from './profile-common.js'
-import { Artifact } from '../../models/index.js'
+import { Artifact, Character } from '../../models/index.js'
 
 /*
 * 角色圣遗物面板
@@ -35,6 +35,7 @@ export async function profileArtis (e) {
   return await Common.render('character/artis-mark', {
     uid,
     elem: char.elem,
+    splash: char.getImgs(profile.costume).splash,
     data: profile,
     costume: profile.costume ? '2' : '',
     artis,
@@ -65,6 +66,7 @@ export async function profileArtisList (e) {
 
   lodash.forEach(profiles || [], (profile) => {
     let name = profile.name
+    let char = Character.get(name)
     if (!profile.hasData || !profile.hasArtis()) {
       return
     }
@@ -72,6 +74,7 @@ export async function profileArtisList (e) {
     lodash.forEach(profileArtis.artis, (arti, idx) => {
       arti.usefulMark = profileArtis.usefulMark
       arti.avatar = name
+      arti.side = char.side
       artis.push(arti)
     })
   })

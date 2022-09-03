@@ -23,7 +23,7 @@ body {
   position: relative;
   background-size: cover;
   color: #fff;
-  text-shadow: 0px 0px 3px rgba(0 0 0 / 70%);
+  text-shadow: 0 0 3px rgba(0 0 0 / 70%);
   margin: 0 0 25px;
   border-radius: 0;
 }
@@ -31,16 +31,16 @@ body {
   width: 128px;
   height: 128px;
   border-radius: 50%;
-  border: 2px solid #f0efe0;
-  box-shadow: 0 0 3px 6px rgba(0, 0, 0, 0.1);
+  border: 3px solid #f0efe0;
+  box-shadow: 0 0 5px 6px rgba(0, 0, 0, 0.1);
   position: absolute;
   left: 52px;
   top: 35px;
   background-size: cover;
 }
 .head-box .head img {
-  width: 120px;
-  height: 120px;
+  width: 122px;
+  height: 122px;
   border-radius: 50%;
 }
 .head-box .head-astro {
@@ -249,19 +249,25 @@ body {
   margin: 0 0 15px 0;
   color: #d3bc8e;
   line-height: 45px;
-  font-weight: normal;
+  font-weight: bold;
 }
 .talent-desc {
   font-size: 18px;
   line-height: 26px;
   padding-right: 10px;
 }
-.talent-desc strong {
+.talent-desc h3 {
   margin-top: 15px;
   margin-bottom: 5px;
   display: block;
-  font-weight: normal;
+  font-weight: bold;
   color: #d3bc8e;
+}
+.talent-desc i {
+  display: block;
+  color: #aaa;
+  padding-top: 10px;
+  margin-bottom: -5px;
 }
 .talent-line {
   position: relative;
@@ -276,7 +282,7 @@ body {
 .talent-table {
   text-align: center;
   border-collapse: collapse;
-  margin: 15px -10px -5px -15px;
+  margin: 10px -10px -5px -15px;
   border-radius: 0 0 10px 10px;
   display: table;
   overflow: hidden;
@@ -288,15 +294,24 @@ body {
   text-align: center;
 }
 .talent-table .td {
-  font-size: 14px;
+  font-size: 15px;
+}
+.talent-table .td.colspan {
+  font-size: 16px;
 }
 .talent-table .talent-name {
   min-width: 100px;
   font-size: 18px;
 }
+.talent-table .talent-name span.unit {
+  display: block;
+  font-size: 13px;
+  color: #ccc;
+  font-weight: normal;
+}
 .talent-table .td,
 .talent-table .th {
-  padding: 7px;
+  padding: 7px 3px;
   line-height: 24px;
 }
 .talent-table .tr:last-child .td {

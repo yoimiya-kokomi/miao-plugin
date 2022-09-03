@@ -43,7 +43,7 @@
           <strong>{{ds.value}}</strong>
         </div>
         <div class="avatar-banner avatar-{{avatar.name}}"
-             style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/gacha_card.png)"></div>
+             style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/imgs/gacha.webp)"></div>
         <div class="stat-msg">
           {{each ds.msg msg}}
           {{if msg.txt}}
@@ -97,7 +97,7 @@
               {{set avatar = avatars[id] || {} }}
               <div class="avatar-icon item-icon star{{avatar.star==4?4:5}}">
       <span class="img"
-            style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/side.png)"></span>
+            style="background-image:url({{_res_path}}{{avatar.face}})"></span>
               </div>
               {{/each}}
             </div>

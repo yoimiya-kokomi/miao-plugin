@@ -14,7 +14,10 @@ export default class Avatars extends Base {
     let abbr = Character.getAbbr()
     lodash.forEach(datas, (avatar) => {
       let data = Data.getData(avatar, 'id,name,level,star:rarity,cons:actived_constellation_num,fetter')
-      data.abbr = abbr[data.name] || data.name
+      let char = Character.get(data.id)
+      data.face = char.face
+      data.side = char.side
+      data.abbr = char.abbr
       data.elem = (avatar.element || '').toLowerCase() || 'hydro'
       data.weapon = Data.getData(avatar.weapon, 'name,affix:affix_level,level,star:rarity')
       data.weapon.abbr = abbr[data?.weapon?.name || ''] || data?.weapon?.name
@@ -104,7 +107,7 @@ export default class Avatars extends Base {
     if (!char || !avatar) {
       return talent
     }
-    let consTalent = char.getConsTalent()
+    let consTalent = char.talentCons
     if (talentRes && talentRes.skill_list) {
       talent.id = id
       let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])

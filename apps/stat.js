@@ -54,6 +54,7 @@ export async function consStat (e) {
     let data = {
       name: char.name || ds.avatar,
       star: char.star || 3,
+      side: char.side,
       hold: ds.holdingRate
     }
 
@@ -147,7 +148,8 @@ export async function abyssPct (e) {
         avatars.push({
           name: char.name,
           star: char.star,
-          value: ds.value * modeMulti
+          value: ds.value * modeMulti,
+          face: char.face
         })
       }
     })
@@ -370,12 +372,14 @@ export async function abyssTeam (e) {
   let avatarMap = {}
 
   lodash.forEach(talentData, (ds) => {
+    let char = Character.get(ds.id)
     avatarMap[ds.id] = {
       id: ds.id,
       name: ds.name,
       star: ds.rarity,
       level: ds.level,
-      cons: ds.cons
+      cons: ds.cons,
+      face: char.face
     }
   })
 
@@ -384,6 +388,7 @@ export async function abyssTeam (e) {
     avatarMap[id] = {
       id,
       name: char.name,
+      face: char.face,
       star: char.star,
       level: 0,
       cons: 0

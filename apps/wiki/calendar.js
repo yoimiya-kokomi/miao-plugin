@@ -205,7 +205,8 @@ let Cal = {
       let regRet = /·(.*)\(/.exec(title)
       if (regRet[1]) {
         let char = Character.get(regRet[1])
-        extra.banner2 = `/meta/character/${regRet[1]}/party.png`
+        extra.banner2 = char.getImgs()?.card
+        extra.face = char.face
         extra.character = regRet[1]
         extra.elem = char.elem
         extra.sort = 1
@@ -215,7 +216,6 @@ let Cal = {
     } else if (title === '深渊') {
       type = 'abyss'
     }
-
 
     let getDate = (d1, d2) => moment(d1 && d1.length > 6 ? d1 : d2)
     let sDate = getDate(detail.start, ds.start_time)

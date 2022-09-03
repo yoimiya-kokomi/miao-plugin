@@ -1,6 +1,5 @@
 import lodash from 'lodash'
 import enkaMeta from './enka-meta.js'
-import charMeta from './enka-char.js'
 import { Character, Artifact, ProfileData } from '../../models/index.js'
 
 const artiIdx = {
@@ -47,7 +46,12 @@ let EnkaData = {
     profile.setAttr(EnkaData.getAttr(data.fightPropMap))
     profile.setWeapon(EnkaData.getWeapon(data.equipList))
     profile.setArtis(EnkaData.getArtifact(data.equipList))
-    profile.setTalent(EnkaData.getTalent(char.id, data.skillLevelMap), 'original')
+    let talentRet = EnkaData.getTalent(char.id, data.skillLevelMap)
+    profile.setTalent(talentRet.talent, 'original')
+    // 为旅行者增加elem
+    if (talentRet.elem) {
+      profile.elem = talentRet.elem
+    }
     return EnkaData.dataFix(profile)
   },
   getAttr (data) {
@@ -158,27 +162,28 @@ let EnkaData = {
     }
   },
   getTalent (charid, ds = {}) {
-    let cm = charMeta[charid] || {}
-    let cn = cm.Skills || {}
-    let ce = cm.ProudMap
-    let idx = 1
-    let idxMap = { 1: 'a', 2: 'e', 3: 'q', a: 'a', s: 'e', e: 'q' }
-    lodash.forEach(cn, (n, id) => {
-      let nRet = /skill_(\w)/.exec(n.toLowerCase())
-      idxMap[id] = nRet && nRet[1] ? idxMap[nRet[1]] : idxMap[idx]
-      idx++
-    })
-    lodash.forEach(ce, (n, id) => {
-      idxMap[n] = idxMap[id]
-    })
+    let char = Character.get(charid)
+    let { talentId = {}, talentElem = {}, talentKey = {} } = char.meta
+    let elem = ''
+    let idx = 0
     let ret = {}
     lodash.forEach(ds, (lv, id) => {
-      let key = idxMap[id]
+      let key
+      if (talentId[id]) {
+        let tid = talentId[id]
+        key = talentKey[tid]
+        elem = elem || talentElem[tid]
+      } else {
+        key = ['a', 'e', 'q'][idx++]
+      }
       ret[key] = {
         original: lv
       }
     })
-    return ret
+    return {
+      elem: elem,
+      talent: ret
+    }
   },
   dataFix (ret) {
     if (ret._fix) {

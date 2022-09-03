@@ -7,7 +7,7 @@ import { Character, ProfileArtis, ProfileDmg } from './index.js'
 export default class ProfileData extends Base {
   constructor (ds = {}) {
     super()
-    let char = Character.get(ds.id)
+    let char = Character.get({ id: ds.id, elem: ds.elem })
     if (!char) {
       return false
     }
@@ -27,6 +27,7 @@ export default class ProfileData extends Base {
     this.cons = ds.cons || 0
     this.fetter = ds.fetter || 0
     this.costume = ds.costume || 0
+    this.elem = ds.elem || ''
     this.dataSource = ds.dataSource || 'enka'
     this._time = ds._time || ds.updateTime || new Date() * 1
   }
@@ -73,7 +74,7 @@ export default class ProfileData extends Base {
     }
     // 检查旅行者
     if (['空', '荧'].includes(this.name)) {
-      return false
+      return !!this.elem
     }
     // 检查属性
     if (!this.weapon || !this.attr || !this.talent || !this.artis) {
@@ -92,7 +93,7 @@ export default class ProfileData extends Base {
 
   // toJSON 供保存使用
   toJSON () {
-    return this.getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,costume,_time')
+    return this.getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,costume,elem,_time')
   }
 
   get updateTime () {

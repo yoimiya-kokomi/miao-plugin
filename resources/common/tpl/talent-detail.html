@@ -1,0 +1,51 @@
+{{set ds = $data[0] || false }}
+{{set {_res_path, icon,lvs,type} = $data[1]}}
+
+<div class="talent-line">
+  <div class="talent-icon">
+    <img src="{{_res_path}}{{icon}}"/>
+  </div>
+  <div class="talent-info">
+    <div class="talent-name">{{ds.name}}</div>
+    <div class="talent-desc">
+      {{each ds.desc d}}
+      {{ if d[0] === "<" }}
+      {{@d}}
+      {{else if d!=""}}
+      <p>{{d}}</p>
+      {{/if}}
+      {{/each}}
+    </div>
+  </div>
+  {{if ds.tables && ds.tables.length > 0}}
+  <table class="talent-table cont-table">
+    <tr class="tr">
+      <td class="th"></td>
+      {{each lvs lv idx}}
+      {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
+      <td class="th lv">{{lv}}</td>
+      {{/if}}
+      {{/each}}
+    </tr>
+    {{each ds.tables tr}}
+    <tr class="tr">
+      <td class="th talent-name">
+        {{tr.name}}
+        {{if tr.unit}}
+        <span class="unit">({{tr.unit}})</span>
+        {{/if}}
+      </td>
+      {{if tr.isSame}}
+      <td class="td colspan" colspan="{{type == a ? 6 : 8}}" class="td">{{tr.values[0]}}</td>
+      {{else}}
+      {{each tr.values v idx}}
+      {{if (type=="a" && idx>4 && idx<11) || (type!="a" && idx>4 && idx < 13)}}
+      <td class="td">{{v}}</td>
+      {{/if}}
+      {{/each}}
+      {{/if}}
+    </tr>
+    {{/each}}
+  </table>
+  {{/if}}
+</div>

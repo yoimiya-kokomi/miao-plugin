@@ -1,7 +1,7 @@
 import { segment } from 'oicq'
 import lodash from 'lodash'
 import Calendar from './wiki/calendar.js'
-import { Cfg, Common } from '../components/index.js'
+import { Format, Cfg, Common } from '../components/index.js'
 import { Character } from '../models/index.js'
 
 // eslint-disable-next-line no-unused-vars
@@ -16,7 +16,7 @@ export async function wiki (e) {
     return false
   }
 
-  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|照片|写真|图片|图像)$/;
+  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|照片|写真|图片|图像)$/
   let msg = e.msg
   let ret = reg.exec(msg)
 
@@ -55,43 +55,47 @@ export async function wiki (e) {
     e.reply('暂不支持自定义角色')
     return true
   }
-
+  let lvs = []
+  for (let i = 1; i <= 15; i++) {
+    lvs.push('Lv' + i)
+  }
   return await Common.render('wiki/character', {
     save_id: '天赋' + char.name,
-    ...char,
+    ...char.getData(),
+    detail: char.getDetail(),
     imgs: char.getImgs(),
     mode,
+    lvs,
     line: getLineData(char),
     _char: `/meta/character/${char.name}/`
-  }, { e, scale: 1 })
+  }, { e, scale: 1.1 })
 }
 
-const getLineData = function (data) {
+const getLineData = function (char) {
   let ret = []
   const attrMap = {
-    atkBase: '基础攻击',
-    hpBase: '基础生命',
-    defBase: '基础防御',
-    cpct: '成长·爆伤',
-    cdmg: '成长·暴击',
-    recharge: '成长·充能',
-    mastery: '成长·精通',
-    atkPct: '成长·攻击',
-    hpPct: '成长·生命',
-    defPct: '成长·防御'
+    atkPct: '大攻击',
+    hpPct: '大生命',
+    defPct: '大防御',
+    cpct: '暴击',
+    cdmg: '爆伤',
+    recharge: '充能',
+    mastery: '精通',
+    heal: '治疗',
+    dmg: char.elemName + '伤',
+    phy: '物伤'
+
   }
-  lodash.forEach(data.lvStat.detail['90'], (num, idx) => {
-    if (data.lvStat.stat) {
-      ret.push({
-        num,
-        label: data.lvStat.stat[idx]
-      })
-    } else {
-      ret.push({
-        num,
-        label: attrMap[data.lvStat.attrs[idx]] || ''
-      })
-    }
+  lodash.forEach({ hp: '基础生命', atk: '基础攻击', def: '基础防御' }, (label, key) => {
+    ret.push({
+      num: Format.comma(char.baseAttr[key], 1),
+      label
+    })
+  })
+  let ga = char.growAttr
+  ret.push({
+    num: ga.value,
+    label: `成长·${attrMap[ga.key]}`
   })
 
   return ret

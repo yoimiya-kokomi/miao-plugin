@@ -1,69 +1,55 @@
 import lodash from 'lodash'
-import fs from 'fs'
-import sizeOf from 'image-size'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
+import CharImg from './character-lib/CharImg.js'
+import CharTalent from './character-lib/CharTalent.js'
+import CharId from './character-lib/CharId.js'
 
-let aliasMap = {}
-let idMap = {}
-let abbrMap = {}
-let wifeMap = {}
 const _path = process.cwd()
-
-async function init () {
-  let { sysCfg, diyCfg } = await Data.importCfg('character')
-  lodash.forEach([diyCfg.customCharacters, sysCfg.characters], (roleIds) => {
-    lodash.forEach(roleIds || {}, (aliases, id) => {
-      aliases = aliases || []
-      if (aliases.length === 0) {
-        return
-      }
-      // 建立别名映射
-      lodash.forEach(aliases || [], (alias) => {
-        alias = alias.toLowerCase()
-        aliasMap[alias] = id
-      })
-      aliasMap[id] = id
-      idMap[id] = aliases[0]
-    })
-  })
-
-  lodash.forEach([sysCfg.wifeData, diyCfg.wifeData], (wifeData) => {
-    lodash.forEach(wifeData || {}, (ids, type) => {
-      type = Data.def({ girlfriend: 0, boyfriend: 1, daughter: 2, son: 3 }[type], type)
-      if (!wifeMap[type]) {
-        wifeMap[type] = {}
-      }
-      Data.eachStr(ids, (id) => {
-        id = aliasMap[id]
-        if (id) {
-          wifeMap[type][id] = true
-        }
-      })
-    })
-  })
-  abbrMap = sysCfg.abbr
-}
-
-await init()
+let { abbrMap, wifeMap, idSort } = CharId
 
 class Character extends Base {
-  constructor (name, id) {
+  constructor ({ id, name = '', elem = '' }) {
     super()
-
-    if (id * 1 === 10000005) {
-      name = '空'
-    } else if (id * 1 === 10000007) {
-      name = '荧'
+    let uuid = CharId.isTraveler(id) ? `character:${id}:${elem || 'anemo'}` : `character:${id}`
+    // 检查缓存
+    let cacheObj = Base.get(uuid)
+    if (cacheObj) {
+      return cacheObj
     }
-    this.name = name
-    lodash.extend(this, getMeta(name))
-    if (name === '主角' || name === '旅行者' || /.主/.test(name)) {
-      this.id = 20000000
-    }
+    // 设置数据
     this.id = id
+    this.name = name
+    this._uuid = uuid
+    if (!this.isCustom) {
+      let meta = getMeta(name)
+      this.meta = meta
+      for (let key of this._dataKey.split(',')) {
+        if (key === 'elem') {
+          this.elem = elem || meta.elem
+        } else {
+          this[key] = meta[key]
+        }
+      }
+    } else {
+      this.meta = {}
+    }
+    return this._expire()
   }
 
+  _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,ver,desc,talentCons'
+
+  // 是否为自定义角色
+  get isCustom () {
+    return !/[12]0\d{6}/.test(this.id)
+  }
+
+  // 是否是旅行者
+  get isTraveler () {
+    return CharId.isTraveler(this.id)
+  }
+
+  // 获取武器类型
   get weaponType () {
     const map = {
       sword: '单手剑',
@@ -76,57 +62,39 @@ class Character extends Base {
     return map[weaponType.toLowerCase()] || ''
   }
 
-  get isCustom () {
-    return !/10\d{6}/.test(this.id)
+  // 获取元素名称
+  get elemName () {
+    return CharId.getElemName(this.elem)
   }
 
-  get abbr () {
-    return abbrMap[this.name] || this.name
+  // 获取头像
+  get face () {
+    return this.getImgs().face
   }
 
+  // 获取侧脸图像
+  get side () {
+    return this.getImgs().side
+  }
+
+  // 获取详情数据
+  get detail () {
+    return this.getDetail()
+  }
+
+  // 获取基础数据
+  get baseAttr () {
+    return this.meta.baseAttr
+  }
+
+  // 获取成长数据
+  get growAttr () {
+    return this.meta.growAttr
+  }
+
+  // 获取角色character-img图片
   getCardImg (se = false, def = true) {
-    let name = this.name
-    let list = []
-    let addImg = function (charImgPath, disable = false) {
-      let dirPath = `./plugins/miao-plugin/resources/${charImgPath}`
-
-      if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(dirPath)
-      }
-      if (disable) {
-        return
-      }
-
-      let imgs = fs.readdirSync(dirPath)
-      imgs = imgs.filter((img) => /\.(png|jpg|webp|jpeg)/i.test(img))
-      lodash.forEach(imgs, (img) => {
-        list.push(`${charImgPath}/${img}`)
-      })
-    }
-    addImg(`character-img/${name}`)
-    addImg(`character-img/${name}/upload`)
-    addImg(`character-img/${name}/se`, !se)
-
-    const plusPath = './plugins/miao-plugin/resources/miao-res-plus/'
-    if (fs.existsSync(plusPath)) {
-      addImg(`miao-res-plus/character-img/${name}`)
-      addImg(`miao-res-plus/character-img/${name}/se`, !se)
-    }
-
-    let img = lodash.sample(list)
-
-    if (!img) {
-      if (def) {
-        img = '/character-img/default/01.jpg'
-      } else {
-        return false
-      }
-    }
-
-    let ret = sizeOf(`./plugins/miao-plugin/resources/${img}`)
-    ret.img = img
-    ret.mode = ret.width > ret.height ? 'left' : 'bottom'
-    return ret
+    return CharImg.getCardImg(this.name, se, def)
   }
 
   checkAvatars (avatars) {
@@ -150,60 +118,7 @@ class Character extends Base {
   }
 
   getAvatarTalent (talent = {}, cons = 0, mode = 'level') {
-    let ret = {}
-    let consTalent = this.getConsTalent()
-    lodash.forEach(['a', 'e', 'q'], (key) => {
-      let ds = talent[key]
-      if (!ds) {
-        ds = 1
-      }
-      let level
-      if (lodash.isNumber(ds)) {
-        level = ds
-      } else {
-        level = mode === 'level' ? ds.level || ds.level_current || ds.original || ds.level_original : ds.original || ds.level_original || ds.level || ds.level_current
-      }
-      if (mode === 'level') {
-        // 基于level计算original
-        ret[key] = {
-          level,
-          original: (key !== 'a' && cons >= consTalent[key]) ? (level - 3) : level
-        }
-      } else {
-        // 基于original计算level
-        ret[key] = {
-          original: level,
-          level: (key !== 'a' && cons >= consTalent[key]) ? (level + 3) : level
-        }
-      }
-    })
-    if (this.id * 1 !== 10000033) {
-      let a = ret.a || {}
-      if (a.level > 10) {
-        a.level = 10
-        a.original = 10
-      }
-    }
-    if (this.id * 1 === 10000033) {
-      let a = ret.a || {}
-      a.original = a.level - 1
-    }
-    return ret
-  }
-
-  getConsTalent () {
-    let talent = this.talent || false
-    if (!talent) {
-      return { e: 3, q: 5 }
-    }
-    let e = talent.e.name
-    let q = talent.q.name
-    let c3 = this.cons['3'].desc
-    let c5 = this.cons['5'].desc
-    return {
-      e: c3.includes(e) ? 3 : 5,
-      q: c5.includes(q) ? 5 : 3
-    }
+    return CharTalent.getAvatarTalent(this.id, talent, cons, mode, this.talentCons)
   }
 
   checkWifeType (type) {
@@ -211,44 +126,49 @@ class Character extends Base {
   }
 
   checkCostume (id) {
-    return [
-      200301, // 琴
-      201401, // 芭芭拉
-      204201, // 刻晴
-      202701, // 凝光
-      201601, // 迪卢克
-      203101 // 菲谢尔
-    ].includes(id * 1)
+    let costume = this.meta?.costume || []
+    return costume.includes(id * 1)
   }
 
-  getImgs (type, costume='') {
-    let imgs = {}
-    let cId = this.checkCostume(costume) ? '2':''
-    const mode = this.ver === 1
-    const path = `/meta/character/${this.name}/`
-    let add = (key, path1, path2 = key, type = 'webp') => {
-      if (mode) {
-        imgs[key] = `${path}${path1}.${type}`
+  // 获取Character图像资源
+  getImgs (costume = '', elem = '') {
+    let cId = this.checkCostume(costume) ? '2' : ''
+    if (this._imgs) {
+      return this._imgs
+    }
+    this._imgs = CharImg.getImgs(this.name, cId, this.isTraveler ? this.elem : '')
+    return this._imgs
+  }
+
+  // 获取详情数据
+  getDetail (elem = '') {
+    if (this._detail) {
+      return this._detail
+    }
+    if (this.isCustom) {
+      return {}
+    }
+    const path = `${_path}/plugins/miao-plugin/resources/meta/character/${this.name}`
+
+    try {
+      if (this.isTraveler) {
+        this._detail = Data.readJSON(`${path}/${this.elem}`, 'detail.json') || {}
       } else {
-        imgs[key] = `${path}${path2}.png`
+        this._detail = Data.readJSON(`${path}`, 'detail.json') || {}
       }
+    } catch (e) {
+      console.log(e)
     }
-    add('face', `imgs/face${cId}`)
-    add('side', 'imgs/side')
-    add('gacha', 'imgs/gacha', 'gacha_card')
-    add('splash', `imgs/splash${cId}`, `gacha_splash${cId}`)
-    add('card', 'imgs/card', 'party')
-    add('banner', 'imgs/banner', 'profile')
-    for (let i = 1; i <= 6; i++) {
-      add(`cons${i}`, `icons/cons-${i}`, `cons_${i}`)
-    }
-    for (let i = 0; i <= 3; i++) {
-      add(`passive${i}`, `icons/passive-${i}`, `passive_${i}`)
-    }
-    for (let k of ['a', 'e', 'q']) {
-      add(k, `icons/talent-${k}`, `talent_${k}`)
-    }
-    return imgs
+    return this._detail
+  }
+
+  getTalentKey (id) {
+    let meta = this.meta
+    return meta.talentKey[meta.talentId[id]] || false
+  }
+
+  getTalentElem () {
+
   }
 }
 
@@ -257,25 +177,11 @@ let getMeta = function (name) {
 }
 
 Character.get = function (val) {
-  let id, name
-  if (!val) {
+  let id = CharId.getId(val)
+  if (!id) {
     return false
   }
-  if (typeof (val) === 'number' || /^\d*$/.test(val)) {
-    id = val
-  } else if (val.id) {
-    id = val.id
-    name = val.name || idMap[id]
-  } else {
-    id = aliasMap[val]
-  }
-  if (!name) {
-    name = idMap[id]
-  }
-  if (!name) {
-    return false
-  }
-  return new Character(name, id)
+  return new Character(id)
 }
 
 Character.getAbbr = function () {
@@ -285,24 +191,6 @@ Character.getAbbr = function () {
 Character.checkWifeType = function (charid, type) {
   return !!wifeMap[type][charid]
 }
-
-let charPosIdx = {
-  1: '宵宫,雷神,胡桃,甘雨,优菈,一斗,公子,绫人,魈,可莉,迪卢克,凝光,刻晴,辛焱,烟绯,雷泽',
-  2: '夜兰,八重,九条,行秋,香菱,安柏,凯亚,丽莎,北斗,菲谢尔,重云,罗莎莉亚,埃洛伊',
-  3: '申鹤,莫娜,早柚,云堇,久岐忍,五郎,砂糖,万叶,温迪',
-  4: '班尼特,心海,琴,芭芭拉,七七,迪奥娜,托马,空,荧,阿贝多,钟离'
-}
-
-let idSort = {}
-lodash.forEach(charPosIdx, (chars, pos) => {
-  chars = chars.split(',')
-  lodash.forEach(chars, (name, idx) => {
-    let id = aliasMap[name]
-    if (id) {
-      idSort[id] = pos * 100 + idx
-    }
-  })
-})
 
 Character.sortIds = function (arr) {
   return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))

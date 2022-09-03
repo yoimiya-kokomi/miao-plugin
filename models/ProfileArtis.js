@@ -162,21 +162,21 @@ export default class ProfileArtis extends Base {
     let attrWeight = usefulAttr[name] || { atk: 75, cp: 100, cd: 100 }
     let attrMark = {}
 
-    let baseAttr = char?.lvStat?.detail['90'] || [400, 500, 300]
+    let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
     lodash.forEach(attrWeight, (weight, attr) => {
       attrMark[attr] = weight / attrValue[attr]
     })
 
     // let baseAttr = [400, 500, 300];
     if (attrMark.hp) {
-      attrMark.hpPlus = attrMark.hp / baseAttr[0] * 100
+      attrMark.hpPlus = attrMark.hp / baseAttr.hp * 100
     }
     if (attrMark.atk) {
       // 以520作为武器白值均值计算
-      attrMark.atkPlus = attrMark.atk / (baseAttr[1] * 1 + 520) * 100
+      attrMark.atkPlus = attrMark.atk / (baseAttr.atk * 1 + 520) * 100
     }
     if (attrMark.def) {
-      attrMark.defPlus = attrMark.def / baseAttr[2] * 100
+      attrMark.defPlus = attrMark.def / baseAttr.def * 100
     }
     let maxMark = ArtisMark.getMaxMark(attrWeight)
     let titleMark = {}

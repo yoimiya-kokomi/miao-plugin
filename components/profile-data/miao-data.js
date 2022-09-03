@@ -41,7 +41,11 @@ let MiaoData = {
     profile.setAttr(MiaoData.getAttr(ds.combatValue))
     profile.setWeapon(MiaoData.getWeapon(ds.weapon))
     profile.setArtis(MiaoData.getArtifact(ds.reliquary))
-    profile.setTalent(MiaoData.getTalent(char.id, ds.skill, ds.constellationNum || 0))
+    let talentRet = MiaoData.getTalent(char.id, ds.skill)
+    profile.setTalent(talentRet.talent)
+    if (talentRet.elem) {
+      profile.elem = talentRet.elem
+    }
     return profile
   },
   getAttr (data) {
@@ -137,24 +141,30 @@ let MiaoData = {
     })
     return ret
   },
-  getTalent (charid, data = {}, cons = 0) {
-    let cm = cmeta[charid] || {}
-    let cn = cm.Skills || {}
-    let idx = 1
-    let idxMap = { 0: 'a', 1: 'e', 2: 'q', a: 'a', s: 'e', e: 'q' }
-    lodash.forEach(cn, (n, id) => {
-      let nRet = /skill_(\w)/.exec(n.toLowerCase())
-      idxMap[id] = nRet && nRet[1] ? idxMap[nRet[1]] : idxMap[idx]
-      idx++
-    })
+  getTalent (charid, data = {}) {
+    let char = Character.get(charid)
+    let { talentId = {}, talentElem = {}, talentKey = {} } = char.meta
+    let elem = ''
+    let idx = 0
     let ret = {}
-    lodash.forEach(data, (ds, idx) => {
-      let key = idxMap[ds.id] || idxMap[idx]
+    lodash.forEach(data, (ds) => {
+      let key
+      if (talentId[ds.id]) {
+        let tid = talentId[ds.id]
+        key = talentKey[tid]
+        elem = elem || talentElem[tid]
+      } else {
+        key = ['a', 'e', 'q'][idx++]
+      }
       ret[key] = {
         level: ds.level
       }
     })
-    return ret
+
+    return {
+      talent: ret,
+      elem
+    }
   }
 }
 export default MiaoData

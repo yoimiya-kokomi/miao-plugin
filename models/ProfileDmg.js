@@ -28,7 +28,7 @@ export default class ProfileDmg extends Base {
 
       let map = {}
 
-      lodash.forEach(char.talent[key].tables, (tr) => {
+      lodash.forEach(char.detail.talent[key].tables, (tr) => {
         let val = tr.values[level - 1]
         // eslint-disable-next-line no-control-regex
         val = val.replace(/[^\x00-\xff]/g, '').trim()

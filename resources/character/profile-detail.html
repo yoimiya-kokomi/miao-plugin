@@ -50,7 +50,8 @@
   </div>
 
   <div class="char-cons">
-    {{each cons con idx}}
+    {{set cons = [1,2,3,4,5,6]}}
+    {{each cons idx}}
     <div class="cons-item">
       <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
         <div class="talent-icon-img"

@@ -9,11 +9,6 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
 
   let { uid } = e
 
-  if (['荧', '空', '主角', '旅行者'].includes(char.name)) {
-    e.reply('暂不支持主角的面板信息查看')
-    return true
-  }
-
   if (char.isCustom) {
     e.reply(`暂不支持自定义角色${char.name}的面板信息查看`)
     return true
@@ -28,6 +23,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   }
 
   let profile = Profile.get(uid, char.id)
+  char = profile.char
 
   if (!profile) {
     if (await refresh()) {
@@ -102,7 +98,6 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     data: profile.getData('cons,level,weapon,dataSource,updateTime'),
     costume,
     attr,
-    cons: char.cons,
     name: char.name,
     elem: char.elem,
     talent: char.getAvatarTalent(profile.talent, profile.cons),
@@ -112,7 +107,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     dmgCfg: dmgCalc.dmgCfg || false,
     artis,
     enemyLv,
-    imgs: char.getImgs('all', profile.costume),
+    imgs: char.getImgs(profile.costume),
     enemyName: dmgCalc.enemyName || '小宝',
     totalMark: c(totalMark, 1),
     totalMarkClass,
