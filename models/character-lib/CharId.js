@@ -87,7 +87,7 @@ const CharId = {
       ds = lodash.trim(ds || '').toLowerCase()
       // 尝试使用元素起始匹配
       let em = CharId.matchElem(ds)
-      if (em && aliasMap[em.name]) {
+      if (em && aliasMap[em.name] && CharId.isTraveler(aliasMap[em.name])) {
         return ret(aliasMap[em.name], em.elem)
       }
       // 直接匹配
