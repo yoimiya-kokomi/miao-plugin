@@ -114,13 +114,17 @@ class Character extends Base {
   }
 
   // 获取Character图像资源
-  getImgs (costume = '', elem = '') {
-    let cId = this.checkCostume(costume) ? '2' : ''
-    if (this._imgs) {
-      return this._imgs
+  getImgs (costume = '') {
+    let costumeId = this.checkCostume(costume) ? '2' : ''
+    let cacheId = `costume${costumeId}`
+    if (!this._imgs) {
+      this._imgs = {}
     }
-    this._imgs = CharImg.getImgs(this.name, cId, this.isTraveler ? this.elem : '')
-    return this._imgs
+    if (this._imgs[cacheId]) {
+      return this._imgs[cacheId]
+    }
+    this._imgs[cacheId] = CharImg.getImgs(this.name, costumeId, this.isTraveler ? this.elem : '')
+    return this._imgs[cacheId]
   }
 
   // 获取详情数据
