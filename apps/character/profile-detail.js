@@ -23,8 +23,6 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   }
 
   let profile = Profile.get(uid, char.id)
-  char = profile.char
-
   if (!profile) {
     if (await refresh()) {
       return true
@@ -38,7 +36,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     }
     return true
   }
-
+  char = profile.char || char
   let a = profile.attr
   let c = Format.comma
   let p = Format.pct
