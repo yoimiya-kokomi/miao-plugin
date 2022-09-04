@@ -25,13 +25,12 @@ export default class ProfileDmg extends Base {
     let talentData = profile.talent || {}
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let level = lodash.isNumber(talentData[key]) ? talentData[key] : (talentData[key].level || 1)
-
       let map = {}
-
       lodash.forEach(char.detail.talent[key].tables, (tr) => {
         let val = tr.values[level - 1]
         // eslint-disable-next-line no-control-regex
         val = val.replace(/[^\x00-\xff]/g, '').trim()
+        val = val.replace(/[a-zA-Z]/g, '').trim()
         let valArr = []
         let valArr2 = []
         lodash.forEach(val.split('/'), (v, idx) => {

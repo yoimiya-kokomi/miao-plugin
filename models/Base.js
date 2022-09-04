@@ -19,7 +19,14 @@ export default class Base {
     return Data.getVal(this, key, defaultValue)
   }
 
-  _expire (time = 10 * 60) {
+  _getCache (uuid = '', time = 10 * 60) {
+    if (uuid && cacheMap[uuid]) {
+      return cacheMap[uuid]._setCache(time)
+    }
+    this._uuid = uuid
+  }
+
+  _setCache (time = 10 * 60) {
     let id = this._uuid
     if (id) {
       reFn[id] && clearTimeout(reFn[id])
@@ -35,7 +42,5 @@ export default class Base {
   }
 }
 Base.get = (id, time = 10 * 60) => {
-  if (cacheMap[id]) {
-    return cacheMap[id]._expire(time)
-  }
+
 }

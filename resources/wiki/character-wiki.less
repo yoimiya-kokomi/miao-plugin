@@ -1,0 +1,151 @@
+@import "../common/base.less";
+
+body {
+  width: 600px;
+}
+
+.container {
+  width: 600px;
+  padding: 0;
+  background-size: cover;
+  overflow: hidden;
+
+  & > .cont {
+
+  }
+}
+
+.char-title {
+  height: 100px;
+  padding-right: 10px;
+
+  .char-name {
+    font-size: 40px;
+
+    span {
+      font-size: 28px;
+      padding-right: 10px;
+    }
+  }
+}
+
+.basic {
+  height: 500px;
+
+  &:after {
+
+  }
+}
+
+.char-desc {
+  padding-left: 240px;
+  font-size: 14px;
+}
+
+
+.char-meta {
+  padding-left: 370px;
+
+  .title {
+
+  }
+}
+
+.detail {
+  right: 18px;
+
+  .cont {
+    margin-right: 0;
+  }
+
+  ul.char-attr {
+
+    li {
+      width: 250px;
+      padding-left: 20px;
+
+      strong {
+        position: initial;
+        color: #d3bc8e;
+      }
+
+      span {
+        color: #fff;
+        right: 20px;
+        text-align: right;
+        width: 150px;
+      }
+    }
+  }
+}
+
+.material-list {
+  display: flex;
+  padding: 5px;
+  position: absolute;
+  left: 10px;
+  bottom: 6px;
+  z-index: 5;
+
+  .num {
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 3px rgba(0, 0, 0, 0.8);
+    display: block;
+    height: 14px;
+    margin-left: -10px;
+    margin-right: -10px;
+    width: calc(100% + 20px)
+  }
+
+
+  .item-card {
+    width: 47px;
+    margin: 2px;
+    overflow: hidden;
+
+    .item-icon {
+      background-size: cover;
+      padding: 6px 4px 17px;
+    }
+
+    .item-bg {
+      background-size: contain;
+      background-position: center;
+    }
+
+    .item-title {
+      display: block;
+      font-size: 12px;
+      position: absolute;
+      color: #fff;
+      bottom: 0;
+      left: 0;
+      white-space: nowrap;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px 0;
+      width: 68px;
+      text-align: center;
+      transform-origin: left bottom;
+      transform: scale(.7);
+      text-shadow: 0 0 2px #000;
+    }
+  }
+}
+
+.talent-cont {
+  text-align: center;
+
+  strong {
+    color: #d3bc8e;
+  }
+}
+
+.weapon-list {
+  padding: 3px;
+
+  .item {
+    margin: 3px;
+  }
+}

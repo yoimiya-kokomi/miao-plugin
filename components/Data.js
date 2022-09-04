@@ -201,8 +201,17 @@ let Data = {
         fn(str.trim ? str.trim() : str, idx)
       }
     })
-  }
+  },
 
+  regRet (reg, txt, idx) {
+    if (reg && txt) {
+      let ret = reg.exec(txt)
+      if (ret && ret[idx]) {
+        return ret[idx]
+      }
+    }
+    return false
+  }
 }
 
 export default Data

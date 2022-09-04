@@ -7,19 +7,18 @@
 import fetch from 'node-fetch'
 import { Data } from '../../components/index.js'
 
-const host = 'http://49.232.91.210:88/miaoPlugin/hutaoApi'
+const host = 'http://miaoapi.cn/api/hutao'
 
 function getApi (api) {
   return `${host}?api=${api}`
 }
 
 let HutaoApi = {
-  async req (url, param = {}) {
+  async req (url, param = {}, EX = 3600) {
     let cacheData = await Data.getCacheJSON(`hutao:${url}`)
-    if (cacheData && param.method !== 'POST') {
+    if (cacheData && cacheData.data && param.method !== 'POST') {
       return cacheData
     }
-
     let response = await fetch(getApi(`${url}`), {
       ...param,
       method: param.method || 'GET'
@@ -28,7 +27,7 @@ let HutaoApi = {
     if (retData && retData.data && param.method !== 'POST') {
       let d = new Date()
       retData.lastUpdate = `${d.toLocaleDateString()} ${d.toTimeString().substr(0, 5)}`
-      await Data.setCacheJSON(`hutao:${url}`, retData, 3600)
+      await Data.setCacheJSON(`hutao:${url}`, retData, EX)
     }
     return retData
   },
@@ -52,6 +51,14 @@ let HutaoApi = {
 
   async getOverview () {
     return await HutaoApi.req('/Statistics/Overview')
+  },
+
+  async getWeaponUsage () {
+    return await HutaoApi.req('/Statistics/AvatarWeaponUsage')
+  },
+
+  async getArtisUsage () {
+    return await HutaoApi.req('/Statistics/AvatarReliquaryUsage')
   },
 
   async upload (data) {

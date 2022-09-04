@@ -4,39 +4,35 @@ import { Data } from '../components/index.js'
 import CharImg from './character-lib/CharImg.js'
 import CharTalent from './character-lib/CharTalent.js'
 import CharId from './character-lib/CharId.js'
+import CharMeta from './character-lib/CharMeta.js'
 
-const _path = process.cwd()
 let { abbrMap, wifeMap, idSort } = CharId
 
 class Character extends Base {
   constructor ({ id, name = '', elem = '' }) {
     super()
-    let uuid = CharId.isTraveler(id) ? `character:${id}:${elem || 'anemo'}` : `character:${id}`
     // 检查缓存
-    let cacheObj = Base.get(uuid)
+    let cacheObj = this._getCache(CharId.isTraveler(id) ? `character:${id}:${elem || 'anemo'}` : `character:${id}`)
     if (cacheObj) {
       return cacheObj
     }
     // 设置数据
     this.id = id
     this.name = name
-    this._uuid = uuid
     if (!this.isCustom) {
       let meta = getMeta(name)
       this.meta = meta
-      for (let key of this._dataKey.split(',')) {
-        if (key === 'elem') {
-          this.elem = CharId.getElem(elem || meta.elem) || 'anemo'
-        } else {
-          this[key] = meta[key]
-        }
+      for (let key of 'abbr,title,star,allegiance,weapon,astro,cncv,jpcv,ver,desc,talentCons'.split(',')) {
+        this[key] = meta[key]
       }
+      this.elem = CharId.getElem(elem || meta.elem) || 'anemo'
     } else {
       this.meta = {}
     }
-    return this._expire()
+    return this._setCache()
   }
 
+  // 默认获取的数据
   _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,ver,desc,talentCons'
 
   // 是否为自定义角色
@@ -82,6 +78,15 @@ class Character extends Base {
     return this.getDetail()
   }
 
+  getAttrList () {
+    let meta = this.meta
+    return CharMeta.getAttrList(meta.baseAttr, meta.growAttr, this.elemName)
+  }
+
+  getMaterials () {
+    return CharMeta.getMaterials(this)
+  }
+
   // 获取基础数据
   get baseAttr () {
     return this.meta.baseAttr
@@ -90,6 +95,15 @@ class Character extends Base {
   // 获取成长数据
   get growAttr () {
     return this.meta.growAttr
+  }
+
+  get birthday () {
+    let birth = this.meta.birth
+    if (!birth) {
+      return ''
+    }
+    birth = birth.split('-')
+    return `${birth[0]}月${birth[1]}日`
   }
 
   // 获取角色character-img图片

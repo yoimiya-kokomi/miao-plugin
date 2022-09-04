@@ -2,7 +2,8 @@ import { segment } from 'oicq'
 import lodash from 'lodash'
 import Calendar from './wiki/calendar.js'
 import { Format, Cfg, Common } from '../components/index.js'
-import { Character } from '../models/index.js'
+import { Character, Weapon } from '../models/index.js'
+import HutaoApi from './stat/HutaoApi.js'
 
 // eslint-disable-next-line no-unused-vars
 let action = {
@@ -16,7 +17,7 @@ export async function wiki (e) {
     return false
   }
 
-  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|照片|写真|图片|图像)$/
+  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|图鉴|照片|写真|图片|图像)$/
   let msg = e.msg
   let ret = reg.exec(msg)
 
@@ -27,12 +28,14 @@ export async function wiki (e) {
   let mode = 'talent'
   if (/命/.test(ret[2])) {
     mode = 'cons'
+  } else if (/(图鉴|资料)/.test(ret[2])) {
+    mode = 'wiki'
   } else if (/图|画|写真|照片/.test(ret[2])) {
     mode = 'pic'
   }
 
   if ((mode === 'pic' && Common.isDisable(e, 'wiki.pic')) ||
-    (mode !== 'pic' && Common.isDisable('wiki.wiki'))) {
+    (mode !== 'pic' && Common.isDisable(e, 'wiki.wiki'))) {
     return
   }
 
@@ -50,7 +53,6 @@ export async function wiki (e) {
     }
     return true
   }
-
   if (char.isCustom) {
     e.reply('暂不支持自定义角色')
     return true
@@ -59,16 +61,45 @@ export async function wiki (e) {
   for (let i = 1; i <= 15; i++) {
     lvs.push('Lv' + i)
   }
-  return await Common.render('wiki/character', {
-    save_id: '天赋' + char.name,
+  if (mode === 'wiki') {
+    return await renderWiki({ e, char })
+  }
+  return await Common.render('wiki/character-talent', {
+    saveId: `${mode}-${char.id}-${char.elem}`,
     ...char.getData(),
     detail: char.getDetail(),
     imgs: char.getImgs(),
     mode,
     lvs,
-    line: getLineData(char),
-    _char: `/meta/character/${char.name}/`
+    line: getLineData(char)
   }, { e, scale: 1.1 })
+}
+
+async function renderWiki ({ e, char }) {
+  let data = char.getData()
+  lodash.extend(data, char.getData('weaponType,elemName'))
+  let wu = (await HutaoApi.getWeaponUsage()).data || {}
+  let weapons = []
+  if (wu[char.id]) {
+    lodash.forEach(wu[char.id], (ds) => {
+      let weapon = Weapon.get(ds.name) || {}
+      weapons.push({
+        name: ds.name,
+        star: weapon.star || 4,
+        value: Format.percent(ds.value, 1)
+      })
+    })
+  }
+  return await Common.render('wiki/character-wiki', {
+    saveId: `info-${char.id}`,
+    data,
+    attr: char.getAttrList(),
+    detail: char.getDetail(),
+    imgs: char.getImgs(),
+    weapons,
+    materials: char.getMaterials(),
+    elem: char.elem
+  }, { e, scale: 1.4 })
 }
 
 const getLineData = function (char) {
@@ -84,7 +115,6 @@ const getLineData = function (char) {
     heal: '治疗',
     dmg: char.elemName + '伤',
     phy: '物伤'
-
   }
   lodash.forEach({ hp: '基础生命', atk: '基础攻击', def: '基础防御' }, (label, key) => {
     ret.push({

@@ -1,6 +1,7 @@
-import lodash from 'lodash';
+import lodash from 'lodash'
 
 const CharTalent = {
+  // 处理获取天赋数据
   getAvatarTalent (id, talent, cons, mode, consTalent = {}) {
     let ret = {}
     lodash.forEach(['a', 'e', 'q'], (key) => {
@@ -8,37 +9,34 @@ const CharTalent = {
       if (!ds) {
         ds = 1
       }
+      let value
       let level
+      let original
+      let aPlus = id === 10000033
       if (lodash.isNumber(ds)) {
-        level = ds
-      } else {
-        level = mode === 'level' ? ds.level || ds.level_current || ds.original || ds.level_original : ds.original || ds.level_original || ds.level || ds.level_current
+        value = ds
       }
       if (mode === 'level') {
         // 基于level计算original
-        ret[key] = {
-          level,
-          original: (key !== 'a' && cons >= consTalent[key]) ? (level - 3) : level
+        value = value || ds.level || ds.level_current || ds.original || ds.level_original
+        level = value
+        if (key === 'a') {
+          original = aPlus ? value - 1 : value
+        } else {
+          original = cons >= consTalent[key] ? (value - 3) : value
         }
       } else {
         // 基于original计算level
-        ret[key] = {
-          original: level,
-          level: (key !== 'a' && cons >= consTalent[key]) ? (level + 3) : level
+        value = value || ds.original || ds.level_original || ds.level || ds.level_current
+        original = value
+        if (key === 'a') {
+          level = aPlus ? value + 1 : value
+        } else {
+          level = cons >= consTalent[key] ? (value + 3) : value
         }
       }
+      ret[key] = { level, original }
     })
-    if (this.id * 1 !== 10000033) {
-      let a = ret.a || {}
-      if (a.level > 10) {
-        a.level = 10
-        a.original = 10
-      }
-    }
-    if (this.id * 1 === 10000033) {
-      let a = ret.a || {}
-      a.original = a.level - 1
-    }
     return ret
   },
 

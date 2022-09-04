@@ -383,16 +383,64 @@ ul.cont-msg li strong,
 .item-icon.star1 {
   background-image: url("../common/item/bg1.png");
 }
+.item-icon.opacity-bg.star1 {
+  background-image: url("../common/item/bg1-o.png");
+}
 .item-icon.star2 {
   background-image: url("../common/item/bg2.png");
+}
+.item-icon.opacity-bg.star2 {
+  background-image: url("../common/item/bg2-o.png");
 }
 .item-icon.star3 {
   background-image: url("../common/item/bg3.png");
 }
+.item-icon.opacity-bg.star3 {
+  background-image: url("../common/item/bg3-o.png");
+}
 .item-icon.star4 {
   background-image: url("../common/item/bg4.png");
 }
+.item-icon.opacity-bg.star4 {
+  background-image: url("../common/item/bg4-o.png");
+}
 .item-icon.star5 {
   background-image: url("../common/item/bg5.png");
+}
+.item-icon.opacity-bg.star5 {
+  background-image: url("../common/item/bg5-o.png");
+}
+.item-list {
+  display: flex;
+}
+.item-list .item-card {
+  width: 70px;
+  background: #e7e5d9;
+}
+.item-list .item-icon {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 12px;
+}
+.item-list .item-title {
+  color: #222;
+  font-size: 13px;
+  text-align: center;
+  padding: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.item-list .item-icon {
+  height: initial;
+}
+.item-list .item-badge {
+  position: absolute;
+  display: block;
+  left: -1px;
+  top: -1px;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 12px;
+  color: #fff;
+  padding: 4px 5px 3px;
+  border-radius: 4px 0 4px 0;
 }
 /*# sourceMappingURL=common.css.map */

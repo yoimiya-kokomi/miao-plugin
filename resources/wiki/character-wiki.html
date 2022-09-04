@@ -1,0 +1,76 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-detail.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/character-wiki.css"/>
+{{/block}}
+
+{{set weapon = data.weapon}}
+{{set dataSource = data.dataSource}}
+
+
+{{block 'main'}}
+<div class="basic">
+  <div class="main-pic"
+       style="background-image:url({{_res_path}}{{imgs.splash}})"></div>
+  <div class="detail">
+    <div class="char-title">
+      <div class="char-name"><span>{{data.title}} · </span>{{data.name}}</div>
+      <div class="char-lv char-desc">{{data.desc}}</div>
+    </div>
+    <div class="char-meta">
+      <div class="cont">
+        <ul class="attr char-attr">
+          <li><strong>武器类型</strong> <span>{{data.weaponType}}</span></li>
+          <li><strong>命之座</strong> <span>{{data.astro}}</span></li>
+          <li><strong>生日</strong> <span>{{data.birthday}}</span></li>
+          <li><strong>归属</strong> <span>{{data.allegiance}}</span></li>
+          <li><strong>中文CV</strong> <span>{{data.cncv}}</span></li>
+          <li><strong>日文CV</strong> <span>{{data.jpcv}}</span></li>
+        </ul>
+      </div>
+      <div class="cont">
+        <div class="cont-title">90级基础属性</div>
+        <ul class="attr char-attr">
+          {{each attr ds}}
+          <li><strong>{{ds.title}}</strong> <span>{{ds.value}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="material-list">
+    {{each materials ds}}
+    <div class="material-{{ds.type}}">
+      <div class="num">{{ds.num}}</div>
+      <div class="item-card material-card">
+        <div class="item-icon star{{ds.star}} opacity-bg">
+          <div class="item-bg" style="background-image:url({{_res_path}}{{ds.icon}})"></div>
+        </div>
+        <div class="item-title">{{ds.label}}</div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+<div class="cont talent-cont">
+  <div class="cont-footer">输入<strong>#{{data.abbr}}天赋、#{{data.abbr}}命座</strong>可查看详细天赋/命座信息</div>
+</div>
+{{if weapons.length >0}}
+<div class="cont">
+  <div class="cont-title">常用武器<span>武器统计来自胡桃Api</span></div>
+  <div class="item-list weapon-list">
+    {{each weapons weapon}}
+    <div class="item item-card">
+      <div class="item-icon star{{weapon.star}}">
+        <div class="item-bg" style="background-image:url({{_res_path}}/meta/weapons/icon/{{weapon.name}}.png)"></div>
+        <div class="item-badge">{{weapon.value}}</div>
+      </div>
+      <div class="item-title">{{weapon.name}}</div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+{{/if}}
+{{/block}}

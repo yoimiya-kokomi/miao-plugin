@@ -8,5 +8,20 @@ import ProfileReq from './ProfileReq.js'
 import ProfileData from './ProfileData.js'
 import ProfileArtis from './ProfileArtis.js'
 import ProfileDmg from './ProfileDmg.js'
+import Material from './Material.js'
+import Weapon from './Weapon.js'
 
-export { Base, Abyss, Character, Artifact, Avatars, ProfileServ, ProfileReq, ProfileData, ProfileArtis, ProfileDmg }
+export {
+  Base,
+  Abyss,
+  Character,
+  Artifact,
+  Avatars,
+  ProfileServ,
+  ProfileReq,
+  ProfileData,
+  ProfileArtis,
+  ProfileDmg,
+  Material,
+  Weapon
+}
