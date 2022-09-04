@@ -50,26 +50,29 @@ const CharImg = {
 
   getImgs (name, cId = '', elem = '') {
     let imgs = {}
-    const path = `/meta/character/${name}/`
-    const icon = elem ? `${elem}/icons` : 'icons'
-    const img = elem ? `${elem}/imgs` : 'imgs'
-    let add = (key, path1, type = 'webp') => {
-      imgs[key] = `${path}${path1}.${type}`
+    const nPath = `/meta/character/${name}/`
+    const tPath = `/meta/character/旅行者/${elem}`
+
+    let add = (key, path, traveler = false) => {
+      imgs[key] = `${traveler ? tPath : nPath}${path}.webp`
+    }
+    let tAdd = (key, path) => {
+      add(key, path, !!elem)
     }
     add('face', `imgs/face${cId}`)
-    add('side', 'imgs/side')
+    add('side', `imgs/side${cId}`)
     add('gacha', 'imgs/gacha')
     add('splash', `imgs/splash${cId}`)
-    add('card', `${img}/card`)
-    add('banner', `${img}/banner`)
+    tAdd('card', 'imgs/card')
+    tAdd('banner', 'imgs/banner')
     for (let i = 1; i <= 6; i++) {
-      add(`cons${i}`, `${icon}/cons-${i}`)
+      tAdd(`cons${i}`, `icons/cons-${i}`)
     }
     for (let i = 0; i <= 3; i++) {
-      add(`passive${i}`, `${icon}/passive-${i}`)
+      tAdd(`passive${i}`, `icons/passive-${i}`)
     }
     for (let k of ['a', 'e', 'q']) {
-      add(k, `${icon}/talent-${k}`)
+      tAdd(k, `icons/talent-${k}`)
     }
     return imgs
   }

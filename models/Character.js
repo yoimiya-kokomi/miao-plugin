@@ -135,13 +135,13 @@ class Character extends Base {
     if (this.isCustom) {
       return {}
     }
-    const path = `${_path}/plugins/miao-plugin/resources/meta/character/${this.name}`
+    const path = `${_path}/plugins/miao-plugin/resources/meta/character/`
 
     try {
       if (this.isTraveler) {
-        this._detail = Data.readJSON(`${path}/${this.elem}`, 'detail.json') || {}
+        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}`, 'detail.json') || {}
       } else {
-        this._detail = Data.readJSON(`${path}`, 'detail.json') || {}
+        this._detail = Data.readJSON(`${path}/${this.name}`, 'detail.json') || {}
       }
     } catch (e) {
       console.log(e)
