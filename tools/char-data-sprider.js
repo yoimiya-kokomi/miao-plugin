@@ -95,7 +95,6 @@ let getCharData = async function (id, key, name = '') {
         dendro: 8
       }
       let cid = `1000000${id}-${id}0${te[tElems[idx]]}`
-      console.log(cid)
       lodash.forEach(tId[cid].ProudMap || {}, (v, k) => {
         talentId[k] = v
       })
@@ -127,27 +126,18 @@ let getCharData = async function (id, key, name = '') {
 }
 
 function checkName (name) {
-  let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/`
-  if (!fs.existsSync(charPath)) {
-    fs.mkdirSync(charPath)
-  }
-  if (name === '空' || name === '荧' || name === '旅行者') {
+  let charPath = `resources/meta/character/${name}/`
+  Data.createDir(charPath)
+  if (name === '旅行者') {
     for (let idx in tElems) {
-      Data.createDir(charPath, `${tElems[idx]}/icons`)
+      Data.createDir(`${charPath}${tElems[idx]}/icons`)
     }
   } else {
-    Data.createDir(charPath, 'icons')
+    Data.createDir(`${charPath}/icons`)
   }
-  Data.createDir(charPath, 'imgs')
-  if (fs.existsSync(`${charPath}data.json`)) {
-    try {
-      let data = JSON.parse(fs.readFileSync(`${charPath}data.json`, 'utf8'))
-      if (data && data.ver * 1 === ver * 1) {
-        return true
-      }
-    } catch (e) {
-    }
-  }
+  Data.createDir(`${charPath}/imgs`)
+  let data = Data.readJSON(`${charPath}/data.json`)
+  return data.ver * 1 > 1
 }
 
 async function saveCharData (id, key, name = '', force = false) {
@@ -171,7 +161,7 @@ async function saveCharData (id, key, name = '', force = false) {
   fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, '', 2))
   if (details.length === 1) {
     fs.writeFileSync(`${charPath}detail.json`, JSON.stringify(details[0], '', 2))
-  } else {
+  } else if (data.id === 20000000) {
     for (let idx in details) {
       let detail = details[idx]
       fs.writeFileSync(`${charPath}/${detail.elem}/detail.json`, JSON.stringify(detail, '', 2))
@@ -179,11 +169,11 @@ async function saveCharData (id, key, name = '', force = false) {
   }
 
   console.log(data.name + '数据下载完成')
-  await imgs.download()
-  console.log(data.name + '图像全部下载完成')
+  if (![10000005, 10000007].includes(data.id)) {
+    await imgs.download()
+    console.log(data.name + '图像全部下载完成')
+  }
 }
-
-const ver = 1
 
 async function down (name = '', force = false) {
   if (name === '') {
@@ -261,4 +251,4 @@ const charData = {
   71: { key: 'cyno', name: '赛诺' },
   72: { key: 'candace', name: '坎蒂丝' }
 }
-await down('', true)
+await down('4,5,7', true)

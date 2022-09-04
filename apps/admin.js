@@ -1,7 +1,7 @@
 import fs from 'fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
-import { Cfg, Common } from '../components/index.js'
+import { Cfg, Common, Data } from '../components/index.js'
 
 let cfgMap = {
   角色: 'char.char',
@@ -175,10 +175,10 @@ export async function updateMiaoPlugin (e) {
     }
     e.reply('喵喵更新成功，正在尝试重新启动Yunzai以应用更新...')
     timer && clearTimeout(timer)
-    redis.set('miao:restart-msg', JSON.stringify({
+    Data.setCacheJSON('miao:restart-msg', {
       msg: '重启成功，新版喵喵已经生效',
       qq: e.user_id
-    }), { EX: 30 })
+    }, 30)
     timer = setTimeout(function () {
       let command = 'npm run start'
       if (process.argv[1].includes('pm2')) {

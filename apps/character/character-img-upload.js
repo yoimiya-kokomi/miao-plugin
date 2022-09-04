@@ -57,7 +57,7 @@ async function saveImages (e, name, imageMessages) {
   let path = resPath + pathSuffix
 
   if (!fs.existsSync(path)) {
-    Data.createDir(resPath, pathSuffix)
+    Data.createDir(pathSuffix, resPath)
   }
   let senderName = lodash.truncate(e.sender.card, { length: 8 })
   let imgCount = 0
@@ -124,13 +124,13 @@ async function isAllowedToUploadCharacterImage (e) {
   if (!groupId) {
     return false
   }
-  if (e.groupConfig.imgAddLimit === 2) {
+  if (e.groupConfig?.imgAddLimit === 2) {
     if (!e.isMaster) {
       e.reply('只有主人才能添加。')
       return false
     }
   }
-  if (e.groupConfig.imgAddLimit === 1 && !e.isMaster) {
+  if (e.groupConfig?.imgAddLimit === 1 && !e.isMaster) {
     if (!(e.sender.role === 'owner' || e.sender.role === 'admin')) {
       e.reply('只有管理员才能添加。')
       return false

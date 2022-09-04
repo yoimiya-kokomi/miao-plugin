@@ -113,7 +113,7 @@ class Character extends Base {
     return costume.includes(id * 1)
   }
 
-  // 获取Character图像资源
+  // 获取角色插画
   getImgs (costume = '') {
     let costumeId = this.checkCostume(costume) ? '2' : ''
     let cacheId = `costume${costumeId}`
@@ -135,13 +135,13 @@ class Character extends Base {
     if (this.isCustom) {
       return {}
     }
-    const path = `${_path}/plugins/miao-plugin/resources/meta/character/`
+    const path = 'resources/meta/character'
 
     try {
       if (this.isTraveler) {
-        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}`, 'detail.json') || {}
+        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/detail.json`)
       } else {
-        this._detail = Data.readJSON(`${path}/${this.name}`, 'detail.json') || {}
+        this._detail = Data.readJSON(`${path}/${this.name}/detail.json`)
       }
     } catch (e) {
       console.log(e)
@@ -151,23 +151,16 @@ class Character extends Base {
 
   setTraveler (uid = '') {
     if (this.isTraveler && uid && uid.toString().length === 9) {
-      redis.set(`genshin:uid-traveler:${uid}`, JSON.stringify({
+      Data.setCacheJSON(`genshin:uid-traveler:${uid}`, {
         id: CharId.getTravelerId(this.id),
         elem: this.elem
-      }), { EX: 3600 * 24 * 120 })
+      }, 3600 * 24 * 120)
     }
   }
 
   async getTraveler (uid) {
     if (this.isTraveler) {
-      let tData = {}
-      let uidData = await redis.get(`genshin:uid-traveler:${uid}`)
-      if (uidData) {
-        try {
-          tData = JSON.parse(uidData) || tData
-        } catch (e) {
-        }
-      }
+      let tData = await Data.getCacheJSON(`genshin:uid-traveler:${uid}`)
       return Character.get({
         id: CharId.getTravelerId(tData.id || this.id),
         elem: tData.elem || (this.elem !== 'multi' ? this.elem : 'anemo')
@@ -198,7 +191,7 @@ class Character extends Base {
 }
 
 let getMeta = function (name) {
-  return Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/character/${name}/`, 'data.json') || {}
+  return Data.readJSON(`resources/meta/character/${name}/data.json`)
 }
 
 Character.get = function (val) {

@@ -5,6 +5,7 @@
 * */
 
 import fetch from 'node-fetch'
+import { Data } from '../../components/index.js'
 
 const host = 'http://49.232.91.210:88/miaoPlugin/hutaoApi'
 
@@ -14,9 +15,9 @@ function getApi (api) {
 
 let HutaoApi = {
   async req (url, param = {}) {
-    let cacheData = await redis.get(`hutao:${url}`)
+    let cacheData = await Data.getCacheJSON(`hutao:${url}`)
     if (cacheData && param.method !== 'POST') {
-      return JSON.parse(cacheData)
+      return cacheData
     }
 
     let response = await fetch(getApi(`${url}`), {
@@ -27,7 +28,7 @@ let HutaoApi = {
     if (retData && retData.data && param.method !== 'POST') {
       let d = new Date()
       retData.lastUpdate = `${d.toLocaleDateString()} ${d.toTimeString().substr(0, 5)}`
-      await redis.set(`hutao:${url}`, JSON.stringify(retData), { EX: 3600 })
+      await Data.setCacheJSON(`hutao:${url}`, retData, 3600)
     }
     return retData
   },

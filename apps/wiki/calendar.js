@@ -105,7 +105,7 @@ let Cal = {
         }
       } catch (e) {
       }
-      await redis.set('cache:calendar:detail', JSON.stringify(timeMap), { EX: 60 * 10 })
+      Data.setCacheJSON('cache:calendar:detail', timeMap, 60 * 10)
     }
     return { listData, timeMap }
   },

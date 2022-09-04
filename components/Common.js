@@ -11,7 +11,7 @@ export const render = async function (path, params, cfg) {
   let { e } = cfg
   let layoutPath = process.cwd() + '/plugins/miao-plugin/resources/common/layout/'
   let resPath = `../../../../../plugins/${plugin}/resources/`
-  Data.createDir(_path + '/data/', `html/${plugin}/${app}/${tpl}`)
+  Data.createDir(`data/html/${plugin}/${app}/${tpl}`, 'root')
   let data = {
     ...params,
     _plugin: plugin,

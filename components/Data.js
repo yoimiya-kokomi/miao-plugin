@@ -2,15 +2,24 @@ import lodash from 'lodash'
 import fs from 'fs'
 
 const _path = process.cwd()
+const getRoot = (root = '') => {
+  if (root === 'root' || root === 'yunzai') {
+    root = _path
+  } else if (!root) {
+    root = `${_path}/plugins/miao-plugin/`
+  }
+  return root
+}
 
 let Data = {
 
   /*
   * 根据指定的path依次检查与创建目录
   * */
-  createDir (rootPath = '', path = '', includeFile = false) {
+  createDir (path = '', root = '', includeFile = false) {
+    root = getRoot(root)
     let pathList = path.split('/')
-    let nowPath = rootPath
+    let nowPath = root
     pathList.forEach((name, idx) => {
       name = name.trim()
       if (!includeFile && idx <= pathList.length - 1) {
@@ -27,15 +36,14 @@ let Data = {
   /*
   * 读取json
   * */
-  readJSON (root, path) {
-    if (!/\.json$/.test(path)) {
-      path = path + '.json'
-    }
-    // 检查并创建目录
-    Data.createDir(root, path, true)
-    if (fs.existsSync(`${root}/${path}`)) {
-      let jsonRet = fs.readFileSync(`${root}/${path}`, 'utf8')
-      return JSON.parse(jsonRet)
+  readJSON (file = '', root = '') {
+    root = getRoot(root)
+    if (fs.existsSync(`${root}/${file}`)) {
+      try {
+        return JSON.parse(fs.readFileSync(`${root}/${file}`, 'utf8'))
+      } catch (e) {
+        console.log(e)
+      }
     }
     return {}
   },
@@ -43,38 +51,54 @@ let Data = {
   /*
   * 写JSON
   * */
-  writeJson (path, file, data, space = '\t') {
-    if (!/\.json$/.test(file)) {
-      file = file + '.json'
-    }
-
+  writeJSON (file, data, space = '\t', root = '') {
     // 检查并创建目录
-    Data.createDir(_path, path, false)
-    console.log(data)
+    Data.createDir(file, root, true)
+    root = getRoot(root)
     delete data._res
-    return fs.writeFileSync(`${_path}/${path}/${file}`, JSON.stringify(data, null, space))
+    return fs.writeFileSync(`${root}/${file}`, JSON.stringify(data, null, space))
   },
 
-  async importModule (path, file, rootPath = _path) {
+  async getCacheJSON (key) {
+    try {
+      let txt = await redis.get(key)
+      if (txt) {
+        return JSON.parse(txt)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+    return {}
+  },
+
+  async setCacheJSON (key, data, EX = 3600 * 24 * 90) {
+    await redis.set(key, JSON.stringify(data), { EX })
+  },
+
+  async importModule (file, root = '') {
+    root = getRoot(root)
     if (!/\.js$/.test(file)) {
       file = file + '.js'
     }
     // 检查并创建目录
-    Data.createDir(_path, path, true)
-    if (fs.existsSync(`${_path}/${path}/${file}`)) {
-      let data = await import(`file://${_path}/${path}/${file}`)
-      return data || {}
+    if (fs.existsSync(`${root}/${file}`)) {
+      try {
+        let data = await import(`file://${root}/${file}`)
+        return data || {}
+      } catch (e) {
+        console.log(e)
+      }
     }
     return {}
   },
 
   async import (name) {
-    return await Data.importModule('plugins/miao-plugin/components/optional-lib/', `${name}.js`)
+    return await Data.importModule(`components/optional-lib/${name}.js`)
   },
 
   async importCfg (key) {
-    let sysCfg = await Data.importModule('plugins/miao-plugin/config/system', `${key}.js`)
-    let diyCfg = await Data.importModule('plugins/miao-plugin/config/', `${key}.js`)
+    let sysCfg = await Data.importModule(`config/system/${key}.js`)
+    let diyCfg = await Data.importModule(`config/${key}.js`)
     if (diyCfg.isSys) {
       console.error(`miao-plugin: config/${key}.js无效，已忽略`)
       console.error(`如需配置请复制config/${key}_default.js为config/${key}.js，请勿复制config/system下的系统文件`)
@@ -128,35 +152,7 @@ let Data = {
     return lodash.get(target, keyFrom, defaultValue)
   },
 
-  getUrlPath (url) {
-    let reg = /^https*:\/\/(.*)\/(\w+\.(png|jpg|jpeg|webp))(\?.*)?$/
-    let ret = reg.exec(url)
-    if (!ret) {
-      return false
-    }
-    return {
-      path: ret[1],
-      filename: ret[2],
-      type: ret[3],
-      url
-    }
-  },
-  pathExists (root, path) {
-    if (fs.existsSync(root + '/' + path)) {
-      return true
-    }
-    path = path.replace('\\', '/')
-    const dirList = path.split('/')
-    let currentDir = root
-
-    for (let dir of dirList) {
-      currentDir = currentDir + '/' + dir
-      if (!fs.existsSync(currentDir)) {
-        fs.mkdirSync(currentDir)
-      }
-    }
-    return true
-  },
+  // 异步池，聚合请求
   async asyncPool (poolLimit, array, iteratorFn) {
     const ret = [] // 存储所有的异步任务
     const executing = [] // 存储正在执行的异步任务
@@ -180,10 +176,12 @@ let Data = {
     return Promise.all(ret)
   },
 
+  // sleep
   sleep (ms) {
     return new Promise((resolve) => setTimeout(resolve, ms))
   },
 
+  // 获取默认值
   def () {
     for (let idx in arguments) {
       if (!lodash.isUndefined(arguments[idx])) {
@@ -192,6 +190,7 @@ let Data = {
     }
   },
 
+  // 循环字符串回调
   eachStr: (arr, fn) => {
     if (lodash.isString(arr)) {
       arr = arr.replace(/\s*(;|；|、|，)\s*/, ',')

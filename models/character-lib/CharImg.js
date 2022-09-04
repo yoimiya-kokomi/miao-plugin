@@ -3,6 +3,8 @@ import lodash from 'lodash'
 import sizeOf from 'image-size'
 
 const CharImg = {
+
+  // 获取角色的插画
   getCardImg (names, se = false, def = true) {
     let list = []
     let addImg = function (charImgPath, disable = false) {
@@ -48,21 +50,24 @@ const CharImg = {
     return ret
   },
 
-  getImgs (name, cId = '', elem = '') {
+  // 获取角色的图像资源数据
+  getImgs (name, costumeId = '', travelerElem = '') {
     let imgs = {}
+    if (!['空', '荧', '旅行者'].includes(name)) {
+      travelerElem = ''
+    }
     const nPath = `/meta/character/${name}/`
-    const tPath = `/meta/character/旅行者/${elem}`
-
+    const tPath = `/meta/character/旅行者/${travelerElem}/`
     let add = (key, path, traveler = false) => {
       imgs[key] = `${traveler ? tPath : nPath}${path}.webp`
     }
     let tAdd = (key, path) => {
-      add(key, path, !!elem)
+      add(key, path, !!travelerElem)
     }
-    add('face', `imgs/face${cId}`)
-    add('side', `imgs/side${cId}`)
+    add('face', `imgs/face${costumeId}`)
+    add('side', `imgs/side${costumeId}`)
     add('gacha', 'imgs/gacha')
-    add('splash', `imgs/splash${cId}`)
+    add('splash', `imgs/splash${costumeId}`)
     tAdd('card', 'imgs/card')
     tAdd('banner', 'imgs/banner')
     for (let i = 1; i <= 6; i++) {

@@ -3,7 +3,7 @@ import { Data, Version } from './components/index.js'
 export * from './apps/index.js'
 let index = { miao: {} }
 if (Version.isV3) {
-  index = await Data.importModule('/plugins/miao-plugin/adapter', 'v3-entrance.js')
+  index = await Data.importModule('adapter/v3-entrance.js')
 }
 export const miao = index.miao || {}
 if (Bot?.logger?.info) {
@@ -18,7 +18,7 @@ setTimeout(async function () {
   let relpyPrivate = async function () {
   }
   if (!Version.isV3) {
-    let common = await Data.importModule('/lib', 'common.js')
+    let common = await Data.importModule('lib/common.js')
     if (common && common.default && common.default.relpyPrivate) {
       relpyPrivate = common.default.relpyPrivate
     }

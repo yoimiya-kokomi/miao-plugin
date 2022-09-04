@@ -5,8 +5,7 @@ import { Data } from '../components/index.js'
 let artisMap = {}
 
 async function init () {
-  let _path = process.cwd()
-  let artis = Data.readJSON(`${_path}/plugins/miao-plugin/resources/meta/reliquaries/`, 'data.json') || {}
+  let artis = Data.readJSON('resources/meta/reliquaries/data.json')
 
   lodash.forEach(artis, (ds) => {
     artisMap[ds.name] = ds
