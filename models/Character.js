@@ -26,7 +26,7 @@ class Character extends Base {
       this.meta = meta
       for (let key of this._dataKey.split(',')) {
         if (key === 'elem') {
-          this.elem = elem || meta.elem
+          this.elem = CharId.getElem(elem || meta.elem) || 'anemo'
         } else {
           this[key] = meta[key]
         }
