@@ -98,7 +98,8 @@ const CharId = {
       return false
     }
     // 获取字段进行匹配
-    let { id = '', name = '', elem = '' } = ds
+    let { id = '', name = '' } = ds
+    let elem = CharId.getElem(ds.elem || ds.element) || ''
     // 直接匹配
     if (aliasMap[id || name]) {
       return ret(aliasMap[id || name], elem)
@@ -106,7 +107,7 @@ const CharId = {
     // 尝试解析名字
     let nId = CharId.getId(ds.name)
     if (nId) {
-      return ret(ret.id, elem || ret.elem || '')
+      return ret(nId.id, elem || nId.elem || '')
     }
     // 无匹配结果
     return false
@@ -146,6 +147,10 @@ const CharId = {
       }
     }
     return false
+  },
+
+  getTravelerId (id) {
+    return id * 1 === 10000005 ? 10000005 : 10000007
   }
 }
 export default CharId

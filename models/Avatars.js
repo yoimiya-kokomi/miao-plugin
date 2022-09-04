@@ -14,11 +14,14 @@ export default class Avatars extends Base {
     let abbr = Character.getAbbr()
     lodash.forEach(datas, (avatar) => {
       let data = Data.getData(avatar, 'id,name,level,star:rarity,cons:actived_constellation_num,fetter')
-      let char = Character.get(data.id)
+      data.elem = (avatar.element || '').toLowerCase() || 'anemo'
+      let char = Character.get({ id: data.id, elem: data.elem })
+      if (char.isTraveler) {
+        char.setTraveler(uid)
+      }
       data.face = char.face
       data.side = char.side
       data.abbr = char.abbr
-      data.elem = (avatar.element || '').toLowerCase() || 'hydro'
       data.weapon = Data.getData(avatar.weapon, 'name,affix:affix_level,level,star:rarity')
       data.weapon.abbr = abbr[data?.weapon?.name || ''] || data?.weapon?.name
       if (data.star > 5) {

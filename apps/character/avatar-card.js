@@ -39,7 +39,9 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
         if (!charData) return true
 
         let avatars = charData.avatars
-        char.checkAvatars(avatars)
+        if (char.isTraveler) {
+          char = await char.checkAvatars(avatars, uid)
+        }
         avatars = lodash.keyBy(avatars, 'id')
         avatar = avatars[char.id] || { id: char.id, name: char.name, detail: false }
       }
@@ -77,7 +79,7 @@ async function renderCard (e, avatar, renderType = 'card') {
       talentMap: { a: '普攻', e: '战技', q: '爆发' },
       bg,
       custom: char.isCustom,
-      ...getCharacterData(avatar),
+      ...getCharacterData(avatar, char),
       ds: char.getData('name,id,title,desc')
     }, { e, scale: 1.6, retMsgId: true })
     if (msgRes && msgRes.message_id) {
@@ -137,7 +139,7 @@ async function getTalent (e, avatars) {
 /*
 * 获取角色数据
 * */
-function getCharacterData (avatars) {
+function getCharacterData (avatars, char) {
   let list = []
   let set = {}
   let artiEffect = []
@@ -177,16 +179,10 @@ function getCharacterData (avatars) {
     }
   }
 
-  if (avatars.id == '10000005') {
-    avatars.name = '空'
-  } else if (avatars.id == '10000007') {
-    avatars.name = '荧'
-  }
-
   let reliquaries = list[0]
   return {
-    name: avatars.name,
-    showName: abbr[avatars.name] ? abbr[avatars.name] : avatars.name,
+    name: char.name,
+    showName: char.abbr || char.name,
     level: Data.def(avatars.lv, avatars.level),
     fetter: avatars.fetter,
     cons: Data.def(avatars.cons, avatars.actived_constellation_num),

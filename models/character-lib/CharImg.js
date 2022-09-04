@@ -3,7 +3,7 @@ import lodash from 'lodash'
 import sizeOf from 'image-size'
 
 const CharImg = {
-  getCardImg (name, se = false, def = true) {
+  getCardImg (names, se = false, def = true) {
     let list = []
     let addImg = function (charImgPath, disable = false) {
       let dirPath = `./plugins/miao-plugin/resources/${charImgPath}`
@@ -21,19 +21,20 @@ const CharImg = {
         list.push(`${charImgPath}/${img}`)
       })
     }
-
-    addImg(`character-img/${name}`)
-    addImg(`character-img/${name}/upload`)
-    addImg(`character-img/${name}/se`, !se)
-
-    const plusPath = './plugins/miao-plugin/resources/miao-res-plus/'
-    if (fs.existsSync(plusPath)) {
-      addImg(`miao-res-plus/character-img/${name}`)
-      addImg(`miao-res-plus/character-img/${name}/se`, !se)
+    if (!lodash.isArray(names)) {
+      names = [names]
     }
-
+    for (let name of names) {
+      addImg(`character-img/${name}`)
+      addImg(`character-img/${name}/upload`)
+      addImg(`character-img/${name}/se`, !se)
+      const plusPath = './plugins/miao-plugin/resources/miao-res-plus/'
+      if (fs.existsSync(plusPath)) {
+        addImg(`miao-res-plus/character-img/${name}`)
+        addImg(`miao-res-plus/character-img/${name}/se`, !se)
+      }
+    }
     let img = lodash.sample(list)
-
     if (!img) {
       if (def) {
         img = '/character-img/default/01.jpg'
@@ -41,7 +42,6 @@ const CharImg = {
         return false
       }
     }
-
     let ret = sizeOf(`./plugins/miao-plugin/resources/${img}`)
     ret.img = img
     ret.mode = ret.width > ret.height ? 'left' : 'bottom'

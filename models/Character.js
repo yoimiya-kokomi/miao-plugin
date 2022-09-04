@@ -94,27 +94,10 @@ class Character extends Base {
 
   // 获取角色character-img图片
   getCardImg (se = false, def = true) {
+    if (this.name === '旅行者') {
+      return CharImg.getCardImg(['空', '荧'], se, def)
+    }
     return CharImg.getCardImg(this.name, se, def)
-  }
-
-  checkAvatars (avatars) {
-    if (!lodash.includes([20000000, 10000005, 10000007], this.id * 1)) {
-      return
-    }
-    let avatarIds = []
-    if (lodash.isArray(avatars)) {
-      avatarIds = lodash.map(avatars, (a) => a.id * 1)
-    } else {
-      avatarIds = [avatars.id]
-    }
-
-    if (lodash.includes(avatarIds, 10000005)) {
-      // 空
-      lodash.extend(this, getMeta('空'))
-    } else if (lodash.includes(avatarIds, 10000007)) {
-      // 荧
-      lodash.extend(this, getMeta('荧'))
-    }
   }
 
   getAvatarTalent (talent = {}, cons = 0, mode = 'level') {
@@ -162,13 +145,51 @@ class Character extends Base {
     return this._detail
   }
 
-  getTalentKey (id) {
-    let meta = this.meta
-    return meta.talentKey[meta.talentId[id]] || false
+  setTraveler (uid = '') {
+    if (this.isTraveler && uid && uid.toString().length === 9) {
+      redis.set(`genshin:uid-traveler:${uid}`, JSON.stringify({
+        id: CharId.getTravelerId(this.id),
+        elem: this.elem
+      }), { EX: 3600 * 24 * 120 })
+    }
   }
 
-  getTalentElem () {
+  async getTraveler (uid) {
+    if (this.isTraveler) {
+      let tData = {}
+      let uidData = await redis.get(`genshin:uid-traveler:${uid}`)
+      if (uidData) {
+        try {
+          tData = JSON.parse(uidData) || tData
+        } catch (e) {
+        }
+      }
+      return Character.get({
+        id: CharId.getTravelerId(tData.id || this.id),
+        elem: tData.elem || (this.elem !== 'multi' ? this.elem : 'anemo')
+      })
+    }
+    return this
+  }
 
+  async checkAvatars (avatars, uid = '') {
+    if (!this.isTraveler) {
+      return this
+    }
+    if (lodash.isObject(avatars) && avatars.id) {
+      avatars = [avatars]
+    }
+    for (let avatar of avatars) {
+      if (CharId.isTraveler(avatar.id)) {
+        let char = Character.get({
+          id: avatar.id,
+          elem: (avatar.elem || avatar.element).toLowerCase() || 'anemo'
+        })
+        char.setTraveler(uid)
+        return char
+      }
+    }
+    return await this.getTraveler(uid)
   }
 }
 
@@ -182,6 +203,10 @@ Character.get = function (val) {
     return false
   }
   return new Character(id)
+}
+Character.getAvatar = async function (name, uid) {
+  let char = Character.get(name)
+  return await char.getTraveler(uid)
 }
 
 Character.getAbbr = function () {
