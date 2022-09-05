@@ -4,7 +4,7 @@ import fs from 'fs'
 const _path = process.cwd()
 const getRoot = (root = '') => {
   if (root === 'root' || root === 'yunzai') {
-    root = _path
+    root = `${_path}/`
   } else if (!root) {
     root = `${_path}/plugins/miao-plugin/`
   }
