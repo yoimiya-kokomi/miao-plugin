@@ -81,6 +81,24 @@ export async function wiki (e) {
 async function renderWiki ({ e, char }) {
   let data = char.getData()
   lodash.extend(data, char.getData('weaponType,elemName'))
+  // 命座持有
+  let consData = (await HutaoApi.getCons()).data || {}
+  consData = lodash.find(consData, (ds) => ds.avatar === char.id)
+  let holding = {}
+  if (consData) {
+    let { holdingRate, rate } = consData
+    rate = lodash.sortBy(rate, 'id')
+    holding.num = Format.percent(holdingRate)
+    holding.cons = []
+    lodash.forEach(rate, (ds) => {
+      holding.cons.push({
+        cons: ds.id,
+        num: Format.percent(ds.value)
+      })
+    })
+  }
+
+  // 武器使用
   let wu = (await HutaoApi.getWeaponUsage()).data || {}
   let weapons = []
   if (wu[char.id]) {
@@ -99,6 +117,7 @@ async function renderWiki ({ e, char }) {
     detail: char.getDetail(),
     imgs: char.getImgs(),
     weapons,
+    holding,
     materials: char.getMaterials(),
     elem: char.elem
   }, { e, scale: 1.4 })

@@ -58,8 +58,17 @@ let Profile = {
     if (fs.existsSync(userFile)) {
       userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
     }
-    if (userData && userData.chars && userData.chars[charId]) {
-      return userData.chars[charId]
+    if (userData && userData.chars) {
+      let char = Character.get(charId)
+      if (char.isTraveler) {
+        let charData = userData.chars['10000005'] || userData.chars['10000007'] || false
+        if (charData) {
+          char.checkAvatars(charData, uid)
+        }
+        return charData
+      } else {
+        return userData.chars[charId]
+      }
     }
     return false
   },

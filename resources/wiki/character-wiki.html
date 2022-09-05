@@ -54,12 +54,36 @@
     {{/each}}
   </div>
 </div>
-<div class="cont talent-cont">
-  <div class="cont-footer">输入<strong>#{{data.abbr}}天赋、#{{data.abbr}}命座</strong>可查看详细天赋/命座信息</div>
+<div class="talent-notice">输入<strong>#{{data.abbr}}天赋、#{{data.abbr}}命座</strong>可查看详细天赋/命座信息</div>
+{{if holding.num}}
+{{set cNum ='零一二三四五满'.split('')}}
+<div class="cont cont-bg">
+  <div class="char-holding">
+    <div class="char-pct">
+      <strong>{{holding.num}}</strong>
+      <div class="cons-title">角色持有率</div>
+    </div>
+    <div class="char-cons">
+      {{each holding.cons cons}}
+      <div class="cons-item cons{{cons.cons}}">
+        <div class="talent-icon">
+          {{if cons.cons > 0}}
+          <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs[`cons${cons.cons}`]}})"></div>
+          {{/if}}
+        </div>
+        <div class="cons-num">{{cons.num}}</div>
+        <div class="cons-title">{{cNum[cons.cons]}}命</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
 </div>
+{{/if}}
+
+
 {{if weapons.length >0}}
 <div class="cont">
-  <div class="cont-title">常用武器<span>武器统计来自胡桃Api</span></div>
+  <div class="cont-title border-less">常用武器<span>武器统计来自胡桃Api</span></div>
   <div class="item-list weapon-list">
     {{each weapons weapon}}
     <div class="item item-card">

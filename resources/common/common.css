@@ -281,6 +281,11 @@ body {
   margin-left: 10px;
   font-weight: normal;
 }
+.cont-title.border-less {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+  box-shadow: none;
+  padding-bottom: 5px;
+}
 .cont-body {
   padding: 10px 15px;
   font-size: 12px;

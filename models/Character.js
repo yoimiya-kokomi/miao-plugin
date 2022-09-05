@@ -17,7 +17,7 @@ class Character extends Base {
       return cacheObj
     }
     // 设置数据
-    this.id = id
+    this._id = id
     this.name = name
     if (!this.isCustom) {
       let meta = getMeta(name)
@@ -37,7 +37,11 @@ class Character extends Base {
 
   // 是否为自定义角色
   get isCustom () {
-    return !/[12]0\d{6}/.test(this.id)
+    return !/[12]0\d{6}/.test(this._id)
+  }
+
+  get id () {
+    return this.isCustom ? this._id : this._id * 1
   }
 
   // 是否是旅行者

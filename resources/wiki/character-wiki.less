@@ -134,6 +134,23 @@ body {
   }
 }
 
+.talent-notice {
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  padding: 3px;
+  text-shadow: 0 0 1px #000, 1px 1px 2px #000;
+
+  strong {
+    color: #d3bc8e;
+    font-weight: normal;
+  }
+}
+
+.cont .cont-title.border-less {
+  padding: 10px 10px 3px;
+}
+
 .talent-cont {
   text-align: center;
 
@@ -148,4 +165,85 @@ body {
   .item {
     margin: 3px;
   }
+}
+
+.char-holding {
+  display: flex;
+  padding: 8px;
+
+  .cons-title {
+    height: 15px;
+    line-height: 15px;
+    font-size: 13px;
+    color: #d3bc8e;
+    text-shadow: 0 0 2px #000;
+  }
+}
+
+.char-pct {
+  width: 125px;
+  margin-right: 10px;
+  text-align: center;
+  position: relative;
+
+  strong {
+    margin-top: 10px;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    font-size: 30px;
+    text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+  }
+
+  span {
+    display: block;
+    font-size: 13px;
+    color: #d3bc8e;
+    height: 15px;
+    line-height: 15px;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 50px;
+    position: absolute;
+    right: 1px;
+    top: 30px;
+    background: rgba(255, 255, 255, .8);
+    transform: scaleX(.7);
+  }
+}
+
+.char-cons {
+  position: initial;
+  width: initial;
+
+  .cons0 {
+    .talent-icon {
+      opacity: .3;
+    }
+  }
+
+  .cons-item {
+    width: 60px;
+    text-align: center;
+
+    .talent-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
+    }
+  }
+
+  .cons-num {
+    margin-top: -5px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 16px;
+    text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+  }
+
+
 }

@@ -200,13 +200,19 @@ each(@elems, {
   padding: 10px 20px;
   text-align: left;
   border-radius: 10px 10px 0 0;
-}
 
-.cont-title span {
-  font-size: 12px;
-  color: #aaa;
-  margin-left: 10px;
-  font-weight: normal;
+  span {
+    font-size: 12px;
+    color: #aaa;
+    margin-left: 10px;
+    font-weight: normal;
+  }
+
+  &.border-less {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0));
+    box-shadow: none;
+    padding-bottom: 5px;
+  }
 }
 
 .cont-body {

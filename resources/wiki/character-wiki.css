@@ -102,6 +102,20 @@ body {
   transform: scale(0.7);
   text-shadow: 0 0 2px #000;
 }
+.talent-notice {
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  padding: 3px;
+  text-shadow: 0 0 1px #000, 1px 1px 2px #000;
+}
+.talent-notice strong {
+  color: #d3bc8e;
+  font-weight: normal;
+}
+.cont .cont-title.border-less {
+  padding: 10px 10px 3px;
+}
 .talent-cont {
   text-align: center;
 }
@@ -113,5 +127,71 @@ body {
 }
 .weapon-list .item {
   margin: 3px;
+}
+.char-holding {
+  display: flex;
+  padding: 8px;
+}
+.char-holding .cons-title {
+  height: 15px;
+  line-height: 15px;
+  font-size: 13px;
+  color: #d3bc8e;
+  text-shadow: 0 0 2px #000;
+}
+.char-pct {
+  width: 125px;
+  margin-right: 10px;
+  text-align: center;
+  position: relative;
+}
+.char-pct strong {
+  margin-top: 10px;
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  font-size: 30px;
+  text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+}
+.char-pct span {
+  display: block;
+  font-size: 13px;
+  color: #d3bc8e;
+  height: 15px;
+  line-height: 15px;
+}
+.char-pct:after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 50px;
+  position: absolute;
+  right: 1px;
+  top: 30px;
+  background: rgba(255, 255, 255, 0.8);
+  transform: scaleX(0.7);
+}
+.char-cons {
+  position: initial;
+  width: initial;
+}
+.char-cons .cons0 .talent-icon {
+  opacity: 0.3;
+}
+.char-cons .cons-item {
+  width: 60px;
+  text-align: center;
+}
+.char-cons .cons-item .talent-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+}
+.char-cons .cons-num {
+  margin-top: -5px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 16px;
+  text-shadow: 0 0 1px #000, 1px 1px 3px #000;
 }
 /*# sourceMappingURL=character-wiki.css.map */
