@@ -64,10 +64,10 @@
     {{each weapons weapon}}
     <div class="item item-card">
       <div class="item-icon star{{weapon.star}}">
-        <div class="item-bg" style="background-image:url({{_res_path}}/meta/weapons/icon/{{weapon.name}}.png)"></div>
+        <div class="item-bg" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
         <div class="item-badge">{{weapon.value}}</div>
       </div>
-      <div class="item-title">{{weapon.name}}</div>
+      <div class="item-title">{{weapon.abbr}}</div>
     </div>
     {{/each}}
   </div>

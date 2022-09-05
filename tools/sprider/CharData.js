@@ -7,7 +7,9 @@ let costumes = {
   刻晴: [204201], // 刻晴
   凝光: [202701], // 凝光
   迪卢克: [201601], // 迪卢克
-  菲谢尔: [203101] // 菲谢尔
+  菲谢尔: [203101], // 菲谢尔
+  达达利亚: [900001],
+  雷电将军: [900002]
 }
 const fixData = {
   4: {
@@ -42,7 +44,7 @@ const CharData = {
     ret.elem = title('Element').toLowerCase()
     ret.allegiance = title('Occupation')
     ret.weapon = title('Weapon').toLowerCase()
-    ret.birthday = title('Month of Birth') + '-' + title('Day of Birth')
+    ret.birth = title('Month of Birth') + '-' + title('Day of Birth')
     ret.astro = title('Constellation')
     ret.desc = title('Description')
     ret.cncv = fix.cncv || title('Chinese')

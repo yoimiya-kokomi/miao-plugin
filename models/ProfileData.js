@@ -26,7 +26,7 @@ export default class ProfileData extends Base {
     this.level = ds.lv || ds.level || 1
     this.cons = ds.cons || 0
     this.fetter = ds.fetter || 0
-    this.costume = ds.costume || 0
+    this._costume = ds.costume || 0
     this.elem = ds.elem || ''
     this.dataSource = ds.dataSource || 'enka'
     this._time = ds._time || ds.updateTime || new Date() * 1
@@ -89,6 +89,17 @@ export default class ProfileData extends Base {
   // 判断当前profileData是否具备有效圣遗物信息
   hasArtis () {
     return this.hasData && this.artis.length > 0
+  }
+
+  get costume () {
+    let cMap = {
+      // 10000033: 900001, // 公子
+      10000052: 900002 // 雷神
+    }
+    if (cMap[this.id] && this.cons === 6) {
+      return cMap[this.id]
+    }
+    return this._costume
   }
 
   // toJSON 供保存使用

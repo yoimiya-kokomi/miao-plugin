@@ -69,7 +69,7 @@ const CharMeta = {
     })
     ret.push({
       title: '成长·' + (grow.key === 'dmg' ? `${elem}伤` : growAttrName[grow.key]),
-      value: grow.value
+      value: grow.value.toString().length > 10 ? Format.comma(grow.value, 1) : grow.value
     })
     return ret
   },

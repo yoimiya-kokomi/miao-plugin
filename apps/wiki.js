@@ -54,6 +54,9 @@ export async function wiki (e) {
     return true
   }
   if (char.isCustom) {
+    if (mode === 'wiki') {
+      return false
+    }
     e.reply('暂不支持自定义角色')
     return true
   }
@@ -84,8 +87,7 @@ async function renderWiki ({ e, char }) {
     lodash.forEach(wu[char.id], (ds) => {
       let weapon = Weapon.get(ds.name) || {}
       weapons.push({
-        name: ds.name,
-        star: weapon.star || 4,
+        ...weapon.getData('name,abbr,img,star'),
         value: Format.percent(ds.value, 1)
       })
     })
