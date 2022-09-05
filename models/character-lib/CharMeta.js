@@ -113,8 +113,9 @@ const CharMeta = {
     let lens = []
     let len = 0
     let descs = []
+    const maxChars = 26
     for (let desc of inputs) {
-      if (len + desc.length < 56) {
+      if (len + desc.length < maxChars * 2) {
         lens.push(desc.length)
         descs.push(desc)
         len += desc.length
@@ -122,16 +123,20 @@ const CharMeta = {
         break
       }
     }
-    if (len <= 28) {
+    if (len <= maxChars - 6) {
       return descs.join('，')
     }
-    let ret = [[], [], []]
+    let ret = [[], []]
     let idx = 0
     for (let desc of descs) {
-      if (ret[idx].join(' ').length + desc.length > 28) {
+      if (ret[idx].join(' ').length + desc.length > maxChars) {
         idx++
       }
+      ret[idx] = ret[idx] || []
       ret[idx].push(desc)
+      if (descs.length === 2) {
+        idx++
+      }
     }
     return ret[0].join('，') + '</br>' + ret[1].join('，')
   }

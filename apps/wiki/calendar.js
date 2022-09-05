@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 import moment from 'moment'
 import { Character } from '../../models/index.js'
+import { Data } from '../../components/index.js'
 import lodash from 'lodash'
 
 const ignoreIds = [495, // 有奖问卷调查开启！
@@ -105,7 +106,7 @@ let Cal = {
         }
       } catch (e) {
       }
-      Data.setCacheJSON('cache:calendar:detail', timeMap, 60 * 10)
+      await Data.setCacheJSON('cache:calendar:detail', timeMap, 60 * 10)
     }
     return { listData, timeMap }
   },
