@@ -91,6 +91,49 @@ const CharMeta = {
       })
     })
     return ret
+  },
+
+  getDesc (desc) {
+    desc = desc.replace(/。$/, '')
+    desc = desc.replace('</br>', '，')
+    desc = desc.replace(/[。,]/g, '，')
+    desc = desc.replace('——', '，——')
+    let len = desc.length
+    if (len < 25) {
+      return desc
+    }
+    if (/-/.test(desc)) {
+      let idx = desc.indexOf('—')
+      return [desc.substr(0, idx), desc.substr(idx, desc.length)].join('</br>')
+    }
+    desc = desc.split('，')
+    return CharMeta.getDescLine(desc)
+  },
+  getDescLine (inputs) {
+    let lens = []
+    let len = 0
+    let descs = []
+    for (let desc of inputs) {
+      if (len + desc.length < 56) {
+        lens.push(desc.length)
+        descs.push(desc)
+        len += desc.length
+      } else {
+        break
+      }
+    }
+    if (len <= 28) {
+      return descs.join('，')
+    }
+    let ret = [[], [], []]
+    let idx = 0
+    for (let desc of descs) {
+      if (ret[idx].join(' ').length + desc.length > 28) {
+        idx++
+      }
+      ret[idx].push(desc)
+    }
+    return ret[0].join('，') + '</br>' + ret[1].join('，')
   }
 }
 export default CharMeta

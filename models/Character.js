@@ -22,7 +22,7 @@ class Character extends Base {
     if (!this.isCustom) {
       let meta = getMeta(name)
       this.meta = meta
-      for (let key of 'abbr,title,star,allegiance,weapon,astro,cncv,jpcv,ver,desc,talentCons'.split(',')) {
+      for (let key of 'abbr,title,star,allegiance,weapon,astro,cncv,jpcv,ver,talentCons'.split(',')) {
         this[key] = meta[key]
       }
       this.elem = CharId.getElem(elem || meta.elem) || 'anemo'
@@ -61,6 +61,10 @@ class Character extends Base {
   // 获取元素名称
   get elemName () {
     return CharId.getElemName(this.elem)
+  }
+
+  get desc () {
+    return CharMeta.getDesc(this.meta.desc || '')
   }
 
   // 获取头像
