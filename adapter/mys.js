@@ -53,7 +53,6 @@ class Mys {
     e.reply = function (msg) {
       if (!e._isReplyed) {
         e._isReplyed = true
-        e.reply = e._original_reply
         return e._original_reply(msg)
       }
     }

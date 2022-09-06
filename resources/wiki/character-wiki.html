@@ -54,7 +54,7 @@
     {{/each}}
   </div>
 </div>
-<div class="talent-notice">输入<strong>#{{data.abbr}}天赋、#{{data.abbr}}命座</strong>可查看详细天赋/命座信息</div>
+
 {{if holding.num}}
 {{set cNum ='零一二三四五满'.split('')}}
 <div class="cont cont-bg">
@@ -69,6 +69,8 @@
         <div class="talent-icon">
           {{if cons.cons > 0}}
           <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs[`cons${cons.cons}`]}})"></div>
+          {{else}}
+          <div class="talent-icon-img" style="background-image:url({{_res_path}}common/item/cons0.webp)"></div>
           {{/if}}
         </div>
         <div class="cons-num">{{cons.num}}</div>
@@ -80,6 +82,7 @@
 </div>
 {{/if}}
 
+<div class="talent-notice">输入<strong>#{{data.abbr}}天赋、#{{data.abbr}}命座</strong>可查看详细天赋/命座信息</div>
 
 {{if weapons.length >0}}
 <div class="cont">

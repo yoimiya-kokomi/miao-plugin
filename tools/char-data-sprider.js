@@ -251,4 +251,4 @@ const charData = {
   71: { key: 'cyno', name: '赛诺' },
   72: { key: 'candace', name: '坎蒂丝' }
 }
-await down('雷电将军,达达利亚', true)
+await down('鹿野院平藏', true)

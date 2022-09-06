@@ -75,8 +75,11 @@
       </div>
     </div>
     <div class="item arti-stat">
-      <div><strong class="mark-{{totalMarkClass}}">{{totalMarkClass}}</strong><span>圣遗物评级</span></div>
-      <div><strong>{{totalMark}}</strong><span>圣遗物总分</span></div>
+      <div class="arti-class-title">评分规则：{{classTitle}}</div>
+      <div class="arti-stat-ret">
+        <div><strong class="mark-{{totalMarkClass}}">{{totalMarkClass}}</strong><span>圣遗物评级</span></div>
+        <div><strong>{{totalMark}}</strong><span>圣遗物总分</span></div>
+      </div>
     </div>
   </div>
   {{each artis ds idx}}

@@ -51,9 +51,10 @@ export const usefulAttr = {
   班尼特: { hp: 100, atk: 50, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 80, phy: 0, recharge: 55, heal: 100 },
   枫原万叶: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 100, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   雷电将军: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 75, phy: 0, recharge: 90, heal: 0 },
+  '雷电将军-高精': { hp: 0, atk: 90, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 90, phy: 0, recharge: 90, heal: 0 },
   行秋: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   钟离: { hp: 80, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 50, recharge: 55, heal: 0 },
-  '钟离-血牛': { hp: 100, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 75, phy: 0, recharge: 55, heal: 0 },
+  '钟离-血牛': { hp: 100, atk: 50, def: 0, cp: 50, cd: 50, mastery: 0, dmg: 0, phy: 0, recharge: 50, heal: 0 },
   神里绫华: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   香菱: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   胡桃: { hp: 80, atk: 50, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
@@ -79,7 +80,7 @@ export const usefulAttr = {
   托马: { hp: 100, atk: 50, def: 0, cp: 50, cd: 50, mastery: 0, dmg: 75, phy: 0, recharge: 90, heal: 0 },
   迪卢克: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
   芭芭拉: { hp: 100, atk: 50, def: 0, cp: 50, cd: 50, mastery: 0, dmg: 80, phy: 0, recharge: 55, heal: 100 },
-  '芭芭拉-暴力': { hp: 50, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 50 },
+  '芭芭拉-暴力': { hp: 50, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 50 },
   诺艾尔: { hp: 0, atk: 50, def: 90, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 70, heal: 0 },
   旅行者: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   重云: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
@@ -98,4 +99,6 @@ export const usefulAttr = {
   鹿野院平藏: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   提纳里: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 90, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   柯莱: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
+  空: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
+  荧: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 }
 }

@@ -17,9 +17,9 @@ export default class ProfileData extends Base {
     this.setBasic(ds)
     ds.attr && this.setAttr(ds.attr)
     ds.weapon && this.setWeapon(ds.weapon)
+    ds.talent && this.setTalent(ds.talent)
     this.artis = new ProfileArtis(this.id)
     ds.artis && this.setArtis(ds.artis)
-    ds.talent && this.setTalent(ds.talent)
   }
 
   setBasic (ds = {}) {
@@ -54,7 +54,7 @@ export default class ProfileData extends Base {
 
   setArtis (ds = false) {
     if (ds) {
-      this.artis.setArtisSet(ds)
+      this.artis.setProfile(this, ds)
     }
   }
 
@@ -96,8 +96,10 @@ export default class ProfileData extends Base {
       // 10000033: 900001, // 公子
       10000052: 900002 // 雷神
     }
-    if (cMap[this.id] && this.cons === 6) {
-      return cMap[this.id]
+    if (cMap[this.id]) {
+      if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass)) {
+        return cMap[this.id]
+      }
     }
     return this._costume
   }

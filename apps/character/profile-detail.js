@@ -54,7 +54,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     dmg: p(Math.max(a.dmg * 1 || 0, a.phy * 1 || 0))
   }
 
-  let { artis, mark: totalMark, markClass: totalMarkClass, usefulMark } = profile.getArtisMark()
+  let { artis, mark: totalMark, markClass: totalMarkClass, usefulMark, classTitle } = profile.getArtisMark()
 
   let enemyLv = await selfUser.getCfg('char.enemyLv', 91)
   let dmgMsg = []
@@ -109,6 +109,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     enemyName: dmgCalc.enemyName || '小宝',
     totalMark: c(totalMark, 1),
     totalMarkClass,
+    classTitle,
     usefulMark,
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
     bodyClass: `char-${char.name}${costume}`,

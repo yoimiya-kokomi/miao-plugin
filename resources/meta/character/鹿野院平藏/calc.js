@@ -6,7 +6,7 @@ export const details = [{
   title: '满层勠心拳伤害',
   params: { e: 4 },
   dmg: ({ talent }, dmg) => {
-    return dmg(talent.e['技能伤害'] * 1 + talent.e['变格伤害提升'][0] * 4 + talent.e['正论伤害提升'] * 1, 'e')
+    return dmg(talent.e['技能伤害'] * 1 + talent.e['变格伤害提升'] * 4 + talent.e['正论伤害提升'] * 1, 'e')
   }
 }, {
   title: 'Q真空弹伤害',

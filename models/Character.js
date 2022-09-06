@@ -5,6 +5,7 @@ import CharImg from './character-lib/CharImg.js'
 import CharTalent from './character-lib/CharTalent.js'
 import CharId from './character-lib/CharId.js'
 import CharMeta from './character-lib/CharMeta.js'
+import CharArtis from './character-lib/CharArtis.js'
 
 let { abbrMap, wifeMap, idSort } = CharId
 
@@ -209,6 +210,10 @@ class Character extends Base {
       }
     }
     return await this.getTraveler(uid)
+  }
+
+  getArtisMarkCfg (profile, artis) {
+    return CharArtis.getCharArtisCfg(this, profile, artis)
   }
 }
 

@@ -598,25 +598,35 @@ body {
   box-shadow: 0 0 4px 0 #deaf39 inset;
   background: #fff6dd;
 }
-.artis .arti-stat {
+.artis .artis-stat {
   height: 85px;
 }
-.arti-stat {
-  height: 90px;
-  margin-top: 10px;
-  padding: 13px 10px;
+.arti-class-title {
+  height: 25px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #fff;
+  padding: 5px 10px 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 2px #000;
+}
+.arti-stat-ret {
+  height: 55px;
+  padding: 0 10px 5px;
+  width: 100%;
   display: table;
 }
-.arti-stat > div {
+.arti-stat-ret > div {
   display: table-cell;
   text-align: center;
   color: #fff;
 }
-.arti-stat strong {
+.arti-stat-ret strong {
   display: block;
-  height: 40px;
+  height: 35px;
   font-size: 30px;
-  line-height: 40px;
+  line-height: 35px;
 }
 .dmg-msg {
   font-size: 13px;

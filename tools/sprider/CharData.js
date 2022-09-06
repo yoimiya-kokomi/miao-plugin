@@ -202,7 +202,7 @@ const CharData = {
         if (i > 0 && values[0] !== val) {
           isSame = false
         }
-        let ur = /^(.*)(生命值上限|防御力|最大生命值|攻击力|生命值上限 \/ 层|当前生命值)(\s*\*\s*\d)?$/.exec(val)
+        let ur = /^(.*)(生命值上限|防御力|最大生命值|攻击力|生命值上限 \/ 层|当前生命值| \/ 层)(\s*\*\s*\d)?$/.exec(val)
         if (ur && ur[1] && ur[2]) {
           values2.push(ur[1] + (ur[3] || ''))
           unit = ur[2]

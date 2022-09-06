@@ -6,9 +6,7 @@ import Base from './Base.js'
 import { Artifact, Character } from './index.js'
 import { Format } from '../components/index.js'
 import ArtisMark from './profile-lib/ArtisMark.js'
-import { attrMap, attrValue, usefulAttr } from '../resources/meta/reliquaries/artis-mark.js'
-
-let charCfg = {}
+import { attrMap, attrNameMap, attrValue } from '../resources/meta/reliquaries/artis-mark.js'
 
 export default class ProfileArtis extends Base {
   constructor (charid = 0, ds = false) {
@@ -18,6 +16,11 @@ export default class ProfileArtis extends Base {
     if (ds) {
       this.setArtisSet(ds)
     }
+  }
+
+  setProfile (profile, artis) {
+    this.profile = profile
+    this.setArtisSet(artis)
   }
 
   setArtisSet (ds) {
@@ -78,6 +81,93 @@ export default class ProfileArtis extends Base {
     return this.getData('1,2,3,4,5')
   }
 
+  get sets () {
+    return this.getSetData().sets
+  }
+
+  get names () {
+    return this.getSetData().names
+  }
+
+  mainAttr (idx) {
+    let main = this.artis[idx]?.main
+    if (!main) {
+      return ''
+    }
+    let title = main.title
+    if (/元素伤害/.test(title)) {
+      return 'dmg'
+    }
+    if (attrNameMap[main.title]) {
+      return attrNameMap[main.title]
+    } else {
+      console.log(main.title)
+    }
+    return ''
+  }
+
+  getSetData () {
+    let setCount = {}
+    this.forEach((arti, idx) => {
+      setCount[arti.set] = (setCount[arti.set] || 0) + 1
+    })
+    let sets = {}
+    let names = []
+    for (let set in setCount) {
+      if (setCount[set] >= 2) {
+        sets[set] = setCount[set] >= 4 ? 4 : 2
+        names.push(Artifact.getArtiBySet(set))
+      }
+    }
+    return { sets, names }
+  }
+
+  getCharCfg () {
+    let char = Character.get(this.charid)
+    let { attrWeight, title } = char.getArtisMarkCfg(this.profile, this)
+    let attrMark = {}
+
+    let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
+    lodash.forEach(attrWeight, (weight, attr) => {
+      attrMark[attr] = weight / attrValue[attr]
+    })
+
+    // let baseAttr = [400, 500, 300];
+    if (attrMark.hp) {
+      attrMark.hpPlus = attrMark.hp / baseAttr.hp * 100
+    }
+    if (attrMark.atk) {
+      // 以520作为武器白值均值计算
+      attrMark.atkPlus = attrMark.atk / (baseAttr.atk * 1 + 520) * 100
+    }
+    if (attrMark.def) {
+      attrMark.defPlus = attrMark.def / baseAttr.def * 100
+    }
+    let maxMark = ArtisMark.getMaxMark(attrWeight)
+    let titleMark = {}
+    let titleWeight = {}
+    lodash.forEach(attrMark, (mark, attr) => {
+      let aTitle = attrMap[attr].title
+      if (/小/.test(aTitle)) {
+        return
+      }
+      titleMark[aTitle] = mark
+      titleWeight[aTitle] = attrWeight[attr] || 0
+      if (/大/.test(aTitle)) {
+        let sTitle = aTitle.replace('大', '小')
+        titleWeight[sTitle] = titleWeight[aTitle]
+      }
+    })
+    return {
+      classTitle: title,
+      weight: attrWeight,
+      mark: attrMark,
+      titleMap: titleMark,
+      titleWeight,
+      maxMark
+    }
+  }
+
   getMarkDetail (withDetail = true) {
     let charCfg = this.getCharCfg()
     let artis = {}
@@ -115,91 +205,20 @@ export default class ProfileArtis extends Base {
         names.push(Artifact.getArtiBySet(set))
       }
     }
+    this.mark = totalMark
+    this.markClass = ArtisMark.getMarkClass(totalMark / 5)
     let ret = {
       mark: Format.comma(totalMark, 1),
       _mark: totalMark,
       markClass: ArtisMark.getMarkClass(totalMark / 5),
       artis,
       sets,
-      names
+      names,
+      classTitle: charCfg.classTitle
     }
     if (withDetail) {
       ret.usefulMark = usefulMark
     }
     return ret
-  }
-
-  getSetData () {
-    let setCount = {}
-    this.forEach((arti, idx) => {
-      setCount[arti.set] = (setCount[arti.set] || 0) + 1
-    })
-    let sets = {}
-    let names = []
-    for (let set in setCount) {
-      if (setCount[set] >= 2) {
-        sets[set] = setCount[set] >= 4 ? 4 : 2
-        names.push(Artifact.getArtiBySet(set))
-      }
-    }
-    return { sets, names }
-  }
-
-  get sets () {
-    return this.getSetData().sets
-  }
-
-  get names () {
-    return this.getSetData().names
-  }
-
-  getCharCfg () {
-    let char = Character.get(this.charid)
-    let name = char.name
-    if (charCfg[name]) {
-      return charCfg[name]
-    }
-    let attrWeight = usefulAttr[name] || { atk: 75, cp: 100, cd: 100 }
-    let attrMark = {}
-
-    let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
-    lodash.forEach(attrWeight, (weight, attr) => {
-      attrMark[attr] = weight / attrValue[attr]
-    })
-
-    // let baseAttr = [400, 500, 300];
-    if (attrMark.hp) {
-      attrMark.hpPlus = attrMark.hp / baseAttr.hp * 100
-    }
-    if (attrMark.atk) {
-      // 以520作为武器白值均值计算
-      attrMark.atkPlus = attrMark.atk / (baseAttr.atk * 1 + 520) * 100
-    }
-    if (attrMark.def) {
-      attrMark.defPlus = attrMark.def / baseAttr.def * 100
-    }
-    let maxMark = ArtisMark.getMaxMark(attrWeight)
-    let titleMark = {}
-    let titleWeight = {}
-    lodash.forEach(attrMark, (mark, attr) => {
-      let aTitle = attrMap[attr].title
-      if (/小/.test(aTitle)) {
-        return
-      }
-      titleMark[aTitle] = mark
-      titleWeight[aTitle] = attrWeight[attr] || 0
-      if (/大/.test(aTitle)) {
-        let sTitle = aTitle.replace('大', '小')
-        titleWeight[sTitle] = titleWeight[aTitle]
-      }
-    })
-    charCfg[name] = {
-      weight: attrWeight,
-      mark: attrMark,
-      titleMap: titleMark,
-      titleWeight,
-      maxMark
-    }
-    return charCfg[name]
   }
 }
