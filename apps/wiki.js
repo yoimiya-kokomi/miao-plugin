@@ -2,8 +2,8 @@ import { segment } from 'oicq'
 import lodash from 'lodash'
 import Calendar from './wiki/calendar.js'
 import { Format, Cfg, Common } from '../components/index.js'
-import { Character, Weapon } from '../models/index.js'
-import HutaoApi from './stat/HutaoApi.js'
+import { Character } from '../models/index.js'
+import CharWiki from './wiki/CharWiki.js'
 
 // eslint-disable-next-line no-unused-vars
 let action = {
@@ -82,34 +82,10 @@ async function renderWiki ({ e, char }) {
   let data = char.getData()
   lodash.extend(data, char.getData('weaponType,elemName'))
   // 命座持有
-  let consData = (await HutaoApi.getCons()).data || {}
-  consData = lodash.find(consData, (ds) => ds.avatar === char.id)
-  let holding = {}
-  if (consData) {
-    let { holdingRate, rate } = consData
-    rate = lodash.sortBy(rate, 'id')
-    holding.num = Format.percent(holdingRate)
-    holding.cons = []
-    lodash.forEach(rate, (ds) => {
-      holding.cons.push({
-        cons: ds.id,
-        num: Format.percent(ds.value)
-      })
-    })
-  }
+  let holding = await CharWiki.getHolding(char.id)
+  let weapons = await CharWiki.getWeapons(char.id)
+  let artis = await CharWiki.getArtis(char.id)
 
-  // 武器使用
-  let wu = (await HutaoApi.getWeaponUsage()).data || {}
-  let weapons = []
-  if (wu[char.id]) {
-    lodash.forEach(wu[char.id], (ds) => {
-      let weapon = Weapon.get(ds.name) || {}
-      weapons.push({
-        ...weapon.getData('name,abbr,img,star'),
-        value: Format.percent(ds.value, 1)
-      })
-    })
-  }
   return await Common.render('wiki/character-wiki', {
     saveId: `info-${char.id}`,
     data,
@@ -118,6 +94,7 @@ async function renderWiki ({ e, char }) {
     imgs: char.getImgs(),
     weapons,
     holding,
+    artis,
     materials: char.getMaterials(),
     elem: char.elem
   }, { e, scale: 1.4 })

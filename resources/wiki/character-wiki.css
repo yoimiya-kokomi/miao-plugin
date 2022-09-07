@@ -194,4 +194,17 @@ body {
   font-size: 16px;
   text-shadow: 0 0 1px #000, 1px 1px 3px #000;
 }
+.artis-list .artis-count2 {
+  position: relative;
+}
+.artis-list .artis-count2 .item-bg {
+  transform: scale(0.7);
+  transform-origin: left top;
+}
+.artis-list .artis-count2 .item-bg.artis2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: right bottom;
+}
 /*# sourceMappingURL=character-wiki.css.map */

@@ -78,13 +78,13 @@ const CharData = {
       Dendro: 'dmg',
       Pyro: 'dmg',
       Cryo: 'dmg',
-      Electro: 'dmg',
+      Elec: 'dmg',
       Heal: 'heal',
       Phys: 'phy'
     }
     stat.find('tr:first td:lt(8)').each(function (i) {
       let title = $(this).text()
-      let titleRet = /^Bonus\s(\w+)%*$/.exec(title)
+      let titleRet = /^Bonuse?\s(\w+)%*$/.exec(title)
       if (titleRet && titleRet[1]) {
         attrs.push(bonusMap[titleRet[1]] || titleRet[1])
         colIdxs[i] = true

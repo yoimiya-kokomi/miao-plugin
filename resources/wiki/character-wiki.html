@@ -86,7 +86,7 @@
 
 {{if weapons.length >0}}
 <div class="cont">
-  <div class="cont-title border-less">常用武器<span>武器统计来自胡桃Api</span></div>
+  <div class="cont-title border-less">常用武器 <span>持有率、武器、圣遗物统计来自胡桃API，未经允许请勿使用此数据</span></div>
   <div class="item-list weapon-list">
     {{each weapons weapon}}
     <div class="item item-card">
@@ -100,4 +100,26 @@
   </div>
 </div>
 {{/if}}
+
+{{if artis.length >0}}
+<div class="cont">
+  <div class="cont-title border-less">常用圣遗物</div>
+  <div class="item-list weapon-list artis-list">
+    {{each artis arti}}
+    <div class="item item-card">
+      <div class="item-icon star5 artis-count{{arti.sets.length}}">
+        {{each arti.sets sn idx}}
+        <div class="item-bg artis{{idx+1}}"
+             style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{sn}}.png)"></div>
+        {{/each}}
+        <div class="item-badge">{{arti.value}}</div>
+      </div>
+      <div class="item-title">{{arti.title}}</div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+<div class="talent-notice"></div>
+{{/if}}
+
 {{/block}}
