@@ -441,11 +441,11 @@ ul.cont-msg li strong,
   position: absolute;
   display: block;
   left: 0;
-  bottom: 0;
+  top: 0;
   background: rgba(0, 0, 0, 0.6);
   font-size: 12px;
   color: #fff;
   padding: 4px 5px 3px;
-  border-radius: 0 6px 0 0;
+  border-radius: 0 0 6px 0;
 }
 /*# sourceMappingURL=common.css.map */
