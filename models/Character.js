@@ -203,7 +203,7 @@ class Character extends Base {
       if (CharId.isTraveler(avatar.id)) {
         let char = Character.get({
           id: avatar.id,
-          elem: (avatar.elem || avatar.element).toLowerCase() || 'anemo'
+          elem: (avatar.elem || avatar.element || 'anemo').toLowerCase()
         })
         char.setTraveler(uid)
         return char

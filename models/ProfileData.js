@@ -125,7 +125,10 @@ export default class ProfileData extends Base {
 
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
   getArtisMark (withDetail = true) {
-    return this.artis.getMarkDetail(withDetail)
+    if(this.hasData) {
+      return this.artis.getMarkDetail(withDetail)
+    }
+    return {}
   }
 
   // 计算当前profileData的伤害信息

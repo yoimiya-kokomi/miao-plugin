@@ -44,8 +44,11 @@ export async function profileStat (e) {
     avatar.aeq = talent?.a?.original + talent?.e?.original + talent?.q?.original || 3
     avatarRet.push(avatar)
     if (profiles[id]) {
-      let mark = profiles[id].getArtisMark(false)
-      avatar.artisMark = Data.getData(mark, 'mark,markClass,names')
+      let profile = profiles[id]
+      if(profile.hasData) {
+        let mark = profiles[id].getArtisMark(false)
+        avatar.artisMark = Data.getData(mark, 'mark,markClass,names')
+      }
     }
   })
 
