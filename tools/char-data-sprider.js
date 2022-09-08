@@ -18,7 +18,7 @@ if (fs.existsSync(_mRoot + 'data.json')) {
 
 const tElems = ['anemo', 'geo', 'electro', 'dendro']
 
-let getCharData = async function (id, key, name = '') {
+let getCharData = async function (id, key, name = '', _id = id) {
   let idNum = (id < 10 ? '0' : '') + (id < 100 ? '0' : '') + id
   let url = `https://genshin.honeyhunterworld.com/${key}_${idNum}/?lang=CHS`
   console.log('req: ' + url)
@@ -53,7 +53,7 @@ let getCharData = async function (id, key, name = '') {
       }
     }
   }
-  let data = CharData.getBasic($, id, name)
+  let data = CharData.getBasic($, id, name, _id)
   name = name || data.name
   let imgs = new ImgDownloader(name)
   $.imgs = imgs
@@ -140,14 +140,14 @@ function checkName (name) {
   return data.ver * 1 > 1
 }
 
-async function saveCharData (id, key, name = '', force = false) {
+async function saveCharData (id, key, name = '', force = false, _id = id) {
   if (!id || !key) {
     return
   }
   if (name && checkName(name) && !force) {
     return
   }
-  let { data, details, imgs } = await getCharData(id, key, name)
+  let { data, details, imgs } = await getCharData(id, key, name, _id)
   name = name || data.name
 
   if (!name) {
@@ -185,7 +185,7 @@ async function down (name = '', force = false) {
     if (!names.includes(id) && !names.includes(ds.key) && !names.includes(ds.name)) {
       continue
     }
-    await saveCharData(ds.id || id, ds.key, ds.name, force)
+    await saveCharData(ds.id || id, ds.key, ds.name, force, id)
   }
   fs.writeFileSync(`${_mRoot}data.json`, JSON.stringify(mData, '', 2))
 }
@@ -251,4 +251,4 @@ const charData = {
   71: { key: 'cyno', name: '赛诺' },
   72: { key: 'candace', name: '坎蒂丝' }
 }
-await down('妮露,赛诺,坎蒂丝', true)
+await down('4', true)

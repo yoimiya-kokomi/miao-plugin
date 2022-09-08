@@ -48,16 +48,23 @@ class Mys {
       return false
     }
     let e = this.e
-    // 防止错误信息刷屏
+    // 暂时先在plugin侧阻止错误，防止刷屏
     e._original_reply = e._original_reply || e.reply
+    e._reqCount = e._reqCount || 0
     e.reply = function (msg) {
       if (!e._isReplyed) {
         e._isReplyed = true
         return e._original_reply(msg)
+      } else {
+        // console.log('请求错误')
       }
     }
+    e._reqCount++
     let ret = await MysInfo.get(this.e, api, data)
-    e.reply = e._original_reply
+    e._reqCount--
+    if (e._reqCount === 0) {
+      e.reply = e._original_reply
+    }
     if (!ret) {
       return false
     }

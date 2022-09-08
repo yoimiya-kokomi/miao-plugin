@@ -68,7 +68,7 @@ export async function wiki (e) {
     return await renderWiki({ e, char })
   }
   return await Common.render('wiki/character-talent', {
-    saveId: `${mode}-${char.id}-${char.elem}`,
+    // saveId: `${mode}-${char.id}-${char.elem}`,
     ...char.getData(),
     detail: char.getDetail(),
     imgs: char.getImgs(),
@@ -87,7 +87,7 @@ async function renderWiki ({ e, char }) {
   let artis = await CharWiki.getArtis(char.id)
 
   return await Common.render('wiki/character-wiki', {
-    saveId: `info-${char.id}`,
+    // saveId: `info-${char.id}`,
     data,
     attr: char.getAttrList(),
     detail: char.getDetail(),

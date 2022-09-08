@@ -37,9 +37,10 @@ export const enkaApi = {
 export const requestInterval = 5
 
 /*
-* MiaoApi面板更新地址，暂时支持B服角色
+* MiaoApi面板更新服务，需要具备Token
+* 默认使用Enka服务进行更新
 * */
 export const miaoApi = {
-  url: 'http://49.232.91.210/profile',
+  url: 'http://miaoapi.cn/profile',
   token: '请求Token'
 }

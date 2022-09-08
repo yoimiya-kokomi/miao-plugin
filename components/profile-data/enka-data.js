@@ -189,7 +189,7 @@ let EnkaData = {
     if (ret._fix) {
       return ret
     }
-    let { attr, id } = ret
+    let { attr, id, weapon } = ret
     id = id * 1
     switch (id) {
       case 10000052:
@@ -201,6 +201,15 @@ let EnkaData = {
         attr.dmg = Math.max(0, attr.dmg - attr.recharge * 0.2)
         break
     }
+    let wDmg = {
+      息灾: 12,
+      波乱月白经津: 12,
+      雾切之回光: 12,
+      猎人之径: 12
+    }
+    let { name, affix } = weapon
+    // 修正武器的加伤
+    attr.dmg = Math.max(0, attr.dmg - wDmg[name] - wDmg[name] * (affix - 1) / 4)
     ret._fix = true
     return ret
   }

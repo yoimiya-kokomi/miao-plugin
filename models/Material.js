@@ -3,7 +3,6 @@ import Base from './Base.js'
 import { Data } from '../components/index.js'
 import MaterialMeta from './material-lib/MaterialMeta.js'
 
-
 let data = Data.readJSON('resources/meta/material/data.json')
 let mMap = {}
 let getItem = (ds) => {
@@ -41,7 +40,7 @@ class Material extends Base {
     this.meta = meta
     this.type = meta.type
     this.star = meta.star
-    return this._setCache()
+    return this._cache()
   }
 
   get abbr () {

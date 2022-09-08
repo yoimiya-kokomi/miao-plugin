@@ -94,10 +94,12 @@ export default class ProfileData extends Base {
   get costume () {
     let cMap = {
       // 10000033: 900001, // 公子
-      10000052: 900002 // 雷神
+      10000052: 900002, // 雷神
+      10000030: 900003 // 钟离
     }
+    let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
     if (cMap[this.id]) {
-      if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass)) {
+      if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass) || talent === '101010') {
         return cMap[this.id]
       }
     }
@@ -125,7 +127,7 @@ export default class ProfileData extends Base {
 
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
   getArtisMark (withDetail = true) {
-    if(this.hasData) {
+    if (this.hasData) {
       return this.artis.getMarkDetail(withDetail)
     }
     return {}

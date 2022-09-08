@@ -9,33 +9,33 @@ let costumes = {
   迪卢克: [201601], // 迪卢克
   菲谢尔: [203101], // 菲谢尔
   达达利亚: [900001],
-  雷电将军: [900002]
+  雷电将军: [900002],
+  钟离: [900003]
 }
 const fixData = {
   4: {
     id: 20000000,
-    title: '异界的旅人'
+    title: '异界的旅人',
+    cncv: '宴宁/鹿喑',
+    jpcv: '悠木碧/堀江瞬'
   },
   5: {
-    title: '异界的旅人',
-    cncv: '鹿喑',
-    jpcv: '堀江瞬'
+    title: '异界的旅人'
   },
   7: {
-    title: '异界的旅人',
-    cncv: '多多poi',
-    jpcv: '古贺葵'
+    title: '异界的旅人'
   }
 }
 
 const CharData = {
-  getBasic ($, id, name = '') {
+  getBasic ($, id, name = '', _id = id) {
     let ret = {}
-    let fix = fixData[id] || {}
+    console.log(id, _id)
+    let fix = fixData[_id || id] || {}
     ret.id = fix.id || 10000000 + id * 1
     let basic = $('.genshin_table.main_table')
     let title = function (title) {
-      return basic.find(`td:contains('${title}')`).next('td').text().trim()
+      return basic.find(`td:contains('${title}'):last`).next('td').text().trim()
     }
     ret.name = name || title('Name')
     ret.abbr = abbr[ret.name] || ret.name

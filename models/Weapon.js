@@ -9,7 +9,6 @@ lodash.forEach(data, (ds) => {
   wData[ds.name] = ds
 })
 
-
 class Weapon extends Base {
   constructor (name) {
     super(name)
@@ -25,7 +24,7 @@ class Weapon extends Base {
     this.meta = meta
     this.type = meta.type
     this.star = meta.star
-    return this._setCache()
+    return this._cache()
   }
 
   get abbr () {

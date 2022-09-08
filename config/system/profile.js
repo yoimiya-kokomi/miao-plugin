@@ -13,7 +13,7 @@ export const getProfileServ = ({ uid, serv, diyCfg }) => {
 }
 
 export const miaoApi = {
-  url: 'http://49.232.91.210/profile',
+  url: 'http://miaoapi.cn/profile',
   listApi: ({ url, uid, diyCfg }) => {
     return `${url}/data?uid=${uid}&token=${diyCfg.token}`
   }
@@ -31,7 +31,6 @@ export const enkaApi = {
   }
 }
 
-/* 请求面板的冷却时间，单位分钟 */
 export const requestInterval = 5
 
 export const isSys = true

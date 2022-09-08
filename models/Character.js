@@ -30,7 +30,7 @@ class Character extends Base {
     } else {
       this.meta = {}
     }
-    return this._setCache()
+    return this._cache()
   }
 
   // 默认获取的数据
