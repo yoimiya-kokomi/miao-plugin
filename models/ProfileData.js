@@ -108,7 +108,7 @@ export default class ProfileData extends Base {
 
   // toJSON 供保存使用
   toJSON () {
-    return this.getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,costume,elem,_time')
+    return this._proxy().getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,costume,elem,_time')
   }
 
   get updateTime () {

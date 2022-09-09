@@ -54,6 +54,30 @@ export default class ProfileArtis extends Base {
     })
   }
 
+  get 1 () {
+    return this.artis[1]
+  }
+
+  get 2 () {
+    return this.artis[2]
+  }
+
+  get 3 () {
+    return this.artis[3]
+  }
+
+  get 4 () {
+    return this.artis[4]
+  }
+
+  get 5 () {
+    return this.artis[5]
+  }
+
+  get length () {
+    return lodash.keys(this.artis).length
+  }
+
   _get (key) {
     let artis = this.artis
     switch (key) {
