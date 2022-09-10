@@ -4,6 +4,20 @@ let cacheMap = {}
 let reFn = {}
 
 export default class Base {
+  constructor () {
+    return new Proxy(this, {
+      get (self, key) {
+        if (key in self) {
+          return self[key]
+        }
+        if (self._get) {
+          return self._get(key)
+        }
+        return (self._meta || self._data || self.meta || {})[key]
+      }
+    })
+  }
+
   getData (arrList = '', cfg = {}) {
     arrList = arrList || this._dataKey || ''
     return Data.getData(this, arrList, cfg)
@@ -25,9 +39,12 @@ export default class Base {
   // 设置缓存
   _cache (time = 10 * 60) {
     let id = this._uuid
-    this._expire(time)
-    cacheMap[id] = this._proxy()
-    return cacheMap[id]
+    if (id) {
+      this._expire(time)
+      cacheMap[id] = this
+      return cacheMap[id]
+    }
+    return this
   }
 
   // 设置超时时间
@@ -57,22 +74,5 @@ export default class Base {
       delete reFn[id]
     }
     return ret
-  }
-
-  // 返回代理对象
-  _proxy () {
-    return new Proxy(this, {
-      get (self, key) {
-        if (key in self) {
-          return self[key]
-        }
-        if (self._get) {
-          if (key in self) {
-            return self._get(key)
-          }
-        }
-        return (self._meta || self._data || self.meta || {})[key]
-      }
-    })
   }
 }

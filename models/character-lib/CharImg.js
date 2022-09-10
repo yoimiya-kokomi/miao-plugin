@@ -56,18 +56,23 @@ const CharImg = {
     if (!['空', '荧', '旅行者'].includes(name)) {
       travelerElem = ''
     }
+    const rPath = `${process.cwd()}/plugins/miao-plugin/resources`
     const nPath = `/meta/character/${name}/`
     const tPath = `/meta/character/旅行者/${travelerElem}/`
-    let add = (key, path, traveler = false) => {
-      imgs[key] = `${traveler ? tPath : nPath}${path}.webp`
+    let add = (key, path, path2) => {
+      if (path2 && fs.existsSync(`${rPath}/${nPath}/${path2}.webp`)) {
+        imgs[key] = `${nPath}${path2}.webp`
+      } else {
+        imgs[key] = `${nPath}${path}.webp`
+      }
     }
     let tAdd = (key, path) => {
-      add(key, path, !!travelerElem)
+      imgs[key] = `${travelerElem ? tPath : nPath}${path}.webp`
     }
-    add('face', `imgs/face${costumeId}`)
-    add('side', `imgs/side${costumeId}`)
+    add('face', 'imgs/face', `imgs/face${costumeId}`)
+    add('side', 'imgs/side', `imgs/side${costumeId}`)
     add('gacha', 'imgs/gacha')
-    add('splash', `imgs/splash${costumeId}`)
+    add('splash', 'imgs/splash', `imgs/splash${costumeId}`)
     tAdd('card', 'imgs/card')
     tAdd('banner', 'imgs/banner')
     for (let i = 1; i <= 6; i++) {

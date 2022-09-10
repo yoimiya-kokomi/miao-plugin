@@ -142,7 +142,7 @@ export async function autoGetProfile (e, uid, avatar, callback) {
     return { err: true }
   } else if (!['enka', 'input2', 'miao'].includes(profile.dataSource)) {
     if (!await refresh()) {
-      e.reply('由于数据格式升级，请重新获取面板信息后查看')
+      e.reply('缓存数据错误，请重新获取面板信息后查看')
     }
     return { err: true }
   }

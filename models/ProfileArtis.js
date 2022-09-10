@@ -4,9 +4,10 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Artifact, Character } from './index.js'
-import { Format } from '../components/index.js'
+import { Format, Data } from '../components/index.js'
 import ArtisMark from './profile-lib/ArtisMark.js'
 import { attrMap, attrNameMap, attrValue } from '../resources/meta/reliquaries/artis-mark.js'
+import CharArtis from './profile-lib/CharArtis.js'
 
 export default class ProfileArtis extends Base {
   constructor (charid = 0, ds = false) {
@@ -16,7 +17,6 @@ export default class ProfileArtis extends Base {
     if (ds) {
       this.setArtisSet(ds)
     }
-    return this._proxy()
   }
 
   setProfile (profile, artis) {
@@ -54,30 +54,6 @@ export default class ProfileArtis extends Base {
     })
   }
 
-  get 1 () {
-    return this.artis[1]
-  }
-
-  get 2 () {
-    return this.artis[2]
-  }
-
-  get 3 () {
-    return this.artis[3]
-  }
-
-  get 4 () {
-    return this.artis[4]
-  }
-
-  get 5 () {
-    return this.artis[5]
-  }
-
-  get length () {
-    return lodash.keys(this.artis).length
-  }
-
   _get (key) {
     let artis = this.artis
     switch (key) {
@@ -101,7 +77,14 @@ export default class ProfileArtis extends Base {
     return this.getSetData().names
   }
 
-  mainAttr (idx) {
+  mainAttr (idx = '') {
+    if (!idx) {
+      let ret = {}
+      for (let i = 1; i <= 5; i++) {
+        ret[i] = this.mainAttr(i)
+      }
+      return ret
+    }
     let main = this.artis[idx]?.main
     if (!main) {
       return ''
@@ -118,25 +101,63 @@ export default class ProfileArtis extends Base {
     return ''
   }
 
+  is (check, pos = '') {
+    if (pos) {
+      return this.isAttr(check, pos)
+    }
+    let sets = this.getSetData()?.abbrs || []
+    let ret = false
+    Data.eachStr(check, (s) => {
+      if (sets.includes(s)) {
+        ret = true
+        return false
+      }
+    })
+    return ret
+  }
+
+  isAttr (attr, pos = '3,4,5') {
+    let mainAttr = this.mainAttr()
+    let check = true
+    Data.eachStr(pos, (p) => {
+      if (!attr.split(',').includes(mainAttr[p])) {
+        check = false
+        return false
+      }
+    })
+    console.log(attr, pos, mainAttr, check)
+    return check
+  }
+
   getSetData () {
+    if (this._setData) {
+      return this._setData
+    }
     let setCount = {}
     this.forEach((arti, idx) => {
       setCount[arti.set] = (setCount[arti.set] || 0) + 1
     })
     let sets = {}
     let names = []
+    let abbrs = []
     for (let set in setCount) {
       if (setCount[set] >= 2) {
         sets[set] = setCount[set] >= 4 ? 4 : 2
         names.push(Artifact.getArtiBySet(set))
       }
     }
-    return { sets, names }
+    lodash.forEach(sets, (v, k) => {
+      abbrs.push(k + v)
+      abbrs.push(Artifact.getAbbrBySet(k) + v)
+    })
+    this._setData = { sets, names, abbrs }
+    return this._setData
   }
 
   getCharCfg () {
     let char = Character.get(this.charid)
-    let { attrWeight, title } = char.getArtisMarkCfg(this.profile, this)
+    // let { attrWeight, title } = char.getArtisMarkCfg(this.profile, this)
+    let { attrWeight, title } = CharArtis.getCharArtisCfg(char, this.profile, this)
     let attrMark = {}
 
     let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }

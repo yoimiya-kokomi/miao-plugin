@@ -23,16 +23,11 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   }
 
   let profile = Profile.get(uid, char.id)
-  if (!profile) {
+  if (!profile || !profile.hasData) {
     if (await refresh()) {
       return true
     } else {
       e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`)
-    }
-    return true
-  } else if (!profile.hasData) {
-    if (!await refresh()) {
-      e.reply('由于数据Api变更，请重新获取面板信息后查看')
     }
     return true
   }
@@ -88,13 +83,11 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     basic.dmg = Format.comma(basic.dmg)
     basic.avg = Format.comma(basic.avg)
   }
-  const costume = profile.costume ? '2' : ''
   // 渲染图像
   return await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
     data: profile.getData('cons,level,weapon,dataSource,updateTime'),
-    costume,
     attr,
     name: char.name,
     elem: char.elem,
@@ -112,7 +105,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     classTitle,
     usefulMark,
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
-    bodyClass: `char-${char.name}${costume}`,
+    bodyClass: `char-${char.name}`,
     mode
   }, { e, scale: 1.6 })
 }

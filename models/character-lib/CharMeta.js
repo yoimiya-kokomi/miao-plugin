@@ -40,7 +40,7 @@ export const growAttrName = {
 
 const mKeys = [{
   key: 'gem',
-  num: '1/9/6/6'
+  num: '1/9/9/6'
 }, {
   key: 'boss',
   num: '46',

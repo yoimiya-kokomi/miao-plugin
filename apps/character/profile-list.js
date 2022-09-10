@@ -30,7 +30,6 @@ export async function profileList (e) {
     tmp.source = profile.dataSource
     tmp.level = profile.level || 1
     tmp.isNew = 0
-    tmp.costume = profile.costume ? '2' : ''
     if (newChar[char.name]) {
       tmp.isNew = 1
       newCount++

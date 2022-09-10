@@ -33,7 +33,7 @@ const attrMap = {
 }
 
 let EnkaData = {
-  getProfile(data) {
+  getProfile (data) {
     let char = Character.get(data.avatarId)
     let profile = new ProfileData({ id: char.id })
     profile.setBasic({
@@ -54,7 +54,7 @@ let EnkaData = {
     }
     return EnkaData.dataFix(profile)
   },
-  getAttr(data) {
+  getAttr (data) {
     let ret = {}
     let attrKey = {
       // atk: 2001,
@@ -105,7 +105,7 @@ let EnkaData = {
     return ret
   },
 
-  getArtifact(data) {
+  getArtifact (data) {
     let ret = {}
 
     let get = function (d) {
@@ -144,7 +144,7 @@ let EnkaData = {
     })
     return ret
   },
-  getWeapon(data) {
+  getWeapon (data) {
     let ds = {}
     lodash.forEach(data, (temp) => {
       if (temp.flat && temp.flat.itemType === 'ITEM_WEAPON') {
@@ -161,7 +161,7 @@ let EnkaData = {
       affix: (lodash.values(weapon.affixMap)[0] || 0) + 1
     }
   },
-  getTalent(charid, ds = {}) {
+  getTalent (charid, ds = {}) {
     let char = Character.get(charid)
     let { talentId = {}, talentElem = {}, talentKey = {} } = char.meta
     let elem = ''
@@ -185,7 +185,7 @@ let EnkaData = {
       talent: ret
     }
   },
-  dataFix(ret) {
+  dataFix (ret) {
     if (ret._fix) {
       return ret
     }

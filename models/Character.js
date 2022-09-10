@@ -5,7 +5,6 @@ import CharImg from './character-lib/CharImg.js'
 import CharTalent from './character-lib/CharTalent.js'
 import CharId from './character-lib/CharId.js'
 import CharMeta from './character-lib/CharMeta.js'
-import CharArtis from './character-lib/CharArtis.js'
 
 let { abbrMap, wifeMap, idSort } = CharId
 
@@ -23,9 +22,6 @@ class Character extends Base {
     if (!this.isCustom) {
       let meta = getMeta(name)
       this.meta = meta
-      for (let key of 'abbr,title,star,allegiance,weapon,astro,cncv,jpcv,ver,talentCons'.split(',')) {
-        this[key] = meta[key]
-      }
       this.elem = CharId.getElem(elem || meta.elem) || 'anemo'
     } else {
       this.meta = {}
@@ -139,6 +135,9 @@ class Character extends Base {
   // 获取角色插画
   getImgs (costume = '') {
     let costumeId = this.checkCostume(costume) ? '2' : ''
+    if (costume === 'super') {
+      costumeId = '0'
+    }
     let cacheId = `costume${costumeId}`
     if (!this._imgs) {
       this._imgs = {}
@@ -210,10 +209,6 @@ class Character extends Base {
       }
     }
     return await this.getTraveler(uid)
-  }
-
-  getArtisMarkCfg (profile, artis) {
-    return CharArtis.getCharArtisCfg(this, profile, artis)
   }
 }
 

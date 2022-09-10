@@ -54,7 +54,6 @@ export const usefulAttr = {
   '雷电将军-高精': { hp: 0, atk: 90, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 90, phy: 0, recharge: 90, heal: 0 },
   行秋: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   钟离: { hp: 80, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 50, recharge: 55, heal: 0 },
-  '钟离-血牛': { hp: 100, atk: 50, def: 0, cp: 50, cd: 50, mastery: 0, dmg: 0, phy: 0, recharge: 50, heal: 0 },
   神里绫华: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   香菱: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   胡桃: { hp: 80, atk: 50, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },

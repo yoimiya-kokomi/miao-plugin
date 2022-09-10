@@ -92,15 +92,15 @@ export default class ProfileData extends Base {
   }
 
   get costume () {
-    let cMap = {
-      // 10000033: 900001, // 公子
-      10000052: 900002, // 雷神
-      10000030: 900003 // 钟离
-    }
+    let cMap = [
+      10000022, // 温迪
+      10000030, // 钟离
+      10000052 // 雷神
+    ]
     let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
-    if (cMap[this.id]) {
+    if (cMap.includes(this.id)) {
       if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass) || talent === '101010') {
-        return cMap[this.id]
+        return 'super'
       }
     }
     return this._costume
@@ -108,7 +108,7 @@ export default class ProfileData extends Base {
 
   // toJSON 供保存使用
   toJSON () {
-    return this._proxy().getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,costume,elem,_time')
+    return this.getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,costume,elem,_time')
   }
 
   get updateTime () {
