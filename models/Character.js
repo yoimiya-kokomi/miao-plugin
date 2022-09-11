@@ -84,7 +84,7 @@ class Character extends Base {
   }
 
   getAttrList () {
-    let meta = this.meta
+    let { meta } = this
     return CharMeta.getAttrList(meta.baseAttr, meta.growAttr, this.elemName)
   }
 
@@ -92,18 +92,8 @@ class Character extends Base {
     return CharMeta.getMaterials(this)
   }
 
-  // 获取基础数据
-  get baseAttr () {
-    return this.meta.baseAttr
-  }
-
-  // 获取成长数据
-  get growAttr () {
-    return this.meta.growAttr
-  }
-
   get birthday () {
-    let birth = this.meta.birth
+    let birth = this.birth
     if (!birth) {
       return ''
     }

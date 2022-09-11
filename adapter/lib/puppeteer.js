@@ -112,9 +112,11 @@ class Puppeteer {
     let start = Date.now()
     try {
       this.shoting.push(name)
-
       const page = await this.browser.newPage()
-      await page.goto(`file://${_path}${lodash.trim(savePath, '.')}`)
+      page.setCacheEnabled(true)
+      await page.goto(`file://${_path}${lodash.trim(savePath, '.')}`, {
+        waitUntil: 'domcontentloaded'
+      })
       let body = await page.$('#container') || await page.$('body')
       await page.waitForSelector('#container')
       await page.waitForTimeout(100)

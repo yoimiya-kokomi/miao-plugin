@@ -2,18 +2,34 @@ import { Data } from '../components/index.js'
 
 let cacheMap = {}
 let reFn = {}
+let metaMap = {}
 
 export default class Base {
   constructor () {
     let proxy = new Proxy(this, {
       get (self, key, receiver) {
+        if (self._uuid && key === 'meta') {
+          return metaMap[self._uuid]
+        }
         if (key in self) {
           return Reflect.get(self, key, receiver)
         }
         if (self._get) {
           return self._get.call(receiver, key)
         }
-        return (self._meta || self._data || self.meta || {})[key]
+        if (self._uuid) {
+          return (metaMap[self._uuid] || {})[key]
+        } else {
+          return (self.meta || {})[key]
+        }
+      },
+      set (target, key, newValue) {
+        if (target._uuid && key === 'meta') {
+          metaMap[target._uuid] = newValue
+          return true
+        } else {
+          return Reflect.set(target, key, newValue)
+        }
       }
     })
     return proxy
@@ -50,30 +66,18 @@ export default class Base {
 
   // 设置超时时间
   _expire (time = 10 * 60) {
-    this._delCache()
+    let id = this._uuid
+    reFn[id] && clearTimeout(reFn[id])
     if (time > 0) {
-      let id = this._uuid
       if (id) {
         reFn[id] = setTimeout(() => {
           reFn[id] && clearTimeout(reFn[id])
           delete reFn[id]
           delete cacheMap[id]
+          delete metaMap[id]
         }, time * 1000)
       }
       return cacheMap[id]
-    } else {
-      return this._delCache()
     }
-  }
-
-  // 删除缓存
-  _delCache () {
-    let id = this._uuid
-    let ret = reFn[id] || false
-    if (id) {
-      reFn[id] && clearTimeout(reFn[id])
-      delete reFn[id]
-    }
-    return ret
   }
 }
