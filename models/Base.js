@@ -5,17 +5,18 @@ let reFn = {}
 
 export default class Base {
   constructor () {
-    return new Proxy(this, {
-      get (self, key) {
+    let proxy = new Proxy(this, {
+      get (self, key, receiver) {
         if (key in self) {
-          return self[key]
+          return Reflect.get(self, key, receiver)
         }
         if (self._get) {
-          return self._get(key)
+          return self._get.call(receiver, key)
         }
         return (self._meta || self._data || self.meta || {})[key]
       }
     })
+    return proxy
   }
 
   getData (arrList = '', cfg = {}) {

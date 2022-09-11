@@ -125,7 +125,6 @@ export default class ProfileArtis extends Base {
         return false
       }
     })
-    console.log(attr, pos, mainAttr, check)
     return check
   }
 

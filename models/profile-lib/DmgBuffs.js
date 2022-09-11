@@ -8,26 +8,15 @@ let artisBuffs = {}
 
 let DmgBuffs = {
   // 圣遗物Buff
-  getArtisBuffs (artis) {
+  getArtisBuffs (artis = {}) {
+    if (!artis) {
+      return []
+    }
     let buffs = artisBuffs
-    let setMap = {}
-    lodash.forEach(artis, (arti, name) => {
-      if (lodash.isNumber(arti)) {
-        setMap[name] = arti
-      } else {
-        if (arti && arti.set) {
-          let name = arti.set
-          setMap[name] = (setMap[name] || 0) + 1
-        }
-      }
-    })
     let retBuffs = []
-    lodash.forEach(setMap, (count, setName) => {
-      if (count >= 2 && buffs[setName + 2]) {
-        retBuffs.push(buffs[setName + 2])
-      }
-      if (count >= 4 && buffs[setName + 4]) {
-        retBuffs.push(buffs[setName + 4])
+    lodash.forEach(artis, (v, k) => {
+      if (buffs[k + v]) {
+        retBuffs.push(buffs[k + v])
       }
     })
     return retBuffs
@@ -55,7 +44,7 @@ let DmgBuffs = {
 
   getBuffs (profile, buffs = []) {
     let weaponBuffs = DmgBuffs.getWeaponBuffs(profile.weapon?.name || '')
-    let artisBuffs = DmgBuffs.getArtisBuffs(profile.artis || {})
+    let artisBuffs = DmgBuffs.getArtisBuffs(profile.artis)
     buffs = lodash.concat(buffs, weaponBuffs, artisBuffs)
     let mKey = {
       zf: '蒸发',
