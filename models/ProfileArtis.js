@@ -58,7 +58,7 @@ export default class ProfileArtis extends Base {
     let artis = this.artis
     switch (key) {
       case 'length':
-        return artis.length
+        return lodash.keys(artis).length
     }
     if (artis[key]) {
       return artis[key]
