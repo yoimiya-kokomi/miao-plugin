@@ -11,6 +11,11 @@ async function init () {
     if (fs.existsSync(`${charPath}/${char}/artis.js`)) {
       charCfg[char] = await Data.importModule(`resources/meta/character/${char}/artis.js`)
     }
+    if (fs.existsSync(`${charPath}/${char}/artis_user.js`)) {
+      charCfg[char] = await Data.importModule(`resources/meta/character/${char}/artis_user.js`)
+    }
+    
+    
   }
 }
 
@@ -30,7 +35,7 @@ const CharArtis = {
       let title = '通用'
       let weight = attrWeight || usefulAttr[char.name] || { atk: 75, cp: 100, cd: 100 }
       if (artis.is('绝缘4') && weight.recharge < 75) {
-        weight.recharge = 75
+        weight.recharge += 25
         title = '绝缘4'
       }
       return {
@@ -44,7 +49,7 @@ const CharArtis = {
     }
 
     if (charRule) {
-      return charRule({ attr, artis, rule, def, weapon: profile.weapon })
+      return charRule({ attr, artis, rule, def, weapon: profile.weapon,cons:profile.cons })
     }
   }
 }

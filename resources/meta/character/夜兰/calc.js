@@ -3,8 +3,8 @@ export const details = [{
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2')
 
 }, {
-  title: 'E络命丝伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
+  title: 'E络命丝蒸发伤害',
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e','zf')
 
 }, {
   title: 'Q协同单段伤害',
