@@ -11,11 +11,10 @@ async function init () {
     if (fs.existsSync(`${charPath}/${char}/artis.js`)) {
       charCfg[char] = await Data.importModule(`resources/meta/character/${char}/artis.js`)
     }
+    // 允许自定义配置文件，会覆盖喵喵版评分规则
     if (fs.existsSync(`${charPath}/${char}/artis_user.js`)) {
       charCfg[char] = await Data.importModule(`resources/meta/character/${char}/artis_user.js`)
     }
-    
-    
   }
 }
 
@@ -35,7 +34,7 @@ const CharArtis = {
       let title = '通用'
       let weight = attrWeight || usefulAttr[char.name] || { atk: 75, cp: 100, cd: 100 }
       if (artis.is('绝缘4') && weight.recharge < 75) {
-        weight.recharge += 25
+        weight.recharge = 75
         title = '绝缘4'
       }
       return {
@@ -49,7 +48,7 @@ const CharArtis = {
     }
 
     if (charRule) {
-      return charRule({ attr, artis, rule, def, weapon: profile.weapon,cons:profile.cons })
+      return charRule({ attr, artis, rule, def, weapon: profile.weapon, cons: profile.cons })
     }
   }
 }
