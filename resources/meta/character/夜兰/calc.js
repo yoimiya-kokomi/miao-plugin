@@ -3,11 +3,16 @@ export const details = [{
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2')
 
 }, {
-  title: 'E络命丝蒸发伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e','zf')
+  title: 'E络命丝伤害',
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
+
+}, {
+  title: 'E络命丝蒸发',
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'zf')
 
 }, {
   title: 'Q协同单段伤害',
+  params: { q: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
   }
@@ -26,4 +31,9 @@ export const buffs = [{
   data: {
     hpPct: 40
   }
-}]
+}, {
+  title: '夜兰被动：Q持续过程中满层Buff下提高伤害50%',
+  data: {
+    dmg: ({ params }) => params.q ? 50 : 0
+  }
+}, 'zf']
