@@ -14,5 +14,5 @@ export default function ({ attr, weapon, rule, def }) {
     let temp = 15 + 5*weapon.affix
     return rule('行秋-绿剑', { hp: temp, atk: 60, cp: 100, cd: 100, mastery: 0, dmg: 100, recharge: 0 })
   }
-  return def({ hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 40, phy: 100, recharge: 40, heal: 0 })
+  return def({ hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 100, recharge: 40, heal: 0 })
 }

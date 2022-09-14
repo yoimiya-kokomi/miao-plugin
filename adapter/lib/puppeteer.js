@@ -115,11 +115,10 @@ class Puppeteer {
       const page = await this.browser.newPage()
       page.setCacheEnabled(true)
       await page.goto(`file://${_path}${lodash.trim(savePath, '.')}`, {
-        waitUntil: 'domcontentloaded'
+        waitUntil: 'networkidle0'
       })
       let body = await page.$('#container') || await page.$('body')
       await page.waitForSelector('#container')
-      await page.waitForTimeout(100)
       let randData = {
         // encoding: 'base64',
         type: data.imgType || 'jpeg',

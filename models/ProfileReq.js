@@ -66,9 +66,19 @@ export default class ProfileReq extends Base {
     let data = {}
     try {
       let params = reqParam.params || {}
-      params.timeout = params.timeout || 1000 * 10
+      params.timeout = params.timeout || 1000 * 20
       let req = await fetch(reqParam.url, params)
-      data = await req.json()
+      data = await req.text()
+      if(data[0] === '<'){
+        let titleRet = /<title>(.+)<\/title>/.exec(data)
+        if(titleRet && titleRet[1]) {
+          data = { error: titleRet[1] }
+        } else {
+          return this.err('error', 60)
+        }
+      } else {
+        data = JSON.parse(data)
+      }
     } catch (e) {
       console.log('面板请求错误', e)
       data = {}

@@ -9,7 +9,9 @@ export default new ProfileServ({
 
   // 处理请求参数
   async request (api) {
-    let params = { headers: { 'User-Agent': this.getCfg('userAgent') } }
+    let params = {
+      headers: { 'User-Agent': this.getCfg('userAgent') }
+    }
     let proxy = this.getCfg('proxyAgent')
     if (proxy) {
       let { HttpsProxyAgent } = await Data.import('https-proxy-agent')
@@ -21,6 +23,9 @@ export default new ProfileServ({
   // 处理服务返回
   async response (data, req) {
     if (!data.playerInfo) {
+      if(data.error) {
+        console.log(`Enka ReqErr: ${data.error}`)
+      }
       return req.err('error', 60)
     }
     let details = data.avatarInfoList
