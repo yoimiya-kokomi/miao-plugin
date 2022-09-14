@@ -12,11 +12,11 @@ export const attrValue = {
 }
 export const attrMap = {
   atk: { title: '大攻击', format: 'pct', type: 'normal', value: 5.83, text: '5.83%' },
-  atkPlus: { title: '小攻击', format: 'comma', type: 'plus' },
+  atkPlus: { title: '小攻击', format: 'comma', type: 'plus', base: 'atk', value: 15.56 },
   def: { title: '大防御', format: 'pct', type: 'normal', value: 7.29, text: '7.29%' },
-  defPlus: { title: '小防御', format: 'comma', type: 'plus' },
+  defPlus: { title: '小防御', format: 'comma', type: 'plus', base: 'def', value: 18.52 },
   hp: { title: '大生命', format: 'pct', type: 'normal', value: 5.83, text: '5.83%' },
-  hpPlus: { title: '小生命', format: 'comma', type: 'plus' },
+  hpPlus: { title: '小生命', format: 'comma', type: 'plus', base: 'hp', value: 239.0 },
   cp: { title: '暴击率', format: 'pct', type: 'normal', value: 3.89, text: '3.89%' },
   cd: { title: '暴击伤害', format: 'pct', type: 'normal', value: 7.77, text: '7.77%' },
   mastery: { title: '元素精通', format: 'comma', type: 'normal', value: 23.31, text: '23.31' },

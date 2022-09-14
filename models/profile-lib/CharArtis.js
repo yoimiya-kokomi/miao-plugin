@@ -20,8 +20,16 @@ async function init () {
 
 await init()
 const CharArtis = {
+  reduceWeight (weight, key, plus, max) {
+    let original = weight[key] || 0
+    if (original < max) {
+      weight[key] = Math.max(original + plus, max)
+      return true
+    }
+    return false
+  },
   getCharArtisCfg (char, profile, artis) {
-    let { attr } = profile
+    let { attr, weapon } = profile
 
     let rule = function (title, attrWeight) {
       return {
@@ -31,12 +39,55 @@ const CharArtis = {
     }
 
     let def = function (attrWeight) {
-      let title = '通用'
+      let title = []
       let weight = attrWeight || usefulAttr[char.name] || { atk: 75, cp: 100, cd: 100 }
-      if (artis.is('绝缘4') && weight.recharge < 75) {
-        weight.recharge = 75
-        title = '绝缘4'
+      let check = (key, max = 75, maxPlus = 75, isWeapon = true) => {
+        let original = weight[key] || 0
+        if (original < max) {
+          let plus = isWeapon ? maxPlus * (1 + weapon.affix / 5) / 2 : maxPlus
+          weight[key] = Math.min(Math.round(original + plus), max)
+          return true
+        }
+        return false
       }
+      let wn = weapon.name
+
+      // 增加攻击力或直接伤害类武器判定
+      const weaponCfg = {
+        磐岩结绿: {
+          attr: 'hp',
+          abbr: '绿剑'
+        },
+        赤角石溃杵: {
+          attr: 'def',
+          abbr: '赤角'
+        },
+        猎人之径: {
+          attr: 'mastery'
+        },
+        薙草之稻光: {
+          attr: 'recharge',
+          abbr: '薙刀'
+        }
+      }
+      if (weight.atk > 0 && weaponCfg[wn]) {
+        let wCfg = weaponCfg[wn]
+        if (check(wCfg.attr, wCfg.max || 75, wCfg.plus || 75)) {
+          title.push(wCfg.abbr || wn)
+        }
+      }
+
+      // 不与攻击力挂钩的武器判定
+      if (wn === '辰砂之纺锤' && check('def')) {
+        title.push('纺锤')
+      }
+
+      // 圣遗物判定
+      if (artis.is('绝缘4') && check('recharge', 75, 45, false)) {
+        title.push('绝缘4')
+      }
+
+      title = title.length > 0 ? title.join('') : '通用'
       return {
         title: `${char.abbr}-${title}`,
         attrWeight: weight
@@ -48,7 +99,7 @@ const CharArtis = {
     }
 
     if (charRule) {
-      return charRule({ attr, artis, rule, def, weapon: profile.weapon, cons: profile.cons })
+      return charRule({ attr, artis, rule, def, weapon, cons: profile.cons })
     }
   }
 }

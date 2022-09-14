@@ -117,7 +117,7 @@ let ArtisMark = {
     let val = ds.value || ds[1]
     return (attrMark[attr] || 0) * val
   },
-  getMaxMark (attrWeight) {
+  getMaxMark (attrs) {
     let ret = {}
     for (let idx = 1; idx <= 5; idx++) {
       let totalMark = 0
@@ -128,26 +128,26 @@ let ArtisMark = {
       } else if (idx === 2) {
         mAttr = 'atkPlus'
       } else if (idx >= 3) {
-        mAttr = ArtisMark.getMaxAttr(attrWeight, mainAttr[idx])[0]
-        mMark = attrWeight[mAttr]
-        totalMark += attrWeight[mAttr] * 2
+        mAttr = ArtisMark.getMaxAttr(attrs, mainAttr[idx])[0]
+        mMark = attrs[mAttr].fixWeight
+        totalMark += attrs[mAttr].fixWeight * 2
       }
 
-      let sAttr = ArtisMark.getMaxAttr(attrWeight, subAttr, 4, mAttr)
+      let sAttr = ArtisMark.getMaxAttr(attrs, subAttr, 4, mAttr)
       lodash.forEach(sAttr, (attr, aIdx) => {
-        totalMark += attrWeight[attr] * (aIdx === 0 ? 6 : 1)
+        totalMark += attrs[attr].fixWeight * (aIdx === 0 ? 6 : 1)
       })
       ret[idx] = totalMark
       ret['m' + idx] = mMark
     }
     return ret
   },
-  getMaxAttr (charAttr = {}, list2 = [], maxLen = 1, banAttr = '') {
+  getMaxAttr (attrs = {}, list2 = [], maxLen = 1, banAttr = '') {
     let tmp = []
     lodash.forEach(list2, (attr) => {
       if (attr === banAttr) return
-      if (!charAttr[attr]) return
-      tmp.push({ attr, mark: charAttr[attr] })
+      if (!attrs[attr]) return
+      tmp.push({ attr, mark: attrs[attr].fixWeight })
     })
     tmp = lodash.sortBy(tmp, 'mark')
     tmp = tmp.reverse()

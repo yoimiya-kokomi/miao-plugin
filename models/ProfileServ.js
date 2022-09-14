@@ -49,7 +49,7 @@ export default class ProfileServ extends Base {
 
     return {
       url: param.api || api,
-      params: param.params ||  {}
+      params: param.params || {}
     }
   }
 

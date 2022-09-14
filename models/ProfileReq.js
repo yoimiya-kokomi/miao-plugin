@@ -69,9 +69,9 @@ export default class ProfileReq extends Base {
       params.timeout = params.timeout || 1000 * 20
       let req = await fetch(reqParam.url, params)
       data = await req.text()
-      if(data[0] === '<'){
+      if (data[0] === '<') {
         let titleRet = /<title>(.+)<\/title>/.exec(data)
-        if(titleRet && titleRet[1]) {
+        if (titleRet && titleRet[1]) {
           data = { error: titleRet[1] }
         } else {
           return this.err('error', 60)

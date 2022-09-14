@@ -155,47 +155,36 @@ export default class ProfileArtis extends Base {
 
   getCharCfg () {
     let char = Character.get(this.charid)
-    // let { attrWeight, title } = char.getArtisMarkCfg(this.profile, this)
     let { attrWeight, title } = CharArtis.getCharArtisCfg(char, this.profile, this)
-    let attrMark = {}
-
+    let attrs = {}
     let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
-    lodash.forEach(attrWeight, (weight, attr) => {
-      attrMark[attr] = weight / attrValue[attr]
-    })
-
-    // let baseAttr = [400, 500, 300];
-    if (attrMark.hp) {
-      attrMark.hpPlus = attrMark.hp / baseAttr.hp * 100
-    }
-    if (attrMark.atk) {
-      // 以520作为武器白值均值计算
-      attrMark.atkPlus = attrMark.atk / (baseAttr.atk * 1 + 520) * 100
-    }
-    if (attrMark.def) {
-      attrMark.defPlus = attrMark.def / baseAttr.def * 100
-    }
-    let maxMark = ArtisMark.getMaxMark(attrWeight)
-    let titleMark = {}
-    let titleWeight = {}
-    lodash.forEach(attrMark, (mark, attr) => {
-      let aTitle = attrMap[attr].title
-      if (/小/.test(aTitle)) {
-        return
+    lodash.forEach(attrMap, (attr, key) => {
+      let k = attr.base || ''
+      let weight = attrWeight[k || key]
+      if (!weight || weight * 1 === 0) {
+        return true
       }
-      titleMark[aTitle] = mark
-      titleWeight[aTitle] = attrWeight[attr] || 0
-      if (/大/.test(aTitle)) {
-        let sTitle = aTitle.replace('大', '小')
-        titleWeight[sTitle] = titleWeight[aTitle]
+      let ret = {
+        ...attr,
+        weight,
+        fixWeight: weight,
+        mark: weight / attrValue[key]
       }
+      if (!k) {
+        ret.mark = weight / attrValue[key]
+      } else {
+        let plus = k === 'atk' ? 520 : 0
+        ret.mark = weight / attrValue[k] / (baseAttr[k] + plus) * 100
+        ret.fixWeight = weight * attr.value / attrMap[k].value / (baseAttr[k] + plus) * 100
+      }
+      attrs[key] = ret
     })
+    let maxMark = ArtisMark.getMaxMark(attrs)
     return {
+      attrs,
       classTitle: title,
       weight: attrWeight,
-      mark: attrMark,
-      titleMap: titleMark,
-      titleWeight,
+      mark: lodash.mapValues(attrs, (ds) => ds.mark),
       maxMark
     }
   }
@@ -204,7 +193,10 @@ export default class ProfileArtis extends Base {
     let charCfg = this.getCharCfg()
     let artis = {}
     let setCount = {}
-    let usefulMark = charCfg.titleWeight
+    let usefulMark = {}
+    lodash.forEach(charCfg.attrs, (ds) => {
+      usefulMark[ds.title] = ds.weight
+    })
     let totalMark = 0
     this.forEach((arti, idx) => {
       let mark = ArtisMark.getMark(charCfg, idx, arti.main, arti.attrs)

@@ -23,7 +23,7 @@ export default new ProfileServ({
   // 处理服务返回
   async response (data, req) {
     if (!data.playerInfo) {
-      if(data.error) {
+      if (data.error) {
         console.log(`Enka ReqErr: ${data.error}`)
       }
       return req.err('error', 60)
