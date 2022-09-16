@@ -70,11 +70,11 @@ export default class ProfileArtis extends Base {
   }
 
   get sets () {
-    return this.getSetData().sets
+    return this.getSetData().sets || {}
   }
 
   get names () {
-    return this.getSetData().names
+    return this.getSetData().names || []
   }
 
   mainAttr (idx = '') {
