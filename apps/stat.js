@@ -4,11 +4,35 @@
 * */
 import lodash from 'lodash'
 import fs from 'fs'
-import { Cfg, Common } from '../components/index.js'
+import { Cfg, Common, App } from '../components/index.js'
 import { Abyss, Avatars, Character } from '../models/index.js'
 import HutaoApi from './stat/HutaoApi.js'
 
-export async function consStat (e) {
+let app = App.init({
+  id: 'stat',
+  name: '喵喵帮助',
+  desc: '喵喵帮助'
+})
+
+app.reg('cons-stat', consStat, {
+  rule: /^#(喵喵)?角色(持有|持有率|命座|命之座|.命)(分布|统计|持有|持有率)?$/,
+  desc: '【#统计】 #角色持有率 #角色5命统计'
+})
+app.reg('abyss-pct', abyssPct, {
+  rule: /^#(喵喵)?深渊(第?.{1,2}层)?(角色)?(出场|使用)(率|统计)*$/,
+  desc: '【#统计】 #深渊出场率 #深渊12层出场率'
+})
+app.reg('abyss-team', abyssTeam, {
+  rule: /#深渊(组队|配队)/,
+  describe: '【#角色】 #深渊组队'
+})
+app.reg('upload-data', uploadData, {
+  rule: /^#*(喵喵|上传|本期)*(深渊|深境|深境螺旋)[ |0-9]*(数据)?$/,
+  desc: '上传深渊'
+})
+export default app
+
+async function consStat (e) {
   if (Cfg.isDisable(e, 'wiki.stat')) {
     return
   }
@@ -91,7 +115,7 @@ export async function consStat (e) {
   }, { e, scale: 1.5 })
 }
 
-export async function abyssPct (e) {
+async function abyssPct (e) {
   if (Cfg.isDisable(e, 'wiki.stat')) {
     return
   }
@@ -204,7 +228,7 @@ async function getTalentData (e, isUpdate = false) {
   return false
 }
 
-export async function abyssTeam (e) {
+async function abyssTeam (e) {
   if (Common.todoV3(e)) {
     return true
   }
@@ -401,7 +425,7 @@ export async function abyssTeam (e) {
   }, { e, scale: 1.5 })
 }
 
-export async function uploadData (e) {
+async function uploadData (e) {
   let isMatch = /^#(喵喵|上传)深渊(数据)?$/.test(e.original_msg || e.msg || '')
   if (!Cfg.get('wiki.abyss', false) && !isMatch) {
     return false
@@ -420,10 +444,9 @@ export async function uploadData (e) {
   }
   let ret = {}
   let uid = e.selfUser.uid
-  let resDetail, resAbyss, overview
+  let resDetail, resAbyss
   try {
     resAbyss = await MysApi.getSpiralAbyss(1)
-    // overview = await HutaoApi.getOverview()
     if (resAbyss.floors.length > 0 && !await Avatars.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }

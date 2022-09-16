@@ -1,7 +1,7 @@
 import { segment } from 'oicq'
 import lodash from 'lodash'
 import Calendar from './wiki/calendar.js'
-import { Format, Cfg, Common } from '../components/index.js'
+import { Format, Cfg, Common, App } from '../components/index.js'
 import { Character } from '../models/index.js'
 import CharWiki from './wiki/CharWiki.js'
 
@@ -12,7 +12,23 @@ let action = {
   }
 }
 
-export async function wiki (e) {
+let app = App.init({
+  id: 'wiki',
+  name: '喵喵帮助',
+  desc: '喵喵帮助'
+})
+app.reg('wiki', wiki, {
+  rule: /^(#|喵喵)?.*(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/,
+  desc: '【#资料】 #神里天赋 #夜兰命座'
+})
+app.reg('calendar', calendar, {
+  rule: /^(#|喵喵)+(日历|日历列表)$/,
+  desc: '【#日历】 活动日历'
+})
+
+export default app
+
+async function wiki (e) {
   if (!e.msg) {
     return false
   }
@@ -129,7 +145,7 @@ const getLineData = function (char) {
   return ret
 }
 
-export async function calendar (e) {
+async function calendar (e) {
   let calData = await Calendar.get()
   let mode = 'calendar'
   if (/(日历列表|活动)$/.test(e.msg)) {

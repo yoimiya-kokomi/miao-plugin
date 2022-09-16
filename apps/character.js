@@ -1,28 +1,85 @@
-import { Common, Cfg } from '../components/index.js'
-import { renderAvatar } from './character/avatar-card.js'
-import { getTargetUid, getProfile, profileHelp, getProfileAll, inputProfile } from './character/profile-common.js'
-import { profileArtis } from './character/profile-artis.js'
-import { renderProfile } from './character/profile-detail.js'
+import { Common, Cfg, App } from '../components/index.js'
 import { Character } from '../models/index.js'
-//
-export { getProfileAll, getProfile, profileHelp }
-
-export { enemyLv, getOriginalPicture } from './character/utils.js'
-
+import { renderAvatar } from './character/avatar-card.js'
+import { getTargetUid, getProfile, profileHelp, inputProfile } from './character/profile-common.js'
+import { profileArtis, profileArtisList } from './character/profile-artis.js'
+import { renderProfile } from './character/profile-detail.js'
 // 角色图像上传
-export { uploadCharacterImg } from './character/character-img-upload.js'
-
-// 圣遗物列表
-export { profileArtisList } from './character/profile-artis.js'
-
-// 老婆
-export { wife, pokeWife, wifeReg } from './character/avatar-wife.js'
-
-// 面板角色列表
-export { profileList } from './character/profile-list.js'
+import { uploadCharacterImg } from './character/character-img-upload.js'
 
 // 面板练度统计
-export { profileStat } from './character/profile-stat.js'
+import { profileStat } from './character/profile-stat.js'
+
+// 面板角色列表
+import { profileList } from './character/profile-list.js'
+
+// 老婆
+import { wife, pokeWife, wifeReg } from './character/avatar-wife.js'
+
+import { enemyLv, getOriginalPicture } from './character/utils.js'
+
+let app = App.init({
+  id: 'character',
+  name: '角色查询',
+  desc: '角色查询'
+})
+app.reg('character', character, {
+  rule: /^(#(.*)|#*(更新|录入)?(.*)(详细|详情|面板|面版|伤害[1-7]?)(更新)?)$/,
+  name: '角色查询'
+})
+
+app.reg('upload-img', uploadCharacterImg, {
+  rule: /^#*(喵喵)?(上传|添加)(.+)(照片|写真|图片|图像)\s*$/,
+  name: '上传角色写真'
+})
+
+app.reg('artis-list', profileArtisList, {
+  rule: /^#圣遗物列表\s*(\d{9})?$/,
+  name: '面板圣遗物列表'
+})
+
+app.reg('profile-list', profileList, {
+  rule: /^#(面板角色|角色面板|面板)(列表)?\s*(\d{9})?$/,
+  name: '面板角色列表',
+  desc: '查看当前已获取面板数据的角色列表'
+})
+
+app.reg('profile-stat', profileStat, {
+  rule: /^#面板练度统计$/,
+  name: '面板练度统计$'
+})
+
+app.reg('profile-help', profileHelp, {
+  rule: /^#角色面板帮助$/,
+  name: '角色面板帮助'
+})
+
+app.reg('wife', wife, {
+  rule: wifeReg,
+  describe: '#老公 #老婆 查询'
+})
+
+app.reg('pock-wife', pokeWife, {
+  rule: '#poke#',
+  describe: '#老公 #老婆 查询'
+})
+
+app.reg('original-pic', getOriginalPicture, {
+  rule: /^#?(获取|给我|我要|求|发|发下|发个|发一下)?原图(吧|呗)?$/,
+  describe: '【#原图】 回复角色卡片，可获取原图'
+})
+
+app.reg('enemy-lv', enemyLv, {
+  rule: /^#(敌人|怪物)等级\s*\d{1,3}\s*$/,
+  describe: '【#角色】 设置伤害计算中目标敌人的等级'
+})
+
+app.reg('profile-refresh', getProfile, {
+  rule: /^#(全部面板更新|更新全部面板|获取游戏角色详情|更新面板|面板更新)\s*(\d{9})?$/,
+  describe: '【#角色】 获取游戏橱窗详情数据'
+})
+
+export default app
 
 // 查看当前角色
 export async function character (e) {
@@ -39,7 +96,7 @@ export async function character (e) {
   }
   let name = msg.replace(/#|老婆|老公/g, '').trim()
   msg = msg.replace('面版', '面板')
-  let dmgRet = /伤害(\d?)$/.exec(name);
+  let dmgRet = /伤害(\d?)$/.exec(name)
   let dmgIdx = 0
   if (/(详情|详细|面板|面版)\s*$/.test(msg) && !/更新|录入|输入/.test(msg)) {
     mode = 'profile'
@@ -77,7 +134,7 @@ export async function character (e) {
     }
     if (e.isPrivate) {
       if ((e.sub_type === 'friend' && Cfg.get('profile.friend.status') === false) ||
-          (e.sub_type === 'group' && Cfg.get('profile.stranger.status') === false)) {
+        (e.sub_type === 'group' && Cfg.get('profile.stranger.status') === false)) {
         return
       }
     } else if (e.isGroup) {

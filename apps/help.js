@@ -1,16 +1,34 @@
 import lodash from 'lodash'
 import fs from 'fs'
-import { Cfg, Version, Common } from '../components/index.js'
+import { Cfg, Version, Common, App } from '../components/index.js'
+
+let app = App.init({
+  id: 'help',
+  name: '喵喵帮助',
+  desc: '喵喵帮助'
+})
+
+app.reg('help', help, {
+  rule: /^#?(喵喵)?(命令|帮助|菜单|help|说明|功能|指令|使用说明)$/,
+  desc: '【#帮助】 #喵喵帮助'
+})
+
+app.reg('version', versionInfo, {
+  rule: /^#?喵喵版本$/,
+  desc: '【#帮助】 喵喵版本介绍'
+})
+
+export default app
 
 const _path = process.cwd()
 const helpPath = `${_path}/plugins/miao-plugin/resources/help`
 
-export async function help (e) {
+async function help (e) {
   if (!/喵喵/.test(e.msg) && !Cfg.get('sys.help', false)) {
     return false
   }
 
-  let custom = {};
+  let custom = {}
   let help = {}
   if (fs.existsSync(`${helpPath}/help-cfg.js`)) {
     help = await import(`file://${helpPath}/help-cfg.js?version=${new Date().getTime()}`)
@@ -45,7 +63,7 @@ export async function help (e) {
       if (!icon) {
         help.css = 'display:none'
       } else {
-        let x = (icon - 1) % 10;
+        let x = (icon - 1) % 10
         let y = (icon - x - 1) / 10
         help.css = `background-position:-${x * 50}px -${y * 50}px`
       }
@@ -61,7 +79,7 @@ export async function help (e) {
   }, { e, scale: 1.2 })
 }
 
-export async function versionInfo (e) {
+async function versionInfo (e) {
   return await Common.render('help/version-info', {
     currentVersion: Version.version,
     changelogs: Version.changelogs,
