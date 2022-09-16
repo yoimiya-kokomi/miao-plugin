@@ -1,11 +1,7 @@
 import { Data, Version } from './components/index.js'
 
 export * from './apps/index.js'
-let index = { miao: {} }
-if (Version.isV3) {
-  index = await Data.importModule('adapter/v3-entrance.js')
-}
-export const miao = index.miao || {}
+
 if (Bot?.logger?.info) {
   Bot.logger.info('---------^_^---------')
   Bot.logger.info(`喵喵插件${Version.version}初始化~`)

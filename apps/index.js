@@ -10,12 +10,12 @@ export const helpApp = help.v2()
 export const statApp = stat.v2()
 export const wikiApp = wiki.v2()
 
-let rule = {
-  characterApp: character.rule(),
-  adminApp: character.rule(),
-  helpApp: help.rule(),
-  statApp: stat.rule(),
-  wikiApp: wiki.rule()
+let apps = { character, admin, help, stat, wiki }
+let rule = {} // v2
+let rules = {} // v3
+for (let key in apps) {
+  rule[`${key}App`] = apps[key].rule()
+  rules[`${key}`] = apps[key].app()
 }
 
-export { rule }
+export { rule, rules as apps }

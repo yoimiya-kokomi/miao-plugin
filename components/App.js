@@ -1,4 +1,6 @@
+import lodash from 'lodash'
 import { plugin } from '../adapter/index.js'
+import { getMysApi, checkAuth } from '../adapter/mys.js'
 
 class App {
   constructor (cfg) {
@@ -8,16 +10,16 @@ class App {
   }
 
   reg (key, fn, cfg = {}) {
-    //TODO: 参数校验
     this.apps[key] = {
       fn,
       ...cfg
     }
   }
 
-  getPlugins () {
+  app () {
     let cfg = this.cfg || {}
-    let rule = this.getV3Rule()
+    let rules = []
+
     let cls = class extends plugin {
       constructor () {
         super({
@@ -25,14 +27,42 @@ class App {
           desc: cfg.desc || '喵喵插件',
           event: 'message',
           priority: 50,
-          rule
+          rule: rules
         })
       }
+    }
 
-      async app (e) {
+    for (let key in this.apps) {
+      let app = this.apps[key]
+      key = lodash.camelCase(key)
+      let rule = app.rule || app.reg || 'noCheck'
+      if (typeof (rule) === 'string') {
+        if (rule === '#poke#') {
+          continue
+        } else if (rule === 'noCheck') {
+          rule = '.+'
+        }
+      } else {
+        rule = lodash.trim(rule.toString(), '/')
+      }
+
+      rules.push({
+        reg: rule,
+        fnc: key
+      })
+
+      cls.prototype[key] = async function () {
+        let e = this.e
+        e.original_msg = e.original_msg || e.msg
+        e.checkAuth = e.checkAuth || async function (cfg) {
+          return await checkAuth(e, cfg)
+        }
+        e.getMysApi = e.getMysApi || async function (cfg) {
+          return await getMysApi(e, cfg)
+        }
+        return await app.fn.call(this, e)
       }
     }
-    cls.test = 1
     return cls
   }
 
