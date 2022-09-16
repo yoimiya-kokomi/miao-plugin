@@ -1,6 +1,6 @@
 export default function ({ attr, artis, rule, def }) {
   // 宵宫纯色流派
-  if (attr.mastery < 50 && attr.cp * 2 + attr.cd > 320) {
+  if (attr.mastery < 50 && attr.cpct * 2 + attr.cdmg > 320) {
     return rule('宵宫-纯火', { atk: 85, cp: 100, cd: 100, dmg: 100 })
   }
   if (attr.mastery > 200 && artis.is('mastery', 3)) {
