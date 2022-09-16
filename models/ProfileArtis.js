@@ -180,6 +180,7 @@ export default class ProfileArtis extends Base {
       attrs[key] = ret
     })
     let maxMark = ArtisMark.getMaxMark(attrs)
+    // 返回内容待梳理简化
     return {
       attrs,
       classTitle: title,
