@@ -82,8 +82,9 @@ const CharArtis = {
         title.push('纺锤')
       }
 
-      // 圣遗物判定
-      if (artis.is('绝缘4') && check('recharge', 75, 45, false)) {
+      // 圣遗物判定，如果是绝缘4，将充能权重拉高至沙漏圣遗物当前最高权重齐平
+      let maxWeight = Math.max(weight.atk || 0, weight.hp || 0, weight.def || 0, weight.mastery || 0)
+      if (artis.is('绝缘4') && check('recharge', maxWeight, 75, false)) {
         title.push('绝缘4')
       }
 
