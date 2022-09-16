@@ -10,8 +10,7 @@ import HutaoApi from './stat/HutaoApi.js'
 
 let app = App.init({
   id: 'stat',
-  name: '喵喵帮助',
-  desc: '喵喵帮助'
+  name: '深渊统计'
 })
 
 app.reg('cons-stat', consStat, {

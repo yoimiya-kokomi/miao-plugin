@@ -14,8 +14,7 @@ let action = {
 
 let app = App.init({
   id: 'wiki',
-  name: '喵喵帮助',
-  desc: '喵喵帮助'
+  name: '角色资料'
 })
 app.reg('wiki', wiki, {
   rule: /^(#|喵喵)?.*(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/,

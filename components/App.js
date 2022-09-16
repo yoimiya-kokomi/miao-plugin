@@ -24,7 +24,7 @@ class App {
       constructor () {
         super({
           name: `喵喵:${cfg.name || cfg.id}`,
-          desc: cfg.desc || '喵喵插件',
+          desc: cfg.desc || cfg.name || '喵喵插件',
           event: 'message',
           priority: 50,
           rule: rules

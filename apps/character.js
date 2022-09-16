@@ -20,8 +20,7 @@ import { enemyLv, getOriginalPicture } from './character/utils.js'
 
 let app = App.init({
   id: 'character',
-  name: '角色查询',
-  desc: '角色查询'
+  name: '角色查询'
 })
 app.reg('character', character, {
   rule: /^(#(.*)|#*(更新|录入)?(.*)(详细|详情|面板|面版|伤害[1-7]?)(更新)?)$/,
