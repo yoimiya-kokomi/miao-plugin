@@ -32,15 +32,15 @@ class User {
 
 class Mys {
   constructor (e, uid, MysApi) {
+    let ckUid = MysApi.ckInfo?.uid
     this.selfUser = new User({ id: e.user_id, uid })
-    this.targetUser = {
-      uid
-    }
+    this.targetUser = this.selfUser
     this.e = e
     this.MysApi = MysApi
+
     e.targetUser = this.targetUser
     e.selfUser = this.selfUser
-    e.isSelfCookie = true
+    e.isSelfCookie = uid === ckUid
   }
 
   async getData (api, data) {
@@ -104,7 +104,7 @@ class Mys {
   }
 
   get isSelfCookie () {
-    return true
+    return this.e.isSelfCookie
   }
 }
 
@@ -124,7 +124,6 @@ export async function getMysApi (e, cfg) {
       return false
     }
   }
-  e.isSelfCookie = uid !== ckUid
   return new Mys(e, uid, MysApi)
 }
 
