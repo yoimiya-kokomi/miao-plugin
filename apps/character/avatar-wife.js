@@ -34,7 +34,7 @@ const relationMap = {
 const relation = lodash.flatMap(relationMap, (d) => d.keyword)
 export const wifeReg = `^#?\\s*(${relation.join('|')})\\s*(设置|选择|指定|列表|查询|列表|是|是谁|照片|相片|图片|写真|图像)?\\s*([^\\d]*)\\s*(\\d*)$`
 
-export async function wife (e, { User }) {
+export async function wife (e) {
   let msg = e.msg || ''
   if (!msg && !e.isPoke) return false
 

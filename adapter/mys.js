@@ -110,23 +110,21 @@ class Mys {
 
 export async function getMysApi (e, cfg) {
   let { auth = 'all' } = cfg
-  let uid = await MysInfo.getUid(e)
-  if (!uid) return false
-
-  /* 检查user ck */
-  let isCookieUser = await MysInfo.checkUidBing(uid)
-  if (auth === 'cookie') {
-    if (!isCookieUser) {
-      e.reply('尚未绑定Cookie...')
-      return false
-    }
-    e.isSelfCookie = true
-  }
   let MysApi = await MysInfo.init(e, 'roleIndex')
   if (!MysApi) {
     return false
   }
-  MysApi.isSelfCookie = !!e.isSelfCookie
+  let uid = MysApi.uid
+  let ckUid = MysApi.ckInfo?.uid
+  /* 检查user ck */
+  if (auth === 'cookie') {
+    let isCookieUser = await MysInfo.checkUidBing(uid)
+    if (!isCookieUser || uid !== ckUid) {
+      e.reply('尚未绑定Cookie...')
+      return false
+    }
+  }
+  e.isSelfCookie = uid !== ckUid
   return new Mys(e, uid, MysApi)
 }
 
@@ -140,10 +138,12 @@ export async function checkAuth (e, cfg) {
   }
 
   /* 检查user ck */
-  let isCookieUser = await MysInfo.checkUidBing(uid)
-  if (auth === 'cookie' && !isCookieUser) {
-    e.reply('尚未绑定Cookie...')
-    return false
+  if (auth === 'cookie') {
+    let isCookieUser = await MysInfo.checkUidBing(uid)
+    if (!isCookieUser) {
+      e.reply('尚未绑定Cookie...')
+      return false
+    }
   }
 
   e.selfUser = new User({ id: e.user_id, uid })
