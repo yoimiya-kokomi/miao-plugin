@@ -3,13 +3,8 @@ import { Character } from '../models/index.js'
 import { getTargetUid, getProfile, profileHelp, inputProfile } from './character/profile-common.js'
 import { profileArtis, profileArtisList } from './character/profile-artis.js'
 import { renderProfile } from './character/profile-detail.js'
-
-// 面板练度统计
 import { profileStat } from './character/profile-stat.js'
-
-// 面板角色列表
 import { profileList } from './character/profile-list.js'
-
 import { enemyLv } from './character/utils.js'
 
 let app = App.init({

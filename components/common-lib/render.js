@@ -28,7 +28,7 @@ export default async function (path, params, cfg) {
       copyright: `Created By Yunzai-Bot<span class="version">${Version.yunzai}</span> & Miao-Plugin<span class="version">${Version.version}</span>`
     }
   }
-  if (global.debugView === 'web-debug') {
+  if (process.argv.includes('web-debug')) {
     // debug下保存当前页面的渲染数据，方便模板编写与调试
     // 由于只用于调试，开发者只关注自己当时开发的文件即可，暂不考虑app及plugin的命名冲突
     let saveDir = _path + '/data/ViewData/'

@@ -1,12 +1,8 @@
-import { Common, Cfg, App } from '../components/index.js'
+import { Common, App } from '../components/index.js'
 import { Character } from '../models/index.js'
 import { renderAvatar } from './character/avatar-card.js'
-// 角色图像上传
 import { uploadCharacterImg } from './character/character-img-upload.js'
-
-// 老婆
 import { wife, wifeReg } from './character/avatar-wife.js'
-
 import { getOriginalPicture } from './character/utils.js'
 
 let app = App.init({

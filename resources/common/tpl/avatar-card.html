@@ -13,11 +13,11 @@
       <div class="avatar-level">Lv{{avatar.level}}</div>
     </div>
     {{set talent = avatar.talent || {} }}
-    {{if talent.a && talent.a.current }}
+    {{if talent.a && talent.a.level }}
     <div class="avatar-talent">
       {{each talentMap k}}
       {{set t = talent[k] || {} }}
-      <span class="talent-item talent-{{k}} talent-{{t.crown?'crown':'none'}} talent-{{t.plus?'plus':'none'}}">{{t.current}}</span>
+      <span class="talent-item talent-{{k}} talent-{{t.original===10?'crown':'none'}} talent-{{t.level>t.original?'plus':'none'}}">{{t.level}}</span>
       {{/each}}
     </div>
     {{else}}

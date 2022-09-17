@@ -1,4 +1,4 @@
-import { Artifact, Character } from '../../models/index.js'
+import { Artifact, Character, Avatars } from '../../models/index.js'
 import { Cfg, Data, Common, Profile } from '../../components/index.js'
 import lodash from 'lodash'
 import { segment } from 'oicq'
@@ -59,9 +59,10 @@ async function renderCard (e, avatar, renderType = 'card') {
   }
   let uid = e.uid || (e.targetUser && e.targetUser.uid)
 
-  let crownNum = 0;
+  let crownNum = 0
   let talent = {}
   if (!char.isCustom) {
+
     talent = await getTalent(e, avatar)
     // 计算皇冠个数
     crownNum = lodash.filter(lodash.map(talent, (d) => d.original), (d) => d >= 10).length
@@ -71,6 +72,7 @@ async function renderCard (e, avatar, renderType = 'card') {
     e.reply(segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + bg.img))
   } else {
     // 渲染图像
+    // let talent =
     let msgRes = await Common.render('character/character-card', {
       save_id: uid,
       uid,
@@ -93,17 +95,14 @@ async function renderCard (e, avatar, renderType = 'card') {
 
 // 获取角色技能数据
 async function getTalent (e, avatars) {
-  let talent = {};
-  let cons = 0;
-  let char = Character.get(avatars.id);
-  let mode = 'level'
+  let char = Character.get(avatars.id)
   if (char.isCustom) {
     return {}
   }
+  let uid = e.uid
   if (avatars.dataSource && avatars.talent) {
     // profile模式
-    talent = avatars.talent || {}
-    cons = avatars.cons || 0
+    return avatars.talent
   } else {
     let MysApi = await e.getMysApi({
       auth: 'all',
@@ -112,28 +111,9 @@ async function getTalent (e, avatars) {
       actionName: '查询信息'
     })
     if (!MysApi && !MysApi.isSelfCookie) return {}
-    let skillRes = await MysApi.getAvatar(avatars.id)
-    cons = avatars.actived_constellation_num
-    mode = 'original'
-    if (skillRes && skillRes.skill_list) {
-      let skillList = lodash.orderBy(skillRes.skill_list, ['id'], ['asc'])
-      for (let val of skillList) {
-        if (val.name.includes('普通攻击')) {
-          talent.a = val
-          continue
-        }
-        if (val.max_level >= 10 && !talent.e) {
-          talent.e = val
-          continue
-        }
-        if (val.max_level >= 10 && !talent.q) {
-          talent.q = val
-        }
-      }
-    }
+    let avatar = new Avatars(uid, [avatars])
+    return await avatar.getAvatarTalent(avatars.id, MysApi)
   }
-
-  return char.getAvatarTalent(talent, cons, mode)
 }
 
 /*

@@ -47,9 +47,9 @@
         </div>
 
         {{each tk talentKey}}
-        {{set curr = (avatar.talent||{})[talentKey] || {original:1,current:'-'} }}
-        <div class="td-talent lv{{talentLvMap[curr.original]}} {{curr.current>curr.original?'talent-plus':''}}">
-          {{curr.current}}
+        {{set curr = (avatar.talent||{})[talentKey] || {original:1,level:'-'} }}
+        <div class="td-talent lv{{talentLvMap[curr.original]}} {{curr.level>curr.original?'talent-plus':''}}">
+          {{curr.level}}
         </div>
         {{/each}}
 

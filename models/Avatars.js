@@ -99,50 +99,35 @@ export default class Avatars extends Base {
   }
 
   async getAvatarTalent (id, MysApi) {
-    let talent = { id, a: {}, e: {}, q: {} }
+    let talent = {}
     let talentRes = await MysApi.getDetail(id)
     let char = Character.get(id)
     let avatar = this.avatars[id]
     if (!char || !avatar) {
       return talent
     }
-    let consTalent = char.talentCons
     if (talentRes && talentRes.skill_list) {
       talent.id = id
       let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
       for (let val of talentList) {
         let { max_level: maxLv, level_current: lv } = val
-        let ds = {
-          current: lv,
-          original: lv,
-          crown: lv === maxLv
-        }
         if (val.name.includes('普通攻击')) {
-          talent.a = ds
+          talent.a = lv
           continue
         }
-        if (maxLv >= 10 && !talent.e?.current) {
-          talent.e = ds
+        if (maxLv >= 10 && !talent.e) {
+          talent.e = lv
           continue
         }
-        if (maxLv >= 10 && !talent.q?.current) {
-          talent.q = ds
+        if (maxLv >= 10 && !talent.q) {
+          talent.q = lv
           continue
         }
       }
-      lodash.forEach([3, 5], (c) => {
-        if (avatar.cons >= c) {
-          if (consTalent.e === c) {
-            talent.e.current += 3
-            talent.e.plus = true
-          } else if (consTalent.q === c) {
-            talent.q.current += 3
-            talent.q.plus = true
-          }
-        }
-      })
     }
-    return talent
+    let ret = char.getAvatarTalent(talent, avatar.cons, 'original')
+    ret.id = id
+    return ret
   }
 }
 
