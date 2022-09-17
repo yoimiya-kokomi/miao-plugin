@@ -3,7 +3,7 @@ import { pokeWife } from './character/avatar-wife.js'
 
 let app = App.init({
   id: 'poke',
-  name: '角色查询',
+  name: '戳一戳',
   event: 'poke'
 })
 
