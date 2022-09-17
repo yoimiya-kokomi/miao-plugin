@@ -16,7 +16,8 @@ class App {
     }
   }
 
-  app () {
+  // 获取v3执行方法
+  v3App () {
     let cfg = this.cfg || {}
     let rules = []
 
@@ -67,7 +68,7 @@ class App {
   }
 
   // 获取v2版rule
-  rule () {
+  v2Rule () {
     let cfg = this.cfg
     return {
       reg: 'noCheck',
@@ -78,7 +79,7 @@ class App {
   }
 
   // v2执行方法
-  v2 (e) {
+  v2App (e) {
     let apps = this.apps
     return async function (e) {
       let msg = e.original_msg || e.msg || ''

@@ -228,9 +228,6 @@ async function getTalentData (e, isUpdate = false) {
 }
 
 async function abyssTeam (e) {
-  if (Common.todoV3(e)) {
-    return true
-  }
   let MysApi = await e.getMysApi({
     auth: 'cookie', // 所有用户均可查询
     targetType: 'self', // 被查询用户可以是任意用户
@@ -247,19 +244,31 @@ async function abyssTeam (e) {
     return true
   }
   abyssData = abyssData.data
-  let talentData = await getTalentData(e)
-  if (!talentData || talentData.length === 0) {
-    e.reply('暂时未能获得角色的练度信息，请使用【#练度统计】命令尝试手工获取...')
-    return true
+  let uid = e.selfUser.uid
+  let resDetail
+  try {
+    if (!await Avatars.hasTalentCache(uid)) {
+      e.reply('正在获取用户信息，请稍候...')
+    }
+    resDetail = await MysApi.getCharacter()
+    if (!resDetail || !resDetail.avatars || resDetail.avatars.length <= 3) {
+      e.reply('角色信息获取失败')
+      return true
+    }
+  } catch (err) {
+    // console.log(err);
   }
-
+  let avatars = new Avatars(uid, resDetail.avatars)
+  let avatarIds = avatars.getIds()
+  let avatarData = await avatars.getTalentData(avatarIds, MysApi)
   let avatarRet = {}
   let data = {}
 
   let noAvatar = {}
 
-  lodash.forEach(talentData, (avatar) => {
-    avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon_level) * 100 + Math.max(avatar.a_original, avatar.e_original, avatar.q_original) * 1000
+  lodash.forEach(avatarData, (avatar) => {
+    let t = avatar.talent
+    avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon?.level || 1) * 100 + Math.max(t.a?.original, t.e?.original, t.q?.original) * 1000
   })
 
   let getTeamCfg = (str) => {
@@ -394,12 +403,12 @@ async function abyssTeam (e) {
 
   let avatarMap = {}
 
-  lodash.forEach(talentData, (ds) => {
+  lodash.forEach(avatarData, (ds) => {
     let char = Character.get(ds.id)
     avatarMap[ds.id] = {
       id: ds.id,
       name: ds.name,
-      star: ds.rarity,
+      star: ds.star,
       level: ds.level,
       cons: ds.cons,
       face: char.face

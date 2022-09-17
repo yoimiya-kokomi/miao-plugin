@@ -4,18 +4,18 @@ import admin from './admin.js'
 import stat from './stat.js'
 import wiki from './wiki.js'
 
-export const characterApp = character.v2()
-export const adminApp = admin.v2()
-export const helpApp = help.v2()
-export const statApp = stat.v2()
-export const wikiApp = wiki.v2()
+export const characterApp = character.v2App()
+export const adminApp = admin.v2App()
+export const helpApp = help.v2App()
+export const statApp = stat.v2App()
+export const wikiApp = wiki.v2App()
 
 let apps = { character, admin, help, stat, wiki }
 let rule = {} // v2
 let rules = {} // v3
 for (let key in apps) {
-  rule[`${key}App`] = apps[key].rule()
-  rules[`${key}`] = apps[key].app()
+  rule[`${key}App`] = apps[key].v2Rule()
+  rules[`${key}`] = apps[key].v3App()
 }
 
 export { rule, rules as apps }
