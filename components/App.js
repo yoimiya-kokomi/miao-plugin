@@ -20,16 +20,20 @@ class App {
   v3App () {
     let cfg = this.cfg || {}
     let rules = []
-
+    let event = cfg.event
     let cls = class extends plugin {
       constructor () {
         super({
           name: `喵喵:${cfg.name || cfg.id}`,
-          desc: cfg.desc || cfg.name || '喵喵插件',
-          event: 'message',
+          dsc: cfg.desc || cfg.name || '喵喵插件',
+          event: event === 'poke' ? 'notice.group.poke' : 'message',
           priority: 50,
           rule: rules
         })
+      }
+
+      accept (e) {
+        e.original_msg = e.original_msg || e.msg
       }
     }
 
@@ -37,14 +41,16 @@ class App {
       let app = this.apps[key]
       key = lodash.camelCase(key)
       let rule = app.rule || app.reg || 'noCheck'
-      if (typeof (rule) === 'string') {
-        if (rule === '#poke#') {
-          continue
-        } else if (rule === 'noCheck') {
-          rule = '.+'
+      if (event !== 'poke') {
+        if (typeof (rule) === 'string') {
+          if (rule === 'noCheck') {
+            rule = '.*'
+          }
+        } else {
+          rule = lodash.trim(rule.toString(), '/')
         }
       } else {
-        rule = lodash.trim(rule.toString(), '/')
+        rule = '.*'
       }
 
       rules.push({
@@ -54,6 +60,17 @@ class App {
 
       cls.prototype[key] = async function () {
         let e = this.e
+        if (event === 'poke') {
+          console.log(e)
+          if (e.notice_type === 'group') {
+            if (e.user_id !== Bot.uin) {
+              return false
+            }
+            e.user_id = e.operator_id
+          }
+          e.isPoke = true
+          e.msg = '#poke#'
+        }
         e.original_msg = e.original_msg || e.msg
         e.checkAuth = e.checkAuth || async function (cfg) {
           return await checkAuth(e, cfg)

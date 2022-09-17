@@ -58,11 +58,6 @@ app.reg('wife', wife, {
   describe: '#老公 #老婆 查询'
 })
 
-app.reg('pock-wife', pokeWife, {
-  rule: '#poke#',
-  describe: '#老公 #老婆 查询'
-})
-
 app.reg('original-pic', getOriginalPicture, {
   rule: /^#?(获取|给我|我要|求|发|发下|发个|发一下)?原图(吧|呗)?$/,
   describe: '【#原图】 回复角色卡片，可获取原图'
@@ -133,7 +128,7 @@ export async function character (e) {
     }
     if (e.isPrivate) {
       if ((e.sub_type === 'friend' && Cfg.get('profile.friend.status') === false) ||
-        (e.sub_type === 'group' && Cfg.get('profile.stranger.status') === false)) {
+          (e.sub_type === 'group' && Cfg.get('profile.stranger.status') === false)) {
         return
       }
     } else if (e.isGroup) {

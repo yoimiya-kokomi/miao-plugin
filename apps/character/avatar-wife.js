@@ -86,6 +86,8 @@ export async function wife (e) {
     isSelf = false
   }
 
+  let renderType = (action === '卡片' ? 'card' : 'photo')
+  let addRet = []
   switch (action) {
     case '卡片':
     case '照片':
@@ -93,9 +95,7 @@ export async function wife (e) {
     case '图片':
     case '写真':
       // 展示老婆卡片
-
       // 如果选择过，则进行展示
-      let renderType = action === '卡片' ? 'card' : 'photo'
       if (!e.isPoke) {
         wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, [])
         // 存在设置
@@ -127,7 +127,6 @@ export async function wife (e) {
       }
       e.reply('在当前米游社公开展示的角色中未能找到适合展示的角色..')
       return true
-      break
     case '设置':
     case '选择':
     case '挑选':
@@ -139,7 +138,6 @@ export async function wife (e) {
       // 选择老婆
       actionParam = actionParam.replace(/(，|、|;|；)/g, ',')
       wifeList = actionParam.split(',')
-      let addRet = []
       if (lodash.intersection(['全部', '任意', '随机', '全都要'], wifeList).length > 0) {
         addRet = ['随机']
       } else {
