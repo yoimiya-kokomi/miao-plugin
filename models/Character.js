@@ -41,6 +41,12 @@ class Character extends Base {
     return this.isCustom ? this._id : this._id * 1
   }
 
+  get sName () {
+    let name = this.name
+    let abbr = this.abbr
+    return name.length <= 4 ? name : (abbr || name)
+  }
+
   // 是否是旅行者
   get isTraveler () {
     return CharId.isTraveler(this.id)
@@ -76,6 +82,10 @@ class Character extends Base {
   // 获取侧脸图像
   get side () {
     return this.getImgs().side
+  }
+
+  get imgs () {
+    return this.getImgs()
   }
 
   // 获取详情数据
@@ -163,7 +173,7 @@ class Character extends Base {
 
   setTraveler (uid = '') {
     if (this.isTraveler && uid && uid.toString().length === 9) {
-      Data.setCacheJSON(`genshin:uid-traveler:${uid}`, {
+      Data.setCacheJSON(`miao:uid-traveler:${uid}`, {
         id: CharId.getTravelerId(this.id),
         elem: this.elem
       }, 3600 * 24 * 120)
@@ -172,7 +182,7 @@ class Character extends Base {
 
   async getTraveler (uid) {
     if (this.isTraveler) {
-      let tData = await Data.getCacheJSON(`genshin:uid-traveler:${uid}`)
+      let tData = await Data.getCacheJSON(`miao:uid-traveler:${uid}`)
       return Character.get({
         id: CharId.getTravelerId(tData.id || this.id),
         elem: tData.elem || (this.elem !== 'multi' ? this.elem : 'anemo')

@@ -5,7 +5,7 @@
 import lodash from 'lodash'
 import fs from 'fs'
 import { Cfg, Common, App } from '../components/index.js'
-import { Abyss, Avatars, Character } from '../models/index.js'
+import { Abyss, AvatarList, Character } from '../models/index.js'
 import HutaoApi from './stat/HutaoApi.js'
 
 let app = App.init({
@@ -199,34 +199,6 @@ async function abyssPct (e) {
   }, { e, scale: 1.5 })
 }
 
-async function getTalentData (e, isUpdate = false) {
-  // 技能查询缓存
-  let cachePath = './data/cache/'
-  if (!fs.existsSync(cachePath)) {
-    fs.mkdirSync(cachePath)
-  }
-  cachePath += 'talentList/'
-  if (!fs.existsSync(cachePath)) {
-    fs.mkdirSync(cachePath)
-  }
-
-  let avatarRet = []
-  let uid = e.selfUser.uid
-
-  let hasCache = await redis.get(`cache:uid-talent-new:${uid}`)
-  if (hasCache) {
-    // 有缓存优先使用缓存
-    let jsonRet = fs.readFileSync(cachePath + `${uid}.json`, 'utf8')
-    avatarRet = JSON.parse(jsonRet)
-    return avatarRet
-  } else if (!isUpdate) {
-    e.noReplyTalentList = true
-    await global.YunzaiApps.mysInfo.talentList(e)
-    return await getTalentData(e, true)
-  }
-  return false
-}
-
 async function abyssTeam (e) {
   let MysApi = await e.getMysApi({
     auth: 'cookie', // 所有用户均可查询
@@ -247,7 +219,7 @@ async function abyssTeam (e) {
   let uid = e.selfUser.uid
   let resDetail
   try {
-    if (!await Avatars.hasTalentCache(uid)) {
+    if (!await AvatarList.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
     resDetail = await MysApi.getCharacter()
@@ -258,7 +230,7 @@ async function abyssTeam (e) {
   } catch (err) {
     // console.log(err);
   }
-  let avatars = new Avatars(uid, resDetail.avatars)
+  let avatars = new AvatarList(uid, resDetail.avatars)
   let avatarIds = avatars.getIds()
   let avatarData = await avatars.getTalentData(avatarIds, MysApi)
   let avatarRet = {}
@@ -455,7 +427,7 @@ async function uploadData (e) {
   let resDetail, resAbyss
   try {
     resAbyss = await MysApi.getSpiralAbyss(1)
-    if (resAbyss.floors.length > 0 && !await Avatars.hasTalentCache(uid)) {
+    if (resAbyss.floors.length > 0 && !await AvatarList.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
     resDetail = await MysApi.getCharacter()
@@ -482,7 +454,7 @@ async function uploadData (e) {
       }
       let abyss = new Abyss(resAbyss)
       let abyssData = abyss.getData()
-      let avatars = new Avatars(uid, resDetail.avatars)
+      let avatars = new AvatarList(uid, resDetail.avatars)
       let avatarIds = abyss.getAvatars()
       let overview = ret.info || (await HutaoApi.getOverview())?.data || {}
       let addMsg = function (title, ds) {

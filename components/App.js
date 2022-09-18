@@ -61,14 +61,15 @@ class App {
       cls.prototype[key] = async function () {
         let e = this.e
         if (event === 'poke') {
-          console.log(e)
           if (e.notice_type === 'group') {
             if (e.user_id !== Bot.uin) {
               return false
             }
+            // group状态下，戳一戳的发起人是operator
             e.user_id = e.operator_id
           }
           e.isPoke = true
+          // 随便指定一个不太常见的msg以触发msg的正则
           e.msg = '#poke#'
         }
         e.original_msg = e.original_msg || e.msg

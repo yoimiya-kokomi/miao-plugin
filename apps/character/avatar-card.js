@@ -1,4 +1,4 @@
-import { Artifact, Character, Avatars } from '../../models/index.js'
+import { Artifact, Character, AvatarList, Avatar } from '../../models/index.js'
 import { Cfg, Data, Common, Profile } from '../../components/index.js'
 import lodash from 'lodash'
 import { segment } from 'oicq'
@@ -51,88 +51,80 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
 }
 
 // 渲染角色卡片
-async function renderCard (e, avatar, renderType = 'card') {
-  let char = Character.get(avatar)
-
+async function renderCard (e, ds, renderType = 'card') {
+  let char = Character.get(ds)
   if (!char) {
     return false
-  }
-  let uid = e.uid || (e.targetUser && e.targetUser.uid)
-
-  let crownNum = 0
-  let talent = {}
-  if (!char.isCustom) {
-
-    talent = await getTalent(e, avatar)
-    // 计算皇冠个数
-    crownNum = lodash.filter(lodash.map(talent, (d) => d.original), (d) => d >= 10).length
   }
   let bg = char.getCardImg(Cfg.get('char.se', false))
   if (renderType === 'photo') {
     e.reply(segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + bg.img))
-  } else {
-    // 渲染图像
-    // let talent =
-    let msgRes = await Common.render('character/character-card', {
-      save_id: uid,
-      uid,
-      talent,
-      crownNum,
-      talentMap: { a: '普攻', e: '战技', q: '爆发' },
-      bg,
-      custom: char.isCustom,
-      ...getCharacterData(avatar, char),
-      ds: char.getData('name,id,title,desc')
-    }, { e, scale: 1.6, retMsgId: true })
-    if (msgRes && msgRes.message_id) {
-      // 如果消息发送成功，就将message_id和图片路径存起来，1小时过期
-      await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 })
-    }
     return true
   }
-  return true
-}
-
-// 获取角色技能数据
-async function getTalent (e, avatars) {
-  let char = Character.get(avatars.id)
-  if (char.isCustom) {
-    return {}
-  }
-  let uid = e.uid
-  if (avatars.dataSource && avatars.talent) {
-    // profile模式
-    return avatars.talent
-  } else {
+  let uid = e.uid || (e.targetUser && e.targetUser.uid)
+  let data = {}
+  let custom = char.isCustom
+  if (!custom) {
+    let avatar = new Avatar(ds)
     let MysApi = await e.getMysApi({
       auth: 'all',
       targetType: Cfg.get('char.queryOther', true) ? 'all' : 'self',
       cookieType: 'all',
       actionName: '查询信息'
     })
-    if (!MysApi && !MysApi.isSelfCookie) return {}
-    let avatar = new Avatars(uid, [avatars])
-    return await avatar.getAvatarTalent(avatars.id, MysApi)
+    data = avatar.getData('id,name,sName,level,fetter,cons,weapon,elem,artis,imgs,dataSourceName,updateTime')
+    if (MysApi && MysApi.isSelfCookie) {
+      data.talent = await avatar.getTalent(MysApi)
+      data.talentMap = ['a', 'e', 'q']
+      // 计算皇冠个数
+      data.crownNum = lodash.filter(lodash.map(data.talent, (d) => d.original), (d) => d >= 10).length
+    }
   }
+  let width = 600
+  if (bg.mode === 'left') {
+    width = 500 * bg.width / bg.height
+  }
+  // 渲染图像
+  let msgRes = await Common.render('character/character-card', {
+    saveId: uid,
+    uid,
+    bg,
+    widthStyle: `<style>html,body,#container{width:${width}px}</style>`,
+    mode: bg.mode,
+    custom,
+    data
+  }, { e, scale: 1.1, retMsgId: true })
+  if (msgRes && msgRes.message_id) {
+    // 如果消息发送成功，就将message_id和图片路径存起来，1小时过期
+    await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 })
+  }
+  return true
 }
 
 /*
 * 获取角色数据
 * */
-function getCharacterData (avatars, char) {
+function getCharacterData (data, char) {
   let list = []
   let set = {}
   let artiEffect = []
-  let w = avatars.weapon || {}
+
+  let avatar = new Avatar(data)
+  if (!avatar) {
+    return {}
+  }
+  let ret = avatar.getData('dataType,dataSourceName,name,abbr,level,weapon')
+  console.log(ret)
+  let w = data.weapon || {}
   let weapon = {
     type: 'weapon',
     name: w.name || '',
-    showName: abbr[w.name] || w.name || '',
+    abbr: abbr[w.name] || w.name || '',
     level: w.level || 1,
     affix: w.affix || w.affix_level || 0
   }
 
-  let artis = avatars?.artis?.artis || avatars.reliquaries
+  let artis = data?.artis?.artis || data.reliquaries
 
   if (artis) {
     lodash.forEach(artis, (val) => {
@@ -162,10 +154,10 @@ function getCharacterData (avatars, char) {
   let reliquaries = list[0]
   return {
     name: char.name,
-    showName: char.abbr || char.name,
-    level: Data.def(avatars.lv, avatars.level),
-    fetter: avatars.fetter,
-    cons: Data.def(avatars.cons, avatars.actived_constellation_num),
+    abbr: char.abbr,
+    level: Data.def(data.lv, data.level),
+    fetter: data.fetter,
+    cons: Data.def(data.cons, data.actived_constellation_num),
     weapon,
     artiEffect,
     reliquaries

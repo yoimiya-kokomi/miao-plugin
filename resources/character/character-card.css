@@ -29,37 +29,42 @@ body {
 }
 .info {
   position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.5);
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  box-shadow: 0 -5px 10px 0 #000;
-  padding: 5px 10px 10px 150px;
-  text-shadow: 0 0 1px #000, 1px 1px 3px #000;
 }
-.role_box {
+.char-title {
   padding: 5px 10px;
   background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-shadow: 0 0 3px #000, 3px 3px 5px #000;
+}
+.char-title .char-name {
+  padding-left: 10px;
+  display: inline-block;
+  white-space: nowrap;
   position: relative;
 }
-.title {
-  font-size: 36px;
+.char-title .char-name > * {
+  vertical-align: bottom;
 }
-.char_name {
+.char-title .char-name strong {
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   font-size: 60px;
   letter-spacing: 5px;
-  line-height: 90px;
-  display: inline-block;
-  white-space: nowrap;
-  position: absolute;
-  top: 10px;
-  padding-left: 20px;
-  left: 0;
-  height: 85px;
-  text-shadow: 0 0 3px #000, 3px 3px 5px #000;
+  font-weight: normal;
 }
-.char_name:after {
+.char-title .char-name .cons {
+  font-size: 20px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  margin: 10px 0;
+  text-shadow: 0 0 1px #000;
+}
+.char-title .char-name:after {
   content: "";
   display: block;
   position: absolute;
@@ -67,36 +72,18 @@ body {
   right: -50px;
   min-width: 360px;
   height: 1px;
-  bottom: 0;
   left: -50px;
   opacity: 1;
   transition: width 0.3s 0.1s, opacity 0.3s 0.1s;
   box-shadow: 0 0 2px 0 #000;
   bottom: 1px;
 }
-.char_name .uid {
-  font-size: 24px;
-  position: absolute;
+.char-title .char-lv {
+  font-size: 20px;
   height: 25px;
   line-height: 25px;
-  top: -25px;
-  left: 15px;
   letter-spacing: 0;
-  top: 90px;
-}
-.cons {
-  display: inline-block;
-  width: 55px;
-  height: 35px;
-  line-height: 35px;
-  border-radius: 10px;
-  font-size: 20px;
-  vertical-align: middle;
-  text-align: center;
-  letter-spacing: 0px;
-  box-shadow: 0px 0px 3px 0px #000;
-  text-shadow: 0 0 3px #000;
-  margin-right: 15px;
+  padding-left: 10px;
 }
 .crown {
   width: 30px;
@@ -120,307 +107,7 @@ body {
   font-size: 26px;
   margin: 10px 5px 2px 5px;
 }
-.weapon {
-  text-align: center;
-  font-size: 20px;
-  width: 100px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.2);
-}
-.weapon_lv {
-  position: absolute;
-  bottom: 0px;
-  right: 0;
-  font-size: 18px;
-  border-radius: 5px;
-  padding: 3px 5px;
-  background-color: rgba(0, 0, 0, var(--bg-opacity));
-  --bg-opacity: 0.75;
-}
-.weapon_affix {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
-  text-align: center;
-  line-height: 30px;
-  background: #000;
-  border-radius: 5px;
-  padding: 1px 3px;
-}
-.weapon_cont {
-  position: relative;
-}
-.weapon_cont img {
-  width: 100%;
-  height: 100%;
-}
-.weapon_name {
-  height: 30px;
-  line-height: 30px;
-  font-size: 15px;
-}
-.equiv .img_box {
-  width: 46px;
-  height: 46px;
-  border: 1px solid #d3bc8d;
-  border-radius: 5px;
-  overflow: hidden;
-}
-.equiv img {
-  width: 100%;
-  transform: scale(1.2, 1.2);
-}
-.detail {
-  margin-left: 5px;
-  width: 300px;
-  margin-top: 3px;
-  padding: 5px 0;
-  display: flex;
-  position: relative;
-}
-.talent {
-  margin-left: 5px;
-  width: 300px;
-  padding: 5px 5px 8px;
-  display: flex;
-  position: relative;
-  font-size: 20px;
-}
-.text_box::before {
-  content: "";
-  display: block;
-  position: absolute;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%);
-  width: 0%;
-  height: 1px;
-  top: 0;
-  left: -15px;
-  width: 300px;
-  opacity: 1;
-  transition: width 0.3s 0.1s, opacity 0.3s 0.1s;
-}
-.text_box::after {
-  content: "";
-  display: block;
-  position: absolute;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%);
-  width: 0%;
-  height: 1px;
-  bottom: 0;
-  left: -15px;
-  width: 300px;
-  opacity: 1;
-  transition: width 0.3s 0.1s, opacity 0.3s 0.1s;
-}
-.detail p,
-.talent div {
-  margin-right: 4px;
-  line-height: 16px;
-  width: 90px;
-  white-space: nowrap;
-}
-.no_skill {
-  padding: 10px 0;
-}
-.star {
-  width: 16px;
-  vertical-align: -2px;
-  margin-right: 1px;
-}
-.equiv {
-  margin-top: 12px;
-}
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  /*margin-bottom: 5px;*/
-}
-.equiv {
-  margin: 0 10px 8px 10px;
-  text-align: center;
-  font-size: 20px;
-  padding: 3px;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 5px;
-  height: 52px;
-  width: 52px;
-  position: relative;
-  display: flex;
-}
-.equiv .num {
-  position: absolute;
-  bottom: 0px;
-  font-size: 12px;
-  /*background: rgba(0,0,0,.6);*/
-  border-radius: 5px;
-  padding: 1px 5px;
-  background-color: rgba(0, 0, 0, var(--bg-opacity));
-  --bg-opacity: 0.75;
-  border-radius: 9999px;
-}
-.equiv .img_box {
-  width: 46px;
-  height: 46px;
-  border: 1px solid #d3bc8d;
-  border-radius: 5px;
-  overflow: hidden;
-}
-.equiv img {
-  width: 100%;
-  transform: scale(1.2, 1.2);
-}
-.equiv_info {
-  display: inline-block;
-  font-size: 15px;
-  padding: 5px 5px 1px 7px;
-  border-radius: 10px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(114, 102, 104, 0.3);
-  margin-left: 5px;
-  margin-top: 0px;
-}
-.equiv_info .text {
-  margin-bottom: 5px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-body.bottom_mode {
-  width: 500px;
-}
-.bottom_mode .info {
-  height: 158px;
-}
-.bottom_mode .weapon {
-  left: 0;
-  bottom: 0;
-  top: 0px;
-  padding-top: 120px;
-  width: 140px;
-}
-.bottom_mode .weapon_affix {
-  display: none;
-}
-.bottom_mode .weapon_cont {
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-.bottom_mode .weapon_lv {
-  border-radius: 8px 0 0 0;
-  padding-left: 8px;
-  background: rgba(0, 0, 0, 0.5);
-  bottom: -8px;
-  font-size: 15px;
-}
-.bottom_mode .weapon_cont img {
-  width: 110px;
-  height: 110px;
-}
-.bottom_mode .weapon_name {
-  background: rgba(0, 0, 0, 0.5);
-  height: 35px;
-  line-height: 35px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.equiv_info {
-  width: calc(100% - 20px);
-}
-.bottom_mode .detail {
-  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
-  margin-top: 0px;
-}
-.bottom_mode .for_left {
-  display: none;
-}
 /******** left mode **********/
-.left_mode {
-  width: 800px;
-  transform: scale(1);
-}
-.left_mode .info {
-  right: initial;
-  padding: 10px 10px 5px 10px;
-  border-radius: 8px;
-  left: 10px;
-  bottom: 10px;
-}
-.left_mode .weapon {
-  top: -110px;
-  width: 270px;
-  height: 100px;
-  padding: 0 0 3px 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 8px;
-}
-.left_mode .weapon_cont {
-  width: 100px;
-  padding: 3px 10px 0 0;
-  border-radius: 0 10px 0 0;
-  border-right: 0.5px solid rgba(0, 0, 0, 0.3);
-  position: absolute;
-  top: 0;
-}
-.left_mode .for_bottom,
-.left_mode .weapon_lv,
-.left_mode .weapon_affix {
-  display: none;
-}
-.left_mode .for_left {
-  display: block;
-}
-.left_mode .weapon_name {
-  height: 50px;
-  font-size: 20px;
-  text-align: left;
-  line-height: 30px;
-  padding: 20px 0 0 110px;
-}
-.left_mode .detail {
-  width: auto;
-  margin-top: -5px;
-}
-.left_mode .talent {
-  padding-left: 0;
-  margin-right: -5px;
-  width: 250px;
-}
-.left_mode .info,
-.left_mode .weapon {
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 5px 1px #000;
-}
-.left_mode .equiv_info {
-  padding: 0;
-  background: none;
-  margin-top: 5px;
-}
-.copyright {
-  position: absolute;
-  margin-bottom: 0;
-}
-.left_mode .copyright {
-  bottom: 5px;
-  right: 9px;
-  text-shadow: 1px 1px 1px #000;
-  line-height: 20px;
-}
-.bottom_mode .copyright {
-  bottom: 1px;
-  right: 7px;
-  text-shadow: 1px 1px 1px #000;
-  line-height: 20px;
-  font-size: 10px;
-}
 .no-info {
   position: absolute;
   padding: 5px 10px;
@@ -431,7 +118,249 @@ body.bottom_mode {
   text-shadow: 1px 1px 1px #000;
   border-radius: 5px;
 }
+.notice-cont {
+  color: #ccc;
+  font-size: 14px;
+  text-align: center;
+}
 .bottom_mode .no-info {
   bottom: 25px;
+}
+.char-talents {
+  display: flex;
+}
+.char-detail {
+  display: flex;
+  margin: 0;
+  border-radius: 0;
+  padding: 4px;
+}
+.char-detail > .cont {
+  position: relative;
+  width: 200px;
+  height: 90px;
+  margin: 4px;
+}
+.weapon-cont {
+  width: 180px;
+  display: flex;
+  text-shadow: 1px 1px 1px #000;
+}
+.weapon-cont .img {
+  width: 80px;
+  height: 80px;
+}
+.weapon-cont .star {
+  height: 20px;
+  width: 100px;
+  background: url("../common/item/star.png") no-repeat;
+  background-size: 100px 100px;
+  transform: scale(0.8);
+  transform-origin: -5px center;
+  display: inline-block;
+  margin: 1px 0;
+}
+.weapon-cont .star.star-2 {
+  background-position: 0 -20px;
+}
+.weapon-cont .star.star-3 {
+  background-position: 0 -40px;
+}
+.weapon-cont .star.star-4 {
+  background-position: 0 -60px;
+}
+.weapon-cont .star.star-5 {
+  background-position: 0 -80px;
+}
+.weapon-cont .weapon-info {
+  padding: 13px 0 0 13px;
+}
+.weapon-cont .weapon-info strong {
+  font-size: 17px;
+}
+.talent-cont {
+  display: flex;
+  padding: 0 5px;
+}
+.talent-cont .talent-item,
+.talent-cont .talent-icon {
+  width: 100px;
+  height: 100px;
+}
+.talent-cont .talent-item {
+  position: relative;
+}
+.talent-cont .talent-icon {
+  width: 60px;
+  height: 60px;
+  display: table;
+  position: relative;
+  margin: 7px -5px 13x;
+  border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 90;
+}
+.talent-cont .talent-icon img,
+.talent-cont .talent-icon .talent-icon-img {
+  width: 46%;
+  height: 46%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -22% 0 0 -23%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.talent-cont .talent-icon span {
+  background: #fff;
+  width: 34px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  margin-left: -15px;
+  color: #000;
+  box-shadow: 0 0 5px 0 #000;
+}
+.talent-cont .talent-icon.talent-plus span {
+  background: #2e353e;
+  color: #ffdfa0;
+  font-weight: bold;
+  box-shadow: 0 0 1px 0 #d3bc8e, 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+}
+.talent-cont .talent-icon.talent-crown:after {
+  content: "";
+  display: none;
+  width: 24px;
+  height: 24px;
+  background: url("../character/imgs/crown.png") no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  margin-left: -12px;
+}
+.artis-cont .artis-list {
+  display: flex;
+  height: 50px;
+  padding: 5px;
+}
+.artis-cont .artis-list .item {
+  height: 50px;
+  width: 20%;
+}
+.artis-cont .artis-list .item .item-icon {
+  width: 110%;
+  height: 110%;
+  margin: -5% -5% 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.artis-cont .artis-list .item .lv {
+  display: block;
+  font-size: 14px;
+  text-align: center;
+}
+.bottom-mode {
+  width: 600px;
+}
+.bottom-mode .copyright {
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  right: 0;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+}
+.bottom-mode .copyright.data-source {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  left: 0;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.5);
+}
+.bottom-mode .char-detail {
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  padding: 4px 0;
+}
+.bottom-mode .char-detail > .cont {
+  background: none;
+  box-shadow: none;
+  margin: 8px 0 0;
+}
+.bottom-mode .char-detail > .cont.left-line:after,
+.bottom-mode .char-detail > .cont.right-line:after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 20px;
+  right: 0;
+}
+.bottom-mode .char-detail > .cont.right-line:after {
+  right: initial;
+  left: 0;
+}
+.bottom-mode .char-detail .notice-cont {
+  padding-top: 40px;
+}
+.left-mode {
+  height: 500px;
+  width: auto;
+}
+.left-mode .container {
+  width: auto;
+}
+.left-mode img.bg {
+  width: auto;
+  height: 500px;
+}
+.left-mode .copyright {
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  right: 0;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+}
+.left-mode .copyright.data-source {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  left: 0;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.5);
+}
+.left-mode .char-detail {
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  padding: 4px 0;
+  background: none;
+  box-shadow: none;
+  display: block;
+}
+.left-mode .char-detail > .cont {
+  padding-top: 8px;
+  margin-top: 8px;
+}
+.left-mode .char-detail .notice-cont {
+  height: 30px;
+  line-height: 16px;
+  background-size: 100% 200%;
 }
 /*# sourceMappingURL=character-card.css.map */

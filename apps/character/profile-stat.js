@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { Common, Profile, Data } from '../../components/index.js'
-import { Avatars } from '../../models/index.js'
+import { AvatarList } from '../../models/index.js'
 
 export async function profileStat (e) {
   // 缓存时间，单位小时
@@ -24,11 +24,11 @@ export async function profileStat (e) {
     return true
   }
 
-  if (!await Avatars.hasTalentCache(uid)) {
+  if (!await AvatarList.hasTalentCache(uid)) {
     e.reply('正在获取角色信息，请稍候...')
   }
 
-  let avatars = new Avatars(uid, resIndex.avatars)
+  let avatars = new AvatarList(uid, resIndex.avatars)
   let ids = avatars.getIds()
 
   let talentData = await avatars.getTalentData(ids, MysApi)

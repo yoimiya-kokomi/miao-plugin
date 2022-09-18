@@ -44,7 +44,7 @@ export async function character (e) {
     e.uid = uidRet[0]
     msg = msg.replace(uidRet[0], '')
   }
-  let name = msg.replace(/#|老婆|老公/g, '').trim()
+  let name = msg.replace(/#|老婆|老公|卡片/g, '').trim()
 
   if (Common.isDisable(e, 'char.char')) {
     return

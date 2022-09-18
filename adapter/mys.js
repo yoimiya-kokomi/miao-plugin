@@ -10,15 +10,15 @@ class User {
 
   // 保存用户配置
   async setCfg (path, value) {
-    let userCfg = await redis.get(`genshin:user-cfg:${this.id}`)
+    let userCfg = await redis.get(`miao:user-cfg:${this.id}`) || await redis.get(`genshin:user-cfg:${this.id}`)
     userCfg = userCfg ? JSON.parse(userCfg) : {}
     lodash.set(userCfg, path, value)
-    await redis.set(`genshin:user-cfg:${this.id}`, JSON.stringify(userCfg))
+    await redis.set(`miao:user-cfg:${this.id}`, JSON.stringify(userCfg))
   }
 
   /* 获取用户配置 */
   async getCfg (path, defaultValue) {
-    let userCfg = await redis.get(`genshin:user-cfg:${this.id}`)
+    let userCfg = await redis.get(`miao:user-cfg:${this.id}`) || await redis.get(`genshin:user-cfg:${this.id}`)
     userCfg = userCfg ? JSON.parse(userCfg) : {}
     return lodash.get(userCfg, path, defaultValue)
   }

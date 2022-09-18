@@ -1,7 +1,8 @@
 import Base from './Base.js'
 import Character from './Character.js'
 import Artifact from './Artifact.js'
-import Avatars from './Avatars.js'
+import Avatar from './Avatar.js'
+import AvatarList from './AvatarList.js'
 import Abyss from './Abyss.js'
 import ProfileServ from './ProfileServ.js'
 import ProfileReq from './ProfileReq.js'
@@ -16,7 +17,8 @@ export {
   Abyss,
   Character,
   Artifact,
-  Avatars,
+  Avatar,
+  AvatarList,
   ProfileServ,
   ProfileReq,
   ProfileData,

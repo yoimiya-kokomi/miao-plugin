@@ -15,7 +15,7 @@ function getApi (api) {
 
 let HutaoApi = {
   async req (url, param = {}, EX = 3600) {
-    let cacheData = await Data.getCacheJSON(`hutao:${url}`)
+    let cacheData = await Data.getCacheJSON(`miao:hutao:${url}`)
     if (cacheData && cacheData.data && param.method !== 'POST') {
       return cacheData
     }
@@ -27,7 +27,7 @@ let HutaoApi = {
     if (retData && retData.data && param.method !== 'POST') {
       let d = new Date()
       retData.lastUpdate = `${d.toLocaleDateString()} ${d.toTimeString().substr(0, 5)}`
-      await Data.setCacheJSON(`hutao:${url}`, retData, EX)
+      await Data.setCacheJSON(`miao:hutao:${url}`, retData, EX)
     }
     return retData
   },

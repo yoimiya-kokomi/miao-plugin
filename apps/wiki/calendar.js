@@ -23,7 +23,7 @@ let Cal = {
     let listData = await request.json()
 
     let timeMap
-    let timeMapCache = await redis.get('cache:calendar:detail')
+    let timeMapCache = await redis.get('miao:calendar:detail')
     if (timeMapCache) {
       timeMap = JSON.parse(timeMapCache) || {}
     } else {
@@ -106,7 +106,7 @@ let Cal = {
         }
       } catch (e) {
       }
-      await Data.setCacheJSON('cache:calendar:detail', timeMap, 60 * 10)
+      await Data.setCacheJSON('miao:calendar:detail', timeMap, 60 * 10)
     }
     return { listData, timeMap }
   },

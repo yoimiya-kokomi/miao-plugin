@@ -3,7 +3,7 @@ import lodash from 'lodash'
 import { Data, Common } from '../components/index.js'
 import { Artifact, Character } from './index.js'
 
-export default class Avatars extends Base {
+export default class AvatarList extends Base {
   constructor (uid, datas = []) {
     super()
     if (!uid) {
@@ -65,7 +65,7 @@ export default class Avatars extends Base {
   }
 
   async getTalentData (ids, MysApi = false) {
-    let avatarTalent = await Data.getCacheJSON(`genshin:avatar-talent:${this.uid}`)
+    let avatarTalent = await Data.getCacheJSON(`miao:avatar-talent:${this.uid}`)
     let needReq = {}
     lodash.forEach(ids, (id) => {
       if (!avatarTalent[id]) {
@@ -89,7 +89,7 @@ export default class Avatars extends Base {
       lodash.forEach(skillRet, (talent) => {
         avatarTalent[talent.id] = talent
       })
-      await Data.setCacheJSON(`genshin:avatar-talent:${this.uid}`, avatarTalent, 3600 * 2)
+      await Data.setCacheJSON(`miao:avatar-talent:${this.uid}`, avatarTalent, 3600 * 2)
     }
     let ret = this.getData(ids)
     lodash.forEach(ret, (avatar, id) => {
@@ -131,6 +131,6 @@ export default class Avatars extends Base {
   }
 }
 
-Avatars.hasTalentCache = async function (uid) {
-  return !!await redis.get(`genshin:avatar-talent:${uid}`)
+AvatarList.hasTalentCache = async function (uid) {
+  return !!await redis.get(`miao:avatar-talent:${uid}`)
 }
