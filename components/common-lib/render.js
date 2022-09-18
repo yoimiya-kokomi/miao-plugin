@@ -23,6 +23,9 @@ export default async function (path, params, cfg) {
     _tpl_path: process.cwd() + '/plugins/miao-plugin/resources/common/tpl/',
     defaultLayout: layoutPath + 'default.html',
     elemLayout: layoutPath + 'elem.html',
+    pageGotoParams: {
+      waitUntil: 'networkidle0'
+    },
     sys: {
       scale: Cfg.scale(cfg.scale || 1),
       copyright: `Created By Yunzai-Bot<span class="version">${Version.yunzai}</span> & Miao-Plugin<span class="version">${Version.version}</span>`

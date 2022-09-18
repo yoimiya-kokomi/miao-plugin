@@ -26,7 +26,7 @@ class App {
         super({
           name: `喵喵:${cfg.name || cfg.id}`,
           dsc: cfg.desc || cfg.name || '喵喵插件',
-          event: event === 'poke' ? 'notice.group.poke' : 'message',
+          event: event === 'poke' ? 'notice.*.poke' : 'message',
           priority: 50,
           rule: rules
         })
