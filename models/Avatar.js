@@ -49,8 +49,8 @@ export default class Avatar extends Base {
   }
 
   get artis () {
-    if (this.isProfile) {
-      return this.meta.artis
+    if (this.isProfile && this.meta?.artis) {
+      return this.meta.artis.toJSON()
     }
     if (this._artis) {
       return this._artis

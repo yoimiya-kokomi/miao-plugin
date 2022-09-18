@@ -37,7 +37,7 @@
 
         {{set talent = data.talent }}
         {{set keys = ['a','e','q'] }}
-        {{ if talent.a && talent.a.level }}
+        {{ if talent && talent.a && talent.a.level }}
         <div class="cont talent-cont elem-{{data.elem}}">
             {{each keys key}}
             <div class="talent-item">
@@ -66,7 +66,6 @@
                 <div class="item">
                     <div class="item-icon"
                          style="background-image:url({{_res_path}}meta/reliquaries/icon/{{arti.name}}.png)"></div>
-                    <span></span>
                     <span class="lv">{{arti.level}}</span>
                 </div>
                 {{/each}}

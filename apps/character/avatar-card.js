@@ -30,7 +30,7 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
       avatar = { id: char.id, name: char.name, detail: false }
     } else {
       let profile = Profile.get(uid, char.id, true)
-      if (profile) {
+      if (profile && profile.hasData) {
         // 优先使用Profile数据
         avatar = profile
       } else {
@@ -99,69 +99,6 @@ async function renderCard (e, ds, renderType = 'card') {
     await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 })
   }
   return true
-}
-
-/*
-* 获取角色数据
-* */
-function getCharacterData (data, char) {
-  let list = []
-  let set = {}
-  let artiEffect = []
-
-  let avatar = new Avatar(data)
-  if (!avatar) {
-    return {}
-  }
-  let ret = avatar.getData('dataType,dataSourceName,name,abbr,level,weapon')
-  console.log(ret)
-  let w = data.weapon || {}
-  let weapon = {
-    type: 'weapon',
-    name: w.name || '',
-    abbr: abbr[w.name] || w.name || '',
-    level: w.level || 1,
-    affix: w.affix || w.affix_level || 0
-  }
-
-  let artis = data?.artis?.artis || data.reliquaries
-
-  if (artis) {
-    lodash.forEach(artis, (val) => {
-      let setCfg = Artifact.getSetByArti(val.name)
-      if (!setCfg) {
-        return
-      }
-      let setName = setCfg.name
-      if (set[setName]) {
-        set[setName]++
-        if (set[setName] === 2) {
-          artiEffect.push('2件套：' + setCfg.effect['2'])
-        }
-        if (set[setName] === 4) {
-          artiEffect.push('4件套：' + setCfg.name)
-        }
-      } else {
-        set[setName] = 1
-      }
-    })
-
-    if (artiEffect.length === 0) {
-      artiEffect = ['无套装效果']
-    }
-  }
-
-  let reliquaries = list[0]
-  return {
-    name: char.name,
-    abbr: char.abbr,
-    level: Data.def(data.lv, data.level),
-    fetter: data.fetter,
-    cons: Data.def(data.cons, data.actived_constellation_num),
-    weapon,
-    artiEffect,
-    reliquaries
-  }
 }
 
 export async function getAvatarList (e, type, MysApi) {
