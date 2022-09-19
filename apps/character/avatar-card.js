@@ -1,11 +1,7 @@
-import { Artifact, Character, AvatarList, Avatar } from '../../models/index.js'
-import { Cfg, Data, Common, Profile } from '../../components/index.js'
+import { Character, Avatar } from '../../models/index.js'
+import { Cfg, Common, Profile } from '../../components/index.js'
 import lodash from 'lodash'
 import { segment } from 'oicq'
-
-// 角色昵称
-
-let abbr = Character.getAbbr()
 
 export async function renderAvatar (e, avatar, renderType = 'card') {
   // 如果传递的是名字，则获取
@@ -73,7 +69,7 @@ async function renderCard (e, ds, renderType = 'card') {
       actionName: '查询信息'
     })
     data = avatar.getData('id,name,sName,level,fetter,cons,weapon,elem,artis,imgs,dataSourceName,updateTime')
-    if (MysApi && MysApi.isSelfCookie) {
+    if (avatar.isProfile || (MysApi && MysApi.isSelfCookie)) {
       data.talent = await avatar.getTalent(MysApi)
       data.talentMap = ['a', 'e', 'q']
       // 计算皇冠个数

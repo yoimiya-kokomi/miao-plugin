@@ -1,4 +1,4 @@
-import { abbr } from '../../../../config/genshin/roleId.js'
+import abbr from './abbr.js'
 import lodash from 'lodash'
 
 let costumes = {
@@ -8,9 +8,6 @@ let costumes = {
   凝光: [202701], // 凝光
   迪卢克: [201601], // 迪卢克
   菲谢尔: [203101], // 菲谢尔
-  达达利亚: [900001],
-  雷电将军: [900002],
-  钟离: [900003]
 }
 const fixData = {
   4: {

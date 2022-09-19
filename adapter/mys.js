@@ -40,7 +40,7 @@ class Mys {
 
     e.targetUser = this.targetUser
     e.selfUser = this.selfUser
-    e.isSelfCookie = uid === ckUid
+    e.isSelfCookie = uid * 1 === ckUid * 1
   }
 
   async getData (api, data) {

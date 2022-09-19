@@ -251,4 +251,4 @@ const charData = {
   71: { key: 'cyno', name: '赛诺' },
   72: { key: 'candace', name: '坎蒂丝' }
 }
-await down('4', true)
+await down('70,71,72', true)
