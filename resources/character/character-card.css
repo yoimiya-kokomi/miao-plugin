@@ -153,12 +153,12 @@ body {
 .weapon-cont .star {
   height: 20px;
   width: 100px;
-  background: url("../common/item/star.png") no-repeat;
+  background: url("../common/item/star-ltr.png") no-repeat;
   background-size: 100px 100px;
   transform: scale(0.8);
   transform-origin: -5px center;
   display: inline-block;
-  margin: 1px 0;
+  margin: 1px 0 -2px;
 }
 .weapon-cont .star.star-2 {
   background-position: 0 -20px;
@@ -173,10 +173,10 @@ body {
   background-position: 0 -80px;
 }
 .weapon-cont .weapon-info {
-  padding: 13px 0 0 13px;
+  padding: 10px 0 0 0;
 }
 .weapon-cont .weapon-info strong {
-  font-size: 17px;
+  font-size: 18px;
 }
 .talent-cont {
   display: flex;
@@ -185,7 +185,7 @@ body {
 .talent-cont .talent-item,
 .talent-cont .talent-icon {
   width: 100px;
-  height: 100px;
+  height: 80px;
 }
 .talent-cont .talent-item {
   position: relative;
@@ -223,7 +223,7 @@ body {
   text-align: center;
   border-radius: 5px;
   position: absolute;
-  bottom: -15px;
+  bottom: -25px;
   left: 50%;
   margin-left: -15px;
   color: #000;
@@ -237,29 +237,41 @@ body {
 }
 .talent-cont .talent-icon.talent-crown:after {
   content: "";
-  display: none;
-  width: 24px;
-  height: 24px;
+  display: block;
+  width: 20px;
+  height: 20px;
   background: url("../character/imgs/crown.png") no-repeat;
   background-size: contain;
   position: absolute;
   left: 50%;
   top: -5px;
-  margin-left: -12px;
+  margin-left: -10px;
+}
+.artis-cont {
+  text-shadow: 1px 1px 1px #000;
+}
+.artis-cont .artis-sets {
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 14px;
 }
 .artis-cont .artis-list {
   display: flex;
-  height: 50px;
-  padding: 5px;
+  flex-wrap: wrap;
+  height: 65px;
 }
 .artis-cont .artis-list .item {
-  height: 50px;
+  height: 65px;
+  padding-top: 3px;
   width: 20%;
+  box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 .artis-cont .artis-list .item .item-icon {
   width: 110%;
-  height: 110%;
-  margin: -5% -5% 0;
+  height: 45px;
+  margin: -5%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -269,8 +281,32 @@ body {
   font-size: 14px;
   text-align: center;
 }
+.artis-cont .artis-list .item .lv:before {
+  content: "Lv.";
+  font-size: 12px;
+  display: inline-block;
+  transform: scale(0.8);
+  transform-origin: right 10px;
+  margin-left: -2px;
+}
+.artis-cont .artis-list .item:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.2);
+}
+.artis-cont .artis-list .item:nth-child(even) {
+  background: rgba(134, 118, 85, 0.15);
+}
+.artis-cont .artis-list .item.no-item {
+  background: url('../common/item/artifact-icon.webp') center no-repeat;
+  background-size: 60% auto;
+}
 .bottom-mode {
   width: 600px;
+}
+.bottom-mode .char-title {
+  padding-top: 20px;
+}
+.bottom-mode .char-lv {
+  padding-top: 5px;
 }
 .bottom-mode .copyright {
   font-size: 12px;
@@ -298,7 +334,7 @@ body {
 .bottom-mode .char-detail > .cont {
   background: none;
   box-shadow: none;
-  margin: 8px 0 0;
+  margin: 5px 0 0;
 }
 .bottom-mode .char-detail > .cont.left-line:after,
 .bottom-mode .char-detail > .cont.right-line:after {
@@ -309,17 +345,27 @@ body {
   background: rgba(255, 255, 255, 0.5);
   position: absolute;
   top: 20px;
-  right: 0;
+  right: 5px;
 }
 .bottom-mode .char-detail > .cont.right-line:after {
+  display: none;
   right: initial;
   left: 0;
 }
 .bottom-mode .char-detail .notice-cont {
   padding-top: 40px;
 }
+.bottom-mode .char-detail .artis-cont {
+  margin-right: 10px;
+}
+.bottom-mode .char-detail .artis-cont .item {
+  box-shadow: none;
+}
+.bottom-mode .char-detail .talent-cont .talent-item {
+  padding-top: 5px;
+}
 .left-mode {
-  height: 500px;
+  height: 600px;
   width: auto;
 }
 .left-mode .container {
@@ -355,12 +401,18 @@ body {
   display: block;
 }
 .left-mode .char-detail > .cont {
-  padding-top: 8px;
   margin-top: 8px;
+  background-size: 100% 150%;
 }
 .left-mode .char-detail .notice-cont {
   height: 30px;
-  line-height: 16px;
+  line-height: 30px;
   background-size: 100% 200%;
+}
+.left-mode .char-detail .talent-cont .talent-item {
+  padding-top: 8px;
+}
+.left-mode .char-detail .talent-cont .talent-item span {
+  bottom: -20px;
 }
 /*# sourceMappingURL=character-card.css.map */

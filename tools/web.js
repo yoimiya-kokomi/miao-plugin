@@ -58,7 +58,6 @@ app.get('/:type', function (req, res) {
 
   let app = data._app || 'genshin'
   if (data._plugin) {
-    console.log(data._plugin)
     data._res_path = `/plugins/${data._plugin}/resources/`
   }
   let tplPath = `${app}/${page}/${page}.html`

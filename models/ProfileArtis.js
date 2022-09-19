@@ -139,6 +139,7 @@ export default class ProfileArtis extends Base {
     let sets = {}
     let names = []
     let abbrs = []
+    let abbrs2 = []
     for (let set in setCount) {
       if (setCount[set] >= 2) {
         sets[set] = setCount[set] >= 4 ? 4 : 2
@@ -146,10 +147,15 @@ export default class ProfileArtis extends Base {
       }
     }
     lodash.forEach(sets, (v, k) => {
-      abbrs.push(k + v)
       abbrs.push(Artifact.getAbbrBySet(k) + v)
+      abbrs2.push(k + v)
     })
-    this._setData = { sets, names, abbrs }
+    this._setData = {
+      sets,
+      names,
+      abbrs: [...abbrs, ...abbrs2],
+      name: abbrs.length > 1 ? abbrs.join('+') : abbrs2[0]
+    }
     return this._setData
   }
 

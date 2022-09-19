@@ -50,8 +50,8 @@ async function wiki (e) {
   }
 
   if ((mode === 'pic' && Common.isDisable(e, 'wiki.pic')) ||
-    (mode !== 'pic' && Common.isDisable(e, 'wiki.wiki'))) {
-    return
+      (mode !== 'pic' && Common.isDisable(e, 'wiki.wiki'))) {
+    return false
   }
 
   let char = Character.get(ret[1])

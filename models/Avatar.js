@@ -32,7 +32,7 @@ export default class Avatar extends Base {
   }
 
   get dataSourceName () {
-    return this.meta.dataSourceName || 'MysApi'
+    return this.meta.dataSourceName || '米游社'
   }
 
   get updateTime () {
@@ -130,5 +130,47 @@ export default class Avatar extends Base {
     let ret = char.getAvatarTalent(talent, avatar.cons, 'original')
     ret.id = id
     return ret
+  }
+
+  get artisSet () {
+    if (this.isProfile) {
+      let meta = this.meta
+      if (meta.artis) {
+        return meta.artis.getSetData()
+      }
+      return {}
+    }
+    if (this._artisSet) {
+      return this._artisSet
+    }
+    let artis = this.artis
+    let setCount = {}
+    lodash.forEach(artis, (arti, idx) => {
+      let set = arti?.set?.name
+      if (set) {
+        setCount[set] = (setCount[set] || 0) + 1
+      }
+    })
+    let sets = {}
+    let names = []
+    let abbrs = []
+    let abbrs2 = []
+    for (let set in setCount) {
+      if (setCount[set] >= 2) {
+        sets[set] = setCount[set] >= 4 ? 4 : 2
+        names.push(Artifact.getArtiBySet(set))
+      }
+    }
+    lodash.forEach(sets, (v, k) => {
+      abbrs.push(Artifact.getAbbrBySet(k) + v)
+      abbrs2.push(k + v)
+    })
+    this._artisSet = {
+      sets,
+      names,
+      abbrs: [...abbrs, ...abbrs2],
+      name: abbrs.length > 1 ? abbrs.join('+') : abbrs2[0]
+    }
+    return this._artisSet
   }
 }

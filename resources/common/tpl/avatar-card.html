@@ -13,7 +13,7 @@
       <div class="avatar-level">Lv{{avatar.level}}</div>
     </div>
     {{set talent = avatar.talent || {} }}
-    {{if talent.a && talent.a.level }}
+    {{if talent.a && talent.a.level && false }}
     <div class="avatar-talent">
       {{each talentMap k}}
       {{set t = talent[k] || {} }}
@@ -21,7 +21,7 @@
       {{/each}}
     </div>
     {{else}}
-    <div class="avatar-talent"> -</div>
+    <div class="avatar-talent no-talent"><span>暂无天赋数据</span></div>
     {{/if}}
     <div class="avatar-detail">
       <div class="item avatar-weapon">

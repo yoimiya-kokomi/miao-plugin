@@ -5,23 +5,20 @@ import { segment } from 'oicq'
 
 export async function renderAvatar (e, avatar, renderType = 'card') {
   // 如果传递的是名字，则获取
+  let uid = e.uid
   if (typeof (avatar) === 'string') {
     let char = Character.get(avatar)
     if (!char) {
       return false
     }
-
     let MysApi = await e.getMysApi({
       auth: 'all',
       targetType: Cfg.get('char.queryOther', true) ? 'all' : 'self',
       cookieType: 'all',
       actionName: '查询信息'
     })
-
     if (!MysApi) return true
-
-    let uid = MysApi.targetUser.uid
-
+    uid = MysApi.targetUser.uid
     if (char.isCustom) {
       avatar = { id: char.id, name: char.name, detail: false }
     } else {
@@ -41,6 +38,13 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
         avatars = lodash.keyBy(avatars, 'id')
         avatar = avatars[char.id] || { id: char.id, name: char.name, detail: false }
       }
+    }
+  }
+  if (!avatar.isProfile) {
+    let profile = Profile.get(uid, avatar.id, true)
+    if (profile && profile.hasData) {
+      // 优先使用Profile数据
+      avatar = profile
     }
   }
   return await renderCard(e, avatar, renderType)
@@ -68,7 +72,7 @@ async function renderCard (e, ds, renderType = 'card') {
       cookieType: 'all',
       actionName: '查询信息'
     })
-    data = avatar.getData('id,name,sName,level,fetter,cons,weapon,elem,artis,imgs,dataSourceName,updateTime')
+    data = avatar.getData('id,name,sName,level,fetter,cons,weapon,elem,artis,artisSet,imgs,dataSourceName,updateTime')
     if (avatar.isProfile || (MysApi && MysApi.isSelfCookie)) {
       data.talent = await avatar.getTalent(MysApi)
       data.talentMap = ['a', 'e', 'q']
@@ -78,7 +82,7 @@ async function renderCard (e, ds, renderType = 'card') {
   }
   let width = 600
   if (bg.mode === 'left') {
-    width = 500 * bg.width / bg.height
+    width = 600 * bg.width / bg.height
   }
   // 渲染图像
   let msgRes = await Common.render('character/character-card', {

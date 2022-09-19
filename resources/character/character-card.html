@@ -20,24 +20,24 @@
         </div>
     </div>
     {{if data.level}}
-    {{set weapon = data.weapon }}
+    {{set w = data.weapon }}
 
     <div class="char-detail cont">
 
         <div class="cont weapon-cont left-line">
-            <img class="img" src="{{_res_path}}{{weapon.img}}"/>
+            <img class="img" src="{{_res_path}}{{w.img}}"/>
             <div class="weapon-info">
-                <strong>{{weapon.name}}</strong>
-                <div class="star star-{{weapon.star}}"></div>
-                <span>Lv.{{weapon.leve || weapon.level}} <span
-                        class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
+                <strong>{{w.name.length > 5 ? (w.abbr||w.name) : w.name}}</strong>
+                <div class="star star-{{w.star}}"></div>
+                <span>Lv.{{w.leve || w.level}} <span
+                        class="affix affix-{{w.affix}}">精{{w.affix}}</span></span>
             </div>
         </div>
 
 
         {{set talent = data.talent }}
         {{set keys = ['a','e','q'] }}
-        {{ if talent && talent.a && talent.a.level }}
+        {{ if talent && talent.a && talent.a.level}}
         <div class="cont talent-cont elem-{{data.elem}}">
             {{each keys key}}
             <div class="talent-item">
@@ -60,17 +60,23 @@
 
 
         <div class="cont artis-cont right-line">
-            {{if data.artis}}
+            {{set idxs = [1,2,3,4,5] }}
             <div class="artis-list">
-                {{each data.artis arti}}
+                {{each idxs idx}}
+                {{if data.artis && data.artis[idx]}}
+                {{set arti = data.artis[idx]}}
                 <div class="item">
                     <div class="item-icon"
                          style="background-image:url({{_res_path}}meta/reliquaries/icon/{{arti.name}}.png)"></div>
                     <span class="lv">{{arti.level}}</span>
                 </div>
+                {{else}}
+                <div class="item no-item"></div>
+                {{/if}}
+
                 {{/each}}
             </div>
-            {{/if}}
+            <div class="artis-sets">{{data.artisSet?.name||'圣遗物'}}</div>
         </div>
 
 
