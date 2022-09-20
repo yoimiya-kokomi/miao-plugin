@@ -80,7 +80,6 @@ let Data = {
     if (!/\.js$/.test(file)) {
       file = file + '.js'
     }
-    // 检查并创建目录
     if (fs.existsSync(`${root}/${file}`)) {
       try {
         let data = await import(`file://${root}/${file}`)

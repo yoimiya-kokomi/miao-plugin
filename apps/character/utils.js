@@ -1,4 +1,5 @@
 import { segment } from 'oicq'
+import { MysApi } from '../../models/index.js'
 
 /** 获取角色卡片的原图 */
 export async function getOriginalPicture (e) {
@@ -41,9 +42,7 @@ export async function getOriginalPicture (e) {
 
 /* #敌人等级 */
 export async function enemyLv (e) {
-  let selfUser = await e.checkAuth({
-    auth: 'self'
-  })
+  let selfUser = await MysApi.initUser(e)
   if (!selfUser || !e.msg) {
     return true
   }

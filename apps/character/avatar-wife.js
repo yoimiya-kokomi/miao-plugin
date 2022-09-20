@@ -1,7 +1,7 @@
 // #老婆
 import lodash from 'lodash'
 import { Cfg } from '../../components/index.js'
-import { Character } from '../../models/index.js'
+import { Character, MysApi } from '../../models/index.js'
 import { getAvatarList, renderAvatar } from './avatar-card.js'
 
 const relationMap = {
@@ -70,22 +70,12 @@ export async function wife (e) {
   let avatar = {}
   let wifeList = []
 
-  let MysApi = await e.getMysApi({
-    auth: 'all',
-    targetType: Cfg.get('char.queryOther', true) ? 'all' : 'self',
-    cookieType: 'all',
-    actionName: '查询信息'
-  })
-  if (!MysApi || !MysApi.selfUser) {
+  let mys = await MysApi.init(e)
+  if (!mys || !mys.uid) {
     return true
   }
-  let selfUser = MysApi.selfUser
-  let selfMysUser = await selfUser.getMysUser()
+  let selfUser = mys.selfUser
   let isSelf = true
-  if (!selfMysUser || selfMysUser.uid !== MysApi.targetUser.uid) {
-    isSelf = false
-  }
-
   let renderType = (action === '卡片' ? 'card' : 'photo')
   let addRet = []
   switch (action) {
@@ -102,7 +92,7 @@ export async function wife (e) {
         if (wifeList && wifeList.length > 0 && isSelf && !e.isPoke) {
           if (wifeList[0] === '随机') {
             // 如果选择为全部，则从列表中随机选择一个
-            avatarList = await getAvatarList(e, targetCfg.type, MysApi)
+            avatarList = await getAvatarList(e, targetCfg.type, mys)
             let avatar = lodash.sample(avatarList)
             return renderAvatar(e, avatar, renderType)
           } else {
@@ -113,13 +103,13 @@ export async function wife (e) {
       }
       // 如果未指定过，则从列表中排序并随机选择前5个
       if (e.isPoke) {
-        avatarList = await getAvatarList(e, false, MysApi)
+        avatarList = await getAvatarList(e, false, mys)
         if (avatarList && avatarList.length > 0) {
           avatar = lodash.sample(avatarList)
           return await renderAvatar(e, avatar, renderType)
         }
       } else {
-        avatarList = await getAvatarList(e, targetCfg.type, MysApi)
+        avatarList = await getAvatarList(e, targetCfg.type, mys)
         if (avatarList && avatarList.length > 0) {
           avatar = lodash.sample(avatarList.slice(0, 5))
           return await renderAvatar(e, avatar, renderType)
@@ -148,12 +138,6 @@ export async function wife (e) {
           }
         })
         wifeList = lodash.filter(lodash.uniq(wifeList), (d) => !!d)
-        /*
-        avatarList = await getAvatarList(e, targetCfg.type, MysApi);
-        avatarList = lodash.map(avatarList, (avatar) => avatar.name);
-        avatarList = lodash.filter(avatarList, (d) => !!d);
-        addRet = lodash.intersection(avatarList, wifeList);
-        */
         addRet = wifeList
         if (addRet.length === 0) {
           e.reply(`在可选的${targetCfg.keyword[0]}列表中未能找到 ${actionParam} ~`)

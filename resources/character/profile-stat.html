@@ -41,8 +41,8 @@
             <span class="item-name">{{avatar.abbr||avatar.name}}</span>
           </div>
         </div>
-        <div class="td td-lv">{{avatar.level}}</div>
-        <div class="td td-cons">
+        <div class="td td-lv star{{avatar.star}}">{{avatar.level}}</div>
+        <div class="td td-cons star{{avatar.star}}">
           <span class="cons avatar cons-{{avatar.cons}}">{{avatar.cons}}</span>
         </div>
         <div class="td td-fetter">
@@ -71,7 +71,7 @@
           {{/if}}
         </div>
         {{set mark = avatar.artisMark || false }}
-        <div class="td td-artis">
+        <div class="td td-artis class-{{mark?.markClass||'D'}}">
           <div class="item item-banner avatar-artis artis{{avatar?.artisMark?.names?.length||avatar.names.length}}">
             {{set names = avatar?.artisMark?.names || avatar?.names || []}}
             <div class="artis item-icon {{names.length>0?'star5':'no-artis'}}">

@@ -13,7 +13,7 @@
       <div class="avatar-level">Lv{{avatar.level}}</div>
     </div>
     {{set talent = avatar.talent || {} }}
-    {{if talent.a && talent.a.level && false }}
+    {{if talent.a && talent.a.level }}
     <div class="avatar-talent">
       {{each talentMap k}}
       {{set t = talent[k] || {} }}

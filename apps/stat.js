@@ -3,9 +3,8 @@
 *
 * */
 import lodash from 'lodash'
-import fs from 'fs'
 import { Cfg, Common, App } from '../components/index.js'
-import { Abyss, AvatarList, Character } from '../models/index.js'
+import { Abyss, AvatarList, Character, MysApi } from '../models/index.js'
 import HutaoApi from './stat/HutaoApi.js'
 
 let app = App.init({
@@ -200,13 +199,9 @@ async function abyssPct (e) {
 }
 
 async function abyssTeam (e) {
-  let MysApi = await e.getMysApi({
-    auth: 'cookie', // 所有用户均可查询
-    targetType: 'self', // 被查询用户可以是任意用户
-    cookieType: 'self' // cookie可以是任意可用cookie
-  })
+  let mys = await MysApi.init(e, 'cookie')
 
-  if (!MysApi || !MysApi.selfUser || !MysApi.selfUser.uid) {
+  if (!mys || !mys.uid) {
     return true
   }
 
@@ -222,7 +217,7 @@ async function abyssTeam (e) {
     if (!await AvatarList.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
-    resDetail = await MysApi.getCharacter()
+    resDetail = await mys.getCharacter()
     if (!resDetail || !resDetail.avatars || resDetail.avatars.length <= 3) {
       e.reply('角色信息获取失败')
       return true
@@ -232,7 +227,7 @@ async function abyssTeam (e) {
   }
   let avatars = new AvatarList(uid, resDetail.avatars)
   let avatarIds = avatars.getIds()
-  let avatarData = await avatars.getTalentData(avatarIds, MysApi)
+  let avatarData = await avatars.getTalentData(avatarIds, mys)
   let avatarRet = {}
   let data = {}
 
@@ -410,13 +405,8 @@ async function uploadData (e) {
   if (!Cfg.get('wiki.abyss', false) && !isMatch) {
     return false
   }
-  let MysApi = await e.getMysApi({
-    auth: 'all',
-    targetType: 'self',
-    cookieType: 'all',
-    action: '获取深渊信息'
-  })
-  if (!MysApi || !MysApi.isSelfCookie) {
+  let mys = await MysApi.init(e)
+  if (!mys || !mys.isSelfCookie) {
     if (isMatch) {
       e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
     }
@@ -426,11 +416,11 @@ async function uploadData (e) {
   let uid = e.selfUser.uid
   let resDetail, resAbyss
   try {
-    resAbyss = await MysApi.getSpiralAbyss(1)
+    resAbyss = await mys.getSpiralAbyss(1)
     if (resAbyss.floors.length > 0 && !await AvatarList.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
-    resDetail = await MysApi.getCharacter()
+    resDetail = await mys.getCharacter()
     if (!resDetail || !resAbyss || !resDetail.avatars || resDetail.avatars.length <= 3) {
       e.reply('角色信息获取失败')
       return true
@@ -498,7 +488,7 @@ async function uploadData (e) {
       }
       addMsg('最强一击', ret.data?.damage || abyssData?.stat?.dmg || {})
       addMsg('最高承伤', ret.data?.takeDamage || abyssData?.stat.takeDmg || {})
-      let avatarData = await avatars.getTalentData(avatarIds, MysApi)
+      let avatarData = await avatars.getTalentData(avatarIds, mys)
       return await Common.render('stat/abyss-summary', {
         abyss: abyssData,
         avatars: avatarData,

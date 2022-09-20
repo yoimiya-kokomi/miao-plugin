@@ -1,6 +1,5 @@
 import lodash from 'lodash'
 import { plugin } from '../adapter/index.js'
-import { getMysApi, checkAuth } from '../adapter/mys.js'
 
 class App {
   constructor (cfg) {
@@ -62,23 +61,19 @@ class App {
         let e = this.e
         if (event === 'poke') {
           if (e.notice_type === 'group') {
-            if (e.user_id !== Bot.uin) {
+            if (e.user_id !== Bot.uin || e.msg === '#poke#' || e.isPoke) {
               return false
             }
             // group状态下，戳一戳的发起人是operator
-            e.user_id = e.operator_id
+            if (e.user_id === Bot.uin) {
+              e.user_id = e.operator_id
+            }
           }
           e.isPoke = true
           // 随便指定一个不太常见的msg以触发msg的正则
           e.msg = '#poke#'
         }
         e.original_msg = e.original_msg || e.msg
-        e.checkAuth = e.checkAuth || async function (cfg) {
-          return await checkAuth(e, cfg)
-        }
-        e.getMysApi = e.getMysApi || async function (cfg) {
-          return await getMysApi(e, cfg)
-        }
         return await app.fn.call(this, e)
       }
     }

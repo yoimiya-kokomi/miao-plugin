@@ -1,11 +1,10 @@
 import lodash from 'lodash'
 import { autoRefresh } from './profile-common.js'
 import { Common, Format, Profile } from '../../components/index.js'
+import { MysApi } from '../../models/index.js'
 
 export async function renderProfile (e, char, mode = 'profile', params = {}) {
-  let selfUser = await e.checkAuth({
-    auth: 'self'
-  })
+  let selfUser = await MysApi.initUser(e)
 
   let { uid } = e
 

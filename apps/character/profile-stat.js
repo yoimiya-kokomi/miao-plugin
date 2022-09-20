@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { Common, Profile, Data } from '../../components/index.js'
-import { AvatarList } from '../../models/index.js'
+import { AvatarList, MysApi } from '../../models/index.js'
 
 export async function profileStat (e) {
   // 缓存时间，单位小时
@@ -11,15 +11,11 @@ export async function profileStat (e) {
     return false
   }
 
-  let MysApi = await e.getMysApi({
-    auth: 'all',
-    targetType: 'all',
-    cookieType: 'all'
-  })
-  if (!MysApi || !MysApi?.targetUser?.uid) return true
-  let uid = MysApi?.targetUser?.uid
+  let mys = await MysApi.init(e)
+  if (!mys || !mys.uid) return true
+  let uid = mys.uid
 
-  let resIndex = await MysApi.getCharacter()
+  let resIndex = await mys.getCharacter()
   if (!resIndex) {
     return true
   }
@@ -31,7 +27,7 @@ export async function profileStat (e) {
   let avatars = new AvatarList(uid, resIndex.avatars)
   let ids = avatars.getIds()
 
-  let talentData = await avatars.getTalentData(ids, MysApi)
+  let talentData = await avatars.getTalentData(ids, mys)
 
   // 天赋等级背景
   const talentLvMap = '0,1,1,1,2,2,3,3,3,4,5'.split(',')
@@ -45,7 +41,7 @@ export async function profileStat (e) {
     avatarRet.push(avatar)
     if (profiles[id]) {
       let profile = profiles[id]
-      if(profile.hasData) {
+      if (profile.hasData) {
         let mark = profiles[id].getArtisMark(false)
         avatar.artisMark = Data.getData(mark, 'mark,markClass,names')
       }
@@ -59,7 +55,7 @@ export async function profileStat (e) {
 
   let talentNotice = ''
 
-  if (!MysApi.isSelfCookie) {
+  if (!mys.isSelfCookie) {
     talentNotice = '未绑定Cookie，无法获取天赋列表。请回复 #体力帮助 获取配置教程'
   }
 

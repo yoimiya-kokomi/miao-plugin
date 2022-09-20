@@ -2,6 +2,7 @@ import fs from 'fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
 import { Cfg, Common, Data, App } from '../components/index.js'
+import { MysApi } from '../models/index.js'
 
 let cfgMap = {
   角色: 'char.char',
@@ -49,11 +50,12 @@ const resPath = `${_path}/plugins/miao-plugin/resources/`
 const plusPath = `${resPath}/miao-res-plus/`
 
 const checkAuth = async function (e) {
-  return await e.checkAuth({
-    auth: 'master',
-    replyMsg: `只有主人才能命令喵喵哦~
-    (*/ω＼*)`
-  })
+  if (!e.isMaster) {
+    e.reply(`只有主人才能命令喵喵哦~
+    (*/ω＼*)`)
+    return true
+  }
+  return await MysApi.initUser(e)
 }
 
 async function sysCfg (e) {

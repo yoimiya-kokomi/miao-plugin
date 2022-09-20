@@ -1,4 +1,4 @@
-import { Character, Avatar } from '../../models/index.js'
+import { Character, Avatar, MysApi } from '../../models/index.js'
 import { Cfg, Common, Profile } from '../../components/index.js'
 import lodash from 'lodash'
 import { segment } from 'oicq'
@@ -11,14 +11,9 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
     if (!char) {
       return false
     }
-    let MysApi = await e.getMysApi({
-      auth: 'all',
-      targetType: Cfg.get('char.queryOther', true) ? 'all' : 'self',
-      cookieType: 'all',
-      actionName: '查询信息'
-    })
-    if (!MysApi) return true
-    uid = MysApi.targetUser.uid
+    let mys = await MysApi.init(e)
+    if (!mys) return true
+    uid = mys.uid
     if (char.isCustom) {
       avatar = { id: char.id, name: char.name, detail: false }
     } else {
@@ -28,7 +23,7 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
         avatar = profile
       } else {
         // 使用Mys数据兜底
-        let charData = await MysApi.getCharacter()
+        let charData = await mys.getCharacter()
         if (!charData) return true
 
         let avatars = charData.avatars
@@ -66,15 +61,10 @@ async function renderCard (e, ds, renderType = 'card') {
   let custom = char.isCustom
   if (!custom) {
     let avatar = new Avatar(ds)
-    let MysApi = await e.getMysApi({
-      auth: 'all',
-      targetType: Cfg.get('char.queryOther', true) ? 'all' : 'self',
-      cookieType: 'all',
-      actionName: '查询信息'
-    })
+    let mys = await MysApi.init(e)
     data = avatar.getData('id,name,sName,level,fetter,cons,weapon,elem,artis,artisSet,imgs,dataSourceName,updateTime')
-    if (avatar.isProfile || (MysApi && MysApi.isSelfCookie)) {
-      data.talent = await avatar.getTalent(MysApi)
+    if (avatar.isProfile || (mys && mys.isSelfCookie)) {
+      data.talent = await avatar.getTalent(mys)
       data.talentMap = ['a', 'e', 'q']
       // 计算皇冠个数
       data.crownNum = lodash.filter(lodash.map(data.talent, (d) => d.original), (d) => d >= 10).length
@@ -101,8 +91,8 @@ async function renderCard (e, ds, renderType = 'card') {
   return true
 }
 
-export async function getAvatarList (e, type, MysApi) {
-  let data = await MysApi.getCharacter()
+export async function getAvatarList (e, type, mys) {
+  let data = await mys.getCharacter()
   if (!data) return false
 
   let avatars = data.avatars

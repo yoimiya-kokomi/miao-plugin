@@ -113,11 +113,11 @@
         background: @color;
       }
     }
-    .star(1, rgba(171, 171, 171, .8));
-    .star(2, rgba(208, 255, 190, .8));
-    .star(3, rgba(190, 208, 255, .8));
-    .star(4, rgba(223, 190, 255, .8));
-    .star(5, rgba(255, 228, 180, .8));
+    .star(1, rgba(171, 171, 171, .5));
+    .star(2, rgba(208, 255, 190, .5));
+    .star(3, rgba(190, 208, 255, .5));
+    .star(4, rgba(223, 190, 255, .5));
+    .star(5, rgba(255, 228, 180, .5));
 
     &.thead {
       background: rgba(0, 0, 0, 0.5) !important;
@@ -128,11 +128,11 @@
     }
 
     &:nth-child(odd) {
-      background: rgba(255, 255, 255, .95)
+      background: #fff;
     }
 
     &:nth-child(even) {
-      background: rgba(210, 210, 210, .95)
+      background: #f0f0f0;
     }
 
     & > div {
@@ -272,9 +272,51 @@
 
   }
 
+  /*
+      .star(1, rgba(171, 171, 171, .5));
+      .star(2, rgba(208, 255, 190, .5));
+      .star(3, rgba(190, 208, 255, .5));
+      .star(4, rgba(223, 190, 255, .5));
+      .star(5, rgba(255, 228, 180, .5));
+  */
+
   .td-artis {
     width: 115px;
     text-align: left;
+
+    &.class- {
+      &ACE, &ACE² {
+        background: rgba(255, 228, 180, .5);
+
+        .artis-mark-class {
+          background: #ff5722;
+        }
+      }
+
+      &SSS, &SS {
+        background: rgba(223, 190, 255, .5);
+
+        .artis-mark-class {
+          background: #531ba9cf;
+        }
+      }
+
+      &S, &A {
+        background: rgba(190, 208, 255, .5);
+
+        .artis-mark-class {
+          background: #3955b7;
+        }
+      }
+
+      &B, &C, &D {
+        background: rgba(171, 171, 171, .5);
+
+        .artis-mark-class {
+          background: #aaa;
+        }
+      }
+    }
   }
 
   .avatar-artis {
@@ -324,7 +366,7 @@
   .artis-mark-class {
     width: 28px;
     font-size: 12px;
-    border-radius: 3px;
+    border-radius: 5px;
     display: inline-block;
     text-align: center;
     background: rgba(51, 51, 51, 0.68);
@@ -337,26 +379,7 @@
     transform: scale(.7);
     color: #fff;
 
-    &.class- {
-      &ACE,
-      &ACE² {
-        background: #ff5722;
-      }
 
-      &SSS,
-      &SS {
-        background: #531ba9cf;
-      }
-
-      &S,
-      &A {
-        background: #3955b7;
-      }
-
-      &B, &C, &D {
-        background: #aaa;
-      }
-    }
   }
 
   .artis-na {

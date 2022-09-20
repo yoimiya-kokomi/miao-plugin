@@ -64,7 +64,7 @@ export default class AvatarList extends Base {
     return rets
   }
 
-  async getTalentData (ids, MysApi = false) {
+  async getTalentData (ids, mys = false) {
     let avatarTalent = await Data.getCacheJSON(`miao:avatar-talent:${this.uid}`)
     let needReq = {}
     lodash.forEach(ids, (id) => {
@@ -73,14 +73,14 @@ export default class AvatarList extends Base {
       }
     })
     let needReqIds = lodash.keys(needReq)
-    if (needReqIds.length > 0 && MysApi && MysApi.isSelfCookie) {
+    if (needReqIds.length > 0 && mys && mys.isSelfCookie) {
       let num = 10
       let ms = 100
       let skillRet = []
       let avatarArr = lodash.chunk(needReqIds, num)
       for (let val of avatarArr) {
         for (let id of val) {
-          skillRet.push(this.getAvatarTalent(id, MysApi))
+          skillRet.push(this.getAvatarTalent(id, mys))
         }
         skillRet = await Promise.all(skillRet)
         skillRet = skillRet.filter(item => item.id)
@@ -93,14 +93,14 @@ export default class AvatarList extends Base {
     }
     let ret = this.getData(ids)
     lodash.forEach(ret, (avatar, id) => {
-      avatar.talent = avatarTalent[id] || { a: {}, e: {}, q: {} }
+      avatar.talent = avatarTalent[id] || {}
     })
     return ret
   }
 
-  async getAvatarTalent (id, MysApi) {
+  async getAvatarTalent (id, mys) {
     let talent = {}
-    let talentRes = await MysApi.getDetail(id)
+    let talentRes = await mys.getDetail(id)
     let char = Character.get(id)
     let avatar = this.avatars[id]
     if (!char || !avatar) {

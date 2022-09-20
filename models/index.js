@@ -11,6 +11,8 @@ import ProfileArtis from './ProfileArtis.js'
 import ProfileDmg from './ProfileDmg.js'
 import Material from './Material.js'
 import Weapon from './Weapon.js'
+import User from './User.js'
+import MysApi from './MysApi.js'
 
 export {
   Base,
@@ -25,5 +27,7 @@ export {
   ProfileArtis,
   ProfileDmg,
   Material,
-  Weapon
+  Weapon,
+  User,
+  MysApi
 }
