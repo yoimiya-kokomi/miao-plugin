@@ -5,7 +5,7 @@ import lodash from 'lodash'
 import { segment } from 'oicq'
 import { profileList } from './profile-list.js'
 import { Profile, Version } from '../../components/index.js'
-import { Character } from '../../models/index.js'
+import { Character, MysApi } from '../../models/index.js'
 
 /*
 * 获取面板查询的 目标uid
