@@ -61,7 +61,7 @@ class App {
         let e = this.e
         if (event === 'poke') {
           if (e.notice_type === 'group') {
-            if (e.user_id !== Bot.uin || e.msg === '#poke#' || e.isPoke) {
+            if (e.target_id !== Bot.uin && !e.isPoke) {
               return false
             }
             // group状态下，戳一戳的发起人是operator

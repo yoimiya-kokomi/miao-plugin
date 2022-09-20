@@ -1,4 +1,4 @@
-{{extend elemLayout}}
+{{extend defaultLayout}}
 
 {{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-stat.css"/>
@@ -41,8 +41,8 @@
             <span class="item-name">{{avatar.abbr||avatar.name}}</span>
           </div>
         </div>
-        <div class="td td-lv star{{avatar.star}}">{{avatar.level}}</div>
-        <div class="td td-cons star{{avatar.star}}">
+        <div class="td td-lv">{{avatar.level}}</div>
+        <div class="td td-cons">
           <span class="cons avatar cons-{{avatar.cons}}">{{avatar.cons}}</span>
         </div>
         <div class="td td-fetter">
@@ -71,12 +71,11 @@
           {{/if}}
         </div>
         {{set mark = avatar.artisMark || false }}
+        {{set names = avatar?.artisMark?.names || avatar?.artisSet?.names || []}}
         <div class="td td-artis class-{{mark?.markClass||'D'}}">
-          <div class="item item-banner avatar-artis artis{{avatar?.artisMark?.names?.length||avatar.names.length}}">
-            {{set names = avatar?.artisMark?.names || avatar?.names || []}}
+          <div class="item item-banner avatar-artis artis{{names.length}}">
             <div class="artis item-icon {{names.length>0?'star5':'no-artis'}}">
-
-              {{each avatar?.artisMark?.names || avatar?.names || [] name}}
+              {{each names name}}
               <span class="img"
                     style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{name}}.png)"></span>
               {{/each}}
@@ -97,7 +96,7 @@
       {{/each}}
     </div>
     {{if talentNotice}}
-    <p class="cont-notice">{{talentNotice}}</p>
+    <p class="cont-notice">{{@talentNotice}}</p>
     {{/if}}
   </div>
 </div>

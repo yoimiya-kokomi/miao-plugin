@@ -1,5 +1,11 @@
+body {
+  background: url('./imgs/bg-01.jpg') left center;
+  background-size: 100% auto;
+}
+
 .container {
-  background-size: cover;
+  background: url('./imgs/main-01.png') center -25px no-repeat;
+  background-size: 100% auto;
 }
 
 .head-box {
@@ -39,7 +45,7 @@
 
   .cons {
     width: 16px;
-    text-shadow: 0 0 2px #000;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .5);
   }
 
   .fetter {
@@ -76,18 +82,11 @@
   .item-name {
     padding-left: 5px;
     text-align: left;
-
-    &.star4 {
-      color: #dfbeff;
-    }
-
-    &.star5 {
-      color: #ffe4b4;
-    }
+    text-shadow: 0 0 1px #fff, 1px 1px 1px rgba(255, 255, 255, .5);
   }
 
   .tr.thead {
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, .4);
     font-weight: bold;
 
     & > div {
@@ -105,7 +104,7 @@
     color: #333;
 
     .td {
-      box-shadow: 0 0 1px 0 rgba(100, 100, 100, .5) inset;
+      box-shadow: 0 0 1px 0 rgba(100, 100, 100, .8) inset;
     }
 
     .star(@s, @color) {
@@ -113,11 +112,11 @@
         background: @color;
       }
     }
-    .star(1, rgba(171, 171, 171, .5));
-    .star(2, rgba(208, 255, 190, .5));
-    .star(3, rgba(190, 208, 255, .5));
-    .star(4, rgba(223, 190, 255, .5));
-    .star(5, rgba(255, 228, 180, .5));
+    .star(1, rgba(255, 132, 132, 0.45));
+    .star(2, rgba(168, 255, 133, 0.45));
+    .star(3, rgba(137, 168, 255, 0.45));
+    .star(4, rgba(195, 134, 255, 0.45));
+    .star(5, rgba(255, 212, 132, 0.45));
 
     &.thead {
       background: rgba(0, 0, 0, 0.5) !important;
@@ -128,11 +127,11 @@
     }
 
     &:nth-child(odd) {
-      background: #fff;
+      background: rgba(255, 255, 255, .55);
     }
 
     &:nth-child(even) {
-      background: #f0f0f0;
+      background: rgba(200, 200, 200, .55);
     }
 
     & > div {
@@ -383,7 +382,7 @@
   }
 
   .artis-na {
-    padding-left: 13px;
+    padding-left: 12px;
     white-space: nowrap;
     transform: scale(.8);
     transform-origin: left center;
@@ -394,8 +393,14 @@
 }
 
 .cont-notice {
-  color: #666;
-  background: rgba(0, 0, 0, .7);
-  text-align: right;
+  color: #888;
+  background: rgba(255, 255, 255, .4);
+  font-size: 13px;
+  text-align: center;
   padding: 8px;
+
+  span {
+    padding: 0 3px;
+    color: #555;
+  }
 }

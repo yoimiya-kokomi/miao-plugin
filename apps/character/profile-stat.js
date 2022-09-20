@@ -1,6 +1,6 @@
 import lodash from 'lodash'
-import { Common, Profile, Data } from '../../components/index.js'
-import { AvatarList, MysApi } from '../../models/index.js'
+import { Common, Data } from '../../components/index.js'
+import { AvatarList } from '../../models/index.js'
 
 export async function profileStat (e) {
   // 缓存时间，单位小时
@@ -11,61 +11,41 @@ export async function profileStat (e) {
     return false
   }
 
-  let mys = await MysApi.init(e)
-  if (!mys || !mys.uid) return true
-  let uid = mys.uid
-
-  let resIndex = await mys.getCharacter()
-  if (!resIndex) {
+  let avatars = await AvatarList.getAll(e)
+  if (!avatars) {
     return true
   }
-
-  if (!await AvatarList.hasTalentCache(uid)) {
-    e.reply('正在获取角色信息，请稍候...')
-  }
-
-  let avatars = new AvatarList(uid, resIndex.avatars)
-  let ids = avatars.getIds()
-
-  let talentData = await avatars.getTalentData(ids, mys)
-
+  let uid = avatars.uid
+  let talentData = await avatars.getTalentData()
   // 天赋等级背景
-  const talentLvMap = '0,1,1,1,2,2,3,3,3,4,5'.split(',')
-
-  let profiles = Profile.getAll(uid)
-
   let avatarRet = []
   lodash.forEach(talentData, (avatar) => {
     let { talent, id } = avatar
     avatar.aeq = talent?.a?.original + talent?.e?.original + talent?.q?.original || 3
     avatarRet.push(avatar)
-    if (profiles[id]) {
-      let profile = profiles[id]
+    let profile = avatars.getProfile(id)
+    if (profile) {
       if (profile.hasData) {
-        let mark = profiles[id].getArtisMark(false)
+        let mark = profile.getArtisMark(false)
         avatar.artisMark = Data.getData(mark, 'mark,markClass,names')
       }
     }
   })
 
   let sortKey = 'level,star,aeq,cons,weapon.level,weapon.star,weapon.affix,fetter'.split(',')
-
   avatarRet = lodash.orderBy(avatarRet, sortKey)
   avatarRet = avatarRet.reverse()
-
   let talentNotice = ''
-
-  if (!mys.isSelfCookie) {
-    talentNotice = '未绑定Cookie，无法获取天赋列表。请回复 #体力帮助 获取配置教程'
+  if (!avatars.isSelfCookie) {
+    talentNotice = '未绑定CK，信息可能展示不完全。回复<span>#体力帮助</span>获取CK配置帮助'
   }
 
   return await Common.render('character/profile-stat', {
     save_id: uid,
     uid,
-    talentLvMap,
+    talentLvMap: '0,1,1,1,2,2,3,3,3,4,5'.split(','),
     avatars: avatarRet,
     isSelf: e.isSelf,
-    talentNotice,
-    elem: 'hydro'
+    talentNotice
   }, { e, scale: 1.8 })
 }

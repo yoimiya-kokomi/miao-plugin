@@ -1,59 +1,54 @@
 import Base from './Base.js'
 import lodash from 'lodash'
-import { Data, Common } from '../components/index.js'
-import { Artifact, Character } from './index.js'
+import { Data, Common, Profile } from '../components/index.js'
+import { Avatar, MysApi } from './index.js'
 
 export default class AvatarList extends Base {
-  constructor (uid, datas = []) {
+  constructor (uid, datas = [], withProfile = false) {
     super()
     if (!uid) {
       return false
     }
     this.uid = uid
     let avatars = {}
-    let abbr = Character.getAbbr()
-    lodash.forEach(datas, (avatar) => {
-      let data = Data.getData(avatar, 'id,name,level,star:rarity,cons:actived_constellation_num,fetter')
-      data.elem = (avatar.element || '').toLowerCase() || 'anemo'
-      let char = Character.get({ id: data.id, elem: data.elem })
-      if (char.isTraveler) {
-        char.setTraveler(uid)
+    let profiles = {}
+    if (withProfile) {
+      profiles = Profile.getAll(uid)
+    }
+    lodash.forEach(datas, (ds) => {
+      let avatar = new Avatar(ds, profiles[ds.id] || false)
+      if (avatar) {
+        avatars[avatar.id] = avatar
       }
-      data.face = char.face
-      data.side = char.side
-      data.abbr = char.abbr
-      data.weapon = Data.getData(avatar.weapon, 'name,affix:affix_level,level,star:rarity')
-      data.weapon.abbr = abbr[data?.weapon?.name || ''] || data?.weapon?.name
-      if (data.star > 5) {
-        data.star = 5
-      }
-      let artis = {}
-      let setCount = {}
-      lodash.forEach(avatar.reliquaries, (arti) => {
-        artis[arti.pos] = Data.getData(arti, 'name,level,set:set.name')
-        setCount[arti.set.name] = (setCount[arti.set.name] || 0) + 1
-      })
-      data.artis = artis
-      data.sets = {}
-      data.names = []
-      for (let set in setCount) {
-        if (setCount[set] >= 2) {
-          data.sets[set] = setCount[set] >= 4 ? 4 : 2
-          data.names.push(Artifact.getArtiBySet(set))
+    })
+    // 使用面板数据补全
+    lodash.forEach(profiles, (profile) => {
+      if (!avatars[profile.id]) {
+        let avatar = new Avatar(profile)
+        if (avatar) {
+          avatars[avatar.id] = avatar
         }
       }
-      avatars[data.id] = data
     })
     this.avatars = avatars
   }
 
-  getData (ids) {
+  getData (ids, keys = '') {
     let rets = {}
+    keys = keys || 'id,name,level,star,cons,fetter,elem,face,side,abbr,weapon,artisSet'
     let avatars = this.avatars
     lodash.forEach(ids, (id) => {
-      rets[id] = avatars[id] || {}
+      rets[id] = avatars[id].getData(keys) || {}
     })
     return rets
+  }
+
+  getAvatar (id) {
+    return this.avatars[id]
+  }
+
+  getProfile (id) {
+    return this.avatars[id]?.profile
   }
 
   getIds () {
@@ -64,7 +59,11 @@ export default class AvatarList extends Base {
     return rets
   }
 
-  async getTalentData (ids, mys = false) {
+  async getTalentData (ids = '', mys = false, keys = '') {
+    if (!ids) {
+      ids = this.getIds()
+    }
+    mys = mys || this._mys
     let avatarTalent = await Data.getCacheJSON(`miao:avatar-talent:${this.uid}`)
     let needReq = {}
     lodash.forEach(ids, (id) => {
@@ -72,15 +71,20 @@ export default class AvatarList extends Base {
         needReq[id] = true
       }
     })
+    let avatars = this.avatars
     let needReqIds = lodash.keys(needReq)
-    if (needReqIds.length > 0 && mys && mys.isSelfCookie) {
+    if (needReqIds.length > 0) {
+      if (needReqIds.length > 8) {
+        this.e && this.e.reply('正在获取角色信息，请稍候...')
+      }
       let num = 10
       let ms = 100
       let skillRet = []
       let avatarArr = lodash.chunk(needReqIds, num)
       for (let val of avatarArr) {
         for (let id of val) {
-          skillRet.push(this.getAvatarTalent(id, mys))
+          let avatar = avatars[id]
+          skillRet.push(await avatar.getTalent(mys))
         }
         skillRet = await Promise.all(skillRet)
         skillRet = skillRet.filter(item => item.id)
@@ -91,7 +95,7 @@ export default class AvatarList extends Base {
       })
       await Data.setCacheJSON(`miao:avatar-talent:${this.uid}`, avatarTalent, 3600 * 2)
     }
-    let ret = this.getData(ids)
+    let ret = this.getData(ids, keys)
     lodash.forEach(ret, (avatar, id) => {
       avatar.talent = avatarTalent[id] || {}
     })
@@ -99,38 +103,31 @@ export default class AvatarList extends Base {
   }
 
   async getAvatarTalent (id, mys) {
-    let talent = {}
-    let talentRes = await mys.getDetail(id)
-    let char = Character.get(id)
     let avatar = this.avatars[id]
-    if (!char || !avatar) {
-      return talent
-    }
-    if (talentRes && talentRes.skill_list) {
-      talent.id = id
-      let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
-      for (let val of talentList) {
-        let { max_level: maxLv, level_current: lv } = val
-        if (val.name.includes('普通攻击')) {
-          talent.a = lv
-          continue
-        }
-        if (maxLv >= 10 && !talent.e) {
-          talent.e = lv
-          continue
-        }
-        if (maxLv >= 10 && !talent.q) {
-          talent.q = lv
-          continue
-        }
-      }
-    }
-    let ret = char.getAvatarTalent(talent, avatar.cons, 'original')
-    ret.id = id
-    return ret
+    return await avatar.getTalent(mys)
+  }
+
+  get isSelfCookie () {
+    return !!this._mys?.isSelfCookie
   }
 }
 
 AvatarList.hasTalentCache = async function (uid) {
   return !!await redis.get(`miao:avatar-talent:${uid}`)
+}
+
+AvatarList.getAll = async function (e, mys = false) {
+  if (!mys) {
+    mys = await MysApi.init(e)
+  }
+  if (!mys || !mys.uid) return false
+  let uid = mys.uid
+  let data = await mys.getCharacter()
+  if (!data) {
+    return false
+  }
+  let ret = new AvatarList(uid, data.avatars, true)
+  ret.e = e
+  ret._mys = mys
+  return ret
 }

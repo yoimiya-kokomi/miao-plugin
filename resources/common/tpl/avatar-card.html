@@ -17,7 +17,8 @@
     <div class="avatar-talent">
       {{each talentMap k}}
       {{set t = talent[k] || {} }}
-      <span class="talent-item talent-{{k}} talent-{{t.original===10?'crown':'none'}} talent-{{t.level>t.original?'plus':'none'}}">{{t.level}}</span>
+      <span
+          class="talent-item talent-{{k}} talent-{{t.original===10?'crown':'none'}} talent-{{t.level>t.original?'plus':'none'}}">{{t.level}}</span>
       {{/each}}
     </div>
     {{else}}
@@ -30,9 +31,9 @@
           <span class="cons cons-{{weapon.affix}}">{{weapon.affix}}</span>
         </div>
       </div>
-      <div class="item avatar-artis artis{{avatar.names.length}}">
+      <div class="item avatar-artis artis{{avatar.artisSet?.names?.length}}">
         <div class="artis item-icon">
-          {{each avatar.names name}}
+          {{each avatar.artisSet?.names name}}
           <span class="img"
                 style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{name}}.png)"></span>
           {{/each}}

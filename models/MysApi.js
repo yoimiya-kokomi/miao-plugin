@@ -31,7 +31,8 @@ export default class MysApi {
         return false
       }
     }
-    return new MysApi(e, uid, mys)
+    e._mys = new MysApi(e, uid, mys)
+    return e._mys
   }
 
   static async initUser (e, cfg = 'all') {

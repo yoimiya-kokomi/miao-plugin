@@ -200,7 +200,6 @@ async function abyssPct (e) {
 
 async function abyssTeam (e) {
   let mys = await MysApi.init(e, 'cookie')
-
   if (!mys || !mys.uid) {
     return true
   }
@@ -212,27 +211,24 @@ async function abyssTeam (e) {
   }
   abyssData = abyssData.data
   let uid = e.selfUser.uid
-  let resDetail
+  let avatars
   try {
     if (!await AvatarList.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
-    resDetail = await mys.getCharacter()
-    if (!resDetail || !resDetail.avatars || resDetail.avatars.length <= 3) {
+    avatars = await AvatarList.getAll(e, mys)
+    // resDetail = await mys.getCharacter()
+    if (!avatars) {
       e.reply('角色信息获取失败')
       return true
     }
   } catch (err) {
     // console.log(err);
   }
-  let avatars = new AvatarList(uid, resDetail.avatars)
-  let avatarIds = avatars.getIds()
-  let avatarData = await avatars.getTalentData(avatarIds, mys)
+  let avatarData = await avatars.getTalentData()
   let avatarRet = {}
   let data = {}
-
   let noAvatar = {}
-
   lodash.forEach(avatarData, (avatar) => {
     let t = avatar.talent
     avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon?.level || 1) * 100 + Math.max(t.a?.original, t.e?.original, t.q?.original) * 1000
@@ -254,7 +250,6 @@ async function abyssTeam (e) {
     if (teamMark === -1) {
       teamMark = 1
     }
-
     return {
       key: teams.join(','),
       mark: teamMark

@@ -1,5 +1,10 @@
+body {
+  background: url('./imgs/bg-01.jpg') left center;
+  background-size: 100% auto;
+}
 .container {
-  background-size: cover;
+  background: url('./imgs/main-01.png') center -25px no-repeat;
+  background-size: 100% auto;
 }
 .head-box {
   margin-top: 0;
@@ -35,7 +40,7 @@
 }
 #profile-stat .cons {
   width: 16px;
-  text-shadow: 0 0 2px #000;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 #profile-stat .fetter {
   width: 32px;
@@ -72,15 +77,10 @@
 .cont .item-name {
   padding-left: 5px;
   text-align: left;
-}
-.cont .item-name.star4 {
-  color: #dfbeff;
-}
-.cont .item-name.star5 {
-  color: #ffe4b4;
+  text-shadow: 0 0 1px #fff, 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 .cont .tr.thead {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   font-weight: bold;
 }
 .cont .tr.thead > div {
@@ -94,22 +94,22 @@
   color: #333;
 }
 .cont .tr .td {
-  box-shadow: 0 0 1px 0 rgba(100, 100, 100, 0.5) inset;
+  box-shadow: 0 0 1px 0 rgba(100, 100, 100, 0.8) inset;
 }
 .cont .tr .td.star1 {
-  background: rgba(171, 171, 171, 0.5);
+  background: rgba(255, 132, 132, 0.45);
 }
 .cont .tr .td.star2 {
-  background: rgba(208, 255, 190, 0.5);
+  background: rgba(168, 255, 133, 0.45);
 }
 .cont .tr .td.star3 {
-  background: rgba(190, 208, 255, 0.5);
+  background: rgba(137, 168, 255, 0.45);
 }
 .cont .tr .td.star4 {
-  background: rgba(223, 190, 255, 0.5);
+  background: rgba(195, 134, 255, 0.45);
 }
 .cont .tr .td.star5 {
-  background: rgba(255, 228, 180, 0.5);
+  background: rgba(255, 212, 132, 0.45);
 }
 .cont .tr.thead {
   background: rgba(0, 0, 0, 0.5) !important;
@@ -118,10 +118,10 @@
   color: #d3bc8e !important;
 }
 .cont .tr:nth-child(odd) {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.55);
 }
 .cont .tr:nth-child(even) {
-  background: #f0f0f0;
+  background: rgba(200, 200, 200, 0.55);
 }
 .cont .tr > div {
   text-align: center;
@@ -326,7 +326,7 @@
   color: #fff;
 }
 .cont .artis-na {
-  padding-left: 13px;
+  padding-left: 12px;
   white-space: nowrap;
   transform: scale(0.8);
   transform-origin: left center;
@@ -335,9 +335,14 @@
   margin-right: -60px;
 }
 .cont-notice {
-  color: #666;
-  background: rgba(0, 0, 0, 0.7);
-  text-align: right;
+  color: #888;
+  background: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+  text-align: center;
   padding: 8px;
+}
+.cont-notice span {
+  padding: 0 3px;
+  color: #555;
 }
 /*# sourceMappingURL=profile-stat.css.map */

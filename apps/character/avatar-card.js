@@ -35,13 +35,6 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
       }
     }
   }
-  if (!avatar.isProfile) {
-    let profile = Profile.get(uid, avatar.id, true)
-    if (profile && profile.hasData) {
-      // 优先使用Profile数据
-      avatar = profile
-    }
-  }
   return await renderCard(e, avatar, renderType)
 }
 
@@ -60,11 +53,11 @@ async function renderCard (e, ds, renderType = 'card') {
   let data = {}
   let custom = char.isCustom
   if (!custom) {
-    let avatar = new Avatar(ds)
     let mys = await MysApi.init(e)
+    let avatar = new Avatar(ds, uid, mys.isSelfCookie)
     data = avatar.getData('id,name,sName,level,fetter,cons,weapon,elem,artis,artisSet,imgs,dataSourceName,updateTime')
-    if (avatar.isProfile || (mys && mys.isSelfCookie)) {
-      data.talent = await avatar.getTalent(mys)
+    data.talent = await avatar.getTalent(mys)
+    if (data.talent) {
       data.talentMap = ['a', 'e', 'q']
       // 计算皇冠个数
       data.crownNum = lodash.filter(lodash.map(data.talent, (d) => d.original), (d) => d >= 10).length

@@ -4,13 +4,14 @@
 * */
 import Base from './Base.js'
 import lodash from 'lodash'
+import { Profile } from '../components/index.js'
 import { Artifact, Character, Weapon } from './index.js'
 import moment from 'moment'
 
-const charKey = 'name,abbr,sName,star,imgs,weaponType,elem'.split(',')
+const charKey = 'name,abbr,sName,star,imgs,face,side,weaponType,elem'.split(',')
 
 export default class Avatar extends Base {
-  constructor (data = {}) {
+  constructor (data = {}, pd = false, hasCk = true) {
     super()
     if (!data.name) {
       return false
@@ -21,7 +22,29 @@ export default class Avatar extends Base {
     }
     this.meta = data
     this.char = char
-    this.dataType = data.dataSource ? 'profile' : 'avatar'
+    let isProfile = data.isProfile
+    this.dataType = isProfile ? 'profile' : 'avatar'
+    this.hasCk = hasCk
+    let profile
+    let uid
+    if (isProfile) {
+      profile = data
+    } else if (pd) {
+      if (pd.isProfile) {
+        profile = pd
+      } else if (/\d{9}/.test(pd)) {
+        uid = pd
+        profile = Profile.get(pd, char.id, true)
+      }
+    }
+    if (profile && profile.isProfile && profile.hasData) {
+      this.profile = profile
+    }
+    this.elem = ((profile && profile.elem) || data.element || data.elem || 'anemo').toLowerCase()
+    if (char.isTraveler) {
+      this.char = Character.get({ id: data.id || char.id, elem: this.elem })
+      uid && char.setTraveler(uid)
+    }
   }
 
   _get (key) {
@@ -32,12 +55,17 @@ export default class Avatar extends Base {
   }
 
   get dataSourceName () {
+    if (!this.hasCk && this.profile) {
+      return this.profile.dataSourceName
+    }
     return this.meta.dataSourceName || '米游社'
   }
 
   get updateTime () {
-    let meta = this.meta
-    return this.isProfile ? meta.updateTime : moment(new Date()).format('MM-DD HH:mm')
+    if ((!this.hasCk || this.isProfile) && this.profile) {
+      return this.profile.updateTime
+    }
+    return moment(new Date()).format('MM-DD HH:mm')
   }
 
   get isProfile () {
@@ -49,39 +77,39 @@ export default class Avatar extends Base {
   }
 
   get artis () {
-    if (this.isProfile && this.meta?.artis) {
-      return this.meta.artis.toJSON()
-    }
-    if (this._artis) {
-      return this._artis
-    }
     let ret = {}
-    const posIdx = {
-      生之花: 1,
-      死之羽: 2,
-      时之沙: 3,
-      空之杯: 4,
-      理之冠: 5
-    }
-    lodash.forEach(this.meta.reliquaries, (ds) => {
-      let idx = posIdx[ds.pos_name]
-      ret[idx] = {
-        name: ds.name,
-        set: Artifact.getSetByArti(ds.name),
-        level: ds.level
+    if (!this.isProfile) {
+      const posIdx = {
+        生之花: 1,
+        死之羽: 2,
+        时之沙: 3,
+        空之杯: 4,
+        理之冠: 5
       }
-    })
-    this._artis = ret
-    return this._artis;
+      lodash.forEach(this.meta.reliquaries, (ds) => {
+        let idx = posIdx[ds.pos_name]
+        ret[idx] = {
+          name: ds.name,
+          set: Artifact.getSetByArti(ds.name),
+          level: ds.level
+        }
+      })
+      return ret
+    }
+    if (this.profile && this.profile?.artis) {
+      return this.profile.artis.toJSON()
+    }
+    return false
   }
 
   get cons () {
     let data = this.meta
-    return this.isProfile ? data.cons : data.actived_constellation_num
+    let profile = this.profile
+    return data.cons || data.actived_constellation_num || profile.cons || 0
   }
 
   get weapon () {
-    let wd = this.meta.weapon
+    let wd = this.meta?.weapon || this.profile?.weapon
     if (!wd || !wd.name) {
       return {}
     }
@@ -97,80 +125,86 @@ export default class Avatar extends Base {
     }
   }
 
-  async getTalent (MysApi) {
-    if (this.isProfile) {
-      return this.talent
-    }
-    let char = this.char
-    let id = char.id
-    let talent = {}
-    let talentRes = await MysApi.getDetail(id)
-    let avatar = this.meta
-    if (!char || !avatar) {
-      return {}
-    }
-    if (talentRes && talentRes.skill_list) {
-      let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
-      for (let val of talentList) {
-        let { max_level: maxLv, level_current: lv } = val
-        if (val.name.includes('普通攻击')) {
-          talent.a = lv
-          continue
-        }
-        if (maxLv >= 10 && !talent.e) {
-          talent.e = lv
-          continue
-        }
-        if (maxLv >= 10 && !talent.q) {
-          talent.q = lv
-          continue
+  async getTalent (mys) {
+    if (!this.isProfile && mys && mys.isSelfCookie) {
+      let char = this.char
+      let id = char.id
+      let talent = {}
+      let talentRes = await mys.getDetail(id)
+      let avatar = this.meta
+      if (!char || !avatar) {
+        return {}
+      }
+      if (talentRes && talentRes.skill_list) {
+        let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
+        for (let val of talentList) {
+          let { max_level: maxLv, level_current: lv } = val
+          if (val.name.includes('普通攻击')) {
+            talent.a = lv
+            continue
+          }
+          if (maxLv >= 10 && !talent.e) {
+            talent.e = lv
+            continue
+          }
+          if (maxLv >= 10 && !talent.q) {
+            talent.q = lv
+            continue
+          }
         }
       }
+      let ret = char.getAvatarTalent(talent, avatar.cons, 'original')
+      ret.id = id
+      return ret
     }
-    let ret = char.getAvatarTalent(talent, avatar.cons, 'original')
-    ret.id = id
-    return ret
+    if (this.profile) {
+      let profile = this.profile
+      let talent = profile.talent
+      talent.id = profile.id
+      return talent
+    }
+    return false
   }
 
   get artisSet () {
-    if (this.isProfile) {
-      let meta = this.meta
-      if (meta.artis) {
-        return meta.artis.getSetData()
-      }
-      return {}
-    }
     if (this._artisSet) {
       return this._artisSet
     }
-    let artis = this.artis
-    let setCount = {}
-    lodash.forEach(artis, (arti, idx) => {
-      let set = arti?.set?.name
-      if (set) {
-        setCount[set] = (setCount[set] || 0) + 1
+    this._artisSet = false
+    if (!this.isProfile) {
+      let artis = this.artis
+      let setCount = {}
+      lodash.forEach(artis, (arti, idx) => {
+        let set = arti?.set?.name
+        if (set) {
+          setCount[set] = (setCount[set] || 0) + 1
+        }
+      })
+      let sets = {}
+      let names = []
+      let abbrs = []
+      let abbrs2 = []
+      for (let set in setCount) {
+        if (setCount[set] >= 2) {
+          sets[set] = setCount[set] >= 4 ? 4 : 2
+          names.push(Artifact.getArtiBySet(set))
+        }
       }
-    })
-    let sets = {}
-    let names = []
-    let abbrs = []
-    let abbrs2 = []
-    for (let set in setCount) {
-      if (setCount[set] >= 2) {
-        sets[set] = setCount[set] >= 4 ? 4 : 2
-        names.push(Artifact.getArtiBySet(set))
+      lodash.forEach(sets, (v, k) => {
+        abbrs.push(Artifact.getAbbrBySet(k) + v)
+        abbrs2.push(k + v)
+      })
+      this._artisSet = {
+        sets,
+        names,
+        abbrs: [...abbrs, ...abbrs2],
+        name: abbrs.length > 1 ? abbrs.join('+') : abbrs2[0]
       }
     }
-    lodash.forEach(sets, (v, k) => {
-      abbrs.push(Artifact.getAbbrBySet(k) + v)
-      abbrs2.push(k + v)
-    })
-    this._artisSet = {
-      sets,
-      names,
-      abbrs: [...abbrs, ...abbrs2],
-      name: abbrs.length > 1 ? abbrs.join('+') : abbrs2[0]
+    if (this.profile) {
+      let profile = this.profile
+      this._artisSet = profile.artis ? profile.artis.getSetData() : false
     }
-    return this._artisSet
+    return this._artisSet || {}
   }
 }
