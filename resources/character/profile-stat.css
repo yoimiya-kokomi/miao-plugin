@@ -17,9 +17,6 @@
   align-items: center;
   height: 36px;
 }
-#profile-stat .item-banner > * {
-  display: block;
-}
 #profile-stat .item-banner .item-icon {
   z-index: 10;
 }
@@ -37,16 +34,16 @@
   position: relative;
 }
 #profile-stat .cons {
-  border-radius: 0 3px 3px 0;
-  width: 22px;
-  margin-right: 5px;
+  width: 16px;
   text-shadow: 0 0 2px #000;
+}
+#profile-stat .fetter {
+  width: 32px;
+  height: 32px;
 }
 #profile-stat .level {
   border-radius: 3px 0 0 3px;
   width: 32px;
-  text-shadow: 0 0 2px #000;
-  color: #fff;
 }
 #profile-stat .level:before {
   content: "Lv";
@@ -61,63 +58,13 @@
 #profile-stat .level:before {
   content: "Lv";
 }
-#profile-stat .star1 .item-icon {
-  box-shadow: 0 0 0 1px #ababab;
-}
-#profile-stat .star1 .cons {
-  box-shadow: 0 0 0 1px #ababab;
-}
-#profile-stat .star1 .level {
-  box-shadow: 0 0 0 1px #ababab;
-  background: rgba(94, 94, 94, 0.5);
-}
-#profile-stat .star2 .item-icon {
-  box-shadow: 0 0 0 1px #d0ffbe;
-}
-#profile-stat .star2 .cons {
-  box-shadow: 0 0 0 1px #d0ffbe;
-}
-#profile-stat .star2 .level {
-  box-shadow: 0 0 0 1px #d0ffbe;
-  background: rgba(97, 255, 37, 0.5);
-}
-#profile-stat .star3 .item-icon {
-  box-shadow: 0 0 0 1px #bed0ff;
-}
-#profile-stat .star3 .cons {
-  box-shadow: 0 0 0 1px #bed0ff;
-}
-#profile-stat .star3 .level {
-  box-shadow: 0 0 0 1px #bed0ff;
-  background: rgba(37, 97, 255, 0.5);
-}
-#profile-stat .star4 .item-icon {
-  box-shadow: 0 0 0 1px #dfbeff;
-}
-#profile-stat .star4 .cons {
-  box-shadow: 0 0 0 1px #dfbeff;
-}
-#profile-stat .star4 .level {
-  box-shadow: 0 0 0 1px #dfbeff;
-  background: rgba(148, 37, 255, 0.5);
-}
-#profile-stat .star5 .item-icon {
-  box-shadow: 0 0 0 1px #ffe4b4;
-}
-#profile-stat .star5 .cons {
-  box-shadow: 0 0 0 1px #ffe4b4;
-}
-#profile-stat .star5 .level {
-  box-shadow: 0 0 0 1px #ffe4b4;
-  background: rgba(255, 173, 27, 0.5);
-}
 .cont {
   font-size: 14px;
   background: none;
 }
 .cont .item-name {
-  text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.8);
-  text-align: center;
+  padding-left: 5px;
+  text-align: left;
 }
 .cont .item-name.star4 {
   color: #dfbeff;
@@ -136,6 +83,39 @@
 .cont .tr.thead .td-talent {
   color: #d3bc8e;
 }
+.cont .tr {
+  color: #333;
+}
+.cont .tr .td {
+  box-shadow: 0 0 1px 0 rgba(100, 100, 100, 0.5) inset;
+}
+.cont .tr .td.star1 {
+  background: rgba(171, 171, 171, 0.8);
+}
+.cont .tr .td.star2 {
+  background: rgba(208, 255, 190, 0.8);
+}
+.cont .tr .td.star3 {
+  background: rgba(190, 208, 255, 0.8);
+}
+.cont .tr .td.star4 {
+  background: rgba(223, 190, 255, 0.8);
+}
+.cont .tr .td.star5 {
+  background: rgba(255, 228, 180, 0.8);
+}
+.cont .tr.thead {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+.cont .tr.thead > div {
+  color: #d3bc8e !important;
+}
+.cont .tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.95);
+}
+.cont .tr:nth-child(even) {
+  background: rgba(210, 210, 210, 0.95);
+}
 .cont .tr > div {
   text-align: center;
   height: 36px;
@@ -146,15 +126,14 @@
 .cont .tr > div * {
   vertical-align: middle;
 }
-.cont .tr .index {
-  color: #333;
+.cont .tr .td-idx {
   width: 30px;
   padding-left: 5px;
 }
 .cont .tr .td-name {
   text-align: left;
-  width: 150px;
-  padding-left: 8px;
+  width: 100px;
+  padding-left: 3px;
 }
 .cont .tr .td-name .item-name {
   width: 50px;
@@ -165,23 +144,26 @@
   border-radius: 5px;
   display: inline-block;
   overflow: visible;
+  background: none;
 }
 .cont .tr .td-name .char-icon .img {
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
   position: relative;
-  top: -3px;
-  left: -1px;
+  top: 0;
+  left: 0;
   border-radius: 0 0 6px 6px;
+}
+.cont .tr .td-lv {
+  width: 35px;
 }
 .cont .tr .td-fetter {
   width: 40px;
   text-align: center;
-  padding-right: 5px;
 }
-.cont .tr .td-fetter .fetter {
-  width: 32px;
-  height: 32px;
+.cont .tr .td-cons {
+  width: 40px;
+  text-align: center;
 }
 .cont .tr .td-talent {
   width: 35px;
@@ -189,73 +171,65 @@
 }
 .cont .tr .td-weapon {
   text-align: left;
-  padding-left: 10px;
 }
 .cont .tr .td-weapon .lv {
-  width: 38px;
   text-align: right;
-  padding-right: 2px;
   display: inline-block;
   white-space: nowrap;
 }
 .cont .tr .td-weapon .weapon-icon {
-  border-radius: 0px;
-}
-.cont .tr .td-weapon .cons {
-  border-radius: 0 3px 3px 0;
+  border-radius: 0;
+  background: none;
 }
 .cont .tr .td-weapon .item-name {
   width: 70px;
+  font-size: 12px;
 }
 .cont .tr .weapon-icon {
   width: 25px;
-  height: 22px;
   display: inline-block;
   overflow: visible;
 }
 .cont .tr .weapon-icon .img {
   width: 30px;
   height: 30px;
-  margin: -8px 0 0 -3px;
-}
-.cont .tr .td-talent {
-  text-shadow: 0 0 1px #000, 0 0 2px rgba(0, 0, 0, 0.8);
-  color: rgba(255, 255, 255, 0.85);
 }
 .cont .tr .talent-plus {
   font-weight: bold;
-  color: #48cdda;
+  color: #006cc7;
   font-size: 15px;
-  text-shadow: 0 0 1px #000, 0 0 3px #000;
+  text-shadow: 0px 0px 1px #fff;
 }
 .cont .tr .lv1 {
-  background: rgba(50, 50, 50, 0.6);
+  background: rgba(60, 63, 65, 0.3);
 }
 .cont .tr .lv1.talent-plus {
-  color: #fff;
+  color: #333;
 }
 .cont .tr .lv2 {
   background: rgba(23, 184, 58, 0.5);
 }
 .cont .tr .lv2.talent-plus {
-  color: #fff;
+  color: #005800;
 }
 .cont .tr .lv3 {
   background: rgba(27, 128, 212, 0.5);
 }
 .cont .tr .lv3.talent-plus {
-  color: #fff;
+  color: #333;
 }
 .cont .tr .lv4 {
-  background: rgba(146, 90, 255, 0.5);
+  background: rgba(146, 90, 255, 0.55);
 }
 .cont .tr .lv4.talent-plus {
-  color: #fff;
+  color: #720465;
 }
 .cont .tr .lv5 {
-  background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, 0.35);
+  background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, 0.55);
   background-size: contain;
-  color: #fff;
+}
+.cont .tr .lv5.talent-plus {
+  color: #b70000;
 }
 .cont .td-artis {
   width: 115px;
@@ -271,9 +245,15 @@
   position: relative;
   width: 30px;
   height: 30px;
-  background: rgba(51, 51, 51, 0.68);
   box-shadow: 0 0 1px 0 #ffe4b4;
   display: inline-block;
+}
+.cont .avatar-artis .artis.no-artis {
+  background: #bbb;
+}
+.cont .avatar-artis .no-artis {
+  background: url(../common/item/artifact-icon.webp) center no-repeat;
+  background-size: auto 80%;
 }
 .cont .avatar-artis.artis2 .img {
   position: absolute;
@@ -288,38 +268,45 @@
   right: -2px;
   bottom: -2px;
 }
-.cont .arti-mark-class {
-  width: 30px;
+.cont .artis-mark-class {
+  width: 28px;
   font-size: 12px;
-  border-radius: 0 4px 4px 0;
+  border-radius: 3px;
   display: inline-block;
   text-align: center;
   background: rgba(51, 51, 51, 0.68);
-  height: 18px;
-  line-height: 18px;
+  height: 20px;
+  line-height: 20px;
   box-shadow: 0 0 1px 0 #ffe4b4;
   position: relative;
   z-index: 9;
-  margin-right: 5px;
+  margin: 0 -2px;
+  transform: scale(0.7);
+  color: #fff;
 }
-.cont .arti-mark-class.class-ACE,
-.cont .arti-mark-class.class-ACE² {
+.cont .artis-mark-class.class-ACE,
+.cont .artis-mark-class.class-ACE² {
   background: #ff5722;
 }
-.cont .arti-mark-class.class-SSS,
-.cont .arti-mark-class.class-SS {
-  background: #ab7e31;
+.cont .artis-mark-class.class-SSS,
+.cont .artis-mark-class.class-SS {
+  background: #531ba9cf;
 }
-.cont .arti-mark-class.class-S,
-.cont .arti-mark-class.class-A {
-  background: #8a2cc9;
+.cont .artis-mark-class.class-S,
+.cont .artis-mark-class.class-A {
+  background: #3955b7;
 }
-.cont .arti-na {
+.cont .artis-mark-class.class-B,
+.cont .artis-mark-class.class-C,
+.cont .artis-mark-class.class-D {
+  background: #aaa;
+}
+.cont .artis-na {
   padding-left: 13px;
   white-space: nowrap;
   transform: scale(0.8);
   transform-origin: left center;
-  color: rgba(255, 255, 255, 0.5);
+  color: #888;
   font-size: 12px;
   margin-right: -60px;
 }
@@ -329,4 +316,4 @@
   text-align: right;
   padding: 8px;
 }
-/*# sourceMappingURL=profile-lib-stat.css.map */
+/*# sourceMappingURL=profile-stat.css.map */

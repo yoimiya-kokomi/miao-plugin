@@ -14,10 +14,11 @@
   <div class="cont">
     <div class="cont-table">
       <div class="avatar tr thead">
+        <div class="td-idx">#</div>
         <div class="td-name">角色</div>
-
+        <div class="td-lv">Lv</div>
+        <div class="td-cons">命座</div>
         <div class="td-fetter">好感</div>
-
         <div class="td-talent">A</div>
         <div class="td-talent">E</div>
         <div class="td-talent">Q</div>
@@ -29,20 +30,22 @@
       {{set weapon = avatar.weapon}}
       {{set tk = ['a','e','q'] }}
       <div class="avatar tr">
-        <div class="td-name">
-          <div class="item-banner star{{avatar.star}}">
-            <span class="level">{{avatar.level}}</span>
+        <div class="td td-idx  star{{avatar.star}}">{{idx+1}}</div>
+        <div class="td td-name  star{{avatar.star}}">
+          <div class="item-banner">
             <div class="item-icon char-icon star{{avatar.star}}">
               <span class="img"
                     style="background-image:url({{_res_path}}{{avatar.face}})"></span>
             </div>
-            <span class="cons avatar cons-{{avatar.cons}}">{{avatar.cons}}</span>
+
             <span class="item-name">{{avatar.abbr||avatar.name}}</span>
           </div>
         </div>
-
-
-        <div class="td-fetter ">
+        <div class="td td-lv">{{avatar.level}}</div>
+        <div class="td td-cons">
+          <span class="cons avatar cons-{{avatar.cons}}">{{avatar.cons}}</span>
+        </div>
+        <div class="td td-fetter">
           <span class="fetter fetter{{['空','荧','旅行者'].includes(avatar.name)?10:avatar.fetter}}"></span>
         </div>
 
@@ -53,33 +56,39 @@
         </div>
         {{/each}}
 
-        <div class="td-weapon  star-{{weapon.star}}">
+        <div class="td td-weapon  star{{weapon.star}}">
           {{if weapon?.name}}
           <div class="item-banner star{{weapon.star}}">
             <span class="level">{{weapon.level}}</span>
-            <div class="item-icon weapon-icon star{{weapon.star}}">
+            <span class="cons weapon cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
+            <div class="item-icon weapon-icon">
               <span class="img"
                     style="background-image:url({{_res_path}}/meta/weapons/icon/{{weapon.name}}.png)"></span>
             </div>
-            <span class="cons weapon cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
+
             <span class="item-name">{{weapon.abbr}}</span>
           </div>
           {{/if}}
         </div>
-        <div class="td-artis">
+        {{set mark = avatar.artisMark || false }}
+        <div class="td td-artis">
           <div class="item item-banner avatar-artis artis{{avatar?.artisMark?.names?.length||avatar.names.length}}">
-            <div class="artis item-icon">
+            {{set names = avatar?.artisMark?.names || avatar?.names || []}}
+            <div class="artis item-icon {{names.length>0?'star5':'no-artis'}}">
+
               {{each avatar?.artisMark?.names || avatar?.names || [] name}}
               <span class="img"
                     style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{name}}.png)"></span>
               {{/each}}
+              {{if names.length === 0}}
+              <span class="img no-artis"></span>
+              {{/if}}
             </div>
-            {{if avatar.artisMark}}
-            {{set mark = avatar.artisMark}}
-            <span class="arti-mark-class class-{{mark.markClass}}">{{mark.markClass}}</span>
+            {{if mark}}
+            <span class="artis-mark-class class-{{mark?.markClass||'D'}}">{{mark.markClass}}</span>
             {{mark.mark}}
             {{else}}
-            <span class="arti-na">暂无面板数据</span>
+            <span class="artis-na">暂无面板数据</span>
             {{/if}}
           </div>
 

@@ -19,10 +19,6 @@
     align-items: center;
     height: 36px;
 
-    & > * {
-      display: block;
-    }
-
     .item-icon {
       z-index: 10;
     }
@@ -42,21 +38,21 @@
   }
 
   .cons {
-    border-radius: 0 3px 3px 0;
-    width: 22px;
-    margin-right: 5px;
+    width: 16px;
     text-shadow: 0 0 2px #000;
+  }
+
+  .fetter {
+    width: 32px;
+    height: 32px;
   }
 
   .level {
     border-radius: 3px 0 0 3px;
     width: 32px;
-    text-shadow: 0 0 2px #000;
-    color: #fff;
 
     &:before {
       content: "Lv";
-
     }
   }
 
@@ -71,29 +67,6 @@
   .level:before {
     content: "Lv";
   }
-
-
-  .star(@s, @color) {
-    .star@{s} {
-      .item-icon {
-        box-shadow: 0 0 0 1px @color;
-      }
-
-      .cons {
-        box-shadow: 0 0 0 1px @color;
-      }
-
-      .level {
-        box-shadow: 0 0 0 1px @color;
-        background: fadeout(darken(@color, 30%), 50%);
-      }
-    }
-  }
-  .star(1, rgb(171, 171, 171));
-  .star(2, rgb(208, 255, 190));
-  .star(3, rgb(190, 208, 255));
-  .star(4, rgb(223, 190, 255));
-  .star(5, rgb(255, 228, 180));
 }
 
 .cont {
@@ -101,8 +74,8 @@
   background: none;
 
   .item-name {
-    text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, .8);
-    text-align: center;
+    padding-left: 5px;
+    text-align: left;
 
     &.star4 {
       color: #dfbeff;
@@ -129,6 +102,38 @@
   }
 
   .tr {
+    color: #333;
+
+    .td {
+      box-shadow: 0 0 1px 0 rgba(100, 100, 100, .5) inset;
+    }
+
+    .star(@s, @color) {
+      .td.star@{s} {
+        background: @color;
+      }
+    }
+    .star(1, rgba(171, 171, 171, .8));
+    .star(2, rgba(208, 255, 190, .8));
+    .star(3, rgba(190, 208, 255, .8));
+    .star(4, rgba(223, 190, 255, .8));
+    .star(5, rgba(255, 228, 180, .8));
+
+    &.thead {
+      background: rgba(0, 0, 0, 0.5) !important;
+
+      & > div {
+        color: #d3bc8e !important;
+      }
+    }
+
+    &:nth-child(odd) {
+      background: rgba(255, 255, 255, .95)
+    }
+
+    &:nth-child(even) {
+      background: rgba(210, 210, 210, .95)
+    }
 
     & > div {
       text-align: center;
@@ -142,17 +147,15 @@
       }
     }
 
-    .index {
-      color: #333;
+    .td-idx {
       width: 30px;
       padding-left: 5px;
-
     }
 
     .td-name {
       text-align: left;
-      width: 150px;
-      padding-left: 8px;
+      width: 100px;
+      padding-left: 3px;
 
       .item-name {
         width: 50px;
@@ -165,28 +168,34 @@
         border-radius: 5px;
         display: inline-block;
         overflow: visible;
+        background: none;
 
 
         .img {
-          width: 33px;
-          height: 33px;
+          width: 30px;
+          height: 30px;
           position: relative;
-          top: -3px;
-          left: -1px;
+          top: 0;
+          left: 0;
           border-radius: 0 0 6px 6px;
         }
       }
     }
 
+    .td-lv {
+      width: 35px;
+    }
+
     .td-fetter {
       width: 40px;
       text-align: center;
-      padding-right: 5px;
 
-      .fetter {
-        width: 32px;
-        height: 32px;
-      }
+
+    }
+
+    .td-cons {
+      width: 40px;
+      text-align: center;
     }
 
     .td-talent {
@@ -196,55 +205,48 @@
 
     .td-weapon {
       text-align: left;
-      padding-left: 10px;
 
       .lv {
-        width: 38px;
+
         text-align: right;
-        padding-right: 2px;
         display: inline-block;
         white-space: nowrap;
       }
 
       .weapon-icon {
-        border-radius: 0px;
-      }
-
-      .cons {
-        border-radius: 0 3px 3px 0;
+        border-radius: 0;
+        background: none;
       }
 
       .item-name {
         width: 70px;
+        font-size: 12px;
       }
     }
 
     .weapon-icon {
       width: 25px;
-      height: 22px;
       display: inline-block;
       overflow: visible;
 
       .img {
         width: 30px;
         height: 30px;
-        margin: -8px 0 0 -3px;
       }
     }
 
     .td-talent {
-      text-shadow: 0 0 1px #000, 0 0 2px rgba(0, 0, 0, .8);
-      color: rgba(255, 255, 255, .85);
+
     }
 
     .talent-plus {
       font-weight: bold;
-      color: #48cdda;
+      color: #006cc7;
       font-size: 15px;
-      text-shadow: 0 0 1px #000, 0 0 3px #000;
+      text-shadow: 0px 0px 1px #fff;
     }
 
-    .lv(@lv, @c1, @c2:#fff) {
+    .lv(@lv, @c1, @c2:#333) {
       .lv@{lv} {
         background: @c1;
 
@@ -253,15 +255,18 @@
         }
       }
     }
-    .lv(1, rgba(50, 50, 50, .6));
-    .lv(2, rgba(23, 184, 58, .5));
+    .lv(1, rgba(60, 63, 65, .3));
+    .lv(2, rgba(23, 184, 58, .5), #005800);
     .lv(3, rgba(27, 128, 212, .5));
-    .lv(4, rgba(146, 90, 255, .5));
+    .lv(4, rgba(146, 90, 255, .55), #720465);
 
     .lv5 {
-      background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, .35);
+      background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, .55);
       background-size: contain;
-      color: #fff;
+
+      &.talent-plus {
+        color: #b70000;
+      }
     }
 
 
@@ -269,7 +274,6 @@
 
   .td-artis {
     width: 115px;
-
     text-align: left;
   }
 
@@ -283,9 +287,17 @@
       position: relative;
       width: 30px;
       height: 30px;
-      background: rgba(51, 51, 51, 0.68);
       box-shadow: 0 0 1px 0 #ffe4b4;
       display: inline-block;
+
+      &.no-artis {
+        background: #bbb;
+      }
+    }
+
+    .no-artis {
+      background: url(../common/item/artifact-icon.webp) center no-repeat;
+      background-size: auto 80%;
     }
 
     &.artis2 {
@@ -305,21 +317,25 @@
         }
       }
     }
+
+
   }
 
-  .arti-mark-class {
-    width: 30px;
+  .artis-mark-class {
+    width: 28px;
     font-size: 12px;
-    border-radius: 0 4px 4px 0;
+    border-radius: 3px;
     display: inline-block;
     text-align: center;
     background: rgba(51, 51, 51, 0.68);
-    height: 18px;
-    line-height: 18px;
+    height: 20px;
+    line-height: 20px;
     box-shadow: 0 0 1px 0 #ffe4b4;
     position: relative;
     z-index: 9;
-    margin-right: 5px;
+    margin: 0 -2px;
+    transform: scale(.7);
+    color: #fff;
 
     &.class- {
       &ACE,
@@ -329,22 +345,26 @@
 
       &SSS,
       &SS {
-        background: #ab7e31;
+        background: #531ba9cf;
       }
 
       &S,
       &A {
-        background: #8a2cc9;
+        background: #3955b7;
+      }
+
+      &B, &C, &D {
+        background: #aaa;
       }
     }
   }
 
-  .arti-na {
+  .artis-na {
     padding-left: 13px;
     white-space: nowrap;
     transform: scale(.8);
     transform-origin: left center;
-    color: rgba(255, 255, 255, .5);
+    color: #888;
     font-size: 12px;
     margin-right: -60px;
   }
