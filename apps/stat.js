@@ -200,7 +200,7 @@ async function abyssPct (e) {
 
 async function abyssTeam (e) {
   let mys = await MysApi.init(e, 'cookie')
-  if (!mys || !mys.uid) {
+  if (!mys || !mys.uid || !mys.isSelfCookie) {
     return true
   }
 
@@ -210,12 +210,8 @@ async function abyssTeam (e) {
     return true
   }
   abyssData = abyssData.data
-  let uid = e.selfUser.uid
   let avatars
   try {
-    if (!await AvatarList.hasTalentCache(uid)) {
-      e.reply('正在获取用户信息，请稍候...')
-    }
     avatars = await AvatarList.getAll(e, mys)
     // resDetail = await mys.getCharacter()
     if (!avatars) {

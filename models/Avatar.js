@@ -40,7 +40,7 @@ export default class Avatar extends Base {
     if (profile && profile.isProfile && profile.hasData) {
       this.profile = profile
     }
-    this.elem = ((profile && profile.elem) || data.element || data.elem || 'anemo').toLowerCase()
+    this.elem = ((profile && profile.elem) || data.element || data.elem || char.elem || 'anemo').toLowerCase()
     if (char.isTraveler) {
       this.char = Character.get({ id: data.id || char.id, elem: this.elem })
       uid && char.setTraveler(uid)
@@ -105,7 +105,7 @@ export default class Avatar extends Base {
   get cons () {
     let data = this.meta
     let profile = this.profile
-    return data.cons || data.actived_constellation_num || profile.cons || 0
+    return data?.cons || data?.actived_constellation_num || profile?.cons || 0
   }
 
   get weapon () {
