@@ -53,7 +53,7 @@ const checkAuth = async function (e) {
   if (!e.isMaster) {
     e.reply(`只有主人才能命令喵喵哦~
     (*/ω＼*)`)
-    return true
+    return false
   }
   return await MysApi.initUser(e)
 }

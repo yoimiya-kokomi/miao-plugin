@@ -121,12 +121,14 @@ const CharData = {
     let talent = CharData.getTalents($, cont, name, iconPath)
     let passive = CharData.getPassive($, cont, name, iconPath)
     let cons = CharData.getCons($, cont, iconPath)
+    let attr = CharData.getDetailAttr($)
     return {
       id,
       name,
       talent,
       cons,
-      passive
+      passive,
+      attr
     }
   },
 

@@ -102,6 +102,10 @@ class Character extends Base {
     return CharMeta.getMaterials(this)
   }
 
+  getLvStat () {
+    return CharMeta.getLvStat(this)
+  }
+
   get birthday () {
     let birth = this.birth
     if (!birth) {

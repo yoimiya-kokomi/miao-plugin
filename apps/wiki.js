@@ -11,13 +11,14 @@ let action = {
     keyword: '命座|天赋|技能|资料|照片|写真|图片|插画'
   }
 }
+let wikiReg = /^(?:#|喵喵)?(.*)(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/
 
 let app = App.init({
   id: 'wiki',
   name: '角色资料'
 })
 app.reg('wiki', wiki, {
-  rule: /^(#|喵喵)?.*(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/,
+  rule: wikiReg,
   desc: '【#资料】 #神里天赋 #夜兰命座'
 })
 app.reg('calendar', calendar, {
@@ -32,9 +33,8 @@ async function wiki (e) {
     return false
   }
 
-  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|图鉴|照片|写真|图片|图像)$/
   let msg = e.msg
-  let ret = reg.exec(msg)
+  let ret = wikiReg.exec(msg)
 
   if (!ret || !ret[1] || !ret[2]) {
     return false
@@ -47,6 +47,8 @@ async function wiki (e) {
     mode = 'wiki'
   } else if (/图|画|写真|照片/.test(ret[2])) {
     mode = 'pic'
+  } else if (/(材料|养成|成长)/.test(ret[2])) {
+    mode = 'material'
   }
 
   if ((mode === 'pic' && Common.isDisable(e, 'wiki.pic')) ||
@@ -81,9 +83,11 @@ async function wiki (e) {
   }
   if (mode === 'wiki') {
     return await renderWiki({ e, char })
+  } else if (mode === 'material') {
+    return await renderCharMaterial({ e, char })
   }
   return await Common.render('wiki/character-talent', {
-    // saveId: `${mode}-${char.id}-${char.elem}`,
+    saveId: `${mode}-${char.id}`,
     ...char.getData(),
     detail: char.getDetail(),
     imgs: char.getImgs(),
@@ -110,6 +114,19 @@ async function renderWiki ({ e, char }) {
     weapons,
     holding,
     artis,
+    materials: char.getMaterials(),
+    elem: char.elem
+  }, { e, scale: 1.4 })
+}
+
+async function renderCharMaterial ({ e, char }) {
+  let data = char.getData()
+  return await Common.render('wiki/character-material', {
+    // saveId: `info-${char.id}`,
+    data,
+    attr: char.getAttrList(),
+    detail: char.getDetail(),
+    imgs: char.getImgs(),
     materials: char.getMaterials(),
     elem: char.elem
   }, { e, scale: 1.4 })
