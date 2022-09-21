@@ -119,7 +119,7 @@ export default class ProfileArtis extends Base {
   isAttr (attr, pos = '3,4,5') {
     let mainAttr = this.mainAttr()
     let check = true
-    Data.eachStr(pos, (p) => {
+    Data.eachStr(pos.toString(), (p) => {
       if (!attr.split(',').includes(mainAttr[p])) {
         check = false
         return false
