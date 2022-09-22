@@ -117,7 +117,7 @@ export default class Avatars extends Base {
           original: lv,
           crown: lv === maxLv
         }
-        if (val.name.includes('普通攻击')) {
+        if (val.name.includes('普通攻击') || val.name.includes('Normal Attack')) {
           talent.a = ds
           continue
         }
