@@ -257,12 +257,10 @@ let catalyst = {
     }
   },
   盈满之实: {
-    title: '满层提高元素精通[mastery]，攻击力降低[_atkPct]%',
-    buffCount: 5,
+    title: '满层提高元素精通[mastery]，攻击力降低25%',
     refine: {
-      mastery: step(24, 3),
-      _atkPct: step(5, 0),
-      atkPct: step(-5, 0)
+      mastery: step(24 * 5, 3),
+      atkPct: -25
     }
   }
 }

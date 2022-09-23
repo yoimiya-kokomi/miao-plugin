@@ -36,7 +36,6 @@ body {
     display: inline-block;
     width: 19px;
     padding: 0;
-    margin: 0;
     text-align: center;
     vertical-align: middle;
     font-size: 13px;
@@ -55,23 +54,18 @@ body {
 
   .level {
     border-radius: 3px 0 0 3px;
-    width: 32px;
+    width: 25px;
+    white-space: nowrap;
+    display: inline-block;
 
     &:before {
       content: "Lv";
+      display: inline-block;
+      font-size: 12px;
+      transform: scale(.7);
+      transform-origin: right 55%;
+      margin-left: -3px;
     }
-  }
-
-  .level:before {
-    display: inline-block;
-    font-size: 12px;
-    transform: scale(.7);
-    transform-origin: right 55%;
-    margin-left: -3px;
-  }
-
-  .level:before {
-    content: "Lv";
   }
 }
 
@@ -82,7 +76,7 @@ body {
   .item-name {
     padding-left: 5px;
     text-align: left;
-    text-shadow: 0 0 1px #fff, 1px 1px 1px rgba(255, 255, 255, .5);
+    text-shadow: 0 0 1px rgba(255, 255, 255, .8);
   }
 
   .tr.thead {
@@ -107,16 +101,20 @@ body {
       box-shadow: 0 0 1px 0 rgba(100, 100, 100, .8) inset;
     }
 
-    .star(@s, @color) {
+    .star(@s, @color, @color2:#333) {
       .td.star@{s} {
         background: @color;
+
+        .item-name {
+          color: @color2;
+        }
       }
     }
-    .star(1, rgba(255, 132, 132, 0.45));
-    .star(2, rgba(168, 255, 133, 0.45));
-    .star(3, rgba(137, 168, 255, 0.45));
-    .star(4, rgba(195, 134, 255, 0.45));
-    .star(5, rgba(255, 212, 132, 0.45));
+    .star(1, rgba(200, 200, 200, 0.35));
+    .star(2, rgba(168, 255, 133, 0.35));
+    .star(3, rgba(137, 168, 255, 0.35));
+    .star(4, rgba(195, 134, 255, 0.35), #720465);
+    .star(5, rgba(255, 212, 132, 0.35), #6f4b00);
 
     &.thead {
       background: rgba(0, 0, 0, 0.5) !important;
@@ -127,11 +125,11 @@ body {
     }
 
     &:nth-child(odd) {
-      background: rgba(255, 255, 255, .55);
+      background: rgba(255, 255, 255, .85);
     }
 
     &:nth-child(even) {
-      background: rgba(200, 200, 200, .55);
+      background: rgba(230, 230, 230, .85);
     }
 
     & > div {
@@ -148,7 +146,6 @@ body {
 
     .td-idx {
       width: 30px;
-      padding-left: 5px;
     }
 
     .td-name {
@@ -159,7 +156,6 @@ body {
       .item-name {
         width: 50px;
       }
-
 
       .char-icon {
         width: 30px;
@@ -204,12 +200,16 @@ body {
 
     .td-weapon {
       text-align: left;
+      padding-left: 3px;
 
-      .lv {
+      .level {
+        font-size: 12px;
+        transform: scale(.9);
+      }
 
-        text-align: right;
-        display: inline-block;
-        white-space: nowrap;
+      .cons {
+        transform: scale(.8);
+        margin-right: -2px;
       }
 
       .weapon-icon {

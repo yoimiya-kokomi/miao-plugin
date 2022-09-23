@@ -13,10 +13,14 @@ class User extends Base {
   // 初始化用户
   constructor (cfg) {
     super()
+    if (!cfg.id) {
+      return false
+    }
     let self = this._getCache(`user:${cfg.id}`)
     if (!self) {
       self = this
     }
+    self.id = cfg.id
     self.uid = cfg.uid || self.uid || ''
     self.ck = cfg.ck || cfg.cookie || self.ck || ''
     return self._cache()

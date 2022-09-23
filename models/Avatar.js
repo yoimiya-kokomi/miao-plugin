@@ -153,7 +153,7 @@ export default class Avatar extends Base {
           }
         }
       }
-      let ret = char.getAvatarTalent(talent, avatar.cons, 'original')
+      let ret = char.getAvatarTalent(talent, this.cons, 'original')
       ret.id = id
       return ret
     }

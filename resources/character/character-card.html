@@ -12,7 +12,7 @@
         <div class="char-name">
             <strong>{{data.sName}}</strong>
             {{if data.fetter}} <span class="fetter fetter{{data.fetter}}"></span> {{/if}}
-            {{if data.cons}} <span class="cons cons-{{data.cons}}">{{data.cons}}命</span> {{/if}}
+            {{if typeof(data.cons)!=='undefined'}} <span class="cons cons-{{data.cons}}">{{data.cons}}命</span> {{/if}}
         </div>
         <div class="char-lv">
             <span>Uid:{{uid}}</span>
@@ -27,7 +27,7 @@
         <div class="cont weapon-cont left-line">
             <img class="img" src="{{_res_path}}{{w.img}}"/>
             <div class="weapon-info">
-                <strong>{{w.name.length > 5 ? (w.abbr||w.name) : w.name}}</strong>
+                <strong>{{w.name.length > 4 ? (w.abbr||w.name) : w.name}}</strong>
                 <div class="star star-{{w.star}}"></div>
                 <span>Lv.{{w.leve || w.level}} <span
                         class="affix affix-{{w.affix}}">精{{w.affix}}</span></span>

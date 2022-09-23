@@ -191,6 +191,7 @@ export default class ProfileArtis extends Base {
       attrs,
       classTitle: title,
       weight: attrWeight,
+      // 待删除
       mark: lodash.mapValues(attrs, (ds) => ds.mark),
       maxMark
     }

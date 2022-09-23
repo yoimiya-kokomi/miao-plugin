@@ -30,13 +30,13 @@ export async function getTargetUid (e) {
         return nc.uid
       }
     }
-    uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`genshin:uid:${qq}`)
+    uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
     if (uid && uidReg.test(uid)) {
       return uid
     }
   }
   if (!Version.isV3) {
-    let botQQ = global.BotConfig ? global.BotConfig.account.qq : false
+    let botQQ = global?.Bot?.uin || global?.BotConfig?.account?.qq
     if (e.at && e.at !== botQQ) {
       uid = await getUid(e.at)
       if (uid) {

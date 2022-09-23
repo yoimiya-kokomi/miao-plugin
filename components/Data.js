@@ -194,6 +194,8 @@ let Data = {
     if (lodash.isString(arr)) {
       arr = arr.replace(/\s*(;|；|、|，)\s*/, ',')
       arr = arr.split(',')
+    } else if (lodash.isNumber(arr)) {
+      arr = [arr.toString()]
     }
     lodash.forEach(arr, (str, idx) => {
       if (!lodash.isUndefined(str)) {

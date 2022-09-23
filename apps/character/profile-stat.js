@@ -36,7 +36,7 @@ export async function profileStat (e) {
   avatarRet = lodash.orderBy(avatarRet, sortKey)
   avatarRet = avatarRet.reverse()
   let talentNotice = ''
-  if (!avatars.isSelfCookie) {
+  if (!avatars.isSelfCookie || avatarRet.length <= 8) {
     talentNotice = '未绑定CK，信息可能展示不完全。回复<span>#体力帮助</span>获取CK配置帮助'
   }
 
