@@ -1,9 +1,15 @@
-import fetch from 'node-fetch';
-import cheerio from 'cheerio';
+import fetch from 'node-fetch'
+import cheerio from 'cheerio'
 import lodash from 'lodash'
 import { Data } from '../components/index.js'
+import fs from 'fs'
+import request from 'request'
 
-let ret = Data.readJSON('resources/meta/weapons/data.json')
+let ret = {}
+const types = ['sword', 'claymore', 'polearm', 'bow', 'catalyst']
+for (let type of types) {
+  ret[type] = Data.readJSON(`resources/meta/weapons/${type}/data.json`)
+}
 
 let getWeaponData = async function (type) {
   let url = `https://genshin.honeyhunterworld.com/fam_${type}/?lang=CHS`
@@ -28,17 +34,72 @@ let getWeaponData = async function (type) {
   if (sTxt && sTxt[1]) {
     let tmp = eval(sTxt[1])
     lodash.forEach(tmp, (ds) => {
-      let name = cheerio.load(ds[1])('a').text()
+      let a = cheerio.load(ds[1])('a')
+      let name = a.text()
+      let idRet = /i_(.*)\//.exec(a.attr('href'))
       let star = cheerio.load(ds[2])('img').length
-      ret[name] = {
+      let id = idRet && idRet[1] ? idRet[1] : ''
+      ret[type] = ret[type] || {}
+      ret[type][name] = {
+        id,
         name,
-        star,
-        type
+        star
       }
     })
   }
 }
-for (let type of ['sword', 'claymore', 'polearm', 'bow', 'catalyst']) {
-  await getWeaponData(type)
+
+async function down (t) {
+  for (let type of types) {
+    if (type !== t) {
+      continue
+    }
+    await getWeaponData(type)
+    Data.createDir(`resources/meta/weapon/${type}`)
+    Data.writeJSON(`resources/meta/weapon/${type}/data.json`, ret[type])
+
+    let imgs = []
+    lodash.forEach(ret[type], (ds) => {
+      Data.createDir(`resources/meta/weapon/${type}/${ds.name}`)
+      lodash.forEach({
+        icon: '',
+        awaken: '_awaken_icon',
+        gacha: '_gacha_icon'
+      }, (affix, key) => {
+        imgs.push({
+          url: `img/i_${ds.id}${affix}.webp`,
+          file: `${type}/${ds.name}/${key}.webp`
+        })
+      })
+    })
+    const _path = process.cwd()
+    const _root = _path + '/plugins/miao-plugin/'
+    const _wRoot = _root + 'resources/meta/weapon/'
+    await Data.asyncPool(5, imgs, async function (ds) {
+      if (fs.existsSync(`${_wRoot}/${ds.file}`)) {
+        // console.log(`已存在，跳过 ${ds.file}`)
+        return true
+      }
+
+      try {
+        let stream = fs.createWriteStream(`${_wRoot}/${ds.file}.tmp`)
+        await request('https://genshin.honeyhunterworld.com/' + ds.url).pipe(stream)
+        return new Promise((resolve) => {
+          stream.on('finish', () => {
+            fs.rename(`${_wRoot}/${ds.file}.tmp`, `${_wRoot}/${ds.file}`, () => {
+              console.log(`图像下载成功: ${ds.file}`)
+              resolve()
+            })
+          })
+        })
+      } catch (e) {
+        console.log(`图像下载失败: ${ds.file}`)
+        console.log(e)
+        return false
+      }
+    })
+  }
 }
-Data.writeJSON('resources/meta/weapons/data.json', ret)
+
+// 'sword', 'claymore', 'polearm', 'bow', 'catalyst'
+await down('catalyst')
