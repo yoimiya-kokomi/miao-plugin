@@ -91,6 +91,11 @@ let Data = {
     return {}
   },
 
+  async importDefault (file, root) {
+    let ret = await Data.importModule(file, root)
+    return ret.default || {}
+  },
+
   async import (name) {
     return await Data.importModule(`components/optional-lib/${name}.js`)
   },

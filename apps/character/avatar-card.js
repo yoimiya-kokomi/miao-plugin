@@ -62,21 +62,28 @@ async function renderCard (e, ds, renderType = 'card') {
       // 计算皇冠个数
       data.crownNum = lodash.filter(lodash.map(data.talent, (d) => d.original), (d) => d >= 10).length
     }
+  } else {
+    data = char.getData('id,name,sName')
   }
   let width = 600
+  let imgCss = ''
+  let scale = 1.2
   if (bg.mode === 'left') {
-    width = 600 * bg.width / bg.height
+    const height = 480
+    width = height * bg.width / bg.height
+    imgCss = `img.bg{width:auto;height:${height}px;}`
+    scale = 1.45
   }
   // 渲染图像
   let msgRes = await Common.render('character/character-card', {
     saveId: uid,
     uid,
     bg,
-    widthStyle: `<style>html,body,#container{width:${width}px}</style>`,
+    widthStyle: `<style>html,body,#container{width:${width}px} ${imgCss}</style>`,
     mode: bg.mode,
     custom,
     data
-  }, { e, scale: 1.4, retMsgId: true })
+  }, { e, scale, retMsgId: true })
   if (msgRes && msgRes.message_id) {
     // 如果消息发送成功，就将message_id和图片路径存起来，1小时过期
     await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 })

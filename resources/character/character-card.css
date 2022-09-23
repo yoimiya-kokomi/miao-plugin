@@ -299,30 +299,32 @@ body {
   background: url('../common/item/artifact-icon.webp') center no-repeat;
   background-size: 60% auto;
 }
-.bottom-mode {
-  width: 600px;
-}
-.bottom-mode .char-title {
-  padding-top: 20px;
-}
-.bottom-mode .char-lv {
-  padding-top: 5px;
-}
-.bottom-mode .copyright {
+.copyright {
   font-size: 12px;
   position: absolute;
   bottom: 0;
   margin: 0;
   right: 0;
   height: 25px;
+  left: 0;
   line-height: 25px;
   padding: 0 10px;
+  background: rgba(0, 0, 0, 0.5);
+  text-align: right;
+  z-index: 4;
 }
-.bottom-mode .copyright.data-source {
+.copyright.data-source {
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   left: 0;
   text-align: left;
-  background: rgba(0, 0, 0, 0.5);
+  background: none;
+  z-index: 5;
+}
+.bottom-mode .char-title {
+  padding-top: 20px;
+}
+.bottom-mode .char-lv {
+  padding-top: 5px;
 }
 .bottom-mode .char-detail {
   position: absolute;
@@ -365,31 +367,13 @@ body {
   padding-top: 5px;
 }
 .left-mode {
-  height: 600px;
   width: auto;
 }
 .left-mode .container {
   width: auto;
 }
-.left-mode img.bg {
-  width: auto;
-  height: 600px;
-}
-.left-mode .copyright {
-  font-size: 12px;
-  position: absolute;
-  bottom: 0;
-  margin: 0;
-  right: 0;
-  height: 25px;
-  line-height: 25px;
-  padding: 0 10px;
-}
 .left-mode .copyright.data-source {
   border-top: 1px solid rgba(255, 255, 255, 0.3);
-  left: 0;
-  text-align: left;
-  background: rgba(0, 0, 0, 0.5);
 }
 .left-mode .char-detail {
   position: absolute;

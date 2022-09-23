@@ -1,9 +1,10 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
-import WeaponMeta from './weapon/WeaponMeta.js'
 
 let data = Data.readJSON('resources/meta/weapons/data.json')
+let abbr = await Data.importDefault('resources/meta/weapon/abbr.js')
+
 let wData = {}
 lodash.forEach(data, (ds) => {
   wData[ds.name] = ds
@@ -28,7 +29,7 @@ class Weapon extends Base {
   }
 
   get abbr () {
-    return WeaponMeta.getAbbr(this.name)
+    return abbr[this.name] || this.name
   }
 
   get title () {

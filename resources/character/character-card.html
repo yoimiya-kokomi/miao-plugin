@@ -10,7 +10,7 @@
 <div>
     <div class="char-title">
         <div class="char-name">
-            <strong>{{data.sName}}</strong>
+            <strong>{{data.sName||data.name}}</strong>
             {{if data.fetter}} <span class="fetter fetter{{data.fetter}}"></span> {{/if}}
             {{if typeof(data.cons)!=='undefined'}} <span class="cons cons-{{data.cons}}">{{data.cons}}命</span> {{/if}}
         </div>

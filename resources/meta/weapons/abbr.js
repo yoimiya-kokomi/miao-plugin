@@ -1,4 +1,4 @@
-export const abbr = {
+export default {
   磐岩结绿: '绿箭',
   赤角石溃杵: '赤角',
   终末嗟叹之诗: '终末',
@@ -23,9 +23,3 @@ export const abbr = {
   讨龙英杰谭: '讨龙',
   神射手之誓: '神射手'
 }
-let WeaponMeta = {
-  getAbbr (name) {
-    return abbr[name] || name
-  }
-}
-export default WeaponMeta
