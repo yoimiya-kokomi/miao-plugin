@@ -25,12 +25,12 @@
   <div class="char-detail cont">
 
     <div class="cont weapon-cont left-line">
-      <img class="img" src="{{_res_path}}{{w.img}}"/>
+      <div class="img" style="background-image:url({{_res_path}}{{w.img}})"></div>
       <div class="weapon-info">
         <strong>{{w.name.length > 4 ? (w.abbr||w.name) : w.name}}</strong>
         <div class="star star-{{w.star}}"></div>
-        <span>Lv.{{w.leve || w.level}} <span
-            class="affix affix-{{w.affix}}">精{{w.affix}}</span></span>
+        <div>Lv.{{w.leve || w.level}} <span
+            class="affix affix-{{w.affix}}">精{{w.affix}}</span></div>
       </div>
     </div>
 

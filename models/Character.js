@@ -84,6 +84,10 @@ class Character extends Base {
     return this.getImgs().side
   }
 
+  get gacha () {
+    return this.getImgs().gacha
+  }
+
   get imgs () {
     return this.getImgs()
   }

@@ -312,16 +312,16 @@ body {
 }
 .cont .avatar-artis.artis2 .img {
   position: absolute;
-  width: 24px;
-  height: 24px;
+  transform: scale(0.7);
+  width: 92%;
+  height: 92%;
+  margin: 4%;
 }
 .cont .avatar-artis.artis2 .img:first-child {
-  left: -2px;
-  top: -2px;
+  transform-origin: left top;
 }
 .cont .avatar-artis.artis2 .img:last-child {
-  right: -2px;
-  bottom: -2px;
+  transform-origin: right bottom;
 }
 .cont .artis-mark-class {
   width: 28px;

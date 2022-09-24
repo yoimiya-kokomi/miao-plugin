@@ -384,6 +384,11 @@ ul.cont-msg li strong,
   background-position: center;
   background-repeat: no-repeat;
 }
+.item-icon.artis .img {
+  width: 84%;
+  height: 84%;
+  margin: 8%;
+}
 .item-icon.star1 {
   background-image: url("../common/item/bg1.png");
 }

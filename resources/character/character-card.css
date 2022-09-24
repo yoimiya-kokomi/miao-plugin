@@ -143,12 +143,14 @@ body {
 }
 .weapon-cont {
   width: 180px;
-  display: flex;
   text-shadow: 1px 1px 1px #000;
 }
 .weapon-cont .img {
   width: 80px;
   height: 80px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .weapon-cont .star {
   height: 20px;
@@ -173,10 +175,14 @@ body {
   background-position: 0 -80px;
 }
 .weapon-cont .weapon-info {
-  padding: 10px 0 0 0;
+  padding: 0;
+  position: absolute;
+  top: 10px;
+  left: 80px;
 }
 .weapon-cont .weapon-info strong {
   font-size: 18px;
+  display: block;
 }
 .talent-cont {
   display: flex;
@@ -269,9 +275,9 @@ body {
   box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 .artis-cont .artis-list .item .item-icon {
-  width: 110%;
-  height: 45px;
-  margin: -5%;
+  width: 90%;
+  height: 35px;
+  margin: 4px 5%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

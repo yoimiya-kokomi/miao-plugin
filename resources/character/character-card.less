@@ -166,12 +166,14 @@ body {
 
 .weapon-cont {
   width: 180px;
-  display: flex;
   text-shadow: 1px 1px 1px #000;
 
   .img {
     width: 80px;
     height: 80px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .star {
@@ -203,10 +205,14 @@ body {
   }
 
   .weapon-info {
-    padding: 10px 0 0 0;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    left: 80px;
 
     strong {
       font-size: 18px;
+      display: block;
     }
   }
 
@@ -312,9 +318,9 @@ body {
       box-shadow: 0 0 1px 0 rgba(255, 255, 255, .5);
 
       .item-icon {
-        width: 110%;
-        height: 45px;
-        margin: -5%;
+        width: 90%;
+        height: 35px;
+        margin: 4px 5%;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;

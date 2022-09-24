@@ -154,17 +154,13 @@
   width: 70px;
   height: 70px;
   border-radius: 7px 7px 15px 0;
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 .avatar-card .avatar-face .img {
   background-position: center bottom;
-}
-.avatar-card .avatar-face .cons {
-  border-radius: 0 0 0 5px;
-  padding: 2px 5px;
 }
 .avatar-card .avatar-face .avatar-level {
   position: absolute;
@@ -174,6 +170,13 @@
   padding: 2px 5px 2px 3px;
   border-radius: 0 4px 0 0;
   color: #fff;
+}
+.avatar-card .cons {
+  border-radius: 0 0 0 5px;
+  padding: 2px 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 .avatar-card .avatar-talent {
   height: 21px;
@@ -217,10 +220,68 @@
   white-space: nowrap;
   margin-left: -1px;
 }
-.avatar-card .cons {
-  position: absolute;
-  right: 0;
-  top: 0;
+.avatar-card.card-mini .wide,
+.avatar-card.card-mini .line {
+  display: none;
+}
+.avatar-card .avatar-name {
+  padding: 8px 0 0 5px;
+  color: #333;
+}
+.avatar-card .avatar-name strong {
+  font-size: 14px;
+  display: block;
+  height: 23px;
+  line-height: 20px;
+}
+.avatar-card .avatar-name .cons {
+  position: initial;
+  border-radius: 4px;
+  padding: 1px 3px;
+  vertical-align: baseline;
+}
+.avatar-card.card-wide .mini {
+  display: none;
+}
+.avatar-card.card-wide .card {
+  width: 146px;
+  display: flex;
+}
+.avatar-card.card-wide .avatar-face {
+  height: 126px;
+  width: 76px;
+  border-radius: 7px 0 0 7px;
+}
+.avatar-card.card-wide .img {
+  background-size: 100% auto;
+  background-position: 0 10%;
+  height: 135px;
+  margin-top: -9px;
+}
+.avatar-card.card-wide .avatar-info {
+  width: 70px;
+}
+.avatar-card.card-wide .line {
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin: 5px 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(100, 100, 100, 0.5) 20%, rgba(100, 100, 100, 0.5) 80%, rgba(0, 0, 0, 0));
+  transform: scale(0.8);
+}
+.avatar-card.wide2 .card {
+  width: 298px;
+}
+.avatar-card.wide2 .avatar-face {
+  width: 146px;
+}
+.avatar-card.wide2 .avatar-face .img {
+  margin-top: -50px;
+  height: 176px;
+}
+.avatar-card.wide2 .avatar-info {
+  width: 146px;
+  padding-left: 5px;
 }
 .avatar-detail {
   display: flex;
@@ -249,16 +310,16 @@
 }
 .avatar-artis.artis2 .img {
   position: absolute;
-  width: 24px;
-  height: 24px;
+  transform: scale(0.7);
+  width: 92%;
+  height: 92%;
+  margin: 4%;
 }
 .avatar-artis.artis2 .img:first-child {
-  left: -2px;
-  top: -2px;
+  transform-origin: left top;
 }
 .avatar-artis.artis2 .img:last-child {
-  right: -2px;
-  bottom: -2px;
+  transform-origin: right bottom;
 }
 .item-list {
   display: flex;

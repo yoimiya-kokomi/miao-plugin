@@ -35,7 +35,7 @@ export default class AvatarList extends Base {
 
   getData (ids, keys = '') {
     let rets = {}
-    keys = keys || 'id,name,level,star,cons,fetter,elem,face,side,abbr,weapon,artisSet'
+    keys = keys || 'id,name,level,star,cons,fetter,elem,face,side,gacha,abbr,weapon,artisSet'
     let avatars = this.avatars
     lodash.forEach(ids, (id) => {
       rets[id] = avatars[id].getData(keys) || {}
