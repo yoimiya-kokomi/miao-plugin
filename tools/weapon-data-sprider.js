@@ -8,7 +8,7 @@ import request from 'request'
 let ret = {}
 const types = ['sword', 'claymore', 'polearm', 'bow', 'catalyst']
 for (let type of types) {
-  ret[type] = Data.readJSON(`resources/meta/weapons/${type}/data.json`)
+  ret[type] = Data.readJSON(`resources/meta/weapon/${type}/data.json`)
 }
 
 let getWeaponData = async function (type) {

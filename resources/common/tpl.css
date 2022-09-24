@@ -29,8 +29,9 @@
 .item-card .item-bg {
   width: 100%;
   padding: 100% 0 0;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   margin: 0;
 }
 .item-card .bg1 {

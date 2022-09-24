@@ -421,9 +421,12 @@ body {
   font-size: 12px;
   display: block;
 }
-.artis .item .arti-icon img {
+.artis .item .arti-icon .img {
   width: 60px;
   height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .artis .head {
   color: #fff;
@@ -543,13 +546,16 @@ body {
   overflow: hidden;
   height: 97px;
 }
-.artis .weapon img {
+.artis .weapon .img {
   width: 100px;
   height: 100px;
   top: 0;
   left: 0;
   position: absolute;
   z-index: 2;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .artis .weapon .head {
   position: absolute;

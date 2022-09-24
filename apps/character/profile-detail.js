@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { autoRefresh } from './profile-common.js'
 import { Common, Format, Profile } from '../../components/index.js'
-import { MysApi } from '../../models/index.js'
+import { MysApi, Avatar } from '../../models/index.js'
 
 export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let selfUser = await MysApi.initUser(e)
@@ -22,6 +22,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   }
 
   let profile = Profile.get(uid, char.id)
+
   if (!profile || !profile.hasData) {
     if (await refresh()) {
       return true
@@ -30,6 +31,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     }
     return true
   }
+  let avatar = new Avatar(profile)
   char = profile.char || char
   let a = profile.attr
   let c = Format.comma
@@ -86,11 +88,9 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   return await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
-    data: profile.getData('cons,level,weapon,dataSource,updateTime'),
+    data: avatar.getData('name,cons,level,weapon,talent,dataSource,updateTime'),
     attr,
-    name: char.name,
     elem: char.elem,
-    talent: char.getAvatarTalent(profile.talent, profile.cons),
     dmgData,
     dmgMsg,
     dmgRet: dmgCalc.dmgRet || false,

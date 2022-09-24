@@ -1,6 +1,7 @@
 import Base from './Base.js'
 import Character from './Character.js'
 import Artifact from './Artifact.js'
+import ArtifactSet from './ArtifactSet.js'
 import Avatar from './Avatar.js'
 import AvatarList from './AvatarList.js'
 import Abyss from './Abyss.js'
@@ -19,6 +20,7 @@ export {
   Abyss,
   Character,
   Artifact,
+  ArtifactSet,
   Avatar,
   AvatarList,
   ProfileServ,

@@ -1,4 +1,4 @@
-import { usefulAttr } from '../../resources/meta/reliquaries/artis-mark.js'
+import { usefulAttr } from '../../resources/meta/artifact/artis-mark.js'
 import { Data } from '../../components/index.js'
 import fs from 'fs'
 

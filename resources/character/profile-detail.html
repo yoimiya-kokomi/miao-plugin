@@ -13,18 +13,19 @@
   <div class="main-pic"
        style="background-image:url({{_res_path}}{{imgs.splash}})"></div>
   <div class="detail">
-    <div class="char-name">{{name}}</div>
+    <div class="char-name">{{data.name}}</div>
     <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
       <span class="cons cons-{{data.cons}}">{{data.cons}}命</span></div>
     <div class="char-talents">
       {{each talentMap tName key}}
+      {{set talent = data.talent[key] || {} }}
       <div class="talent-item">
         <div class="talent-icon
-               {{talent[key].level > talent[key].original ? `talent-plus`:``}}
-                {{talent[key].original >= 10 ? `talent-crown`:``}}">
+               {{talent.level > talent.original ? `talent-plus`:``}}
+                {{talent.original >= 10 ? `talent-crown`:``}}">
           <div class="talent-icon-img"
                style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
-          <span>{{talent[key].level}}</span>
+          <span>{{talent.level}}</span>
         </div>
       </div>
       {{/each}}
@@ -66,7 +67,7 @@
 <div class="artis">
   <div>
     <div class="item weapon">
-      <img src="{{_res_path}}/meta/weapons/icon/{{weapon.name}}.png"/>
+      <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
       <div class="head">
         <strong>{{weapon.name}}</strong>
         <div class="star star-{{weapon.star}}"></div>
@@ -86,7 +87,7 @@
   <div class="item arti">
     {{if ds && ds.name && ds.main && ds.main.title && ds.main.title!="undefined"}}
     <div class="arti-icon">
-      <img src="{{_res_path}}/meta/reliquaries/icon/{{ds.name}}.png"/>
+      <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
       <span>+{{ds.level}}</span>
     </div>
     <div class="head">
@@ -127,7 +128,7 @@
 <div class="artis input-mode">
 
   <div class="item weapon">
-    <img src="{{_res_path}}/meta/weapons/icon/{{weapon.name}}.png"/>
+    <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
     <div class="head">
       <strong>{{weapon.name}}</strong>
       <div class="star star-{{weapon.star}}"></div>
@@ -140,7 +141,7 @@
   <div class="item arti">
     {{if ds && ds.name }}
     <div class="arti-icon">
-      <img src="{{_res_path}}/meta/reliquaries/icon/{{ds.name}}.png"/>
+      <div class="img" src="{{_res_path}}{{ds.img}}"></div>
       <span>+{{ds.level}}</span>
     </div>
     <div class="head">

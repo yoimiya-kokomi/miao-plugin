@@ -36,11 +36,13 @@ body {
   font-size: 36px;
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
-.head-box .genshin_logo {
+.head-box .genshin-logo {
   position: absolute;
   top: 1px;
   right: 15px;
   width: 97px;
+  background: url(../common/cont/logo.png) no-repeat center;
+  background-size: contain;
 }
 .head-box .label {
   font-size: 16px;

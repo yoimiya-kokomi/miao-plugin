@@ -5,7 +5,7 @@
 import Base from './Base.js'
 import lodash from 'lodash'
 import { Profile } from '../components/index.js'
-import { Artifact, Character, Weapon } from './index.js'
+import { Artifact, Character, Weapon, ArtifactSet } from './index.js'
 import moment from 'moment'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,weaponType,elem'.split(',')
@@ -79,25 +79,19 @@ export default class Avatar extends Base {
   get artis () {
     let ret = {}
     if (!this.isProfile) {
-      const posIdx = {
-        生之花: 1,
-        死之羽: 2,
-        时之沙: 3,
-        空之杯: 4,
-        理之冠: 5
-      }
       lodash.forEach(this.meta.reliquaries, (ds) => {
-        let idx = posIdx[ds.pos_name]
-        ret[idx] = {
-          name: ds.name,
-          set: Artifact.getSetByArti(ds.name),
+        let arti = Artifact.get(ds.name)
+        ret[arti.idx] = {
+          name: arti.name,
+          set: arti.setName,
+          img: arti.img,
           level: ds.level
         }
       })
       return ret
     }
     if (this.profile && this.profile?.artis) {
-      return this.profile.artis.toJSON()
+      return this.profile.artis.getArtisData()
     }
     return false
   }
@@ -175,7 +169,7 @@ export default class Avatar extends Base {
       let artis = this.artis
       let setCount = {}
       lodash.forEach(artis, (arti, idx) => {
-        let set = arti?.set?.name
+        let set = arti?.set
         if (set) {
           setCount[set] = (setCount[set] || 0) + 1
         }
@@ -184,20 +178,23 @@ export default class Avatar extends Base {
       let names = []
       let abbrs = []
       let abbrs2 = []
+      let imgs = []
       for (let set in setCount) {
         if (setCount[set] >= 2) {
-          sets[set] = setCount[set] >= 4 ? 4 : 2
-          names.push(Artifact.getArtiBySet(set))
+          let value = setCount[set] >= 4 ? 4 : 2
+          sets[set] = value
+          let artiSet = ArtifactSet.get(set)
+          names.push(artiSet.name)
+          abbrs.push(artiSet.abbr + value)
+          abbrs2.push(artiSet.name + value)
+          imgs.push(artiSet.img)
         }
       }
-      lodash.forEach(sets, (v, k) => {
-        abbrs.push(Artifact.getAbbrBySet(k) + v)
-        abbrs2.push(k + v)
-      })
       this._artisSet = {
         sets,
         names,
         abbrs: [...abbrs, ...abbrs2],
+        imgs,
         name: abbrs.length > 1 ? abbrs.join('+') : abbrs2[0]
       }
     }

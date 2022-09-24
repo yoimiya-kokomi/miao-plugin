@@ -68,8 +68,8 @@ let DmgBuffs = {
 
 async function init () {
   const _path = `file://${process.cwd()}/plugins/miao-plugin/resources/meta`
-  weaponBuffs = (await import(`${_path}/weapons/calc.js`)).weapons || {}
-  artisBuffs = (await import(`${_path}/reliquaries/calc.js`)).buffs || {}
+  weaponBuffs = {} || (await import(`${_path}/weapon/index.js`)).calc || {}
+  artisBuffs = (await import(`${_path}/artifact/calc.js`)).buffs || {}
 }
 
 await init()

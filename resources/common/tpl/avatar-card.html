@@ -27,15 +27,14 @@
     <div class="avatar-detail">
       <div class="item avatar-weapon">
         <div class="item-icon star{{weapon.star}}">
-          <span class="img" style="background-image:url({{_res_path}}/meta/weapons/icon/{{weapon.name}}.png)"></span>
+          <span class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></span>
           <span class="cons cons-{{weapon.affix}}">{{weapon.affix}}</span>
         </div>
       </div>
       <div class="item avatar-artis artis{{avatar.artisSet?.names?.length}}">
         <div class="artis item-icon">
-          {{each avatar.artisSet?.names name}}
-          <span class="img"
-                style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{name}}.png)"></span>
+          {{each avatar.artisSet?.imgs img}}
+          <div class="img" style="background-image:url({{_res_path}}{{img}})"></div>
           {{/each}}
         </div>
       </div>

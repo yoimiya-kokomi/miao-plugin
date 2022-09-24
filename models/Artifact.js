@@ -1,51 +1,63 @@
-import { attrMap } from '../resources/meta/reliquaries/artis-mark.js'
-import lodash from 'lodash'
-import { Data } from '../components/index.js'
+import Base from './Base.js'
+import { ArtifactSet } from './index.js'
+import { abbr, artiMap, attrMap } from '../resources/meta/artifact/index.js'
 
-let artisMap = {}
-const abbr = await Data.importDefault('resources/meta/reliquaries/abbr.js')
+class Artifact extends Base {
+  constructor (name) {
+    super()
+    let cache = this._getCache(`arti:${name}`)
+    if (cache) {
+      return cache
+    }
+    let data = artiMap[name]
+    if (!data) {
+      return false
+    }
+    this.name = name
+    this.meta = data
+    return this._cache()
+  }
 
-async function init () {
-  let artis = Data.readJSON('resources/meta/reliquaries/data.json')
+  get artiSet () {
+    return ArtifactSet.get(this.set)
+  }
 
-  lodash.forEach(artis, (ds) => {
-    artisMap[ds.name] = ds
-  })
-}
+  get setName () {
+    return this.set
+  }
 
-await init()
-
-let Artifact = {
-
-  // 根据圣遗物名称获取套装
-  getSetByArti (name) {
-    for (let idx in artisMap) {
-      for (let idx2 in artisMap[idx].sets) {
-        if (artisMap[idx].sets[idx2].name === name) {
-          return artisMap[idx]
-        }
-      }
+  static get (name) {
+    if (artiMap[name]) {
+      return new Artifact(name)
     }
     return false
-  },
+  }
 
-  // 获取指定圣遗物套装指定位置的名字
-  getArtiBySet (name, idx = 1) {
-    let set = artisMap[name]
-    if (!set) {
-      return ''
+  get img () {
+    return `meta/artifact/${this.setName}/${this.idx}.webp`
+  }
+
+  static getSetNameByArti (name) {
+    let arti = Artifact.get(name)
+    if (arti) {
+      return arti.setName
     }
-    return set.sets[`arti${idx}`].name
-  },
+    return ''
+  }
 
-  getAbbrBySet (name) {
-    return abbr[name] || name.split(0, 2)
-  },
-
-  getMeta () {
+  static getMeta () {
     return {
       attrMap
     }
   }
 }
+
+// 根据圣遗物名称获取套装
+// getSetByArti
+
+// 获取指定圣遗物套装指定位置的名字
+// getArtiBySet
+
+// getAbbrBySet
+// getMeta
 export default Artifact

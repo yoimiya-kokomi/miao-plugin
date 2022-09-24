@@ -205,11 +205,16 @@ body {
   transform: scale(0.9);
   margin-top: -3px;
 }
+.artis-list .item-bg {
+  background-size: contain;
+  background-position: center;
+  transform: scale(0.92);
+}
 .artis-list .artis-count2 {
   position: relative;
 }
 .artis-list .artis-count2 .item-bg {
-  transform: scale(0.7);
+  transform: scale(0.65);
   transform-origin: left top;
 }
 .artis-list .artis-count2 .item-bg.artis2 {
