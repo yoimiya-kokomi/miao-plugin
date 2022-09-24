@@ -1,4 +1,4 @@
-export const buffs = {
+const buffs = {
   行者之心4: {
     title: '行者4：重击的暴击率提高30%',
     data: {
@@ -12,7 +12,7 @@ export const buffs = {
     }
   },
   武人2: {
-    title: '武人2: 普攻与重击造成的伤害提高15%',
+    title: '武人2：普攻与重击造成的伤害提高15%',
     data: {
       aDmg: 15,
       a2Dmg: 15
@@ -218,3 +218,4 @@ export const buffs = {
     }
   }
 }
+export default buffs

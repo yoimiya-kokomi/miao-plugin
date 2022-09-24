@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import fs from 'fs'
-import { Cfg, Version, Common, App } from '../components/index.js'
+import { Cfg, Version, Common, Data, App } from '../components/index.js'
 
 let app = App.init({
   id: 'help',
@@ -36,6 +36,8 @@ async function help (e) {
     help = await import(`file://${helpPath}/help-list.js?version=${new Date().getTime()}`)
   }
 
+  let { diyCfg, sysCfg } = await Data.importCfg('help')
+
   // 兼容一下旧字段
   if (lodash.isArray(help.helpCfg)) {
     custom = {
@@ -46,10 +48,8 @@ async function help (e) {
     custom = help
   }
 
-  let def = await import(`file://${helpPath}/help-cfg_default.js?version=${new Date().getTime()}`)
-
-  let helpCfg = lodash.defaults(custom.helpCfg, def.helpCfg)
-  let helpList = custom.helpList || def.helpList
+  let helpConfig = lodash.defaults(custom.helpCfg, diyCfg.helpCfg, sysCfg.helpCfg)
+  let helpList = custom.helpList || diyCfg.helpList || sysCfg.helpList
 
   let helpGroup = []
 
@@ -73,7 +73,7 @@ async function help (e) {
   })
 
   return await Common.render('help/index', {
-    helpCfg,
+    helpCfg: helpConfig,
     helpGroup,
     element: 'default'
   }, { e, scale: 1.2 })

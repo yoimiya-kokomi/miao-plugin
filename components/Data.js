@@ -101,7 +101,7 @@ let Data = {
   },
 
   async importCfg (key) {
-    let sysCfg = await Data.importModule(`config/system/${key}.js`)
+    let sysCfg = await Data.importModule(`config/system/${key}_system.js`)
     let diyCfg = await Data.importModule(`config/${key}.js`)
     if (diyCfg.isSys) {
       console.error(`miao-plugin: config/${key}.js无效，已忽略`)
