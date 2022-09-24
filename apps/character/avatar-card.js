@@ -85,8 +85,8 @@ async function renderCard (e, ds, renderType = 'card') {
     data
   }, { e, scale, retMsgId: true })
   if (msgRes && msgRes.message_id) {
-    // 如果消息发送成功，就将message_id和图片路径存起来，1小时过期
-    await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 })
+    // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
+    await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 * 3 })
   }
   return true
 }

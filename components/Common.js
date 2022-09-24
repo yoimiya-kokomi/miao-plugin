@@ -1,6 +1,4 @@
 import Cfg from './Cfg.js'
-import { Version } from './index.js'
-
 import render from './common-lib/render.js'
 
 function sleep (ms) {

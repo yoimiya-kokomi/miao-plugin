@@ -1,6 +1,6 @@
 import Base from './Base.js'
 import { ArtifactSet } from './index.js'
-import { abbr, artiMap, attrMap } from '../resources/meta/artifact/index.js'
+import { artiMap, attrMap } from '../resources/meta/artifact/index.js'
 
 class Artifact extends Base {
   constructor (name) {
@@ -52,12 +52,4 @@ class Artifact extends Base {
   }
 }
 
-// 根据圣遗物名称获取套装
-// getSetByArti
-
-// 获取指定圣遗物套装指定位置的名字
-// getArtiBySet
-
-// getAbbrBySet
-// getMeta
 export default Artifact
