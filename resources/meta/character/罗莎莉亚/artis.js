@@ -12,7 +12,7 @@ export default function ({ attr,artis, rule, def }) {
     return rule('罗莎-融化', { atk: 75, cp: 100, cd: 100, mastery: 75, dmg: 100, recharge: recharge_score })
   }
   if (attr.recharge > 150) {
-    return rule('罗莎-充能', { atk: 75, cp: 100, cd: 100, mastery: 0, dmg: 100, recharge: 75 })
+    return rule('罗莎-充能', { atk: 75, cp: 100, cd: 100, mastery: 0, dmg: 100, recharge: recharge_score })
   }
   return def({ atk: 75, cp: 100, cd: 100, dmg: 100,recharge: recharge_score})
 }
