@@ -2,6 +2,7 @@
 
 {{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/help/index.css"/>
+<% style = style.replace(/{{_res_path}}/g, _res_path) %>
 {{@style}}
 {{/block}}
 
@@ -26,7 +27,6 @@
         <strong class="help-title">{{help.title}}</strong>
         <span class="help-desc">{{help.desc}}</span>
       </div>
-
       {{if idx%colCount === colCount-1 && idx>0 && idx< len-1}}
     </div>
     <div class="tr">
@@ -36,7 +36,6 @@
       <div class="td"></div>
       <% } %>
     </div>
-
   </div>
 </div>
 {{/each}}

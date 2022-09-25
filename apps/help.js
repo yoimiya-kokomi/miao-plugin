@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import fs from 'fs'
 import { Cfg, Version, Common, Data, App } from '../components/index.js'
-import customStyle from './help/style.js'
+import Theme from './help/theme.js'
 
 let app = App.init({
   id: 'help',
@@ -74,15 +74,11 @@ async function help (e) {
 
     helpGroup.push(group)
   })
-
-  let colCount = Math.min(5, Math.max(parseInt(helpConfig?.columnCount) || 3, 2))
-  let style = customStyle(diyCfg.helpCfg?.style || {}, sysCfg.helpCfg?.style || {}, colCount)
-
+  let themeData = await Theme.getThemeData(diyCfg.helpCfg || {}, sysCfg.helpCfg || {})
   return await Common.render('help/index', {
     helpCfg: helpConfig,
     helpGroup,
-    style,
-    colCount,
+    ...themeData,
     element: 'default'
   }, { e, scale: 1.2 })
 }

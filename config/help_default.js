@@ -10,18 +10,16 @@
 export const helpCfg = {
   title: '喵喵帮助', // 帮助标题
   subTitle: 'Yunzai-Bot & Miao-Plugin', // 帮助副标题
-  columnCount: 3, // 帮助表格列数，2-5
-  style: {
-    fontColor: '#ceb78b', // 主文字颜色
-    descColor: '#eee', // 描述文字颜色
-
-    contBgColor: 'rgba(6, 21, 31, .5)', // 面板整体底色，注意与主文字颜色过近或太透明可能导致阅读困难
-    contBgBlur: 3, // 面板底图毛玻璃效果，数字越大越模糊，0-10 ，可为小数
-
-    headerBgColor: 'rgba(6, 21, 31, .4)', // 板块标题栏底色
-    rowBgColor1: 'rgba(6, 21, 31, .2)', // 帮助奇数行底色
-    rowBgColor2: 'rgba(6, 21, 31, .35)' // 帮助偶数行底色
-  }
+  colCount: 3, // 帮助表格列数，2-5
+  colWidth: 265, // 单列宽度，默认265
+  /* 皮肤选择，可多选，或设置为all
+    皮肤包放置于 resources/help/theme
+    皮肤名为对应文件夹名
+    theme: 'all', // 设置为全部皮肤
+    theme: ['default','theme2'], // 设置为指定皮肤
+  */
+  theme: 'all',
+  themeExclude: ['default'] // 排除皮肤：在有其他可选项时会忽略此中列举的皮肤
 }
 
 // 帮助菜单内容

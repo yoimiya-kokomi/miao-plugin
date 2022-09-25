@@ -9,6 +9,10 @@ export const helpCfg = {
   title: '喵喵帮助',
   subTitle: 'Yunzai-Bot & Miao-Plugin',
   columnCount: 3,
+  colWidth: 265,
+  theme: 'all',
+  // 排除皮肤，在theme设置为all时会忽略此设置项中的皮肤
+  themeExclude: ['default'],
   style: {
     fontColor: '#ceb78b',
     descColor: '#eee',
