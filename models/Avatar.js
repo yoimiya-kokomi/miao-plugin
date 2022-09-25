@@ -1,6 +1,6 @@
 /*
-* 用户角色
-* 抹平Profile及Mys Avatar
+* 用户角色封装
+* 兼容处理面板 Profile Data 及 Mys Avatar 数据
 * */
 import Base from './Base.js'
 import lodash from 'lodash'

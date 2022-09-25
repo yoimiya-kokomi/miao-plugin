@@ -1,3 +1,6 @@
+/*
+* 角色培养及天赋材料
+* */
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'

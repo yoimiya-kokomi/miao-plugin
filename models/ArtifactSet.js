@@ -1,3 +1,6 @@
+/*
+* 圣遗物套装
+* */
 import Base from './Base.js'
 import { abbr, artiMap, artiSetMap } from '../resources/meta/artifact/index.js'
 import { Artifact } from './index.js'

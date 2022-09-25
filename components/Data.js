@@ -82,7 +82,7 @@ let Data = {
     }
     if (fs.existsSync(`${root}/${file}`)) {
       try {
-        let data = await import(`file://${root}/${file}`)
+        let data = await import(`file://${root}/${file}?t=${new Date() * 1}`)
         return data || {}
       } catch (e) {
         console.log(e)

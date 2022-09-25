@@ -8,14 +8,15 @@
 export const helpCfg = {
   title: '喵喵帮助',
   subTitle: 'Yunzai-Bot & Miao-Plugin',
+  columnCount: 3,
   style: {
     fontColor: '#ceb78b',
     descColor: '#eee',
-    contBgColor: 'rgba(43, 52, 61, 0.8)',
+    contBgColor: 'rgba(6, 21, 31, .5)',
     contBgBlur: 3,
-    headerBgColor: 'rgba(34, 41, 51, .4)',
-    rowBgColor1: 'rgba(34, 41, 51, .2)',
-    rowBgColor2: 'rgba(34, 41, 51, .4)'
+    headerBgColor: 'rgba(6, 21, 31, .4)',
+    rowBgColor1: 'rgba(6, 21, 31, .2)',
+    rowBgColor2: 'rgba(6, 21, 31, .35)'
   }
 }
 

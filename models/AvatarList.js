@@ -1,3 +1,9 @@
+/*
+* 用户角色列表
+*
+* 批量管理及天赋等数据获取
+* 使用 Avatar Model实现兼容处理面板数据及Mys角色数据
+* */
 import Base from './Base.js'
 import lodash from 'lodash'
 import { Data, Common, Profile } from '../components/index.js'

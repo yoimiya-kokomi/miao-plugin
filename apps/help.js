@@ -75,12 +75,14 @@ async function help (e) {
     helpGroup.push(group)
   })
 
-  let style = customStyle(diyCfg.helpCfg?.style || {}, sysCfg.helpCfg?.style || {})
+  let colCount = Math.min(5, Math.max(parseInt(helpConfig?.columnCount) || 3, 2))
+  let style = customStyle(diyCfg.helpCfg?.style || {}, sysCfg.helpCfg?.style || {}, colCount)
 
   return await Common.render('help/index', {
     helpCfg: helpConfig,
     helpGroup,
     style,
+    colCount,
     element: 'default'
   }, { e, scale: 1.2 })
 }

@@ -1,3 +1,9 @@
+/*
+* 角色数据
+*
+* 支持角色查询及Meta元数据获取
+* 兼容处理自定义角色
+* */
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'

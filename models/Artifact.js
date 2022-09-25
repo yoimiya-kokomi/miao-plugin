@@ -1,3 +1,6 @@
+/*
+* 圣遗物
+* */
 import Base from './Base.js'
 import { ArtifactSet } from './index.js'
 import { artiMap, attrMap } from '../resources/meta/artifact/index.js'
