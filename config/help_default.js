@@ -9,7 +9,18 @@
 // 帮助配置
 export const helpCfg = {
   title: '喵喵帮助', // 帮助标题
-  subTitle: 'Yunzai-Bot & Miao-Plugin' // 帮助副标题
+  subTitle: 'Yunzai-Bot & Miao-Plugin', // 帮助副标题
+  style: {
+    fontColor: '#ceb78b', // 主文字颜色
+    descColor: '#eee', // 描述文字颜色
+
+    contBgColor: 'rgba(43, 52, 61, 0.8)', // 面板整体底色，颜色过透明可能导致阅读困难
+    contBgBlur: 3, // 面板底图毛玻璃效果，数字越大越模糊，0-10 ，可为小数
+
+    headerBgColor: 'rgba(34, 41, 51, .4)', // 板块标题栏底色
+    rowBgColor1: 'rgba(34, 41, 51, .2)', // 帮助奇数行底色
+    rowBgColor2: 'rgba(34, 41, 51, .4)' // 帮助偶数行底色
+  }
 }
 
 // 帮助菜单内容

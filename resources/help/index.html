@@ -2,10 +2,11 @@
 
 {{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/help/index.css"/>
+{{@style}}
 {{/block}}
 
 {{block 'main'}}
-<div class="info_box">
+<div class="info-box">
   <div class="head-box type{{bgType}}">
     <div class="title">{{helpCfg.title||"使用帮助"}}</div>
     <div class="label">{{helpCfg.subTitle || "Yunzai-Bot & Miao-Plugin"}}</div>

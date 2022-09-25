@@ -51,7 +51,7 @@ class ArtifactSet extends Base {
   static getArtiNameBySet (set, idx = 1) {
     let artiSet = ArtifactSet.get(set)
     if (artiSet) {
-      return artiSet.getArti(idx)
+      return artiSet.getArtiName(idx)
     }
     return ''
   }

@@ -1,6 +1,7 @@
 import lodash from 'lodash'
 import fs from 'fs'
 import { Cfg, Version, Common, Data, App } from '../components/index.js'
+import customStyle from './help/style.js'
 
 let app = App.init({
   id: 'help',
@@ -31,8 +32,10 @@ async function help (e) {
   let custom = {}
   let help = {}
   if (fs.existsSync(`${helpPath}/help-cfg.js`)) {
+    console.log('miao-plugin: 检测到存在help-cfg.js配置\n建议将help-cfg.js移为config/help.js或重新复制config/help_default.js进行配置~')
     help = await import(`file://${helpPath}/help-cfg.js?version=${new Date().getTime()}`)
   } else if (fs.existsSync(`${helpPath}/help-list.js`)) {
+    console.log('miao-plugin: 检测到存在help-list.js配置，建议将help-list.js移为config/help.js或重新复制config/help_default.js进行配置~')
     help = await import(`file://${helpPath}/help-list.js?version=${new Date().getTime()}`)
   }
 
@@ -48,8 +51,8 @@ async function help (e) {
     custom = help
   }
 
-  let helpConfig = lodash.defaults(custom.helpCfg, diyCfg.helpCfg, sysCfg.helpCfg)
-  let helpList = custom.helpList || diyCfg.helpList || sysCfg.helpList
+  let helpConfig = lodash.defaults(diyCfg.helpCfg || {}, custom.helpCfg, sysCfg.helpCfg)
+  let helpList = diyCfg.helpList || custom.helpList || sysCfg.helpList
 
   let helpGroup = []
 
@@ -72,9 +75,12 @@ async function help (e) {
     helpGroup.push(group)
   })
 
+  let style = customStyle(diyCfg.helpCfg?.style || {}, sysCfg.helpCfg?.style || {})
+
   return await Common.render('help/index', {
     helpCfg: helpConfig,
     helpGroup,
+    style,
     element: 'default'
   }, { e, scale: 1.2 })
 }

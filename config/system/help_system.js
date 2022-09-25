@@ -7,7 +7,16 @@
 
 export const helpCfg = {
   title: '喵喵帮助',
-  subTitle: 'Yunzai-Bot & Miao-Plugin'
+  subTitle: 'Yunzai-Bot & Miao-Plugin',
+  style: {
+    fontColor: '#ceb78b',
+    descColor: '#eee',
+    contBgColor: 'rgba(43, 52, 61, 0.8)',
+    contBgBlur: 3,
+    headerBgColor: 'rgba(34, 41, 51, .4)',
+    rowBgColor1: 'rgba(34, 41, 51, .2)',
+    rowBgColor2: 'rgba(34, 41, 51, .4)'
+  }
 }
 
 export const helpList = [{
