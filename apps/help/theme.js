@@ -37,7 +37,7 @@ let Theme = {
     let colCount = Math.min(5, Math.max(parseInt(helpConfig?.colCount) || 3, 2))
     let colWidth = Math.min(500, Math.max(100, parseInt(helpConfig?.colWidth) || 265))
     let width = Math.min(2500, Math.max(800, colCount * colWidth + 30))
-    let theme = await Theme.getThemeCfg(helpConfig.theme, helpConfig.themeExclude)
+    let theme = await Theme.getThemeCfg(helpConfig.theme, diyStyle.themeExclude || sysStyle.themeExclude)
     let themeStyle = theme.style || {}
     let ret = [`
     body{background-image:url(${theme.bg});width:${width}px;}
@@ -52,10 +52,7 @@ let Theme = {
       ret.push(`${sel}{${css}:${val}}`)
     }
     css('.help-title,.help-group', 'color', 'fontColor', '#ceb78b')
-    css('.help-title,.help-group', 'text-shadow', 'contBgColor', 'rgba(6, 21, 31, 0.5)', (c) => {
-      c = c.replace(/,[^,]+\)/, ',1)')
-      return `0 0 1px ${c};`
-    })
+    css('.help-title,.help-group', 'text-shadow', 'fontShadow', 'none')
     css('.help-desc', 'color', 'descColor', '#eee')
     css('.cont-box', 'background', 'contBgColor', 'rgba(43, 52, 61, 0.8)')
     css('.cont-box', 'backdrop-filter', 'contBgBlur', 3, (n) => `blur(${n}px)`)

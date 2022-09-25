@@ -8,10 +8,15 @@
 
 // 帮助配置
 export const helpCfg = {
-  title: '喵喵帮助', // 帮助标题
-  subTitle: 'Yunzai-Bot & Miao-Plugin', // 帮助副标题
-  colCount: 3, // 帮助表格列数，2-5
-  colWidth: 265, // 单列宽度，默认265
+  // 帮助标题
+  title: '喵喵帮助',
+  // 帮助副标题
+  subTitle: 'Yunzai-Bot & Miao-Plugin',
+  // 帮助表格列数，可选：2-5
+  // 注意：设置列数过多可能导致阅读困难，请参考实际效果设置
+  colCount: 3,
+  // 单列宽度，默认265，过窄可能导致较多换行，请根据实际配置项长度设定
+  colWidth: 265,
   /* 皮肤选择，可多选，或设置为all
     皮肤包放置于 resources/help/theme
     皮肤名为对应文件夹名
@@ -19,7 +24,9 @@ export const helpCfg = {
     theme: ['default','theme2'], // 设置为指定皮肤
   */
   theme: 'all',
-  themeExclude: ['default'] // 排除皮肤：在有其他可选项时会忽略此中列举的皮肤
+  // 排除皮肤：使用全部皮肤时会忽略该项设置的皮肤
+  // 如使用其他皮肤时仍希望随机default皮肤可删除default
+  themeExclude: ['default']
 }
 
 // 帮助菜单内容
