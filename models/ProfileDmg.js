@@ -39,7 +39,7 @@ export default class ProfileDmg extends Base {
             v = v.split('*')
             let v1 = v[0].replace('%', '').trim()
             valNum += v1 * (v[1] || 1)
-            valArr2.push(v1)
+            valArr2.push(v1 * 1)
           })
           valArr.push(valNum)
         })
