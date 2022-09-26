@@ -44,9 +44,9 @@ export const reqInterval = {
 }
 
 /*
-* MiaoApi内部私用的面板更新服务
-* 面向Yunzai开发者及有投喂的老板们的小范围服务
-* 需要具备Token才会启用-
+* MiaoApi私有的面板更新服务
+* 供Yunzai开发者及有投喂的老板们小范围使用
+* 需要具备Token才会启用~
 * */
 export const miaoApi = {
   url: 'http://miaoapi.cn/profile',

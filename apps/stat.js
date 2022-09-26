@@ -75,6 +75,7 @@ async function consStat (e) {
 
     let data = {
       name: char.name || ds.avatar,
+      abbr: char.abbr,
       star: char.star || 3,
       side: char.side,
       hold: ds.holdingRate
@@ -102,7 +103,6 @@ async function consStat (e) {
   // 渲染图像
   return await Common.render('stat/character', {
     chars: ret,
-    abbr: Character.getAbbr(),
     mode,
     conNum,
     totalCount: overview?.data?.totalPlayerCount || 0,
