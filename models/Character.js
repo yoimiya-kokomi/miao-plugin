@@ -1,3 +1,9 @@
+/*
+* 角色数据
+*
+* 支持角色查询及Meta元数据获取
+* 兼容处理自定义角色
+* */
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
@@ -41,6 +47,12 @@ class Character extends Base {
     return this.isCustom ? this._id : this._id * 1
   }
 
+  get sName () {
+    let name = this.name
+    let abbr = this.abbr
+    return name.length <= 4 ? name : (abbr || name)
+  }
+
   // 是否是旅行者
   get isTraveler () {
     return CharId.isTraveler(this.id)
@@ -78,6 +90,14 @@ class Character extends Base {
     return this.getImgs().side
   }
 
+  get gacha () {
+    return this.getImgs().gacha
+  }
+
+  get imgs () {
+    return this.getImgs()
+  }
+
   // 获取详情数据
   get detail () {
     return this.getDetail()
@@ -90,6 +110,10 @@ class Character extends Base {
 
   getMaterials () {
     return CharMeta.getMaterials(this)
+  }
+
+  getLvStat () {
+    return CharMeta.getLvStat(this)
   }
 
   get birthday () {
@@ -163,7 +187,7 @@ class Character extends Base {
 
   setTraveler (uid = '') {
     if (this.isTraveler && uid && uid.toString().length === 9) {
-      Data.setCacheJSON(`genshin:uid-traveler:${uid}`, {
+      Data.setCacheJSON(`miao:uid-traveler:${uid}`, {
         id: CharId.getTravelerId(this.id),
         elem: this.elem
       }, 3600 * 24 * 120)
@@ -172,7 +196,7 @@ class Character extends Base {
 
   async getTraveler (uid) {
     if (this.isTraveler) {
-      let tData = await Data.getCacheJSON(`genshin:uid-traveler:${uid}`)
+      let tData = await Data.getCacheJSON(`miao:uid-traveler:${uid}`)
       return Character.get({
         id: CharId.getTravelerId(tData.id || this.id),
         elem: tData.elem || (this.elem !== 'multi' ? this.elem : 'anemo')

@@ -32,7 +32,7 @@ try {
       if (versionCount <= -1) {
         return false
       }
-      let versionRet = /^#\s*([0-9\\.~\s]+?)\s*$/.exec(line)
+      let versionRet = /^#\s*([0-9a-zA-Z\\.~\s]+?)\s*$/.exec(line)
       if (versionRet && versionRet[1]) {
         let v = versionRet[1].trim()
         if (!currentVersion) {

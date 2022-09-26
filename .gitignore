@@ -9,5 +9,8 @@
 /resources/character-img/*/upload/
 /resources/help/help-list.js
 /resources/help/help-cfg.js
+/resources/help/theme/*
+!/resources/help/theme/default
 /config/character.js
 /config/profile.js
+/config/help.js

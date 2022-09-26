@@ -388,3 +388,34 @@ body {
   color: #7994a7;
   margin: 20px 0 10px 0;
 }
+
+.talent-common-info {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 135px;
+  margin-bottom: -5px;
+
+  & > div {
+    display: flex;
+    margin: 4px;
+    border-radius: 5px;
+    white-space: nowrap;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .8);
+
+    strong, span {
+      padding: 5px 8px;
+    }
+
+    strong {
+      background: rgba(0, 0, 0, 0.4);
+      color: #d3bc8e;
+      border-radius: 5px 0 0 5px;
+    }
+
+    span {
+      background: rgba(50, 50, 50, 0.4);
+      border-radius: 0 5px 5px 0;
+      color: #fff;
+    }
+  }
+}

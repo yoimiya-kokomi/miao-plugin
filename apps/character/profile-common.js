@@ -5,7 +5,7 @@ import lodash from 'lodash'
 import { segment } from 'oicq'
 import { profileList } from './profile-list.js'
 import { Profile, Version } from '../../components/index.js'
-import { Character } from '../../models/index.js'
+import { Character, MysApi } from '../../models/index.js'
 
 /*
 * 获取面板查询的 目标uid
@@ -30,13 +30,13 @@ export async function getTargetUid (e) {
         return nc.uid
       }
     }
-    uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`genshin:uid:${qq}`)
+    uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
     if (uid && uidReg.test(uid)) {
       return uid
     }
   }
   if (!Version.isV3) {
-    let botQQ = global.BotConfig ? global.BotConfig.account.qq : false
+    let botQQ = global?.Bot?.uin || global?.BotConfig?.account?.qq
     if (e.at && e.at !== botQQ) {
       uid = await getUid(e.at)
       if (uid) {
@@ -51,17 +51,13 @@ export async function getTargetUid (e) {
   }
 
   try {
-    let MysApi = await e.getMysApi({
-      auth: 'all',
-      targetType: 'all',
-      cookieType: 'all'
-    })
+    let mys = await MysApi.init(e)
 
-    if (!MysApi || !e.targetUser) {
+    if (!mys || !mys.uid) {
       return false
     }
 
-    uid = e.targetUser.uid
+    uid = mys.uid
     if (!uid || !uidReg.test(uid)) {
       e.reply('请先发送【#绑定+你的UID】来绑定查询目标')
       return false

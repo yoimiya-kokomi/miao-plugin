@@ -1,7 +1,7 @@
 import HutaoApi from '../stat/HutaoApi.js';
 import lodash from 'lodash';
 import { Format } from '../../components/index.js';
-import { Artifact, Weapon } from '../../models/index.js';
+import { Artifact, ArtifactSet, Weapon } from '../../models/index.js';
 
 let CharWiki = {
   // 命座持有
@@ -46,22 +46,21 @@ let CharWiki = {
     let au = (await HutaoApi.getArtisUsage()).data || {}
     let artis = []
     if (au[id]) {
-      let sets = {}
       lodash.forEach(au[id], (ds) => {
-        let names = []
+        let imgs = []
         let abbrs = []
         let ss = ds.sets.split(',')
         lodash.forEach(ss, (t) => {
           t = t.split(':')
-          let tmp = Artifact.getArtiBySet(t[0])
-          if (tmp) {
-            names.push(tmp)
-            abbrs.push(Artifact.getAbbrBySet(t[0]) + (ss.length === 1 ? t[1] : ''))
+          let artiSet = ArtifactSet.get(t[0])
+          if (artiSet) {
+            imgs.push(artiSet.img)
+            abbrs.push(artiSet.abbr + (ss.length === 1 ? t[1] : ''))
           }
         })
 
         artis.push({
-          sets: names,
+          imgs,
           title: abbrs.join('+'),
           value: ds.value
         })

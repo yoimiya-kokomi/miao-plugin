@@ -107,10 +107,10 @@
   <div class="item-list weapon-list artis-list">
     {{each artis arti}}
     <div class="item item-card">
-      <div class="item-icon star5 artis-count{{arti.sets.length}}">
-        {{each arti.sets sn idx}}
+      <div class="item-icon star5 artis-count{{arti.imgs.length}}">
+        {{each arti.imgs img idx}}
         <div class="item-bg artis{{idx+1}}"
-             style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{sn}}.png)"></div>
+             style="background-image:url({{_res_path}}{{img}})"></div>
         {{/each}}
       </div>
       <div class="item-value">{{arti.value}}</div>

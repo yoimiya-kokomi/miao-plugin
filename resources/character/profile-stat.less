@@ -1,5 +1,11 @@
+body {
+  background: url('./imgs/bg-01.jpg') left center;
+  background-size: 100% auto;
+}
+
 .container {
-  background-size: cover;
+  background: url('./imgs/main-01.png') center -25px no-repeat;
+  background-size: 100% auto;
 }
 
 .head-box {
@@ -19,10 +25,6 @@
     align-items: center;
     height: 36px;
 
-    & > * {
-      display: block;
-    }
-
     .item-icon {
       z-index: 10;
     }
@@ -34,7 +36,6 @@
     display: inline-block;
     width: 19px;
     padding: 0;
-    margin: 0;
     text-align: center;
     vertical-align: middle;
     font-size: 13px;
@@ -42,58 +43,30 @@
   }
 
   .cons {
-    border-radius: 0 3px 3px 0;
-    width: 22px;
-    margin-right: 5px;
-    text-shadow: 0 0 2px #000;
+    width: 16px;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .5);
+  }
+
+  .fetter {
+    width: 32px;
+    height: 32px;
   }
 
   .level {
     border-radius: 3px 0 0 3px;
-    width: 32px;
-    text-shadow: 0 0 2px #000;
-    color: #fff;
+    width: 25px;
+    white-space: nowrap;
+    display: inline-block;
 
     &:before {
       content: "Lv";
-
+      display: inline-block;
+      font-size: 12px;
+      transform: scale(.7);
+      transform-origin: right 55%;
+      margin-left: -3px;
     }
   }
-
-  .level:before {
-    display: inline-block;
-    font-size: 12px;
-    transform: scale(.7);
-    transform-origin: right 55%;
-    margin-left: -3px;
-  }
-
-  .level:before {
-    content: "Lv";
-  }
-
-
-  .star(@s, @color) {
-    .star@{s} {
-      .item-icon {
-        box-shadow: 0 0 0 1px @color;
-      }
-
-      .cons {
-        box-shadow: 0 0 0 1px @color;
-      }
-
-      .level {
-        box-shadow: 0 0 0 1px @color;
-        background: fadeout(darken(@color, 30%), 50%);
-      }
-    }
-  }
-  .star(1, rgb(171, 171, 171));
-  .star(2, rgb(208, 255, 190));
-  .star(3, rgb(190, 208, 255));
-  .star(4, rgb(223, 190, 255));
-  .star(5, rgb(255, 228, 180));
 }
 
 .cont {
@@ -101,20 +74,13 @@
   background: none;
 
   .item-name {
-    text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, .8);
-    text-align: center;
-
-    &.star4 {
-      color: #dfbeff;
-    }
-
-    &.star5 {
-      color: #ffe4b4;
-    }
+    padding-left: 5px;
+    text-align: left;
+    text-shadow: 0 0 1px rgba(255, 255, 255, .8);
   }
 
   .tr.thead {
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, .4);
     font-weight: bold;
 
     & > div {
@@ -129,6 +95,42 @@
   }
 
   .tr {
+    color: #333;
+
+    .td {
+      box-shadow: 0 0 1px 0 rgba(100, 100, 100, .8) inset;
+    }
+
+    .star(@s, @color, @color2:#333) {
+      .td.star@{s} {
+        background: @color;
+
+        .item-name {
+          color: @color2;
+        }
+      }
+    }
+    .star(1, rgba(200, 200, 200, 0.35));
+    .star(2, rgba(168, 255, 133, 0.35));
+    .star(3, rgba(137, 168, 255, 0.35));
+    .star(4, rgba(195, 134, 255, 0.35), #720465);
+    .star(5, rgba(255, 212, 132, 0.35), #6f4b00);
+
+    &.thead {
+      background: rgba(0, 0, 0, 0.5) !important;
+
+      & > div {
+        color: #d3bc8e !important;
+      }
+    }
+
+    &:nth-child(odd) {
+      background: rgba(255, 255, 255, .85);
+    }
+
+    &:nth-child(even) {
+      background: rgba(235, 235, 235, .85);
+    }
 
     & > div {
       text-align: center;
@@ -142,22 +144,18 @@
       }
     }
 
-    .index {
-      color: #333;
+    .td-idx {
       width: 30px;
-      padding-left: 5px;
-
     }
 
     .td-name {
       text-align: left;
-      width: 150px;
-      padding-left: 8px;
+      width: 100px;
+      padding-left: 3px;
 
       .item-name {
         width: 50px;
       }
-
 
       .char-icon {
         width: 30px;
@@ -165,28 +163,34 @@
         border-radius: 5px;
         display: inline-block;
         overflow: visible;
+        background: none;
 
 
         .img {
-          width: 33px;
-          height: 33px;
+          width: 30px;
+          height: 30px;
           position: relative;
-          top: -3px;
-          left: -1px;
+          top: 0;
+          left: 0;
           border-radius: 0 0 6px 6px;
         }
       }
     }
 
+    .td-lv {
+      width: 35px;
+    }
+
     .td-fetter {
       width: 40px;
       text-align: center;
-      padding-right: 5px;
 
-      .fetter {
-        width: 32px;
-        height: 32px;
-      }
+
+    }
+
+    .td-cons {
+      width: 40px;
+      text-align: center;
     }
 
     .td-talent {
@@ -196,55 +200,52 @@
 
     .td-weapon {
       text-align: left;
-      padding-left: 10px;
+      padding-left: 3px;
 
-      .lv {
-        width: 38px;
-        text-align: right;
-        padding-right: 2px;
-        display: inline-block;
-        white-space: nowrap;
-      }
-
-      .weapon-icon {
-        border-radius: 0px;
+      .level {
+        font-size: 12px;
+        transform: scale(.9);
       }
 
       .cons {
-        border-radius: 0 3px 3px 0;
+        transform: scale(.8);
+        margin-right: -2px;
+      }
+
+      .weapon-icon {
+        border-radius: 0;
+        background: none;
       }
 
       .item-name {
         width: 70px;
+        font-size: 12px;
       }
     }
 
     .weapon-icon {
       width: 25px;
-      height: 22px;
       display: inline-block;
       overflow: visible;
 
       .img {
         width: 30px;
         height: 30px;
-        margin: -8px 0 0 -3px;
       }
     }
 
     .td-talent {
-      text-shadow: 0 0 1px #000, 0 0 2px rgba(0, 0, 0, .8);
-      color: rgba(255, 255, 255, .85);
+
     }
 
     .talent-plus {
       font-weight: bold;
-      color: #48cdda;
+      color: #006cc7;
       font-size: 15px;
-      text-shadow: 0 0 1px #000, 0 0 3px #000;
+      text-shadow: 0px 0px 1px #fff;
     }
 
-    .lv(@lv, @c1, @c2:#fff) {
+    .lv(@lv, @c1, @c2:#333) {
       .lv@{lv} {
         background: @c1;
 
@@ -253,24 +254,68 @@
         }
       }
     }
-    .lv(1, rgba(50, 50, 50, .6));
-    .lv(2, rgba(23, 184, 58, .5));
+    .lv(1, rgba(60, 63, 65, .3));
+    .lv(2, rgba(23, 184, 58, .5), #005800);
     .lv(3, rgba(27, 128, 212, .5));
-    .lv(4, rgba(146, 90, 255, .5));
+    .lv(4, rgba(146, 90, 255, .55), #720465);
 
     .lv5 {
-      background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, .35);
+      background: url("../common/item/crown-o.png") center center no-repeat rgba(255, 36, 26, .55);
       background-size: contain;
-      color: #fff;
+
+      &.talent-plus {
+        color: #b70000;
+      }
     }
 
 
   }
 
+  /*
+      .star(1, rgba(171, 171, 171, .5));
+      .star(2, rgba(208, 255, 190, .5));
+      .star(3, rgba(190, 208, 255, .5));
+      .star(4, rgba(223, 190, 255, .5));
+      .star(5, rgba(255, 228, 180, .5));
+  */
+
   .td-artis {
     width: 115px;
-
     text-align: left;
+
+    &.class- {
+      &ACE, &ACE² {
+        background: rgba(255, 228, 180, .5);
+
+        .artis-mark-class {
+          background: #ff5722;
+        }
+      }
+
+      &SSS, &SS {
+        background: rgba(223, 190, 255, .5);
+
+        .artis-mark-class {
+          background: #531ba9cf;
+        }
+      }
+
+      &S, &A {
+        background: rgba(190, 208, 255, .5);
+
+        .artis-mark-class {
+          background: #3955b7;
+        }
+      }
+
+      &B, &C, &D {
+        background: rgba(171, 171, 171, .5);
+
+        .artis-mark-class {
+          background: #aaa;
+        }
+      }
+    }
   }
 
   .avatar-artis {
@@ -283,76 +328,79 @@
       position: relative;
       width: 30px;
       height: 30px;
-      background: rgba(51, 51, 51, 0.68);
       box-shadow: 0 0 1px 0 #ffe4b4;
       display: inline-block;
+
+      &.no-artis {
+        background: #bbb;
+      }
+    }
+
+    .no-artis {
+      background: url(../common/item/artifact-icon.webp) center no-repeat;
+      background-size: auto 80%;
     }
 
     &.artis2 {
       .img {
         position: absolute;
-        width: 24px;
-        height: 24px;
+        transform: scale(.7);
+        width: 92%;
+        height: 92%;
+        margin: 4%;
 
         &:first-child {
-          left: -2px;
-          top: -2px;
+          transform-origin: left top;
         }
 
         &:last-child {
-          right: -2px;
-          bottom: -2px;
+          transform-origin: right bottom;
         }
       }
     }
+
+
   }
 
-  .arti-mark-class {
-    width: 30px;
+  .artis-mark-class {
+    width: 28px;
     font-size: 12px;
-    border-radius: 0 4px 4px 0;
+    border-radius: 5px;
     display: inline-block;
     text-align: center;
     background: rgba(51, 51, 51, 0.68);
-    height: 18px;
-    line-height: 18px;
+    height: 20px;
+    line-height: 20px;
     box-shadow: 0 0 1px 0 #ffe4b4;
     position: relative;
     z-index: 9;
-    margin-right: 5px;
+    margin: 0 -2px;
+    transform: scale(.7);
+    color: #fff;
 
-    &.class- {
-      &ACE,
-      &ACE² {
-        background: #ff5722;
-      }
 
-      &SSS,
-      &SS {
-        background: #ab7e31;
-      }
-
-      &S,
-      &A {
-        background: #8a2cc9;
-      }
-    }
   }
 
-  .arti-na {
-    padding-left: 13px;
+  .artis-na {
+    padding-left: 12px;
     white-space: nowrap;
     transform: scale(.8);
     transform-origin: left center;
-    color: rgba(255, 255, 255, .5);
+    color: #888;
     font-size: 12px;
     margin-right: -60px;
   }
 }
 
 .cont-notice {
-  color: #666;
-  background: rgba(0, 0, 0, .7);
-  text-align: right;
+  color: #888;
+  background: rgba(255, 255, 255, .4);
+  font-size: 13px;
+  text-align: center;
   padding: 8px;
+
+  span {
+    padding: 0 3px;
+    color: #555;
+  }
 }

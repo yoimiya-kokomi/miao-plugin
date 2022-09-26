@@ -28,17 +28,25 @@ export const enkaApi = {
 }
 
 /*
-* 单个用户请求面板的间隔时间，单位分钟
+* 单个用户请求面板的间隔时间，单位秒
 * 不同用户的计时独立
 *
-* 因为服务数据更新需要5分钟左右，建议设置为5分钟或5分钟以上
-* 可降低对服务的压力，同时防止过度刷屏
+* empty: 获取结果为空，默认5分钟
+* success: 获取成功，默认3分钟
+* fail: 获取失败，默认1分钟
+*
+* 部分请求会同时返回服务侧缓存时间，若间隔小于缓存时间，则会以缓存时间为准
 * */
-export const requestInterval = 5
+export const reqInterval = {
+  empty: 60 * 5,
+  success: 60 * 3,
+  fail: 60
+}
 
 /*
-* MiaoApi面板更新服务，需要具备Token
-* 默认使用Enka服务进行更新
+* MiaoApi私有的面板更新服务
+* 供Yunzai开发者及有投喂的老板们小范围使用
+* 需要具备Token才会启用~
 * */
 export const miaoApi = {
   url: 'http://miaoapi.cn/profile',

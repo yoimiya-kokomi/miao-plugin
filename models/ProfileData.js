@@ -125,6 +125,18 @@ export default class ProfileData extends Base {
     return ''
   }
 
+  get dataSourceName () {
+    return {
+      enka: 'Enka.Network',
+      miao: 'MiaoApi',
+      input: 'Input'
+    }[this.dataSource] || 'Enka.NetWork'
+  }
+
+  get isProfile () {
+    return true
+  }
+
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
   getArtisMark (withDetail = true) {
     if (this.hasData) {

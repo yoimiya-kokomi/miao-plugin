@@ -10,15 +10,15 @@ class User {
 
   // 保存用户配置
   async setCfg (path, value) {
-    let userCfg = await redis.get(`genshin:user-cfg:${this.id}`)
+    let userCfg = await redis.get(`miao:user-cfg:${this.id}`) || await redis.get(`genshin:user-cfg:${this.id}`)
     userCfg = userCfg ? JSON.parse(userCfg) : {}
     lodash.set(userCfg, path, value)
-    await redis.set(`genshin:user-cfg:${this.id}`, JSON.stringify(userCfg))
+    await redis.set(`miao:user-cfg:${this.id}`, JSON.stringify(userCfg))
   }
 
   /* 获取用户配置 */
   async getCfg (path, defaultValue) {
-    let userCfg = await redis.get(`genshin:user-cfg:${this.id}`)
+    let userCfg = await redis.get(`miao:user-cfg:${this.id}`) || await redis.get(`genshin:user-cfg:${this.id}`)
     userCfg = userCfg ? JSON.parse(userCfg) : {}
     return lodash.get(userCfg, path, defaultValue)
   }
@@ -32,15 +32,15 @@ class User {
 
 class Mys {
   constructor (e, uid, MysApi) {
+    let ckUid = MysApi.ckInfo?.uid
     this.selfUser = new User({ id: e.user_id, uid })
-    this.targetUser = {
-      uid
-    }
+    this.targetUser = this.selfUser
     this.e = e
     this.MysApi = MysApi
+
     e.targetUser = this.targetUser
     e.selfUser = this.selfUser
-    e.isSelfCookie = true
+    e.isSelfCookie = uid * 1 === ckUid * 1
   }
 
   async getData (api, data) {
@@ -104,29 +104,26 @@ class Mys {
   }
 
   get isSelfCookie () {
-    return true
+    return this.e.isSelfCookie
   }
 }
 
 export async function getMysApi (e, cfg) {
   let { auth = 'all' } = cfg
-  let uid = await MysInfo.getUid(e)
-  if (!uid) return false
-
-  /* 检查user ck */
-  let isCookieUser = await MysInfo.checkUidBing(uid)
-  if (auth === 'cookie') {
-    if (!isCookieUser) {
-      e.reply('尚未绑定Cookie...')
-      return false
-    }
-    e.isSelfCookie = true
-  }
   let MysApi = await MysInfo.init(e, 'roleIndex')
   if (!MysApi) {
     return false
   }
-  MysApi.isSelfCookie = !!e.isSelfCookie
+  let uid = MysApi.uid
+  let ckUid = MysApi.ckInfo?.uid
+  /* 检查user ck */
+  if (auth === 'cookie') {
+    let isCookieUser = await MysInfo.checkUidBing(uid)
+    if (!isCookieUser || uid !== ckUid) {
+      e.reply('尚未绑定Cookie...')
+      return false
+    }
+  }
   return new Mys(e, uid, MysApi)
 }
 
@@ -140,10 +137,12 @@ export async function checkAuth (e, cfg) {
   }
 
   /* 检查user ck */
-  let isCookieUser = await MysInfo.checkUidBing(uid)
-  if (auth === 'cookie' && !isCookieUser) {
-    e.reply('尚未绑定Cookie...')
-    return false
+  if (auth === 'cookie') {
+    let isCookieUser = await MysInfo.checkUidBing(uid)
+    if (!isCookieUser) {
+      e.reply('尚未绑定Cookie...')
+      return false
+    }
   }
 
   e.selfUser = new User({ id: e.user_id, uid })

@@ -4,5 +4,6 @@ import Common from './Common.js'
 import Cfg from './Cfg.js'
 import Version from './Version.js'
 import Profile from './Profile.js'
+import App from './App.js'
 
-export { Data, Cfg, Format, Common, Version, Profile }
+export { Data, Cfg, Format, Common, Version, Profile, App }

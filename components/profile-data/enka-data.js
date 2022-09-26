@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import enkaMeta from './enka-meta.js'
-import { Character, Artifact, ProfileData } from '../../models/index.js'
+import { Character, ArtifactSet, ProfileData } from '../../models/index.js'
 
 const artiIdx = {
   EQUIP_BRACER: 1,
@@ -126,11 +126,9 @@ let EnkaData = {
       if (!idx) {
         return
       }
-
       let setName = enkaMeta[flat.setNameTextMapHash] || ''
-
-      ret[`arti${idx}`] = {
-        name: Artifact.getArtiBySet(setName, idx),
+      ret[idx] = {
+        name: ArtifactSet.getArtiNameBySet(setName, idx),
         set: setName,
         level: Math.min(20, ((ds.reliquary && ds.reliquary.level) || 1) - 1),
         main: get(flat.reliquaryMainstat),

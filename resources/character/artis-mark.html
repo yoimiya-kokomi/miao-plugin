@@ -41,7 +41,7 @@
   <div class="item arti {{idx}}">
     {{if ds && ds.name && ds.main && ds.main.title && ds.main.title!="undefined"}}
     <div class="arti-icon">
-      <img src="{{_res_path}}/meta/reliquaries/icon/{{ds.name}}.png"/>
+      <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
       <span>+{{ds.level}}</span>
     </div>
     <div class="head">

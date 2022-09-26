@@ -43,7 +43,7 @@
           <strong>{{ds.value}}</strong>
         </div>
         <div class="avatar-banner avatar-{{avatar.name}}"
-             style="background-image:url({{_res_path}}/meta/character/{{avatar.name}}/imgs/gacha.webp)"></div>
+             style="background-image:url({{_res_path}}{{avatar.gacha}})"></div>
         <div class="stat-msg">
           {{each ds.msg msg}}
           {{if msg.txt}}
@@ -59,6 +59,7 @@
     </div>
 
   </div>
+  {{set cardTypes={1:['wide wide2'],2:['wide','wide'],3:['wide','mini','mini'],4:['mini','mini','mini','mini']} }}
   {{each abyss?.floors floor}}
   <div class="cont">
 
@@ -69,14 +70,16 @@
       </div>
       <div class="abyss-floor-team">
         <div class="abyss-team">
-          {{each floor?.display?.up?.avatars||[] id}}
-          <% include(_layout_path+'../tpl/avatar-card.html', [avatars[id],{_res_path}]) %>
+          {{set ds=floor?.display?.up?.avatars||[] }}
+          {{each ds id idx}}
+          <% include(_layout_path+'../tpl/avatar-card.html', [avatars[id],{_res_path, cardType:cardTypes[ds.length][idx]}]) %>
           {{/each}}
         </div>
         <div class="line"></div>
         <div class="abyss-team">
-          {{each floor?.display?.down?.avatars||[] id}}
-          <% include(_tpl_path+'/avatar-card.html', [avatars[id],{_res_path}]) %>
+          {{set ds=floor?.display?.down?.avatars||[] }}
+          {{each ds id idx}}
+          <% include(_tpl_path+'/avatar-card.html', [avatars[id],{_res_path, cardType:cardTypes[ds.length][idx]}]) %>
           {{/each}}
         </div>
       </div>

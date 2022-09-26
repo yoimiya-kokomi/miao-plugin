@@ -1,3 +1,9 @@
+/*
+* Base Model
+*
+* 使用Proxy实现meta数据的getter
+* 对Character等可复用设置实例缓存，提高性能
+* */
 import { Data } from '../components/index.js'
 
 let cacheMap = {}

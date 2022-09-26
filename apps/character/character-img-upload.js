@@ -11,14 +11,6 @@ import { Character } from '../../models/index.js'
 const resPath = process.cwd() + '/plugins/miao-plugin/resources/'
 let regex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:照片|写真|图片|图像)\s*$/
 
-export const rule = {
-  uploadCharacterImage: {
-    hashMark: true,
-    reg: '^#*喵喵(上传|添加)(.+)写真.*$',
-    describe: '喵喵上传角色写真'
-  }
-}
-
 export async function uploadCharacterImg (e) {
   let promise = await isAllowedToUploadCharacterImage(e)
   if (!promise) {
@@ -43,10 +35,11 @@ export async function uploadCharacterImg (e) {
     }
   }
   let source
-  if (e.isGroup) {// 支持at图片添加，以及支持后发送
-    source = (await e.group.getChatHistory(e.source.seq, 1)).pop()
+  if (e.isGroup) {
+    // 支持at图片添加，以及支持后发送
+    source = (await e.group.getChatHistory(e.source?.seq, 1)).pop()
   } else {
-    source = (await e.friend.getChatHistory(e.source.time, 1)).pop()
+    source = (await e.friend.getChatHistory((e.source?.time + 1), 1)).pop()
   }
   if (source) {
     for (let val of source.message) {
@@ -55,10 +48,9 @@ export async function uploadCharacterImg (e) {
       }
     }
   }
-  
+
   if (imageMessages.length <= 0) {
-    
-    e.reply('消息中未找到图片，请将要发送的图片与消息一同发送..')
+    e.reply('消息中未找到图片，请将要发送的图片与消息一同发送或引用要添加的图像..')
     return true
   }
   await saveImages(e, name, imageMessages)
@@ -75,7 +67,12 @@ async function saveImages (e, name, imageMessages) {
   }
   let senderName = lodash.truncate(e.sender.card, { length: 8 })
   let imgCount = 0
+  let urlMap = {}
   for (let val of imageMessages) {
+    if (!val.url || urlMap[val.url]) {
+      continue
+    }
+    urlMap[val.url] = true
     const response = await fetch(val.url)
     if (!response.ok) {
       e.reply('图片下载失败。')
@@ -104,8 +101,7 @@ async function saveImages (e, name, imageMessages) {
         console.log('unlink', err)
       })
     }
-    fs.rename(imgPath, newImgPath, (err) => {
-      console.log('rename', err)
+    fs.rename(imgPath, newImgPath, () => {
     })
     imgCount++
     Bot.logger.mark(`添加成功: ${path}/${fileName}`)

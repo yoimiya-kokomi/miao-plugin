@@ -73,6 +73,8 @@ body {
 }
 
 .detail ul.attr {
+  backdrop-filter: blur(4px);
+
   li {
     width: 300px;
     font-size: 17px;
@@ -489,27 +491,33 @@ body {
       position: absolute;
       left: 2px;
       top: 3px;
+
+
+      span {
+        position: absolute;
+        right: 2px;
+        bottom: 0;
+        margin-left: 5px;
+        background: rgba(0, 0, 0, .5);
+        border-radius: 5px;
+        height: 18px;
+        line-height: 18px;
+        padding: 0 3px;
+        color: #fff;
+        font-size: 12px;
+        display: block;
+      }
+
+      .img {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     }
 
-    .arti-icon span {
-      position: absolute;
-      right: 2px;
-      bottom: 0;
-      margin-left: 5px;
-      background: rgba(0, 0, 0, .5);
-      border-radius: 5px;
-      height: 18px;
-      line-height: 18px;
-      padding: 0 3px;
-      color: #fff;
-      font-size: 12px;
-      display: block;
-    }
-
-    .arti-icon img {
-      width: 60px;
-      height: 60px;
-    }
   }
 
   .head {
@@ -671,13 +679,16 @@ body {
   height: 97px;
 }
 
-.artis .weapon img {
+.artis .weapon .img {
   width: 100px;
   height: 100px;
   top: 0;
   left: 0;
   position: absolute;
   z-index: 2;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .artis .weapon .head {

@@ -1,0 +1,278 @@
+@import "../common/base.less";
+
+body {
+  width: 600px;
+}
+
+.container {
+  width: 600px;
+  padding: 0;
+  background-size: cover;
+  overflow: hidden;
+
+  & > .cont {
+
+  }
+}
+
+.char-title {
+  height: 100px;
+  padding-right: 10px;
+
+  .char-name {
+    font-size: 40px;
+
+    span {
+      font-size: 28px;
+      padding-right: 10px;
+    }
+  }
+}
+
+.basic {
+  height: 500px;
+
+  &:after {
+
+  }
+}
+
+.char-desc {
+  padding-left: 200px;
+  font-size: 14px;
+}
+
+
+.char-meta {
+  padding-left: 370px;
+
+  .title {
+
+  }
+}
+
+.detail {
+  right: 18px;
+
+  .cont {
+    margin-right: 0;
+  }
+
+  ul.char-attr {
+
+    li {
+      width: 250px;
+      padding-left: 20px;
+
+      strong {
+        position: initial;
+        color: #d3bc8e;
+      }
+
+      span {
+        color: #fff;
+        right: 20px;
+        text-align: right;
+        width: 150px;
+      }
+    }
+  }
+}
+
+.material-list {
+  display: flex;
+  padding: 5px;
+  position: absolute;
+  left: 10px;
+  bottom: 6px;
+  z-index: 5;
+
+  .num {
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 3px rgba(0, 0, 0, 0.8);
+    display: block;
+    height: 14px;
+    margin-left: -10px;
+    margin-right: -10px;
+    width: calc(100% + 20px)
+  }
+
+
+  .item-card {
+    width: 47px;
+    margin: 2px;
+    overflow: hidden;
+
+    .item-icon {
+      background-size: cover;
+      padding: 6px 4px 17px;
+    }
+
+    .item-bg {
+      background-size: contain;
+      background-position: center;
+    }
+
+    .item-title {
+      display: block;
+      font-size: 12px;
+      position: absolute;
+      color: #fff;
+      bottom: 0;
+      left: 0;
+      white-space: nowrap;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px 0;
+      width: 68px;
+      text-align: center;
+      transform-origin: left bottom;
+      transform: scale(.7);
+      text-shadow: 0 0 2px #000;
+    }
+  }
+}
+
+.talent-notice {
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  padding: 3px;
+  text-shadow: 0 0 1px #000, 1px 1px 2px #000;
+
+  strong {
+    color: #d3bc8e;
+    font-weight: normal;
+  }
+}
+
+.cont .cont-title.border-less {
+  padding: 10px 15px 3px;
+}
+
+.talent-cont {
+  text-align: center;
+
+  strong {
+    color: #d3bc8e;
+  }
+}
+
+.weapon-list {
+  padding: 3px;
+
+  .item {
+    margin: 3px;
+  }
+}
+
+.char-holding {
+  display: flex;
+  padding: 8px;
+
+  .cons-title {
+    height: 15px;
+    line-height: 15px;
+    font-size: 13px;
+    color: #d3bc8e;
+    text-shadow: 0 0 2px #000;
+  }
+}
+
+.char-pct {
+  width: 125px;
+  margin-right: 10px;
+  text-align: center;
+  position: relative;
+
+  strong {
+    margin-top: 10px;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    font-size: 30px;
+    text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+  }
+
+  span {
+    display: block;
+    font-size: 13px;
+    color: #d3bc8e;
+    height: 15px;
+    line-height: 15px;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 50px;
+    position: absolute;
+    right: 1px;
+    top: 30px;
+    background: rgba(255, 255, 255, .8);
+    transform: scaleX(.7);
+  }
+}
+
+.char-cons {
+  position: initial;
+  width: initial;
+
+  .cons0 {
+    .talent-icon {
+      opacity: .3;
+    }
+  }
+
+  .cons-item {
+    width: 60px;
+    text-align: center;
+
+    .talent-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
+    }
+  }
+
+  .cons-num {
+    margin-top: -5px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 16px;
+    text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+  }
+}
+
+.item-value {
+  color: #000;
+  text-align: center;
+  line-height: 20px;
+  font-size: 15px;
+}
+
+.item-title {
+  font-size: 12px;
+  transform: scale(.9);
+  margin-top: -3px;
+}
+
+.artis-list {
+  .artis-count2 {
+    position: relative;
+
+    .item-bg {
+      transform: scale(.7);
+      transform-origin: left top;
+
+      &.artis2 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: right bottom;
+      }
+    }
+  }
+}

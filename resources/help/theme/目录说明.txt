@@ -1,0 +1,21 @@
+【default皮肤】
+default为默认皮肤，不建议改动，防止后续更新冲突
+如不想使用default可创建其他皮肤
+
+【增加自定义皮肤】
+可创建或下载皮肤包，放置在当前目录下，文件夹的名称为皮肤包的名称
+
+皮肤包中包含的文件：
+main.png：主图，高度自适应
+bg.jpg：背景图，如果main.png图片不够高的话则会使用bg.jpg进行填充
+config.js 颜色配置，可选。如无此文件会使用默认配置，如需自定义具体字段可参考default/config.js
+
+
+【皮肤选择】
+默认为随机皮肤，如需指定可到config/help.js中，设置theme的选项
+
+在有其他可选项时，会默认忽略default皮肤
+如在设置all时也包含default，可修改config/help.js，将themeExclude中的default删掉
+
+
+
