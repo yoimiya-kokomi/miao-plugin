@@ -45,7 +45,7 @@ let Theme = {
     .help-table .td,.help-table .th{width:${100 / colCount}%}
     `]
     let css = function (sel, css, key, def, fn) {
-      let val = themeStyle[key] || diyStyle[key] || sysStyle[key] || def
+      let val = Data.def(themeStyle[key], diyStyle[key], sysStyle[key], def)
       if (fn) {
         val = fn(val)
       }

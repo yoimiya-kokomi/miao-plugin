@@ -93,6 +93,8 @@ class App {
 
   // v2执行方法
   v2App (e) {
+    let cfg = this.cfg || {}
+    let event = cfg.event
     let apps = this.apps
     return async function (e) {
       let msg = e.original_msg || e.msg || ''
@@ -113,6 +115,11 @@ class App {
             if (ret === true) {
               return true
             }
+          }
+        } else if (event === 'poke' && msg === '#poke#') {
+          let ret = await app.fn(e, {})
+          if (ret === true) {
+            return true
           }
         }
       }
