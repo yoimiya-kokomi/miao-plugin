@@ -55,7 +55,11 @@ if (!MysInfo) {
       let user = await e.checkAuth({
         auth: 'all'
       })
-      return user ? user.uid : false
+      if (!user || !user.getMysUser) {
+        return false
+      }
+      let mysUser = await user.getMysUser()
+      return mysUser ? mysUser.uid : false
     }
 
     static async get (e, api, data) {
