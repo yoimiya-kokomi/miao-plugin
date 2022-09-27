@@ -65,9 +65,6 @@ body {
   border-radius: 4px;
   overflow: hidden;
 }
-.detail ul.attr {
-  backdrop-filter: blur(4px);
-}
 .detail ul.attr li {
   width: 300px;
   font-size: 17px;

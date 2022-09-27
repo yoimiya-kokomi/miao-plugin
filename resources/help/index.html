@@ -16,11 +16,12 @@
 </div>
 
 {{each helpGroup group}}
+{{set len = group?.list?.length || 0 }}
 <div class="cont-box">
   <div class="help-group">{{group.group}}</div>
+  {{if len > 0}}
   <div class="help-table">
     <div class="tr">
-      {{set len = group.list.length }}
       {{each group.list help idx}}
       <div class="td">
         <span class="help-icon" style="{{help.css}}"></span>
@@ -37,6 +38,7 @@
       <% } %>
     </div>
   </div>
+  {{/if}}
 </div>
 {{/each}}
 {{/block}}

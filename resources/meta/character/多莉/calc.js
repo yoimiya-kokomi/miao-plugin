@@ -5,10 +5,7 @@ export const details = [{
   title: 'Q每跳恢复生命',
   dmg: ({ talent, calc, attr }, {
     heal
-  }) => {
-    console.log(talent.q)
-    return heal(talent.q['持续治疗量2'][0] * calc(attr.hp) / 100 + talent.q['持续治疗量2'][1] * 1)
-  }
+  }) => heal(talent.q['持续治疗量2'][0] * calc(attr.hp) / 100 + talent.q['持续治疗量2'][1] * 1)
 }]
 
 export const mainAttr = 'atk,hp,cpct,cdmg'

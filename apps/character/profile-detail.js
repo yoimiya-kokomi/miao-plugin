@@ -6,6 +6,11 @@ import { MysApi, Avatar } from '../../models/index.js'
 export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let selfUser = await MysApi.initUser(e)
 
+  if (!selfUser) {
+    e.reply('尚未绑定UID')
+    return true
+  }
+
   let { uid } = e
 
   if (char.isCustom) {
