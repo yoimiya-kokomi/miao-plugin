@@ -1,7 +1,6 @@
 import { Character, ProfileData } from '../../models/index.js'
 import lodash from 'lodash'
 import { artiIdx, artiSetMap, attrMap } from './miao-meta.js'
-import cmeta from './enka-char.js'
 
 let MiaoData = {
   key: 'miao',

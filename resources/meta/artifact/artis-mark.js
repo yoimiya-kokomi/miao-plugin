@@ -93,5 +93,7 @@ export const usefulAttr = {
   提纳里: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 90, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   柯莱: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   空: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
-  荧: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 }
+  荧: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
+  赛诺: { hp: 0, atk: 75, def: 0, cp: 100, cd: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
+  坎蒂丝: { hp: 75, atk: 75, def: 0, cp: 100, cd: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },
 }

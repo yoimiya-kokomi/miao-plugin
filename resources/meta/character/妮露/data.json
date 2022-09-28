@@ -5,13 +5,13 @@
   "title": "莲光落舞筵",
   "star": 5,
   "elem": "hydro",
-  "allegiance": "？？？",
+  "allegiance": "祖拜尔剧场",
   "weapon": "sword",
-  "birth": "1-1",
+  "birth": "12-3",
   "astro": "睡莲座",
   "desc": "祖拜尔剧场的知名舞者，舞姿灵动优美，为人纯真亲善。",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "cncv": "紫苏九月",
+  "jpcv": "金元寿子",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -28,7 +28,11 @@
     "7032": "e",
     "7039": "q"
   },
-  "talentId": {},
+  "talentId": {
+    "10701": 7031,
+    "10702": 7032,
+    "10705": 7039
+  },
   "talentCons": {
     "e": 5,
     "q": 3
