@@ -120,6 +120,21 @@ export default function (step) {
       refine: {
         atkPct: step(16)
       }
+    },
+    赤沙之杖: {
+      title: '赤沙之杖被动：基于元素精通获得攻击力[_atk1]，5层Buff提高攻击力[_atk2]',
+      data: {
+        _atk1: ({ attr, calc, refine }) => step(52)[refine] * calc(attr.mastery) / 100,
+        _atk2: ({ attr, calc, refine }) => step(28 * 3)[refine] * calc(attr.mastery) / 100,
+        atkPlus: ({ attr, calc, refine }) => step(52 + 28 * 3)[refine] * calc(attr.mastery) / 100
+      }
+    },
+    风信之锋: {
+      title: '触发元素反应提升攻击力[atkPct]%, 精通[mastery]',
+      refine: {
+        atkPct: step(12),
+        mastery: step(48)
+      }
     }
   }
 }

@@ -128,6 +128,12 @@ export default function (step) {
         mastery: step(24 * 5, 3 * 5),
         atkPct: -25
       }
+    },
+    流浪的晚星: {
+      title: '基于元素精通提升攻击力[atkPlus]',
+      data: {
+        atkPlus: ({ attr, calc, refine }) => step(24)[refine] * calc(attr.mastery) / 100
+      }
     }
   }
 }

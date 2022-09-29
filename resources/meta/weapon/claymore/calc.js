@@ -135,6 +135,12 @@ export default function (step) {
       refine: {
         mastery: step(60)
       }
+    },
+    玛海菈的水色: {
+      title: '基于元素精通提升攻击力[atkPlus]',
+      data: {
+        atkPlus: ({ attr, calc, refine }) => step(24)[refine] * calc(attr.mastery) / 100
+      }
     }
   }
 }
