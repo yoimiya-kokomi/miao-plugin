@@ -1,0 +1,27 @@
+{
+  "id": 10000073,
+  "name": "纳西妲",
+  "abbr": "纳西妲",
+  "title": "",
+  "star": 5,
+  "elem": "dendro",
+  "allegiance": "？？？",
+  "weapon": "catalyst",
+  "birth": "1-1",
+  "astro": "智慧主座",
+  "desc": "测试角色",
+  "cncv": "",
+  "jpcv": "",
+  "costume": false,
+  "source": "amber",
+  "ver": 1,
+  "baseAttr": {},
+  "growAttr": {},
+  "talentKey": {
+    "undefined": "q"
+  },
+  "talentCons": {
+    "e": 3,
+    "q": 5
+  }
+}

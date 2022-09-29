@@ -82,6 +82,10 @@ async function wiki (e) {
     lvs.push('Lv' + i)
   }
   if (mode === 'wiki') {
+    if (char.source === 'amber') {
+      e.reply('暂不支持该角色图鉴展示')
+      return true
+    }
     return await renderWiki({ e, char })
   } else if (mode === 'material') {
     return await renderCharMaterial({ e, char })

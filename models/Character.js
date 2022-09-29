@@ -159,7 +159,7 @@ class Character extends Base {
     if (this._imgs[cacheId]) {
       return this._imgs[cacheId]
     }
-    this._imgs[cacheId] = CharImg.getImgs(this.name, costumeId, this.isTraveler ? this.elem : '')
+    this._imgs[cacheId] = CharImg.getImgs(this.name, costumeId, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
     return this._imgs[cacheId]
   }
 

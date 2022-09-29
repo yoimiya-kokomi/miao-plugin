@@ -295,6 +295,7 @@ body {
 }
 .talent-table .td {
   font-size: 15px;
+  white-space: normal;
 }
 .talent-table .td.colspan {
   font-size: 16px;

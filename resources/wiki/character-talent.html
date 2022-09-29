@@ -21,6 +21,7 @@
     <div class="name">{{title}}·{{name}}</div>
     <div class="desc">{{@desc}}</div>
   </div>
+  {{ if line[0]?.num !== 'NaN'}}
   <div class="data-box">
     <div class="tab-label">90级基础数据</div>
     <div class="data-line">
@@ -32,6 +33,14 @@
       {{/each}}
     </div>
   </div>
+  {{else}}
+  <div class="data-box">
+    <div class="tab-label">90级基础数据</div>
+    <div class="data-line">
+      暂无详细数据
+    </div>
+  </div>
+  {{/if}}
 </div>
 
 {{if mode == "talent"}}
