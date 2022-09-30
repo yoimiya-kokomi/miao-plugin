@@ -219,7 +219,7 @@ async function profileCfg (e) {
   let regRet = /喵喵面板(?:设置)?\s*(好友|群|群聊|陌生人)?\s*(\d*)\s*(开启|关闭|删除)?\s*$/.exec(e.msg)
 
   if (!regRet) {
-    return
+    return false
   }
 
   let [, target, groupId, actionType] = regRet
@@ -250,7 +250,7 @@ async function profileCfg (e) {
   let groups = Cfg.get('profile.groups', {})
   lodash.forEach(lodash.keys(groups), (group, idx) => {
     if (lodash.isUndefined(groups[group])) {
-      return
+      return true
     }
     cfg.groups.push({
       group,

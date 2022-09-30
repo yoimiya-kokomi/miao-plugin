@@ -2,7 +2,7 @@
   "id": 10000073,
   "name": "纳西妲",
   "abbr": "纳西妲",
-  "title": "",
+  "title": "？？？",
   "star": 5,
   "elem": "dendro",
   "allegiance": "？？？",
@@ -10,18 +10,35 @@
   "birth": "1-1",
   "astro": "智慧主座",
   "desc": "测试角色",
-  "cncv": "",
-  "jpcv": "",
+  "cncv": "？？？",
+  "jpcv": "？？？",
   "costume": false,
-  "source": "amber",
   "ver": 1,
-  "baseAttr": {},
-  "growAttr": {},
-  "talentKey": {
-    "undefined": "q"
+  "baseAttr": {
+    "hp": 10360,
+    "atk": 298.97,
+    "def": 630.21
   },
+  "growAttr": {
+    "key": "mastery",
+    "value": "115.19999694824"
+  },
+  "talentKey": {
+    "7331": "a",
+    "7332": "e",
+    "7339": "q"
+  },
+  "talentId": {},
   "talentCons": {
     "e": 3,
     "q": 5
+  },
+  "materials": {
+    "gem": "生长碧翡",
+    "boss": "灭诤草蔓",
+    "specialty": "劫波莲",
+    "normal": "孢囊晶尘",
+    "talent": "「巧思」的哲学",
+    "weekly": "？？？"
   }
 }

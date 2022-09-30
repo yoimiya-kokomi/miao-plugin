@@ -32,7 +32,7 @@ export default app
 
 async function consStat (e) {
   if (Cfg.isDisable(e, 'wiki.stat')) {
-    return
+    return false
   }
 
   let consData = await HutaoApi.getCons()
@@ -115,7 +115,7 @@ async function consStat (e) {
 
 async function abyssPct (e) {
   if (Cfg.isDisable(e, 'wiki.stat')) {
-    return
+    return false
   }
 
   let mode = /使用/.test(e.msg) ? 'use' : 'pct'
@@ -312,22 +312,22 @@ async function abyssTeam (e) {
     let ds = ret[floor]
     lodash.forEach(floorData.teams, (t1) => {
       if (t1.mark2 <= 0) {
-        return
+        return true
       }
       lodash.forEach(floorData.teams, (t2) => {
         if (t1.mark2 <= 0) {
-          return false
+          return true
         }
         if (t1.half === t2.half || t2.mark2 <= 0) {
-          return
+          return true
         }
 
         let teamKey = t1.half === 'up' ? (t1.team + '+' + t2.team) : (t2.team + '+' + t1.team)
         if (ds[teamKey]) {
-          return
+          return true
         }
         if (hasSame(t1.teamArr, t2.teamArr)) {
-          return
+          return true
         }
 
         ds[teamKey] = {
@@ -441,10 +441,10 @@ async function uploadData (e) {
       let addMsg = function (title, ds) {
         let tmp = {}
         if (!ds) {
-          return
+          return false
         }
         if (!ds.avatarId && !ds.id) {
-          return
+          return false
         }
         let char = Character.get(ds.avatarId || ds.id)
         tmp.title = title

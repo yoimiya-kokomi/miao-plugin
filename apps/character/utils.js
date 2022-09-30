@@ -4,15 +4,15 @@ import { MysApi } from '../../models/index.js'
 /** 获取角色卡片的原图 */
 export async function getOriginalPicture (e) {
   if (!e.hasReply && !e.source) {
-    return
+    return true
   }
   // 引用的消息不是自己的消息
   if (e.source.user_id !== e.self_id) {
-    return
+    return true
   }
   // 引用的消息不是纯图片
   if (!/^\[图片]$/.test(e.source.message)) {
-    return
+    return true
   }
   // 获取原消息
   let source

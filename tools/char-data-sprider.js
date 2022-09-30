@@ -249,6 +249,8 @@ const charData = {
   69: { key: 'tighnari', name: '提纳里' },
   70: { key: 'nilou', name: '妮露' },
   71: { key: 'cyno', name: '赛诺' },
-  72: { key: 'candace', name: '坎蒂丝' }
+  72: { key: 'candace', name: '坎蒂丝' },
+  73: { key: 'nahida', name: '纳西妲' },
+  74: { key: 'layla', name: '莱依拉' }
 }
-await down('70,71,72', true)
+await down('73', true)

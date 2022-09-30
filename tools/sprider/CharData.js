@@ -220,6 +220,11 @@ const CharData = {
             }
           }
         }
+        if (/(1名角色|2名角色)/.test(val)) {
+          unit = '1名/2名角色'
+          let val2 = val.replace(/(1名角色|2名角色)/g, '')
+          values2.push(val2)
+        }
       })
 
       details.push({

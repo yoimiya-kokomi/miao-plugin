@@ -19,6 +19,7 @@ class App {
   v3App () {
     let cfg = this.cfg || {}
     let rules = []
+    let check = []
     let event = cfg.event
     let cls = class extends plugin {
       constructor () {
@@ -33,6 +34,11 @@ class App {
 
       accept (e) {
         e.original_msg = e.original_msg || e.msg
+        for (let idx = 0; idx < check.length; idx++) {
+          if (check[idx](e, e.original_msg) === true) {
+            return true
+          }
+        }
       }
     }
 
@@ -56,6 +62,10 @@ class App {
         reg: rule,
         fnc: key
       })
+
+      if (app.check) {
+        check.push(app.check)
+      }
 
       cls.prototype[key] = async function () {
         let e = this.e
@@ -97,7 +107,15 @@ class App {
     let event = cfg.event
     let apps = this.apps
     return async function (e) {
+      e.original_msg = e.original_msg || e.msg
       let msg = e.original_msg || e.msg || ''
+      for (let key in apps) {
+        let app = apps[key]
+        if (app.check && app.check(e, msg) === true) {
+          break
+        }
+      }
+      msg = e.msg
       for (let key in apps) {
         let app = apps[key]
         let rule = app.rule || app.reg || 'noCheck'

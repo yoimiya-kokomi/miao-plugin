@@ -55,12 +55,12 @@ let Cal = {
         lodash.forEach(detailData.data.list, (ds) => {
           let { ann_id: annId, content, title } = ds
           if (ignoreReg.test(title)) {
-            return
+            return true
           }
           content = content.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\),\\.]+(>|&gt;)/g, '')
           content = /(?:活动时间|祈愿介绍|任务开放时间|冒险....包|折扣时间)\s*〓([^〓]+)(〓|$)/.exec(content)
           if (!content || !content[1]) {
-            return
+            return true
           }
           content = content[1]
           let annTime = []
@@ -76,7 +76,7 @@ let Cal = {
               vTime = versionTime[vRet[1]]
             }
             if (!vTime) {
-              return
+              return true
             }
             if (/永久开放/.test(content)) {
               annTime = [vTime, '2099/01/01 00:00:00']
@@ -194,7 +194,7 @@ let Cal = {
     let detail = timeMap[id] || {}
 
     if (ignoreIds.includes(id) || ignoreReg.test(title) || detail.display === false) {
-      return
+      return false
     }
 
     if (/神铸赋形/.test(title)) {

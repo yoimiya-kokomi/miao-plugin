@@ -221,7 +221,7 @@ export async function getProfileAll (e) {
   let chars = []
   lodash.forEach(profiles || [], (ds) => {
     if (!['enka', 'input2', 'miao'].includes(ds.dataSource)) {
-      return
+      return true
     }
     ds.name && chars.push(ds.name)
   })

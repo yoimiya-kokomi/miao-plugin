@@ -158,7 +158,7 @@ const getLineData = function (char) {
   })
   let ga = char.growAttr
   ret.push({
-    num: ga.value,
+    num: ga.key === 'mastery' ? Format.comma(ga.value, 1) : ga.value,
     label: `成长·${attrMap[ga.key]}`
   })
 

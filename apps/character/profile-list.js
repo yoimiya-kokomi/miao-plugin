@@ -22,7 +22,7 @@ export async function profileList (e) {
   }
   lodash.forEach(profiles || {}, (profile) => {
     if (!profile.hasData) {
-      return
+      return true
     }
     let char = profile.char
     let tmp = char.getData('id,face,name,abbr,element,star')

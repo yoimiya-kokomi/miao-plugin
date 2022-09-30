@@ -58,7 +58,7 @@ async function help (e) {
 
   lodash.forEach(helpList, (group) => {
     if (group.auth && group.auth === 'master' && !e.isMaster) {
-      return
+      return true
     }
 
     lodash.forEach(group.list, (help) => {

@@ -53,7 +53,7 @@ export default app
 export async function profileDetail (e) {
   let msg = e.original_msg || e.msg
   if (!msg) {
-    return
+    return false
   }
 
   let mode = 'profile'
@@ -94,17 +94,17 @@ export async function profileDetail (e) {
   if (!e.isMaster) {
     if (Common.isDisable(e, 'char.profile')) {
       // 面板开关关闭
-      return
+      return false
     }
     if (e.isPrivate) {
       if ((e.sub_type === 'friend' && Cfg.get('profile.friend.status') === false) ||
           (e.sub_type === 'group' && Cfg.get('profile.stranger.status') === false)) {
-        return
+        return false
       }
     } else if (e.isGroup) {
       let groupCfg = Cfg.get(`profile.groups.群${e.group_id}.status`)
       if (groupCfg === false || (groupCfg !== true && Cfg.get('profile.group.status') === false)) {
-        return
+        return false
       }
     }
   }

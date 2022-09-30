@@ -18,7 +18,7 @@ export async function profileArtis (e) {
   })
 
   if (err) {
-    return
+    return false
   }
 
   if (!profile.hasArtis()) {
@@ -68,7 +68,7 @@ export async function profileArtisList (e) {
     let name = profile.name
     let char = Character.get(name)
     if (!profile.hasData || !profile.hasArtis()) {
-      return
+      return true
     }
     let profileArtis = profile.getArtisMark()
     lodash.forEach(profileArtis.artis, (arti, idx) => {

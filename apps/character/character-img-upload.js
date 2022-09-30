@@ -14,7 +14,7 @@ let regex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:照片|写真|图片|图�
 export async function uploadCharacterImg (e) {
   let promise = await isAllowedToUploadCharacterImage(e)
   if (!promise) {
-    return
+    return false
   }
 
   let imageMessages = []
@@ -22,11 +22,11 @@ export async function uploadCharacterImg (e) {
   let regRet = regex.exec(msg)
   // 通过解析正则获取消息中的角色名
   if (!regRet || !regRet[1]) {
-    return
+    return false
   }
   let char = Character.get(regRet[1])
   if (!char || !char.name) {
-    return
+    return false
   }
   let name = char.name
   for (let val of e.message) {

@@ -11,7 +11,8 @@ let app = App.init({
 })
 
 app.reg('character', character, {
-  rule: /^#.+$/,
+  rule: /^#喵喵角色卡片$/,
+  check: checkCharacter,
   name: '角色卡片'
 })
 
@@ -34,9 +35,16 @@ export default app
 
 // 查看当前角色
 export async function character (e) {
+  if (!e.char) {
+    return false
+  }
+  return renderAvatar(e, e.char?.name)
+}
+
+function checkCharacter (e) {
   let msg = e.original_msg || e.msg
   if (!msg) {
-    return
+    return false
   }
 
   let uidRet = /[0-9]{9}/.exec(msg)
@@ -47,7 +55,7 @@ export async function character (e) {
   let name = msg.replace(/#|老婆|老公|卡片/g, '').trim()
 
   if (Common.isDisable(e, 'char.char')) {
-    return
+    return false
   }
 
   let char = Character.get(name.trim())
@@ -55,5 +63,8 @@ export async function character (e) {
   if (!char) {
     return false
   }
-  return renderAvatar(e, char.name)
+
+  e.msg = '#喵喵角色卡片'
+  e.char = char
+  return true
 }
