@@ -43,6 +43,16 @@ class Character extends Base {
     return !/[12]0\d{6}/.test(this._id)
   }
 
+  get isArrive () {
+    if (this.isCustom) {
+      return false
+    }
+    if (this.eta) {
+      return this.eta * 1 < new Date() * 1
+    }
+    return true
+  }
+
   get id () {
     return this.isCustom ? this._id : this._id * 1
   }

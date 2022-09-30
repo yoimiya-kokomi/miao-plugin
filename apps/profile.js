@@ -126,6 +126,10 @@ export async function profileDetail (e) {
     e.reply('自定义角色暂不支持此功能')
     return true
   }
+  if (!char.isArrive) {
+    e.reply('角色尚未实装')
+    return true
+  }
 
   if (mode === 'profile' || mode === 'dmg') {
     return renderProfile(e, char, mode, { dmgIdx })

@@ -157,6 +157,9 @@ async function saveCharData (id, key, name = '', force = false, _id = id) {
   if (checkName(name) && !force) {
     return
   }
+  if (eta[name]) {
+    data.eta = new Date(eta[name]) * 1
+  }
   let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/`
   fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, '', 2))
   if (details.length === 1) {
@@ -253,4 +256,9 @@ const charData = {
   73: { key: 'nahida', name: '纳西妲' },
   74: { key: 'layla', name: '莱依拉' }
 }
-await down('73', true)
+let eta = {
+  妮露: '2022-10-14 18:00:00',
+  纳西妲: '2022-11-02 11:00:00',
+  莱依拉: '2022-11-02 11:00:00'
+}
+await down('73,74', true)

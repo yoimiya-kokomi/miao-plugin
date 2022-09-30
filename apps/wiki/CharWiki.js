@@ -1,7 +1,7 @@
 import HutaoApi from '../stat/HutaoApi.js';
 import lodash from 'lodash';
 import { Format } from '../../components/index.js';
-import { Artifact, ArtifactSet, Weapon } from '../../models/index.js';
+import { ArtifactSet, Weapon } from '../../models/index.js';
 
 let CharWiki = {
   // 命座持有

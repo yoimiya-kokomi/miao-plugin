@@ -1,5 +1,6 @@
 import abbr from './abbr.js'
 import lodash from 'lodash'
+import fixData from './fixData.js'
 
 let costumes = {
   琴: [200301], // 琴
@@ -8,20 +9,6 @@ let costumes = {
   凝光: [202701], // 凝光
   迪卢克: [201601], // 迪卢克
   菲谢尔: [203101], // 菲谢尔
-}
-const fixData = {
-  4: {
-    id: 20000000,
-    title: '异界的旅人',
-    cncv: '宴宁/鹿喑',
-    jpcv: '悠木碧/堀江瞬'
-  },
-  5: {
-    title: '异界的旅人'
-  },
-  7: {
-    title: '异界的旅人'
-  }
 }
 
 const CharData = {

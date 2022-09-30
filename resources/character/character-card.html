@@ -86,6 +86,8 @@
   {{else}}
   {{if custom}}
   <div class="no-info">自定义角色暂无角色信息</div>
+  {{else if !arrive}}
+  <div class="no-info">角色尚未实装，暂无信息</div>
   {{else}}
   <div class="no-info">未能获取到角色信息，请将角色放置在米游社角色展柜中</div>
   {{/if}}
