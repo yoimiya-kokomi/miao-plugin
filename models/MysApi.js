@@ -22,13 +22,11 @@ export default class MysApi {
       return false
     }
     let uid = mys.uid
-    let ckUid = mys.ckInfo?.uid
     /* 检查user ck */
     if (auth === 'cookie') {
-      let isCookieUser = await MysInfo.checkUidBing(uid)
-      if (!isCookieUser || uid !== ckUid) {
-        e.reply('尚未绑定Cookie...')
-        return false
+      if (!mys.isSelf) {
+        e.reply('请绑定CK以使用此功能...')
+        return true
       }
     }
     e._mys = new MysApi(e, uid, mys)
@@ -47,7 +45,7 @@ export default class MysApi {
   }
 
   get isSelfCookie () {
-    return this.uid * 1 === this.ckUid * 1
+    return this.uid * 1 === this.ckUid * 1 || this.MysApi.isSelf
   }
 
   get ckUid () {

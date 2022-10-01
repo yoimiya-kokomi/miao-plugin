@@ -43,7 +43,7 @@ export async function character (e) {
 
 function checkCharacter (e) {
   let msg = e.original_msg || e.msg
-  if (!msg) {
+  if (!msg || !/^#/.exec(msg)) {
     return false
   }
 
