@@ -17,6 +17,8 @@ let elemMap = {}
 // 元素名
 let elemTitleMap = {}
 
+let gsCfg
+
 async function init () {
   let { sysCfg, diyCfg } = await Data.importCfg('character')
   lodash.forEach([diyCfg.customCharacters, sysCfg.characters], (roleIds) => {
@@ -50,6 +52,9 @@ async function init () {
     })
   })
   abbrMap = sysCfg.abbr
+
+  gsCfg = await Data.importDefault('plugins/genshin/model/gsCfg.js', 'root')
+  console.log(gsCfg)
 }
 
 await init()
@@ -93,6 +98,13 @@ const CharId = {
       // 直接匹配
       if (aliasMap[ds]) {
         return ret(aliasMap[ds])
+      }
+      // 调用V3方法匹配
+      if (gsCfg && gsCfg.getRole) {
+        let roleRet = gsCfg.getRole(ds)
+        if (roleRet.name && aliasMap[roleRet.name]) {
+          return ret(aliasMap[roleRet.name])
+        }
       }
       // 无匹配结果
       return false
