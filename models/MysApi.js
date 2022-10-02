@@ -24,9 +24,9 @@ export default class MysApi {
     let uid = mys.uid
     /* 检查user ck */
     if (auth === 'cookie') {
-      if (!mys.isSelf) {
+      if (!mys.ckInfo.uid * 1 !== uid * 1) {
         e.reply('请绑定CK以使用此功能...')
-        return true
+        return false
       }
     }
     e._mys = new MysApi(e, uid, mys)
