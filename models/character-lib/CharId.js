@@ -52,9 +52,7 @@ async function init () {
     })
   })
   abbrMap = sysCfg.abbr
-
   gsCfg = await Data.importDefault('plugins/genshin/model/gsCfg.js', 'root')
-  console.log(gsCfg)
 }
 
 await init()

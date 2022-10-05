@@ -37,7 +37,7 @@ let Theme = {
     let colCount = Math.min(5, Math.max(parseInt(helpConfig?.colCount) || 3, 2))
     let colWidth = Math.min(500, Math.max(100, parseInt(helpConfig?.colWidth) || 265))
     let width = Math.min(2500, Math.max(800, colCount * colWidth + 30))
-    let theme = await Theme.getThemeCfg(helpConfig.theme, diyStyle.themeExclude || sysStyle.themeExclude)
+    let theme = await Theme.getThemeCfg(diyStyle.theme || sysStyle.theme, diyStyle.themeExclude || sysStyle.themeExclude)
     let themeStyle = theme.style || {}
     let ret = [`
     body{background-image:url(${theme.bg});width:${width}px;}
