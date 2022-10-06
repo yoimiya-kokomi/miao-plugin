@@ -193,7 +193,7 @@ const CharData = {
           values2.push(ur[1] + (ur[3] || ''))
           unit = ur[2]
         } else {
-          ur = /^(每点元素能量|每个猫爪|每朵|每个)(.*)$/.exec(val)
+          ur = /^(每点元素能量|每个猫爪|每朵|每个|[12]名角色)(.*)$/.exec(val)
           if (ur && ur[1] && ur[2]) {
             values2.push(ur[2])
             unit = ur[1]
@@ -206,11 +206,6 @@ const CharData = {
               unit = ''
             }
           }
-        }
-        if (/(1名角色|2名角色)/.test(val)) {
-          unit = '1名/2名角色'
-          let val2 = val.replace(/(1名角色|2名角色)/g, '')
-          values2.push(val2)
         }
       })
 

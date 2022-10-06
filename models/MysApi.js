@@ -45,7 +45,7 @@ export default class MysApi {
   }
 
   get isSelfCookie () {
-    return this.uid * 1 === this.ckUid * 1 || this.MysApi.isSelf
+    return this.uid * 1 === this.ckUid * 1 || this?.MysApi?.isSelf
   }
 
   get ckUid () {

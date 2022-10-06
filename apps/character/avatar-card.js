@@ -99,7 +99,7 @@ export async function getAvatarList (e, type, mys) {
 
   let avatars = data.avatars
 
-  if (avatars.length <= 0) {
+  if (!avatars || avatars.length <= 0) {
     return false
   }
   let list = []

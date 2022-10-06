@@ -127,7 +127,7 @@ export default class Avatar extends Base {
       let talentRes = await mys.getDetail(id)
       let avatar = this.meta
       if (!char || !avatar) {
-        return {}
+        return false
       }
       if (talentRes && talentRes.skill_list) {
         let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])

@@ -7,7 +7,7 @@ const CharTalent = {
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let ds = talent[key]
       if (!ds) {
-        return
+        return false
       }
       let value
       let level
@@ -37,7 +37,7 @@ const CharTalent = {
       }
       ret[key] = { level, original }
     })
-    return ret
+    return lodash.isEmpty(ret) ? false : ret
   }
 }
 export default CharTalent

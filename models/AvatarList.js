@@ -73,7 +73,7 @@ export default class AvatarList extends Base {
     let avatarTalent = await Data.getCacheJSON(`miao:avatar-talent:${this.uid}`)
     let needReq = {}
     lodash.forEach(ids, (id) => {
-      if (!avatarTalent[id]) {
+      if (!avatarTalent[id] || !avatarTalent[id]?.a) {
         needReq[id] = true
       }
     })
@@ -106,11 +106,6 @@ export default class AvatarList extends Base {
       avatar.talent = avatarTalent[id] || {}
     })
     return ret
-  }
-
-  async getAvatarTalent (id, mys) {
-    let avatar = this.avatars[id]
-    return await avatar.getTalent(mys)
   }
 
   get isSelfCookie () {
