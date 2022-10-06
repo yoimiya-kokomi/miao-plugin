@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import fs from 'fs'
 import { Cfg, Version, Common, Data, App } from '../components/index.js'
-import Theme from './help/theme.js'
+import HelpTheme from './help/HelpTheme.js'
 
 let app = App.init({
   id: 'help',
@@ -74,7 +74,7 @@ async function help (e) {
 
     helpGroup.push(group)
   })
-  let themeData = await Theme.getThemeData(diyCfg.helpCfg || {}, sysCfg.helpCfg || {})
+  let themeData = await HelpTheme.getThemeData(diyCfg.helpCfg || {}, sysCfg.helpCfg || {})
   return await Common.render('help/index', {
     helpCfg: helpConfig,
     helpGroup,

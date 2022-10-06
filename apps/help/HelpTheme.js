@@ -2,7 +2,7 @@ import lodash from 'lodash'
 import fs from 'fs'
 import { Data } from '../../components/index.js'
 
-let Theme = {
+let HelpTheme = {
   async getThemeCfg (theme, exclude) {
     let dirPath = './plugins/miao-plugin/resources/help/theme/'
     let ret = []
@@ -37,7 +37,7 @@ let Theme = {
     let colCount = Math.min(5, Math.max(parseInt(helpConfig?.colCount) || 3, 2))
     let colWidth = Math.min(500, Math.max(100, parseInt(helpConfig?.colWidth) || 265))
     let width = Math.min(2500, Math.max(800, colCount * colWidth + 30))
-    let theme = await Theme.getThemeCfg(diyStyle.theme || sysStyle.theme, diyStyle.themeExclude || sysStyle.themeExclude)
+    let theme = await HelpTheme.getThemeCfg(diyStyle.theme || sysStyle.theme, diyStyle.themeExclude || sysStyle.themeExclude)
     let themeStyle = theme.style || {}
     let ret = [`
     body{background-image:url(${theme.bg});width:${width}px;}
@@ -65,4 +65,4 @@ let Theme = {
     }
   }
 }
-export default Theme
+export default HelpTheme

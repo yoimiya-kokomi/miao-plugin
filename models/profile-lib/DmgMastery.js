@@ -1,4 +1,4 @@
-import { erType } from './calc-meta.js'
+import { erType } from './DmgCalcMeta.js'
 
 let DmgMastery = {
   getMultiple (type = 'zf', mastery = 0) {

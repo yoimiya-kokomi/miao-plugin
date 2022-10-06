@@ -58,21 +58,63 @@ body {
 .cal-bg td.date {
   width: 7.692%;
 }
+.cal-bg td.date span {
+  display: block;
+  line-height: 18px;
+}
+.cal-bg td.date span.date-week {
+  line-height: 12px;
+  font-size: 12px;
+  color: #888;
+}
 .cal-bg td.date.current-date {
   background: #d3bc8e;
   border: 1px solid #d3bc8e;
   color: #000;
 }
+.cal-bg td.date.current-date span.date-week {
+  color: #000;
+}
 .cal-bg td.line {
   background: rgba(0, 0, 0, 0.4);
+  vertical-align: top;
 }
 .cal-bg td.line.current-date {
   background: rgba(211, 188, 142, 0.4);
+}
+.cal-bg .card {
+  width: 65px;
+  height: 76px;
+  margin: 8px auto -4px;
+}
+.cal-bg .card .img {
+  height: 60px;
+}
+.cal-bg .card .char-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  line-height: 17px;
+  font-size: 12px;
+  background: #e8e2d8;
 }
 .cal-list {
   position: relative;
   padding-top: 80px;
   overflow: hidden;
+}
+.cal-list.char-num-0 {
+  padding-top: 80px;
+}
+.cal-list.char-num-1 {
+  padding-top: 160px;
+}
+.cal-list.char-num-2 {
+  padding-top: 240px;
+}
+.cal-list.char-num-3 {
+  padding-top: 320px;
 }
 .cal-list .cal-item {
   margin-bottom: 15px;

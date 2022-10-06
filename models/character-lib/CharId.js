@@ -1,3 +1,6 @@
+/*
+* 角色别名及角色ID相关
+* */
 import lodash from 'lodash'
 import { Data } from '../../components/index.js'
 import { charPosIdx, elemAlias } from './CharMeta.js'

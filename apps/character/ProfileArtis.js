@@ -4,7 +4,7 @@
 * */
 import lodash from 'lodash'
 import { Profile, Common } from '../../components/index.js'
-import { getTargetUid, profileHelp, autoGetProfile } from './profile-common.js'
+import { getTargetUid, profileHelp, autoGetProfile } from './ProfileCommon.js'
 import { Artifact, Character } from '../../models/index.js'
 
 /*

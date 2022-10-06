@@ -117,6 +117,7 @@ let Cal = {
     let dateList = []
     let month = 0
     let date = []
+    let week = []
 
     let startDate, endDate
 
@@ -131,16 +132,20 @@ let Cal = {
       if (month !== m && date.length > 0) {
         dateList.push({
           month,
-          date
+          date,
+          week
         })
         date = []
+        week = []
         month = m
       }
       date.push(d)
+      week.push(temp.weekday())
       if (idx === 12) {
         dateList.push({
           month,
-          date
+          date,
+          week
         })
         endDate = temp.format('YYYY-MM-DD')
       }
@@ -159,6 +164,7 @@ let Cal = {
     }
   },
 
+  // 深渊日历信息
   getAbyssCal (s1, e1) {
     let now = moment()
     let check = []
@@ -183,6 +189,25 @@ let Cal = {
       }
     })
     return ret
+  },
+
+  getCharData (dateList) {
+    let charBirth = {}
+    lodash.forEach(dateList, (m) => {
+      lodash.forEach(m.date, (d) => {
+        charBirth[`${m.month}-${d}`] = []
+      })
+    })
+    Character.forEach((char) => {
+      if (charBirth[char.birth]) {
+        charBirth[char.birth].push(char.getData('id,sName,star,face'))
+      }
+    }, 'release')
+    let charNum = 0
+    lodash.forEach(charBirth, (charList) => {
+      charNum = Math.max(charNum, charList.length)
+    })
+    return { charBirth, charNum }
   },
 
   getList (ds, target, { startTime, endTime, totalRange, now, timeMap = {} }, isAct = false) {
@@ -322,6 +347,7 @@ let Cal = {
 
     return {
       ...dl,
+      ...Cal.getCharData(dl.dateList),
       list: ret,
       abyss,
       charMode: `char-${charCount}-${charOld}`,

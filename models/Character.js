@@ -12,7 +12,11 @@ import CharTalent from './character-lib/CharTalent.js'
 import CharId from './character-lib/CharId.js'
 import CharMeta from './character-lib/CharMeta.js'
 
-let { abbrMap, wifeMap, idSort } = CharId
+let { abbrMap, wifeMap, idSort, idMap } = CharId
+
+let getMeta = function (name) {
+  return Data.readJSON(`resources/meta/character/${name}/data.json`)
+}
 
 class Character extends Base {
   constructor ({ id, name = '', elem = '' }) {
@@ -38,12 +42,13 @@ class Character extends Base {
   // 默认获取的数据
   _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,ver,desc,talentCons'
 
-  // 是否为自定义角色
-  get isCustom () {
-    return !/[12]0\d{6}/.test(this._id)
+  // 是否为官方角色
+  get isOfficial () {
+    return /[12]0\d{6}/.test(this._id)
   }
 
-  get isArrive () {
+  // 是否为实装官方角色
+  get isRelease () {
     if (this.isCustom) {
       return false
     }
@@ -53,10 +58,16 @@ class Character extends Base {
     return true
   }
 
+  // 是否为自定义角色
+  get isCustom () {
+    return !/[12]0\d{6}/.test(this._id)
+  }
+
   get id () {
     return this.isCustom ? this._id : this._id * 1
   }
 
+  // 获取短名字
   get sName () {
     let name = this.name
     let abbr = this.abbr
@@ -86,6 +97,7 @@ class Character extends Base {
     return CharId.getElemName(this.elem)
   }
 
+  // 获取角色描述
   get desc () {
     return CharMeta.getDesc(this.meta.desc || '')
   }
@@ -126,6 +138,7 @@ class Character extends Base {
     return CharMeta.getLvStat(this)
   }
 
+  // 获取生日
   get birthday () {
     let birth = this.birth
     if (!birth) {
@@ -195,6 +208,8 @@ class Character extends Base {
     return this._detail
   }
 
+  // 设置旅行者数据
+  // TODO：迁移至Avatar
   setTraveler (uid = '') {
     if (this.isTraveler && uid && uid.toString().length === 9) {
       Data.setCacheJSON(`miao:uid-traveler:${uid}`, {
@@ -204,6 +219,7 @@ class Character extends Base {
     }
   }
 
+  // 获取旅行者数据
   async getTraveler (uid) {
     if (this.isTraveler) {
       let tData = await Data.getCacheJSON(`miao:uid-traveler:${uid}`)
@@ -234,34 +250,52 @@ class Character extends Base {
     }
     return await this.getTraveler(uid)
   }
-}
 
-let getMeta = function (name) {
-  return Data.readJSON(`resources/meta/character/${name}/data.json`)
-}
-
-Character.get = function (val) {
-  let id = CharId.getId(val)
-  if (!id) {
-    return false
+  // 基于角色名获取Character
+  static get (val) {
+    let id = CharId.getId(val)
+    if (!id) {
+      return false
+    }
+    return new Character(id)
   }
-  return new Character(id)
-}
-Character.getAvatar = async function (name, uid) {
-  let char = Character.get(name)
-  return await char.getTraveler(uid)
-}
 
-Character.getAbbr = function () {
-  return abbrMap
-}
+  static forEach (fn, type = 'all') {
+    lodash.forEach(idMap, (name, id) => {
+      let char = Character.get({ id, name })
+      if (type === 'release' && !char.isRelease) {
+        return true
+      }
+      if (type === 'official' && !char.isCustom) {
+        return true
+      }
+      return fn(char) !== false
+    })
+  }
 
-Character.checkWifeType = function (charid, type) {
-  return !!wifeMap[type][charid]
-}
+  // 基于角色名获取Character
+  // 当获取角色为旅行者时，会考虑当前uid的账号情况返回对应旅行者
+  static async getAvatar (name, uid) {
+    let char = Character.get(name)
+    return await char.getTraveler(uid)
+  }
 
-Character.sortIds = function (arr) {
-  return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))
+  // 获取别名数据
+  // TODO：待废弃
+  static getAbbr () {
+    return abbrMap
+  }
+
+  // 检查wife类型
+  // TODO：待废弃
+  static checkWifeType (charid, type) {
+    return !!wifeMap[type][charid]
+  }
+
+  // 获取排序ID
+  static sortIds (arr) {
+    return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))
+  }
 }
 
 export default Character

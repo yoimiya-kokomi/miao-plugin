@@ -14,7 +14,7 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
     let mys = await MysApi.init(e)
     if (!mys) return true
     uid = mys.uid
-    if (!char.isArrive) {
+    if (!char.isRelease) {
       avatar = { id: char.id, name: char.name, detail: false }
     } else {
       let profile = Profile.get(uid, char.id, true)
@@ -52,8 +52,8 @@ async function renderCard (e, ds, renderType = 'card') {
   let uid = e.uid || (e.targetUser && e.targetUser.uid)
   let data = {}
   let custom = char.isCustom
-  let arrive = char.isArrive
-  if (arrive) {
+  let isRelease = char.isRelease
+  if (isRelease) {
     let mys = await MysApi.init(e)
     let avatar = new Avatar(ds, uid, mys.isSelfCookie)
     data = avatar.getData('id,name,sName,level,fetter,cons,weapon,elem,artis,artisSet,imgs,dataSourceName,updateTime')
@@ -83,7 +83,7 @@ async function renderCard (e, ds, renderType = 'card') {
     widthStyle: `<style>html,body,#container{width:${width}px} ${imgCss}</style>`,
     mode: bg.mode,
     custom,
-    arrive,
+    isRelease,
     data
   }, { e, scale, retMsgId: true })
   if (msgRes && msgRes.message_id) {

@@ -1,3 +1,6 @@
+/*
+* 角色资料数据相关
+* */
 import lodash from 'lodash'
 import { Material } from '../index.js'
 import { Format, Data } from '../../components/index.js'

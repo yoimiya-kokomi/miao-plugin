@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { autoRefresh } from './profile-common.js'
+import { autoRefresh } from './ProfileCommon.js'
 import { Common, Format, Profile } from '../../components/index.js'
 import { MysApi, Avatar } from '../../models/index.js'
 

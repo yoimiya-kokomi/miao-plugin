@@ -1,9 +1,9 @@
 import { Common, App } from '../components/index.js'
 import { Character } from '../models/index.js'
-import { renderAvatar } from './character/avatar-card.js'
-import { uploadCharacterImg } from './character/character-img-upload.js'
-import { wife, wifeReg } from './character/avatar-wife.js'
-import { getOriginalPicture } from './character/utils.js'
+import { renderAvatar } from './character/AvatarCard.js'
+import { uploadCharacterImg } from './character/ImgUpload.js'
+import { wife, wifeReg } from './character/AvatarWife.js'
+import { getOriginalPicture } from './character/ProfileUtils.js'
 
 let app = App.init({
   id: 'character',

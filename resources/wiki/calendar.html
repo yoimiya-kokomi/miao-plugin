@@ -5,6 +5,7 @@
 {{/block}}
 
 {{block 'main'}}
+{{set weekName = '一二三四五六日'.split('')}}
 <div class="calendar">
   <div class="cal-bg for-calendar-mode">
     <table class="cont-table" border-collapse="collapse">
@@ -14,13 +15,26 @@
         {{/each}}
       </tr>
       <tr class="tr thead">
-        {{each dateList d}}{{each d.date dn}}
-        <td class="td date {{dn === nowDate ? 'current-date':''}}">{{dn}}日</td>
+        {{each dateList d}}{{each d.date dn di}}
+        <td class="td date {{dn === nowDate ? 'current-date':''}}">
+          <span class="date-num">{{dn}}日</span>
+          <span class="date-week">周{{weekName[d.week[di]]}}</span>
+        </td>
         {{/each}} {{/each}}
       </tr>
       <tr class="tr">
         {{each dateList d}}{{each d.date dn}}
-        <td class="line {{dn === nowDate ? 'current-date':''}}"></td>
+        <td class="line {{dn === nowDate ? 'current-date':''}}">
+          {{each charBirth[`${d.month}-${dn}`] char}}
+          <div class="card">
+            <div class="item-icon star{{char.star}}">
+              <div class="img" style="background-image:url({{_res_path}}{{char.face}})"></div>
+              <span class="char-name">{{char.sName.length>=4?char.sName:`${char.sName}生日`}}</span>
+            </div>
+          </div>
+          {{char.name}}
+          {{/each}}
+        </td>
         {{/each}} {{/each}}
       </tr>
     </table>
@@ -35,7 +49,7 @@
       </tr>
     </table>
   </div>
-  <div class="cal-list {{charMode}}">
+  <div class="cal-list {{charMode}} char-num-{{charNum}}">
     <div class="cal-abyss-cont">
       {{each abyss li}}
       <div class="cal-item type-abyss" style="{{`left:${li.left}%;width:${li.width}%`}}">

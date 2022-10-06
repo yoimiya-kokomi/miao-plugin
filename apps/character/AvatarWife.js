@@ -2,7 +2,7 @@
 import lodash from 'lodash'
 import { Cfg } from '../../components/index.js'
 import { Character, MysApi } from '../../models/index.js'
-import { getAvatarList, renderAvatar } from './avatar-card.js'
+import { getAvatarList, renderAvatar } from './AvatarCard.js'
 
 const relationMap = {
   wife: {

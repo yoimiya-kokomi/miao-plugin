@@ -1,6 +1,6 @@
 import { segment } from 'oicq'
 import lodash from 'lodash'
-import Calendar from './wiki/calendar.js'
+import Calendar from './wiki/Calendar.js'
 import { Format, Cfg, Common, App } from '../components/index.js'
 import { Character } from '../models/index.js'
 import CharWiki from './wiki/CharWiki.js'

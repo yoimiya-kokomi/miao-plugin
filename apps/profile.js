@@ -1,11 +1,11 @@
 import { Common, Cfg, App } from '../components/index.js'
 import { Character } from '../models/index.js'
-import { getTargetUid, getProfile, profileHelp, inputProfile } from './character/profile-common.js'
-import { profileArtis, profileArtisList } from './character/profile-artis.js'
-import { renderProfile } from './character/profile-detail.js'
-import { profileStat } from './character/profile-stat.js'
-import { profileList } from './character/profile-list.js'
-import { enemyLv } from './character/utils.js'
+import { getTargetUid, getProfile, profileHelp, inputProfile } from './character/ProfileCommon.js'
+import { profileArtis, profileArtisList } from './character/ProfileArtis.js'
+import { renderProfile } from './character/ProfileDetail.js'
+import { profileStat } from './character/ProfileStat.js'
+import { profileList } from './character/ProfileList.js'
+import { enemyLv } from './character/ProfileUtils.js'
 
 let app = App.init({
   id: 'profile',
@@ -126,7 +126,7 @@ export async function profileDetail (e) {
     e.reply('自定义角色暂不支持此功能')
     return true
   }
-  if (!char.isArrive) {
+  if (!char.isRelease) {
     e.reply('角色尚未实装')
     return true
   }

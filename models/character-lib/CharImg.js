@@ -1,3 +1,6 @@
+/*
+* 角色照片及角色图像资源相关
+* */
 import fs from 'fs'
 import lodash from 'lodash'
 import sizeOf from 'image-size'

@@ -3,7 +3,7 @@
 * */
 import lodash from 'lodash'
 import { segment } from 'oicq'
-import { profileList } from './profile-list.js'
+import { profileList } from './ProfileList.js'
 import { Profile, Version } from '../../components/index.js'
 import { Character, MysApi } from '../../models/index.js'
 

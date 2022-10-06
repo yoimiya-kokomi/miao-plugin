@@ -75,19 +75,61 @@ body {
     &.date {
       width: 7.692%;
 
+      span {
+        display: block;
+        line-height: 18px;
+      }
+
+      span.date-num {
+
+      }
+
+      span.date-week {
+        line-height: 12px;
+        font-size: 12px;
+        color: #888;
+      }
+
       &.current-date {
         background: #d3bc8e;
         border: 1px solid #d3bc8e;
         color: #000;
+
+        span.date-week {
+          color: #000;
+        }
       }
+
+
     }
 
     &.line {
       background: rgba(0, 0, 0, 0.4);
+      vertical-align: top;
 
       &.current-date {
         background: rgba(211, 188, 142, .4)
       }
+    }
+  }
+
+  .card {
+    width: 65px;
+    height: 76px;
+    margin: 8px auto -4px;
+
+    .img {
+      height: 60px;
+    }
+
+    .char-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      line-height: 17px;
+      font-size: 12px;
+      background: #e8e2d8;
     }
   }
 }
@@ -97,6 +139,21 @@ body {
   padding-top: 80px;
   overflow: hidden;
 
+  &.char-num-0 {
+    padding-top: 80px;
+  }
+
+  &.char-num-1 {
+    padding-top: 160px;
+  }
+
+  &.char-num-2 {
+    padding-top: 240px;
+  }
+
+  &.char-num-3 {
+    padding-top: 320px;
+  }
 
   .cal-item {
     margin-bottom: 15px;

@@ -1,5 +1,5 @@
 import { App } from '../components/index.js'
-import { pokeWife } from './character/avatar-wife.js'
+import { pokeWife } from './character/AvatarWife.js'
 
 let app = App.init({
   id: 'poke',

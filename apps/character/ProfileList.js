@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { autoRefresh, getTargetUid } from './profile-common.js'
+import { autoRefresh, getTargetUid } from './ProfileCommon.js'
 import { Common, Profile } from '../../components/index.js'
 
 export async function profileList (e) {
