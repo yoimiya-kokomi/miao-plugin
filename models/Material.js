@@ -44,6 +44,10 @@ class Material extends Base {
     this.meta = meta
     this.type = meta.type
     this.star = meta.star
+    if (this.type === 'talent') {
+      let talentData = MaterialMeta.getTalentData(this.name)
+      lodash.extend(this, talentData)
+    }
     return this._cache()
   }
 
@@ -81,13 +85,28 @@ class Material extends Base {
     }
     return ''
   }
-}
 
-Material.get = function (name) {
-  if (mMap[name]) {
-    return new Material(name)
+  static get (name) {
+    if (mMap[name]) {
+      return new Material(name)
+    }
+    return false
   }
-  return false
+
+  static forEach (type = 'all', fn, filter = false) {
+    if (!lodash.isFunction(filter)) {
+      filter = () => true
+    }
+    lodash.forEach(mMap, (ds, name) => {
+      if (type !== 'all' && type !== ds.type) {
+        return true
+      }
+      let obj = new Material(name)
+      if (filter(obj)) {
+        return fn(obj) !== false
+      }
+    })
+  }
 }
 
 export default Material

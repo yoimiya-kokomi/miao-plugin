@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import moment from 'moment'
-import { Character } from '../../models/index.js'
+import { Character, Material } from '../../models/index.js'
 import { Data } from '../../components/index.js'
 import lodash from 'lodash'
 
@@ -193,21 +193,46 @@ let Cal = {
 
   getCharData (dateList) {
     let charBirth = {}
+    let charTalent = {}
+    // 初始化生日数据
     lodash.forEach(dateList, (m) => {
       lodash.forEach(m.date, (d) => {
         charBirth[`${m.month}-${d}`] = []
       })
     })
+    // 初始化天赋数据
+    let now = moment(new Date())
+    if (now.hour() < 4) {
+      now = now.add(-1, 'days')
+    }
+    let week = now.weekday()
+    Material.forEach('talent', (material) => {
+      let data = material.getData('name,abbr,city,icon,week,cid')
+      data.chars = []
+      charTalent[material.name] = data
+    }, (ds) => ds.star === 4 && (week === 6 || ds.week === week % 3 + 1))
+    // 遍历角色数据
     Character.forEach((char) => {
-      if (charBirth[char.birth]) {
-        charBirth[char.birth].push(char.getData('id,sName,star,face'))
+      if (charBirth[char.birth] && (char.isRelease || char.birth !== '1-1')) {
+        charBirth[char.birth].push(char.getData('id,name:sName,star,face'))
       }
-    }, 'release')
+      let t = char.materials?.talent
+      if (t && charTalent[t] && !char.isTraveler) {
+        let data = char.getData('id,name:sName,star,face')
+        data.weekly = char.getMaterials('weekly')?.icon
+        charTalent[t].chars.push(data)
+      }
+    }, 'official')
     let charNum = 0
     lodash.forEach(charBirth, (charList) => {
       charNum = Math.max(charNum, charList.length)
     })
-    return { charBirth, charNum }
+    charTalent = lodash.values(charTalent)
+    charTalent = lodash.sortBy(charTalent, 'cid')
+    lodash.forEach(charTalent, (ds) => {
+      ds.chars = lodash.sortBy(ds.chars, ['star', 'id']).reverse()
+    })
+    return { charBirth, charNum, charTalent }
   },
 
   getList (ds, target, { startTime, endTime, totalRange, now, timeMap = {} }, isAct = false) {

@@ -130,8 +130,8 @@ class Character extends Base {
     return CharMeta.getAttrList(meta.baseAttr, meta.growAttr, this.elemName)
   }
 
-  getMaterials () {
-    return CharMeta.getMaterials(this)
+  getMaterials (type = 'all') {
+    return CharMeta.getMaterials(this, type)
   }
 
   getLvStat () {
@@ -266,7 +266,7 @@ class Character extends Base {
       if (type === 'release' && !char.isRelease) {
         return true
       }
-      if (type === 'official' && !char.isCustom) {
+      if (type === 'official' && !char.isOfficial) {
         return true
       }
       return fn(char) !== false

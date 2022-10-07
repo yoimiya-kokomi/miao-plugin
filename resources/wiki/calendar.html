@@ -29,7 +29,7 @@
           <div class="card">
             <div class="item-icon star{{char.star}}">
               <div class="img" style="background-image:url({{_res_path}}{{char.face}})"></div>
-              <span class="char-name">{{char.sName.length>=4?char.sName:`${char.sName}生日`}}</span>
+              <span class="char-name">{{char.name.length>=4?char.name:`${char.name}生日`}}</span>
             </div>
           </div>
           {{char.name}}
@@ -91,5 +91,29 @@
 </div>
 <div class="now-time">
   <span>当前时间：{{nowTime}}</span>
+</div>
+<div class="daily-talent">
+  {{each charTalent talent}}
+
+  {{each talent.chars char idx}}
+  <div class="card">
+    <div class="banner city-{{talent.cid}}">
+      {{if idx===0}}
+      <div class="title">
+        <div class="icon" style="background-image:url({{_res_path}}{{talent.icon}})"></div>
+        <span>{{talent.city}}·{{talent.abbr}}</span>
+      </div>
+      {{/if}}
+      <div class="line {{idx===0?'first':(idx===talent.chars.length-1?'last':'')}}"></div>
+    </div>
+    <div class="item-icon star{{char.star}}">
+      <div class="img" style="background-image:url({{_res_path}}{{char.face}})"></div>
+      <div class="weekly">
+        <div class="weekly-icon" style="background-image:url({{_res_path}}{{char.weekly}})"></div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+  {{/each}}
 </div>
 {{/block}}

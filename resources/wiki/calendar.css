@@ -345,4 +345,106 @@ body {
 .list-mode .now-line {
   display: none;
 }
+.daily-talent {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px 10px 0;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 9px 10px;
+  border-radius: 10px;
+}
+.daily-talent .item-icon {
+  overflow: visible;
+}
+.daily-talent .card {
+  width: 87px;
+  height: 105px;
+  margin: 10px 0 15px;
+}
+.daily-talent .card .item-icon {
+  width: 77px;
+  margin: 0 6px;
+  height: 82px;
+  padding-top: 5px;
+}
+.daily-talent .card .img {
+  width: 77px;
+  height: 77px;
+}
+.daily-talent .card .weekly {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  bottom: -10px;
+  right: -3px;
+  background-color: rgba(232, 226, 216, 0.9);
+  box-shadow: 0 0 2px 0 #000;
+  overflow: visible;
+}
+.daily-talent .card .weekly .weekly-icon {
+  width: 30px;
+  height: 30px;
+  margin: -3px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.daily-talent .card .banner {
+  height: 20px;
+  padding-top: 1px;
+  line-height: 20px;
+  color: #fff;
+  position: relative;
+  margin-bottom: 8px;
+}
+.daily-talent .card .banner .title {
+  margin-right: -50px;
+  width: calc(100% + 50px);
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.8);
+  padding-left: 45px;
+  font-size: 18px;
+}
+.daily-talent .card .banner .icon {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: -8px;
+}
+.daily-talent .card .banner .line {
+  height: 6px;
+  width: 100%;
+  margin-top: 13px;
+}
+.daily-talent .card .banner .line.first {
+  margin-left: 35%;
+  width: 65%;
+  border-radius: 3px 0 0 3px;
+}
+.daily-talent .card .banner .line.last {
+  width: 94%;
+  border-radius: 0 3px 3px 0;
+}
+.daily-talent .card .banner.city-1 .line {
+  background: #37c9b8;
+}
+.daily-talent .card .banner.city-2 .line {
+  background: #bca244;
+}
+.daily-talent .card .banner.city-3 .line {
+  background: #ac60c9;
+}
+.daily-talent .card .banner.city-4 .line {
+  background: #54b640;
+}
 /*# sourceMappingURL=calendar.css.map */

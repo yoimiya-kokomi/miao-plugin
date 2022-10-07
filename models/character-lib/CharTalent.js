@@ -40,7 +40,10 @@ const CharTalent = {
       }
       ret[key] = { level, original }
     })
-    return lodash.isEmpty(ret) ? false : ret
+    if (lodash.isEmpty(ret)) {
+      return false
+    }
+    return ret
   }
 }
 export default CharTalent

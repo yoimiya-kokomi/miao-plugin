@@ -126,24 +126,27 @@ const CharMeta = {
     })
     return ret
   },
-  getMaterials (char) {
+  getMaterials (char, type = 'all') {
     let ds = char.meta.materials
     let ret = []
     lodash.forEach(mKeys, (cfg) => {
       let title = ds[cfg.key]
       let mat = Material.get(title)
       if (!mat) {
-        return
+        return true
       }
       if (cfg.check && !cfg.check(char)) {
-        return
+        return true
+      }
+      if (type !== 'all' && mat.type !== type) {
+        return true
       }
       ret.push({
         ...mat.getData('label,star,icon,type'),
         num: cfg.num || mat.getSource() || ''
       })
     })
-    return ret
+    return type === 'all' ? ret : ret[0]
   },
 
   getLvStat (char) {
