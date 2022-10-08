@@ -3,7 +3,7 @@
 *
 * */
 import lodash from 'lodash'
-import { Cfg, Common, App } from '../components/index.js'
+import { Cfg, Common, App, Data } from '../components/index.js'
 import { Abyss, AvatarList, Character, MysApi } from '../models/index.js'
 import HutaoApi from './stat/HutaoApi.js'
 
@@ -397,7 +397,7 @@ async function uploadData (e) {
     return false
   }
   let mys = await MysApi.init(e)
-  if (!mys || !mys.isSelfCookie) {
+  if (!mys) {
     if (isMatch) {
       e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
     }
@@ -408,6 +408,19 @@ async function uploadData (e) {
   let resDetail, resAbyss
   try {
     resAbyss = await mys.getSpiralAbyss(1)
+    let lvs = Data.getVal(resAbyss, 'floors.0.levels.0')
+    // 检查是否查询到了深渊信息
+    if (!lvs || !lvs.battles) {
+      e.reply('暂未获得本期深渊挑战数据...')
+      return true
+    } else if (lvs && lvs.battles && lvs.battles.length === 0) {
+      if (!mys.isSelfCookie) {
+        if (isMatch) {
+          e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
+        }
+        return false
+      }
+    }
     if (resAbyss.floors.length > 0 && !await AvatarList.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
