@@ -2,10 +2,9 @@ import fs from 'fs'
 import cheerio from 'cheerio'
 import fetch from 'node-fetch'
 import { Data } from '../components/index.js'
-import lodash from "lodash";
-import request from "request";
+import lodash from 'lodash'
+import request from 'request'
 
-const _path = process.cwd()
 
 const artiIdx = {
   Flower: 1,
@@ -13,14 +12,6 @@ const artiIdx = {
   Sands: 3,
   Goblet: 4,
   Circlet: 5
-}
-
-function getEffect (txt) {
-  let regRet = /(\d) Piece:/.exec(txt)
-  if (regRet) {
-    return [regRet[1], txt.replace(regRet[0], '').trim().replace(/。$/, '')]
-  }
-  return []
 }
 
 async function getSets (id) {
@@ -31,6 +22,7 @@ async function getSets (id) {
   let ret = {}
 
   if (sTxt && sTxt[1]) {
+    // eslint-disable-next-line no-eval
     let arrs = eval(sTxt[1])
     lodash.forEach(arrs, (ds) => {
       let $ = cheerio.load(ds.join(''))
@@ -54,10 +46,10 @@ async function down () {
   let txt = await req.text()
 
   let ret = {}
-  let tmp = {}
 
   let sTxt = /sortable_data.push\((.*)\)/.exec(txt)
   if (sTxt && sTxt[1]) {
+    // eslint-disable-next-line no-eval
     let tmp = eval(sTxt[1])
     lodash.forEach(tmp, (ds) => {
       let na = cheerio.load(ds[0])('a:last')

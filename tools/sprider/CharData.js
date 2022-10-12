@@ -184,6 +184,8 @@ const CharData = {
         let val = lodash.trim($(this).text())
         let v = val.replace(/(生命值上限|最大生命值)/, 'HP')
         v = v.replace(/(防御力)/, '防御')
+        v = v.replace('元素精通', '精通')
+        v = v.replace('攻击力', '攻击')
         values.push(v)
         if (i > 0 && values[0] !== val) {
           isSame = false
@@ -198,7 +200,7 @@ const CharData = {
             values2.push(ur[2])
             unit = ur[1]
           } else {
-            ur = /^(每层)(.*)(攻击力)$/.exec(val)
+            ur = /^(每层)(.*)(攻击力?)$/.exec(val)
             if (ur && ur[1] && ur[2] && ur[3]) {
               values2.push(ur[2])
               unit = ur[1] + ' ' + ur[3]
