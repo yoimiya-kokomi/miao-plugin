@@ -177,7 +177,7 @@ export default function (step) {
     圣显之钥: {
       title: '基于生命提升元素精通，满层提升[mastery]',
       data: {
-        mastery: ({ attr, calc, refine }) => step(0.12)[refine] * calc(attr.hp) / 100
+        mastery: ({ attr, calc, refine }) => step(0.36 + 0.2)[refine] * calc(attr.hp) / 100
       }
     }
   }
