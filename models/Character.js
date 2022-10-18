@@ -125,6 +125,13 @@ class Character extends Base {
     return this.getDetail()
   }
 
+  get talentCons () {
+    if (this.isTraveler) {
+      return this.elem === 'dendro' ? { e: 3, q: 5 } : { e: 5, q: 3 }
+    }
+    return this.meta?.talentCons || {}
+  }
+
   getAttrList () {
     let { meta } = this
     return CharMeta.getAttrList(meta.baseAttr, meta.growAttr, this.elemName)

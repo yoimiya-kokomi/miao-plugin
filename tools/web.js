@@ -59,10 +59,17 @@ app.get('/:type', function (req, res) {
   let app = data._app || 'genshin'
   if (data._plugin) {
     data._res_path = `/plugins/${data._plugin}/resources/`
+    data.pluResPath = data._res_path
   }
-  let tplPath = `${app}/${page}/${page}.html`
+  let htmlPath = ''
+  if (data._plugin === 'genshin') {
+    console.log(htmlPath)
+    htmlPath = 'html/'
+  }
+  let tplPath = `${app}/${htmlPath}${page}/${page}.html`
   if (data._plugin) {
-    tplPath = `../plugins/${data._plugin}/resources/${app}/${page}.html`
+    console.log(data._plugin, app, htmlPath, page)
+    tplPath = `../plugins/${data._plugin}/resources/${htmlPath}/${app}/${page}.html`
   } else if (data._no_type_path) {
     tplPath = `${app}/${page}.html`
   }

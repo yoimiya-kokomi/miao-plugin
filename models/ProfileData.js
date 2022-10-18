@@ -95,7 +95,8 @@ export default class ProfileData extends Base {
     let cMap = [
       10000022, // 温迪
       10000030, // 钟离
-      10000052 // 雷神
+      10000052, // 雷神
+      10000073 // 纳西妲
     ]
     let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
     if (cMap.includes(this.id)) {
