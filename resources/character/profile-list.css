@@ -27,6 +27,14 @@ body,
   text-align: center;
   text-shadow: 0 0 1px #000;
 }
+.char-item .name .cons {
+  padding: 1px 4px;
+  font-size: 12px;
+  transform: scale(0.8);
+  margin: -2px 0 0 1px;
+  vertical-align: middle;
+  opacity: 0.9;
+}
 .char-item.new-char .name:before {
   content: "";
   display: inline-block;
