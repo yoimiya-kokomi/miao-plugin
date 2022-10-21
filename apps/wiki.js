@@ -5,12 +5,6 @@ import { Format, Cfg, Common, App } from '../components/index.js'
 import { Character } from '../models/index.js'
 import CharWiki from './wiki/CharWiki.js'
 
-// eslint-disable-next-line no-unused-vars
-let action = {
-  wiki: {
-    keyword: '命座|天赋|技能|资料|照片|写真|图片|插画'
-  }
-}
 let wikiReg = /^(?:#|喵喵)?(.*)(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/
 
 let app = App.init({
@@ -35,7 +29,6 @@ function checkCharacter (e) {
     return false
   }
   let ret = wikiReg.exec(msg)
-  console.log(msg, ret)
   if (!ret || !ret[1] || !ret[2]) {
     return false
   }
@@ -66,7 +59,6 @@ function checkCharacter (e) {
 }
 
 async function wiki (e) {
-
   let mode = e.wikiMode
   let char = e.char
 

@@ -4,7 +4,7 @@ import { artiIdx, artiSetMap, attrMap } from './miao-meta.js'
 
 let MiaoData = {
   key: 'miao',
-  name: 'MiaoApi',
+  name: '喵喵Api',
 
   getData (uid, data) {
     let ret = {

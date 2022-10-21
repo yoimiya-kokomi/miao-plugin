@@ -1,12 +1,12 @@
-import { Data, Version } from '../../components/index.js'
+import { Data } from '../../components/index.js'
 
-let MysInfo = false
+let YzMysInfo = false
 let MysUser = false
 
 async function init () {
   let mys = await Data.importModule('plugins/genshin/model/mys/mysInfo.js', 'root')
   if (mys && mys.default) {
-    MysInfo = mys.default
+    YzMysInfo = mys.default
   } else {
     let module = await Data.importModule('lib/components/models/MysUser.js', 'root')
     if (module && module.default) {
@@ -17,14 +17,14 @@ async function init () {
 
 await init()
 
-if (!MysInfo) {
+if (!YzMysInfo) {
   // v2 MysInfo
   const apiCfg = {
     auth: 'all',
     targetType: 'all',
-    cookieType: 'all',
+    cookieType: 'all'
   }
-  MysInfo = class {
+  YzMysInfo = class {
     constructor (e, uid, cookieUser) {
       if (e) {
         this.e = e
@@ -40,7 +40,7 @@ if (!MysInfo) {
     static async init (e) {
       let MysApi = await e.getMysApi(apiCfg) // V2兼容
       let { selfUser, targetUser, cookieUser } = MysApi
-      let mys = new MysInfo(e, targetUser.uid || selfUser.uid, cookieUser)
+      let mys = new YzMysInfo(e, targetUser.uid || selfUser.uid, cookieUser)
       mys._MysApi = MysApi
       return mys
     }
@@ -61,16 +61,7 @@ if (!MysInfo) {
       let mysUser = await user.getMysUser()
       return mysUser ? mysUser.uid : false
     }
-
-    static async get (e, api, data) {
-      let MysApi = await e.getMysApi(apiCfg) // V2兼容
-      let ret = await MysApi.getData(api, data)
-      if (ret) {
-        return { data: ret }
-      }
-      return false
-    }
   }
 }
 
-export default MysInfo
+export default YzMysInfo

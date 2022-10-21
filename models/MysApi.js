@@ -1,11 +1,12 @@
 import { User } from './index.js'
-import MysInfo from './mys-lib/MysInfo.js'
+import YzMysInfo from './mys-lib/YzMysInfo.js'
+import YzMysApi from './mys-lib/YzMysApi.js'
 
 export default class MysApi {
-  constructor (e, uid, MysApi) {
+  constructor (e, uid, mysInfo) {
     this.e = e
-    this.MysApi = MysApi
-    this.ckInfo = MysApi.ckInfo
+    this.mysInfo = mysInfo
+    this.ckInfo = mysInfo.ckInfo
     this.uid = uid
     e.targetUser = this.targetUser
     e.selfUser = this.selfUser
@@ -17,7 +18,7 @@ export default class MysApi {
       cfg = { auth: cfg }
     }
     let { auth = 'all' } = cfg
-    let mys = await MysInfo.init(e, 'roleIndex')
+    let mys = await YzMysInfo.init(e, 'roleIndex')
     if (!mys) {
       return false
     }
@@ -37,7 +38,7 @@ export default class MysApi {
     if (typeof (cfg) === 'string') {
       cfg = { auth: cfg }
     }
-    let uid = await MysInfo.getUid(e)
+    let uid = await YzMysInfo.getUid(e)
     if (uid) {
       return new User({ id: e.user_id, uid: uid })
     }
@@ -45,7 +46,7 @@ export default class MysApi {
   }
 
   get isSelfCookie () {
-    return this.uid * 1 === this.ckUid * 1 || this?.MysApi?.isSelf
+    return this.uid * 1 === this.ckUid * 1 || this?.mysInfo?.isSelf
   }
 
   get ckUid () {
@@ -64,11 +65,20 @@ export default class MysApi {
     return new User({ id: this.e.user_id, uid: this.uid })
   }
 
+  getMysApi (e) {
+    if (this.mys) {
+      return this.mys
+    }
+    this.mys = new YzMysApi(this.uid, this.ck, { log: false, e })
+    return this.mys
+  }
+
   async getData (api, data) {
-    if (!this.MysApi) {
+    if (!this.mysInfo) {
       return false
     }
     let e = this.e
+    let mys = this.getMysApi(e)
     // 暂时先在plugin侧阻止错误，防止刷屏
     e._original_reply = e._original_reply || e.reply
     e._reqCount = e._reqCount || 0
@@ -81,7 +91,7 @@ export default class MysApi {
       }
     }
     e._reqCount++
-    let ret = await MysInfo.get(this.e, api, data)
+    let ret = await mys.getData(api, data)
     e._reqCount--
     if (e._reqCount === 0) {
       e.reply = e._original_reply

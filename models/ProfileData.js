@@ -129,7 +129,7 @@ export default class ProfileData extends Base {
   get dataSourceName () {
     return {
       enka: 'Enka.Network',
-      miao: 'MiaoApi',
+      miao: '喵喵Api',
       input: 'Input'
     }[this.dataSource] || 'Enka.NetWork'
   }

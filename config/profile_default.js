@@ -44,7 +44,7 @@ export const reqInterval = {
 }
 
 /*
-* MiaoApi私有的面板更新服务
+* 喵喵Api私有的面板更新服务
 * 供Yunzai开发者及有投喂的老板们小范围使用
 * 需要具备Token才会启用~
 * */
