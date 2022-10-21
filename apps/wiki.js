@@ -18,7 +18,8 @@ let app = App.init({
   name: '角色资料'
 })
 app.reg('wiki', wiki, {
-  rule: wikiReg,
+  rule: '^#喵喵WIKI$',
+  check: checkCharacter,
   desc: '【#资料】 #神里天赋 #夜兰命座'
 })
 app.reg('calendar', calendar, {
@@ -28,18 +29,16 @@ app.reg('calendar', calendar, {
 
 export default app
 
-async function wiki (e) {
+function checkCharacter (e) {
+  let msg = e.original_msg || e.msg
   if (!e.msg) {
     return false
   }
-
-  let msg = e.msg
   let ret = wikiReg.exec(msg)
-
+  console.log(msg, ret)
   if (!ret || !ret[1] || !ret[2]) {
     return false
   }
-
   let mode = 'talent'
   if (/命/.test(ret[2])) {
     mode = 'cons'
@@ -60,6 +59,16 @@ async function wiki (e) {
   if (!char) {
     return false
   }
+  e.wikiMode = mode
+  e.msg = '#喵喵WIKI'
+  e.char = char
+  return true
+}
+
+async function wiki (e) {
+
+  let mode = e.wikiMode
+  let char = e.char
 
   if (mode === 'pic') {
     let img = char.getCardImg(Cfg.get('char.se', false), false)

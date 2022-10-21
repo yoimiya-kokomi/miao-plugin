@@ -25,7 +25,6 @@ app.use('/plugins', express.static('plugins'))
 
 app.get('/', function (req, res) {
   let fileList = fs.readdirSync(_path + '/data/ViewData/') || []
-  console.log(fileList)
   let html = [
     '在npm run web-dev模式下触发截图消息后，可在下方选择页面进行调试',
     '如果页面内资源路径不正确请使用{{_res_path}}作为根路径，对应之前的../../../../',
@@ -63,12 +62,10 @@ app.get('/:type', function (req, res) {
   }
   let htmlPath = ''
   if (data._plugin === 'genshin') {
-    console.log(htmlPath)
     htmlPath = 'html/'
   }
   let tplPath = `${app}/${htmlPath}${page}/${page}.html`
   if (data._plugin) {
-    console.log(data._plugin, app, htmlPath, page)
     tplPath = `../plugins/${data._plugin}/resources/${htmlPath}/${app}/${page}.html`
   } else if (data._no_type_path) {
     tplPath = `${app}/${page}.html`

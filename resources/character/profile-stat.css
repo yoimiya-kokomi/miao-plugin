@@ -25,26 +25,6 @@ body {
 #profile-stat .item-banner .item-icon {
   z-index: 10;
 }
-#profile-stat .cons,
-#profile-stat .level {
-  height: 22px;
-  line-height: 22px;
-  display: inline-block;
-  width: 19px;
-  padding: 0;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 13px;
-  position: relative;
-}
-#profile-stat .cons {
-  width: 16px;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-}
-#profile-stat .fetter {
-  width: 32px;
-  height: 32px;
-}
 #profile-stat .level {
   border-radius: 3px 0 0 3px;
   width: 25px;
@@ -70,6 +50,26 @@ body {
       .star(5, rgba(255, 228, 180, .5));
   */
 }
+.cont .cons,
+.cont .level {
+  height: 22px;
+  line-height: 22px;
+  display: inline-block;
+  width: 19px;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 13px;
+  position: relative;
+}
+.cont .cons {
+  width: 16px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+.cont .fetter {
+  width: 32px;
+  height: 32px;
+}
 .cont .item-name {
   padding-left: 5px;
   text-align: left;
@@ -88,9 +88,10 @@ body {
 }
 .cont .tr {
   color: #333;
+  white-space: nowrap;
 }
 .cont .tr .td {
-  box-shadow: 0 0 1px 0 rgba(100, 100, 100, 0.8) inset;
+  box-shadow: 0 0 1px 0 rgba(100, 100, 100, 0.3) inset;
 }
 .cont .tr .td.star1 {
   background: rgba(200, 200, 200, 0.35);
@@ -129,10 +130,10 @@ body {
   color: #d3bc8e !important;
 }
 .cont .tr:nth-child(odd) {
-  background: rgba(255, 255, 255, 0.85);
+  background: #ffffff;
 }
 .cont .tr:nth-child(even) {
-  background: rgba(235, 235, 235, 0.85);
+  background: #f0f0f0;
 }
 .cont .tr > div {
   text-align: center;
@@ -193,27 +194,35 @@ body {
 .cont .tr .td-weapon .level {
   font-size: 12px;
   transform: scale(0.9);
+  text-align: left;
 }
 .cont .tr .td-weapon .cons {
   transform: scale(0.8);
   margin-right: -2px;
+  font-size: 12px;
+  padding: 0;
+  height: 16px;
+  line-height: 16px;
+  width: 14px;
 }
 .cont .tr .td-weapon .weapon-icon {
   border-radius: 0;
   background: none;
 }
 .cont .tr .td-weapon .item-name {
-  width: 70px;
+  padding-left: 2px;
+  padding-right: 10px;
   font-size: 12px;
 }
 .cont .tr .weapon-icon {
-  width: 25px;
+  width: 28px;
   display: inline-block;
   overflow: visible;
 }
 .cont .tr .weapon-icon .img {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 36px;
+  margin: 0;
 }
 .cont .tr .talent-plus {
   font-weight: bold;

@@ -60,12 +60,12 @@
           {{if weapon?.name}}
           <div class="item-banner star{{weapon.star}}">
             <span class="level">{{weapon.level}}</span>
-            <span class="cons weapon cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
+
             <div class="item-icon weapon-icon">
               <span class="img"
                     style="background-image:url({{_res_path}}{{weapon.img}})"></span>
             </div>
-
+            <span class="cons weapon cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
             <span class="item-name">{{weapon.abbr}}</span>
           </div>
           {{/if}}

@@ -30,6 +30,27 @@ body {
     }
   }
 
+  .level {
+    border-radius: 3px 0 0 3px;
+    width: 25px;
+    white-space: nowrap;
+    display: inline-block;
+
+    &:before {
+      content: "Lv";
+      display: inline-block;
+      font-size: 12px;
+      transform: scale(.7);
+      transform-origin: right 55%;
+      margin-left: -3px;
+    }
+  }
+}
+
+.cont {
+  font-size: 14px;
+  background: none;
+
   .cons, .level {
     height: 22px;
     line-height: 22px;
@@ -51,27 +72,6 @@ body {
     width: 32px;
     height: 32px;
   }
-
-  .level {
-    border-radius: 3px 0 0 3px;
-    width: 25px;
-    white-space: nowrap;
-    display: inline-block;
-
-    &:before {
-      content: "Lv";
-      display: inline-block;
-      font-size: 12px;
-      transform: scale(.7);
-      transform-origin: right 55%;
-      margin-left: -3px;
-    }
-  }
-}
-
-.cont {
-  font-size: 14px;
-  background: none;
 
   .item-name {
     padding-left: 5px;
@@ -96,9 +96,10 @@ body {
 
   .tr {
     color: #333;
+    white-space: nowrap;
 
     .td {
-      box-shadow: 0 0 1px 0 rgba(100, 100, 100, .8) inset;
+      box-shadow: 0 0 1px 0 rgba(100, 100, 100, .3) inset;
     }
 
     .star(@s, @color, @color2:#333) {
@@ -125,11 +126,11 @@ body {
     }
 
     &:nth-child(odd) {
-      background: rgba(255, 255, 255, .85);
+      background: rgba(255, 255, 255, 1);
     }
 
     &:nth-child(even) {
-      background: rgba(235, 235, 235, .85);
+      background: rgba(240, 240, 240, 1);
     }
 
     & > div {
@@ -205,11 +206,17 @@ body {
       .level {
         font-size: 12px;
         transform: scale(.9);
+        text-align: left;
       }
 
       .cons {
         transform: scale(.8);
         margin-right: -2px;
+        font-size: 12px;
+        padding: 0;
+        height: 16px;
+        line-height: 16px;
+        width: 14px;
       }
 
       .weapon-icon {
@@ -218,19 +225,21 @@ body {
       }
 
       .item-name {
-        width: 70px;
+        padding-left: 2px;
+        padding-right: 10px;
         font-size: 12px;
       }
     }
 
     .weapon-icon {
-      width: 25px;
+      width: 28px;
       display: inline-block;
       overflow: visible;
 
       .img {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 36px;
+        margin: 0;
       }
     }
 
