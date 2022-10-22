@@ -46,11 +46,15 @@ let HutaoApi = {
   },
 
   async getAbyssTeam () {
-    return await HutaoApi.req('/Statistics/TeamCombination')
+    return await HutaoApi.req('/Statistics/Team/Combination')
   },
 
   async getOverview () {
     return await HutaoApi.req('/Statistics/Overview')
+  },
+
+  async getUsage () {
+    return await HutaoApi.req('/Statistics/Avatar/AvatarCollocation')
   },
 
   async getWeaponUsage () {
@@ -61,22 +65,12 @@ let HutaoApi = {
     return await HutaoApi.req('/Statistics/AvatarReliquaryUsage')
   },
 
-  async upload (data) {
-    let body = JSON.stringify(data)
-    return await HutaoApi.req('/Record/Upload', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/json; charset=utf-8'
-      },
-      body
-    })
-  },
-
   async uploadData (data = {}) {
     let body = JSON.stringify(data)
     return await HutaoApi.req('/Record/UploadData', {
       method: 'POST',
       headers: {
+        'User-Agent': 'Yunzai-Bot/Miao-Plugin',
         'Content-Type': 'text/json; charset=utf-8'
       },
       body

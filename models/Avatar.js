@@ -125,6 +125,7 @@ export default class Avatar extends Base {
       let id = char.id
       let talent = {}
       let talentRes = await mys.getDetail(id)
+      // { data: null, message: '请先登录', retcode: -100, api: 'detail' }
       let avatar = this.meta
       if (!char || !avatar) {
         return false

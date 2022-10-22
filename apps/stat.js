@@ -262,7 +262,7 @@ async function abyssTeam (e) {
   }
 
   lodash.forEach(abyssData, (ds) => {
-    let floor = ds.level.floor
+    let floor = ds.floor
     if (!data[floor]) {
       data[floor] = {
         up: {},
@@ -270,9 +270,9 @@ async function abyssTeam (e) {
         teams: []
       }
     }
-    lodash.forEach(ds.teams, (ds) => {
-      lodash.forEach(['up', 'down'], (halfKey) => {
-        let teamCfg = getTeamCfg(ds.id[`${halfKey}Half`])
+    lodash.forEach(['up', 'down'], (halfKey) => {
+      lodash.forEach(ds[halfKey], (ds) => {
+        let teamCfg = getTeamCfg(ds.item)
         if (teamCfg) {
           if (!data[floor][halfKey][teamCfg.key]) {
             data[floor][halfKey][teamCfg.key] = {
@@ -281,8 +281,8 @@ async function abyssTeam (e) {
               hasTeam: teamCfg.mark > 1
             }
           }
-          data[floor][halfKey][teamCfg.key].count += ds.value
-          data[floor][halfKey][teamCfg.key].mark += ds.value * teamCfg.mark
+          data[floor][halfKey][teamCfg.key].count += ds.rate
+          data[floor][halfKey][teamCfg.key].mark += ds.rate * teamCfg.mark
         }
       })
     })
