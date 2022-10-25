@@ -18,18 +18,11 @@ export default class MysApi {
       cfg = { auth: cfg }
     }
     let { auth = 'all' } = cfg
-    let mys = await YzMysInfo.init(e, 'roleIndex')
+    let mys = await YzMysInfo.init(e, auth === 'cookie' ? 'detail' : 'roleIndex')
     if (!mys) {
       return false
     }
     let uid = mys.uid
-    /* 检查user ck */
-    if (auth === 'cookie') {
-      if (mys?.ckInfo?.uid * 1 !== uid * 1) {
-        e.reply('请绑定CK以使用此功能...')
-        return false
-      }
-    }
     e._mys = new MysApi(e, uid, mys)
     return e._mys
   }

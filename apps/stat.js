@@ -396,15 +396,15 @@ async function uploadData (e) {
   if (!Cfg.get('wiki.abyss', false) && !isMatch) {
     return false
   }
-  let mys = await MysApi.init(e)
-  if (!mys) {
+  let mys = await MysApi.init(e, { auth: 'cookie' })
+  if (!mys || !mys.uid) {
     if (isMatch) {
       e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
     }
     return false
   }
   let ret = {}
-  let uid = e.selfUser.uid
+  let uid = mys.uid
   let resDetail, resAbyss
   try {
     resAbyss = await mys.getSpiralAbyss(1)

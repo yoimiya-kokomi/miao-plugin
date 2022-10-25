@@ -19,11 +19,6 @@ await init()
 
 if (!YzMysInfo) {
   // v2 MysInfo
-  const apiCfg = {
-    auth: 'all',
-    targetType: 'all',
-    cookieType: 'all'
-  }
   YzMysInfo = class {
     constructor (e, uid, cookieUser) {
       if (e) {
@@ -37,8 +32,12 @@ if (!YzMysInfo) {
       }
     }
 
-    static async init (e) {
-      let MysApi = await e.getMysApi(apiCfg) // V2兼容
+    static async init (e, api) {
+      let MysApi = await e.getMysApi({
+        auth: 'all',
+        targetType: 'all',
+        cookieType: api === 'detail' ? 'self:' : 'all'
+      }) // V2兼容
       let { selfUser, targetUser, cookieUser } = MysApi
       let mys = new YzMysInfo(e, targetUser.uid || selfUser.uid, cookieUser)
       mys._MysApi = MysApi
