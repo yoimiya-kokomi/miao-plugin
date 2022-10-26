@@ -396,7 +396,7 @@ async function uploadData (e) {
   if (!Cfg.get('wiki.abyss', false) && !isMatch) {
     return false
   }
-  let mys = await MysApi.init(e, { auth: 'cookie' })
+  let mys = await MysApi.init(e, { auth: 'all' })
   if (!mys || !mys.uid) {
     if (isMatch) {
       e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)

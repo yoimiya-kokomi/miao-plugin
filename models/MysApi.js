@@ -18,7 +18,12 @@ export default class MysApi {
       cfg = { auth: cfg }
     }
     let { auth = 'all' } = cfg
-    let mys = await YzMysInfo.init(e, auth === 'cookie' ? 'detail' : 'roleIndex')
+    let mys = false
+    if (e.runtime) {
+      mys = await e.runtime.getMysInfo(auth)
+    } else {
+      mys = await YzMysInfo.init(e, auth === 'cookie' ? 'detail' : 'roleIndex')
+    }
     if (!mys) {
       return false
     }
