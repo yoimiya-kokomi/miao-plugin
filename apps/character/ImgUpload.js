@@ -118,9 +118,6 @@ async function isAllowedToUploadCharacterImage (e) {
   if (!e.msg) {
     return false
   }
-  if (!e.isMaster) {
-    return false
-  }
 
   // 由于添加角色图是全局，暂时屏蔽非管理员的添加
   if (e.isPrivate) {
