@@ -118,31 +118,27 @@ async function isAllowedToUploadCharacterImage (e) {
   if (!e.msg) {
     return false
   }
-
-  // 由于添加角色图是全局，暂时屏蔽非管理员的添加
-  if (e.isPrivate) {
-    if (!e.isMaster) {
-      e.reply('只有主人才能添加。')
-      return false
-    }
+  // master直接返回true
+  if (e.isMaster) {
     return true
   }
-
+  if (e.isPrivate) {
+    e.reply('只有主人才能添加...')
+    return false
+  }
   let groupId = e.group_id
   if (!groupId) {
     return false
   }
-  if (e.groupConfig?.imgAddLimit === 2) {
-    if (!e.isMaster) {
-      e.reply('只有主人才能添加。')
-      return false
-    }
+  const addLimit = e.groupConfig?.imgAddLimit || 2
+  const isAdmin = ['owner', 'admin'].includes(e.sender.role)
+  if (addLimit === 2) {
+    e.reply('只有主人才能添加...')
+    return false
   }
-  if (e.groupConfig?.imgAddLimit === 1 && !e.isMaster) {
-    if (!(e.sender.role === 'owner' || e.sender.role === 'admin')) {
-      e.reply('只有管理员才能添加。')
-      return false
-    }
+  if (addLimit === 1 && !isAdmin) {
+    e.reply('只有管理员才能添加...')
+    return false
   }
   return true
 }
