@@ -27,7 +27,7 @@ let app = App.init({
 let sysCfgReg = new RegExp(`^#喵喵设置\\s*(${lodash.keys(cfgMap).join('|')})?\\s*(.*)$`)
 
 app.reg('update-res', updateRes, {
-  rule: /^#喵喵(更新图像|图像更新)$/,
+  rule: /^#喵喵(强制)?(更新图像|图像更新)$/,
   desc: '【#管理】更新素材'
 })
 app.reg('update', updateMiaoPlugin, {
@@ -120,10 +120,14 @@ async function updateRes (e) {
   if (!await checkAuth(e)) {
     return true
   }
+  let isForce = e.msg.includes('强制')
   let command = ''
   if (fs.existsSync(`${resPath}/miao-res-plus/`)) {
     e.reply('开始尝试更新，请耐心等待~')
     command = 'git pull'
+    if (isForce) {
+      command = 'git  checkout . && git  pull'
+    }
     exec(command, { cwd: `${resPath}/miao-res-plus/` }, function (error, stdout, stderr) {
       console.log(stdout)
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
@@ -142,7 +146,7 @@ async function updateRes (e) {
       }
     })
   } else {
-    command = `git clone https://gitee.com/yoimiya-kokomi/miao-res-plus.git "${resPath}/miao-res-plus/"`
+    command = `git clone https://gitee.com/yoimiya-kokomi/miao-res-plus.git "${resPath}/miao-res-plus/" --depth=1`
     e.reply('开始尝试安装图片加量包，可能会需要一段时间，请耐心等待~')
     exec(command, function (error, stdout, stderr) {
       if (error) {
