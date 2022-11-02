@@ -28,11 +28,13 @@ let CharWiki = {
     let weapons = []
     if (wu[id]) {
       lodash.forEach(wu[id], (ds) => {
-        let weapon = Weapon.get(ds.name) || {}
-        weapons.push({
-          ...weapon.getData('name,abbr,img,star'),
-          value: ds.value
-        })
+        let weapon = Weapon.get(ds.name)
+        if (weapon) {
+          weapons.push({
+            ...weapon.getData('name,abbr,img,star'),
+            value: ds.value
+          })
+        }
       })
     }
     weapons = lodash.sortBy(weapons, 'value')
