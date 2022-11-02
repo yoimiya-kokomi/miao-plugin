@@ -1,4 +1,4 @@
-export default {
+export default  {
   10000002: {
     Element: "Ice",
     Consts: ["UI_Talent_S_Ayaka_01", "UI_Talent_S_Ayaka_02", "UI_Talent_U_Ayaka_02", "UI_Talent_S_Ayaka_03", "UI_Talent_U_Ayaka_01", "UI_Talent_S_Ayaka_04"],
@@ -1119,6 +1119,42 @@ export default {
     },
     NameTextMapHash: 3092975658,
     SideIconName: "UI_AvatarIcon_Side_Candace",
+    QualityType: "QUALITY_PURPLE"
+  },
+  10000073: {
+    Element: "Grass",
+    Consts: ["UI_Talent_S_Nahida_01", "UI_Talent_S_Nahida_02", "UI_Talent_U_Nahida_01", "UI_Talent_S_Nahida_03", "UI_Talent_U_Nahida_02", "UI_Talent_S_Nahida_04"],
+    SkillOrder: [10731, 10732, 10735],
+    Skills: {
+      10731: "Skill_A_Catalyst_MD",
+      10732: "Skill_S_Nahida_01",
+      10735: "Skill_E_Nahida_01"
+    },
+    ProudMap: {
+      10731: 7331,
+      10732: 7332,
+      10735: 7339
+    },
+    NameTextMapHash: 712501082,
+    SideIconName: "UI_AvatarIcon_Side_Nahida",
+    QualityType: "QUALITY_ORANGE"
+  },
+  10000074: {
+    Element: "Ice",
+    Consts: ["UI_Talent_S_Layla_01", "UI_Talent_S_Layla_02", "UI_Talent_U_Layla_01", "UI_Talent_S_Layla_03", "UI_Talent_U_Layla_02", "UI_Talent_S_Layla_04"],
+    SkillOrder: [10741, 10742, 10745],
+    Skills: {
+      10741: "Skill_A_01",
+      10742: "Skill_S_Layla_01",
+      10745: "Skill_E_Layla_01"
+    },
+    ProudMap: {
+      10741: 7431,
+      10742: 7432,
+      10745: 7439
+    },
+    NameTextMapHash: 2889777514,
+    SideIconName: "UI_AvatarIcon_Side_Layla",
     QualityType: "QUALITY_PURPLE"
   },
   "10000005-501": {
