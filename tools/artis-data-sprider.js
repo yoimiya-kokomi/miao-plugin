@@ -5,7 +5,6 @@ import { Data } from '../components/index.js'
 import lodash from 'lodash'
 import request from 'request'
 
-
 const artiIdx = {
   Flower: 1,
   Plume: 2,
@@ -40,10 +39,13 @@ async function getSets (id) {
   return ret
 }
 
-async function down () {
+async function down (sets = '') {
   const url = 'https://genshin.honeyhunterworld.com/fam_art_set/?lang=CHS'
   let req = await fetch(url)
   let txt = await req.text()
+  if (sets) {
+    sets = sets.split(',')
+  }
 
   let ret = {}
 
@@ -77,6 +79,11 @@ async function down () {
   let imgs = []
   for (let idx in ret) {
     let ds = ret[idx]
+    if (sets) {
+      if (!sets.includes(ds.name)) {
+        continue
+      }
+    }
     ds.sets = await getSets(ds.id)
     console.log(`arti ${ds.id}:${ds.name} Done`)
     Data.createDir(`resources/meta/artifact/${ds.name}`)
@@ -119,4 +126,4 @@ async function down () {
   })
 }
 
-await down()
+await down('乐园遗落之花')

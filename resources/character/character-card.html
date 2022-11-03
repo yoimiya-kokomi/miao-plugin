@@ -34,7 +34,6 @@
       </div>
     </div>
 
-
     {{set talent = data.talent }}
     {{set keys = ['a','e','q'] }}
     {{ if talent && talent.a && talent.a.level}}
@@ -58,7 +57,6 @@
     </div>
     {{/if}}
 
-
     <div class="cont artis-cont right-line">
       {{set idxs = [1,2,3,4,5] }}
       <div class="artis-list">
@@ -77,25 +75,21 @@
       </div>
       <div class="artis-sets">{{data.artisSet?.name||'圣遗物'}}</div>
     </div>
-
-
   </div>
+
   <div class="copyright data-source">
     数据源：{{data.dataSourceName}} {{data.updateTime}}
   </div>
   {{else}}
   {{if custom}}
   <div class="no-info">自定义角色暂无角色信息</div>
-  {{else if !arrive}}
+  {{else if !isRelease}}
   <div class="no-info">角色尚未实装，暂无信息</div>
   {{else}}
   <div class="no-info">未能获取到角色信息，请将角色放置在米游社角色展柜中</div>
   {{/if}}
   {{/if}}
-
   <div><img src="{{_res_path}}{{bg.img}}" title="{{name}}" class="bg"></div>
-
-
 </div>
 
 {{/block}}
