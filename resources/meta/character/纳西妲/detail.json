@@ -381,6 +381,7 @@
       "tables": [
         {
           "name": "火：伤害提升",
+          "name2": "火1伤害提升",
           "unit": "1名角色",
           "isSame": false,
           "values": [
@@ -403,6 +404,7 @@
         },
         {
           "name": "火：伤害提升",
+          "name2": "火2伤害提升",
           "unit": "2名角色",
           "isSame": false,
           "values": [

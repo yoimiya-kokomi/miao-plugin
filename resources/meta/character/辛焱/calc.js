@@ -13,7 +13,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['重击循环伤害'], 'a2', 'phy')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,def'
+export const mainAttr = 'atk,def,cpct,cdmg'
 export const enemyName = '魔偶/女士/雷神/丘丘'
 
 export const buffs = [{

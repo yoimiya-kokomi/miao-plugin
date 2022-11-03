@@ -134,6 +134,13 @@ export default function (step) {
       data: {
         atkPlus: ({ attr, calc, refine }) => step(24)[refine] * calc(attr.mastery) / 100
       }
+    },
+    千夜浮梦: {
+      title: '3个不同元素队友满层，元素伤害提高[dmg]%',
+      buffCount: 3,
+      refine: {
+        dmg: step(10, 4)
+      }
     }
   }
 }

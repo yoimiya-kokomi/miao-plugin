@@ -24,38 +24,37 @@ app.use(express.static(_path + '/resources'))
 app.use('/plugins', express.static('plugins'))
 
 app.get('/', function (req, res) {
-  let fileList = fs.readdirSync(_path + '/data/ViewData/') || []
+  let pluginList = fs.readdirSync(_path + '/data/ViewData/') || []
   let html = [
     '在npm run web-dev模式下触发截图消息后，可在下方选择页面进行调试',
     '如果页面内资源路径不正确请使用{{_res_path}}作为根路径，对应之前的../../../../',
     '可直接修改模板html或css刷新查看效果'
   ]
   let li = {}
-  for (let idx in fileList) {
-    let ret = /(.+)\.json$/.exec(fileList[idx])
-    if (ret && ret[1]) {
-      let data = JSON.parse(fs.readFileSync(_path + '/data/ViewData/' + ret[1] + '.json', 'utf8'))
-      let text = [(data._app || 'genshin'), ret[1]]
-      if (data._plugin) {
-        text.unshift(data._plugin)
+  for (let pIdx in pluginList) {
+    const plugin = pluginList[pIdx]
+    let fileList = fs.readdirSync(_path + `/data/ViewData/${plugin}/`) || []
+    for (let idx in fileList) {
+      let ret = /(.+)\.json$/.exec(fileList[idx])
+      if (ret && ret[1]) {
+        let text = [plugin, ...ret[1].split('_')]
+        li[text.join('')] = (`<li style="font-size:18px; line-height:30px;"><a href="/${plugin}_${ret[1]}">${text.join(' / ')}</a></li>`)
       }
-      li[text.join('')] = (`<li style="font-size:18px; line-height:30px;"><a href="/${ret[1]}">${text.join(' / ')}</a></li>`)
     }
   }
   res.send(html.join('</br>') + '<ul>' + lodash.values(li).join('') + '</ul>')
 })
 
-app.get('/:type', function (req, res) {
-  let page = req.params.type
+app.get('/:page', function (req, res) {
+  let [plugin, app, page] = req.params.page.split('_')
   if (page == 'favicon.ico') {
     return res.send('')
   }
-  let data = JSON.parse(fs.readFileSync(_path + '/data/ViewData/' + page + '.json', 'utf8'))
+  let data = JSON.parse(fs.readFileSync(_path + `/data/ViewData/${plugin}/${app}_${page}.json`, 'utf8'))
   data = data || {}
   data._res_path = ''
   data._sys_res_path = data._res_path
 
-  let app = data._app || 'genshin'
   if (data._plugin) {
     data._res_path = `/plugins/${data._plugin}/resources/`
     data.pluResPath = data._res_path

@@ -126,4 +126,4 @@ async function down (sets = '') {
   })
 }
 
-await down('乐园遗落之花')
+await down()

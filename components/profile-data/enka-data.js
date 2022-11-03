@@ -188,6 +188,7 @@ let EnkaData = {
       return ret
     }
     let { attr, id, weapon } = ret
+    let count = 0
     id = id * 1
     switch (id) {
       case 10000052:
@@ -197,6 +198,14 @@ let EnkaData = {
       case 10000041:
         // 莫娜被动fix
         attr.dmg = Math.max(0, attr.dmg - attr.recharge * 0.2)
+        break
+      case 10000070:
+        // 妮露满命效果fix
+        if (ret.cons === 6) {
+          count = Math.floor(attr.hp / 1000)
+          attr.cpct = Math.max(5, attr.cpct - Math.min(30, count * 0.6))
+          attr.cdmg = Math.max(50, attr.cdmg - Math.min(60, count * 1.2))
+        }
         break
     }
     let wDmg = {

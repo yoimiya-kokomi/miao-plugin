@@ -34,7 +34,7 @@ export default class ProfileArtis extends Base {
     idx = idx.toString().replace('arti', '')
     let ret = {}
     ret.name = ds.name || ArtifactSet.getArtiNameBySet(ds.set, idx) || ''
-    ret.set = ds.set || Artifact.getSetNameByArti(ret.title) || ''
+    ret.set = ds.set || Artifact.getSetNameByArti(ret.name) || ''
     ret.level = ds.level || 1
     ret.main = ArtisMark.formatAttr(ds.main || {})
     ret.attrs = []

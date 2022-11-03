@@ -44,14 +44,15 @@ export default class ProfileDmg extends Base {
           valArr.push(valNum)
         })
 
+        let name = tr.name2 || tr.name
         if (isNaN(valArr[0])) {
-          map[tr.name] = false
+          map[name] = false
         } else if (valArr.length === 1) {
-          map[tr.name] = valArr[0]
+          map[name] = valArr[0]
         } else {
-          map[tr.name] = valArr
+          map[name] = valArr
         }
-        map[tr.name + '2'] = valArr2
+        map[name + '2'] = valArr2
       })
       ret[key] = map
     })
