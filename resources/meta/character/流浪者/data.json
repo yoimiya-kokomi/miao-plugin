@@ -1,0 +1,44 @@
+{
+  "id": 10000075,
+  "name": "流浪者",
+  "abbr": "流浪者",
+  "title": "？？？",
+  "star": 5,
+  "elem": "anemo",
+  "allegiance": "？？？",
+  "weapon": "catalyst",
+  "birth": "1-1",
+  "astro": "浪客座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 10164,
+    "atk": 327.67,
+    "def": 607.16
+  },
+  "growAttr": {
+    "key": "cpct",
+    "value": "19.2%"
+  },
+  "talentKey": {
+    "7531": "a",
+    "7532": "e",
+    "7539": "q"
+  },
+  "talentId": {},
+  "talentCons": {
+    "e": 3,
+    "q": 5
+  },
+  "materials": {
+    "gem": "自在松石",
+    "boss": "永续机芯",
+    "specialty": "树王圣体菇",
+    "normal": "名刀镡",
+    "talent": "「笃行」的哲学",
+    "weekly": "空行的虚铃"
+  }
+}

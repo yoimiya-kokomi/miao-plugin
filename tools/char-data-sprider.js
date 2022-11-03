@@ -254,11 +254,13 @@ const charData = {
   71: { key: 'cyno', name: '赛诺' },
   72: { key: 'candace', name: '坎蒂丝' },
   73: { key: 'nahida', name: '纳西妲' },
-  74: { key: 'layla', name: '莱依拉' }
+  74: { key: 'layla', name: '莱依拉' },
+  75: {key: 'wanderer', name:'流浪者'},
+  76: {key: 'faruzan', name:'珐露珊'}
 }
 let eta = {
   妮露: '2022-10-14 18:00:00',
   纳西妲: '2022-11-02 11:00:00',
   莱依拉: '2022-11-02 11:00:00'
 }
-await down('73,74', true)
+await down('73,74,75,76', true)
