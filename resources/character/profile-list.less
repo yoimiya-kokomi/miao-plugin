@@ -21,7 +21,7 @@ body, .container {
 }
 
 .char-item {
-  margin: 5px;
+  margin: 5px 0;
 
   .name {
     margin-top: 5px;
@@ -30,6 +30,15 @@ body, .container {
     color: #fff;
     text-align: center;
     text-shadow: 0 0 1px #000;
+
+    .cons {
+      padding: 1px 4px;
+      font-size: 12px;
+      transform: scale(.8);
+      margin: -2px 0 0 1px;
+      vertical-align: middle;
+      opacity: .9;
+    }
   }
 
   &.new-char {
@@ -52,6 +61,7 @@ body, .container {
   border: 2px solid #fff;
   box-shadow: 1px 1px 3px 0 #000;
   overflow: visible;
+  margin: 0 5px 0 6px;
 
   .img {
     background-size: auto 100%;

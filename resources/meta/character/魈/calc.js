@@ -2,8 +2,8 @@ export const details = [{
   title: '风轮两立',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
-  title: '满层被动E',
-  params: { e: 1 },
+  title: '开Q满被动E',
+  params: { e: 1, layer: 5 },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '靖妖傩舞·首插',

@@ -80,10 +80,9 @@ let Data = {
     if (!/\.js$/.test(file)) {
       file = file + '.js'
     }
-    // 检查并创建目录
     if (fs.existsSync(`${root}/${file}`)) {
       try {
-        let data = await import(`file://${root}/${file}`)
+        let data = await import(`file://${root}/${file}?t=${new Date() * 1}`)
         return data || {}
       } catch (e) {
         console.log(e)
@@ -92,12 +91,17 @@ let Data = {
     return {}
   },
 
+  async importDefault (file, root) {
+    let ret = await Data.importModule(file, root)
+    return ret.default || {}
+  },
+
   async import (name) {
     return await Data.importModule(`components/optional-lib/${name}.js`)
   },
 
   async importCfg (key) {
-    let sysCfg = await Data.importModule(`config/system/${key}.js`)
+    let sysCfg = await Data.importModule(`config/system/${key}_system.js`)
     let diyCfg = await Data.importModule(`config/${key}.js`)
     if (diyCfg.isSys) {
       console.error(`miao-plugin: config/${key}.js无效，已忽略`)
@@ -195,6 +199,8 @@ let Data = {
     if (lodash.isString(arr)) {
       arr = arr.replace(/\s*(;|；|、|，)\s*/, ',')
       arr = arr.split(',')
+    } else if (lodash.isNumber(arr)) {
+      arr = [arr.toString()]
     }
     lodash.forEach(arr, (str, idx) => {
       if (!lodash.isUndefined(str)) {

@@ -1,7 +1,8 @@
 import fs from 'fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
-import { Cfg, Common, Data } from '../components/index.js'
+import { Cfg, Common, Data, App } from '../components/index.js'
+import { MysApi } from '../models/index.js'
 
 let cfgMap = {
   角色: 'char.char',
@@ -17,48 +18,52 @@ let cfgMap = {
   渲染: 'sys.scale',
   帮助: 'sys.help'
 }
-let sysCfgReg = `^#喵喵设置\\s*(${lodash.keys(cfgMap).join('|')})?\\s*(.*)$`
-export const rule = {
-  updateRes: {
-    hashMark: true,
-    reg: '^#喵喵(更新图像|图像更新)$',
-    describe: '【#管理】更新素材'
-  },
-  updateMiaoPlugin: {
-    hashMark: true,
-    reg: '^#喵喵(强制)?更新',
-    describe: '【#管理】喵喵更新'
-  },
-  sysCfg: {
-    hashMark: true,
-    reg: sysCfgReg,
-    describe: '【#管理】系统设置'
-  },
-  profileCfg: {
-    hashMark: true,
-    reg: '^#喵喵面板(?:设置)?.*',
-    describe: '【#管理】面板设置'
-  }
-}
+let app = App.init({
+  id: 'admin',
+  name: '喵喵设置',
+  desc: '喵喵设置'
+})
+
+let sysCfgReg = new RegExp(`^#喵喵设置\\s*(${lodash.keys(cfgMap).join('|')})?\\s*(.*)$`)
+
+app.reg('update-res', updateRes, {
+  rule: /^#喵喵(强制)?(更新图像|图像更新)$/,
+  desc: '【#管理】更新素材'
+})
+app.reg('update', updateMiaoPlugin, {
+  rule: /^#喵喵(强制)?更新/,
+  desc: '【#管理】喵喵更新'
+})
+app.reg('sys-cfg', sysCfg, {
+  rule: sysCfgReg,
+  desc: '【#管理】系统设置'
+})
+app.reg('profile-cfg', profileCfg, {
+  rule: /^#喵喵面板(?:设置)?.*/,
+  desc: '面板设置'
+})
+
+export default app
 
 const _path = process.cwd()
 const resPath = `${_path}/plugins/miao-plugin/resources/`
 const plusPath = `${resPath}/miao-res-plus/`
 
 const checkAuth = async function (e) {
-  return await e.checkAuth({
-    auth: 'master',
-    replyMsg: `只有主人才能命令喵喵哦~
-    (*/ω＼*)`
-  })
+  if (!e.isMaster) {
+    e.reply(`只有主人才能命令喵喵哦~
+    (*/ω＼*)`)
+    return false
+  }
+  return await MysApi.initUser(e)
 }
 
-export async function sysCfg (e) {
+async function sysCfg (e) {
   if (!await checkAuth(e)) {
     return true
   }
 
-  let cfgReg = new RegExp(sysCfgReg)
+  let cfgReg = sysCfgReg
   let regRet = cfgReg.exec(e.msg)
 
   if (!regRet) {
@@ -111,14 +116,18 @@ const getStatus = function (rote, def = true) {
   }
 }
 
-export async function updateRes (e) {
+async function updateRes (e) {
   if (!await checkAuth(e)) {
     return true
   }
+  let isForce = e.msg.includes('强制')
   let command = ''
   if (fs.existsSync(`${resPath}/miao-res-plus/`)) {
     e.reply('开始尝试更新，请耐心等待~')
     command = 'git pull'
+    if (isForce) {
+      command = 'git  checkout . && git  pull'
+    }
     exec(command, { cwd: `${resPath}/miao-res-plus/` }, function (error, stdout, stderr) {
       console.log(stdout)
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
@@ -137,7 +146,7 @@ export async function updateRes (e) {
       }
     })
   } else {
-    command = `git clone https://gitee.com/yoimiya-kokomi/miao-res-plus.git "${resPath}/miao-res-plus/"`
+    command = `git clone https://gitee.com/yoimiya-kokomi/miao-res-plus.git "${resPath}/miao-res-plus/" --depth=1`
     e.reply('开始尝试安装图片加量包，可能会需要一段时间，请耐心等待~')
     exec(command, function (error, stdout, stderr) {
       if (error) {
@@ -152,7 +161,7 @@ export async function updateRes (e) {
 
 let timer
 
-export async function updateMiaoPlugin (e) {
+async function updateMiaoPlugin (e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -200,7 +209,7 @@ export async function updateMiaoPlugin (e) {
   return true
 }
 
-export async function profileCfg (e) {
+async function profileCfg (e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -214,7 +223,7 @@ export async function profileCfg (e) {
   let regRet = /喵喵面板(?:设置)?\s*(好友|群|群聊|陌生人)?\s*(\d*)\s*(开启|关闭|删除)?\s*$/.exec(e.msg)
 
   if (!regRet) {
-    return
+    return false
   }
 
   let [, target, groupId, actionType] = regRet
@@ -245,7 +254,7 @@ export async function profileCfg (e) {
   let groups = Cfg.get('profile.groups', {})
   lodash.forEach(lodash.keys(groups), (group, idx) => {
     if (lodash.isUndefined(groups[group])) {
-      return
+      return true
     }
     cfg.groups.push({
       group,

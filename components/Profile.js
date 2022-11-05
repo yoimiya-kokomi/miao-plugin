@@ -56,7 +56,10 @@ let Profile = {
     const userFile = `${userPath}/${uid}.json`
     let userData = {}
     if (fs.existsSync(userFile)) {
-      userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
+      try {
+        userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
+      } catch (e) {
+      }
     }
     if (userData && userData.chars) {
       let char = Character.get(charId)
@@ -95,7 +98,10 @@ let Profile = {
     if (userData && userData.chars) {
       let ret = {}
       lodash.forEach(userData.chars, (ds, id) => {
-        ret[id] = new ProfileData(ds)
+        let profile = new ProfileData(ds)
+        if (profile.hasData) {
+          ret[id] = profile
+        }
       })
       return ret
     }

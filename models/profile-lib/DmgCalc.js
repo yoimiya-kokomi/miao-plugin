@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 计算伤害
 * */
-import { eleBaseDmg } from './calc-meta.js'
+import { eleBaseDmg } from './DmgCalcMeta.js'
 import DmgMastery from './DmgMastery.js'
 
 let DmgCalc = {

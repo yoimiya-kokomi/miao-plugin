@@ -1,0 +1,49 @@
+{
+  "id": 10000074,
+  "name": "莱依拉",
+  "abbr": "莱依拉",
+  "title": "绮思晚星",
+  "star": 4,
+  "elem": "cryo",
+  "allegiance": "梨多梵谛学院",
+  "weapon": "sword",
+  "birth": "12-19",
+  "astro": "夜莺座",
+  "desc": "专攻理论星相学的梨多梵谛学院学生。时常梦游，长期缺觉，饱受睡眠问题困扰。",
+  "cncv": "侯小菲",
+  "jpcv": "富田美忧",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 11092,
+    "atk": 216.65,
+    "def": 655.22
+  },
+  "growAttr": {
+    "key": "hpPct",
+    "value": "24.0%"
+  },
+  "talentKey": {
+    "7431": "a",
+    "7432": "e",
+    "7439": "q"
+  },
+  "talentId": {
+    "10741": 7431,
+    "10742": 7432,
+    "10745": 7439
+  },
+  "talentCons": {
+    "e": 3,
+    "q": 5
+  },
+  "materials": {
+    "gem": "哀叙冰玉",
+    "boss": "永续机芯",
+    "specialty": "月莲",
+    "normal": "禁咒绘卷",
+    "talent": "「巧思」的哲学",
+    "weekly": "无心的渊镜"
+  },
+  "eta": 1667358000000
+}

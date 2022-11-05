@@ -3,14 +3,36 @@
 *
 * */
 import lodash from 'lodash'
-import fs from 'fs'
-import { Cfg, Common } from '../components/index.js'
-import { Abyss, Avatars, Character } from '../models/index.js'
+import { Cfg, Common, App, Data } from '../components/index.js'
+import { Abyss, AvatarList, Character, MysApi } from '../models/index.js'
 import HutaoApi from './stat/HutaoApi.js'
 
-export async function consStat (e) {
+let app = App.init({
+  id: 'stat',
+  name: '深渊统计'
+})
+
+app.reg('cons-stat', consStat, {
+  rule: /^#(喵喵)?角色(持有|持有率|命座|命之座|.命)(分布|统计|持有|持有率)?$/,
+  desc: '【#统计】 #角色持有率 #角色5命统计'
+})
+app.reg('abyss-pct', abyssPct, {
+  rule: /^#(喵喵)?深渊(第?.{1,2}层)?(角色)?(出场|使用)(率|统计)*$/,
+  desc: '【#统计】 #深渊出场率 #深渊12层出场率'
+})
+app.reg('abyss-team', abyssTeam, {
+  rule: /#深渊(组队|配队)/,
+  describe: '【#角色】 #深渊组队'
+})
+app.reg('upload-data', uploadData, {
+  rule: /^#*(喵喵|上传|本期)*(深渊|深境|深境螺旋)[ |0-9]*(数据)?$/,
+  desc: '上传深渊'
+})
+export default app
+
+async function consStat (e) {
   if (Cfg.isDisable(e, 'wiki.stat')) {
-    return
+    return false
   }
 
   let consData = await HutaoApi.getCons()
@@ -53,6 +75,7 @@ export async function consStat (e) {
 
     let data = {
       name: char.name || ds.avatar,
+      abbr: char.abbr,
       star: char.star || 3,
       side: char.side,
       hold: ds.holdingRate
@@ -80,7 +103,6 @@ export async function consStat (e) {
   // 渲染图像
   return await Common.render('stat/character', {
     chars: ret,
-    abbr: Character.getAbbr(),
     mode,
     conNum,
     totalCount: overview?.data?.totalPlayerCount || 0,
@@ -91,9 +113,9 @@ export async function consStat (e) {
   }, { e, scale: 1.5 })
 }
 
-export async function abyssPct (e) {
+async function abyssPct (e) {
   if (Cfg.isDisable(e, 'wiki.stat')) {
-    return
+    return false
   }
 
   let mode = /使用/.test(e.msg) ? 'use' : 'pct'
@@ -176,45 +198,9 @@ export async function abyssPct (e) {
   }, { e, scale: 1.5 })
 }
 
-async function getTalentData (e, isUpdate = false) {
-  // 技能查询缓存
-  let cachePath = './data/cache/'
-  if (!fs.existsSync(cachePath)) {
-    fs.mkdirSync(cachePath)
-  }
-  cachePath += 'talentList/'
-  if (!fs.existsSync(cachePath)) {
-    fs.mkdirSync(cachePath)
-  }
-
-  let avatarRet = []
-  let uid = e.selfUser.uid
-
-  let hasCache = await redis.get(`cache:uid-talent-new:${uid}`)
-  if (hasCache) {
-    // 有缓存优先使用缓存
-    let jsonRet = fs.readFileSync(cachePath + `${uid}.json`, 'utf8')
-    avatarRet = JSON.parse(jsonRet)
-    return avatarRet
-  } else if (!isUpdate) {
-    e.noReplyTalentList = true
-    await global.YunzaiApps.mysInfo.talentList(e)
-    return await getTalentData(e, true)
-  }
-  return false
-}
-
-export async function abyssTeam (e) {
-  if (Common.todoV3(e)) {
-    return true
-  }
-  let MysApi = await e.getMysApi({
-    auth: 'cookie', // 所有用户均可查询
-    targetType: 'self', // 被查询用户可以是任意用户
-    cookieType: 'self' // cookie可以是任意可用cookie
-  })
-
-  if (!MysApi || !MysApi.selfUser || !MysApi.selfUser.uid) {
+async function abyssTeam (e) {
+  let mys = await MysApi.init(e, 'cookie')
+  if (!mys || !mys.uid || !mys.isSelfCookie) {
     return true
   }
 
@@ -224,19 +210,24 @@ export async function abyssTeam (e) {
     return true
   }
   abyssData = abyssData.data
-  let talentData = await getTalentData(e)
-  if (!talentData || talentData.length === 0) {
-    e.reply('暂时未能获得角色的练度信息，请使用【#练度统计】命令尝试手工获取...')
-    return true
+  let avatars
+  try {
+    avatars = await AvatarList.getAll(e, mys)
+    // resDetail = await mys.getCharacter()
+    if (!avatars) {
+      e.reply('角色信息获取失败')
+      return true
+    }
+  } catch (err) {
+    // console.log(err);
   }
-
+  let avatarData = await avatars.getTalentData()
   let avatarRet = {}
   let data = {}
-
   let noAvatar = {}
-
-  lodash.forEach(talentData, (avatar) => {
-    avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon_level) * 100 + Math.max(avatar.a_original, avatar.e_original, avatar.q_original) * 1000
+  lodash.forEach(avatarData, (avatar) => {
+    let t = avatar.talent
+    avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon?.level || 1) * 100 + Math.max(t.a?.original, t.e?.original, t.q?.original) * 1000
   })
 
   let getTeamCfg = (str) => {
@@ -255,7 +246,6 @@ export async function abyssTeam (e) {
     if (teamMark === -1) {
       teamMark = 1
     }
-
     return {
       key: teams.join(','),
       mark: teamMark
@@ -272,7 +262,7 @@ export async function abyssTeam (e) {
   }
 
   lodash.forEach(abyssData, (ds) => {
-    let floor = ds.level.floor
+    let floor = ds.floor
     if (!data[floor]) {
       data[floor] = {
         up: {},
@@ -280,9 +270,9 @@ export async function abyssTeam (e) {
         teams: []
       }
     }
-    lodash.forEach(ds.teams, (ds) => {
-      lodash.forEach(['up', 'down'], (halfKey) => {
-        let teamCfg = getTeamCfg(ds.id[`${halfKey}Half`])
+    lodash.forEach(['up', 'down'], (halfKey) => {
+      lodash.forEach(ds[halfKey], (ds) => {
+        let teamCfg = getTeamCfg(ds.item)
         if (teamCfg) {
           if (!data[floor][halfKey][teamCfg.key]) {
             data[floor][halfKey][teamCfg.key] = {
@@ -291,8 +281,8 @@ export async function abyssTeam (e) {
               hasTeam: teamCfg.mark > 1
             }
           }
-          data[floor][halfKey][teamCfg.key].count += ds.value
-          data[floor][halfKey][teamCfg.key].mark += ds.value * teamCfg.mark
+          data[floor][halfKey][teamCfg.key].count += ds.rate
+          data[floor][halfKey][teamCfg.key].mark += ds.rate * teamCfg.mark
         }
       })
     })
@@ -322,22 +312,22 @@ export async function abyssTeam (e) {
     let ds = ret[floor]
     lodash.forEach(floorData.teams, (t1) => {
       if (t1.mark2 <= 0) {
-        return
+        return true
       }
       lodash.forEach(floorData.teams, (t2) => {
         if (t1.mark2 <= 0) {
-          return false
+          return true
         }
         if (t1.half === t2.half || t2.mark2 <= 0) {
-          return
+          return true
         }
 
         let teamKey = t1.half === 'up' ? (t1.team + '+' + t2.team) : (t2.team + '+' + t1.team)
         if (ds[teamKey]) {
-          return
+          return true
         }
         if (hasSame(t1.teamArr, t2.teamArr)) {
-          return
+          return true
         }
 
         ds[teamKey] = {
@@ -371,12 +361,12 @@ export async function abyssTeam (e) {
 
   let avatarMap = {}
 
-  lodash.forEach(talentData, (ds) => {
+  lodash.forEach(avatarData, (ds) => {
     let char = Character.get(ds.id)
     avatarMap[ds.id] = {
       id: ds.id,
       name: ds.name,
-      star: ds.rarity,
+      star: ds.star,
       level: ds.level,
       cons: ds.cons,
       face: char.face
@@ -401,33 +391,40 @@ export async function abyssTeam (e) {
   }, { e, scale: 1.5 })
 }
 
-export async function uploadData (e) {
+async function uploadData (e) {
   let isMatch = /^#(喵喵|上传)深渊(数据)?$/.test(e.original_msg || e.msg || '')
   if (!Cfg.get('wiki.abyss', false) && !isMatch) {
     return false
   }
-  let MysApi = await e.getMysApi({
-    auth: 'all',
-    targetType: 'self',
-    cookieType: 'all',
-    action: '获取深渊信息'
-  })
-  if (!MysApi || !MysApi.isSelfCookie) {
+  let mys = await MysApi.init(e, { auth: 'all' })
+  if (!mys || !mys.uid) {
     if (isMatch) {
       e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
     }
     return false
   }
   let ret = {}
-  let uid = e.selfUser.uid
-  let resDetail, resAbyss, overview
+  let uid = mys.uid
+  let resDetail, resAbyss
   try {
-    resAbyss = await MysApi.getSpiralAbyss(1)
-    // overview = await HutaoApi.getOverview()
-    if (resAbyss.floors.length > 0 && !await Avatars.hasTalentCache(uid)) {
+    resAbyss = await mys.getSpiralAbyss(1)
+    let lvs = Data.getVal(resAbyss, 'floors.0.levels.0')
+    // 检查是否查询到了深渊信息
+    if (!lvs || !lvs.battles) {
+      e.reply('暂未获得本期深渊挑战数据...')
+      return true
+    } else if (lvs && lvs.battles && lvs.battles.length === 0) {
+      if (!mys.isSelfCookie) {
+        if (isMatch) {
+          e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
+        }
+        return false
+      }
+    }
+    if (resAbyss.floors.length > 0 && !await AvatarList.hasTalentCache(uid)) {
       e.reply('正在获取用户信息，请稍候...')
     }
-    resDetail = await MysApi.getCharacter()
+    resDetail = await mys.getCharacter()
     if (!resDetail || !resAbyss || !resDetail.avatars || resDetail.avatars.length <= 3) {
       e.reply('角色信息获取失败')
       return true
@@ -451,16 +448,16 @@ export async function uploadData (e) {
       }
       let abyss = new Abyss(resAbyss)
       let abyssData = abyss.getData()
-      let avatars = new Avatars(uid, resDetail.avatars)
+      let avatars = new AvatarList(uid, resDetail.avatars)
       let avatarIds = abyss.getAvatars()
       let overview = ret.info || (await HutaoApi.getOverview())?.data || {}
       let addMsg = function (title, ds) {
         let tmp = {}
         if (!ds) {
-          return
+          return false
         }
         if (!ds.avatarId && !ds.id) {
-          return
+          return false
         }
         let char = Character.get(ds.avatarId || ds.id)
         tmp.title = title
@@ -495,7 +492,7 @@ export async function uploadData (e) {
       }
       addMsg('最强一击', ret.data?.damage || abyssData?.stat?.dmg || {})
       addMsg('最高承伤', ret.data?.takeDamage || abyssData?.stat.takeDmg || {})
-      let avatarData = await avatars.getTalentData(avatarIds, MysApi)
+      let avatarData = await avatars.getTalentData(avatarIds, mys)
       return await Common.render('stat/abyss-summary', {
         abyss: abyssData,
         avatars: avatarData,

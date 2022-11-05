@@ -2,20 +2,20 @@ import lodash from 'lodash'
 import { Data } from '../../components/index.js'
 
 const talentMeta = {
-  自由: { week: 1, city: '蒙德' },
-  繁荣: { week: 1, city: '璃月' },
-  浮世: { week: 1, city: '稻妻' },
-  诤言: { week: 1, city: '须弥' },
+  自由: { week: 1, city: '蒙德', cid: 1 },
+  繁荣: { week: 1, city: '璃月', cid: 2 },
+  浮世: { week: 1, city: '稻妻', cid: 3 },
+  诤言: { week: 1, city: '须弥', cid: 4 },
 
-  抗争: { week: 2, city: '蒙德' },
-  勤劳: { week: 2, city: '璃月' },
-  风雅: { week: 2, city: '稻妻' },
-  巧思: { week: 2, city: '须弥' },
+  抗争: { week: 2, city: '蒙德', cid: 1 },
+  勤劳: { week: 2, city: '璃月', cid: 2 },
+  风雅: { week: 2, city: '稻妻', cid: 3 },
+  巧思: { week: 2, city: '须弥', cid: 4 },
 
-  诗文: { week: 3, city: '蒙德' },
-  黄金: { week: 3, city: '璃月' },
-  天光: { week: 3, city: '稻妻' },
-  笃行: { week: 3, city: '须弥' },
+  诗文: { week: 3, city: '蒙德', cid: 1 },
+  黄金: { week: 3, city: '璃月', cid: 2 },
+  天光: { week: 3, city: '稻妻', cid: 3 },
+  笃行: { week: 3, city: '须弥', cid: 4 }
 }
 
 const talentReg = new RegExp(`(${lodash.keys(talentMeta).join('|')})`)

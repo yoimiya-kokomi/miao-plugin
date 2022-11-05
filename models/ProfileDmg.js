@@ -2,7 +2,7 @@ import fs from 'fs'
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Character } from './index.js'
-import { attrMap } from './profile-lib/calc-meta.js'
+import { attrMap } from './profile-lib/DmgCalcMeta.js'
 import DmgBuffs from './profile-lib/DmgBuffs.js'
 import DmgAttr from './profile-lib/DmgAttr.js'
 import DmgCalc from './profile-lib/DmgCalc.js'
@@ -39,19 +39,20 @@ export default class ProfileDmg extends Base {
             v = v.split('*')
             let v1 = v[0].replace('%', '').trim()
             valNum += v1 * (v[1] || 1)
-            valArr2.push(v1)
+            valArr2.push(v1 * 1)
           })
           valArr.push(valNum)
         })
 
+        let name = tr.name2 || tr.name
         if (isNaN(valArr[0])) {
-          map[tr.name] = false
+          map[name] = false
         } else if (valArr.length === 1) {
-          map[tr.name] = valArr[0]
+          map[name] = valArr[0]
         } else {
-          map[tr.name] = valArr
+          map[name] = valArr
         }
-        map[tr.name + '2'] = valArr2
+        map[name + '2'] = valArr2
       })
       ret[key] = map
     })

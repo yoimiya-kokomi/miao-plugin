@@ -1,3 +1,6 @@
+/*
+* 角色天赋相关处理
+* */
 import lodash from 'lodash'
 
 const CharTalent = {
@@ -7,7 +10,7 @@ const CharTalent = {
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let ds = talent[key]
       if (!ds) {
-        ds = 1
+        return false
       }
       let value
       let level
@@ -37,21 +40,10 @@ const CharTalent = {
       }
       ret[key] = { level, original }
     })
+    if (lodash.isEmpty(ret)) {
+      return false
+    }
     return ret
-  },
-
-  getConsTalent (talent, cons) {
-    if (!talent) {
-      return { e: 3, q: 5 }
-    }
-    let e = talent.e.name
-    let q = talent.q.name
-    let c3 = cons['3'].desc
-    let c5 = cons['5'].desc
-    return {
-      e: c3.includes(e) ? 3 : 5,
-      q: c5.includes(q) ? 5 : 3
-    }
   }
 }
 export default CharTalent

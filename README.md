@@ -61,11 +61,11 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 
 ### #更新面板
 
-`#更新面板` 依赖于面板查询API，面板服务由 http://enka.shinshin.moe/ 提供
+`#更新面板` 依赖于面板查询API，面板服务由 http://enka.network/ 提供
 
 查询功能经Enka官方授权([issue#63](https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199348789))，感谢Enka提供的面板查询服务
 
-如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在[Enka官网](http://enka.shinshin.moe/) Discord联系
+如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在[Enka官网](http://enka.network/) Discord联系
 
 [issue#63](https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199734496) :
 国内网络如Enka服务访问不稳定，可尝试更换 [@MiniGrayGay](https://github.com/MiniGrayGay) 大佬提供的中转服务 复制`config/profile_default.js`

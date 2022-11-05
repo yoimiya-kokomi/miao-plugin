@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 属性计算
 * */
-import { attrMap, eleMap } from './calc-meta.js'
+import { attrMap, eleMap } from './DmgCalcMeta.js'
 import lodash from 'lodash'
 import DmgMastery from './DmgMastery.js'
 import { Format } from '../../components/index.js'

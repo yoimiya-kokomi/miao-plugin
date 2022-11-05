@@ -2,9 +2,16 @@
 * 伤害计算 - Buff计算
 * */
 import lodash from 'lodash'
+import { Data } from '../../components/index.js'
 
 let weaponBuffs = {}
 let artisBuffs = {}
+
+// lazy load
+setTimeout(async function init () {
+  weaponBuffs = (await Data.importModule('resources/meta/weapon/index.js')).calc || {}
+  artisBuffs = (await Data.importModule('resources/meta/artifact/index.js')).calc || {}
+})
 
 let DmgBuffs = {
   // 圣遗物Buff
@@ -17,6 +24,9 @@ let DmgBuffs = {
     lodash.forEach(artis, (v, k) => {
       if (buffs[k + v]) {
         retBuffs.push(buffs[k + v])
+      }
+      if (v >= 4 && buffs[k + '2']) {
+        retBuffs.push(buffs[k + '2'])
       }
     })
     return retBuffs
@@ -65,12 +75,4 @@ let DmgBuffs = {
     return buffs
   }
 }
-
-async function init () {
-  const _path = `file://${process.cwd()}/plugins/miao-plugin/resources/meta`
-  weaponBuffs = (await import(`${_path}/weapons/calc.js`)).weapons || {}
-  artisBuffs = (await import(`${_path}/reliquaries/calc.js`)).buffs || {}
-}
-
-await init()
 export default DmgBuffs

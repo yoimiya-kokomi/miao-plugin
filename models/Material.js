@@ -1,9 +1,13 @@
+/*
+* 角色培养及天赋材料
+* */
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
 import MaterialMeta from './material-lib/MaterialMeta.js'
 
 let data = Data.readJSON('resources/meta/material/data.json')
+let abbr = await Data.importDefault('resources/meta/material/abbr.js')
 let mMap = {}
 let getItem = (ds) => {
   mMap[ds.name] = {
@@ -40,14 +44,19 @@ class Material extends Base {
     this.meta = meta
     this.type = meta.type
     this.star = meta.star
+    if (this.type === 'talent') {
+      let talentData = MaterialMeta.getTalentData(this.name)
+      lodash.extend(this, talentData)
+    }
     return this._cache()
   }
 
   get abbr () {
+    let name = this.name
     if (this.type === 'talent') {
-      return Data.regRet(/「(.+)」/, this.name, 1) || this.name
+      return Data.regRet(/「(.+)」/, name, 1) || name
     }
-    return this.name
+    return abbr[name] || name
   }
 
   get title () {
@@ -76,13 +85,28 @@ class Material extends Base {
     }
     return ''
   }
-}
 
-Material.get = function (name) {
-  if (mMap[name]) {
-    return new Material(name)
+  static get (name) {
+    if (mMap[name]) {
+      return new Material(name)
+    }
+    return false
   }
-  return false
+
+  static forEach (type = 'all', fn, filter = false) {
+    if (!lodash.isFunction(filter)) {
+      filter = () => true
+    }
+    lodash.forEach(mMap, (ds, name) => {
+      if (type !== 'all' && type !== ds.type) {
+        return true
+      }
+      let obj = new Material(name)
+      if (filter(obj)) {
+        return fn(obj) !== false
+      }
+    })
+  }
 }
 
 export default Material

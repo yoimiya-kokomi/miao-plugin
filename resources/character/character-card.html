@@ -1,71 +1,95 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <link rel="shortcut icon" href="#"/>
-    <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css?v=1.0"/>
-    <link rel="stylesheet" type="text/css" href="{{_res_path}}/character/character-card.css?v=1.0"/>
-  </head>
-  <body class="{{bg.mode}}_mode" {{sys.scale}}>
+{{extend defaultLayout}}
 
-    <div class="container" id="container">
-      {{if level}}
-      <div class="char_name">
-        <div class="uid">ID:{{uid}}</div>
-        <span>{{ds.name}}</span>
-        <span
-            class="cons cons-{{cons}}">{{cons}}命</span>
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/common.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/character-card.css"/>
+{{@widthStyle}}
+{{/block}}
+
+{{block 'main'}}
+<div>
+  <div class="char-title">
+    <div class="char-name">
+      <strong>{{data.sName||data.name}}</strong>
+      {{if data.fetter}} <span class="fetter fetter{{data.fetter}}"></span> {{/if}}
+      {{if typeof(data.cons)!=='undefined'}} <span class="cons cons-{{data.cons}}">{{data.cons}}命</span> {{/if}}
+    </div>
+    <div class="char-lv">
+      <span>Uid:{{uid}}</span>
+      {{if data.level}}<span>Lv.{{data.level}}</span>{{/if}}
+    </div>
+  </div>
+  {{if data.level}}
+  {{set w = data.weapon }}
+
+  <div class="char-detail cont">
+
+    <div class="cont weapon-cont left-line">
+      <div class="img" style="background-image:url({{_res_path}}{{w.img}})"></div>
+      <div class="weapon-info">
+        <strong>{{w.name.length > 4 ? (w.abbr||w.name) : w.name}}</strong>
+        <div class="star star-{{w.star}}"></div>
+        <div>Lv.{{w.leve || w.level}} <span
+            class="affix affix-{{w.affix}}">精{{w.affix}}</span></div>
       </div>
-      <div class="info">
-        <div class="detail"> Lv.{{level}} ❤{{fetter}}
-          <span class="crown crown_{{crownNum}}"></span>
+    </div>
+
+    {{set talent = data.talent }}
+    {{set keys = ['a','e','q'] }}
+    {{ if talent && talent.a && talent.a.level}}
+    <div class="cont talent-cont elem-{{data.elem}}">
+      {{each keys key}}
+      <div class="talent-item">
+        <div class="talent-icon
+               {{talent[key].level > talent[key].original ? `talent-plus`:``}}
+                {{talent[key].original >= 10 ? `talent-crown`:``}}">
+          <div class="talent-icon-img"
+               style="background-image:url({{_res_path}}{{data.imgs[key]}})"></div>
+          <span>{{talent[key].level}}</span>
         </div>
 
-        <div class="weapon">
-          <div class="weapon_cont">
-            <img title="{{weapon.name}}" src="{{_res_path}}/meta/weapons/icon/{{weapon.name}}.png"/>
+      </div>
+      {{/each}}
+    </div>
+    {{else}}
+    <div class="cont notice-cont">
+      请绑定CK以获取天赋信息
+    </div>
+    {{/if}}
 
-            <p class="weapon_lv">Lv.{{weapon.level}}</p>
-            <p class="weapon_affix">{{weapon.affix}}</p>
-          </div>
-          <p class="weapon_name">
-            <span class="for_left">Lv.{{weapon.level}} 精{{weapon.affix}}</span>
-            <span class="for_bottom">精{{weapon.affix}} </span>
-            {{weapon.name}}
-          </p>
-        </div>
-
-        {{ if talent.a }}
-        <div class="talent">
-          {{each talentMap name key}}
-          <div class="talent_{{key}}">{{name}}: <span>{{ talent[key].level}}</span></div>
-          {{/each}}
+    <div class="cont artis-cont right-line">
+      {{set idxs = [1,2,3,4,5] }}
+      <div class="artis-list">
+        {{each idxs idx}}
+        {{if data.artis && data.artis[idx]}}
+        {{set arti = data.artis[idx]}}
+        <div class="item">
+          <div class="item-icon" style="background-image:url({{_res_path}}{{arti.img}})"></div>
+          <span class="lv">{{arti.level}}</span>
         </div>
         {{else}}
-        <div class="talent">
-          <div class="talent_{{key}}">请绑定Cookie以查询天赋信息</div>
-        </div>
+        <div class="item no-item"></div>
         {{/if}}
-        <div class="equiv_info">
-          <div class="text">{{artiEffect[0]|| "-"}}</div>
-          <div class="text">{{artiEffect[1] || "-"}}</div>
-        </div>
+
+        {{/each}}
       </div>
-      {{else}}
-      <div class="char_name">
-        <div class="uid">ID:{{uid}}</div>
-        <span>{{ds.name}}</span>
-      </div>
-      {{if custom}}
-      <div class="no-info">自定义角色暂无角色信息</div>
-      {{else}}
-      <div class="no-info">未能获取到角色信息，请将角色放置在米游社角色展柜中</div>
-      {{/if}}
-      {{/if}}
-      <div class="copyright">{{@sys.copyright}}</div>
-      <div>
-        <img src="{{_res_path}}{{bg.img}}" title="{{name}}" class="bg"></div>
+      <div class="artis-sets">{{data.artisSet?.name||'圣遗物'}}</div>
     </div>
-  </body>
-  <script type="text/javascript"></script>
-</html>
+  </div>
+
+  <div class="copyright data-source">
+    数据源：{{data.dataSourceName}} {{data.updateTime}}
+  </div>
+  {{else}}
+  {{if custom}}
+  <div class="no-info">自定义角色暂无角色信息</div>
+  {{else if !isRelease}}
+  <div class="no-info">角色尚未实装，暂无信息</div>
+  {{else}}
+  <div class="no-info">未能获取到角色信息，请将角色放置在米游社角色展柜中</div>
+  {{/if}}
+  {{/if}}
+  <div><img src="{{_res_path}}{{bg.img}}" title="{{name}}" class="bg"></div>
+</div>
+
+{{/block}}

@@ -1,5 +1,6 @@
-import { usefulAttr } from '../../resources/meta/reliquaries/artis-mark.js'
+import { usefulAttr } from '../../resources/meta/artifact/artis-mark.js'
 import { Data } from '../../components/index.js'
+import lodash from 'lodash'
 import fs from 'fs'
 
 let charCfg = {}
@@ -40,7 +41,7 @@ const CharArtis = {
 
     let def = function (attrWeight) {
       let title = []
-      let weight = attrWeight || usefulAttr[char.name] || { atk: 75, cp: 100, cd: 100 }
+      let weight = lodash.extend({}, attrWeight || usefulAttr[char.name] || { atk: 75, cp: 100, cd: 100 })
       let check = (key, max = 75, maxPlus = 75, isWeapon = true) => {
         let original = weight[key] || 0
         if (original < max) {

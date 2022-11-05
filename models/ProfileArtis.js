@@ -3,10 +3,10 @@
 * */
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Artifact, Character } from './index.js'
+import { Artifact, ArtifactSet, Character } from './index.js'
 import { Format, Data } from '../components/index.js'
 import ArtisMark from './profile-lib/ArtisMark.js'
-import { attrMap, attrNameMap, attrValue } from '../resources/meta/reliquaries/artis-mark.js'
+import { attrMap, attrNameMap, attrValue } from '../resources/meta/artifact/artis-mark.js'
 import CharArtis from './profile-lib/CharArtis.js'
 
 export default class ProfileArtis extends Base {
@@ -33,8 +33,8 @@ export default class ProfileArtis extends Base {
   setArtis (idx = 1, ds = {}) {
     idx = idx.toString().replace('arti', '')
     let ret = {}
-    ret.name = ds.name || Artifact.getArtiBySet(ds.set, idx) || ''
-    ret.set = ds.set || Artifact.getSetByArti(ret.title) || ''
+    ret.name = ds.name || ArtifactSet.getArtiNameBySet(ds.set, idx) || ''
+    ret.set = ds.set || Artifact.getSetNameByArti(ret.name) || ''
     ret.level = ds.level || 1
     ret.main = ArtisMark.formatAttr(ds.main || {})
     ret.attrs = []
@@ -119,13 +119,26 @@ export default class ProfileArtis extends Base {
   isAttr (attr, pos = '3,4,5') {
     let mainAttr = this.mainAttr()
     let check = true
-    Data.eachStr(pos, (p) => {
+    Data.eachStr(pos.toString(), (p) => {
       if (!attr.split(',').includes(mainAttr[p])) {
         check = false
         return false
       }
     })
     return check
+  }
+
+  getArtisData () {
+    let ret = {}
+    this.forEach((ds, idx) => {
+      let arti = Artifact.get(ds.name)
+      ret[idx] = {
+        ...ds,
+        name: arti.name,
+        img: arti.img
+      }
+    })
+    return ret
   }
 
   getSetData () {
@@ -138,18 +151,27 @@ export default class ProfileArtis extends Base {
     })
     let sets = {}
     let names = []
+    let imgs = []
     let abbrs = []
+    let abbrs2 = []
     for (let set in setCount) {
       if (setCount[set] >= 2) {
-        sets[set] = setCount[set] >= 4 ? 4 : 2
-        names.push(Artifact.getArtiBySet(set))
+        let count = setCount[set] >= 4 ? 4 : 2
+        sets[set] = count
+        let artiSet = ArtifactSet.get(set)
+        names.push(artiSet.name)
+        imgs.push(artiSet.img)
+        abbrs.push(artiSet.abbr + count)
+        abbrs2.push(artiSet.name + count)
       }
     }
-    lodash.forEach(sets, (v, k) => {
-      abbrs.push(k + v)
-      abbrs.push(Artifact.getAbbrBySet(k) + v)
-    })
-    this._setData = { sets, names, abbrs }
+    this._setData = {
+      sets,
+      names,
+      imgs,
+      abbrs: [...abbrs, ...abbrs2],
+      name: abbrs.length > 1 ? abbrs.join('+') : abbrs2[0]
+    }
     return this._setData
   }
 
@@ -185,6 +207,7 @@ export default class ProfileArtis extends Base {
       attrs,
       classTitle: title,
       weight: attrWeight,
+      // 待删除
       mark: lodash.mapValues(attrs, (ds) => ds.mark),
       maxMark
     }
@@ -210,9 +233,11 @@ export default class ProfileArtis extends Base {
           markClass: ArtisMark.getMarkClass(mark)
         }
       } else {
+        let artifact = Artifact.get(arti.name)
         artis[idx] = {
-          name: arti.name,
-          set: arti.set,
+          name: artifact.name,
+          set: artifact.setName,
+          img: artifact.img,
           level: arti.level,
           _mark: mark,
           mark: Format.comma(mark, 1),
@@ -224,10 +249,13 @@ export default class ProfileArtis extends Base {
     })
     let sets = {}
     let names = []
+    let imgs = []
     for (let set in setCount) {
       if (setCount[set] >= 2) {
         sets[set] = setCount[set] >= 4 ? 4 : 2
-        names.push(Artifact.getArtiBySet(set))
+        let artiSet = ArtifactSet.get(set)
+        imgs.push(artiSet.img)
+        names.push(artiSet.name)
       }
     }
     this.mark = totalMark
@@ -239,6 +267,7 @@ export default class ProfileArtis extends Base {
       artis,
       sets,
       names,
+      imgs,
       classTitle: charCfg.classTitle
     }
     if (withDetail) {

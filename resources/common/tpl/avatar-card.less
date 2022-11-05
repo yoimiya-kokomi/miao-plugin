@@ -17,7 +17,7 @@
     width: 70px;
     height: 70px;
     border-radius: 7px 7px 15px 0;
-    background-size: 100%;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, .5);
@@ -26,10 +26,6 @@
       background-position: center bottom;
     }
 
-    .cons {
-      border-radius: 0 0 0 5px;
-      padding: 2px 5px;
-    }
 
     .avatar-level {
       position: absolute;
@@ -42,6 +38,15 @@
     }
 
 
+  }
+
+
+  .cons {
+    border-radius: 0 0 0 5px;
+    padding: 2px 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   .avatar-talent {
@@ -66,20 +71,6 @@
       border-radius: 3px;
       box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
 
-      /*
-            &.talent-crown:before {
-              content: "";
-              display: block;
-              width: 10px;
-              height: 10px;
-              position: absolute;
-              left: 0;
-              top: 0;
-              background: url("../character/imgs/crown.png") center no-repeat;
-              background-size: contain;
-            }
-      */
-
       &.talent-plus {
         font-weight: bold;
         color: #0284b9;
@@ -91,13 +82,105 @@
         box-shadow: 0 0 2px 0 #000;
       }
     }
+
+    &.no-talent {
+      font-size: 12px;
+      color: rgba(100, 100, 100, .5);
+      text-align: center;
+      padding: 3px 0 2px;
+
+      span {
+        transform: scale(.75);
+        white-space: nowrap;
+        margin-left: -1px;
+      }
+    }
   }
 
-  .cons {
-    position: absolute;
-    right: 0;
-    top: 0;
+  &.card-mini {
+    .wide, .line {
+      display: none;
+    }
   }
+
+  .avatar-name {
+    padding: 8px 0 0 5px;
+    color: #333;
+
+    strong {
+      font-size: 14px;
+      display: block;
+      height: 23px;
+      line-height: 20px;
+    }
+
+    .cons {
+      position: initial;
+      border-radius: 4px;
+      padding: 1px 3px;
+      vertical-align: baseline;
+    }
+  }
+
+  &.card-wide {
+    .mini {
+      display: none;
+    }
+
+    .card {
+      width: 146px;
+      display: flex;
+    }
+
+    .avatar-face {
+      height: 126px;
+      width: 76px;
+      border-radius: 7px 0 0 7px;
+    }
+
+    .img {
+      background-size: 100% auto;
+      background-position: 0 10%;
+      height: 135px;
+      margin-top: -9px;
+    }
+
+    .avatar-info {
+      width: 70px;
+    }
+
+    .line {
+      display: block;
+      height: 1px;
+      width: 100%;
+      margin: 5px 0;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(100, 100, 100, .5) 20%, rgba(100, 100, 100, .5) 80%, rgba(0, 0, 0, 0));
+      transform: scale(.8)
+    }
+  }
+
+  &.wide2 {
+    .card {
+      width: 298px;
+    }
+
+    .avatar-face {
+      width: 146px;
+
+      .img {
+        margin-top: -50px;
+        height: 176px;
+      }
+    }
+
+    .avatar-info {
+      width: 146px;
+      padding-left: 5px;
+    }
+
+
+  }
+
 }
 
 .avatar-detail {
@@ -135,18 +218,20 @@
   &.artis2 {
     .img {
       position: absolute;
-      width: 24px;
-      height: 24px;
+      transform: scale(.7);
+      width: 92%;
+      height: 92%;
+      margin: 4%;
 
       &:first-child {
-        left: -2px;
-        top: -2px;
+        transform-origin: left top;
       }
 
       &:last-child {
-        right: -2px;
-        bottom: -2px;
+        transform-origin: right bottom;
       }
     }
   }
+
+
 }

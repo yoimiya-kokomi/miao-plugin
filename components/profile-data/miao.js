@@ -5,7 +5,7 @@ import MiaoData from './miao-data.js'
 
 export default new ProfileServ({
   key: 'miao',
-  name: 'MiaoApi',
+  name: '喵喵Api',
   cfgKey: 'miaoApi',
   async response (data, req) {
     if (data.status !== 0) {

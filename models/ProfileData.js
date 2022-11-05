@@ -95,7 +95,8 @@ export default class ProfileData extends Base {
     let cMap = [
       10000022, // 温迪
       10000030, // 钟离
-      10000052 // 雷神
+      10000052, // 雷神
+      10000073 // 纳西妲
     ]
     let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
     if (cMap.includes(this.id)) {
@@ -123,6 +124,18 @@ export default class ProfileData extends Base {
       return moment(new Date(time)).format('MM-DD HH:mm')
     }
     return ''
+  }
+
+  get dataSourceName () {
+    return {
+      enka: 'Enka.Network',
+      miao: '喵喵Api',
+      input: 'Input'
+    }[this.dataSource] || 'Enka.NetWork'
+  }
+
+  get isProfile () {
+    return true
   }
 
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息

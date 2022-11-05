@@ -15,7 +15,7 @@ function getApi (api) {
 
 let HutaoApi = {
   async req (url, param = {}, EX = 3600) {
-    let cacheData = await Data.getCacheJSON(`hutao:${url}`)
+    let cacheData = await Data.getCacheJSON(`miao:hutao:${url}`)
     if (cacheData && cacheData.data && param.method !== 'POST') {
       return cacheData
     }
@@ -27,7 +27,7 @@ let HutaoApi = {
     if (retData && retData.data && param.method !== 'POST') {
       let d = new Date()
       retData.lastUpdate = `${d.toLocaleDateString()} ${d.toTimeString().substr(0, 5)}`
-      await Data.setCacheJSON(`hutao:${url}`, retData, EX)
+      await Data.setCacheJSON(`miao:hutao:${url}`, retData, EX)
     }
     return retData
   },
@@ -46,11 +46,15 @@ let HutaoApi = {
   },
 
   async getAbyssTeam () {
-    return await HutaoApi.req('/Statistics/TeamCombination')
+    return await HutaoApi.req('/Statistics/Team/Combination')
   },
 
   async getOverview () {
     return await HutaoApi.req('/Statistics/Overview')
+  },
+
+  async getUsage () {
+    return await HutaoApi.req('/Statistics/Avatar/AvatarCollocation')
   },
 
   async getWeaponUsage () {
@@ -61,22 +65,12 @@ let HutaoApi = {
     return await HutaoApi.req('/Statistics/AvatarReliquaryUsage')
   },
 
-  async upload (data) {
-    let body = JSON.stringify(data)
-    return await HutaoApi.req('/Record/Upload', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/json; charset=utf-8'
-      },
-      body
-    })
-  },
-
   async uploadData (data = {}) {
     let body = JSON.stringify(data)
     return await HutaoApi.req('/Record/UploadData', {
       method: 'POST',
       headers: {
+        'User-Agent': 'Yunzai-Bot/Miao-Plugin',
         'Content-Type': 'text/json; charset=utf-8'
       },
       body

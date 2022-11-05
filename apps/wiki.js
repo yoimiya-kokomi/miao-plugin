@@ -1,30 +1,37 @@
 import { segment } from 'oicq'
 import lodash from 'lodash'
-import Calendar from './wiki/calendar.js'
-import { Format, Cfg, Common } from '../components/index.js'
+import Calendar from './wiki/Calendar.js'
+import { Format, Cfg, Common, App } from '../components/index.js'
 import { Character } from '../models/index.js'
 import CharWiki from './wiki/CharWiki.js'
 
-// eslint-disable-next-line no-unused-vars
-let action = {
-  wiki: {
-    keyword: '命座|天赋|技能|资料|照片|写真|图片|插画'
-  }
-}
+let wikiReg = /^(?:#|喵喵)?(.*)(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/
 
-export async function wiki (e) {
+let app = App.init({
+  id: 'wiki',
+  name: '角色资料'
+})
+app.reg('wiki', wiki, {
+  rule: '^#喵喵WIKI$',
+  check: checkCharacter,
+  desc: '【#资料】 #神里天赋 #夜兰命座'
+})
+app.reg('calendar', calendar, {
+  rule: /^(#|喵喵)+(日历|日历列表)$/,
+  desc: '【#日历】 活动日历'
+})
+
+export default app
+
+function checkCharacter (e) {
+  let msg = e.original_msg || e.msg
   if (!e.msg) {
     return false
   }
-
-  let reg = /#?(.+)(命座|命之座|天赋|技能|资料|图鉴|照片|写真|图片|图像)$/
-  let msg = e.msg
-  let ret = reg.exec(msg)
-
+  let ret = wikiReg.exec(msg)
   if (!ret || !ret[1] || !ret[2]) {
     return false
   }
-
   let mode = 'talent'
   if (/命/.test(ret[2])) {
     mode = 'cons'
@@ -32,17 +39,28 @@ export async function wiki (e) {
     mode = 'wiki'
   } else if (/图|画|写真|照片/.test(ret[2])) {
     mode = 'pic'
+  } else if (/(材料|养成|成长)/.test(ret[2])) {
+    mode = 'material'
   }
 
   if ((mode === 'pic' && Common.isDisable(e, 'wiki.pic')) ||
-    (mode !== 'pic' && Common.isDisable(e, 'wiki.wiki'))) {
-    return
+      (mode !== 'pic' && Common.isDisable(e, 'wiki.wiki'))) {
+    return false
   }
 
   let char = Character.get(ret[1])
   if (!char) {
     return false
   }
+  e.wikiMode = mode
+  e.msg = '#喵喵WIKI'
+  e.char = char
+  return true
+}
+
+async function wiki (e) {
+  let mode = e.wikiMode
+  let char = e.char
 
   if (mode === 'pic') {
     let img = char.getCardImg(Cfg.get('char.se', false), false)
@@ -65,10 +83,16 @@ export async function wiki (e) {
     lvs.push('Lv' + i)
   }
   if (mode === 'wiki') {
+    if (char.source === 'amber') {
+      e.reply('暂不支持该角色图鉴展示')
+      return true
+    }
     return await renderWiki({ e, char })
+  } else if (mode === 'material') {
+    return await renderCharMaterial({ e, char })
   }
   return await Common.render('wiki/character-talent', {
-    // saveId: `${mode}-${char.id}-${char.elem}`,
+    saveId: `${mode}-${char.id}`,
     ...char.getData(),
     detail: char.getDetail(),
     imgs: char.getImgs(),
@@ -83,18 +107,31 @@ async function renderWiki ({ e, char }) {
   lodash.extend(data, char.getData('weaponType,elemName'))
   // 命座持有
   let holding = await CharWiki.getHolding(char.id)
-  let weapons = await CharWiki.getWeapons(char.id)
-  let artis = await CharWiki.getArtis(char.id)
-
+  // let usage = await CharWiki.getUsage(char.id)
+  let usage = {
+    weapons: await CharWiki.getWeapons(char.id),
+    artis: await CharWiki.getArtis(char.id)
+  }
   return await Common.render('wiki/character-wiki', {
+    data,
+    attr: char.getAttrList(),
+    detail: char.getDetail(),
+    imgs: char.getImgs(),
+    holding,
+    usage,
+    materials: char.getMaterials(),
+    elem: char.elem
+  }, { e, scale: 1.4 })
+}
+
+async function renderCharMaterial ({ e, char }) {
+  let data = char.getData()
+  return await Common.render('wiki/character-material', {
     // saveId: `info-${char.id}`,
     data,
     attr: char.getAttrList(),
     detail: char.getDetail(),
     imgs: char.getImgs(),
-    weapons,
-    holding,
-    artis,
     materials: char.getMaterials(),
     elem: char.elem
   }, { e, scale: 1.4 })
@@ -122,14 +159,14 @@ const getLineData = function (char) {
   })
   let ga = char.growAttr
   ret.push({
-    num: ga.value,
+    num: ga.key === 'mastery' ? Format.comma(ga.value, 1) : ga.value,
     label: `成长·${attrMap[ga.key]}`
   })
 
   return ret
 }
 
-export async function calendar (e) {
+async function calendar (e) {
   let calData = await Calendar.get()
   let mode = 'calendar'
   if (/(日历列表|活动)$/.test(e.msg)) {

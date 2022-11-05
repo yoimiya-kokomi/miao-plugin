@@ -5,13 +5,13 @@
   "title": "浮金的誓愿",
   "star": 4,
   "elem": "hydro",
-  "allegiance": "？？？",
+  "allegiance": "阿如村",
   "weapon": "polearm",
-  "birth": "1-1",
+  "birth": "5-3",
   "astro": "箭盾座",
   "desc": "有着琥珀色左眼的赤王后裔，阿如村的守护者。",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "cncv": "张琦",
+  "jpcv": "柚木凉香",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -28,7 +28,11 @@
     "7232": "e",
     "7239": "q"
   },
-  "talentId": {},
+  "talentId": {
+    "10721": 7231,
+    "10722": 7232,
+    "10725": 7239
+  },
   "talentCons": {
     "e": 5,
     "q": 3

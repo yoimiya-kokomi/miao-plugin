@@ -1,3 +1,6 @@
+/*
+* 角色照片及角色图像资源相关
+* */
 import fs from 'fs'
 import lodash from 'lodash'
 import sizeOf from 'image-size'
@@ -51,7 +54,7 @@ const CharImg = {
   },
 
   // 获取角色的图像资源数据
-  getImgs (name, costumeId = '', travelerElem = '') {
+  getImgs (name, costumeId = '', travelerElem = '', fileType = 'webp') {
     let imgs = {}
     if (!['空', '荧', '旅行者'].includes(name)) {
       travelerElem = ''
@@ -60,14 +63,14 @@ const CharImg = {
     const nPath = `/meta/character/${name}/`
     const tPath = `/meta/character/旅行者/${travelerElem}/`
     let add = (key, path, path2) => {
-      if (path2 && fs.existsSync(`${rPath}/${nPath}/${path2}.webp`)) {
-        imgs[key] = `${nPath}${path2}.webp`
+      if (path2 && fs.existsSync(`${rPath}/${nPath}/${path2}.${fileType}`)) {
+        imgs[key] = `${nPath}${path2}.${fileType}`
       } else {
-        imgs[key] = `${nPath}${path}.webp`
+        imgs[key] = `${nPath}${path}.${fileType}`
       }
     }
     let tAdd = (key, path) => {
-      imgs[key] = `${travelerElem ? tPath : nPath}${path}.webp`
+      imgs[key] = `${travelerElem ? tPath : nPath}${path}.${fileType}`
     }
     add('face', 'imgs/face', `imgs/face${costumeId}`)
     add('side', 'imgs/side', `imgs/side${costumeId}`)

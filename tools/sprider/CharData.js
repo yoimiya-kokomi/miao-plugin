@@ -1,5 +1,6 @@
-import { abbr } from '../../../../config/genshin/roleId.js'
+import abbr from './abbr.js'
 import lodash from 'lodash'
+import fixData from './fixData.js'
 
 let costumes = {
   琴: [200301], // 琴
@@ -7,24 +8,7 @@ let costumes = {
   刻晴: [204201], // 刻晴
   凝光: [202701], // 凝光
   迪卢克: [201601], // 迪卢克
-  菲谢尔: [203101], // 菲谢尔
-  达达利亚: [900001],
-  雷电将军: [900002],
-  钟离: [900003]
-}
-const fixData = {
-  4: {
-    id: 20000000,
-    title: '异界的旅人',
-    cncv: '宴宁/鹿喑',
-    jpcv: '悠木碧/堀江瞬'
-  },
-  5: {
-    title: '异界的旅人'
-  },
-  7: {
-    title: '异界的旅人'
-  }
+  菲谢尔: [203101] // 菲谢尔
 }
 
 const CharData = {
@@ -124,12 +108,14 @@ const CharData = {
     let talent = CharData.getTalents($, cont, name, iconPath)
     let passive = CharData.getPassive($, cont, name, iconPath)
     let cons = CharData.getCons($, cont, iconPath)
+    let attr = CharData.getDetailAttr($)
     return {
       id,
       name,
       talent,
       cons,
-      passive
+      passive,
+      attr
     }
   },
 
@@ -198,6 +184,8 @@ const CharData = {
         let val = lodash.trim($(this).text())
         let v = val.replace(/(生命值上限|最大生命值)/, 'HP')
         v = v.replace(/(防御力)/, '防御')
+        v = v.replace('元素精通', '精通')
+        v = v.replace('攻击力', '攻击')
         values.push(v)
         if (i > 0 && values[0] !== val) {
           isSame = false
@@ -207,12 +195,12 @@ const CharData = {
           values2.push(ur[1] + (ur[3] || ''))
           unit = ur[2]
         } else {
-          ur = /^(每点元素能量|每个猫爪|每朵|每个)(.*)$/.exec(val)
+          ur = /^(每点元素能量|每个猫爪|每朵|每个|[12]名角色)(.*)$/.exec(val)
           if (ur && ur[1] && ur[2]) {
             values2.push(ur[2])
             unit = ur[1]
           } else {
-            ur = /^(每层)(.*)(攻击力)$/.exec(val)
+            ur = /^(每层)(.*)(攻击力?)$/.exec(val)
             if (ur && ur[1] && ur[2] && ur[3]) {
               values2.push(ur[2])
               unit = ur[1] + ' ' + ur[3]

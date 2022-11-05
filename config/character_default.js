@@ -16,7 +16,7 @@ export const customCharacters = {
   10000026: ['魈', '风夜叉'],
 
   // 自定义角色，角色id请以小写英文定义
-  sanbing: ['散兵', '国崩']
+  paimon: ['派蒙', '应急食物']
 }
 
 /*

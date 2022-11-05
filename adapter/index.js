@@ -10,9 +10,9 @@ const importV3 = async function (file, def, key = 'default') {
   return def
 }
 
-let MysInfo = await importV3('/plugins/genshin/model/mys/mysInfo.js')
+let MysInfo = await importV3('/plugins/genshin/model/mys/mysInfo.js', {})
 let plugin = await importV3('lib/plugins/plugin.js', _plugin)
-let puppeteer = _puppeteer
+let puppeteer = await importV3('lib/plugins/plugin.js', _puppeteer)
 export {
   plugin,
   MysInfo,

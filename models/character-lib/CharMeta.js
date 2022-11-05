@@ -1,3 +1,6 @@
+/*
+* 角色资料数据相关
+* */
 import lodash from 'lodash'
 import { Material } from '../index.js'
 import { Format, Data } from '../../components/index.js'
@@ -58,6 +61,56 @@ const mKeys = [{
   star: 5
 }]
 
+let item = (type, lv, num) => {
+  return { type, lv, num }
+}
+let gem = (lv = 1, num = 1) => item('gem', lv, num)
+let sp = (num) => item('specialty', 1, num)
+let normal = (lv, num) => item('normal', lv, num)
+let boss = (num) => item('boss', 1, num)
+let money = (num) => item('money', 1, num)
+const lvKeys = [{
+  lv: '1'
+}, {
+  lv: '20'
+}, {
+  lv: '20+',
+  items: [gem(1, 1), sp(3), normal(1, 3), money(2)]
+}, {
+  lv: '40',
+  total: [gem(1, 1), sp(3), normal(1, 3), money(2)]
+}, {
+  lv: '40+',
+  items: [gem(2, 3), boss(2), sp(10), normal(1, 15), money(4)]
+}, {
+  lv: '50',
+  total: [gem(1, 1), gem(2, 3), boss(2), sp(13), normal(1, 18), money(6)]
+}, {
+  lv: '50+',
+  items: [gem(2, 6), boss(4), sp(20), normal(2, 12), money(6)],
+}, {
+  lv: '60',
+  total: [gem(1, 1), gem(2, 9), boss(6), sp(33), normal(1, 18), normal(2, 12), money(12)]
+}, {
+  lv: '60+',
+  items: [gem(3, 3), boss(8), sp(30), normal(2, 18), money(8)],
+}, {
+  lv: '70',
+  total: [gem(1, 1), gem(2, 9), gem(3, 3), boss(14), sp(63), normal(1, 18), normal(2, 30), money(20)]
+}, {
+  lv: '70+',
+  items: [gem(3, 6), boss(12), sp(45), normal(3, 12), money(10)],
+}, {
+  lv: '80',
+  total: [gem(1, 1), gem(2, 9), gem(3, 9), boss(26), sp(108), normal(1, 18), normal(2, 30), normal(3, 12), money(30)]
+}, {
+  lv: '80+',
+  items: [gem(4, 6), boss(20), sp(60), normal(3, 24), money(12)]
+}, {
+  lv: '90',
+  total: [gem(1, 1), gem(2, 9), gem(3, 9), gem(4, 6), boss(46), sp(168), normal(1, 18), normal(2, 30), normal(3, 36), money(42)]
+}]
+
 const CharMeta = {
   getAttrList (base, grow, elem = '') {
     let ret = []
@@ -73,24 +126,31 @@ const CharMeta = {
     })
     return ret
   },
-  getMaterials (char) {
+  getMaterials (char, type = 'all') {
     let ds = char.meta.materials
     let ret = []
     lodash.forEach(mKeys, (cfg) => {
       let title = ds[cfg.key]
       let mat = Material.get(title)
       if (!mat) {
-        return
+        return true
       }
       if (cfg.check && !cfg.check(char)) {
-        return
+        return true
+      }
+      if (type !== 'all' && mat.type !== type) {
+        return true
       }
       ret.push({
         ...mat.getData('label,star,icon,type'),
         num: cfg.num || mat.getSource() || ''
       })
     })
-    return ret
+    return type === 'all' ? ret : ret[0]
+  },
+
+  getLvStat (char) {
+
   },
 
   getDesc (desc) {

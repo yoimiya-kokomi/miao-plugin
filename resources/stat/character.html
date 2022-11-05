@@ -21,8 +21,7 @@ return (num * 100).toFixed(2);
     <div class="title">#角色{{conNum == -1 ? "命座" : "零一二三四五满"[conNum]+"命"}}统计</div>
     <div class="label">统计所有角色命座，无论角色是否出场</div>
     {{/if}}
-
-    <img class="genshin_logo" src="{{_res_path}}/common/cont/logo.png"/>
+    <div class="genshin-logo"></div>
   </div>
 
   <div class="cont msg-cont">
@@ -73,7 +72,7 @@ return (num * 100).toFixed(2);
               <img src="{{_res_path}}{{char.side}}" onerror="whenError(this)"/>
             </div>
             <div class="avatar_name">
-              {{abbr[char.name] || char.name}}
+              {{char.abbr || char.name}}
             </div>
           </div>
         </div>

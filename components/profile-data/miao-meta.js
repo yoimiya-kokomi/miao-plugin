@@ -11,7 +11,7 @@ export const artiIdx = {
   理之冠: 5
 }
 
-let relis = Data.readJSON('resources/meta/reliquaries/data.json')
+let relis = Data.readJSON('resources/meta/artifact/data.json')
 let setMap = {}
 
 lodash.forEach(relis, (ds) => {

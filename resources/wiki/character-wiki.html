@@ -83,7 +83,7 @@
 {{/if}}
 
 <div class="talent-notice">输入<strong>#{{data.abbr}}天赋、#{{data.abbr}}命座</strong>可查看详细天赋/命座信息</div>
-
+{{set weapons = usage.weapons || [] }}
 {{if weapons.length >0}}
 <div class="cont">
   <div class="cont-title border-less">常用武器</div>
@@ -100,17 +100,17 @@
   </div>
 </div>
 {{/if}}
-
+{{set artis = usage.artis || [] }}
 {{if artis.length >0}}
 <div class="cont">
   <div class="cont-title border-less">常用圣遗物<span>持有率、武器、圣遗物统计来自胡桃API，未经允许请勿使用此数据</span></div>
   <div class="item-list weapon-list artis-list">
     {{each artis arti}}
     <div class="item item-card">
-      <div class="item-icon star5 artis-count{{arti.sets.length}}">
-        {{each arti.sets sn idx}}
+      <div class="item-icon star5 artis-count{{arti.imgs.length}}">
+        {{each arti.imgs img idx}}
         <div class="item-bg artis{{idx+1}}"
-             style="background-image:url({{_res_path}}/meta/reliquaries/icon/{{sn}}.png)"></div>
+             style="background-image:url({{_res_path}}{{img}})"></div>
         {{/each}}
       </div>
       <div class="item-value">{{arti.value}}</div>

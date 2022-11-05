@@ -114,9 +114,7 @@ class Puppeteer {
       this.shoting.push(name)
       const page = await this.browser.newPage()
       page.setCacheEnabled(true)
-      await page.goto(`file://${_path}${lodash.trim(savePath, '.')}`, {
-        waitUntil: 'networkidle0'
-      })
+      await page.goto(`file://${_path}${lodash.trim(savePath, '.')}`, data.pageGotoParams || {})
       let body = await page.$('#container') || await page.$('body')
       await page.waitForSelector('#container')
       let randData = {

@@ -53,7 +53,8 @@ body,
 .abyss-stat .stat-msg {
   position: absolute;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
   padding: 5px 10px;
   width: 100%;
   text-shadow: 0 0 1px #000;
@@ -70,11 +71,11 @@ body,
   color: #d3bc8e;
 }
 .avatar-banner {
-  height: 250px;
+  height: 265px;
   width: 175px;
   background-repeat: no-repeat;
   background-size: 100% auto;
-  background-position: 0 -30px;
+  background-position: 0 10%;
 }
 .abyss-data {
   display: flex;
@@ -219,34 +220,44 @@ body,
   height: 20px;
   margin: 2px;
 }
-.avatar-banner.avatar-枫原万叶 {
-  background-position: 0 40px;
+.avatar-banner.avatar-枫原万叶,
+.img.wide.avatar-枫原万叶 {
+  background-position: 0 -13%;
 }
-.avatar-banner.avatar-九条裟罗 {
+.avatar-banner.avatar-九条裟罗,
+.img.wide.avatar-九条裟罗 {
   background-position: 0 0;
 }
-.avatar-banner.avatar-香菱 {
-  background-position: 0 50px;
+.avatar-banner.avatar-香菱,
+.img.wide.avatar-香菱 {
+  background-position: 0 -16%;
 }
-.avatar-banner.avatar-行秋 {
-  background-position: 0 50px;
+.avatar-banner.avatar-行秋,
+.img.wide.avatar-行秋 {
+  background-position: 0 -16%;
 }
-.avatar-banner.avatar-甘雨 {
-  background-position: 0 25px;
+.avatar-banner.avatar-甘雨,
+.img.wide.avatar-甘雨 {
+  background-position: 0 -8%;
 }
-.avatar-banner.avatar-刻晴 {
-  background-position: 0 15px;
+.avatar-banner.avatar-刻晴,
+.img.wide.avatar-刻晴 {
+  background-position: 0 -5%;
 }
-.avatar-banner.avatar-神里绫华 {
-  background-position: 0 -40px;
+.avatar-banner.avatar-神里绫华,
+.img.wide.avatar-神里绫华 {
+  background-position: 0 13%;
 }
-.avatar-banner.avatar-班尼特 {
-  background-position: 0 -45px;
+.avatar-banner.avatar-班尼特,
+.img.wide.avatar-班尼特 {
+  background-position: 0 15%;
 }
-.avatar-banner.avatar-五郎 {
-  background-position: 0 -45px;
+.avatar-banner.avatar-五郎,
+.img.wide.avatar-五郎 {
+  background-position: 0 15%;
 }
-.avatar-banner.avatar-托马 {
-  background-position: 0 15px;
+.avatar-banner.avatar-托马,
+.img.wide.avatar-托马 {
+  background-position: 0 -5%;
 }
 /*# sourceMappingURL=abyss-summary.css.map */

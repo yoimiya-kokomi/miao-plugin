@@ -1,3 +1,6 @@
+/*
+* 角色别名及角色ID相关
+* */
 import lodash from 'lodash'
 import { Data } from '../../components/index.js'
 import { charPosIdx, elemAlias } from './CharMeta.js'
@@ -16,6 +19,8 @@ let idSort = {}
 let elemMap = {}
 // 元素名
 let elemTitleMap = {}
+
+let gsCfg
 
 async function init () {
   let { sysCfg, diyCfg } = await Data.importCfg('character')
@@ -50,6 +55,7 @@ async function init () {
     })
   })
   abbrMap = sysCfg.abbr
+  gsCfg = await Data.importDefault('plugins/genshin/model/gsCfg.js', 'root')
 }
 
 await init()
@@ -93,6 +99,13 @@ const CharId = {
       // 直接匹配
       if (aliasMap[ds]) {
         return ret(aliasMap[ds])
+      }
+      // 调用V3方法匹配
+      if (gsCfg && gsCfg.getRole) {
+        let roleRet = gsCfg.getRole(ds)
+        if (roleRet.name && aliasMap[roleRet.name]) {
+          return ret(aliasMap[roleRet.name])
+        }
       }
       // 无匹配结果
       return false

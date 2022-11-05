@@ -1,18 +1,13 @@
-import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
-import WeaponMeta from './weapon/WeaponMeta.js'
 
-let data = Data.readJSON('resources/meta/weapons/data.json')
-let wData = {}
-lodash.forEach(data, (ds) => {
-  wData[ds.name] = ds
-})
+let data = {}
+let abbr = {}
 
 class Weapon extends Base {
   constructor (name) {
     super(name)
-    let meta = wData[name]
+    let meta = data[name]
     if (!meta) {
       return false
     }
@@ -28,7 +23,7 @@ class Weapon extends Base {
   }
 
   get abbr () {
-    return WeaponMeta.getAbbr(this.name)
+    return abbr[this.name] || this.name
   }
 
   get title () {
@@ -36,7 +31,7 @@ class Weapon extends Base {
   }
 
   get img () {
-    return `meta/weapons/icon/${this.name}.png`
+    return `meta/weapon/${this.type}/${this.name}/icon.webp`
   }
 
   get icon () {
@@ -45,10 +40,17 @@ class Weapon extends Base {
 }
 
 Weapon.get = function (name) {
-  if (wData[name]) {
+  if (data[name]) {
     return new Weapon(name)
   }
   return false
 }
 
 export default Weapon
+
+// lazy load
+setTimeout(async function init () {
+  let ret = await Data.importModule('resources/meta/weapon/index.js')
+  data = ret.data
+  abbr = ret.abbr
+})

@@ -5,13 +5,13 @@
   "title": "缄秘的裁遣",
   "star": 5,
   "elem": "electro",
-  "allegiance": "？？？",
+  "allegiance": "缄默之殿",
   "weapon": "polearm",
-  "birth": "1-1",
+  "birth": "6-23",
   "astro": "金狼座",
   "desc": "教令院内负责监管学者们的「大风纪官」。工作时比刹诃伐罗学院制作的「大风机关」更有效率。",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "cncv": "李轻扬",
+  "jpcv": "入野自由",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -28,7 +28,11 @@
     "7132": "e",
     "7139": "q"
   },
-  "talentId": {},
+  "talentId": {
+    "10711": 7131,
+    "10712": 7132,
+    "10715": 7139
+  },
   "talentCons": {
     "e": 5,
     "q": 3
