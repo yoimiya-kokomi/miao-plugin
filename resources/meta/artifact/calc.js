@@ -204,8 +204,8 @@ const buffs = {
     title: '如雷4：超载、感电、超导反应造成的伤害提升40%，超激化反应带来的伤害提升提高20%',
     data: {
       overloaded: 40,
-      electro_charged: 40,
-      superconduct: 40,
+      electroCharged: 40,
+      superConduct: 40,
       aggravate: 20
     }
   },

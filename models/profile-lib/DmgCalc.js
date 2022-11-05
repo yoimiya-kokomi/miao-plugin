@@ -29,7 +29,7 @@ let DmgCalc = {
 
     // 倍率独立乘区
     let multiNum = attr.multi / 100
-    
+
     // 增伤区
     let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100)
 
@@ -82,20 +82,17 @@ let DmgCalc = {
     if (cpctNum === 0) {
       cdmgNum = 0
     }
-    
+
+    const isEle = ele !== false && ele !== 'phy'
     // 反应区
-    let eleNum = (ele === false) ? 1 : DmgMastery.getBasePct(ele, attr.element)
-    let eleBase = (ele === false) ? 1 : 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, attr.mastery.base + attr.mastery.plus)
+    let eleNum = isEle ? DmgMastery.getBasePct(ele, attr.element) : 1
+    let eleBase = isEle ? 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, attr.mastery.base + attr.mastery.plus) : 1
     let dmgBase = (mode === 'basic') ? basicNum : atkNum * pctNum * (1 + multiNum)
     let ret = {}
 
-    console.log(atkNum, multiNum, dmgBase)
-
-    switch(ele)
-    {
+    switch (ele) {
       case 'vaporize':
-      case 'melt':
-      {
+      case 'melt': {
         ret = {
           dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum * eleBase * eleNum,
           avg: dmgBase * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleBase * eleNum
@@ -104,23 +101,21 @@ let DmgCalc = {
       }
 
       case 'burning':
-      case 'superconduct':
+      case 'superConduct':
       case 'swirl':
-      case 'electro_charged':
+      case 'electroCharged':
       case 'shatter':
       case 'overloaded':
       case 'bloom':
       case 'burgeon':
-      case 'hyperbloom':
-      {
+      case 'hyperBloom': {
         eleBase *= eleBaseDmg[level]
         ret = { avg: eleBase * eleNum * kNum }
         break
       }
-      
+
       case 'aggravate':
-      case 'spread':
-      {
+      case 'spread': {
         eleBase *= eleBaseDmg[level]
         dmgBase += eleBase * eleNum
         ret = {
@@ -130,12 +125,11 @@ let DmgCalc = {
         break
       }
 
-      default:
-      {
+      default: {
         ret = {
-          dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum ,
+          dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum,
           avg: dmgBase * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
-        } 
+        }
       }
     }
 

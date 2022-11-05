@@ -70,14 +70,14 @@ let DmgAttr = {
     ret.vaporize = 0 // 蒸发
     ret.melt = 0 // 融化
     ret.burning = 0 // 燃烧
-    ret.superconduct = 0 // 超导
+    ret.superConduct = 0 // 超导
     ret.swirl = 0 // 扩散
-    ret.electro_charged = 0 // 感电
+    ret.electroCharged = 0 // 感电
     ret.shatter = 0 // 碎冰
     ret.overloaded = 0 // 超载
     ret.bloom = 0 // 绽放
     ret.burgeon = 0 // 烈绽放
-    ret.hyperbloom = 0 // 超绽放
+    ret.hyperBloom = 0 // 超绽放
     ret.aggravate = 0 // 超激化
     ret.spread = 0 // 蔓激化
     ret.kx = 0 // 敌人抗性降低
@@ -176,7 +176,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'burning', 'superconduct', 'swirl', 'electro_charged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperbloom', 'aggravate' , 'spread' ,'kx',  'fykx'].includes(key)) {
+        if (['vaporize', 'melt', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx'].includes(key)) {
           attr[key] += val * 1 || 0
         }
       })
