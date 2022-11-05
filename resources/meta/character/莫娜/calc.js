@@ -3,7 +3,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
   title: '重击蒸发',
-  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 }, {
   title: 'Q泡影破裂伤害',
   params: { q: true },
@@ -11,7 +11,7 @@ export const details = [{
 }, {
   title: 'Q泡影破裂蒸发',
   params: { q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['泡影破裂伤害'], 'q', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.q['泡影破裂伤害'], 'q', 'vaporize')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,recharge'
@@ -25,7 +25,7 @@ export const buffs = [{
   title: '莫娜1命：命中星异状态下的敌人水元素相关反应效果提升15%',
   cons: 1,
   data: {
-    zf: ({ params }) => params.q ? 15 : 0
+    vaporize: ({ params }) => params.q ? 15 : 0
   }
 }, {
   title: '莫娜4命：攻击处于星异状态下的敌人时暴击率提升15%',
@@ -44,4 +44,4 @@ export const buffs = [{
   data: {
     dmg: ({ talent }) => talent.q['伤害加成']
   }
-}, 'zf']
+}, 'vaporize']

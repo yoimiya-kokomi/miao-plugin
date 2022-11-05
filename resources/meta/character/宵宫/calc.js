@@ -9,7 +9,7 @@ export const details = [{
 }, {
   title: '开E满Buff尾箭蒸发',
   params: { num: 10 },
-  dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
@@ -30,4 +30,4 @@ export const buffs = [{
   data: {
     dmg: ({ params }) => params.num > 1 ? 25 : 0
   }
-}, 'zf']
+}, 'vaporize']

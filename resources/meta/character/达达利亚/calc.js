@@ -9,9 +9,9 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害·近战'], 'q')
 }, {
   title: '开E后Q蒸发',
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害·近战'], 'q', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害·近战'], 'q', 'vaporize')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = ['zf']
+export const buffs = ['vaporize']

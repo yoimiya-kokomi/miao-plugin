@@ -5,7 +5,7 @@ export const details = [{
 }, {
   title: 'E后带火花重击蒸发',
   params: { q: false },
-  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 }, {
   title: '单次轰轰火花伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['轰轰火花伤害'], 'q')
@@ -30,4 +30,4 @@ export const buffs = [{
   data: {
     dmg: ({ params }) => params.q === false ? 0 : 10
   }
-}, 'zf']
+}, 'vaporize']

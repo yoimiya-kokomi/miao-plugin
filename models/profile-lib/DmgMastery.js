@@ -1,12 +1,14 @@
 import { erType } from './DmgCalcMeta.js'
 
 let DmgMastery = {
-  getMultiple (type = 'zf', mastery = 0) {
+  getMultiple (type, mastery = 0) {
     let typeCfg = erType[type]
     if (typeCfg.type === 'pct') {
-      return 2.78 * mastery / (mastery + 1400) * 100
+      return (25 / 9) * mastery / (mastery + 1400)
     } else if (typeCfg.type === 'fusion') {
-      return (1 + mastery * 16) / (mastery + 2000) * 100
+      return 16 * mastery / (mastery + 2000)
+    } else if(typeCfg.type === 'bonus'){
+      return 5 * mastery / (mastery + 1200)
     }
     return 0
   },

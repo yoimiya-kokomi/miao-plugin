@@ -6,7 +6,7 @@ export const details = [{
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['剑雨伤害'], 'q')
 }, {
   title: '雨帘剑蒸发',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['剑雨伤害'], 'q', 'zf')
+  dmg: ({ talent, attr }, dmg) => dmg(talent.q['剑雨伤害'], 'q', 'vaporize')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
@@ -23,4 +23,4 @@ export const buffs = [{
   data: {
     eMulti: 50
   }
-}, 'zf']
+}, 'vaporize']

@@ -1,7 +1,7 @@
 export const details = [{
   title: 'E长按伤害',
   params: { e: true, q: false },
-  dmg: ({ talent }, dmg) => dmg(talent.e['长按伤害'], 'e')
+  dmg: ({ talent }, dmg ) => dmg(talent.e['长按伤害'], 'e')
 }, {
   title: '灭净三业伤害',
   params: { e2: true, q: false },
@@ -9,7 +9,7 @@ export const details = [{
     const td = talent.e['灭净三业伤害2']
     const em = calc(attr.mastery)
     const atk = calc(attr.atk)
-    return basic(td[0] * atk / 100 + td[1] * em / 100, 'e')
+    return basic(td[0] * atk / 100 + td[1] * em / 100, 'e', 'spread')
   }
 }, {
   title: '开Q灭净三业伤害',
@@ -18,7 +18,7 @@ export const details = [{
     const td = talent.e['灭净三业伤害2']
     const em = calc(attr.mastery)
     const atk = calc(attr.atk)
-    return basic(td[0] * atk / 100 + td[1] * em / 100, 'e')
+    return basic(td[0] * atk / 100 + td[1] * em / 100, 'e', 'spread')
   }
 }]
 

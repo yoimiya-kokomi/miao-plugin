@@ -67,13 +67,21 @@ let DmgAttr = {
     ret.element = eleMap[char.elem.toLowerCase()] // 元素类型
     ret.refine = ((weapon.affix || ret.refine || 1) * 1 - 1) || 0 // 武器精炼
     ret.multi = 0 // 倍率独立乘区
-    ret.zf = 0 // 蒸发
-    ret.rh = 0 // 融化
-    ret.gd = 0 // 感电
-    ret.ks = 0 // 扩散
+    ret.vaporize = 0 // 蒸发
+    ret.melt = 0 // 融化
+    ret.burning = 0 // 燃烧
+    ret.superconduct = 0 // 超导
+    ret.swirl = 0 // 扩散
+    ret.electro_charged = 0 // 感电
+    ret.shatter = 0 // 碎冰
+    ret.overloaded = 0 // 超载
+    ret.bloom = 0 // 绽放
+    ret.burgeon = 0 // 烈绽放
+    ret.hyperbloom = 0 // 超绽放
+    ret.aggravate = 0 // 超激化
+    ret.spread = 0 // 蔓激化
     ret.kx = 0 // 敌人抗性降低
     ret.fykx = 0 // 敌人反应抗性降低
-
     return ret
   },
 
@@ -112,13 +120,13 @@ let DmgAttr = {
       ds.currentTalent = talent
 
       let mKey = {
-        zf: '蒸发',
-        rh: '融化',
-        ks: '扩散'
+        vaporize: '蒸发',
+        melt: '融化',
+        swirl: '扩散'
       }
       if (lodash.isString(buff) && mKey[buff]) {
         buff = {
-          zf: {
+          vaporize: {
             title: `元素精通：${mKey[buff]}伤害提高[${buff}]%`,
             mastery: buff
           }
@@ -168,7 +176,7 @@ let DmgAttr = {
           return
         }
 
-        if (['zf', 'rh', 'kx', 'gd', 'ks', 'fykx'].includes(key)) {
+        if (['vaporize', 'melt', 'burning', 'superconduct', 'swirl', 'electro_charged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperbloom', 'aggravate' , 'spread' ,'kx',  'fykx'].includes(key)) {
           attr[key] += val * 1 || 0
         }
       })

@@ -23,12 +23,13 @@ let DmgCalc = {
     let calc = ds.calc
 
     let { atk, dmg, phy, cdmg, cpct } = attr
+
     // 攻击区
     let atkNum = calc(atk)
 
     // 倍率独立乘区
     let multiNum = attr.multi / 100
-
+    
     // 增伤区
     let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100)
 
@@ -77,46 +78,67 @@ let DmgCalc = {
       kNum = 1 - kx / 200
     }
 
-    // 反应区
-    let eleNum = 1
-    let eleBase = 0
-
-    if (ele === 'ks' || ele === 'gd') {
-      eleBase = eleBaseDmg[level] || 0
-    }
-
-    if (ele === 'phy') {
-      // do nothing
-    } else if (ele) {
-      eleNum = DmgMastery.getBasePct(ele, attr.element)
-
-      if (attr[ele]) {
-        eleNum = eleNum * (1 + attr[ele] / 100)
-      }
-    }
-
     cpctNum = Math.max(0, Math.min(1, cpctNum))
     if (cpctNum === 0) {
       cdmgNum = 0
     }
-
+    
+    // 反应区
+    let eleNum = (ele === false) ? 1 : DmgMastery.getBasePct(ele, attr.element)
+    let eleBase = (ele === false) ? 1 : 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, attr.mastery.base + attr.mastery.plus)
+    let dmgBase = (mode === 'basic') ? basicNum : atkNum * pctNum * (1 + multiNum)
     let ret = {}
-    if (mode === 'basic') {
-      ret = {
-        dmg: basicNum * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
-        avg: basicNum * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+
+    console.log(atkNum, multiNum, dmgBase)
+
+    switch(ele)
+    {
+      case 'vaporize':
+      case 'melt':
+      {
+        ret = {
+          dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum * eleBase * eleNum,
+          avg: dmgBase * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleBase * eleNum
+        }
+        break
       }
-    } else if (eleBase) {
-      ret = {
-        avg: eleBase * kNum * eleNum
+
+      case 'burning':
+      case 'superconduct':
+      case 'swirl':
+      case 'electro_charged':
+      case 'shatter':
+      case 'overloaded':
+      case 'bloom':
+      case 'burgeon':
+      case 'hyperbloom':
+      {
+        eleBase *= eleBaseDmg[level]
+        ret = { avg: eleBase * eleNum * kNum }
+        break
       }
-    } else {
-      // 计算最终伤害
-      ret = {
-        dmg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum * eleNum,
-        avg: (atkNum * pctNum * (1 + multiNum) + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * eleNum
+      
+      case 'aggravate':
+      case 'spread':
+      {
+        eleBase *= eleBaseDmg[level]
+        dmgBase += eleBase * eleNum
+        ret = {
+          dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum,
+          avg: dmgBase * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
+        }
+        break
+      }
+
+      default:
+      {
+        ret = {
+          dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum ,
+          avg: dmgBase * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
+        } 
       }
     }
+
     if (showDetail) {
       console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
     }
@@ -152,8 +174,8 @@ let DmgCalc = {
       }
     }
     // 扩散方法
-    dmgFn.ks = function () {
-      return dmgFn(0, 'fy', 'ks')
+    dmgFn.swirl = function () {
+      return dmgFn(0, 'fy', 'swirl')
     }
 
     return dmgFn

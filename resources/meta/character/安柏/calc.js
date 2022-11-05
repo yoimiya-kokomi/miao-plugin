@@ -7,11 +7,11 @@ export const details = [{
 }, {
   title: '兔兔伯爵蒸发',
   check: ({ cons }) => cons < 2,
-  dmg: ({ talent }, dmg) => dmg(talent.e['爆炸伤害'], 'e', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.e['爆炸伤害'], 'e', 'vaporize')
 }, {
   title: '引爆兔兔伯爵蒸发',
   cons: 2,
-  dmg: ({ talent }, dmg) => dmg(talent.e['爆炸伤害'] * 3, 'e', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.e['爆炸伤害'] * 3, 'e', 'vaporize')
 }, {
   title: 'Q箭雨总伤害',
   params: { q: true },
@@ -33,4 +33,4 @@ export const buffs = [{
 }, {
   title: '安柏2命：瞄准引爆兔兔伯爵伤害提高200%',
   cons: 2
-}, 'zf']
+}, 'vaporize']

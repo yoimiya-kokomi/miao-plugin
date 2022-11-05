@@ -3,7 +3,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
   title: '重击蒸发',
-  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 }, {
   title: 'E每跳治疗',
   dmg: ({ talent, attr, calc }, { heal }) =>
@@ -23,7 +23,7 @@ export const buffs = [{
   data: {
     dmg: 15
   }
-}, 'zf']
+}, 'vaporize']
 
 export const artisSect = function ({ attr, calc }) {
   let test = calc(attr.cpct) * 2 + calc(attr.cdmg) + calc(attr.dmg)

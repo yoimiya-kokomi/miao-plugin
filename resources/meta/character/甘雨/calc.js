@@ -6,7 +6,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['霜华矢·霜华绽发伤害'] + talent.a['霜华矢命中伤害'], 'a2')
 }, {
   title: '霜华矢两段+融化',
-  dmg: ({ talent }, dmg) => dmg(talent.a['霜华矢·霜华绽发伤害'] + talent.a['霜华矢命中伤害'], 'a2', 'rh')
+  dmg: ({ talent }, dmg) => dmg(talent.a['霜华矢·霜华绽发伤害'] + talent.a['霜华矢命中伤害'], 'a2', 'melt')
 }, {
   title: 'Q单个冰凌伤害',
   params: {
@@ -36,4 +36,4 @@ export const buffs = [{
   data: {
     dmg: ({ params }) => params.q ? 25 : 0
   }
-}, 'rh']
+}, 'melt']
