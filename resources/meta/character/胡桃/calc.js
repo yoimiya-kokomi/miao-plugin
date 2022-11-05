@@ -3,7 +3,7 @@ export const details = [{
   dmg: ({ talent, attr }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
   title: '半血开E重击蒸发',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'zf')
+  dmg: ({ talent, attr }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 }, {
   title: '半血开E后Q',
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['低血量时技能伤害'], 'q')
@@ -24,4 +24,4 @@ export const buffs = [{
   data: {
     dmg: 33
   }
-}, 'zf']
+}, 'vaporize']

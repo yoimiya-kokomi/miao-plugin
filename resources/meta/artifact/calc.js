@@ -72,10 +72,13 @@ const buffs = {
   },
   炽烈的炎之魔女4: {
     check: ({ element }) => element === '火',
-    title: '魔女4：蒸发、融化伤害提高15%，[buffCount]层额外提高[dmg]%火元素伤害加成',
+    title: '魔女4：蒸发、融化伤害提高15%，[buffCount]层额外提高[dmg]%火元素伤害加成，超载、燃烧、烈绽放反应造成的伤害提升40%',
     data: {
-      zf: 15,
-      rh: 15,
+      vaporize: 15,
+      melt: 15,
+      overloaded: 40,
+      burning: 40,
+      burgeon: 40,
       dmg: ({ params }) => (params.monv || 1) * 7.5,
       buffCount: ({ params }) => params.monv || 1
     }
@@ -110,7 +113,7 @@ const buffs = {
   冰之川与雪之砂4: {
     title: '冰雪4：融化加成提高15%，释放元素爆发后，冰伤提高30%',
     data: {
-      rh: 15,
+      melt: 15,
       dmg: 30
     }
   },
@@ -193,16 +196,17 @@ const buffs = {
     title: '翠绿4：扩散反应造成的伤害提升60%，降低对应元素抗性40%',
     sort: 5,
     data: {
-      ks: 60,
+      swirl: 60,
       fykx: 40
     }
   },
   如雷的盛怒4: {
-    title: '如雷4：超载、感电、超导反应造成的伤害提升40%',
+    title: '如雷4：超载、感电、超导反应造成的伤害提升40%，超激化反应带来的伤害提升提高20%',
     data: {
-      cz: 40,
-      gd: 40,
-      cd: 40
+      overloaded: 40,
+      electro_charged: 40,
+      superconduct: 40,
+      aggravate: 20
     }
   },
   深林的记忆4: {

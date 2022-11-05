@@ -57,9 +57,9 @@ let DmgBuffs = {
     let artisBuffs = DmgBuffs.getArtisBuffs(profile.artis)
     buffs = lodash.concat(buffs, weaponBuffs, artisBuffs)
     let mKey = {
-      zf: '蒸发',
-      rh: '融化',
-      ks: '扩散'
+      vaporize: '蒸发',
+      melt: '融化',
+      swirl: '扩散'
     }
     lodash.forEach(buffs, (buff, idx) => {
       if (lodash.isString(buff) && mKey[buff]) {

@@ -3,7 +3,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['三段瞬水剑伤害'], 'a')
 }, {
   title: 'E后瞬水剑三段蒸发',
-  dmg: ({ talent }, dmg) => dmg(talent.e['三段瞬水剑伤害'], 'a', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.e['三段瞬水剑伤害'], 'a', 'vaporize')
 }, {
   title: '神里流·水囿每段伤害',
   params: { q: 1 },
@@ -31,4 +31,4 @@ export const buffs = [{
   data: {
     aPlus: ({ attr, calc, talent }) => calc(attr.hp) * talent.e['浪闪伤害值提高'] / 100 * 5
   }
-}, 'zf']
+}, 'vaporize']

@@ -5,7 +5,7 @@ export const details = [{
 }, {
   title: '开Q满丹火印重击蒸发',
   params: { dhy: 15 },
-  dmg: ({ talent, cons }, dmg) => dmg(talent.a['重击伤害2'][cons * 1 === 6 ? 4 : 3], 'a2', 'zf')
+  dmg: ({ talent, cons }, dmg) => dmg(talent.a['重击伤害2'][cons * 1 === 6 ? 4 : 3], 'a2', 'vaporize')
 }, {
   title: 'E伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
@@ -28,4 +28,4 @@ export const buffs = [{
   data: {
     a2Dmg: ({ talent }) => talent.q['重击伤害额外加成']
   }
-}, 'zf']
+}, 'vaporize']

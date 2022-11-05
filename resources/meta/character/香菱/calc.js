@@ -3,13 +3,13 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['喷火伤害'], 'e')
 }, {
   title: '锅巴单口蒸发',
-  dmg: ({ talent }, dmg) => dmg(talent.e['喷火伤害'], 'e', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.e['喷火伤害'], 'e', 'vaporize')
 }, {
   title: '旋火轮单次伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q')
 }, {
   title: '旋火轮单次蒸发',
-  dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q', 'vaporize')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
@@ -20,4 +20,4 @@ export const buffs = [{
   data: {
     kx: 15
   }
-}, 'zf']
+}, 'vaporize']

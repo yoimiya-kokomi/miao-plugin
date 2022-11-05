@@ -3,7 +3,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e')
 }, {
   title: 'E三段蒸发',
-  dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e', 'zf')
+  dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e', 'vaporize')
 }, {
   title: 'Q爆发伤害',
   params: { q: true },
@@ -40,4 +40,4 @@ export const buffs = [{
   data: {
     eDmg: 40
   }
-}, 'zf']
+}, 'vaporize']

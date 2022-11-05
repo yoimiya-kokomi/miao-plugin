@@ -8,7 +8,7 @@ export const details = [{
 
 }, {
   title: 'E络命丝蒸发',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'zf')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
 
 }, {
   title: 'Q协同单段伤害',
@@ -36,4 +36,4 @@ export const buffs = [{
   data: {
     dmg: ({ params }) => params.q ? 50 : 0
   }
-}, 'zf']
+}, 'vaporize']
