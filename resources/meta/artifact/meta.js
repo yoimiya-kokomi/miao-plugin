@@ -39,8 +39,8 @@ export const abbr = {
 }
 
 export const attrValue = {
-  cp: 3.89,
-  cd: 7.77,
+  cpct: 3.89,
+  cdmg: 7.77,
   mastery: 23.31,
   atk: 5.83,
   hp: 5.83,
@@ -57,8 +57,8 @@ export const attrMap = {
   defPlus: { title: '小防御', format: 'comma', type: 'plus', base: 'def', value: 18.52 },
   hp: { title: '大生命', format: 'pct', type: 'normal', value: 5.83, text: '5.83%' },
   hpPlus: { title: '小生命', format: 'comma', type: 'plus', base: 'hp', value: 239.0 },
-  cp: { title: '暴击率', format: 'pct', type: 'normal', value: 3.89, text: '3.89%' },
-  cd: { title: '暴击伤害', format: 'pct', type: 'normal', value: 7.77, text: '7.77%' },
+  cpct: { title: '暴击率', format: 'pct', type: 'normal', value: 3.89, text: '3.89%' },
+  cdmg: { title: '暴击伤害', format: 'pct', type: 'normal', value: 7.77, text: '7.77%' },
   mastery: { title: '元素精通', format: 'comma', type: 'normal', value: 23.31, text: '23.31' },
   recharge: { title: '充能效率', format: 'pct', type: 'normal', value: 6.48, text: '6.48%' },
   dmg: { title: '元素伤害', format: 'pct', type: 'normal', value: 5.825, text: '5.83%' },
@@ -76,7 +76,7 @@ export const attrNameMap = anMap
 export const mainAttr = {
   3: 'atk,def,hp,mastery,recharge'.split(','),
   4: 'atk,def,hp,mastery,dmg,phy'.split(','),
-  5: 'atk,def,hp,mastery,heal,cp,cd'.split(',')
+  5: 'atk,def,hp,mastery,heal,cpct,cdmg'.split(',')
 }
 
-export const subAttr = 'atk,def,hp,mastery,recharge,cp,cd'.split(',')
+export const subAttr = 'atk,def,hp,mastery,recharge,cpct,cdmg'.split(',')

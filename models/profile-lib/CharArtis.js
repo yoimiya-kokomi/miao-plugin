@@ -41,7 +41,7 @@ const CharArtis = {
 
     let def = function (attrWeight) {
       let title = []
-      let weight = lodash.extend({}, attrWeight || usefulAttr[char.name] || { atk: 75, cp: 100, cd: 100 })
+      let weight = lodash.extend({}, attrWeight || usefulAttr[char.name] || { atk: 75, cpct: 100, cdmg: 100 })
       let check = (key, max = 75, maxPlus = 75, isWeapon = true) => {
         let original = weight[key] || 0
         if (original < max) {
@@ -97,7 +97,7 @@ const CharArtis = {
     }
 
     let charRule = charCfg[char.name]?.default || function ({ def }) {
-      return def(usefulAttr[char.name] || { atk: 75, cp: 100, cd: 100 })
+      return def(usefulAttr[char.name] || { atk: 75, cpct: 100, cdmg: 100 })
     }
 
     if (charRule) {

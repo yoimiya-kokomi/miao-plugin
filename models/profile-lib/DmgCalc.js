@@ -127,14 +127,16 @@ let DmgCalc = {
 
       default: {
         ret = {
-          dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum,
-          avg: dmgBase * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
+          dmg: (dmgBase + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum,
+          avg: (dmgBase + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
         }
       }
     }
 
     if (showDetail) {
-      console.log(attr, { atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum }, ret)
+      console.log('Attr', attr)
+      console.log({ mode, dmgBase, atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum })
+      console.log('Ret', ret)
     }
 
     return ret
