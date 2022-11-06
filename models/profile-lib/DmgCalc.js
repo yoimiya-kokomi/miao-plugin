@@ -154,7 +154,7 @@ let DmgCalc = {
     }
     
     dmgFn.reaction = function(ele = false){
-      return dmgFn(0, 'e', ele, 0, 'basic')
+      return dmgFn(0, 'fy', ele, 0, 'basic')
     }
 
     // 计算治疗
