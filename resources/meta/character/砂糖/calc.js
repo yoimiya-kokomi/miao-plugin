@@ -13,7 +13,7 @@ export const details = [{
   }
 }, {
   title: '扩散反应伤害',
-  dmg: ({}, { swirl }) => swirl()
+  dmg: ({}, { reaction }) => reaction('swirl')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
@@ -21,8 +21,8 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const buffs = [{
   title: '砂糖被动：触发扩散反应时，队伍提升50精通'
 }, {
-  title: '砂糖被动：释放QE命中敌人时，基于自身精通提升队伍[_mastery]精通',
+  title: '砂糖被动：释放QE命中敌人时，基于自身精通提升队伍[mastery]精通',
   data: {
-    _mastery: ({ attr, calc }) => calc(attr.mastery) * 0.2
+    mastery: ({ attr, calc }) => calc(attr.mastery) * 0.2
   }
-}, 'swirl']
+}]

@@ -19,10 +19,10 @@ export const details = [{
   }
 }, {
   title: '扩散反应伤害',
-  dmg: ({}, { swirl }) => swirl()
+  dmg: ({}, { reaction }) => reaction('swirl')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
+export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
   title: '温迪2命：E降低12%风抗与物抗',
@@ -42,4 +42,4 @@ export const buffs = [{
   data: {
     kx: ({ params }) => params.q ? 20 : 0
   }
-}, 'swirl']
+}]

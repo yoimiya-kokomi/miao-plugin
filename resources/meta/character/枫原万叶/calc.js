@@ -9,7 +9,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['持续伤害'], 'q')
 }, {
   title: '扩散反应伤害',
-  dmg: ({}, { swirl }) => swirl()
+  dmg: ({}, { reaction }) => reaction('swirl')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
@@ -21,7 +21,9 @@ export const buffs = [{
     mastery: 200
   }
 }, {
-  title: '元素精通：扩散伤害提高[swirl]%',
+  title: '元素精通：扩散伤害提高[swirlPlus]%',
   sort: 2,
-  mastery: 'swirl'
+  data:{
+    swirlPlus: ({calc, attr}) => 1600 * calc(attr.mastery) / (calc(attr.mastery) + 2000)
+  }
 }]
