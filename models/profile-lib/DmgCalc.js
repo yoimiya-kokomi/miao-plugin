@@ -129,8 +129,8 @@ let DmgCalc = {
 
       default: {
         ret = {
-          dmg: (dmgBase + plusNum) * dmgNum * (1 + cdmgNum) * defNum * kNum,
-          avg: (dmgBase + plusNum) * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
+          dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum,
+          avg: dmgBase * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
         }
       }
     }
@@ -154,8 +154,8 @@ let DmgCalc = {
     dmgFn.basic = function (basicNum = 0, talent = false, ele = false) {
       return dmgFn(0, talent, ele, basicNum, 'basic')
     }
-    
-    dmgFn.reaction = function(ele = false){
+
+    dmgFn.reaction = function (ele = false) {
       return dmgFn(0, 'fy', ele, 0, 'basic')
     }
 
