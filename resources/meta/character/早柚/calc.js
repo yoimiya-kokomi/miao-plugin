@@ -9,7 +9,7 @@ export const details = [{
   }
 }, {
   title: '扩散反应伤害',
-  dmg: ({}, { swirl }) => swirl()
+  dmg: ({}, { reaction }) => reaction('swirl')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
@@ -21,4 +21,4 @@ export const buffs = [{
     qPct: ({ attr, calc }) => Math.min(calc(attr.mastery) * 0.002, 400),
     _heal: ({ attr, calc }) => Math.min(calc(attr.mastery) * 3, 6000)
   }
-}, 'swirl']
+}]
