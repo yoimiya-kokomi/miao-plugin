@@ -67,12 +67,14 @@ let DmgCalc = {
 
     // 抗性区
     let kx = attr.kx
-    if (talent === 'fy') {
+    if (ele === 'swirl'/* || (ele === 'phy' && (attr.element === '雷' || attr.element === '冰'))*/) {
       kx = attr.fykx
     }
     kx = 10 - (kx || 0)
     let kNum = 0.9
-    if (kx >= 0) {
+    if (kx >= 75) {
+      kNum = 1 / (1 + 3 * kx / 100)
+    } else if (kx >= 0) {
       kNum = (100 - kx) / 100
     } else {
       kNum = 1 - kx / 200
@@ -86,8 +88,8 @@ let DmgCalc = {
     const isEle = ele !== false && ele !== 'phy'
     // 反应区
     let eleNum = isEle ? DmgMastery.getBasePct(ele, attr.element) : 1
-    let eleBase = isEle ? 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, attr.mastery.base + attr.mastery.plus) : 1
-    let dmgBase = (mode === 'basic') ? basicNum : atkNum * pctNum * (1 + multiNum)
+    let eleBase = isEle ? 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, calc(attr.mastery)) : 1
+    let dmgBase = (mode === 'basic') ? basicNum : atkNum * pctNum * (1 + multiNum) + plusNum
     let ret = {}
 
     switch (ele) {
@@ -149,6 +151,10 @@ let DmgCalc = {
 
     dmgFn.basic = function (basicNum = 0, talent = false, ele = false) {
       return dmgFn(0, talent, ele, basicNum, 'basic')
+    }
+    
+    dmgFn.reaction = function(ele = false){
+      return dmgFn(0, 'e', ele, 0, 'basic')
     }
 
     // 计算治疗
