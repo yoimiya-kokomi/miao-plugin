@@ -22,6 +22,7 @@ body, .container {
 
 .char-item {
   margin: 5px 0;
+  position: relative;
 
   .name {
     margin-top: 5px;
@@ -50,6 +51,52 @@ body, .container {
       background: #90e800;
       border-radius: 50%;
       margin-right: 3px;
+    }
+  }
+
+  .group-rank {
+    position: absolute;
+    background: url('./imgs/rank-bg.png') left top no-repeat;
+    background-size: auto 100%;
+    left: 0;
+    top: 0;
+    margin-top: -5px;
+    width: 74px;
+    height: 74px;
+
+    span {
+      position: absolute;
+      font-size: 12px;
+      width: 16px;
+      height: 16px;
+      bottom: 0;
+      left: 50%;
+      margin-left: -7px;
+      text-align: center;
+      transform: scale(.8);
+      display: none;
+      text-shadow: 0 0 2px #b26f08;
+
+    }
+
+    &.rank-1 {
+      background-position: 25% 0;
+    }
+
+    &.rank-2 {
+      background-position: 50% 0;
+    }
+
+    &.rank-3 {
+      background-position: 75% 0;
+    }
+
+    &.rank-4 {
+      background-position: 100% 0;
+
+      span {
+        display: block;
+      }
     }
   }
 }
@@ -92,4 +139,8 @@ body, .container {
     border-radius: 50%;
     margin-right: 3px;
   }
+}
+
+.no-rank .group-rank {
+  display: none;
 }
