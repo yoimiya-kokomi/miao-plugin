@@ -17,9 +17,12 @@ export default class ProfileRank {
   }
 
   async getRank (profile, force = false) {
+    if (!profile.hasData) {
+      return false
+    }
     const key = this.key(profile, 'mark')
     let rank = await redis.zRank(key, this.uid)
-    if (!rank || force) {
+    if (!lodash.isNumber(rank) || force) {
       let mark = profile.getArtisMark(false)
       if (mark) {
         await redis.zAdd(key, { score: mark._mark, value: this.uid })
