@@ -174,7 +174,7 @@ let EnkaData = {
       } else {
         key = ['a', 'e', 'q'][idx++]
       }
-      ret[key] = {
+      ret[key] = ret[key] || {
         original: lv
       }
     })
