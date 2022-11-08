@@ -18,7 +18,7 @@ app.reg('profile-detail', profileDetail, {
 })
 
 app.reg('group-profile', groupMaxProfile, {
-  rule: /^#?(群|群内)?(最强|最高|最高分|最牛|第一)+.+/,
+  rule: /^#?(群|群内)?(排名|排行)?(最强|最高|最高分|最牛|第一)+.+/,
   name: '群内最强'
 })
 

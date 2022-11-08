@@ -27,7 +27,7 @@
       {{if char.groupRank}}
       {{set gr = char.groupRank}}
       {{set rank = gr.rank > 9 ? 10:(gr.rank <=3 ? gr.rank : 4)}}
-      <div class="group-rank rank-{{rank}} rank-type-gr.type">
+      <div class="group-rank rank-{{rank}} rank-type-{{gr.rankType}}">
         <span>{{gr.rank}}</span>
       </div>
       {{/if}}
