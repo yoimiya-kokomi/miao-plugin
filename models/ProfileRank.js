@@ -21,12 +21,12 @@ export default class ProfileRank {
       return false
     }
     const key = this.key(profile, 'mark')
-    let rank = await redis.zRank(key, this.uid)
+    let rank = await redis.zRevRank(key, this.uid)
     if (!lodash.isNumber(rank) || force) {
       let mark = profile.getArtisMark(false)
       if (mark) {
         await redis.zAdd(key, { score: mark._mark, value: this.uid })
-        rank = await redis.zRank(key, this.uid)
+        rank = await redis.zRevRank(key, this.uid)
       }
     }
     if (lodash.isNumber(rank)) {
