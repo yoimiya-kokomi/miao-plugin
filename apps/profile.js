@@ -6,6 +6,7 @@ import { renderProfile } from './character/ProfileDetail.js'
 import { profileStat } from './character/ProfileStat.js'
 import { profileList } from './character/ProfileList.js'
 import { enemyLv } from './character/ProfileUtils.js'
+import { groupMaxProfile } from './character/ProfileRank.js'
 
 let app = App.init({
   id: 'profile',
@@ -14,6 +15,11 @@ let app = App.init({
 app.reg('profile-detail', profileDetail, {
   rule: /^#*(更新|录入)?(.+)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)(\d{9})*(更新)?$/,
   name: '角色面板'
+})
+
+app.reg('group-profile', groupMaxProfile, {
+  rule: /^#?(群|群内)?(最强|最高|最高分|最牛|第一)+.+/,
+  name: '群内最强'
 })
 
 app.reg('artis-list', profileArtisList, {
@@ -66,6 +72,10 @@ export async function profileDetail (e) {
   msg = msg.replace('面版', '面板')
   let dmgRet = /伤害(\d?)$/.exec(name)
   let dmgIdx = 0
+  if (/(最强|最高|最高分|最牛|第一)/.test(msg)) {
+    mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'rank-mark' : 'rank-dmg'
+    name = name.replace(/(最强|最高分|第一|最高|最牛|圣遗物|评分|群)/g, '')
+  }
   if (/(详情|详细|面板|面版)\s*$/.test(msg) && !/更新|录入|输入/.test(msg)) {
     mode = 'profile'
     name = name.replace(/(详情|详细|面板)/, '').trim()
@@ -98,7 +108,7 @@ export async function profileDetail (e) {
     }
     if (e.isPrivate) {
       if ((e.sub_type === 'friend' && Cfg.get('profile.friend.status') === false) ||
-          (e.sub_type === 'group' && Cfg.get('profile.stranger.status') === false)) {
+        (e.sub_type === 'group' && Cfg.get('profile.stranger.status') === false)) {
         return false
       }
     } else if (e.isGroup) {

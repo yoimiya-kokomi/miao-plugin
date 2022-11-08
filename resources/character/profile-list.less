@@ -56,13 +56,17 @@ body, .container {
 
   .group-rank {
     position: absolute;
-    background: url('./imgs/rank-bg.png') left top no-repeat;
+    background: url('./imgs/dmg-rank-bg.png') left top no-repeat;
     background-size: auto 100%;
     left: 0;
     top: 0;
     margin-top: -5px;
     width: 74px;
     height: 74px;
+
+    &.rank-type-mark {
+      background-image: url('./imgs/mark-rank-bg.png');
+    }
 
     span {
       position: absolute;
@@ -141,6 +145,21 @@ body, .container {
   }
 }
 
-.no-rank .group-rank {
+.group-rank-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./imgs/mark-icon.png");
+  background-size: auto 100%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+
+  &.mark-icon {
+    background-position: 100% 0;
+  }
+}
+
+.no-rank .group-rank,
+.no-rank .group-rank-tip {
   display: none;
 }

@@ -47,13 +47,16 @@ body,
 }
 .char-item .group-rank {
   position: absolute;
-  background: url('./imgs/rank-bg.png') left top no-repeat;
+  background: url('./imgs/dmg-rank-bg.png') left top no-repeat;
   background-size: auto 100%;
   left: 0;
   top: 0;
   margin-top: -5px;
   width: 74px;
   height: 74px;
+}
+.char-item .group-rank.rank-type-mark {
+  background-image: url('./imgs/mark-rank-bg.png');
 }
 .char-item .group-rank span {
   position: absolute;
@@ -117,7 +120,20 @@ body,
   border-radius: 50%;
   margin-right: 3px;
 }
-.no-rank .group-rank {
+.group-rank-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./imgs/mark-icon.png");
+  background-size: auto 100%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+.group-rank-icon.mark-icon {
+  background-position: 100% 0;
+}
+.no-rank .group-rank,
+.no-rank .group-rank-tip {
   display: none;
 }
 /*# sourceMappingURL=profile-list.css.map */

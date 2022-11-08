@@ -40,6 +40,7 @@ export const details = [{
   }
 }]
 
+export const defDmgIdx = 4
 export const mainAttr = 'atk,mastery,cpct,cdmg'
 
 export const buffs = [{
@@ -72,6 +73,6 @@ export const buffs = [{
   title: '草神Q：开Q提升灭净三业伤害[eDmg]%',
   data: {
     eDmg: ({ cons, talent, params }) => (params.q === false ? 0 : 1) *
-        (cons >= 1 ? talent.q['火2伤害提升'] : talent.q['火1伤害提升'])
+      (cons >= 1 ? talent.q['火2伤害提升'] : talent.q['火1伤害提升'])
   }
 }]

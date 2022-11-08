@@ -146,6 +146,10 @@ export default class ProfileData extends Base {
     return {}
   }
 
+  get hasDmg () {
+    return this.hasData && !!ProfileDmg.dmgRulePath(this.name)
+  }
+
   // 计算当前profileData的伤害信息
   async calcDmg ({ enemyLv = 91, mode = 'profile', dmgIdx = 0 }) {
     if (!this.dmg) {

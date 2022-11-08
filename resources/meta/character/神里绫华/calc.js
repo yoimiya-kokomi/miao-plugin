@@ -6,10 +6,12 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '神里流·霜灭 单段伤害',
+  dmgKey: 'q',
   dmg: ({ talent }, dmg) => dmg(talent.q['切割伤害'], 'q')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
+export const defDmgKey = 'q'
 
 export const buffs = [{
   passive: 1,

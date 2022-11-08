@@ -20,26 +20,51 @@ export default class ProfileRank {
     if (!profile.hasData) {
       return false
     }
-    const key = this.key(profile, 'mark')
-    let rank = await redis.zRevRank(key, this.uid)
-    if (!lodash.isNumber(rank) || force) {
+    let ret = {}
+    const markKey = this.key(profile, 'mark')
+    let markRank = await redis.zRevRank(markKey, this.uid)
+    if (!lodash.isNumber(markRank) || force) {
       let mark = profile.getArtisMark(false)
       if (mark) {
-        await redis.zAdd(key, { score: mark._mark, value: this.uid })
-        rank = await redis.zRevRank(key, this.uid)
+        await redis.zAdd(markKey, { score: mark._mark, value: this.uid })
+        markRank = await redis.zRevRank(markKey, this.uid)
       }
     }
-    if (lodash.isNumber(rank)) {
-      let count = await redis.zCard(key)
-      let mark = await redis.zScore(key, this.uid)
-      return {
-        rank: rank + 1,
-        count,
-        value: Format.comma(mark, 1),
-        _value: mark,
-        pct: Format.percent(Math.max(0.01, Math.min(0.999, (count - rank) / count)))
+    if (lodash.isNumber(markRank)) {
+      let markCount = await redis.zCard(markKey)
+      ret.markRank = markRank + 1
+      ret.markCount = markCount
+    }
+    if (profile.hasDmg) {
+      const dmgKey = this.key(profile, 'dmg')
+      let dmgRank = await redis.zRevRank(dmgKey, this.uid)
+      if (!lodash.isNumber(dmgRank) || force) {
+        let dmg = await profile.calcDmg({ mode: 'single' })
+        if (dmg) {
+          await redis.zAdd(dmgKey, { score: dmg.avg, value: this.uid })
+          dmgRank = await redis.zRevRank(dmgKey, this.uid)
+        }
+      }
+      if (lodash.isNumber(dmgRank)) {
+        let dmgCount = await redis.zCard(dmgKey)
+        ret.dmgRank = dmgRank + 1
+        ret.dmgCount = dmgCount
       }
     }
-    return false
+    if (lodash.isEmpty(ret)) {
+      return false
+    }
+    if (!ret.dmgRank || ret.markRank < ret.dmgRank) {
+      ret.rank = ret.markRank
+      ret.rankType = 'mark'
+    } else {
+      ret.rank = ret.dmgRank
+      ret.rankType = 'dmg'
+    }
+    return ret
+  }
+
+  static async getGroupMaxUid (groupId, charId, type = 'mark') {
+    return await redis.zRange(`miao:rank:${groupId}:${type}:${charId}`, -1, -1)
   }
 }

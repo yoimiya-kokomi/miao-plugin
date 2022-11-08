@@ -3,6 +3,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e')
 }, {
   title: 'E三段蒸发',
+  dmgKey: 'e',
   dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e', 'vaporize')
 }, {
   title: 'Q爆发伤害',
@@ -15,6 +16,7 @@ export const details = [{
 }]
 
 export const defParams = { monv: 3 }
+export const defDmgKey = 'e'
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
