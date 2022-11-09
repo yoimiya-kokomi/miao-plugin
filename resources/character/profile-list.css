@@ -133,7 +133,7 @@ body,
   background-position: 100% 0;
 }
 .cont-title {
-  padding: 8px 5px;
+  padding: 8px 5px 10px;
   background: rgba(0, 0, 0, 0.4);
 }
 .cont-title span {
@@ -149,7 +149,7 @@ body,
   white-space: nowrap;
 }
 .no-rank .group-rank,
-.no-rank .group-rank-tip {
+.no-rank.group-rank-tip {
   display: none;
 }
 /*# sourceMappingURL=profile-list.css.map */

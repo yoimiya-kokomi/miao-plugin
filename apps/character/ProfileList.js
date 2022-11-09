@@ -25,7 +25,7 @@ export async function profileList (e) {
     newChar = e.newChar
   }
   const cfg = await Data.importCfg('cfg')
-  const groupRank = cfg?.diyCfg?.groupRank || false
+  const groupRank = rank && (cfg?.diyCfg?.groupRank || false)
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
   await Profile.forEach(uid, async function (profile) {
     if (!profile.hasData) {

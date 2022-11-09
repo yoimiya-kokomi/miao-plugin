@@ -13,9 +13,10 @@ export const getProfileServ = ({ uid, serv, diyCfg }) => {
 }
 
 export const miaoApi = {
-  url: 'http://miaoapi.cn/profile',
-  listApi: ({ url, uid, diyCfg }) => {
-    return `${url}/data?uid=${uid}&token=${diyCfg.token}`
+  listApi: ({ uid, diyCfg }) => {
+    let qq = /\d{5,12}/.test(diyCfg.qq) ? diyCfg.qq : 'none'
+    let token = diyCfg.token
+    return `http://miaoapi.cn/profile/data?uid=${uid}&qq=${qq}&token=${token}`
   }
 }
 
