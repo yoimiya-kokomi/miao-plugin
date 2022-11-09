@@ -6,7 +6,7 @@ import { renderProfile } from './character/ProfileDetail.js'
 import { profileStat } from './character/ProfileStat.js'
 import { profileList } from './character/ProfileList.js'
 import { enemyLv } from './character/ProfileUtils.js'
-import { groupMaxProfile } from './character/ProfileRank.js'
+import { groupMaxProfile, resetRank } from './character/ProfileRank.js'
 
 let app = App.init({
   id: 'profile',
@@ -20,6 +20,11 @@ app.reg('profile-detail', profileDetail, {
 app.reg('group-profile', groupMaxProfile, {
   rule: /^#?(群|群内)?(排名|排行)?(最强|最高|最高分|最牛|第一)+.+/,
   name: '群内最强'
+})
+
+app.reg('reset-rank', resetRank, {
+  rule: /^#(重置|重设)(.*)(排名|排行)$/,
+  name: '重置排名'
 })
 
 app.reg('artis-list', profileArtisList, {
