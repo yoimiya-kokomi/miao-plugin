@@ -23,6 +23,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(100, 'e')
 }]
 
+export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
@@ -38,7 +39,7 @@ export const buffs = [{
     dmg: 50
   }
 }, {
-  title: '赛诺被动：末途真眼状态提升E 35%伤害，发射渡荒之类造成100%攻击力伤害',
+  title: '赛诺被动：末途真眼状态提升E 35%伤害，发射渡荒之雷造成100%攻击力伤害',
   data: {
     ePlus: ({ params }) => [3, 4].includes(params.q) ? 35 : 0
   }

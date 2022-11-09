@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { Common, Data } from '../../components/index.js'
-import { AvatarList } from '../../models/index.js'
+import { AvatarList, ProfileRank } from '../../models/index.js'
 
 export async function profileStat (e) {
   // 缓存时间，单位小时
@@ -16,6 +16,10 @@ export async function profileStat (e) {
     return true
   }
   let uid = avatars.uid
+  let rank = false
+  if (e.group_id) {
+    rank = await ProfileRank.create({ group: e.group_id, uid, qq: e.user_id })
+  }
   let talentData = await avatars.getTalentData()
   // 天赋等级背景
   let avatarRet = []
@@ -28,6 +32,9 @@ export async function profileStat (e) {
       if (profile.hasData) {
         let mark = profile.getArtisMark(false)
         avatar.artisMark = Data.getData(mark, 'mark,markClass,names')
+        if (rank) {
+          rank.getRank(profile)
+        }
       }
     }
   })

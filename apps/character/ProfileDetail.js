@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { autoRefresh } from './ProfileCommon.js'
 import { Common, Format, Profile } from '../../components/index.js'
-import { MysApi, Avatar } from '../../models/index.js'
+import { MysApi, Avatar, ProfileRank } from '../../models/index.js'
 
 export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let selfUser = await MysApi.initUser(e)
@@ -88,6 +88,11 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     })
     basic.dmg = Format.comma(basic.dmg)
     basic.avg = Format.comma(basic.avg)
+  }
+  let rank = false
+  if (e.group_id) {
+    rank = await ProfileRank.create({ group: e.group_id, uid, qq: e.user_id })
+    await rank.getRank(profile, true)
   }
   // 渲染图像
   return await Common.render('character/profile-detail', {

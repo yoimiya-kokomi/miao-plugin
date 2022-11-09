@@ -18,6 +18,7 @@ body,
 }
 .char-item {
   margin: 5px 0;
+  position: relative;
 }
 .char-item .name {
   margin-top: 5px;
@@ -43,6 +44,47 @@ body,
   background: #90e800;
   border-radius: 50%;
   margin-right: 3px;
+}
+.char-item .group-rank {
+  position: absolute;
+  background: url('./imgs/dmg-rank-bg.png') left top no-repeat;
+  background-size: auto 100%;
+  left: 0;
+  top: 0;
+  margin-top: -5px;
+  width: 74px;
+  height: 74px;
+}
+.char-item .group-rank.rank-type-mark {
+  background-image: url('./imgs/mark-rank-bg.png');
+}
+.char-item .group-rank span {
+  position: absolute;
+  font-size: 12px;
+  width: 16px;
+  height: 16px;
+  bottom: 0;
+  left: 50%;
+  margin-left: -7px;
+  text-align: center;
+  transform: scale(0.8);
+  display: none;
+  text-shadow: 0 0 2px #b26f08;
+}
+.char-item .group-rank.rank-1 {
+  background-position: 25% 0;
+}
+.char-item .group-rank.rank-2 {
+  background-position: 50% 0;
+}
+.char-item .group-rank.rank-3 {
+  background-position: 75% 0;
+}
+.char-item .group-rank.rank-4 {
+  background-position: 100% 0;
+}
+.char-item .group-rank.rank-4 span {
+  display: block;
 }
 .char-icon {
   width: 64px;
@@ -77,5 +119,21 @@ body,
   background: #90e800;
   border-radius: 50%;
   margin-right: 3px;
+}
+.group-rank-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./imgs/mark-icon.png");
+  background-size: auto 100%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+.group-rank-icon.mark-icon {
+  background-position: 100% 0;
+}
+.no-rank .group-rank,
+.no-rank .group-rank-tip {
+  display: none;
 }
 /*# sourceMappingURL=profile-list.css.map */

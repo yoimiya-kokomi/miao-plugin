@@ -10,6 +10,7 @@ import ProfileReq from './ProfileReq.js'
 import ProfileData from './ProfileData.js'
 import ProfileArtis from './ProfileArtis.js'
 import ProfileDmg from './ProfileDmg.js'
+import ProfileRank from './ProfileRank.js'
 import Material from './Material.js'
 import Weapon from './Weapon.js'
 import User from './User.js'
@@ -28,6 +29,7 @@ export {
   ProfileData,
   ProfileArtis,
   ProfileDmg,
+  ProfileRank,
   Material,
   Weapon,
   User,

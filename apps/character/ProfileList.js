@@ -1,14 +1,17 @@
 import lodash from 'lodash'
 import { autoRefresh, getTargetUid } from './ProfileCommon.js'
-import { Common, Profile } from '../../components/index.js'
+import { ProfileRank } from '../../models/index.js'
+import { Common, Profile, Data } from '../../components/index.js'
 
 export async function profileList (e) {
   let uid = await getTargetUid(e)
   if (!uid) {
     return true
   }
-
-  let profiles = Profile.getAll(uid) || {}
+  let rank = false
+  if (e.group_id) {
+    rank = await ProfileRank.create({ group: e.group_id, uid, qq: e.user_id })
+  }
   let servName = Profile.getServName(uid)
   let hasNew = false
   let newCount = 0
@@ -20,7 +23,9 @@ export async function profileList (e) {
     msg = '获取角色面板数据成功'
     newChar = e.newChar
   }
-  lodash.forEach(profiles || {}, (profile) => {
+  const cfg = await Data.importCfg('cfg')
+  const groupRank = cfg?.diyCfg?.groupRank || false
+  await Profile.forEach(uid, async function (profile) {
     if (!profile.hasData) {
       return true
     }
@@ -34,6 +39,9 @@ export async function profileList (e) {
     if (newChar[char.name]) {
       tmp.isNew = 1
       newCount++
+    }
+    if (rank) {
+      tmp.groupRank = await rank.getRank(profile, !!tmp.isNew)
     }
     chars.push(tmp)
   })
@@ -62,6 +70,7 @@ export async function profileList (e) {
     chars,
     servName,
     hasNew,
-    msg
+    msg,
+    groupRank
   }, { e, scale: 1.6 })
 }

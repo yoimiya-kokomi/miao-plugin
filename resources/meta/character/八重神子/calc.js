@@ -1,9 +1,11 @@
 export const details = [{
   check: ({ cons }) => cons < 2,
+  dmgKey: 'e',
   title: '叄阶杀生樱伤害',
   dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·叁阶'], 'e')
 }, {
   check: ({ cons }) => cons >= 2,
+  dmgKey: 'e',
   title: '肆阶杀生樱伤害',
   dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·肆阶'], 'e')
 }, {
@@ -15,6 +17,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
+export const defDmgKey = 'e'
 
 export const buffs = [{
   title: '被动天赋：基于元素精通提高杀生樱伤害[eDmg]%',

@@ -108,6 +108,16 @@ let Profile = {
     return false
   },
 
+  async forEach (uid, fn) {
+    let profiles = Profile.getAll(uid)
+    for (let id in profiles) {
+      let ret = await fn(profiles[id], id)
+      if (ret === false) {
+        return false
+      }
+    }
+  },
+
   inputProfile (uid, e) {
     let { avatar, inputData } = e
     let char = Character.get(avatar)

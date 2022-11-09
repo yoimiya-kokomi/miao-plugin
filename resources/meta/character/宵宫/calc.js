@@ -12,6 +12,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
 }]
 
+export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{

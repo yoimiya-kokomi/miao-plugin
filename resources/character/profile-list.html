@@ -15,7 +15,7 @@
   <div class="label">{{msg+", "}}更新角色时请不要出场对应角色，以获取准确面板数据</div>
   <div class="label">你可以使用<span>#{{demo}}面板</span>、<span>#{{demo}}伤害</span>、<span>#{{demo}}圣遗物</span>命令来查看面板信息了</div>
 </div>
-<div class="cont">
+<div class="cont {{groupRank?'has-rank':'no-rank'}}">
   <div class="char-list">
     {{each chars char}}
     <div class="char-item {{char.isNew&&hasNew ?'new-char':''}}">
@@ -24,6 +24,13 @@
              style="background-image:url({{_res_path}}{{char.face}})"></span>
       </div>
       <span class="name">{{char.abbr}}<span class="cons cons-{{char.cons}}">{{char.cons}}</span></span>
+      {{if char.groupRank}}
+      {{set gr = char.groupRank}}
+      {{set rank = gr.rank > 9 ? 10:(gr.rank <=3 ? gr.rank : 4)}}
+      <div class="group-rank rank-{{rank}} rank-type-{{gr.rankType}}">
+        <span>{{gr.rank}}</span>
+      </div>
+      {{/if}}
     </div>
     {{/each}}
   </div>
@@ -31,7 +38,10 @@
     {{if hasNew}}
     <span class="new-tip">本次更新角色</span>
     {{else}}
-    <span></span>
+    <span class="group-rank-tip">群内排名：
+      <i class="group-rank-icon dmg-icon"></i>综合练度
+      <i class="group-rank-icon mark-icon"></i>圣遗物评分
+    </span>
     {{/if}}
     <span class="serv">当前更新服务：{{servName}}</span>
   </div>

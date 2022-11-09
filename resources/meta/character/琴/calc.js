@@ -7,6 +7,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['爆发伤害'], 'q')
 }, {
   title: 'Q爆发治疗',
+  dmgKey: 'qHeal',
   dmg: ({ talent, calc, attr }, { heal }) =>
     heal(talent.q['领域发动治疗量2'][0] * calc(attr.atk) / 100 + talent.q['领域发动治疗量2'][1] * 1)
 }, {
@@ -16,6 +17,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
+export const defDmgKey = 'qHeal'
 
 export const buffs = [{
   cons: 1,

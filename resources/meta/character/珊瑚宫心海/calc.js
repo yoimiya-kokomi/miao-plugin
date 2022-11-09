@@ -3,15 +3,19 @@ import lodash from 'lodash'
 export const details = [{
   check: ({ cons }) => cons < 2,
   title: '水母每跳治疗',
+  dmgKey: 'q',
   dmg: ({ attr, talent, calc }, { heal }) => {
-    let t = talent.e['治疗量2']; let hp = calc(attr.hp)
+    let t = talent.e['治疗量2'];
+    let hp = calc(attr.hp)
     return heal(hp * t[0] / 100 + t[1] * 1)
   }
 }, {
   cons: 2,
   title: '半血水母每跳治疗',
+  dmgKey: 'q',
   dmg: ({ attr, talent, calc }, { heal }) => {
-    let t = talent.e['治疗量2']; let hp = calc(attr.hp)
+    let t = talent.e['治疗量2'];
+    let hp = calc(attr.hp)
     return heal(hp * t[0] / 100 + t[1] * 1 + hp * 0.045)
   }
 }, {
@@ -37,7 +41,7 @@ export const details = [{
     return ret
   }
 }]
-
+export const defDmgKey = 'q'
 export const defDmgIdx = 2
 export const mainAttr = 'hp,atk'
 

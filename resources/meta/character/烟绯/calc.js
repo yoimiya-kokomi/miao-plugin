@@ -10,7 +10,8 @@ export const details = [{
   title: 'E伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }]
-
+export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const buffs = [{
   title: '烟绯被动：重击消耗4枚丹火印增加20%火伤',
   cons: 6,

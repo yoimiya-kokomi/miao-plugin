@@ -17,6 +17,15 @@ export default class ProfileDmg extends Base {
     }
   }
 
+  static dmgRulePath (name) {
+    const _path = process.cwd()
+    let path = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc.js`
+    if (fs.existsSync(path)) {
+      return path
+    }
+    return false
+  }
+
   // 获取天赋数据
   talent () {
     let char = this.char
@@ -65,16 +74,16 @@ export default class ProfileDmg extends Base {
   }
 
   async getCalcRule () {
-    const _path = process.cwd()
-    const cfgPath = `${_path}/plugins/miao-plugin/resources/meta/character/${this.char?.name}/calc.js`
+    const cfgPath = ProfileDmg.dmgRulePath(this.char?.name)
     let cfg = {}
-    if (fs.existsSync(cfgPath)) {
+    if (cfgPath) {
       cfg = await import(`file://${cfgPath}`)
       return {
         details: cfg.details || false, // 计算详情
         buffs: cfg.buffs || [], // 角色buff
         defParams: cfg.defParams || {}, // 默认参数，一般为空
         defDmgIdx: cfg.defDmgIdx || -1, // 默认详情index
+        defDmgKey: cfg.defDmgKey || '',
         mainAttr: cfg.mainAttr || 'atk,cpct,cdmg', // 伤害属性
         enemyName: cfg.enemyName || '小宝' // 敌人名称
       }
@@ -92,7 +101,7 @@ export default class ProfileDmg extends Base {
     if (!charCalcData) {
       return false
     }
-    let { buffs, details, defParams, mainAttr, defDmgIdx, enemyName } = charCalcData
+    let { buffs, details, defParams, mainAttr, defDmgIdx, defDmgKey, enemyName } = charCalcData
 
     let talent = this.talent()
 
@@ -115,7 +124,21 @@ export default class ProfileDmg extends Base {
     let dmgRet = []
     let dmgDetail = {}
 
+    if (mode === 'single') {
+      dmgIdx = defDmgIdx > -1 ? defDmgIdx : 0
+    }
+
     lodash.forEach(details, (detail, detailSysIdx) => {
+      if (mode === 'single') {
+        if (defDmgKey) {
+          if (detail.dmgKey !== defDmgKey) {
+            return true
+          }
+        } else if (detailSysIdx !== dmgIdx) {
+          return true
+        }
+      }
+
       if (lodash.isFunction(detail)) {
         let { attr } = DmgAttr.calcAttr({ originalAttr, buffs, meta })
         let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
@@ -194,6 +217,10 @@ export default class ProfileDmg extends Base {
         })
         dmgRet.push(rowData)
       })
+    }
+
+    if (mode === 'single') {
+      return ret[0]
     }
 
     return {

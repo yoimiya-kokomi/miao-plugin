@@ -41,6 +41,7 @@ export const details = [{
   }
 }]
 
+export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg'
 export const enemyName = '魔偶/女士/雷神'
 
