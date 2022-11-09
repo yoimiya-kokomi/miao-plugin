@@ -36,12 +36,12 @@ export async function profileList (e) {
     tmp.level = profile.level || 1
     tmp.cons = profile.cons
     tmp.isNew = 0
-    if (rank) {
-      tmp.groupRank = await rank.getRank(profile)
-    }
     if (newChar[char.name]) {
       tmp.isNew = 1
       newCount++
+    }
+    if (rank) {
+      tmp.groupRank = await rank.getRank(profile, !!tmp.isNew)
     }
     chars.push(tmp)
   })
