@@ -31,7 +31,7 @@ export default class ProfileRank {
     let markRank = await redis.zRevRank(markKey, this.uid)
     if (!lodash.isNumber(markRank) || force) {
       let mark = profile.getArtisMark(false)
-      if (mark) {
+      if (mark && mark._mark) {
         await redis.zAdd(markKey, { score: mark._mark, value: this.uid })
         markRank = await redis.zRevRank(markKey, this.uid)
       }
@@ -46,7 +46,7 @@ export default class ProfileRank {
       let dmgRank = await redis.zRevRank(dmgKey, this.uid)
       if (!lodash.isNumber(dmgRank) || force) {
         let dmg = await profile.calcDmg({ mode: 'single' })
-        if (dmg) {
+        if (dmg && dmg.avg) {
           await redis.zAdd(dmgKey, { score: dmg.avg, value: this.uid })
           dmgRank = await redis.zRevRank(dmgKey, this.uid)
         }
@@ -80,6 +80,18 @@ export default class ProfileRank {
   static async getGroupMaxUid (groupId, charId, type = 'mark') {
     let uids = await redis.zRange(`miao:rank:${groupId}:${type}:${charId}`, -1, -1)
     return uids ? uids[0] : false
+  }
+
+  /**
+   * 获取排行榜
+   * @param groupId
+   * @param charId
+   * @param type
+   * @returns {Promise<ConvertArgumentType<ZMember, string>[]|boolean>}
+   */
+  static async getGroupUidList (groupId, charId, type = 'mark') {
+    let uids = await redis.zRangeWithScores(`miao:rank:${groupId}:${type}:${charId}`, -10, -1)
+    return uids ? uids.reverse() : false
   }
 
   /**
