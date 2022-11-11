@@ -1,0 +1,96 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/rank-profile-list.css"/>
+{{/block}}
+
+
+{{block 'main'}}
+<div class="head-box">
+  <div class="title">{{title}}</div>
+</div>
+<div id="profile-stat">
+  {{each list ds idx}}
+  <div class="cont char-item">
+    <div class="char-idx">
+      <span class="idx-{{idx+1}} mode-{{mode}}">{{idx+1}}</span>
+    </div>
+    <div class="item-icon char-icon star{{ds.star}}">
+      <span class="img" style="background-image:url({{_res_path}}{{ds.imgs?.face}})"></span>
+    </div>
+    <div class="char-info char-name">
+      <div class="info">
+        Uid: {{ds.uid}}
+      </div>
+      <div class="name">
+        <span class="cons cons-{{ds.cons}}">{{ds.cons}}</span>
+        <strong>{{ds.sName}}</strong>
+      </div>
+    </div>
+
+    <div class="char-talent">
+      {{set talent = ds.talent }}
+      {{set keys = ['a','e','q'] }}
+      {{each keys key}}
+      <div class="talent-item">
+        <div class="talent-icon
+               {{talent[key].level > talent[key].original ? `talent-plus`:``}}
+                {{talent[key].original >= 10 ? `talent-crown`:``}}">
+          <div class="talent-icon-img"
+               style="background-image:url({{_res_path}}{{ds.imgs[key]}})"></div>
+          <span>{{talent[key].level}}</span>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <div class=" char-weapon line">
+      {{set w = ds.weapon }}
+      <div class="img" style="background-image:url({{_res_path}}{{w.img}})"></div>
+      <div class="char-info weapon-info">
+        <div class="info">
+          <span class="cons cons-{{w.affix+1}}">精{{w.affix}}</span> Lv.{{w.leve || w.level}}
+        </div>
+        <div class="name">
+          <strong> {{w.name.length > 4 ? (w.abbr||w.name) : w.name}}</strong>
+        </div>
+      </div>
+    </div>
+
+
+    {{set mark = ds.artisMark || false }}
+    {{set aImgs = ds?.artisSet?.imgs || []}}
+    <div class="char-artis class-{{mark?.markClass||'D'}}">
+      <div class="item item-banner avatar-artis artis{{aImgs.length}}">
+        <div class="artis item-icon {{aImgs.length>0?'star5':'no-artis'}}">
+          {{each aImgs img}}
+          <div class="img" style="background-image:url({{_res_path}}{{img}})"></div>
+          {{/each}}
+          {{if aImgs.length === 0}}
+          <span class="img no-artis"></span>
+          {{/if}}
+        </div>
+      </div>
+      <div>
+        <div class="artis-mark">
+          <span class="artis-mark-class class-{{mark?.markClass||'D'}}">{{mark.markClass}}</span>
+          {{mark.mark}}
+        </div>
+        <div class="artis-title">
+          {{ds?.artisSet?.name}}
+        </div>
+      </div>
+    </div>
+
+    <div class="char-dmg line">
+      {{if ds.dmg}}
+      <div class="dmg">{{ds.dmg?.avg}}</div>
+      <div class="dmg-title">{{ds.dmg?.title}}</div>
+      {{else}}
+      {{/if}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+{{/block}}

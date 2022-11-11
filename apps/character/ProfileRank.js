@@ -1,6 +1,6 @@
-import { Character, ProfileRank, ProfileDmg } from '../../models/index.js'
+import { Character, ProfileRank, ProfileDmg, Avatar } from '../../models/index.js'
 import { renderProfile } from './ProfileDetail.js'
-import { Data, Profile, Format, Common } from '../../components/index.js'
+import { Data, Profile, Common, Format } from '../../components/index.js'
 
 export async function groupRank (e) {
   let groupId = e.group_id
@@ -42,7 +42,6 @@ export async function groupRank (e) {
       }
     }
   } else if (type === 'list') {
-    return true
     let uids = await ProfileRank.getGroupUidList(groupId, char.id, mode)
     return renderCharRankList({ e, uids, char, mode })
   }
@@ -80,19 +79,31 @@ async function renderCharRankList ({ e, uids, char, mode }) {
     let uid = ds.value
     let profile = Profile.get(uid, char.id)
     if (profile) {
-      list.push({
+      let mark = profile.getArtisMark(false)
+      let avatar = new Avatar(profile, uid)
+      let tmp = {
         uid,
-        value: Format.comma(ds.score)
-      })
+        ...avatar.getData('id,star,name,sName,level,fetter,cons,weapon,elem,talent,artisSet,imgs'),
+        artisMark: Data.getData(mark, 'mark,markClass')
+      }
+      let dmg = await profile.calcDmg({ mode: 'single' })
+      if (dmg && dmg.avg) {
+        tmp.dmg = {
+          title: dmg.title,
+          avg: Format.comma(dmg.avg, 1)
+        }
+      }
+      list.push(tmp)
     }
   }
+  let title = `#${char.name}${mode === 'mark' ? '圣遗物' : ''}排行`
   // 渲染图像
   return await Common.render('character/rank-profile-list', {
     save_id: char.id,
-    char: char.getData('id,face,name,abbr,element,star'),
     list,
+    title,
     elem: char.elem,
     bodyClass: `char-${char.name}`,
     mode
-  }, { e, scale: 1.6 })
+  }, { e, scale: 1.4 })
 }

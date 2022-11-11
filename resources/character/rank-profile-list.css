@@ -1,0 +1,287 @@
+.font-YS {
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.font-NZBZ {
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+body {
+  width: 820px;
+}
+.container {
+  width: 820px;
+  padding: 0;
+  background-size: cover;
+  overflow: hidden;
+}
+.char-item {
+  height: 60px;
+  background-size: auto 150%;
+  display: flex;
+  padding: 5px;
+  overflow: visible;
+}
+.char-item .line {
+  margin-left: 10px;
+  position: relative;
+}
+.char-item .line:before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  left: -5px;
+  top: 5px;
+}
+.char-idx span {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 13px 10px;
+  background: url('./imgs/mark-icon.png');
+  background-size: auto 100%;
+  text-align: center;
+  font-size: 12px;
+  line-height: 24px;
+}
+.char-idx span.idx-1 {
+  width: 48px;
+  margin: 13px 0;
+  background-image: url('./imgs/mark-icon2.png');
+  color: rgba(0, 0, 0, 0);
+}
+.char-idx span.mode-mark {
+  background-position: 100% 0;
+}
+.char-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  box-shadow: 1px 1px 3px 0 #000;
+  overflow: visible;
+  margin: 0 5px 0 6px;
+}
+.char-icon .img {
+  background-size: auto 100%;
+  background-position: top center;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.char-info .name {
+  height: 24px;
+  line-height: 24px;
+  font-size: 18px;
+  color: #d3bc8e;
+}
+.char-info .cons {
+  height: 16px;
+  line-height: 16px;
+  font-size: 12px;
+  width: 16px;
+  text-align: center;
+  padding: 0;
+}
+.char-info .info {
+  margin-top: 4px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+.char-name {
+  width: 100px;
+}
+.char-weapon {
+  width: 130px;
+  display: flex;
+}
+.char-weapon .img {
+  margin: -3px 0;
+  width: 56px;
+  height: 56px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.char-weapon .weapon-info {
+  padding-left: 5px;
+}
+.char-weapon .cons {
+  width: 28px;
+  font-size: 12px;
+  transform: scale(0.9);
+  transform-origin: 0 50%;
+}
+.char-weapon .name {
+  height: 20px;
+  line-height: 20px;
+  margin-bottom: 3px;
+}
+.char-weapon .name strong {
+  color: #fff;
+  font-size: 13px;
+  font-weight: normal;
+}
+.char-talent {
+  display: flex;
+  padding: 0 5px;
+  margin: -5px 0;
+}
+.char-talent .talent-item,
+.char-talent .talent-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 -3px;
+}
+.char-talent .talent-item {
+  position: relative;
+}
+.char-talent .talent-icon {
+  width: 56px;
+  height: 56px;
+  position: relative;
+  margin: 7px -5px 13x;
+  border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 90;
+}
+.char-talent .talent-icon img,
+.char-talent .talent-icon .talent-icon-img {
+  width: 46%;
+  height: 46%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -22% 0 0 -23%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.char-talent .talent-icon span {
+  background: #fff;
+  width: 22px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  margin-left: -11px;
+  color: #000;
+  box-shadow: 0 0 5px 0 #000;
+}
+.char-talent .talent-icon.talent-plus span {
+  background: #2e353e;
+  color: #ffdfa0;
+  font-weight: bold;
+  box-shadow: 0 0 1px 0 #d3bc8e, 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+}
+.char-talent .talent-icon.talent-crown:after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url("../character/imgs/crown.png") no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  margin-left: -9px;
+}
+.char-artis {
+  display: flex;
+  width: 130px;
+}
+.char-artis {
+  margin-left: 5px;
+  text-align: left;
+  position: relative;
+  z-index: 10;
+}
+.char-artis.class-ACE .artis-mark-class,
+.char-artis.class-ACE² .artis-mark-class {
+  background: #ff5722;
+}
+.char-artis.class-SSS .artis-mark-class,
+.char-artis.class-SS .artis-mark-class {
+  background: #531ba9cf;
+}
+.char-artis.class-S .artis-mark-class,
+.char-artis.class-A .artis-mark-class {
+  background: #3955b7;
+}
+.char-artis.class-B .artis-mark-class,
+.char-artis.class-C .artis-mark-class,
+.char-artis.class-D .artis-mark-class {
+  background: #aaa;
+}
+.char-artis .artis-mark-class {
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center;
+  background: rgba(51, 51, 51, 0.68);
+  height: 20px;
+  line-height: 20px;
+  box-shadow: 0 0 1px 0 #ffe4b4;
+  position: relative;
+  z-index: 9;
+  color: #fff;
+  width: 28px;
+  font-size: 12px;
+  transform: scale(0.9);
+  transform-origin: 0 50%;
+  margin-right: -2px;
+}
+.char-artis .artis {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin: 7px 5px 7px 0;
+  box-shadow: 0 0 1px 0 #ffe4b4;
+  display: inline-block;
+}
+.char-artis .artis.no-artis {
+  background: #bbb;
+}
+.char-artis .no-artis {
+  background: url(../common/item/artifact-icon.webp) center no-repeat;
+  background-size: auto 88%;
+}
+.char-artis.artis2 .img {
+  position: absolute;
+  transform: scale(0.7);
+  width: 92%;
+  height: 92%;
+  margin: 4%;
+}
+.char-artis.artis2 .img:first-child {
+  transform-origin: left top;
+}
+.char-artis.artis2 .img:last-child {
+  transform-origin: right bottom;
+}
+.char-artis .artis-title {
+  font-size: 12px;
+}
+.char-artis .artis-mark {
+  height: 23px;
+  margin-top: 5px;
+}
+.char-dmg {
+  text-align: right;
+  width: 120px;
+}
+.char-dmg .dmg {
+  height: 25px;
+  margin-top: 5px;
+  font-size: 18px;
+}
+.char-dmg .dmg-title {
+  font-size: 12px;
+}
+/*# sourceMappingURL=rank-profile-list.css.map */

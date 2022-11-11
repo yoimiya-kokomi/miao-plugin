@@ -26,12 +26,12 @@ app.reg('reset-rank', resetRank, {
   rule: /^#(重置|重设)(.*)(排名|排行)$/,
   name: '重置排名'
 })
-/*
+
 app.reg('rank-list', groupRank, {
   rule: /^#(群|群内)?.+(排名|排行|列表)(列表|榜)?$/,
   name: '面板排名榜'
 })
-*/
+
 app.reg('artis-list', profileArtisList, {
   rule: /^#圣遗物列表\s*(\d{9})?$/,
   name: '面板圣遗物列表'
