@@ -1,9 +1,9 @@
-/*
+/**
 * 如需配置【复制】此文件，改名为profile.js
 * 暂未做热更新，修改完毕请重启yunzai
 * */
 
-/*
+/**
 * Enka面板服务API配置
 *
 * 【Enka官网】：https://enka.network/
@@ -27,28 +27,23 @@ export const enkaApi = {
   proxyAgent: '' // 请求的proxy配置，如无需proxy则留空
 }
 
-/*
-* 单个用户请求面板的间隔时间，单位秒
+/**
+* 单个用户请求面板的间隔时间，单位分钟
 * 不同用户的计时独立
 *
-* empty: 获取结果为空，默认5分钟
-* success: 获取成功，默认3分钟
-* fail: 获取失败，默认1分钟
-*
-* 部分请求会同时返回服务侧缓存时间，若间隔小于缓存时间，则会以缓存时间为准
+* 部分服务会同时返回服务侧更新冷却时间，若服务侧查询冷却大于更新间隔
+* 会以服务侧查询冷却为准（在服务侧冷却时间内，即使请求也不会返回更新数据）
 * */
-export const reqInterval = {
-  empty: 60 * 5,
-  success: 60 * 3,
-  fail: 60
-}
+export const requestInterval = 5
 
-/*
-* 喵喵Api私有的面板更新服务
+/**
+* 喵喵Api 私有的面板更新服务
 * 供Yunzai开发者及有投喂的老板们小范围使用
-* 需要具备Token才会启用~
+*
+* 喵喵API承载能力有限，Enka可用的情况下建议使用Enka，token有有效期限制，请勿强行投喂
+* token请勿外传，一个token仅供一个bot使用，多bot复用的话可能导致token失效
 * */
 export const miaoApi = {
-  url: 'http://miaoapi.cn/profile',
-  token: '请求Token'
+  qq: '在此处填写主人QQ',
+  token: '在此处填写QQ对应Token'
 }

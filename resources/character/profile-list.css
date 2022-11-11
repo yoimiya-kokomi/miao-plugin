@@ -126,14 +126,30 @@ body,
   background: url("./imgs/mark-icon.png");
   background-size: auto 100%;
   display: inline-block;
-  vertical-align: middle;
-  margin-right: 2px;
+  vertical-align: bottom;
+  margin: -1px 3px -1px 0;
 }
 .group-rank-icon.mark-icon {
   background-position: 100% 0;
 }
+.cont-title {
+  padding: 8px 5px 10px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.cont-title span {
+  color: #fff;
+  width: 50%;
+}
+.cont-title .rank-time {
+  font-size: 12px;
+  color: #aaa;
+  display: inline-block;
+  transform: scale(0.85);
+  transform-origin: 0 50%;
+  white-space: nowrap;
+}
 .no-rank .group-rank,
-.no-rank .group-rank-tip {
+.no-rank.group-rank-tip {
   display: none;
 }
 /*# sourceMappingURL=profile-list.css.map */
