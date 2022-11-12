@@ -170,7 +170,8 @@ export default class ProfileArtis extends Base {
       names,
       imgs,
       abbrs: [...abbrs, ...abbrs2],
-      name: abbrs.length > 1 ? abbrs.join('+') : abbrs2[0]
+      name: (abbrs.length > 1 || abbrs2[0].length > 7) ? abbrs.join('+') : abbrs2[0],
+      sName: abbrs.join('+')
     }
     return this._setData
   }

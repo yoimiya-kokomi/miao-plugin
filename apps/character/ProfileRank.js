@@ -43,7 +43,7 @@ export async function groupRank (e) {
     }
   } else if (type === 'list') {
     let uids = await ProfileRank.getGroupUidList(groupId, char.id, mode)
-    return renderCharRankList({ e, uids, char, mode })
+    return renderCharRankList({ e, uids, char, mode, groupId })
   }
 }
 
@@ -73,7 +73,7 @@ export async function resetRank (e) {
   e.reply(`本群${charName}排名已重置...`)
 }
 
-async function renderCharRankList ({ e, uids, char, mode }) {
+async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   let list = []
   for (let ds of uids) {
     let uid = ds.value
@@ -88,8 +88,14 @@ async function renderCharRankList ({ e, uids, char, mode }) {
       }
       let dmg = await profile.calcDmg({ mode: 'single' })
       if (dmg && dmg.avg) {
+        let title = dmg.title
+        // 稍微缩短下title
+        if (title.length > 10) {
+          title = title.replace(/[ ·]*/g, '')
+        }
+        title = title.length > 10 ? title.replace(/伤害$/, '') : title
         tmp.dmg = {
-          title: dmg.title,
+          title: title,
           avg: Format.comma(dmg.avg, 1)
         }
       }
@@ -97,6 +103,7 @@ async function renderCharRankList ({ e, uids, char, mode }) {
     }
   }
   let title = `#${char.name}${mode === 'mark' ? '圣遗物' : ''}排行`
+  const rankCfg = await ProfileRank.getGroupCfg(groupId)
   // 渲染图像
   return await Common.render('character/rank-profile-list', {
     save_id: char.id,
@@ -104,6 +111,7 @@ async function renderCharRankList ({ e, uids, char, mode }) {
     title,
     elem: char.elem,
     bodyClass: `char-${char.name}`,
+    rankCfg,
     mode
   }, { e, scale: 1.4 })
 }

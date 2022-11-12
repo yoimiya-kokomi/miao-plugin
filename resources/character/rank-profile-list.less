@@ -11,7 +11,21 @@ body {
   overflow: hidden;
 }
 
-.char-item {
+.group-rank-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./imgs/mark-icon.png");
+  background-size: auto 100%;
+  display: inline-block;
+  vertical-align: bottom;
+  margin: -1px 3px -1px 0;
+
+  &.mark-icon {
+    background-position: 100% 0;
+  }
+}
+
+.char-list-item {
   height: 60px;
   background-size: auto 150%;
   display: flex;
@@ -19,7 +33,7 @@ body {
   overflow: visible;
 
   .line {
-    margin-left: 10px;
+    margin-left: 15px;
     position: relative;
 
     &:before {
@@ -28,24 +42,28 @@ body {
       width: 1px;
       height: 40px;
       background: rgba(255, 255, 255, .8);
+      background: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .8), rgba(255, 255, 255, .8), rgba(255, 255, 255, .8), rgba(255, 255, 255, .1));
       position: absolute;
-      left: -5px;
+      left: -15px;
       top: 5px;
     }
   }
 }
 
 .char-idx {
+  width: 48px;
+
   span {
     display: inline-block;
     width: 24px;
     height: 24px;
-    margin: 13px 10px;
+    margin: 13px 12px;
     background: url('./imgs/mark-icon.png');
     background-size: auto 100%;
     text-align: center;
     font-size: 12px;
     line-height: 24px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
 
 
     &.idx-1 {
@@ -53,6 +71,7 @@ body {
       margin: 13px 0;
       background-image: url('./imgs/mark-icon2.png');
       color: rgba(0, 0, 0, 0);
+      text-shadow: none;
     }
 
     &.mode-mark {
@@ -81,10 +100,13 @@ body {
 
 .char-info {
   .name {
+    margin-top: 4px;
     height: 24px;
     line-height: 24px;
     font-size: 18px;
     color: #d3bc8e;
+    font-weight: normal;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
   }
 
   .cons {
@@ -94,10 +116,11 @@ body {
     width: 16px;
     text-align: center;
     padding: 0;
+    margin-right: -2px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
   }
 
   .info {
-    margin-top: 4px;
     height: 20px;
     font-size: 12px;
     line-height: 20px;
@@ -106,43 +129,6 @@ body {
 
 .char-name {
   width: 100px;
-}
-
-.char-weapon {
-  width: 130px;
-  display: flex;
-
-  .img {
-    margin: -3px 0;
-    width: 56px;
-    height: 56px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .weapon-info {
-    padding-left: 5px;
-  }
-
-  .cons {
-    width: 28px;
-    font-size: 12px;
-    transform: scale(.9);
-    transform-origin: 0 50%;
-  }
-
-  .name {
-    height: 20px;
-    line-height: 20px;
-    margin-bottom: 3px;
-
-    strong {
-      color: #fff;
-      font-size: 13px;
-      font-weight: normal;
-    }
-  }
 }
 
 .char-talent {
@@ -223,6 +209,59 @@ body {
   }
 }
 
+.char-item {
+  vertical-align: middle;
+  height: 50px;
+
+  .item {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    margin: 7px 5px 7px 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .7);
+    display: inline-block;
+    overflow: visible;
+    vertical-align: middle;
+  }
+}
+
+.char-weapon {
+  width: 125px;
+  display: flex;
+
+  .img {
+    margin: -10px -5px;
+    width: 46px;
+    height: 56px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .weapon-info {
+    padding-left: 5px;
+  }
+
+  .cons {
+    width: 28px;
+    font-size: 12px;
+    transform: scale(.9);
+    transform-origin: 0 50%;
+  }
+
+  .name {
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 3px;
+
+    strong {
+      font-size: 13px;
+      font-weight: normal;
+    }
+  }
+}
+
+
 .char-artis {
   display: flex;
   width: 130px;
@@ -261,21 +300,11 @@ body {
   }
 
   .artis-mark-class {
-    border-radius: 5px;
-    display: inline-block;
-    text-align: center;
-    background: rgba(51, 51, 51, 0.68);
-    height: 20px;
-    line-height: 20px;
-    box-shadow: 0 0 1px 0 #ffe4b4;
-    position: relative;
-    z-index: 9;
-    color: #fff;
     width: 28px;
-    font-size: 12px;
+    margin-right: -2px;
     transform: scale(.9);
     transform-origin: 0 50%;
-    margin-right: -2px;
+
   }
 
   .artis {
@@ -283,7 +312,6 @@ body {
     width: 36px;
     height: 36px;
     margin: 7px 5px 7px 0;
-    box-shadow: 0 0 1px 0 #ffe4b4;
     display: inline-block;
 
     &.no-artis {
@@ -317,25 +345,29 @@ body {
 
   .artis-title {
     font-size: 12px;
+    white-space: nowrap;
   }
 
   .artis-mark {
     height: 23px;
-    margin-top: 5px;
   }
 }
 
 .char-dmg {
-  text-align: right;
   width: 120px;
 
-  .dmg {
-    height: 25px;
-    margin-top: 5px;
+  .dmg-value {
+    height: 30px;
+    line-height: 30px;
     font-size: 18px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
   }
 
   .dmg-title {
+    height: 15px;
+    line-height: 15px;
+    margin-top: 5px;
     font-size: 12px;
+    color: #aaa
   }
 }
