@@ -75,7 +75,7 @@
       </div>
       <div class="char-info weapon-info">
         <div class="name">
-          <strong> {{w.name.length > 4 ? (w.abbr||w.name) : w.name}}</strong>
+          <strong> {{w.name?.length > 4 ? (w.abbr||w.name) : w.name}}</strong>
         </div>
         <div class="info">
           <span class="cons cons-{{w.affix+1}}">精{{w.affix}}</span> Lv.{{w.leve || w.level}}
