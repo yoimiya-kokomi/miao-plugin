@@ -10,73 +10,38 @@
     <div class="title">#喵喵设置</div>
   </div>
 </div>
+{{each schema cfgGroup}}
 <div class="cfg-box">
-  <div class="cfg-group">玩家&老婆卡片展示</div>
+  <div class="cfg-group">{{cfgGroup.title}}</div>
   <ul class="cfg-ul">
+    {{each cfgGroup.cfg cfgItem cfgKey}}
     <li class="cfg-li">
       <div class="cfg-line">
-        角色查询
-        <span class="cfg-hint"> #喵喵设置角色 + 开启/关闭</span>
-        {{@chars}}
+        {{cfgItem.title}}
+        <span class="cfg-hint"> #喵喵设置{{cfgItem.key}}
+          {{if cfgItem.type==='num'}} {{cfgItem.def}}{{else}} + 开启/关闭{{/if}}
+        </span>
+        {{if cfgItem.type === 'num'}}
+        <div class="cfg-status">{{cfg[cfgKey]}}</div>
+        {{else}}
+        {{if cfg[cfgKey]}}
+        <div class="cfg-status">已开启</div>
+        {{else}}
+        <div class="cfg-status status-off">已关闭</div>
+        {{/if}}
+        {{/if}}
       </div>
+      {{if cfgItem.desc && cfgItem.showDesc!== false}}
+      <div class="cfg-desc">{{cfgItem.desc}}</div>
+      {{/if}}
     </li>
-    <li class="cfg-li">
-      <div class="cfg-line">
-        面板查询
-        <span class="cfg-hint"> #喵喵设置面板 + 开启/关闭</span>
-        {{@profile}}
-      </div>
-    </li>
-    <li class="cfg-li">
-      <div class="cfg-line">
-        老婆查询
-        <span class="cfg-hint"> #喵喵设置老婆 + 开启/关闭</span>
-        {{@wife}}
-      </div>
-    </li>
-    <li class="cfg-li">
-      <div class="cfg-line">
-        戳一戳卡片
-        <span class="cfg-hint"> #喵喵设置戳一戳 + 开启/关闭</span>
-        {{@poke}}
-      </div>
-    </li>
+    {{/each}}
   </ul>
 </div>
+{{/each}}
 <div class="cfg-box">
-  <div class="cfg-group">角色资料与信息查询</div>
+  <div class="cfg-group">其他设置</div>
   <ul class="cfg-ul">
-    <li class="cfg-li">
-      <div class="cfg-line">
-        角色图鉴
-        <span class="cfg-hint"> #喵喵设置图鉴 + 开启/关闭</span>
-        {{@wiki}}
-      </div>
-      <div class="cfg-desc">角色天赋、角色命座、角色图鉴（尚未完成）等资料</div>
-    </li>
-    <li class="cfg-li">
-      <div class="cfg-line">
-        深渊统计
-        <span class="cfg-hint"> #喵喵设置统计 + 开启/关闭</span>
-        {{@stat}}
-      </div>
-      <div class="cfg-desc">角色持有率、深渊出场率、深渊配队等统计信息</div>
-    </li>
-    <li class="cfg-li">
-      <div class="cfg-line">
-        上传深渊
-        <span class="cfg-hint"> #喵喵设置深渊 + 开启/关闭</span>
-        {{@abyss}}
-      </div>
-      <div class="cfg-desc">使用【#上传深渊】功能取代【#深渊】功能，默认关闭</div>
-    </li>
-    <li class="cfg-li">
-      <div class="cfg-line">
-        角色图片
-        <span class="cfg-hint"> #喵喵设置图片 + 开启/关闭</span>
-        {{@pic}}
-      </div>
-    </li>
     <li class="cfg-li">
       <div class="cfg-line">
         角色图片扩展包
@@ -87,39 +52,8 @@
         <div class="cfg-status status-off">未安装</div>
         {{/if}}
       </div>
-      <div class="cfg-desc">角色图片的扩展包，包含更多的角色图片</div>
-    </li>
-    <li class="cfg-li">
-      <div class="cfg-line">
-        小清新角色图
-        <span class="cfg-hint"> #喵喵设置小清新 + 开启/关闭</span>
-        {{@se}}
-      </div>
-      <div class="cfg-desc">启用后会启用角色图及增量包中的小清新图像，勇士啊，你准备好了吗</div>
+      <div class="cfg-desc">安装角色的扩展插图，图片较多可能需要一定时间，在返回提示前请勿重复执行</div>
     </li>
   </ul>
-</div>
-<div class="cfg-box">
-  <div class="cfg-group">系统设置</div>
-  <ul class="cfg-ul">
-    <li class="cfg-li">
-      <div class="cfg-line">
-        渲染精度
-        <span class="cfg-hint">#喵喵设置渲染100 </span>
-        <div class="cfg-status">{{scale}}</div>
-      </div>
-      <div class="cfg-desc">可选值50~200，建议100。设置高精度会提高图片的精细度，但因图片较大可能会影响渲染与发送速度</div>
-    </li>
-
-    <li class="cfg-li">
-      <div class="cfg-line">
-        喵喵作为默认帮助
-        <span class="cfg-hint">#喵喵设置帮助 + 开启/关闭 </span>
-        {{@help}}
-      </div>
-      <div class="cfg-desc">开启后将使用喵喵版帮助作为Yunzai的默认帮助</div>
-    </li>
-  </ul>
-
 </div>
 {{/block}}

@@ -27,47 +27,73 @@ export default class ProfileRank {
       return false
     }
     let ret = {}
-    const markKey = this.key(profile, 'mark')
-    let markRank = await redis.zRevRank(markKey, this.uid)
-    if (!lodash.isNumber(markRank) || force) {
-      let mark = profile.getArtisMark(false)
-      if (mark && mark._mark) {
-        await redis.zAdd(markKey, { score: mark._mark, value: this.uid })
-        markRank = await redis.zRevRank(markKey, this.uid)
+    for (let typeKey of ['mark', 'dmg']) {
+      let typeRank = await this.getTypeRank(profile, typeKey, force)
+      ret[typeKey] = typeRank
+      if (!ret.rank || ret.rank <= typeRank.rank) {
+        ret.rank = typeRank.rank
+        ret.rankType = typeKey
       }
-    }
-    if (lodash.isNumber(markRank)) {
-      let markCount = await redis.zCard(markKey)
-      ret.markRank = markRank + 1
-      ret.markCount = markCount
-    }
-    if (profile.hasDmg) {
-      const dmgKey = this.key(profile, 'dmg')
-      let dmgRank = await redis.zRevRank(dmgKey, this.uid)
-      if (!lodash.isNumber(dmgRank) || force) {
-        let dmg = await profile.calcDmg({ mode: 'single' })
-        if (dmg && dmg.avg) {
-          await redis.zAdd(dmgKey, { score: dmg.avg, value: this.uid })
-          dmgRank = await redis.zRevRank(dmgKey, this.uid)
-        }
-      }
-      if (lodash.isNumber(dmgRank)) {
-        let dmgCount = await redis.zCard(dmgKey)
-        ret.dmgRank = dmgRank + 1
-        ret.dmgCount = dmgCount
-      }
-    }
-    if (lodash.isEmpty(ret)) {
-      return false
-    }
-    if (!ret.dmgRank || ret.markRank < ret.dmgRank) {
-      ret.rank = ret.markRank
-      ret.rankType = 'mark'
-    } else {
-      ret.rank = ret.dmgRank
-      ret.rankType = 'dmg'
     }
     return ret
+  }
+
+  async getTypeRank (profile, type, force) {
+    if (!profile.hasData || !type) {
+      return false
+    }
+    if (type === 'dmg' && !profile.hasDmg) {
+      return false
+    }
+    const typeKey = this.key(profile, type)
+    let value
+    let rank
+    if (force) {
+      value = await this.getTypeValue(profile, type)
+    } else {
+      rank = await redis.zRevRank(typeKey, this.uid)
+      if (!lodash.isNumber(rank)) {
+        value = await this.getTypeValue(profile, type)
+      }
+    }
+    if (value && value.score) {
+      await redis.zAdd(typeKey, { score: value.score, value: this.uid })
+    }
+    if (!lodash.isNumber(rank)) {
+      rank = await redis.zRevRank(typeKey, this.uid)
+    }
+    if (force) {
+      return {
+        rank: rank + 1,
+        value: value.score,
+        data: value.data
+      }
+    }
+    return {
+      rank: rank + 1
+    }
+  }
+
+  async getTypeValue (profile, type) {
+    if (type === 'mark') {
+      let mark = profile.getArtisMark(false)
+      if (mark && mark._mark) {
+        return {
+          score: mark._mark * 1,
+          data: mark
+        }
+      }
+    }
+    if (type === 'dmg' && profile.hasDmg) {
+      let dmg = await profile.calcDmg({ mode: 'single' })
+      if (dmg && dmg.avg) {
+        return {
+          score: dmg.avg,
+          data: dmg
+        }
+      }
+    }
+    return false
   }
 
   /**

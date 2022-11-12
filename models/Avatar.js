@@ -198,7 +198,7 @@ export default class Avatar extends Base {
         names,
         abbrs: [...abbrs, ...abbrs2],
         imgs,
-        name: (abbrs.length > 1 || abbrs2[0].length > 7) ? abbrs.join('+') : abbrs2[0],
+        name: (abbrs.length > 1 || abbrs2[0]?.length > 7) ? abbrs.join('+') : abbrs2[0],
         sName: abbrs.join('+')
       }
     }

@@ -8,6 +8,5 @@ function sleep (ms) {
 export default {
   render,
   cfg: Cfg.get,
-  isDisable: Cfg.isDisable,
   sleep
 }
