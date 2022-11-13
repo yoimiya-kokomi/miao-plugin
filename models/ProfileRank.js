@@ -151,9 +151,9 @@ export default class ProfileRank {
   static async getGroupCfg (groupId) {
     const rankLimitTxt = {
       1: '无限制',
-      2: '有超过14个角色数据',
-      3: '有御三家数据',
-      4: '有超过14个角色数据且有御三家'
+      2: '面板列表中至少有16个角色的数据',
+      3: '面板列表中有 安柏&凯亚&丽莎 的数据',
+      4: '面板列表至少有16个角色数据，且包含安柏&凯亚&丽莎'
     }
     let rankLimit = Common.cfg('groupRankLimit') * 1 || 1
     let ret = {
@@ -207,7 +207,7 @@ export default class ProfileRank {
       }
       let data = await redis.get(`miao:rank:uid-info:${uid}`)
       data = JSON.parse(data)
-      if ((data.totalCount || 0) < 14 && [2, 4].includes(rankLimit)) {
+      if ((data.totalCount || 0) < 16 && [2, 4].includes(rankLimit)) {
         return false
       }
       if ((data.basicCount || 0) < 3 && [3, 4].includes(rankLimit)) {

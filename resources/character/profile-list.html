@@ -17,8 +17,8 @@
 </div>
 <div class="cont group-rank-tip {{groupRank?'has-rank':'no-rank'}}">
   <div class="cont-title">
-    {{if !allowRank}}
-    <i class="group-rank-icon dmg-icon"></i> <span>本面板暂未参与排名，参与要求：{{rankCfg.limitTxt}} </span>
+    {{if !allowRank || true}}
+    <span> <i class="group-rank-icon dmg-icon"></i>本面板暂未参与排名，参与要求：{{rankCfg.limitTxt}} </span>
     {{else}}
     <span>
       <i class="group-rank-icon dmg-icon"></i>综合练度排名
