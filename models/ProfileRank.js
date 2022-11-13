@@ -1,15 +1,22 @@
 import lodash from 'lodash'
 import moment from 'moment'
+import { Common } from '../components/index.js'
 
 export default class ProfileRank {
   constructor (data) {
-    this.groupId = data.groupId || data.groupId
+    this.groupId = data.groupId || data.groupId || ''
+    if (!this.groupId || this.groupId === 'undefined') {
+      return false
+    }
     this.qq = data.qq
     this.uid = data.uid + ''
+    this.allowRank = false
   }
 
   static async create (data) {
-    return new ProfileRank(data)
+    let rank = new ProfileRank(data)
+    rank.allowRank = await ProfileRank.checkRankLimit(rank.uid)
+    return rank
   }
 
   key (profile, type) {
@@ -23,7 +30,7 @@ export default class ProfileRank {
    * @returns {Promise<{}|boolean>}
    */
   async getRank (profile, force = false) {
-    if (!profile.hasData) {
+    if (!this.groupId || !this.allowRank || !profile.hasData) {
       return false
     }
     let ret = {}
@@ -56,7 +63,7 @@ export default class ProfileRank {
         value = await this.getTypeValue(profile, type)
       }
     }
-    if (value && value.score) {
+    if (value && !lodash.isUndefined(value.score)) {
       await redis.zAdd(typeKey, { score: value.score, value: this.uid })
     }
     if (!lodash.isNumber(rank)) {
@@ -142,8 +149,16 @@ export default class ProfileRank {
   }
 
   static async getGroupCfg (groupId) {
+    const rankLimitTxt = {
+      1: '无限制',
+      2: '有超过14个角色数据',
+      3: '有御三家数据',
+      4: '有超过14个角色数据且有御三家'
+    }
+    let rankLimit = Common.cfg('groupRankLimit') * 1 || 1
     let ret = {
       timestamp: (new Date()) * 1,
+      limitTxt: rankLimitTxt[rankLimit],
       status: 0
     }
     try {
@@ -157,5 +172,50 @@ export default class ProfileRank {
     }
     ret.time = moment(new Date(ret.timestamp)).format('MM-DD HH:mm')
     return ret
+  }
+
+  static async setRankLimit (uid, profiles) {
+    if (!uid) {
+      return false
+    }
+    let basicCount = 0
+    let totalCount = 0
+    for (let charId in profiles) {
+      let profile = profiles[charId]
+      if (!profile || !profile.hasData) {
+        continue
+      }
+      if (['安柏', '凯亚', '丽莎'].includes(profile.name)) {
+        basicCount++
+      }
+      totalCount++
+    }
+    await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify({
+      totalCount,
+      basicCount
+    }), { EX: 3600 * 24 * 365 })
+  }
+
+  static async checkRankLimit (uid) {
+    if (!uid) {
+      return false
+    }
+    try {
+      let rankLimit = Common.cfg('groupRankLimit') * 1 || 1
+      if (rankLimit === 1) {
+        return true
+      }
+      let data = await redis.get(`miao:rank:uid-info:${uid}`)
+      data = JSON.parse(data)
+      if ((data.totalCount || 0) < 14 && [2, 4].includes(rankLimit)) {
+        return false
+      }
+      if ((data.basicCount || 0) < 3 && [3, 4].includes(rankLimit)) {
+        return false
+      }
+      return true
+    } catch (e) {
+      return false
+    }
   }
 }

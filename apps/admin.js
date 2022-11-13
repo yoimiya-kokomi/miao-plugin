@@ -62,7 +62,7 @@ async function sysCfg (e) {
     if (cfgSchema.input) {
       val = cfgSchema.input(val)
     } else {
-      val = !/关闭/.test(val)
+      val = cfgSchema.type === 'num' ? (val * 1 || cfgSchema.def) : !/关闭/.test(val)
     }
     Cfg.set(cfgSchema.cfgKey, val)
   }

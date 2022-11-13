@@ -14,6 +14,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['泡影破裂伤害'], 'q', 'vaporize')
 }]
 
+export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg,recharge'
 
 export const buffs = [{

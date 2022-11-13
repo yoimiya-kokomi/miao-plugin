@@ -29,6 +29,11 @@
           <strong>排名范围：</strong>
           本群内 / 时间点：{{rankCfg.time}} 后 / 在群内主动通过 #面板 命令查看过的面板数据
         </li>
+        {{if rankCfg?.limitTxt !== '无限制'}}
+        <li>
+          <strong>排名参与条件：</strong> {{rankCfg.limitTxt}}
+        </li>
+        {{/if}}
       </ul>
     </div>
   </div>
@@ -47,9 +52,7 @@
         <span class="cons cons-{{ds.cons}}">{{ds.cons}}</span>
         <strong>{{ds.sName}}</strong>
       </div>
-      <div class="info">
-        Uid: {{ds.uid}}
-      </div>
+      <div class="info"> {{ds.uid}}</div>
     </div>
 
     <div class="char-talent">

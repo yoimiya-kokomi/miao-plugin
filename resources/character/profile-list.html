@@ -17,13 +17,17 @@
 </div>
 <div class="cont group-rank-tip {{groupRank?'has-rank':'no-rank'}}">
   <div class="cont-title">
-      <span>
+    {{if !allowRank}}
+    <i class="group-rank-icon dmg-icon"></i> <span>本面板暂未参与排名，参与要求：{{rankCfg.limitTxt}} </span>
+    {{else}}
+    <span>
       <i class="group-rank-icon dmg-icon"></i>综合练度排名
       <i class="group-rank-icon mark-icon"></i>圣遗物评分排名
     </span>
     <span class="rank-time">
       排名：本群内 {{rankCfg.time}} 后，通过 #面板 命令查看过的角色数据
     </span>
+    {{/if}}
   </div>
 </div>
 <div class="cont {{groupRank?'has-rank':'no-rank'}}">
@@ -37,7 +41,7 @@
       <span class="name">{{char.abbr}}<span class="cons cons-{{char.cons}}">{{char.cons}}</span></span>
       {{if char.groupRank}}
       {{set gr = char.groupRank}}
-      {{set rank = gr.rank > 9 ? 10:(gr.rank <=3 ? gr.rank : 4)}}
+      {{set rank = gr.rank >= 15 ? 10:(gr.rank <=3 ? gr.rank : 4)}}
       <div class="group-rank rank-{{rank}} rank-type-{{gr.rankType}}">
         <span>{{gr.rank}}</span>
       </div>

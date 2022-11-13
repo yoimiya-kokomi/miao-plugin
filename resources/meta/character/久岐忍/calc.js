@@ -3,7 +3,6 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: 'E每跳治疗',
-  showDetail: true,
   dmg: ({ talent, calc, attr }, { heal }) => {
     let ec = talent.e['越祓草轮治疗量2']
     return heal(calc(attr.hp) * ec[0] / 100 + ec[1] * 1 + calc(attr.mastery) * 0.75)
@@ -13,6 +12,7 @@ export const details = [{
   dmg: ({ talent, calc, attr }, { basic }) => basic(talent.q['单次伤害'] * calc(attr.hp) / 100, 'q')
 }]
 
+export const defDmgIdx = 1
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
 export const buffs = [{

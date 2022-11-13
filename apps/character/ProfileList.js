@@ -9,10 +9,7 @@ export async function profileList (e) {
     return true
   }
   let rank = false
-  let groupId = e.group_id
-  if (groupId) {
-    rank = await ProfileRank.create({ groupId, uid, qq: e.user_id })
-  }
+
   let servName = Profile.getServName(uid)
   let hasNew = false
   let newCount = 0
@@ -25,6 +22,15 @@ export async function profileList (e) {
     newChar = e.newChar
   }
   const cfg = await Data.importCfg('cfg')
+  // 获取面板数据
+  let profiles = Profile.getAll(uid)
+  // 检测标志位
+  await ProfileRank.setRankLimit(uid, profiles)
+
+  let groupId = e.group_id
+  if (groupId) {
+    rank = await ProfileRank.create({ groupId, uid, qq: e.user_id })
+  }
   const groupRank = rank && (cfg?.diyCfg?.groupRank || false)
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
   await Profile.forEach(uid, async function (profile) {
@@ -74,6 +80,7 @@ export async function profileList (e) {
     hasNew,
     msg,
     groupRank,
+    allowRank: rank && rank.allowRank,
     rankCfg
   }, { e, scale: 1.6 })
 }
