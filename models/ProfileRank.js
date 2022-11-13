@@ -30,7 +30,7 @@ export default class ProfileRank {
     for (let typeKey of ['mark', 'dmg']) {
       let typeRank = await this.getTypeRank(profile, typeKey, force)
       ret[typeKey] = typeRank
-      if (!ret.rank || ret.rank <= typeRank.rank) {
+      if (!ret.rank || ret.rank >= typeRank.rank) {
         ret.rank = typeRank.rank
         ret.rankType = typeKey
       }
