@@ -8,8 +8,12 @@ export async function profileList (e) {
   if (!uid) {
     return true
   }
+  let isSelfUid = false
+  if (e.runtime) {
+    let uids = e.runtime?.user?.ckUids || []
+    isSelfUid = uids.join(',').split(',').includes(uid + '')
+  }
   let rank = false
-
   let servName = Profile.getServName(uid)
   let hasNew = false
   let newCount = 0
@@ -25,7 +29,7 @@ export async function profileList (e) {
   // 获取面板数据
   let profiles = Profile.getAll(uid)
   // 检测标志位
-  await ProfileRank.setRankLimit(uid, profiles)
+  await ProfileRank.setRankLimit(uid, profiles, isSelfUid)
 
   let groupId = e.group_id
   if (groupId) {

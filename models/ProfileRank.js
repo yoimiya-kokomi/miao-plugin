@@ -151,14 +151,14 @@ export default class ProfileRank {
   static async getGroupCfg (groupId) {
     const rankLimitTxt = {
       1: '无限制',
-      2: '面板列表中至少有16个角色的数据',
-      3: '面板列表中有 安柏&凯亚&丽莎 的数据',
-      4: '面板列表至少有16个角色数据，且包含安柏&凯亚&丽莎'
+      2: '绑定有CK的用户',
+      3: '绑定CK，或列表有16个角色数据',
+      4: '绑定CK，或列表有安柏&凯亚&丽莎的数据',
+      5: '绑定CK，或列表有16个角色数据且包含安柏&凯亚&丽莎'
     }
     let rankLimit = Common.cfg('groupRankLimit') * 1 || 1
     let ret = {
       timestamp: (new Date()) * 1,
-      limitTxt: rankLimitTxt[rankLimit],
       status: 0
     }
     try {
@@ -170,11 +170,12 @@ export default class ProfileRank {
       }
     } catch (e) {
     }
+    ret.limitTxt = rankLimitTxt[rankLimit]
     ret.time = moment(new Date(ret.timestamp)).format('MM-DD HH:mm')
     return ret
   }
 
-  static async setRankLimit (uid, profiles) {
+  static async setRankLimit (uid, profiles, isSelfUid = false) {
     if (!uid) {
       return false
     }
@@ -190,12 +191,31 @@ export default class ProfileRank {
       }
       totalCount++
     }
+    let data = {}
+    try {
+      data = await redis.get(`miao:rank:uid-info:${uid}`)
+      if (data) {
+        data = JSON.parse(data)
+      }
+    } catch (e) {
+      data = {}
+    }
     await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify({
       totalCount,
-      basicCount
+      basicCount,
+      isSelfUid: !!(isSelfUid || data.isSelfUid)
     }), { EX: 3600 * 24 * 365 })
   }
 
+  /**
+   * 1: '无限制',
+   * 2: '绑定有CK的用户',
+   * 3: '面板列表有16个角色数据，或绑定CK',
+   * 4: '面板列表有安柏&凯亚&丽莎的数据，或绑定CK',
+   * 5: '面板列表有16个角色数据且包含安柏&凯亚&丽莎，或绑定CK'
+   * @param uid
+   * @returns {Promise<boolean>}
+   */
   static async checkRankLimit (uid) {
     if (!uid) {
       return false
@@ -207,10 +227,16 @@ export default class ProfileRank {
       }
       let data = await redis.get(`miao:rank:uid-info:${uid}`)
       data = JSON.parse(data)
-      if ((data.totalCount || 0) < 16 && [2, 4].includes(rankLimit)) {
+      if (data.isSelfUid) {
+        return true
+      }
+      if (rankLimit === 2) {
         return false
       }
-      if ((data.basicCount || 0) < 3 && [3, 4].includes(rankLimit)) {
+      if ((data.totalCount || 0) < 16 && [3, 5].includes(rankLimit)) {
+        return false
+      }
+      if ((data.basicCount || 0) < 3 && [4, 5].includes(rankLimit)) {
         return false
       }
       return true
