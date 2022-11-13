@@ -193,9 +193,9 @@ export default class ProfileRank {
     }
     let data = {}
     try {
-      data = await redis.get(`miao:rank:uid-info:${uid}`)
-      if (data) {
-        data = JSON.parse(data)
+      let uData = await redis.get(`miao:rank:uid-info:${uid}`)
+      if (uData) {
+        data = JSON.parse(uData)
       }
     } catch (e) {
       data = {}
@@ -203,7 +203,7 @@ export default class ProfileRank {
     await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify({
       totalCount,
       basicCount,
-      isSelfUid: !!(isSelfUid || data.isSelfUid)
+      isSelfUid: !!(isSelfUid || data?.isSelfUid)
     }), { EX: 3600 * 24 * 365 })
   }
 
