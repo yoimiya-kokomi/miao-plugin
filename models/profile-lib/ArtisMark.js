@@ -32,9 +32,27 @@ let ArtisMark = {
   formatArti (ds, markCfg = false, isMain = false) {
     if (ds[0] && ds[0].title) {
       let ret = []
+      let totalUpNum = 0
+      let ltArr = []
       lodash.forEach(ds, (d) => {
-        ret.push(ArtisMark.formatArti(d, markCfg, isMain))
+        let arti = ArtisMark.formatArti(d, markCfg, isMain)
+        totalUpNum += arti.upNum
+        if (arti.hasLt) {
+          ltArr.push(arti)
+        }
+        ret.push(arti)
+        delete arti.hasLt
+        delete arti.hasGt
       })
+      ltArr = lodash.sortBy(ltArr, 'upNum').reverse()
+      for (let arti of ltArr) {
+        if (totalUpNum > 9) {
+          arti.upNum = arti.upNum - 1
+          totalUpNum--
+        } else {
+          break
+        }
+      }
       return ret
     }
     let title = ds.title || ds[0]
@@ -69,7 +87,10 @@ let ArtisMark = {
       value: val
     }
     if (!isMain) {
-      ret.upNum = ArtisMark.getIncNum(title, value)
+      let incRet = ArtisMark.getIncNum(title, value)
+      ret.upNum = incRet.num
+      ret.hasGt = incRet.hasGt
+      ret.hasLt = incRet.hasLt
     }
 
     if (markCfg) {
@@ -85,13 +106,21 @@ let ArtisMark = {
 
   getIncNum (title, value) {
     let cfg = attrNameMap[title] && attrMap[attrNameMap[title]]
-    if (cfg && cfg.value && cfg.valueMin) {
-      let min = Math.ceil((value / cfg.value).toFixed(1) * 1)
-      let max = Math.floor((value / cfg.valueMin).toFixed(1) * 1)
-      let avg = Math.round(value / (cfg.value + cfg.valueMin) * 2)
-      return Math.max(min, Math.min(max, avg))
+    if (!value || !cfg || !cfg.value || !cfg.valueMin) {
+      return { num: 0 }
     }
-    return 0
+    let maxNum = Math.min(5, Math.floor((value / cfg.valueMin).toFixed(1) * 1))
+    let minNum = Math.max(1, Math.ceil((value / cfg.value).toFixed(1) * 1))
+    // 相等时直接返回
+    if (maxNum === minNum) {
+      return { num: minNum }
+    }
+    let avg = Math.round(value / (cfg.value + cfg.valueMin) * 2)
+    return {
+      num: avg,
+      hasGt: maxNum > avg,
+      hasLt: minNum < avg
+    }
   },
 
   getMarkClass (mark) {

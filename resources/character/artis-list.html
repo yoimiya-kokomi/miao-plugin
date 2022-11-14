@@ -28,8 +28,8 @@
       {{each ds.attrs attr}}
       {{if attr.title}}
       <li class="{{ds.usefulMark[attr.title]*1 > 79.9 ?`great`:(ds.usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}">
-        <span class="title">{{attr.title}}</span><span
-          class="val">+{{attr.value}}</span></li>
+        <span class="title"> {{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{attr.title}}</span>
+        <span class="val">+{{attr.value}}</span></li>
       {{/if}}
       {{/each}}
     </ul>
