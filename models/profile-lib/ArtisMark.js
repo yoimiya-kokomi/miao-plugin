@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { Format } from '../../components/index.js'
-import { attrNameMap, mainAttr, subAttr } from '../../resources/meta/artifact/artis-mark.js'
+import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/artis-mark.js'
 
 let ArtisMark = {
   formatAttr (ds) {
@@ -22,6 +22,13 @@ let ArtisMark = {
     }
   },
 
+  /**
+   * 格式化圣遗物词条
+   * @param ds
+   * @param markCfg
+   * @param isMain
+   * @returns {{title: *, value: string}|*[]}
+   */
   formatArti (ds, markCfg = false, isMain = false) {
     if (ds[0] && ds[0].title) {
       let ret = []
@@ -33,9 +40,10 @@ let ArtisMark = {
     let title = ds.title || ds[0]
     let key = ''
     let val = ds.value || ds[1]
+    let value = val
     let num = ds.value || ds[1]
     if (!title || title === 'undefined') {
-      return []
+      return {}
     }
     if (/伤害加成/.test(title) && val < 1) {
       val = Format.pct(val * 100)
@@ -56,7 +64,13 @@ let ArtisMark = {
 
     key = key || attrNameMap[title]
 
-    let ret = { title, value: val }
+    let ret = {
+      title,
+      value: val
+    }
+    if (!isMain) {
+      ret.upNum = ArtisMark.getIncNum(title, value)
+    }
 
     if (markCfg) {
       let mark = markCfg[key] * num
@@ -67,6 +81,14 @@ let ArtisMark = {
       ret._mark = mark || 0
     }
     return ret
+  },
+
+  getIncNum (title, value) {
+    let cfg = attrMap[attrNameMap[title]]
+    let min = Math.ceil(value / cfg.value)
+    let max = Math.floor(value / cfg.valueMin)
+    let avg = Math.round(value / (cfg.value + cfg.valueMin) * 2)
+    return Math.max(min, Math.min(max, avg))
   },
 
   getMarkClass (mark) {

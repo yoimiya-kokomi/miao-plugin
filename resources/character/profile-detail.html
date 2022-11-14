@@ -98,9 +98,10 @@
       <li class="arti-main"><span class="title">{{ds.main.title}}</span><span class="val">+{{ds.main.value}}</span></li>
       {{each ds.attrs attr}}
       {{if attr.title}}
-      <li class="{{usefulMark[attr.title]*1 > 79.9 ?`great`:(usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}"><span
-          class="title">{{attr.title}} </span><span
-          class="val">+{{attr.value}}</span></li>
+      <li class="{{usefulMark[attr.title]*1 > 79.9 ?`great`:(usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}">
+        <span class="title"> {{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{attr.title}}</span>
+        <span class="val">+{{attr.value}}</span>
+      </li>
       {{/if}}
       {{/each}}
     </ul>

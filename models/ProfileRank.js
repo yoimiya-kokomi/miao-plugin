@@ -69,6 +69,9 @@ export default class ProfileRank {
     if (!lodash.isNumber(rank)) {
       rank = await redis.zRevRank(typeKey, this.uid)
     }
+    if (rank === null) {
+      rank = 99
+    }
     if (force) {
       return {
         rank: rank + 1,

@@ -492,22 +492,11 @@ body {
 .artis ul.detail li {
   padding: 0 3px;
   font-size: 14px;
-  position: initial;
+  position: relative;
   width: 100%;
   display: table-row;
   line-height: 26px;
   height: 26px;
-}
-.artis ul.detail li.great span.title {
-  color: #ffe699;
-}
-.artis ul.detail li.nouse span {
-  color: #888;
-}
-.artis ul.detail li.arti-main {
-  font-size: 16px;
-  padding: 3px 3px;
-  font-weight: bold;
 }
 .artis ul.detail li span {
   position: initial;
@@ -518,9 +507,55 @@ body {
   text-align: left;
   padding-left: 10px;
 }
+.artis ul.detail li span.title i.up-num {
+  position: absolute;
+  display: block;
+  left: 80px;
+  top: 8px;
+  height: 9px;
+  width: 50px;
+  background-image: url('./imgs/up-num-icon1.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: auto 500%;
+}
+.artis ul.detail li span.title i.up-num.up-5 {
+  background-position: 0 -9px;
+}
+.artis ul.detail li span.title i.up-num.up-4 {
+  background-position: 0 -18px;
+}
+.artis ul.detail li span.title i.up-num.up-3 {
+  background-position: 0 -27px;
+}
+.artis ul.detail li span.title i.up-num.up-2 {
+  background-position: 0 -36px;
+}
+.artis ul.detail li span.title i.up-num.up-1 {
+  background: none !important;
+}
 .artis ul.detail li span.val {
   text-align: right;
   padding-right: 10px;
+}
+.artis ul.detail li.great span.title {
+  color: #ffe699;
+}
+.artis ul.detail li.great span.title i.up-num {
+  background-image: url("./imgs/up-num-icon2.png");
+  background-size: auto 500%;
+}
+.artis ul.detail li.nouse span {
+  color: #888;
+}
+.artis ul.detail li.nouse span i.up-num {
+  background-image: url("./imgs/up-num-icon0.png");
+  background-size: auto 500%;
+}
+.artis ul.detail li.arti-main {
+  font-size: 16px;
+  padding: 3px 3px;
+  font-weight: bold;
 }
 .artis .weapon .star {
   height: 20px;
