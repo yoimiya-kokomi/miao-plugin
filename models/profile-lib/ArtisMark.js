@@ -84,11 +84,14 @@ let ArtisMark = {
   },
 
   getIncNum (title, value) {
-    let cfg = attrMap[attrNameMap[title]]
-    let min = Math.ceil(value / cfg.value)
-    let max = Math.floor(value / cfg.valueMin)
-    let avg = Math.round(value / (cfg.value + cfg.valueMin) * 2)
-    return Math.max(min, Math.min(max, avg))
+    let cfg = attrNameMap[title] && attrMap[attrNameMap[title]]
+    if (cfg && cfg.value && cfg.valueMin) {
+      let min = Math.ceil((value / cfg.value).toFixed(1) * 1)
+      let max = Math.floor((value / cfg.valueMin).toFixed(1) * 1)
+      let avg = Math.round(value / (cfg.value + cfg.valueMin) * 2)
+      return Math.max(min, Math.min(max, avg))
+    }
+    return 0
   },
 
   getMarkClass (mark) {
