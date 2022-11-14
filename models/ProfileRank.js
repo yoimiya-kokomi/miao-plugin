@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import moment from 'moment'
-import { Common } from '../components/index.js'
+import { Common, Profile } from '../components/index.js'
 
 export default class ProfileRank {
   constructor (data) {
@@ -136,7 +136,7 @@ export default class ProfileRank {
    * @param charId
    * @returns {Promise<void>}
    */
-  static async resetRank (groupId, charId = '') {
+  static async resetRank (groupId, groupMemList, charId = '') {
     let keys = await redis.keys(`miao:rank:${groupId}:*`)
     for (let key of keys) {
       let charRet = /^miao:rank:\d+:(?:mark|dmg):(\d{8})$/.exec(key)
@@ -148,6 +148,22 @@ export default class ProfileRank {
     }
     if (charId === '') {
       await redis.del(`miao:rank:${groupId}:cfg`)
+    }
+
+    console.log(groupMemList);
+    for (let qq of groupMemList) {
+      let uid = await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
+      if (!uid) { continue }
+      let rankObj = await ProfileRank.create({ groupId, uid, qq})
+      if (charId === ''){
+        await Profile.forEach(uid, async function (profile) {
+          await rankObj.getRank(profile, true)
+        });
+      }
+      else {
+        let profile = Profile.get(uid, charId)
+        await rankObj.getRank(profile, true)
+      }
     }
   }
 

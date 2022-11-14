@@ -68,6 +68,12 @@ export async function resetRank (e) {
   let name = msg.replace(/(#|重置|重设|排名|排行|群|群内|面板|详情|面版)/g, '').trim()
   let charId = ''
   let charName = '全部角色'
+  let groupMemList = []
+  let groupMemMap = await e.group.getMemberMap()
+  groupMemMap.forEach((v, k) => {
+    groupMemList.push(k)
+  });
+  
   if (name) {
     let char = Character.get(name)
     if (!char) {
@@ -77,7 +83,7 @@ export async function resetRank (e) {
     charId = char.id
     charName = char.name
   }
-  await ProfileRank.resetRank(groupId, charId)
+  await ProfileRank.resetRank(groupId, groupMemList, charId)
   e.reply(`本群${charName}排名已重置...`)
 }
 
