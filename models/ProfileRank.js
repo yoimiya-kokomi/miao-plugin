@@ -150,9 +150,23 @@ export default class ProfileRank {
       await redis.del(`miao:rank:${groupId}:cfg`)
     }
 
-    console.log(groupMemList);
-    for (let qq of groupMemList) {
+    let getUid = async function (qq) {
+      let uidReg = /[1-9][0-9]{8}/
+      let nCookie = global.NoteCookie || false
+      if (nCookie && nCookie[qq]) {
+        let nc = nCookie[qq]
+        if (nc.uid && uidReg.test(nc.uid)) {
+          return nc.uid
+        }
+      }
       let uid = await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
+      if (uid && uidReg.test(uid)) {
+        return uid
+      }
+    }
+
+    for (let qq of groupMemList) {
+      let uid = await getUid(qq)
       if (!uid) { continue }
       let rankObj = await ProfileRank.create({ groupId, uid, qq})
       if (charId === ''){
