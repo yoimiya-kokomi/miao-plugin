@@ -178,7 +178,7 @@ export default class ProfileRank {
     return ret
   }
 
-  static async setRankUidInfo ({ uid, qq, profiles, uidType = 'bind' }) {
+  static async setUidInfo ({ uid, qq, profiles, uidType = 'bind' }) {
     if (!uid) {
       return false
     }
@@ -217,6 +217,15 @@ export default class ProfileRank {
       data.uidType = data.uidType || 'bind'
     }
     await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify(data), { EX: 3600 * 24 * 365 })
+  }
+
+  static async getUidInfo (uid) {
+    try {
+      let data = await redis.get(`miao:rank:uid-info:${uid}`)
+      return JSON.parse(data)
+    } catch (e) {
+    }
+    return false
   }
 
   /**

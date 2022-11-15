@@ -81,21 +81,11 @@ export async function resetRank (e) {
   e.reply(`本群${charName}排名已重置...`)
 }
 
-const getUid = async function (qq) {
-  let uidReg = /[1-9][0-9]{8}/
-  let nCookie = global.NoteCookie || false
-  if (nCookie && nCookie[qq]) {
-    let nc = nCookie[qq]
-    if (nc.uid && uidReg.test(nc.uid)) {
-      return nc.uid
-    }
-  }
-  let uid = await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
-  if (uid && uidReg.test(uid)) {
-    return uid
-  }
-}
-
+/**
+ * 刷新群排名信息
+ * @param e
+ * @returns {Promise<boolean>}
+ */
 export async function refreshRank (e) {
   let groupId = e.group_id
   if (!groupId) {
@@ -111,7 +101,7 @@ export async function refreshRank (e) {
     for (let { uid, type } of groupUids[qq]) {
       let profiles = Profile.getAll(uid)
       // 刷新rankLimit
-      await ProfileRank.setRankUidInfo({ uid, profiles, qq, uidType: type })
+      await ProfileRank.setUidInfo({ uid, profiles, qq, uidType: type })
       let rank = await ProfileRank.create({ groupId, uid, qq })
       for (let id in profiles) {
         let profile = profiles[id]
@@ -155,6 +145,16 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
         tmp.dmg = {
           title: title,
           avg: Format.comma(dmg.avg, 1)
+        }
+      }
+      if (uid) {
+        let userInfo = await ProfileRank.getUidInfo(uid)
+        if (userInfo && userInfo.qq) {
+          let member = e.group?.pickMember(userInfo.qq * 1)
+          let img = member?.getAvatarUrl(140)
+          if (img) {
+            tmp.qqFace = img
+          }
         }
       }
       list.push(tmp)

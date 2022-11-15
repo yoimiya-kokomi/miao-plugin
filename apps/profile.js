@@ -28,7 +28,7 @@ app.reg('reset-rank', resetRank, {
 })
 
 app.reg('refresh-rank', refreshRank, {
-  rule: /^#(刷新)(全部)?(排名|排行)$/,
+  rule: /^#(刷新|更新|重新加载)(群内|群|全部)*(排名|排行)$/,
   name: '重置排名'
 })
 

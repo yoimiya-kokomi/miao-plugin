@@ -53,7 +53,7 @@ const Common = {
     let ret = {}
     let uidMap = {}
 
-    let groupMemMap = await e.group.getMemberMap()
+    let groupMemMap = await e.group?.getMemberMap()
     // 优先匹配ck uid
     for (let [qq] of groupMemMap) {
       if (noteUids[qq]) {
