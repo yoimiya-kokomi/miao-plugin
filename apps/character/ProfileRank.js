@@ -120,7 +120,9 @@ export async function refreshRank (e) {
         }
         await rank.getRank(profile, true)
       }
-      count++
+      if (rank.allowRank) {
+        count++
+      }
     }
   }
   e.reply(`本群排名已刷新，共刷新${count}个UID数据...`)

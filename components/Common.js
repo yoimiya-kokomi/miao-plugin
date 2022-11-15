@@ -76,10 +76,10 @@ const Common = {
       }
       let uid = await Common.getBindUid(qq)
       if (uid && !uidMap[uid]) {
-        ret[qq] = {
+        ret[qq] = [{
           uid,
           type: 'bind'
-        }
+        }]
         uidMap[uid] = qq
       }
     }
