@@ -68,12 +68,6 @@ export async function resetRank (e) {
   let name = msg.replace(/(#|重置|重设|排名|排行|群|群内|面板|详情|面版)/g, '').trim()
   let charId = ''
   let charName = '全部角色'
-  let groupMemList = []
-  let groupMemMap = await e.group.getMemberMap()
-  groupMemMap.forEach((v, k) => {
-    groupMemList.push(k)
-  });
-  
   if (name) {
     let char = Character.get(name)
     if (!char) {
@@ -83,8 +77,53 @@ export async function resetRank (e) {
     charId = char.id
     charName = char.name
   }
-  await ProfileRank.resetRank(groupId, groupMemList, charId)
+  await ProfileRank.resetRank(groupId, charId)
   e.reply(`本群${charName}排名已重置...`)
+}
+
+const getUid = async function (qq) {
+  let uidReg = /[1-9][0-9]{8}/
+  let nCookie = global.NoteCookie || false
+  if (nCookie && nCookie[qq]) {
+    let nc = nCookie[qq]
+    if (nc.uid && uidReg.test(nc.uid)) {
+      return nc.uid
+    }
+  }
+  let uid = await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
+  if (uid && uidReg.test(uid)) {
+    return uid
+  }
+}
+
+export async function refreshRank (e) {
+  let groupId = e.group_id
+  if (!groupId) {
+    return true
+  }
+  if (!e.isMaster) {
+    e.reply('只有管理员可刷新排名...')
+    return true
+  }
+  let groupUids = await Common.getGroupUids(e)
+  let count = 0
+  for (let qq in groupUids) {
+    for (let { uid, type } of groupUids[qq]) {
+      let profiles = Profile.getAll(uid)
+      // 刷新rankLimit
+      await ProfileRank.setRankUidInfo({ uid, profiles, qq, uidType: type })
+      let rank = await ProfileRank.create({ groupId, uid, qq })
+      for (let id in profiles) {
+        let profile = profiles[id]
+        if (!profile.hasData) {
+          continue
+        }
+        await rank.getRank(profile, true)
+      }
+      count++
+    }
+  }
+  e.reply(`本群排名已刷新，共刷新${count}个UID数据...`)
 }
 
 async function renderCharRankList ({ e, uids, char, mode, groupId }) {

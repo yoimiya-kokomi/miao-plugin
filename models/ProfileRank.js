@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import moment from 'moment'
-import { Common, Profile } from '../components/index.js'
+import { Common } from '../components/index.js'
 
 export default class ProfileRank {
   constructor (data) {
@@ -149,36 +149,6 @@ export default class ProfileRank {
     if (charId === '') {
       await redis.del(`miao:rank:${groupId}:cfg`)
     }
-
-    let getUid = async function (qq) {
-      let uidReg = /[1-9][0-9]{8}/
-      let nCookie = global.NoteCookie || false
-      if (nCookie && nCookie[qq]) {
-        let nc = nCookie[qq]
-        if (nc.uid && uidReg.test(nc.uid)) {
-          return nc.uid
-        }
-      }
-      let uid = await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
-      if (uid && uidReg.test(uid)) {
-        return uid
-      }
-    }
-
-    for (let qq of groupMemList) {
-      let uid = await getUid(qq)
-      if (!uid) { continue }
-      let rankObj = await ProfileRank.create({ groupId, uid, qq})
-      if (charId === ''){
-        await Profile.forEach(uid, async function (profile) {
-          await rankObj.getRank(profile, true)
-        });
-      }
-      else {
-        let profile = Profile.get(uid, charId)
-        await rankObj.getRank(profile, true)
-      }
-    }
   }
 
   static async getGroupCfg (groupId) {
@@ -208,7 +178,7 @@ export default class ProfileRank {
     return ret
   }
 
-  static async setRankLimit (uid, profiles, isSelfUid = false) {
+  static async setRankUidInfo ({ uid, qq, profiles, uidType = 'bind' }) {
     if (!uid) {
       return false
     }
@@ -233,11 +203,20 @@ export default class ProfileRank {
     } catch (e) {
       data = {}
     }
-    await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify({
-      totalCount,
-      basicCount,
-      isSelfUid: !!(isSelfUid || data?.isSelfUid)
-    }), { EX: 3600 * 24 * 365 })
+    data.totalCount = totalCount
+    data.basicCount = basicCount
+    if (data.isSelfUid) {
+      delete data.isSelfUid
+      data.uidType = 'ck'
+    }
+    if (uidType === 'ck') {
+      data.qq = qq || data.qq || ''
+      data.uidType = 'ck'
+    } else {
+      data.qq = data.qq || qq || ''
+      data.uidType = data.uidType || 'bind'
+    }
+    await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify(data), { EX: 3600 * 24 * 365 })
   }
 
   /**
@@ -260,7 +239,7 @@ export default class ProfileRank {
       }
       let data = await redis.get(`miao:rank:uid-info:${uid}`)
       data = JSON.parse(data)
-      if (data.isSelfUid) {
+      if (data.isSelfUid || data.uidType === 'ck') {
         return true
       }
       if (rankLimit === 2) {

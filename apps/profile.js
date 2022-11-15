@@ -6,7 +6,7 @@ import { renderProfile } from './character/ProfileDetail.js'
 import { profileStat } from './character/ProfileStat.js'
 import { profileList } from './character/ProfileList.js'
 import { enemyLv } from './character/ProfileUtils.js'
-import { groupRank, resetRank } from './character/ProfileRank.js'
+import { groupRank, resetRank, refreshRank } from './character/ProfileRank.js'
 
 let app = App.init({
   id: 'profile',
@@ -24,6 +24,11 @@ app.reg('group-profile', groupRank, {
 
 app.reg('reset-rank', resetRank, {
   rule: /^#(重置|重设)(.*)(排名|排行)$/,
+  name: '重置排名'
+})
+
+app.reg('refresh-rank', refreshRank, {
+  rule: /^#(刷新)(全部)?(排名|排行)$/,
   name: '重置排名'
 })
 
