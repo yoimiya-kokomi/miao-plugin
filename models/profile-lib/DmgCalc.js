@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 计算伤害
 * */
-import { eleBaseDmg } from './DmgCalcMeta.js'
+import { eleBaseDmg, erTitle } from './DmgCalcMeta.js'
 import DmgMastery from './DmgMastery.js'
 
 let DmgCalc = {
@@ -67,7 +67,7 @@ let DmgCalc = {
 
     // 抗性区
     let kx = attr.kx
-    if (ele === 'swirl'/* || (ele === 'phy' && (attr.element === '雷' || attr.element === '冰'))*/) {
+    if (ele === 'swirl') {
       kx = attr.fykx
     }
     kx = 10 - (kx || 0)
@@ -148,6 +148,10 @@ let DmgCalc = {
     let { calc } = ds
 
     let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = 'talent') {
+      if (ele) {
+        ele = erTitle[ele] || ele
+      }
+      console.log(ele)
       return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode }, data)
     }
 

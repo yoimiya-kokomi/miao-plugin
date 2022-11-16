@@ -8,7 +8,7 @@ export const details = [{
 
 }, {
   title: 'E络命丝蒸发',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
 
 }, {
   title: 'Q协同单段伤害',
@@ -16,9 +16,15 @@ export const details = [{
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
   }
+}, {
+  title: 'Q协同单段蒸发',
+  params: { q: true },
+  dmg: ({ talent, attr, calc, cons }, { basic }) => {
+    return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q', '蒸发')
+  }
 }]
 
-export const defDmgIdx = 2
+export const defDmgIdx = 4
 export const mainAttr = 'hp,cpct,cdmg'
 
 export const buffs = [{

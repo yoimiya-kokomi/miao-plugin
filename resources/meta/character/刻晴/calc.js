@@ -8,9 +8,22 @@ export const details = [{
   title: 'Q总伤害',
   params: { q: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + talent.q['连斩伤害'] + talent.q['最后一击伤害'], 'q')
+}, {
+  title: 'Q总伤害·超激化',
+  params: { q: 1 },
+  dmg: ({ talent }, dmg) => {
+    let t1j = dmg(talent.q['技能伤害'], 'q', '超激化')
+    let t2j = dmg(talent.q['连斩伤害'] / 8, 'q', '超激化')
+    let t2 = dmg(talent.q['连斩伤害'] / 8, 'q')
+    let t3j = dmg(talent.q['最后一击伤害'], 'q', '超激化')
+    return {
+      dmg: t1j.dmg + t2j.dmg * 2 + t2.dmg * 6 + t3j.dmg,
+      avg: t1j.avg + t2j.avg * 2 + t2.avg * 6 + t3j.avg
+    }
+  }
 }]
 
-export const defDmgIdx = 2
+export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{

@@ -1,3 +1,5 @@
+import lodash from 'lodash'
+
 export const eleMap = {
   anemo: '风',
   cryo: '冰',
@@ -10,20 +12,25 @@ export const eleMap = {
 
 // 元素反应类型及基数
 export const erType = {
-  vaporize: { type: 'pct', num: ({ element }) => element === '水' ? 2 : 1.5 }, // 蒸发
-  melt: { type: 'pct', num: ({ element }) => element === '火' ? 2 : 1.5 }, // 融化
-  burning: { type: 'fusion', num: () => 1 }, // 燃烧
-  superConduct: { type: 'fusion', num: () => 2 }, // 超导
-  swirl: { type: 'fusion', num: () => 2.4 }, // 扩散
-  electroCharged: { type: 'fusion', num: () => 4.8 }, // 感电
-  shatter: { type: 'fusion', num: () => 6 }, // 碎冰
-  overloaded: { type: 'fusion', num: () => 8 }, // 超载
-  bloom: { type: 'fusion', num: () => 8 }, // 绽放
-  burgeon: { type: 'fusion', num: () => 12 }, // 烈绽放
-  hyperBloom: { type: 'fusion', num: () => 12 }, // 超绽放
-  aggravate: { type: 'bonus', num: () => 4.6 }, // 超激化
-  spread: { type: 'bonus', num: () => 5.0 } // 蔓激化
+  vaporize: { type: 'pct', num: ({ element }) => element === '水' ? 2 : 1.5, title: '蒸发' },
+  melt: { type: 'pct', num: ({ element }) => element === '火' ? 2 : 1.5, title: '融化' },
+  burning: { type: 'fusion', num: () => 1, title: '燃烧' },
+  superConduct: { type: 'fusion', num: () => 2, title: '超导' },
+  swirl: { type: 'fusion', num: () => 2.4, title: '扩散' },
+  electroCharged: { type: 'fusion', num: () => 4.8, title: '感电' },
+  shatter: { type: 'fusion', num: () => 6, title: '碎冰' },
+  overloaded: { type: 'fusion', num: () => 8, title: '超载' },
+  bloom: { type: 'fusion', num: () => 8, title: '绽放' },
+  burgeon: { type: 'fusion', num: () => 12, title: '烈绽放' },
+  hyperBloom: { type: 'fusion', num: () => 12, title: '超绽放' },
+  aggravate: { type: 'bonus', num: () => 4.6, title: '超激化' },
+  spread: { type: 'bonus', num: () => 5.0, title: '蔓激化' }
 }
+let erTmp = {}
+lodash.forEach(erType, (er, key) => {
+  erTmp[er.title] = key
+})
+export const erTitle = erTmp
 
 export const attrMap = {
   atk: { type: 'pct', val: 5.83, title: '大攻击', text: '5.8%' },
