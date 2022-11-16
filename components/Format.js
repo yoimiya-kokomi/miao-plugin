@@ -1,3 +1,5 @@
+import lodash from 'lodash'
+
 let Format = {
   int: function (d) {
     return parseInt(d)
@@ -6,7 +8,7 @@ let Format = {
     num = parseFloat((num * 1).toFixed(fix))
     let [integer, decimal] = String.prototype.split.call(num, '.')
     integer = integer.replace(/\d(?=(\d{3})+$)/g, '$&,') // 正则先行断言
-    return `${integer}${decimal ? '.' + decimal : ''}`
+    return `${integer}${fix > 0 ? '.' + (decimal || lodash.repeat('0', fix)) : ''}`
   },
   pct: function (num, fix = 1) {
     return (num * 1).toFixed(fix) + '%'

@@ -4,7 +4,6 @@ export const details = [{
 }, {
   title: 'Q单段伤害',
   params: { q: true },
-  dmgKey: 'q',
   dmg: ({ talent }, dmg) => dmg(talent.q['持续伤害'], 'q')
 }, {
   title: 'Q含转化单段',
@@ -23,7 +22,7 @@ export const details = [{
   dmg: ({}, { reaction }) => reaction('swirl')
 }]
 
-export const defDmgKey = 'q'
+export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{

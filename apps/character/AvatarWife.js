@@ -1,6 +1,6 @@
 // #老婆
 import lodash from 'lodash'
-import { Cfg } from '../../components/index.js'
+import { Common } from '../../components/index.js'
 import { Character, MysApi } from '../../models/index.js'
 import { getAvatarList, renderAvatar } from './AvatarCard.js'
 
@@ -39,10 +39,10 @@ export async function wife (e) {
   if (!msg && !e.isPoke) return false
 
   if (e.isPoke) {
-    if (Cfg.isDisable(e, 'char.poke')) {
+    if (!Common.cfg('avatarPoke')) {
       return false
     }
-  } else if (Cfg.isDisable(e, 'char.wife')) {
+  } else if (!Common.cfg('avatarWife')) {
     return false
   }
 

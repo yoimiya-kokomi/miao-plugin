@@ -1,0 +1,129 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/rank-profile-list.css"/>
+{{/block}}
+
+
+{{block 'main'}}
+<div class="head-box">
+  <div class="title">{{title}}</div>
+</div>
+<div id="profile-stat">
+
+  <div class="cont group-rank-tip {{groupRank?'has-rank':'no-rank'}}">
+    <div class="cont-title">
+      群排名说明
+    </div>
+    <div class="cont-body">
+      <ul class="cont-msg">
+        <li>
+          <i class="group-rank-icon dmg-icon"></i><strong>综合练度排名：</strong>
+          以期望伤害（计算暴击率的平均伤害，不代表实际伤害值）为排序的群内排名
+        </li>
+        <li>
+          <i class="group-rank-icon mark-icon"></i><strong>圣遗物评分排名：</strong>
+          基于角色评分规则进行圣遗物评分。评分规则为线性规则，无法体现词条平衡等实际因素，评分仅供娱乐
+        </li>
+        <li>
+          <strong>排名范围：</strong>
+          本群内 / 时间点：{{rankCfg.time}} 后 / 在群内主动通过 #面板 命令查看过的面板数据
+        </li>
+        {{if rankCfg?.limitTxt !== '无限制'}}
+        <li>
+          <strong>排名参与条件：</strong> {{rankCfg.limitTxt}}
+        </li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+
+  {{each list ds idx}}
+  <div class="cont char-list-item">
+    <div class="char-idx">
+      <span class="idx-{{idx+1}} mode-{{mode}}">{{idx+1}}</span>
+    </div>
+    <div class="item-icon char-icon star{{ds.star}}">
+      {{if ds.qqFace}}
+      <span class="img" style="background-image:url({{ds.qqFace}})"></span>
+      {{else}}
+      <span class="img" style="background-image:url({{_res_path}}{{ds.imgs?.face}})"></span>
+      {{/if}}
+    </div>
+    <div class="char-info char-name">
+
+      <div class="name">
+        <span class="cons cons-{{ds.cons}}">{{ds.cons}}</span>
+        <strong>{{ds.sName}}</strong>
+      </div>
+      <div class="info"> {{ds.uid}}</div>
+    </div>
+
+    <div class="char-talent">
+      {{set talent = ds.talent }}
+      {{set keys = ['a','e','q'] }}
+      {{each keys key}}
+      <div class="talent-item">
+        <div class="talent-icon
+               {{talent[key].level > talent[key].original ? `talent-plus`:``}}
+                {{talent[key].original >= 10 ? `talent-crown`:``}}">
+          <div class="talent-icon-img"
+               style="background-image:url({{_res_path}}{{ds.imgs[key]}})"></div>
+          <span>{{talent[key].level}}</span>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <div class="char-item char-weapon line">
+      {{set w = ds.weapon }}
+      <div class="item item-icon star{{w.star}}">
+        <div class="img" style="background-image:url({{_res_path}}{{w.img}})"></div>
+      </div>
+      <div class="char-info weapon-info">
+        <div class="name">
+          <strong> {{w.name?.length > 4 ? (w.abbr||w.name) : w.name}}</strong>
+        </div>
+        <div class="info">
+          <span class="cons cons-{{w.affix+1}}">精{{w.affix}}</span> Lv.{{w.leve || w.level}}
+        </div>
+      </div>
+    </div>
+
+
+    {{set mark = ds.artisMark || false }}
+    {{set aImgs = ds?.artisSet?.imgs || []}}
+    <div class="char-item char-artis class-{{mark?.markClass||'D'}}">
+      <div
+          class="item artis item-icon avatar-artis  {{aImgs.length>0?'star5':'no-artis'}} artis{{aImgs.length}}">
+        {{each aImgs img}}
+        <div class="img" style="background-image:url({{_res_path}}{{img}})"></div>
+        {{/each}}
+        {{if aImgs.length === 0}}
+        <span class="img no-artis"></span>
+        {{/if}}
+
+      </div>
+      <div class="char-info artis-info">
+        <div class="name artis-title">
+          {{ds?.artisSet?.name}}
+        </div>
+        <div class="artis-mark">
+          <span class="cons artis-mark-class class-{{mark?.markClass||'D'}}">{{mark.markClass}}</span>
+          {{mark.mark}}
+        </div>
+      </div>
+    </div>
+
+    <div class="char-dmg line">
+      {{if ds.dmg}}
+      <div class="dmg-title">{{ds.dmg?.title}}</div>
+      <div class="dmg-value">{{ds.dmg?.avg}}</div>
+      {{else}}
+      {{/if}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+{{/block}}

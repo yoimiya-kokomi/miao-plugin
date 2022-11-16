@@ -37,17 +37,20 @@ function checkCharacter (e) {
     mode = 'cons'
   } else if (/(图鉴|资料)/.test(ret[2])) {
     mode = 'wiki'
+    if (!Common.cfg('charWiki')) {
+      return false
+    }
   } else if (/图|画|写真|照片/.test(ret[2])) {
     mode = 'pic'
+    if (!Common.cfg('charPic')) {
+      return false
+    }
   } else if (/(材料|养成|成长)/.test(ret[2])) {
     mode = 'material'
   }
-
-  if ((mode === 'pic' && Common.isDisable(e, 'wiki.pic')) ||
-      (mode !== 'pic' && Common.isDisable(e, 'wiki.wiki'))) {
+  if (['cons', 'talent'].includes(mode) && !Common.cfg('charWikiTalent')) {
     return false
   }
-
   let char = Character.get(ret[1])
   if (!char) {
     return false
@@ -63,7 +66,7 @@ async function wiki (e) {
   let char = e.char
 
   if (mode === 'pic') {
-    let img = char.getCardImg(Cfg.get('char.se', false), false)
+    let img = char.getCardImg(Cfg.get('charPicSe', false), false)
     if (img && img.img) {
       e.reply(segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + img.img))
     } else {

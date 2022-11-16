@@ -1,0 +1,382 @@
+@import "../common/base.less";
+
+body {
+  width: 820px;
+}
+
+.container {
+  width: 820px;
+  padding: 0;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.group-rank-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./imgs/mark-icon.png");
+  background-size: auto 100%;
+  display: inline-block;
+  vertical-align: bottom;
+  margin: -1px 3px -1px 0;
+
+  &.mark-icon {
+    background-position: 100% 0;
+  }
+}
+
+.char-list-item {
+  height: 60px;
+  background-size: auto 150%;
+  display: flex;
+  padding: 5px;
+  overflow: visible;
+
+  .line {
+    margin-left: 15px;
+    position: relative;
+
+    &:before {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: rgba(255, 255, 255, .8);
+      background: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .8), rgba(255, 255, 255, .8), rgba(255, 255, 255, .8), rgba(255, 255, 255, .1));
+      position: absolute;
+      left: -15px;
+      top: 5px;
+    }
+  }
+}
+
+.char-idx {
+  width: 48px;
+
+  span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 13px 12px;
+    background: url('./imgs/mark-icon.png');
+    background-size: auto 100%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 24px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
+
+
+    &.idx-1 {
+      width: 48px;
+      margin: 13px 0;
+      background-image: url('./imgs/mark-icon2.png');
+      color: rgba(0, 0, 0, 0);
+      text-shadow: none;
+    }
+
+    &.mode-mark {
+      background-position: 100% 0;
+    }
+  }
+}
+
+.char-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  box-shadow: 1px 1px 3px 0 #000;
+  overflow: visible;
+  margin: 0 5px 0 6px;
+
+  .img {
+    background-size: auto 100%;
+    background-position: top center;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+}
+
+
+.char-info {
+  .name {
+    margin-top: 4px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 18px;
+    color: #d3bc8e;
+    font-weight: normal;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
+  }
+
+  .cons {
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    width: 16px;
+    text-align: center;
+    padding: 0;
+    margin-right: -2px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
+  }
+
+  .info {
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+
+.char-name {
+  width: 100px;
+}
+
+.char-talent {
+  display: flex;
+  padding: 0 5px;
+  margin: -5px 0;
+
+
+  .talent-item, .talent-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 -3px;
+  }
+
+  .talent-item {
+    position: relative;
+  }
+
+  .talent-icon {
+    width: 56px;
+    height: 56px;
+    position: relative;
+    margin: 7px -5px 13x;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 90;
+
+    img,
+    .talent-icon-img {
+      width: 46%;
+      height: 46%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -22% 0 0 -23%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    span {
+      background: #fff;
+      width: 22px;
+      height: 18px;
+      line-height: 18px;
+      font-size: 12px;
+      text-align: center;
+      border-radius: 5px;
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      margin-left: -11px;
+      color: #000;
+      box-shadow: 0 0 5px 0 #000;
+    }
+
+    &.talent-plus span {
+      background: #2e353e;
+      color: #ffdfa0;
+      font-weight: bold;
+      box-shadow: 0 0 1px 0 #d3bc8e, 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    &.talent-crown:after {
+      content: "";
+      display: block;
+      width: 18px;
+      height: 18px;
+      background: url("../character/imgs/crown.png") no-repeat;
+      background-size: contain;
+      position: absolute;
+      left: 50%;
+      top: -2px;
+      margin-left: -9px;
+    }
+  }
+}
+
+.char-item {
+  vertical-align: middle;
+  height: 50px;
+
+  .item {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    margin: 7px 5px 7px 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .7);
+    display: inline-block;
+    overflow: visible;
+    vertical-align: middle;
+  }
+}
+
+.char-weapon {
+  width: 125px;
+  display: flex;
+
+  .img {
+    margin: -10px -5px;
+    width: 46px;
+    height: 56px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .weapon-info {
+    padding-left: 5px;
+  }
+
+  .cons {
+    width: 28px;
+    font-size: 12px;
+    transform: scale(.9);
+    transform-origin: 0 50%;
+  }
+
+  .name {
+    height: 20px;
+    line-height: 20px;
+
+    strong {
+      font-size: 13px;
+      font-weight: normal;
+    }
+  }
+}
+
+
+.char-artis {
+  display: flex;
+  width: 130px;
+}
+
+.char-artis {
+  margin-left: 5px;
+  text-align: left;
+  position: relative;
+  z-index: 10;
+
+  &.class- {
+    &ACE, &ACE² {
+      .artis-mark-class {
+        background: #ff5722;
+      }
+    }
+
+    &SSS, &SS {
+      .artis-mark-class {
+        background: #531ba9cf;
+      }
+    }
+
+    &S, &A {
+      .artis-mark-class {
+        background: #3955b7;
+      }
+    }
+
+    &B, &C, &D {
+      .artis-mark-class {
+        background: #aaa;
+      }
+    }
+  }
+
+  .artis-mark-class {
+    width: 28px;
+    margin-right: -2px;
+    transform: scale(.9);
+    transform-origin: 0 50%;
+
+  }
+
+  .artis {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    margin: 7px 5px 7px 0;
+    display: inline-block;
+
+    &.no-artis {
+      background: #bbb;
+    }
+  }
+
+  .no-artis {
+    background: url(../common/item/artifact-icon.webp) center no-repeat;
+    background-size: auto 88%;
+  }
+
+  .char-info {
+    .name {
+      height: 20px;
+      line-height: 20px;
+    }
+  }
+
+
+  .artis2 {
+    position: relative;
+
+    .img {
+      position: absolute;
+      transform: scale(.7);
+      width: 100%;
+      height: 100%;
+      margin: 0;
+
+      &:first-child {
+        transform-origin: left top;
+      }
+
+      &:last-child {
+        transform-origin: right bottom;
+      }
+    }
+  }
+
+  .artis-title {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .artis-mark {
+    height: 23px;
+  }
+
+}
+
+.char-dmg {
+  width: 120px;
+
+  .dmg-value {
+    height: 28px;
+    line-height: 28px;
+    font-size: 18px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
+  }
+
+  .dmg-title {
+    height: 16px;
+    line-height: 16px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #aaa
+  }
+}

@@ -31,10 +31,6 @@ app.reg('upload-data', uploadData, {
 export default app
 
 async function consStat (e) {
-  if (Cfg.isDisable(e, 'wiki.stat')) {
-    return false
-  }
-
   let consData = await HutaoApi.getCons()
   let overview = await HutaoApi.getOverview()
 
@@ -114,10 +110,6 @@ async function consStat (e) {
 }
 
 async function abyssPct (e) {
-  if (Cfg.isDisable(e, 'wiki.stat')) {
-    return false
-  }
-
   let mode = /使用/.test(e.msg) ? 'use' : 'pct'
   let modeName
   let abyssData
@@ -393,7 +385,7 @@ async function abyssTeam (e) {
 
 async function uploadData (e) {
   let isMatch = /^#(喵喵|上传)深渊(数据)?$/.test(e.original_msg || e.msg || '')
-  if (!Cfg.get('wiki.abyss', false) && !isMatch) {
+  if (!Cfg.get('uploadAbyssData', false) && !isMatch) {
     return false
   }
   let mys = await MysApi.init(e, { auth: 'all' })

@@ -6,7 +6,8 @@
 export const getProfileServ = ({ uid, serv, diyCfg }) => {
   let { Miao, Enka } = serv
   let token = diyCfg?.miaoApi?.token
-  if (token && token.length === 32) {
+  let qq = diyCfg?.miaoApi?.qq
+  if (qq && token && token.length === 32 && !/^test/.test(token)) {
     return Miao
   }
   return Enka

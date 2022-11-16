@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { Format } from '../../components/index.js'
-import { attrNameMap, mainAttr, subAttr } from '../../resources/meta/artifact/artis-mark.js'
+import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/artis-mark.js'
 
 let ArtisMark = {
   formatAttr (ds) {
@@ -22,20 +22,46 @@ let ArtisMark = {
     }
   },
 
+  /**
+   * 格式化圣遗物词条
+   * @param ds
+   * @param markCfg
+   * @param isMain
+   * @returns {{title: *, value: string}|*[]}
+   */
   formatArti (ds, markCfg = false, isMain = false) {
     if (ds[0] && ds[0].title) {
       let ret = []
+      let totalUpNum = 0
+      let ltArr = []
       lodash.forEach(ds, (d) => {
-        ret.push(ArtisMark.formatArti(d, markCfg, isMain))
+        let arti = ArtisMark.formatArti(d, markCfg, isMain)
+        totalUpNum += arti.upNum
+        if (arti.hasLt) {
+          ltArr.push(arti)
+        }
+        ret.push(arti)
+        delete arti.hasLt
+        delete arti.hasGt
       })
+      ltArr = lodash.sortBy(ltArr, 'upNum').reverse()
+      for (let arti of ltArr) {
+        if (totalUpNum > 9) {
+          arti.upNum = arti.upNum - 1
+          totalUpNum--
+        } else {
+          break
+        }
+      }
       return ret
     }
     let title = ds.title || ds[0]
     let key = ''
     let val = ds.value || ds[1]
+    let value = val
     let num = ds.value || ds[1]
     if (!title || title === 'undefined') {
-      return []
+      return {}
     }
     if (/伤害加成/.test(title) && val < 1) {
       val = Format.pct(val * 100)
@@ -56,7 +82,16 @@ let ArtisMark = {
 
     key = key || attrNameMap[title]
 
-    let ret = { title, value: val }
+    let ret = {
+      title,
+      value: val
+    }
+    if (!isMain) {
+      let incRet = ArtisMark.getIncNum(title, value)
+      ret.upNum = incRet.num
+      ret.hasGt = incRet.hasGt
+      ret.hasLt = incRet.hasLt
+    }
 
     if (markCfg) {
       let mark = markCfg[key] * num
@@ -67,6 +102,25 @@ let ArtisMark = {
       ret._mark = mark || 0
     }
     return ret
+  },
+
+  getIncNum (title, value) {
+    let cfg = attrNameMap[title] && attrMap[attrNameMap[title]]
+    if (!value || !cfg || !cfg.value || !cfg.valueMin) {
+      return { num: 0 }
+    }
+    let maxNum = Math.min(5, Math.floor((value / cfg.valueMin).toFixed(1) * 1))
+    let minNum = Math.max(1, Math.ceil((value / cfg.value).toFixed(1) * 1))
+    // 相等时直接返回
+    if (maxNum === minNum) {
+      return { num: minNum }
+    }
+    let avg = Math.round(value / (cfg.value + cfg.valueMin) * 2)
+    return {
+      num: avg,
+      hasGt: maxNum > avg,
+      hasLt: minNum < avg
+    }
   },
 
   getMarkClass (mark) {

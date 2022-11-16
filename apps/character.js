@@ -46,17 +46,15 @@ function checkCharacter (e) {
   if (!msg || !/^#/.exec(msg)) {
     return false
   }
-
+  if (!Common.cfg('avatarCard')) {
+    return false
+  }
   let uidRet = /[0-9]{9}/.exec(msg)
   if (uidRet) {
     e.uid = uidRet[0]
     msg = msg.replace(uidRet[0], '')
   }
   let name = msg.replace(/#|老婆|老公|卡片/g, '').trim()
-
-  if (Common.isDisable(e, 'char.char')) {
-    return false
-  }
 
   let char = Character.get(name.trim())
 

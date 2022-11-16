@@ -1,11 +1,11 @@
 body {
   transform: scale(1);
-  width: 520px;
+  width: 700px;
 }
 .container {
   background: url("./imgs/bg.png") #000144 left top no-repeat;
-  background-size: 520px auto;
-  width: 520px;
+  background-size: 700px auto;
+  width: 700px;
 }
 .head-box {
   margin: 0 0 80px 0;

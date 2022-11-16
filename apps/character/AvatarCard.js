@@ -44,7 +44,7 @@ async function renderCard (e, ds, renderType = 'card') {
   if (!char) {
     return false
   }
-  let bg = char.getCardImg(Cfg.get('char.se', false))
+  let bg = char.getCardImg(Cfg.get('charPicSe', false))
   if (renderType === 'photo') {
     e.reply(segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + bg.img))
     return true

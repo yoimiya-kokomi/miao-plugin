@@ -25,7 +25,7 @@ const _path = process.cwd()
 const helpPath = `${_path}/plugins/miao-plugin/resources/help`
 
 async function help (e) {
-  if (!/喵喵/.test(e.msg) && !Cfg.get('sys.help', false)) {
+  if (!/喵喵/.test(e.msg) && !Cfg.get('help', false)) {
     return false
   }
 

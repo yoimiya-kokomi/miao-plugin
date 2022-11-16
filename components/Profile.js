@@ -36,7 +36,11 @@ let Profile = {
     let userData = {}
     const userFile = `${userPath}/${uid}.json`
     if (fs.existsSync(userFile)) {
-      userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
+      try {
+        userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
+      } catch (e) {
+        userData = {}
+      }
     }
     lodash.assignIn(userData, lodash.pick(data, 'uid,name,lv,avatar'.split(',')))
     userData.chars = userData.chars || {}
@@ -93,7 +97,11 @@ let Profile = {
     const userFile = `${userPath}/${uid}.json`
     let userData = {}
     if (fs.existsSync(userFile)) {
-      userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
+      try {
+        userData = JSON.parse(fs.readFileSync(userFile, 'utf8')) || {}
+      } catch (e) {
+        userData = {}
+      }
     }
     if (userData && userData.chars) {
       let ret = {}

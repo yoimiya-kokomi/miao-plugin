@@ -1,4 +1,4 @@
-import { Common, Cfg, App } from '../components/index.js'
+import { Common, App } from '../components/index.js'
 import { Character } from '../models/index.js'
 import { getTargetUid, getProfile, profileHelp, inputProfile } from './character/ProfileCommon.js'
 import { profileArtis, profileArtisList } from './character/ProfileArtis.js'
@@ -6,7 +6,7 @@ import { renderProfile } from './character/ProfileDetail.js'
 import { profileStat } from './character/ProfileStat.js'
 import { profileList } from './character/ProfileList.js'
 import { enemyLv } from './character/ProfileUtils.js'
-import { groupRank, resetRank } from './character/ProfileRank.js'
+import { groupRank, resetRank, refreshRank } from './character/ProfileRank.js'
 
 let app = App.init({
   id: 'profile',
@@ -26,12 +26,17 @@ app.reg('reset-rank', resetRank, {
   rule: /^#(重置|重设)(.*)(排名|排行)$/,
   name: '重置排名'
 })
-/*
+
+app.reg('refresh-rank', refreshRank, {
+  rule: /^#(刷新|更新|重新加载)(群内|群|全部)*(排名|排行)$/,
+  name: '重置排名'
+})
+
 app.reg('rank-list', groupRank, {
   rule: /^#(群|群内)?.+(排名|排行|列表)(列表|榜)?$/,
   name: '面板排名榜'
 })
-*/
+
 app.reg('artis-list', profileArtisList, {
   rule: /^#圣遗物列表\s*(\d{9})?$/,
   name: '面板圣遗物列表'
@@ -71,13 +76,16 @@ export async function profileDetail (e) {
   if (!msg) {
     return false
   }
-
+  if (!/详细|详情|面板|面版|圣遗物|伤害/.test(msg)) {
+    return false
+  }
   let mode = 'profile'
   let uidRet = /[0-9]{9}/.exec(msg)
   if (uidRet) {
     e.uid = uidRet[0]
     msg = msg.replace(uidRet[0], '')
   }
+
   let name = msg.replace(/#|老婆|老公/g, '').trim()
   msg = msg.replace('面版', '面板')
   let dmgRet = /伤害(\d?)$/.exec(name)
@@ -110,27 +118,11 @@ export async function profileDetail (e) {
     mode = 'artis'
     name = name.replace('圣遗物', '').trim()
   }
-
-  if (!e.isMaster) {
-    if (Common.isDisable(e, 'char.profile')) {
-      // 面板开关关闭
-      return false
-    }
-    if (e.isPrivate) {
-      if ((e.sub_type === 'friend' && Cfg.get('profile.friend.status') === false) ||
-        (e.sub_type === 'group' && Cfg.get('profile.stranger.status') === false)) {
-        return false
-      }
-    } else if (e.isGroup) {
-      let groupCfg = Cfg.get(`profile.groups.群${e.group_id}.status`)
-      if (groupCfg === false || (groupCfg !== true && Cfg.get('profile.group.status') === false)) {
-        return false
-      }
-    }
+  if (!Common.cfg('avatarProfile')) {
+    // 面板开关关闭
+    return false
   }
-
   let char = Character.get(name.trim())
-
   if (!char) {
     return false
   }
