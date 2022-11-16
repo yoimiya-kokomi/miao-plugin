@@ -95,6 +95,7 @@ export async function refreshRank (e) {
     e.reply('只有管理员可刷新排名...')
     return true
   }
+  e.reply('面板数据刷新中，等待时间可能较长，请耐心等待...')
   let groupUids = await Common.getGroupUids(e)
   let count = 0
   for (let qq in groupUids) {
