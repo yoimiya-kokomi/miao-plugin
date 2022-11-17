@@ -54,7 +54,10 @@ const CharImg = {
   },
 
   // 获取角色的图像资源数据
-  getImgs (name, costumeId = '', travelerElem = '', fileType = 'webp') {
+  getImgs (name, costumeCfg = '', travelerElem = '', fileType = 'webp') {
+    if (!lodash.isArray(costumeCfg)) {
+      costumeCfg = [costumeCfg, 'normal']
+    }
     let imgs = {}
     if (!['空', '荧', '旅行者'].includes(name)) {
       travelerElem = ''
@@ -72,13 +75,15 @@ const CharImg = {
     let tAdd = (key, path) => {
       imgs[key] = `${travelerElem ? tPath : nPath}${path}.${fileType}`
     }
-    add('face', 'imgs/face', `imgs/face${costumeId}`)
-    add('side', 'imgs/side', `imgs/side${costumeId}`)
+    add('face', 'imgs/face', `imgs/face${costumeCfg[0]}`)
+    add('side', 'imgs/side', `imgs/side${costumeCfg[0]}`)
     add('gacha', 'imgs/gacha')
-    if (costumeId === '0' && fs.existsSync(`${rPath}/profile/super-character/${name}.webp`)) {
+    if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/profile/super-character/${name}.webp`)) {
       imgs.splash = `profile/super-character/${name}.webp`
+    } else if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/${nPath}/imgs/splash0.webp`)) {
+      imgs.splash = `${nPath}imgs/splash0.webp`
     } else {
-      add('splash', 'imgs/splash', `imgs/splash${costumeId}`)
+      add('splash', 'imgs/splash', `imgs/splash${costumeCfg[0]}`)
     }
     tAdd('card', 'imgs/card')
     tAdd('banner', 'imgs/banner')

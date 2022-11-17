@@ -1,6 +1,7 @@
 import { Character, ProfileRank, ProfileDmg, Avatar } from '../../models/index.js'
 import { renderProfile } from './ProfileDetail.js'
 import { Data, Profile, Common, Format } from '../../components/index.js'
+import lodash from 'lodash'
 
 export async function groupRank (e) {
   let groupId = e.group_id
@@ -137,10 +138,11 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
       let avatar = new Avatar(profile, uid)
       let tmp = {
         uid,
-        isMax: true,
+        isMax: !char,
         ...avatar.getData('id,star,name,sName,level,fetter,cons,weapon,elem,talent,artisSet,imgs'),
         artisMark: Data.getData(mark, 'mark,markClass')
       }
+      tmp._mark = mark._mark
       let dmg = data?.dmg?.data
       if (dmg && dmg.avg) {
         let title = dmg.title
@@ -153,6 +155,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
           title: title,
           avg: Format.comma(dmg.avg, 1)
         }
+        tmp._dmg = dmg.avg
       }
       if (uid) {
         let userInfo = await ProfileRank.getUidInfo(uid)
@@ -170,9 +173,12 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   let title
   if (char) {
     title = `#${char.name}${mode === 'mark' ? '圣遗物' : ''}排行`
+    list = lodash.sortBy(list, mode === 'mark' ? '_mark' : '_dmg').reverse()
   } else {
     title = `#${mode === 'mark' ? '最高分' : '最强'}排行`
+    list = lodash.sortBy(list, 'uid')
   }
+
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
   // 渲染图像
   return await Common.render('character/rank-profile-list', {

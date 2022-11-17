@@ -178,18 +178,19 @@ class Character extends Base {
 
   // 获取角色插画
   getImgs (costume = '') {
-    let costumeId = this.checkCostume(costume) ? '2' : ''
-    if (costume === 'super') {
-      costumeId = '0'
+    if (!lodash.isArray(costume)) {
+      costume = [costume, false]
     }
-    let cacheId = `costume${costumeId}`
+    let costumeCfg = [this.checkCostume(costume[0]) ? '2' : '', costume[1] || 'normal']
+
+    let cacheId = `costume${costumeCfg.join('')}`
     if (!this._imgs) {
       this._imgs = {}
     }
     if (this._imgs[cacheId]) {
       return this._imgs[cacheId]
     }
-    this._imgs[cacheId] = CharImg.getImgs(this.name, costumeId, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
+    this._imgs[cacheId] = CharImg.getImgs(this.name, costumeCfg, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
     return this._imgs[cacheId]
   }
 
