@@ -228,12 +228,17 @@ export default class ProfileRank {
       delete data.isSelfUid
       data.uidType = 'ck'
     }
+
     if (uidType === 'ck') {
-      data.qq = qq || data.qq || ''
       data.uidType = 'ck'
+      data.qq = qq || data.qq || ''
     } else {
-      data.qq = data.qq || qq || ''
       data.uidType = data.uidType || 'bind'
+      if (data.uidType === 'bind') {
+        data.qq = data.qq || qq || ''
+      } else {
+        data.qq = qq || data.qq || ''
+      }
     }
     await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify(data), { EX: 3600 * 24 * 365 })
   }

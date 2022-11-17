@@ -29,7 +29,8 @@ export async function profileList (e) {
   // 获取面板数据
   let profiles = Profile.getAll(uid)
   // 检测标志位
-  await ProfileRank.setUidInfo({ uid, profiles, qq: e.user_id, uidType: isSelfUid ? 'ck' : 'bind' })
+  let qq = (e.at && !e.atBot) ? e.at : e.qq
+  await ProfileRank.setUidInfo({ uid, profiles, qq, uidType: isSelfUid ? 'ck' : 'bind' })
 
   let groupId = e.group_id
   if (groupId) {
