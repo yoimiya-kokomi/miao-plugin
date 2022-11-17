@@ -142,7 +142,6 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
         ...avatar.getData('id,star,name,sName,level,fetter,cons,weapon,elem,talent,artisSet,imgs'),
         artisMark: Data.getData(mark, 'mark,markClass')
       }
-      tmp._mark = mark._mark
       let dmg = data?.dmg?.data
       if (dmg && dmg.avg) {
         let title = dmg.title
@@ -155,7 +154,6 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
           title: title,
           avg: Format.comma(dmg.avg, 1)
         }
-        tmp._dmg = dmg.avg
       }
       if (uid) {
         let userInfo = await ProfileRank.getUidInfo(uid)
@@ -167,7 +165,9 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
           }
         }
       }
-      tmp.star0 = 5 - tmp.star
+      tmp._mark = mark?.mark || 0
+      tmp._dmg = dmg?.avg || 0
+      tmp._star = 5 - tmp.star
       list.push(tmp)
     }
   }
@@ -177,7 +177,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
     list = lodash.sortBy(list, mode === 'mark' ? '_mark' : '_dmg').reverse()
   } else {
     title = `#${mode === 'mark' ? '最高分' : '最强'}排行`
-    list = lodash.sortBy(list, ['uid', 'star0', 'charid'])
+    list = lodash.sortBy(list, ['uid', '_star', 'id'])
   }
 
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
