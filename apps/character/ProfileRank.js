@@ -167,6 +167,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
           }
         }
       }
+      tmp.star0 = 5 - tmp.star
       list.push(tmp)
     }
   }
@@ -176,7 +177,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
     list = lodash.sortBy(list, mode === 'mark' ? '_mark' : '_dmg').reverse()
   } else {
     title = `#${mode === 'mark' ? '最高分' : '最强'}排行`
-    list = lodash.sortBy(list, 'uid')
+    list = lodash.sortBy(list, ['uid', 'star0', 'charid'])
   }
 
   const rankCfg = await ProfileRank.getGroupCfg(groupId)

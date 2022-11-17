@@ -50,7 +50,7 @@ body {
 .char-idx {
   width: 48px;
 }
-.char-idx span {
+.char-idx .idx-icon {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -62,15 +62,25 @@ body {
   line-height: 24px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
-.char-idx span.idx-1 {
+.char-idx .idx-icon.idx-1 {
   width: 48px;
   margin: 13px 0;
   background-image: url('./imgs/mark-icon2.png');
   color: rgba(0, 0, 0, 0);
   text-shadow: none;
 }
-.char-idx span.mode-mark {
+.char-idx .idx-icon.mode-mark {
   background-position: 100% 0;
+}
+.char-idx .char-icon {
+  width: 36px;
+  height: 36px;
+  margin-top: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.char-idx .char-icon .img {
+  border-radius: 0;
 }
 .char-icon {
   width: 50px;

@@ -40,9 +40,11 @@
 
   {{each list ds idx}}
   <div class="cont char-list-item">
+    {{if !ds.isMax}}
     <div class="char-idx">
-      <span class="idx-{{ds.isMax ? 1 : idx+1}} mode-{{mode}}">{{idx+1}}</span>
+      <span class="idx-icon idx-{{idx+1}} mode-{{mode}}">{{idx+1}}</span>
     </div>
+    {{/if}}
     <div class="item-icon char-icon star{{ds.star}}">
       {{if ds.qqFace}}
       <span class="img" style="background-image:url({{ds.qqFace}})"></span>
@@ -50,8 +52,14 @@
       <span class="img" style="background-image:url({{_res_path}}{{ds.imgs?.face}})"></span>
       {{/if}}
     </div>
+    {{if ds.isMax}}
+    <div class="char-idx">
+      <div class="item-icon char-icon star{{ds.star}}">
+        <span class="img" style="background-image:url({{_res_path}}{{ds.imgs?.face}})"></span>
+      </div>
+    </div>
+    {{/if}}
     <div class="char-info char-name">
-
       <div class="name">
         <span class="cons cons-{{ds.cons}}">{{ds.cons}}</span>
         <strong>{{ds.sName}}</strong>
