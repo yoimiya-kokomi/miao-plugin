@@ -41,7 +41,7 @@
   {{each list ds idx}}
   <div class="cont char-list-item">
     <div class="char-idx">
-      <span class="idx-{{idx+1}} mode-{{mode}}">{{idx+1}}</span>
+      <span class="idx-{{ds.isMax ? 1 : idx+1}} mode-{{mode}}">{{idx+1}}</span>
     </div>
     <div class="item-icon char-icon star{{ds.star}}">
       {{if ds.qqFace}}

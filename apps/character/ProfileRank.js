@@ -21,7 +21,7 @@ export async function groupRank (e) {
   let mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
   let name = msg.replace(/(#|最强|最高分|第一|最高|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
   let char = Character.get(name)
-  if (!char) {
+  if (!char && type !== 'list') {
     return false
   }
   if (!groupRank) {
@@ -41,10 +41,15 @@ export async function groupRank (e) {
       }
     }
   } else if (type === 'list') {
-    if (mode === 'dmg' && !ProfileDmg.dmgRulePath(char.name)) {
+    if (mode === 'dmg' && char && !ProfileDmg.dmgRulePath(char.name)) {
       e.reply(`暂无排名：${char.name}暂不支持伤害计算，无法进行排名..`)
     } else {
-      let uids = await ProfileRank.getGroupUidList(groupId, char.id, mode)
+      let uids = []
+      if (char) {
+        uids = await ProfileRank.getGroupUidList(groupId, char ? char.id : '', mode)
+      } else {
+        uids = await ProfileRank.getGroupMaxUidList(groupId, mode)
+      }
       if (uids.length > 0) {
         return renderCharRankList({ e, uids, char, mode, groupId })
       } else {
@@ -121,10 +126,10 @@ export async function refreshRank (e) {
 
 async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   let list = []
-
   for (let ds of uids) {
-    let uid = ds.value
-    let profile = Profile.get(uid, char.id)
+    let uid = ds.uid || ds.value
+    let profile = Profile.get(uid, ds.charId || char.id)
+
     if (profile) {
       let profileRank = await ProfileRank.create({ groupId, uid })
       let data = await profileRank.getRank(profile, true)
@@ -132,6 +137,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
       let avatar = new Avatar(profile, uid)
       let tmp = {
         uid,
+        isMax: true,
         ...avatar.getData('id,star,name,sName,level,fetter,cons,weapon,elem,talent,artisSet,imgs'),
         artisMark: Data.getData(mark, 'mark,markClass')
       }
@@ -161,7 +167,12 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
       list.push(tmp)
     }
   }
-  let title = `#${char.name}${mode === 'mark' ? '圣遗物' : ''}排行`
+  let title
+  if (char) {
+    title = `#${char.name}${mode === 'mark' ? '圣遗物' : ''}排行`
+  } else {
+    title = `#${mode === 'mark' ? '最高分' : '最强'}排行`
+  }
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
   // 渲染图像
   return await Common.render('character/rank-profile-list', {
