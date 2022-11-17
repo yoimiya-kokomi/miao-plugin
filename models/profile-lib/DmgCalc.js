@@ -151,7 +151,6 @@ let DmgCalc = {
       if (ele) {
         ele = erTitle[ele] || ele
       }
-      console.log(ele)
       return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode }, data)
     }
 
