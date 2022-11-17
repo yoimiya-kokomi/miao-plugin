@@ -15,3 +15,5 @@
 /config/profile.js
 /config/help.js
 /config/cfg.js
+/resources/profile/super-character/*
+!/resources/profile/super-character/达达利亚.webp

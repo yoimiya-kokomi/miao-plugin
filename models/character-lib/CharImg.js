@@ -75,7 +75,11 @@ const CharImg = {
     add('face', 'imgs/face', `imgs/face${costumeId}`)
     add('side', 'imgs/side', `imgs/side${costumeId}`)
     add('gacha', 'imgs/gacha')
-    add('splash', 'imgs/splash', `imgs/splash${costumeId}`)
+    if (costumeId === '0' && fs.existsSync(`${rPath}/profile/super-character/${name}.webp`)) {
+      imgs.splash = `profile/super-character/${name}.webp`
+    } else {
+      add('splash', 'imgs/splash', `imgs/splash${costumeId}`)
+    }
     tAdd('card', 'imgs/card')
     tAdd('banner', 'imgs/banner')
     for (let i = 1; i <= 6; i++) {
