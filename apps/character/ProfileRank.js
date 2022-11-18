@@ -165,7 +165,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
           }
         }
       }
-      tmp._mark = mark?.mark || 0
+      tmp._mark = mark?._mark || 0
       tmp._dmg = dmg?.avg || 0
       tmp._star = 5 - tmp.star
       list.push(tmp)
