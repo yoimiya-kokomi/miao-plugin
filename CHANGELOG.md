@@ -1,4 +1,4 @@
-# 2.1.10
+# 2.0.10
 
 * 角色面板彩蛋图（满命/三皇冠/ACE 任一触发）支持自定义
     * 自定义图像可放置在 **resources/profile/super-character/** 目录下
