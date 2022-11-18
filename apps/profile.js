@@ -33,7 +33,7 @@ app.reg('refresh-rank', refreshRank, {
 })
 
 app.reg('rank-list', groupRank, {
-  rule: /^#(群|群内)?.+(排名|排行|列表)(列表|榜)?$/,
+  rule: /^#(群|群内)?.+(排名|排行)(榜)?$/,
   name: '面板排名榜'
 })
 
