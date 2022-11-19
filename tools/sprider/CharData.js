@@ -101,7 +101,7 @@ const CharData = {
     }
   },
 
-  getDetail ($, id, name, setIdx = '', elem = '') {
+  getDetail ({ $, id, name, setIdx = '', elem = '' }) {
     let cont = setIdx ? $(`#skillset_${setIdx}`) : $('#char_skills')
     cont.imgs = $.imgs
     let iconPath = elem ? `${elem}/icons` : 'icons'

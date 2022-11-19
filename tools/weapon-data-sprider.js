@@ -4,6 +4,8 @@ import lodash from 'lodash'
 import { Data } from '../components/index.js'
 import fs from 'fs'
 import request from 'request'
+import WeaponData from './sprider/WeaponData.js'
+import ImgDownloader from './sprider/ImgDown.js'
 
 let ret = {}
 const types = ['sword', 'claymore', 'polearm', 'bow', 'catalyst']
@@ -11,7 +13,9 @@ for (let type of types) {
   ret[type] = Data.readJSON(`resources/meta/weapon/${type}/data.json`)
 }
 
-let getWeaponData = async function (type) {
+let mData = Data.readJSON('resources/meta/material/data.json')
+
+let getWeaponTypeData = async function (type) {
   let url = `https://genshin.honeyhunterworld.com/fam_${type}/?lang=CHS`
   console.log('req: ' + url)
   let req = await fetch(url, {
@@ -48,19 +52,52 @@ let getWeaponData = async function (type) {
     })
   }
 }
+let getWeaponData = async function (type, ds) {
+  let { id, name } = ds
+  let url = `https://genshin.honeyhunterworld.com/i_${id}/?lang=CHS`
+  console.log(`req:[${name}], ${url}`)
+  let req = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.20',
+      referer: 'https://genshin.honeyhunterworld.com/fam_chars/?lang=CHS',
+      'sec-ch-ua': '"Microsoft Edge";v = "105", " Not;A Brand";v = "99", "Chromium";v = "105"',
+      'sec-ch-ua-mobile': '?0',
+      'sec-ch-ua-platform': 'Windows',
+      'sec-fetch-dest': 'document',
+      'sec-fetch-mode': 'navigate',
+      'sec-fetch-site': 'none',
+      'sec-fetch-user': '?1',
+      'upgrade-insecure-requests': 1
+    }
+  })
+  let txt = await req.text()
+  let $ = cheerio.load(txt)
+  let imgs = new ImgDownloader(name)
+  $.imgs = imgs
+  let ret = WeaponData.getDetail($, ds, mData)
+  await $.imgs.download()
+  return ret
+}
 
 async function down (t) {
   for (let type of types) {
     if (type !== t) {
       continue
     }
-    await getWeaponData(type)
+    await getWeaponTypeData(type)
     Data.createDir(`resources/meta/weapon/${type}`)
     Data.writeJSON(`resources/meta/weapon/${type}/data.json`, ret[type])
 
     let imgs = []
-    lodash.forEach(ret[type], (ds) => {
+    for (let name in ret[type]) {
+      if (name !== '白铁大剑') {
+
+      }
+      let ds = ret[type][name]
       Data.createDir(`resources/meta/weapon/${type}/${ds.name}`)
+      let data = await getWeaponData(type, ds)
+      Data.writeJSON(`resources/meta/weapon/${type}/${ds.name}/data.json`, data)
       lodash.forEach({
         icon: '',
         awaken: '_awaken_icon',
@@ -71,7 +108,7 @@ async function down (t) {
           file: `${type}/${ds.name}/${key}.webp`
         })
       })
-    })
+    }
     const _path = process.cwd()
     const _root = _path + '/plugins/miao-plugin/'
     const _wRoot = _root + 'resources/meta/weapon/'
@@ -99,6 +136,7 @@ async function down (t) {
       }
     })
   }
+  Data.writeJSON('resources/meta/material/data.json', mData)
 }
 
 // 'sword', 'claymore', 'polearm', 'bow', 'catalyst'
