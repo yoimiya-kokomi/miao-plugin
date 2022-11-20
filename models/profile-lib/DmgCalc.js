@@ -174,6 +174,9 @@ let DmgCalc = {
 
     // 计算护盾
     dmgFn.shield = function (num) {
+      if (showDetail) {
+        console.log(num, calc(attr.shield), calc(attr.shield.inc))
+      }
       return {
         avg: num * (calc(attr.shield) / 100) * (attr.shield.inc / 100)
       }

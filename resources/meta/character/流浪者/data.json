@@ -5,11 +5,11 @@
   "title": "久世浮倾",
   "star": 5,
   "elem": "anemo",
-  "allegiance": "？？？",
+  "allegiance": "无",
   "weapon": "catalyst",
-  "birth": "1-1",
+  "birth": "1-3",
   "astro": "浪客座",
-  "desc": "测试角色",
+  "desc": "身份成谜的流浪人士。衣着打扮像是修验者，言行却并不是修验者应有的模样。",
   "cncv": "？？？",
   "jpcv": "？？？",
   "costume": false,
@@ -30,8 +30,8 @@
   },
   "talentId": {},
   "talentCons": {
-    "e": 3,
-    "q": 5
+    "e": 5,
+    "q": 3
   },
   "materials": {
     "gem": "自在松石",

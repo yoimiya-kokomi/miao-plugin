@@ -150,7 +150,7 @@ export default function (step) {
       }
     }, {
       title: '满Buff提高攻击力[atkPct]%',
-      buffCount: 5,
+      buffCount: 10,
       refine: {
         atkPct: step(4)
       }

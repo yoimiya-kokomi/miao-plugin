@@ -172,11 +172,11 @@
       <div class="title dmg-idx">{{idx+1}}</div>
       <div class="title dmg-title">{{dmg.title}}</div>
       {{if dmg.dmg === "NaN"}}
-      <div class="value value-full">{{dmg.avg}}</div>
+      <div class="value value-full">{{dmg.avg}}{{dmg.unit}}</div>
       <div class="value value-none"></div>
       {{else}}
-      <div class="value">{{dmg.dmg}}</div>
-      <div class="value">{{dmg.avg}}</div>
+      <div class="value">{{dmg.dmg}}{{dmg.unit}}</div>
+      <div class="value">{{dmg.avg}}{{dmg.unit}}</div>
       {{/if}}
     </div>
     {{/each}}
