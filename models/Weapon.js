@@ -37,13 +37,30 @@ class Weapon extends Base {
   get icon () {
     return this.img
   }
-}
 
-Weapon.get = function (name) {
-  if (data[name]) {
-    return new Weapon(name)
+  get detail () {
+    return this.getDetail()
   }
-  return false
+
+  getDetail () {
+    if (this._detail) {
+      return this._detail
+    }
+    const path = 'resources/meta/weapon'
+    try {
+      this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`)
+    } catch (e) {
+      console.log(e)
+    }
+    return this._detail
+  }
+
+  static get (name) {
+    if (data[name]) {
+      return new Weapon(name)
+    }
+    return false
+  }
 }
 
 export default Weapon

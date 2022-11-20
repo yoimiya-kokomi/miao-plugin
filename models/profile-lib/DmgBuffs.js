@@ -3,6 +3,7 @@
 * */
 import lodash from 'lodash'
 import { Data } from '../../components/index.js'
+import { ArtifactSet } from '../index.js'
 
 let weaponBuffs = {}
 let artisBuffs = {}
@@ -21,12 +22,20 @@ let DmgBuffs = {
     }
     let buffs = artisBuffs
     let retBuffs = []
-    lodash.forEach(artis, (v, k) => {
-      if (buffs[k + v]) {
-        retBuffs.push(buffs[k + v])
+    let addBuff = function (buff, name, num) {
+      if (buff && !buff.isStatic) {
+        let artiSet = ArtifactSet.get(name)
+        retBuffs.push({
+          ...buff,
+          title: `${artiSet ? artiSet.abbr : name}${num}：` + buff.title
+        })
       }
+    }
+    lodash.forEach(artis, (v, k) => {
+      let aBuff = buffs[k] || {}
+      addBuff(aBuff[v], k, v)
       if (v >= 4 && buffs[k + '2']) {
-        retBuffs.push(buffs[k + '2'])
+        addBuff(aBuff['2'], k, 2)
       }
     })
     return retBuffs

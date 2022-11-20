@@ -65,9 +65,9 @@ const WeaponData = {
           return
         }
         if (title === 'atkBase') {
-          atkBase[lvl] = $(this).text()
+          atkBase[lvl] = $(this).text().trim('%') * 1
         } else {
-          bonusAttr[lvl] = $(this).text()
+          bonusAttr[lvl] = $(this).text().trim('%') * 1
         }
       })
     })

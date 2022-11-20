@@ -140,4 +140,4 @@ async function down (t) {
 }
 
 // 'sword', 'claymore', 'polearm', 'bow', 'catalyst'
-await down('catalyst')
+await down('bow')

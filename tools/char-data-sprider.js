@@ -84,7 +84,6 @@ let getCharData = async function (id, key, name = '', _id = id) {
       detail.attr = attr
       detail.elem = tElems[idx]
       details.push(detail)
-      metas.push(CharMeta.getMeta({ $, id, name, setIdx: idx * 1 + 1, elem: tElems[idx], detail, attr }))
       lodash.forEach(detail.talent, (ds, k) => {
         talentKey[ds.id] = k
         if (k === 'e' || k === 'q') {
@@ -105,7 +104,6 @@ let getCharData = async function (id, key, name = '', _id = id) {
   } else {
     let detail = CharData.getDetail({ $, id, name })
     details.push(detail)
-    metas.push(CharMeta.getMeta({ $, id, name, detail, attr }))
     talentId = tId[(10000000 + id * 1)]?.ProudMap || {}
   }
   let detail = details[0]
@@ -148,7 +146,7 @@ async function saveCharData (id, key, name = '', force = false, _id = id) {
   if (name && checkName(name) && !force) {
     return
   }
-  let { data, details, imgs, metas } = await getCharData(id, key, name, _id)
+  let { data, details, imgs } = await getCharData(id, key, name, _id)
   name = name || data.name
 
   if (!name) {
@@ -165,13 +163,10 @@ async function saveCharData (id, key, name = '', force = false, _id = id) {
   fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, '', 2).replaceAll('\n', '\r\n'))
   if (details.length === 1) {
     fs.writeFileSync(`${charPath}detail.json`, JSON.stringify(details[0], '', 2).replaceAll('\n', '\r\n'))
-    fs.writeFileSync(`${charPath}meta.json`, JSON.stringify(metas[0], '', 2).replaceAll('\n', '\r\n'))
   } else if (data.id === 20000000) {
     for (let idx in details) {
       let detail = details[idx]
-      let meta = metas[idx]
       fs.writeFileSync(`${charPath}/${detail.elem}/detail.json`, JSON.stringify(detail, '', 2).replaceAll('\n', '\r\n'))
-      fs.writeFileSync(`${charPath}/${detail.elem}/meta.json`, JSON.stringify(meta, '', 2).replaceAll('\n', '\r\n'))
     }
   }
 
@@ -269,4 +264,4 @@ let eta = {
   流浪者: '2022-12-07 11:00:00',
   珐露珊: '2022-12-07 11:00:00'
 }
-await down('75', true)
+await down('73', true)

@@ -32,37 +32,44 @@ export default class ProfileDmg extends Base {
     let profile = this.profile
     let ret = {}
     let talentData = profile.talent || {}
+    let detail = char.detail
     lodash.forEach(['a', 'e', 'q'], (key) => {
       let level = lodash.isNumber(talentData[key]) ? talentData[key] : (talentData[key].level || 1)
       let map = {}
-      lodash.forEach(char.detail.talent[key].tables, (tr) => {
-        let val = tr.values[level - 1]
-        // eslint-disable-next-line no-control-regex
-        val = val.replace(/[^\x00-\xff]/g, '').trim()
-        val = val.replace(/[a-zA-Z]/g, '').trim()
-        let valArr = []
-        let valArr2 = []
-        lodash.forEach(val.split('/'), (v, idx) => {
-          let valNum = 0
-          lodash.forEach(v.split('+'), (v) => {
-            v = v.split('*')
-            let v1 = v[0].replace('%', '').trim()
-            valNum += v1 * (v[1] || 1)
-            valArr2.push(v1 * 1)
-          })
-          valArr.push(valNum)
+      if (detail.talentData) {
+        lodash.forEach(char.detail.talentData[key], (ds, key) => {
+          map[key] = ds[level - 1]
         })
+      } else {
+        lodash.forEach(char.detail.talent[key].tables, (tr) => {
+          let val = tr.values[level - 1]
+          // eslint-disable-next-line no-control-regex
+          val = val.replace(/[^\x00-\xff]/g, '').trim()
+          val = val.replace(/[a-zA-Z]/g, '').trim()
+          let valArr = []
+          let valArr2 = []
+          lodash.forEach(val.split('/'), (v, idx) => {
+            let valNum = 0
+            lodash.forEach(v.split('+'), (v) => {
+              v = v.split('*')
+              let v1 = v[0].replace('%', '').trim()
+              valNum += v1 * (v[1] || 1)
+              valArr2.push(v1 * 1)
+            })
+            valArr.push(valNum)
+          })
 
-        let name = tr.name2 || tr.name
-        if (isNaN(valArr[0])) {
-          map[name] = false
-        } else if (valArr.length === 1) {
-          map[name] = valArr[0]
-        } else {
-          map[name] = valArr
-        }
-        map[name + '2'] = valArr2
-      })
+          let name = tr.name2 || tr.name
+          if (isNaN(valArr[0])) {
+            map[name] = false
+          } else if (valArr.length === 1) {
+            map[name] = valArr[0]
+          } else {
+            map[name] = valArr
+          }
+          map[name + '2'] = valArr2
+        })
+      }
       ret[key] = map
     })
     return ret

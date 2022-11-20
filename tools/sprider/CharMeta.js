@@ -3,8 +3,6 @@ import lodash from 'lodash'
 const CharMeta = {
   getMeta ({ $, id, name, setIdx = '', elem = '', detail = {}, attr }) {
     return {
-      keys: attr.keys,
-      attrs: attr.details,
       talent: CharMeta.getTalentMeta(detail.talent)
     }
   },
@@ -17,8 +15,6 @@ const CharMeta = {
         if (tr.isSame) {
           return true
         }
-        let name = tr.name
-        map[name] = []
 
         lodash.forEach(tr.values, (val) => {
           // eslint-disable-next-line no-control-regex
@@ -38,6 +34,7 @@ const CharMeta = {
           })
 
           let name = tr.name2 || tr.name
+          map[name] = map[name] || []
           if (isNaN(valArr[0])) {
             map[name].push(false)
           } else if (valArr.length === 1) {

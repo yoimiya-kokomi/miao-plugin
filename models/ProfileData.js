@@ -3,6 +3,7 @@ import Base from './Base.js'
 import moment from 'moment'
 import { Data } from '../components/index.js'
 import { Character, ProfileArtis, ProfileDmg } from './index.js'
+import AttrCalc from './profile-lib/AttrCalc.js'
 
 export default class ProfileData extends Base {
   constructor (ds = {}) {
@@ -20,6 +21,7 @@ export default class ProfileData extends Base {
     ds.talent && this.setTalent(ds.talent)
     this.artis = new ProfileArtis(this.id)
     ds.artis && this.setArtis(ds.artis)
+    this.calcAttr()
   }
 
   setBasic (ds = {}) {
@@ -40,6 +42,10 @@ export default class ProfileData extends Base {
       dmg: ds.dmg || ds.dmgBonus || 0,
       phy: ds.phy || ds.phyBonus || 0
     })
+  }
+
+  calcAttr () {
+    this.attr2 = AttrCalc.getAttr(this)
   }
 
   setWeapon (ds = {}) {
@@ -92,11 +98,15 @@ export default class ProfileData extends Base {
   }
 
   get costume () {
+    let costume = this._costume
+    if (lodash.isArray(costume)) {
+      costume = costume[0]
+    }
     let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
     if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass) || talent === '101010') {
-      return [this._costume, 'super']
+      return [costume, 'super']
     }
-    return [this._costume, 'normal']
+    return [costume, 'normal']
   }
 
   // toJSON 供保存使用
