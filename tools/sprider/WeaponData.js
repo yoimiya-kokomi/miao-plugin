@@ -59,7 +59,7 @@ const WeaponData = {
       let tr = $(this)
       let lvl = tr.find('td:first').text()
       lvs.push(lvl)
-      tr.find('td:lt(8)').each(function (i) {
+      tr.find('td:lt(4)').each(function (i) {
         let title = colIdxs[i]
         if (!title) {
           return
@@ -67,7 +67,7 @@ const WeaponData = {
         if (title === 'atkBase') {
           atkBase[lvl] = $(this).text().trim('%') * 1
         } else {
-          bonusAttr[lvl] = $(this).text().trim('%') * 1
+          bonusAttr[lvl] = lodash.trim($(this).text(), '%') * 1
         }
       })
     })

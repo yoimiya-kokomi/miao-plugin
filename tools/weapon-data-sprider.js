@@ -91,8 +91,7 @@ async function down (t) {
 
     let imgs = []
     for (let name in ret[type]) {
-      if (name !== '白铁大剑') {
-
+      if (name !== '冬极白星') {
       }
       let ds = ret[type][name]
       Data.createDir(`resources/meta/weapon/${type}/${ds.name}`)
@@ -140,4 +139,4 @@ async function down (t) {
 }
 
 // 'sword', 'claymore', 'polearm', 'bow', 'catalyst'
-await down('bow')
+await down('catalyst')
