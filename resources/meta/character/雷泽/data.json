@@ -21,7 +21,7 @@
   },
   "growAttr": {
     "key": "phy",
-    "value": "30.0%"
+    "value": 30
   },
   "talentKey": {
     "2031": "a",

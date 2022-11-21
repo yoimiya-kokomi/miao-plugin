@@ -21,7 +21,7 @@
   },
   "growAttr": {
     "key": "dmg",
-    "value": "24.0%"
+    "value": 24
   },
   "talentKey": {
     "5531": "a",

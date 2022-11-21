@@ -23,7 +23,7 @@
   },
   "growAttr": {
     "key": "heal",
-    "value": "22.15%"
+    "value": 22.15
   },
   "talentKey": {
     "331": "a",

@@ -21,7 +21,7 @@
   },
   "growAttr": {
     "key": "atkPct",
-    "value": "24.0%"
+    "value": 24
   },
   "talentKey": {
     "7631": "a",

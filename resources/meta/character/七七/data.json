@@ -11,7 +11,7 @@
   "astro": "三清铃座",
   "desc": "药庐「不卜庐」的采药姑娘兼学徒，面色苍白如纸的不死之人。话很少，也没有什么表情。",
   "cncv": "宴宁",
-  "jpcv": "田村由香里",
+  "jpcv": "田村由加莉",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -21,7 +21,7 @@
   },
   "growAttr": {
     "key": "heal",
-    "value": "22.15%"
+    "value": 22.15
   },
   "talentKey": {
     "3531": "a",

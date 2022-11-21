@@ -21,7 +21,7 @@
   },
   "growAttr": {
     "key": "hpPct",
-    "value": "24.0%"
+    "value": 24
   },
   "talentKey": {
     "7431": "a",
