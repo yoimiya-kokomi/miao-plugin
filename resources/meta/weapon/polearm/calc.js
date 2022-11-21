@@ -1,4 +1,4 @@
-export default function (step) {
+export default function (step, staticStep) {
   return {
     白缨枪: {
       title: '白缨枪普通攻击伤害提高[aDmg]%',
@@ -83,7 +83,7 @@ export default function (step) {
         phy: step(12)
       }
     },
-    护摩之杖: {
+    护摩之杖: [staticStep('hpPct', 20), {
       title: '角色生命低于50%时额外获得[atkPlus]攻击力',
       data: {
         atkPlus: ({ attr, refine, calc }) => {
@@ -91,7 +91,8 @@ export default function (step) {
           return totalHp * ([0.8, 1, 1.2, 1.4, 1.6][refine] + [1, 1.2, 1.4, 1.6, 1.8][refine]) / 100
         }
       }
-    },
+    }],
+    天空之脊: staticStep('cpct', 8),
     薙草之稻光: [{
       title: '元素爆发12秒内元素充能提高[rechargePlus]%',
       sort: 0,

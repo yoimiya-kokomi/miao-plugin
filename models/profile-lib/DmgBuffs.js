@@ -3,7 +3,7 @@
 * */
 import lodash from 'lodash'
 import { Data } from '../../components/index.js'
-import { ArtifactSet } from '../index.js'
+import { ProfileArtis } from '../index.js'
 
 let weaponBuffs = {}
 let artisBuffs = {}
@@ -17,25 +17,15 @@ setTimeout(async function init () {
 let DmgBuffs = {
   // 圣遗物Buff
   getArtisBuffs (artis = {}) {
-    if (!artis) {
-      return []
-    }
     let buffs = artisBuffs
     let retBuffs = []
-    let addBuff = function (buff, name, num) {
+    ProfileArtis._eachArtisSet(artis, (sets, num) => {
+      let buff = buffs[sets.name] && buffs[sets.name][num]
       if (buff && !buff.isStatic) {
-        let artiSet = ArtifactSet.get(name)
         retBuffs.push({
           ...buff,
-          title: `${artiSet ? artiSet.abbr : name}${num}：` + buff.title
+          title: `${sets.name}${num}：` + buff.title
         })
-      }
-    }
-    lodash.forEach(artis, (v, k) => {
-      let aBuff = buffs[k] || {}
-      addBuff(aBuff[v], k, v)
-      if (v >= 4 && buffs[k + '2']) {
-        addBuff(aBuff['2'], k, 2)
       }
     })
     return retBuffs
@@ -48,6 +38,9 @@ let DmgBuffs = {
       weaponCfg = [weaponCfg]
     }
     lodash.forEach(weaponCfg, (ds) => {
+      if (ds.isStatic) {
+        return true
+      }
       if (!/：/.test(ds.title)) {
         ds.title = `${weaponName}：${ds.title}`
       }

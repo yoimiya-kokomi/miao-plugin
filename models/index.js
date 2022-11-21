@@ -9,6 +9,7 @@ import ProfileServ from './ProfileServ.js'
 import ProfileReq from './ProfileReq.js'
 import ProfileData from './ProfileData.js'
 import ProfileArtis from './ProfileArtis.js'
+import ProfileAttr from './ProfileAttr.js'
 import ProfileDmg from './ProfileDmg.js'
 import ProfileRank from './ProfileRank.js'
 import Material from './Material.js'
@@ -28,6 +29,7 @@ export {
   ProfileReq,
   ProfileData,
   ProfileArtis,
+  ProfileAttr,
   ProfileDmg,
   ProfileRank,
   Material,

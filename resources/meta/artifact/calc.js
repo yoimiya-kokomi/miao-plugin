@@ -23,7 +23,7 @@ const attr = function (key, val, unit = '%') {
 const buffs = {
 
   行者之心: {
-    2: attr('atk', 18),
+    2: attr('atkPct', 18),
     4: {
       title: '重击的暴击率提高30%',
       data: {
@@ -33,7 +33,7 @@ const buffs = {
   },
 
   勇士之心: {
-    2: attr('atk', 18),
+    2: attr('atkPct', 18),
     4: {
       title: '对生命值高于50%的敌人，造成的伤害增加30%',
       data: {
@@ -43,7 +43,7 @@ const buffs = {
   },
 
   守护之心: {
-    2: attr('def', 30)
+    2: attr('defPct', 30)
   },
 
   奇迹: {},
@@ -280,7 +280,7 @@ const buffs = {
   },
 
   千岩牢固: {
-    2: attr('hp', 20),
+    2: attr('hpPct', 20),
     4: {
       title: '元素战技命中敌人后，攻击力提升20%',
       data: {
@@ -323,7 +323,7 @@ const buffs = {
   },
 
   华馆梦醒形骸记: {
-    2: attr('def', 30),
+    2: attr('defPct', 30),
     4: {
       title: '满层获得24%防御及24%岩伤加成',
       sort: 0,
@@ -339,7 +339,7 @@ const buffs = {
   },
 
   辰砂往生录: {
-    2: attr('atk', 18),
+    2: attr('atkPct', 18),
     4: {
       title: '满层提高48%攻击力',
 
@@ -350,7 +350,7 @@ const buffs = {
   },
 
   来歆余响: {
-    2: attr('atk', 18),
+    2: attr('atkPct', 18),
     4: {
       title: '触发提高普攻[aPlus]伤害',
       data: {

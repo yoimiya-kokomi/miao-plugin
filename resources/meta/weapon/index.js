@@ -16,10 +16,20 @@ const step = function (start, step = 0) {
   return ret
 }
 
+const attr = function (key, start, _step) {
+  let refine = {}
+  refine[key] = step(start, _step)
+  return {
+    title: `${key}提高[key]`,
+    isStatic: true,
+    refine
+  }
+}
+
 for (let type in weaponType) {
   // calc
   let typeCalc = await Data.importDefault(`resources/meta/weapon/${type}/calc.js`)
-  let typeRet = typeCalc(step)
+  let typeRet = typeCalc(step, attr)
   calc = lodash.extend(calc, typeRet)
 
   // data

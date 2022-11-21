@@ -91,7 +91,7 @@ const CharData = {
         if (!colIdxs[i]) {
           return
         }
-        data.push(($(this).text().trim('%') * 1) || 0)
+        data.push((lodash.trim($(this).text(), '%') * 1) || 0)
       })
       lvStat[lvl] = data
     })

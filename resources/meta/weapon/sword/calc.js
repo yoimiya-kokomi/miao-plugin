@@ -1,4 +1,4 @@
-export default function (step) {
+export default function (step, staticStep) {
   return {
     辰砂之纺锤: {
       title: '元素战技造成的伤害值提高[ePlus]',
@@ -127,7 +127,7 @@ export default function (step) {
         dmg: step(28)
       }
     }],
-    苍古自由之誓: {
+    苍古自由之誓: [staticStep('dmg', 10), {
       title: '触发Buff后提高普攻重击与下落攻击[aDmg]%，攻击力提升[atkPct]%',
       refine: {
         aDmg: step(16),
@@ -135,8 +135,8 @@ export default function (step) {
         a3Dmg: step(16),
         atkPct: step(20)
       }
-    },
-    磐岩结绿: [{
+    }],
+    磐岩结绿: [staticStep('hpPct', 20), {
       title: '基于生命值上限提高攻击力[atkPlus]',
       data: {
         atkPlus: ({ attr, calc, refine }) => calc(attr.hp) * step(1.2)[refine] / 100
@@ -162,23 +162,23 @@ export default function (step) {
         a2Plus: ({ attr, calc, refine }) => calc(attr.atk) * step(20)[refine] / 100
       }
     }],
-    风鹰剑: {
+    风鹰剑: [staticStep('atkPct', 20), {
       title: '攻击力提高[_atkPct]%',
       refine: {
         _atkPct: step(20)
       }
-    },
+    }],
     原木刀: {
       title: '拾取种识之叶的角色元素精通提升[mastery]',
       refine: {
         mastery: step(60)
       }
     },
-    圣显之钥: {
+    圣显之钥: [staticStep('hpPct', 20), {
       title: '基于生命提升元素精通，满层提升[mastery]',
       data: {
         mastery: ({ attr, calc, refine }) => step(0.36 + 0.2)[refine] * calc(attr.hp) / 100
       }
-    }
+    }]
   }
 }

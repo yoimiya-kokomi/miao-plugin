@@ -276,4 +276,20 @@ export default class ProfileArtis extends Base {
     }
     return ret
   }
+
+  static _eachArtisSet (sets, fn) {
+    lodash.forEach(sets || [], (v, k) => {
+      let artisSet = ArtifactSet.get(k)
+      if (artisSet) {
+        if (v >= 4) {
+          fn(artisSet, 2)
+        }
+        fn(artisSet, v)
+      }
+    })
+  }
+
+  eachArtisSet (fn) {
+    ProfileArtis._eachArtisSet(this.sets, fn)
+  }
 }

@@ -1,2022 +1,2022 @@
 {
-	"生长碧翡": {
-		"id": 374,
-		"name": "生长碧翡",
-		"type": "gem",
-		"star": 5,
-		"items": {
-			"生长碧翡碎屑": {
-				"id": 371,
-				"name": "生长碧翡碎屑",
-				"type": "gem",
-				"star": 2
-			},
-			"生长碧翡断片": {
-				"id": 372,
-				"name": "生长碧翡断片",
-				"type": "gem",
-				"star": 3
-			},
-			"生长碧翡块": {
-				"id": 373,
-				"name": "生长碧翡块",
-				"type": "gem",
-				"star": 4
-			},
-			"生长碧翡": {
-				"id": 374,
-				"name": "生长碧翡",
-				"type": "gem",
-				"star": 5
-			}
-		}
-	},
-	"蕈王钩喙": {
-		"id": "n113036",
-		"name": "蕈王钩喙",
-		"type": "boss",
-		"star": 4
-	},
-	"月莲": {
-		"id": "n101215",
-		"name": "月莲",
-		"type": "specialty",
-		"star": 1
-	},
-	"孢囊晶尘": {
-		"id": "n112061",
-		"name": "孢囊晶尘",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"蕈兽孢子": {
-				"id": "n112059",
-				"name": "蕈兽孢子",
-				"type": "normal",
-				"star": 1
-			},
-			"荧光孢粉": {
-				"id": "n112060",
-				"name": "荧光孢粉",
-				"type": "normal",
-				"star": 2
-			},
-			"孢囊晶尘": {
-				"id": "n112061",
-				"name": "孢囊晶尘",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"「诤言」的哲学": {
-		"id": "n104331",
-		"name": "「诤言」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「诤言」的教导": {
-				"id": "n104329",
-				"name": "「诤言」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「诤言」的指引": {
-				"id": "n104330",
-				"name": "「诤言」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「诤言」的哲学": {
-				"id": "n104331",
-				"name": "「诤言」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"万劫之真意": {
-		"id": 485,
-		"name": "万劫之真意",
-		"type": "weekly",
-		"star": 5
-	},
-	"涤净青金": {
-		"id": 324,
-		"name": "涤净青金",
-		"type": "gem",
-		"star": 5,
-		"items": {
-			"涤净青金碎屑": {
-				"id": 321,
-				"name": "涤净青金碎屑",
-				"type": "gem",
-				"star": 2
-			},
-			"涤净青金断片": {
-				"id": 322,
-				"name": "涤净青金断片",
-				"type": "gem",
-				"star": 3
-			},
-			"涤净青金块": {
-				"id": 323,
-				"name": "涤净青金块",
-				"type": "gem",
-				"star": 4
-			},
-			"涤净青金": {
-				"id": 324,
-				"name": "涤净青金",
-				"type": "gem",
-				"star": 5
-			}
-		}
-	},
-	"永续机芯": {
-		"id": "n113038",
-		"name": "永续机芯",
-		"type": "boss",
-		"star": 4
-	},
-	"帕蒂沙兰": {
-		"id": "n101214",
-		"name": "帕蒂沙兰",
-		"type": "specialty",
-		"star": 1
-	},
-	"「笃行」的哲学": {
-		"id": "n104337",
-		"name": "「笃行」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「笃行」的教导": {
-				"id": "n104335",
-				"name": "「笃行」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「笃行」的指引": {
-				"id": "n104336",
-				"name": "「笃行」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「笃行」的哲学": {
-				"id": "n104337",
-				"name": "「笃行」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"祸神之禊泪": {
-		"id": 484,
-		"name": "祸神之禊泪",
-		"type": "weekly",
-		"star": 5
-	},
-	"最胜紫晶": {
-		"id": 334,
-		"name": "最胜紫晶",
-		"type": "gem",
-		"star": 5,
-		"items": {
-			"最胜紫晶碎屑": {
-				"id": 331,
-				"name": "最胜紫晶碎屑",
-				"type": "gem",
-				"star": 2
-			},
-			"最胜紫晶断片": {
-				"id": 332,
-				"name": "最胜紫晶断片",
-				"type": "gem",
-				"star": 3
-			},
-			"最胜紫晶块": {
-				"id": 333,
-				"name": "最胜紫晶块",
-				"type": "gem",
-				"star": 4
-			},
-			"最胜紫晶": {
-				"id": 334,
-				"name": "最胜紫晶",
-				"type": "gem",
-				"star": 5
-			}
-		}
-	},
-	"藏雷野实": {
-		"id": "n113037",
-		"name": "藏雷野实",
-		"type": "boss",
-		"star": 4
-	},
-	"圣金虫": {
-		"id": "n101225",
-		"name": "圣金虫",
-		"type": "specialty",
-		"star": 1
-	},
-	"禁咒绘卷": {
-		"id": 43,
-		"name": "禁咒绘卷",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"导能绘卷": {
-				"id": 41,
-				"name": "导能绘卷",
-				"type": "normal",
-				"star": 1
-			},
-			"封魔绘卷": {
-				"id": 42,
-				"name": "封魔绘卷",
-				"type": "normal",
-				"star": 2
-			},
-			"禁咒绘卷": {
-				"id": 43,
-				"name": "禁咒绘卷",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"凶将之手眼": {
-		"id": 483,
-		"name": "凶将之手眼",
-		"type": "weekly",
-		"star": 5
-	},
-	"导光四面体": {
-		"id": "n113039",
-		"name": "导光四面体",
-		"type": "boss",
-		"star": 4
-	},
-	"赤念果": {
-		"id": "n101220",
-		"name": "赤念果",
-		"type": "specialty",
-		"star": 1
-	},
-	"织金红绸": {
-		"id": "n112067",
-		"name": "织金红绸",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"褪色红绸": {
-				"id": "n112065",
-				"name": "褪色红绸",
-				"type": "normal",
-				"star": 1
-			},
-			"镶边红绸": {
-				"id": "n112066",
-				"name": "镶边红绸",
-				"type": "normal",
-				"star": 2
-			},
-			"织金红绸": {
-				"id": "n112067",
-				"name": "织金红绸",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"树王圣体菇": {
-		"id": "n101213",
-		"name": "树王圣体菇",
-		"type": "specialty",
-		"star": 1
-	},
-	"历战的箭簇": {
-		"id": 53,
-		"name": "历战的箭簇",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"牢固的箭簇": {
-				"id": 51,
-				"name": "牢固的箭簇",
-				"type": "normal",
-				"star": 1
-			},
-			"锐利的箭簇": {
-				"id": 52,
-				"name": "锐利的箭簇",
-				"type": "normal",
-				"star": 2
-			},
-			"历战的箭簇": {
-				"id": 53,
-				"name": "历战的箭簇",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"劫波莲": {
-		"id": "n101217",
-		"name": "劫波莲",
-		"type": "specialty",
-		"star": 1
-	},
-	"「巧思」的哲学": {
-		"id": "n104334",
-		"name": "「巧思」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「巧思」的教导": {
-				"id": "n104332",
-				"name": "「巧思」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「巧思」的指引": {
-				"id": "n104333",
-				"name": "「巧思」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「巧思」的哲学": {
-				"id": "n104334",
-				"name": "「巧思」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"血玉之枝": {
-		"id": 471,
-		"name": "血玉之枝",
-		"type": "weekly",
-		"star": 5
-	},
-	"自在松石": {
-		"id": 354,
-		"name": "自在松石",
-		"type": "gem",
-		"star": 5,
-		"items": {
-			"自在松石碎屑": {
-				"id": 351,
-				"name": "自在松石碎屑",
-				"type": "gem",
-				"star": 2
-			},
-			"自在松石断片": {
-				"id": 352,
-				"name": "自在松石断片",
-				"type": "gem",
-				"star": 3
-			},
-			"自在松石块": {
-				"id": 353,
-				"name": "自在松石块",
-				"type": "gem",
-				"star": 4
-			},
-			"自在松石": {
-				"id": 354,
-				"name": "自在松石",
-				"type": "gem",
-				"star": 5
-			}
-		}
-	},
-	"飓风之种": {
-		"id": 205,
-		"name": "飓风之种",
-		"type": "boss",
-		"star": 4
-	},
-	"蒲公英籽": {
-		"id": 603,
-		"name": "蒲公英籽",
-		"type": "specialty",
-		"star": 1
-	},
-	"不祥的面具": {
-		"id": 33,
-		"name": "不祥的面具",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"破损的面具": {
-				"id": 31,
-				"name": "破损的面具",
-				"type": "normal",
-				"star": 1
-			},
-			"污秽的面具": {
-				"id": 32,
-				"name": "污秽的面具",
-				"type": "normal",
-				"star": 2
-			},
-			"不祥的面具": {
-				"id": 33,
-				"name": "不祥的面具",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"「抗争」的哲学": {
-		"id": 453,
-		"name": "「抗争」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「抗争」的教导": {
-				"id": 451,
-				"name": "「抗争」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「抗争」的指引": {
-				"id": 452,
-				"name": "「抗争」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「抗争」的哲学": {
-				"id": 453,
-				"name": "「抗争」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"东风之翎": {
-		"id": 461,
-		"name": "东风之翎",
-		"type": "weekly",
-		"star": 5
-	},
-	"雷光棱镜": {
-		"id": 203,
-		"name": "雷光棱镜",
-		"type": "boss",
-		"star": 4
-	},
-	"落落莓": {
-		"id": 610,
-		"name": "落落莓",
-		"type": "specialty",
-		"star": 1
-	},
-	"史莱姆原浆": {
-		"id": 23,
-		"name": "史莱姆原浆",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"史莱姆凝液": {
-				"id": 21,
-				"name": "史莱姆凝液",
-				"type": "normal",
-				"star": 1
-			},
-			"史莱姆清": {
-				"id": 22,
-				"name": "史莱姆清",
-				"type": "normal",
-				"star": 2
-			},
-			"史莱姆原浆": {
-				"id": 23,
-				"name": "史莱姆原浆",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"「诗文」的哲学": {
-		"id": 403,
-		"name": "「诗文」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「自由」的教导": {
-				"id": 421,
-				"name": "「自由」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「抗争」的指引": {
-				"id": 452,
-				"name": "「抗争」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「诗文」的哲学": {
-				"id": 403,
-				"name": "「诗文」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"东风之爪": {
-		"id": 462,
-		"name": "东风之爪",
-		"type": "weekly",
-		"star": 5
-	},
-	"净水之心": {
-		"id": 202,
-		"name": "净水之心",
-		"type": "boss",
-		"star": 4
-	},
-	"慕风蘑菇": {
-		"id": 607,
-		"name": "慕风蘑菇",
-		"type": "specialty",
-		"star": 1
-	},
-	"「自由」的哲学": {
-		"id": 423,
-		"name": "「自由」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「自由」的教导": {
-				"id": 421,
-				"name": "「自由」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「自由」的指引": {
-				"id": 422,
-				"name": "「自由」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「自由」的哲学": {
-				"id": 423,
-				"name": "「自由」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"北风之环": {
-		"id": 465,
-		"name": "北风之环",
-		"type": "weekly",
-		"star": 5
-	},
-	"哀叙冰玉": {
-		"id": 344,
-		"name": "哀叙冰玉",
-		"type": "gem",
-		"star": 5,
-		"items": {
-			"哀叙冰玉碎屑": {
-				"id": 341,
-				"name": "哀叙冰玉碎屑",
-				"type": "gem",
-				"star": 2
-			},
-			"哀叙冰玉断片": {
-				"id": 342,
-				"name": "哀叙冰玉断片",
-				"type": "gem",
-				"star": 3
-			},
-			"哀叙冰玉块": {
-				"id": 343,
-				"name": "哀叙冰玉块",
-				"type": "gem",
-				"star": 4
-			},
-			"哀叙冰玉": {
-				"id": 344,
-				"name": "哀叙冰玉",
-				"type": "gem",
-				"star": 5
-			}
-		}
-	},
-	"极寒之核": {
-		"id": 204,
-		"name": "极寒之核",
-		"type": "boss",
-		"star": 4
-	},
-	"嘟嘟莲": {
-		"id": 600,
-		"name": "嘟嘟莲",
-		"type": "specialty",
-		"star": 1
-	},
-	"攫金鸦印": {
-		"id": 123,
-		"name": "攫金鸦印",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"寻宝鸦印": {
-				"id": 121,
-				"name": "寻宝鸦印",
-				"type": "normal",
-				"star": 1
-			},
-			"藏银鸦印": {
-				"id": 122,
-				"name": "藏银鸦印",
-				"type": "normal",
-				"star": 2
-			},
-			"攫金鸦印": {
-				"id": 123,
-				"name": "攫金鸦印",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"北风的魂匣": {
-		"id": 466,
-		"name": "北风的魂匣",
-		"type": "weekly",
-		"star": 5
-	},
-	"燃愿玛瑙": {
-		"id": 314,
-		"name": "燃愿玛瑙",
-		"type": "gem",
-		"star": 5,
-		"items": {
-			"燃愿玛瑙碎屑": {
-				"id": 311,
-				"name": "燃愿玛瑙碎屑",
-				"type": "gem",
-				"star": 2
-			},
-			"燃愿玛瑙断片": {
-				"id": 312,
-				"name": "燃愿玛瑙断片",
-				"type": "gem",
-				"star": 3
-			},
-			"燃愿玛瑙块": {
-				"id": 313,
-				"name": "燃愿玛瑙块",
-				"type": "gem",
-				"star": 4
-			},
-			"燃愿玛瑙": {
-				"id": 314,
-				"name": "燃愿玛瑙",
-				"type": "gem",
-				"star": 5
-			}
-		}
-	},
-	"常燃火种": {
-		"id": 201,
-		"name": "常燃火种",
-		"type": "boss",
-		"star": 4
-	},
-	"小灯草": {
-		"id": 609,
-		"name": "小灯草",
-		"type": "specialty",
-		"star": 1
-	},
-	"尉官的徽记": {
-		"id": 113,
-		"name": "尉官的徽记",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"新兵的徽记": {
-				"id": 111,
-				"name": "新兵的徽记",
-				"type": "normal",
-				"star": 1
-			},
-			"士官的徽记": {
-				"id": 112,
-				"name": "士官的徽记",
-				"type": "normal",
-				"star": 2
-			},
-			"尉官的徽记": {
-				"id": 113,
-				"name": "尉官的徽记",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"坚牢黄玉": {
-		"id": 364,
-		"name": "坚牢黄玉",
-		"type": "gem",
-		"star": 5,
-		"items": {
-			"坚牢黄玉碎屑": {
-				"id": 361,
-				"name": "坚牢黄玉碎屑",
-				"type": "gem",
-				"star": 2
-			},
-			"坚牢黄玉断片": {
-				"id": 362,
-				"name": "坚牢黄玉断片",
-				"type": "gem",
-				"star": 3
-			},
-			"坚牢黄玉块": {
-				"id": 363,
-				"name": "坚牢黄玉块",
-				"type": "gem",
-				"star": 4
-			},
-			"坚牢黄玉": {
-				"id": 364,
-				"name": "坚牢黄玉",
-				"type": "gem",
-				"star": 5
-			}
-		}
-	},
-	"兽境王器": {
-		"id": 215,
-		"name": "兽境王器",
-		"type": "boss",
-		"star": 4
-	},
-	"琉璃百合": {
-		"id": 604,
-		"name": "琉璃百合",
-		"type": "specialty",
-		"star": 1
-	},
-	"「勤劳」的哲学": {
-		"id": 413,
-		"name": "「勤劳」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「勤劳」的教导": {
-				"id": 411,
-				"name": "「勤劳」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「勤劳」的指引": {
-				"id": 412,
-				"name": "「勤劳」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「勤劳」的哲学": {
-				"id": 413,
-				"name": "「勤劳」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"灰烬之心": {
-		"id": 482,
-		"name": "灰烬之心",
-		"type": "weekly",
-		"star": 5
-	},
-	"恒常机关之心": {
-		"id": 211,
-		"name": "恒常机关之心",
-		"type": "boss",
-		"star": 4
-	},
-	"绯樱绣球": {
-		"id": 678,
-		"name": "绯樱绣球",
-		"type": "specialty",
-		"star": 1
-	},
-	"名刀镡": {
-		"id": 163,
-		"name": "名刀镡",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"破旧的刀镡": {
-				"id": 161,
-				"name": "破旧的刀镡",
-				"type": "normal",
-				"star": 1
-			},
-			"影打刀镡": {
-				"id": 162,
-				"name": "影打刀镡",
-				"type": "normal",
-				"star": 2
-			},
-			"名刀镡": {
-				"id": 163,
-				"name": "名刀镡",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"「风雅」的哲学": {
-		"id": 418,
-		"name": "「风雅」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「风雅」的教导": {
-				"id": 416,
-				"name": "「风雅」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「风雅」的指引": {
-				"id": 417,
-				"name": "「风雅」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「风雅」的哲学": {
-				"id": 418,
-				"name": "「风雅」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"钩钩果": {
-		"id": 613,
-		"name": "钩钩果",
-		"type": "specialty",
-		"star": 1
-	},
-	"东风的吐息": {
-		"id": 463,
-		"name": "东风的吐息",
-		"type": "weekly",
-		"star": 5
-	},
-	"塞西莉亚花": {
-		"id": 601,
-		"name": "塞西莉亚花",
-		"type": "specialty",
-		"star": 1
-	},
-	"北风之尾": {
-		"id": 464,
-		"name": "北风之尾",
-		"type": "weekly",
-		"star": 5
-	},
-	"绝云椒椒": {
-		"id": 605,
-		"name": "绝云椒椒",
-		"type": "specialty",
-		"star": 1
-	},
-	"夜泊石": {
-		"id": 606,
-		"name": "夜泊石",
-		"type": "specialty",
-		"star": 1
-	},
-	"「黄金」的哲学": {
-		"id": 433,
-		"name": "「黄金」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「黄金」的教导": {
-				"id": 431,
-				"name": "「黄金」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「黄金」的指引": {
-				"id": 432,
-				"name": "「黄金」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「黄金」的哲学": {
-				"id": 433,
-				"name": "「黄金」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"霓裳花": {
-		"id": 608,
-		"name": "霓裳花",
-		"type": "specialty",
-		"star": 1
-	},
-	"未熟之玉": {
-		"id": 207,
-		"name": "未熟之玉",
-		"type": "boss",
-		"star": 4
-	},
-	"清心": {
-		"id": 614,
-		"name": "清心",
-		"type": "specialty",
-		"star": 1
-	},
-	"「繁荣」的哲学": {
-		"id": 443,
-		"name": "「繁荣」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「繁荣」的教导": {
-				"id": 441,
-				"name": "「繁荣」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「繁荣」的指引": {
-				"id": 442,
-				"name": "「繁荣」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「繁荣」的哲学": {
-				"id": 443,
-				"name": "「繁荣」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"武炼之魂·孤影": {
-		"id": 469,
-		"name": "武炼之魂·孤影",
-		"type": "weekly",
-		"star": 5
-	},
-	"玄岩之塔": {
-		"id": 206,
-		"name": "玄岩之塔",
-		"type": "boss",
-		"star": 4
-	},
-	"石珀": {
-		"id": 602,
-		"name": "石珀",
-		"type": "specialty",
-		"star": 1
-	},
-	"吞天之鲸·只角": {
-		"id": 467,
-		"name": "吞天之鲸·只角",
-		"type": "weekly",
-		"star": 5
-	},
-	"风车菊": {
-		"id": 612,
-		"name": "风车菊",
-		"type": "specialty",
-		"star": 1
-	},
-	"星螺": {
-		"id": 663,
-		"name": "星螺",
-		"type": "specialty",
-		"star": 1
-	},
-	"魔王之刃·残片": {
-		"id": 468,
-		"name": "魔王之刃·残片",
-		"type": "weekly",
-		"star": 5
-	},
-	"琉璃袋": {
-		"id": 611,
-		"name": "琉璃袋",
-		"type": "specialty",
-		"star": 1
-	},
-	"龙嗣伪鳍": {
-		"id": 216,
-		"name": "龙嗣伪鳍",
-		"type": "boss",
-		"star": 4
-	},
-	"海灵芝": {
-		"id": 675,
-		"name": "海灵芝",
-		"type": "specialty",
-		"star": 1
-	},
-	"「天光」的哲学": {
-		"id": 428,
-		"name": "「天光」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「天光」的教导": {
-				"id": 426,
-				"name": "「天光」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「天光」的指引": {
-				"id": 427,
-				"name": "「天光」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「天光」的哲学": {
-				"id": 428,
-				"name": "「天光」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"符纹之齿": {
-		"id": 486,
-		"name": "符纹之齿",
-		"type": "boss",
-		"star": 4
-	},
-	"鬼兜虫": {
-		"id": 677,
-		"name": "鬼兜虫",
-		"type": "specialty",
-		"star": 1
-	},
-	"「浮世」的哲学": {
-		"id": 408,
-		"name": "「浮世」的哲学",
-		"type": "talent",
-		"star": 4,
-		"items": {
-			"「浮世」的教导": {
-				"id": 406,
-				"name": "「浮世」的教导",
-				"type": "talent",
-				"star": 2
-			},
-			"「浮世」的指引": {
-				"id": 407,
-				"name": "「浮世」的指引",
-				"type": "talent",
-				"star": 3
-			},
-			"「浮世」的哲学": {
-				"id": 408,
-				"name": "「浮世」的哲学",
-				"type": "talent",
-				"star": 4
-			}
-		}
-	},
-	"鎏金之鳞": {
-		"id": 472,
-		"name": "鎏金之鳞",
-		"type": "weekly",
-		"star": 5
-	},
-	"晶凝之华": {
-		"id": 208,
-		"name": "晶凝之华",
-		"type": "boss",
-		"star": 4
-	},
-	"晶化骨髓": {
-		"id": 679,
-		"name": "晶化骨髓",
-		"type": "specialty",
-		"star": 1
-	},
-	"浮游晶化核": {
-		"id": 187,
-		"name": "浮游晶化核",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"浮游干核": {
-				"id": 185,
-				"name": "浮游干核",
-				"type": "normal",
-				"star": 1
-			},
-			"浮游幽核": {
-				"id": 186,
-				"name": "浮游幽核",
-				"type": "normal",
-				"star": 2
-			},
-			"浮游晶化核": {
-				"id": 187,
-				"name": "浮游晶化核",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"熔毁之刻": {
-		"id": 480,
-		"name": "熔毁之刻",
-		"type": "weekly",
-		"star": 5
-	},
-	"原素花蜜": {
-		"id": 133,
-		"name": "原素花蜜",
-		"type": "normal",
-		"star": 3,
-		"items": {
-			"骗骗花蜜": {
-				"id": 131,
-				"name": "骗骗花蜜",
-				"type": "normal",
-				"star": 1
-			},
-			"微光花蜜": {
-				"id": 132,
-				"name": "微光花蜜",
-				"type": "normal",
-				"star": 2
-			},
-			"原素花蜜": {
-				"id": 133,
-				"name": "原素花蜜",
-				"type": "normal",
-				"star": 3
-			}
-		}
-	},
-	"狱火之蝶": {
-		"id": 481,
-		"name": "狱火之蝶",
-		"type": "weekly",
-		"star": 5
-	},
-	"鸣草": {
-		"id": 681,
-		"name": "鸣草",
-		"type": "specialty",
-		"star": 1
-	},
-	"排异之露": {
-		"id": 213,
-		"name": "排异之露",
-		"type": "boss",
-		"star": 4
-	},
-	"魔偶机心": {
-		"id": 210,
-		"name": "魔偶机心",
-		"type": "boss",
-		"star": 4
-	},
-	"阴燃之珠": {
-		"id": 212,
-		"name": "阴燃之珠",
-		"type": "boss",
-		"star": 4
-	},
-	"龙王之冕": {
-		"id": 470,
-		"name": "龙王之冕",
-		"type": "weekly",
-		"star": 5
-	},
-	"幽灯蕈": {
-		"id": 688,
-		"name": "幽灯蕈",
-		"type": "specialty",
-		"star": 1
-	},
-	"雷霆数珠": {
-		"id": 214,
-		"name": "雷霆数珠",
-		"type": "boss",
-		"star": 4
-	},
-	"天云草实": {
-		"id": 686,
-		"name": "天云草实",
-		"type": "specialty",
-		"star": 1
-	},
-	"珊瑚真珠": {
-		"id": 685,
-		"name": "珊瑚真珠",
-		"type": "specialty",
-		"star": 1
-	},
-	"血斛": {
-		"id": 680,
-		"name": "血斛",
-		"type": "specialty",
-		"star": 1
-	},
-	"璀璨原钻": {
-		"id": 304,
-		"name": "璀璨原钻",
-		"type": "gem",
-		"star": 5,
-		"items": {
-			"璀璨原钻碎屑": {
-				"id": 301,
-				"name": "璀璨原钻碎屑",
-				"type": "gem",
-				"star": 2
-			},
-			"璀璨原钻断片": {
-				"id": 302,
-				"name": "璀璨原钻断片",
-				"type": "gem",
-				"star": 3
-			},
-			"璀璨原钻块": {
-				"id": 303,
-				"name": "璀璨原钻块",
-				"type": "gem",
-				"star": 4
-			},
-			"璀璨原钻": {
-				"id": 304,
-				"name": "璀璨原钻",
-				"type": "gem",
-				"star": 5
-			}
-		}
-	},
-	"灭诤草蔓": {
-		"id": "n113040",
-		"name": "灭诤草蔓",
-		"type": "boss",
-		"star": 4
-	},
-	"？？？": {
-		"id": "n113042",
-		"name": "？？？",
-		"type": "weekly",
-		"star": 5
-	},
-	"傀儡的悬丝": {
-		"id": "n113041",
-		"name": "傀儡的悬丝",
-		"type": "weekly",
-		"star": 5
-	},
-	"无心的渊镜": {
-		"id": "n113042",
-		"name": "无心的渊镜",
-		"type": "weekly",
-		"star": 5
-	},
-	"空行的虚铃": {
-		"id": "n113043",
-		"name": "空行的虚铃",
-		"type": "weekly",
-		"star": 5
-	},
-	"混沌真眼": {
-		"id": 173,
-		"name": "混沌真眼",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"混沌机关": {
-				"id": 171,
-				"name": "混沌机关",
-				"type": "monster",
-				"star": 2
-			},
-			"混沌枢纽": {
-				"id": 172,
-				"name": "混沌枢纽",
-				"type": "monster",
-				"star": 3
-			},
-			"混沌真眼": {
-				"id": 173,
-				"name": "混沌真眼",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"远海夷地的金枝": {
-		"id": 564,
-		"name": "远海夷地的金枝",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"远海夷地的瑚枝": {
-				"id": 561,
-				"name": "远海夷地的瑚枝",
-				"type": "weapon",
-				"star": 2
-			},
-			"远海夷地的玉枝": {
-				"id": 562,
-				"name": "远海夷地的玉枝",
-				"type": "weapon",
-				"star": 3
-			},
-			"远海夷地的琼枝": {
-				"id": 563,
-				"name": "远海夷地的琼枝",
-				"type": "weapon",
-				"star": 4
-			},
-			"远海夷地的金枝": {
-				"id": 564,
-				"name": "远海夷地的金枝",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"黑晶号角": {
-		"id": 63,
-		"name": "黑晶号角",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"沉重号角": {
-				"id": 61,
-				"name": "沉重号角",
-				"type": "monster",
-				"star": 2
-			},
-			"黑铜号角": {
-				"id": 62,
-				"name": "黑铜号角",
-				"type": "monster",
-				"star": 3
-			},
-			"黑晶号角": {
-				"id": 63,
-				"name": "黑晶号角",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"高塔孤王的碎梦": {
-		"id": 504,
-		"name": "高塔孤王的碎梦",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"高塔孤王的破瓦": {
-				"id": 501,
-				"name": "高塔孤王的破瓦",
-				"type": "weapon",
-				"star": 2
-			},
-			"高塔孤王的残垣": {
-				"id": 502,
-				"name": "高塔孤王的残垣",
-				"type": "weapon",
-				"star": 3
-			},
-			"高塔孤王的断片": {
-				"id": 503,
-				"name": "高塔孤王的断片",
-				"type": "weapon",
-				"star": 4
-			},
-			"高塔孤王的碎梦": {
-				"id": 504,
-				"name": "高塔孤王的碎梦",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"地脉的新芽": {
-		"id": 73,
-		"name": "地脉的新芽",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"地脉的旧枝": {
-				"id": 71,
-				"name": "地脉的旧枝",
-				"type": "monster",
-				"star": 2
-			},
-			"地脉的枯叶": {
-				"id": 72,
-				"name": "地脉的枯叶",
-				"type": "monster",
-				"star": 3
-			},
-			"地脉的新芽": {
-				"id": 73,
-				"name": "地脉的新芽",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"凛风奔狼的怀乡": {
-		"id": 524,
-		"name": "凛风奔狼的怀乡",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"凛风奔狼的始龀": {
-				"id": 521,
-				"name": "凛风奔狼的始龀",
-				"type": "weapon",
-				"star": 2
-			},
-			"凛风奔狼的裂齿": {
-				"id": 522,
-				"name": "凛风奔狼的裂齿",
-				"type": "weapon",
-				"star": 3
-			},
-			"凛风奔狼的断牙": {
-				"id": 523,
-				"name": "凛风奔狼的断牙",
-				"type": "weapon",
-				"star": 4
-			},
-			"凛风奔狼的怀乡": {
-				"id": 524,
-				"name": "凛风奔狼的怀乡",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"混沌炉心": {
-		"id": 83,
-		"name": "混沌炉心",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"混沌装置": {
-				"id": 81,
-				"name": "混沌装置",
-				"type": "monster",
-				"star": 2
-			},
-			"混沌回路": {
-				"id": 82,
-				"name": "混沌回路",
-				"type": "monster",
-				"star": 3
-			},
-			"混沌炉心": {
-				"id": 83,
-				"name": "混沌炉心",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"狮牙斗士的理想": {
-		"id": 544,
-		"name": "狮牙斗士的理想",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"狮牙斗士的枷锁": {
-				"id": 541,
-				"name": "狮牙斗士的枷锁",
-				"type": "weapon",
-				"star": 2
-			},
-			"狮牙斗士的铁链": {
-				"id": 542,
-				"name": "狮牙斗士的铁链",
-				"type": "weapon",
-				"star": 3
-			},
-			"狮牙斗士的镣铐": {
-				"id": 543,
-				"name": "狮牙斗士的镣铐",
-				"type": "weapon",
-				"star": 4
-			},
-			"狮牙斗士的理想": {
-				"id": 544,
-				"name": "狮牙斗士的理想",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"督察长祭刀": {
-		"id": 103,
-		"name": "督察长祭刀",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"猎兵祭刀": {
-				"id": 101,
-				"name": "猎兵祭刀",
-				"type": "monster",
-				"star": 2
-			},
-			"特工祭刀": {
-				"id": 102,
-				"name": "特工祭刀",
-				"type": "monster",
-				"star": 3
-			},
-			"督察长祭刀": {
-				"id": 103,
-				"name": "督察长祭刀",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"孤云寒林的神体": {
-		"id": 514,
-		"name": "孤云寒林的神体",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"孤云寒林的光砂": {
-				"id": 511,
-				"name": "孤云寒林的光砂",
-				"type": "weapon",
-				"star": 2
-			},
-			"孤云寒林的辉岩": {
-				"id": 512,
-				"name": "孤云寒林的辉岩",
-				"type": "weapon",
-				"star": 3
-			},
-			"孤云寒林的圣骸": {
-				"id": 513,
-				"name": "孤云寒林的圣骸",
-				"type": "weapon",
-				"star": 4
-			},
-			"孤云寒林的神体": {
-				"id": 514,
-				"name": "孤云寒林的神体",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"雾虚灯芯": {
-		"id": 93,
-		"name": "雾虚灯芯",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"雾虚花粉": {
-				"id": 91,
-				"name": "雾虚花粉",
-				"type": "monster",
-				"star": 2
-			},
-			"雾虚草囊": {
-				"id": 92,
-				"name": "雾虚草囊",
-				"type": "monster",
-				"star": 3
-			},
-			"雾虚灯芯": {
-				"id": 93,
-				"name": "雾虚灯芯",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"雾海云间的转还": {
-		"id": 534,
-		"name": "雾海云间的转还",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"雾海云间的铅丹": {
-				"id": 531,
-				"name": "雾海云间的铅丹",
-				"type": "weapon",
-				"star": 2
-			},
-			"雾海云间的汞丹": {
-				"id": 532,
-				"name": "雾海云间的汞丹",
-				"type": "weapon",
-				"star": 3
-			},
-			"雾海云间的金丹": {
-				"id": 533,
-				"name": "雾海云间的金丹",
-				"type": "weapon",
-				"star": 4
-			},
-			"雾海云间的转还": {
-				"id": 534,
-				"name": "雾海云间的转还",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"石化的骨片": {
-		"id": 143,
-		"name": "石化的骨片",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"脆弱的骨片": {
-				"id": 141,
-				"name": "脆弱的骨片",
-				"type": "monster",
-				"star": 2
-			},
-			"结实的骨片": {
-				"id": 142,
-				"name": "结实的骨片",
-				"type": "monster",
-				"star": 3
-			},
-			"石化的骨片": {
-				"id": 143,
-				"name": "石化的骨片",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"漆黑陨铁的一块": {
-		"id": 554,
-		"name": "漆黑陨铁的一块",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"漆黑陨铁的一粒": {
-				"id": 551,
-				"name": "漆黑陨铁的一粒",
-				"type": "weapon",
-				"star": 2
-			},
-			"漆黑陨铁的一片": {
-				"id": 552,
-				"name": "漆黑陨铁的一片",
-				"type": "weapon",
-				"star": 3
-			},
-			"漆黑陨铁的一角": {
-				"id": 553,
-				"name": "漆黑陨铁的一角",
-				"type": "weapon",
-				"star": 4
-			},
-			"漆黑陨铁的一块": {
-				"id": 554,
-				"name": "漆黑陨铁的一块",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"幽邃刻像": {
-		"id": 153,
-		"name": "幽邃刻像",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"晦暗刻像": {
-				"id": 151,
-				"name": "晦暗刻像",
-				"type": "monster",
-				"star": 2
-			},
-			"夤夜刻像": {
-				"id": 152,
-				"name": "夤夜刻像",
-				"type": "monster",
-				"star": 3
-			},
-			"幽邃刻像": {
-				"id": 153,
-				"name": "幽邃刻像",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"今昔剧画之鬼人": {
-		"id": 584,
-		"name": "今昔剧画之鬼人",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"今昔剧画之恶尉": {
-				"id": 581,
-				"name": "今昔剧画之恶尉",
-				"type": "weapon",
-				"star": 2
-			},
-			"今昔剧画之虎啮": {
-				"id": 582,
-				"name": "今昔剧画之虎啮",
-				"type": "weapon",
-				"star": 3
-			},
-			"今昔剧画之一角": {
-				"id": 583,
-				"name": "今昔剧画之一角",
-				"type": "weapon",
-				"star": 4
-			},
-			"今昔剧画之鬼人": {
-				"id": 584,
-				"name": "今昔剧画之鬼人",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"混沌锚栓": {
-		"id": "n112070",
-		"name": "混沌锚栓",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"混沌容器": {
-				"id": "n112068",
-				"name": "混沌容器",
-				"type": "monster",
-				"star": 2
-			},
-			"混沌模块": {
-				"id": "n112069",
-				"name": "混沌模块",
-				"type": "monster",
-				"star": 3
-			},
-			"混沌锚栓": {
-				"id": "n112070",
-				"name": "混沌锚栓",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"谧林涓露的金符": {
-		"id": "n114040",
-		"name": "谧林涓露的金符",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"谧林涓露的铜符": {
-				"id": "n114037",
-				"name": "谧林涓露的铜符",
-				"type": "weapon",
-				"star": 2
-			},
-			"谧林涓露的铁符": {
-				"id": "n114038",
-				"name": "谧林涓露的铁符",
-				"type": "weapon",
-				"star": 3
-			},
-			"谧林涓露的银符": {
-				"id": "n114039",
-				"name": "谧林涓露的银符",
-				"type": "weapon",
-				"star": 4
-			},
-			"谧林涓露的金符": {
-				"id": "n114040",
-				"name": "谧林涓露的金符",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"辉光棱晶": {
-		"id": "n112073",
-		"name": "辉光棱晶",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"破缺棱晶": {
-				"id": "n112071",
-				"name": "破缺棱晶",
-				"type": "monster",
-				"star": 2
-			},
-			"混浊棱晶": {
-				"id": "n112072",
-				"name": "混浊棱晶",
-				"type": "monster",
-				"star": 3
-			},
-			"辉光棱晶": {
-				"id": "n112073",
-				"name": "辉光棱晶",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"鸣神御灵的勇武": {
-		"id": 574,
-		"name": "鸣神御灵的勇武",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"鸣神御灵的明惠": {
-				"id": 571,
-				"name": "鸣神御灵的明惠",
-				"type": "weapon",
-				"star": 2
-			},
-			"鸣神御灵的欢喜": {
-				"id": 572,
-				"name": "鸣神御灵的欢喜",
-				"type": "weapon",
-				"star": 3
-			},
-			"鸣神御灵的亲爱": {
-				"id": 573,
-				"name": "鸣神御灵的亲爱",
-				"type": "weapon",
-				"star": 4
-			},
-			"鸣神御灵的勇武": {
-				"id": 574,
-				"name": "鸣神御灵的勇武",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"烈日威权的旧日": {
-		"id": "n114048",
-		"name": "烈日威权的旧日",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"烈日威权的残响": {
-				"id": "n114045",
-				"name": "烈日威权的残响",
-				"type": "weapon",
-				"star": 2
-			},
-			"烈日威权的余光": {
-				"id": "n114046",
-				"name": "烈日威权的余光",
-				"type": "weapon",
-				"star": 3
-			},
-			"烈日威权的梦想": {
-				"id": "n114047",
-				"name": "烈日威权的梦想",
-				"type": "weapon",
-				"star": 4
-			},
-			"烈日威权的旧日": {
-				"id": "n114048",
-				"name": "烈日威权的旧日",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"隐兽鬼爪": {
-		"id": 176,
-		"name": "隐兽鬼爪",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"隐兽指爪": {
-				"id": 174,
-				"name": "隐兽指爪",
-				"type": "monster",
-				"star": 2
-			},
-			"隐兽利爪": {
-				"id": 175,
-				"name": "隐兽利爪",
-				"type": "monster",
-				"star": 3
-			},
-			"隐兽鬼爪": {
-				"id": 176,
-				"name": "隐兽鬼爪",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"绿洲花园的真谛": {
-		"id": "n114044",
-		"name": "绿洲花园的真谛",
-		"type": "weapon",
-		"star": 5,
-		"items": {
-			"绿洲花园的追忆": {
-				"id": "n114041",
-				"name": "绿洲花园的追忆",
-				"type": "weapon",
-				"star": 2
-			},
-			"绿洲花园的恩惠": {
-				"id": "n114042",
-				"name": "绿洲花园的恩惠",
-				"type": "weapon",
-				"star": 3
-			},
-			"绿洲花园的哀思": {
-				"id": "n114043",
-				"name": "绿洲花园的哀思",
-				"type": "weapon",
-				"star": 4
-			},
-			"绿洲花园的真谛": {
-				"id": "n114044",
-				"name": "绿洲花园的真谛",
-				"type": "weapon",
-				"star": 5
-			}
-		}
-	},
-	"偏光棱镜": {
-		"id": 183,
-		"name": "偏光棱镜",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"黯淡棱镜": {
-				"id": 181,
-				"name": "黯淡棱镜",
-				"type": "monster",
-				"star": 2
-			},
-			"水晶棱镜": {
-				"id": 182,
-				"name": "水晶棱镜",
-				"type": "monster",
-				"star": 3
-			},
-			"偏光棱镜": {
-				"id": 183,
-				"name": "偏光棱镜",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	},
-	"茁壮菌核": {
-		"id": "n112064",
-		"name": "茁壮菌核",
-		"type": "monster",
-		"star": 4,
-		"items": {
-			"失活菌核": {
-				"id": "n112062",
-				"name": "失活菌核",
-				"type": "monster",
-				"star": 2
-			},
-			"休眠菌核": {
-				"id": "n112063",
-				"name": "休眠菌核",
-				"type": "monster",
-				"star": 3
-			},
-			"茁壮菌核": {
-				"id": "n112064",
-				"name": "茁壮菌核",
-				"type": "monster",
-				"star": 4
-			}
-		}
-	}
+  "生长碧翡": {
+    "id": 374,
+    "name": "生长碧翡",
+    "type": "gem",
+    "star": 5,
+    "items": {
+      "生长碧翡碎屑": {
+        "id": 371,
+        "name": "生长碧翡碎屑",
+        "type": "gem",
+        "star": 2
+      },
+      "生长碧翡断片": {
+        "id": 372,
+        "name": "生长碧翡断片",
+        "type": "gem",
+        "star": 3
+      },
+      "生长碧翡块": {
+        "id": 373,
+        "name": "生长碧翡块",
+        "type": "gem",
+        "star": 4
+      },
+      "生长碧翡": {
+        "id": 374,
+        "name": "生长碧翡",
+        "type": "gem",
+        "star": 5
+      }
+    }
+  },
+  "蕈王钩喙": {
+    "id": "n113036",
+    "name": "蕈王钩喙",
+    "type": "boss",
+    "star": 4
+  },
+  "月莲": {
+    "id": "n101215",
+    "name": "月莲",
+    "type": "specialty",
+    "star": 1
+  },
+  "孢囊晶尘": {
+    "id": "n112061",
+    "name": "孢囊晶尘",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "蕈兽孢子": {
+        "id": "n112059",
+        "name": "蕈兽孢子",
+        "type": "normal",
+        "star": 1
+      },
+      "荧光孢粉": {
+        "id": "n112060",
+        "name": "荧光孢粉",
+        "type": "normal",
+        "star": 2
+      },
+      "孢囊晶尘": {
+        "id": "n112061",
+        "name": "孢囊晶尘",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "「诤言」的哲学": {
+    "id": "n104331",
+    "name": "「诤言」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「诤言」的教导": {
+        "id": "n104329",
+        "name": "「诤言」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「诤言」的指引": {
+        "id": "n104330",
+        "name": "「诤言」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「诤言」的哲学": {
+        "id": "n104331",
+        "name": "「诤言」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "万劫之真意": {
+    "id": 485,
+    "name": "万劫之真意",
+    "type": "weekly",
+    "star": 5
+  },
+  "涤净青金": {
+    "id": 324,
+    "name": "涤净青金",
+    "type": "gem",
+    "star": 5,
+    "items": {
+      "涤净青金碎屑": {
+        "id": 321,
+        "name": "涤净青金碎屑",
+        "type": "gem",
+        "star": 2
+      },
+      "涤净青金断片": {
+        "id": 322,
+        "name": "涤净青金断片",
+        "type": "gem",
+        "star": 3
+      },
+      "涤净青金块": {
+        "id": 323,
+        "name": "涤净青金块",
+        "type": "gem",
+        "star": 4
+      },
+      "涤净青金": {
+        "id": 324,
+        "name": "涤净青金",
+        "type": "gem",
+        "star": 5
+      }
+    }
+  },
+  "永续机芯": {
+    "id": "n113038",
+    "name": "永续机芯",
+    "type": "boss",
+    "star": 4
+  },
+  "帕蒂沙兰": {
+    "id": "n101214",
+    "name": "帕蒂沙兰",
+    "type": "specialty",
+    "star": 1
+  },
+  "「笃行」的哲学": {
+    "id": "n104337",
+    "name": "「笃行」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「笃行」的教导": {
+        "id": "n104335",
+        "name": "「笃行」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「笃行」的指引": {
+        "id": "n104336",
+        "name": "「笃行」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「笃行」的哲学": {
+        "id": "n104337",
+        "name": "「笃行」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "祸神之禊泪": {
+    "id": 484,
+    "name": "祸神之禊泪",
+    "type": "weekly",
+    "star": 5
+  },
+  "最胜紫晶": {
+    "id": 334,
+    "name": "最胜紫晶",
+    "type": "gem",
+    "star": 5,
+    "items": {
+      "最胜紫晶碎屑": {
+        "id": 331,
+        "name": "最胜紫晶碎屑",
+        "type": "gem",
+        "star": 2
+      },
+      "最胜紫晶断片": {
+        "id": 332,
+        "name": "最胜紫晶断片",
+        "type": "gem",
+        "star": 3
+      },
+      "最胜紫晶块": {
+        "id": 333,
+        "name": "最胜紫晶块",
+        "type": "gem",
+        "star": 4
+      },
+      "最胜紫晶": {
+        "id": 334,
+        "name": "最胜紫晶",
+        "type": "gem",
+        "star": 5
+      }
+    }
+  },
+  "藏雷野实": {
+    "id": "n113037",
+    "name": "藏雷野实",
+    "type": "boss",
+    "star": 4
+  },
+  "圣金虫": {
+    "id": "n101225",
+    "name": "圣金虫",
+    "type": "specialty",
+    "star": 1
+  },
+  "禁咒绘卷": {
+    "id": 43,
+    "name": "禁咒绘卷",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "导能绘卷": {
+        "id": 41,
+        "name": "导能绘卷",
+        "type": "normal",
+        "star": 1
+      },
+      "封魔绘卷": {
+        "id": 42,
+        "name": "封魔绘卷",
+        "type": "normal",
+        "star": 2
+      },
+      "禁咒绘卷": {
+        "id": 43,
+        "name": "禁咒绘卷",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "凶将之手眼": {
+    "id": 483,
+    "name": "凶将之手眼",
+    "type": "weekly",
+    "star": 5
+  },
+  "导光四面体": {
+    "id": "n113039",
+    "name": "导光四面体",
+    "type": "boss",
+    "star": 4
+  },
+  "赤念果": {
+    "id": "n101220",
+    "name": "赤念果",
+    "type": "specialty",
+    "star": 1
+  },
+  "织金红绸": {
+    "id": "n112067",
+    "name": "织金红绸",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "褪色红绸": {
+        "id": "n112065",
+        "name": "褪色红绸",
+        "type": "normal",
+        "star": 1
+      },
+      "镶边红绸": {
+        "id": "n112066",
+        "name": "镶边红绸",
+        "type": "normal",
+        "star": 2
+      },
+      "织金红绸": {
+        "id": "n112067",
+        "name": "织金红绸",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "树王圣体菇": {
+    "id": "n101213",
+    "name": "树王圣体菇",
+    "type": "specialty",
+    "star": 1
+  },
+  "历战的箭簇": {
+    "id": 53,
+    "name": "历战的箭簇",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "牢固的箭簇": {
+        "id": 51,
+        "name": "牢固的箭簇",
+        "type": "normal",
+        "star": 1
+      },
+      "锐利的箭簇": {
+        "id": 52,
+        "name": "锐利的箭簇",
+        "type": "normal",
+        "star": 2
+      },
+      "历战的箭簇": {
+        "id": 53,
+        "name": "历战的箭簇",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "劫波莲": {
+    "id": "n101217",
+    "name": "劫波莲",
+    "type": "specialty",
+    "star": 1
+  },
+  "「巧思」的哲学": {
+    "id": "n104334",
+    "name": "「巧思」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「巧思」的教导": {
+        "id": "n104332",
+        "name": "「巧思」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「巧思」的指引": {
+        "id": "n104333",
+        "name": "「巧思」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「巧思」的哲学": {
+        "id": "n104334",
+        "name": "「巧思」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "血玉之枝": {
+    "id": 471,
+    "name": "血玉之枝",
+    "type": "weekly",
+    "star": 5
+  },
+  "自在松石": {
+    "id": 354,
+    "name": "自在松石",
+    "type": "gem",
+    "star": 5,
+    "items": {
+      "自在松石碎屑": {
+        "id": 351,
+        "name": "自在松石碎屑",
+        "type": "gem",
+        "star": 2
+      },
+      "自在松石断片": {
+        "id": 352,
+        "name": "自在松石断片",
+        "type": "gem",
+        "star": 3
+      },
+      "自在松石块": {
+        "id": 353,
+        "name": "自在松石块",
+        "type": "gem",
+        "star": 4
+      },
+      "自在松石": {
+        "id": 354,
+        "name": "自在松石",
+        "type": "gem",
+        "star": 5
+      }
+    }
+  },
+  "飓风之种": {
+    "id": 205,
+    "name": "飓风之种",
+    "type": "boss",
+    "star": 4
+  },
+  "蒲公英籽": {
+    "id": 603,
+    "name": "蒲公英籽",
+    "type": "specialty",
+    "star": 1
+  },
+  "不祥的面具": {
+    "id": 33,
+    "name": "不祥的面具",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "破损的面具": {
+        "id": 31,
+        "name": "破损的面具",
+        "type": "normal",
+        "star": 1
+      },
+      "污秽的面具": {
+        "id": 32,
+        "name": "污秽的面具",
+        "type": "normal",
+        "star": 2
+      },
+      "不祥的面具": {
+        "id": 33,
+        "name": "不祥的面具",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "「抗争」的哲学": {
+    "id": 453,
+    "name": "「抗争」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「抗争」的教导": {
+        "id": 451,
+        "name": "「抗争」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「抗争」的指引": {
+        "id": 452,
+        "name": "「抗争」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「抗争」的哲学": {
+        "id": 453,
+        "name": "「抗争」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "东风之翎": {
+    "id": 461,
+    "name": "东风之翎",
+    "type": "weekly",
+    "star": 5
+  },
+  "雷光棱镜": {
+    "id": 203,
+    "name": "雷光棱镜",
+    "type": "boss",
+    "star": 4
+  },
+  "落落莓": {
+    "id": 610,
+    "name": "落落莓",
+    "type": "specialty",
+    "star": 1
+  },
+  "史莱姆原浆": {
+    "id": 23,
+    "name": "史莱姆原浆",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "史莱姆凝液": {
+        "id": 21,
+        "name": "史莱姆凝液",
+        "type": "normal",
+        "star": 1
+      },
+      "史莱姆清": {
+        "id": 22,
+        "name": "史莱姆清",
+        "type": "normal",
+        "star": 2
+      },
+      "史莱姆原浆": {
+        "id": 23,
+        "name": "史莱姆原浆",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "「诗文」的哲学": {
+    "id": 403,
+    "name": "「诗文」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「自由」的教导": {
+        "id": 421,
+        "name": "「自由」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「抗争」的指引": {
+        "id": 452,
+        "name": "「抗争」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「诗文」的哲学": {
+        "id": 403,
+        "name": "「诗文」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "东风之爪": {
+    "id": 462,
+    "name": "东风之爪",
+    "type": "weekly",
+    "star": 5
+  },
+  "净水之心": {
+    "id": 202,
+    "name": "净水之心",
+    "type": "boss",
+    "star": 4
+  },
+  "慕风蘑菇": {
+    "id": 607,
+    "name": "慕风蘑菇",
+    "type": "specialty",
+    "star": 1
+  },
+  "「自由」的哲学": {
+    "id": 423,
+    "name": "「自由」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「自由」的教导": {
+        "id": 421,
+        "name": "「自由」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「自由」的指引": {
+        "id": 422,
+        "name": "「自由」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「自由」的哲学": {
+        "id": 423,
+        "name": "「自由」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "北风之环": {
+    "id": 465,
+    "name": "北风之环",
+    "type": "weekly",
+    "star": 5
+  },
+  "哀叙冰玉": {
+    "id": 344,
+    "name": "哀叙冰玉",
+    "type": "gem",
+    "star": 5,
+    "items": {
+      "哀叙冰玉碎屑": {
+        "id": 341,
+        "name": "哀叙冰玉碎屑",
+        "type": "gem",
+        "star": 2
+      },
+      "哀叙冰玉断片": {
+        "id": 342,
+        "name": "哀叙冰玉断片",
+        "type": "gem",
+        "star": 3
+      },
+      "哀叙冰玉块": {
+        "id": 343,
+        "name": "哀叙冰玉块",
+        "type": "gem",
+        "star": 4
+      },
+      "哀叙冰玉": {
+        "id": 344,
+        "name": "哀叙冰玉",
+        "type": "gem",
+        "star": 5
+      }
+    }
+  },
+  "极寒之核": {
+    "id": 204,
+    "name": "极寒之核",
+    "type": "boss",
+    "star": 4
+  },
+  "嘟嘟莲": {
+    "id": 600,
+    "name": "嘟嘟莲",
+    "type": "specialty",
+    "star": 1
+  },
+  "攫金鸦印": {
+    "id": 123,
+    "name": "攫金鸦印",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "寻宝鸦印": {
+        "id": 121,
+        "name": "寻宝鸦印",
+        "type": "normal",
+        "star": 1
+      },
+      "藏银鸦印": {
+        "id": 122,
+        "name": "藏银鸦印",
+        "type": "normal",
+        "star": 2
+      },
+      "攫金鸦印": {
+        "id": 123,
+        "name": "攫金鸦印",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "北风的魂匣": {
+    "id": 466,
+    "name": "北风的魂匣",
+    "type": "weekly",
+    "star": 5
+  },
+  "燃愿玛瑙": {
+    "id": 314,
+    "name": "燃愿玛瑙",
+    "type": "gem",
+    "star": 5,
+    "items": {
+      "燃愿玛瑙碎屑": {
+        "id": 311,
+        "name": "燃愿玛瑙碎屑",
+        "type": "gem",
+        "star": 2
+      },
+      "燃愿玛瑙断片": {
+        "id": 312,
+        "name": "燃愿玛瑙断片",
+        "type": "gem",
+        "star": 3
+      },
+      "燃愿玛瑙块": {
+        "id": 313,
+        "name": "燃愿玛瑙块",
+        "type": "gem",
+        "star": 4
+      },
+      "燃愿玛瑙": {
+        "id": 314,
+        "name": "燃愿玛瑙",
+        "type": "gem",
+        "star": 5
+      }
+    }
+  },
+  "常燃火种": {
+    "id": 201,
+    "name": "常燃火种",
+    "type": "boss",
+    "star": 4
+  },
+  "小灯草": {
+    "id": 609,
+    "name": "小灯草",
+    "type": "specialty",
+    "star": 1
+  },
+  "尉官的徽记": {
+    "id": 113,
+    "name": "尉官的徽记",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "新兵的徽记": {
+        "id": 111,
+        "name": "新兵的徽记",
+        "type": "normal",
+        "star": 1
+      },
+      "士官的徽记": {
+        "id": 112,
+        "name": "士官的徽记",
+        "type": "normal",
+        "star": 2
+      },
+      "尉官的徽记": {
+        "id": 113,
+        "name": "尉官的徽记",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "坚牢黄玉": {
+    "id": 364,
+    "name": "坚牢黄玉",
+    "type": "gem",
+    "star": 5,
+    "items": {
+      "坚牢黄玉碎屑": {
+        "id": 361,
+        "name": "坚牢黄玉碎屑",
+        "type": "gem",
+        "star": 2
+      },
+      "坚牢黄玉断片": {
+        "id": 362,
+        "name": "坚牢黄玉断片",
+        "type": "gem",
+        "star": 3
+      },
+      "坚牢黄玉块": {
+        "id": 363,
+        "name": "坚牢黄玉块",
+        "type": "gem",
+        "star": 4
+      },
+      "坚牢黄玉": {
+        "id": 364,
+        "name": "坚牢黄玉",
+        "type": "gem",
+        "star": 5
+      }
+    }
+  },
+  "兽境王器": {
+    "id": 215,
+    "name": "兽境王器",
+    "type": "boss",
+    "star": 4
+  },
+  "琉璃百合": {
+    "id": 604,
+    "name": "琉璃百合",
+    "type": "specialty",
+    "star": 1
+  },
+  "「勤劳」的哲学": {
+    "id": 413,
+    "name": "「勤劳」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「勤劳」的教导": {
+        "id": 411,
+        "name": "「勤劳」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「勤劳」的指引": {
+        "id": 412,
+        "name": "「勤劳」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「勤劳」的哲学": {
+        "id": 413,
+        "name": "「勤劳」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "灰烬之心": {
+    "id": 482,
+    "name": "灰烬之心",
+    "type": "weekly",
+    "star": 5
+  },
+  "恒常机关之心": {
+    "id": 211,
+    "name": "恒常机关之心",
+    "type": "boss",
+    "star": 4
+  },
+  "绯樱绣球": {
+    "id": 678,
+    "name": "绯樱绣球",
+    "type": "specialty",
+    "star": 1
+  },
+  "名刀镡": {
+    "id": 163,
+    "name": "名刀镡",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "破旧的刀镡": {
+        "id": 161,
+        "name": "破旧的刀镡",
+        "type": "normal",
+        "star": 1
+      },
+      "影打刀镡": {
+        "id": 162,
+        "name": "影打刀镡",
+        "type": "normal",
+        "star": 2
+      },
+      "名刀镡": {
+        "id": 163,
+        "name": "名刀镡",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "「风雅」的哲学": {
+    "id": 418,
+    "name": "「风雅」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「风雅」的教导": {
+        "id": 416,
+        "name": "「风雅」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「风雅」的指引": {
+        "id": 417,
+        "name": "「风雅」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「风雅」的哲学": {
+        "id": 418,
+        "name": "「风雅」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "钩钩果": {
+    "id": 613,
+    "name": "钩钩果",
+    "type": "specialty",
+    "star": 1
+  },
+  "东风的吐息": {
+    "id": 463,
+    "name": "东风的吐息",
+    "type": "weekly",
+    "star": 5
+  },
+  "塞西莉亚花": {
+    "id": 601,
+    "name": "塞西莉亚花",
+    "type": "specialty",
+    "star": 1
+  },
+  "北风之尾": {
+    "id": 464,
+    "name": "北风之尾",
+    "type": "weekly",
+    "star": 5
+  },
+  "绝云椒椒": {
+    "id": 605,
+    "name": "绝云椒椒",
+    "type": "specialty",
+    "star": 1
+  },
+  "夜泊石": {
+    "id": 606,
+    "name": "夜泊石",
+    "type": "specialty",
+    "star": 1
+  },
+  "「黄金」的哲学": {
+    "id": 433,
+    "name": "「黄金」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「黄金」的教导": {
+        "id": 431,
+        "name": "「黄金」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「黄金」的指引": {
+        "id": 432,
+        "name": "「黄金」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「黄金」的哲学": {
+        "id": 433,
+        "name": "「黄金」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "霓裳花": {
+    "id": 608,
+    "name": "霓裳花",
+    "type": "specialty",
+    "star": 1
+  },
+  "未熟之玉": {
+    "id": 207,
+    "name": "未熟之玉",
+    "type": "boss",
+    "star": 4
+  },
+  "清心": {
+    "id": 614,
+    "name": "清心",
+    "type": "specialty",
+    "star": 1
+  },
+  "「繁荣」的哲学": {
+    "id": 443,
+    "name": "「繁荣」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「繁荣」的教导": {
+        "id": 441,
+        "name": "「繁荣」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「繁荣」的指引": {
+        "id": 442,
+        "name": "「繁荣」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「繁荣」的哲学": {
+        "id": 443,
+        "name": "「繁荣」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "武炼之魂·孤影": {
+    "id": 469,
+    "name": "武炼之魂·孤影",
+    "type": "weekly",
+    "star": 5
+  },
+  "玄岩之塔": {
+    "id": 206,
+    "name": "玄岩之塔",
+    "type": "boss",
+    "star": 4
+  },
+  "石珀": {
+    "id": 602,
+    "name": "石珀",
+    "type": "specialty",
+    "star": 1
+  },
+  "吞天之鲸·只角": {
+    "id": 467,
+    "name": "吞天之鲸·只角",
+    "type": "weekly",
+    "star": 5
+  },
+  "风车菊": {
+    "id": 612,
+    "name": "风车菊",
+    "type": "specialty",
+    "star": 1
+  },
+  "星螺": {
+    "id": 663,
+    "name": "星螺",
+    "type": "specialty",
+    "star": 1
+  },
+  "魔王之刃·残片": {
+    "id": 468,
+    "name": "魔王之刃·残片",
+    "type": "weekly",
+    "star": 5
+  },
+  "琉璃袋": {
+    "id": 611,
+    "name": "琉璃袋",
+    "type": "specialty",
+    "star": 1
+  },
+  "龙嗣伪鳍": {
+    "id": 216,
+    "name": "龙嗣伪鳍",
+    "type": "boss",
+    "star": 4
+  },
+  "海灵芝": {
+    "id": 675,
+    "name": "海灵芝",
+    "type": "specialty",
+    "star": 1
+  },
+  "「天光」的哲学": {
+    "id": 428,
+    "name": "「天光」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「天光」的教导": {
+        "id": 426,
+        "name": "「天光」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「天光」的指引": {
+        "id": 427,
+        "name": "「天光」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「天光」的哲学": {
+        "id": 428,
+        "name": "「天光」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "符纹之齿": {
+    "id": 486,
+    "name": "符纹之齿",
+    "type": "boss",
+    "star": 4
+  },
+  "鬼兜虫": {
+    "id": 677,
+    "name": "鬼兜虫",
+    "type": "specialty",
+    "star": 1
+  },
+  "「浮世」的哲学": {
+    "id": 408,
+    "name": "「浮世」的哲学",
+    "type": "talent",
+    "star": 4,
+    "items": {
+      "「浮世」的教导": {
+        "id": 406,
+        "name": "「浮世」的教导",
+        "type": "talent",
+        "star": 2
+      },
+      "「浮世」的指引": {
+        "id": 407,
+        "name": "「浮世」的指引",
+        "type": "talent",
+        "star": 3
+      },
+      "「浮世」的哲学": {
+        "id": 408,
+        "name": "「浮世」的哲学",
+        "type": "talent",
+        "star": 4
+      }
+    }
+  },
+  "鎏金之鳞": {
+    "id": 472,
+    "name": "鎏金之鳞",
+    "type": "weekly",
+    "star": 5
+  },
+  "晶凝之华": {
+    "id": 208,
+    "name": "晶凝之华",
+    "type": "boss",
+    "star": 4
+  },
+  "晶化骨髓": {
+    "id": 679,
+    "name": "晶化骨髓",
+    "type": "specialty",
+    "star": 1
+  },
+  "浮游晶化核": {
+    "id": 187,
+    "name": "浮游晶化核",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "浮游干核": {
+        "id": 185,
+        "name": "浮游干核",
+        "type": "normal",
+        "star": 1
+      },
+      "浮游幽核": {
+        "id": 186,
+        "name": "浮游幽核",
+        "type": "normal",
+        "star": 2
+      },
+      "浮游晶化核": {
+        "id": 187,
+        "name": "浮游晶化核",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "熔毁之刻": {
+    "id": 480,
+    "name": "熔毁之刻",
+    "type": "weekly",
+    "star": 5
+  },
+  "原素花蜜": {
+    "id": 133,
+    "name": "原素花蜜",
+    "type": "normal",
+    "star": 3,
+    "items": {
+      "骗骗花蜜": {
+        "id": 131,
+        "name": "骗骗花蜜",
+        "type": "normal",
+        "star": 1
+      },
+      "微光花蜜": {
+        "id": 132,
+        "name": "微光花蜜",
+        "type": "normal",
+        "star": 2
+      },
+      "原素花蜜": {
+        "id": 133,
+        "name": "原素花蜜",
+        "type": "normal",
+        "star": 3
+      }
+    }
+  },
+  "狱火之蝶": {
+    "id": 481,
+    "name": "狱火之蝶",
+    "type": "weekly",
+    "star": 5
+  },
+  "鸣草": {
+    "id": 681,
+    "name": "鸣草",
+    "type": "specialty",
+    "star": 1
+  },
+  "排异之露": {
+    "id": 213,
+    "name": "排异之露",
+    "type": "boss",
+    "star": 4
+  },
+  "魔偶机心": {
+    "id": 210,
+    "name": "魔偶机心",
+    "type": "boss",
+    "star": 4
+  },
+  "阴燃之珠": {
+    "id": 212,
+    "name": "阴燃之珠",
+    "type": "boss",
+    "star": 4
+  },
+  "龙王之冕": {
+    "id": 470,
+    "name": "龙王之冕",
+    "type": "weekly",
+    "star": 5
+  },
+  "幽灯蕈": {
+    "id": 688,
+    "name": "幽灯蕈",
+    "type": "specialty",
+    "star": 1
+  },
+  "雷霆数珠": {
+    "id": 214,
+    "name": "雷霆数珠",
+    "type": "boss",
+    "star": 4
+  },
+  "天云草实": {
+    "id": 686,
+    "name": "天云草实",
+    "type": "specialty",
+    "star": 1
+  },
+  "珊瑚真珠": {
+    "id": 685,
+    "name": "珊瑚真珠",
+    "type": "specialty",
+    "star": 1
+  },
+  "血斛": {
+    "id": 680,
+    "name": "血斛",
+    "type": "specialty",
+    "star": 1
+  },
+  "璀璨原钻": {
+    "id": 304,
+    "name": "璀璨原钻",
+    "type": "gem",
+    "star": 5,
+    "items": {
+      "璀璨原钻碎屑": {
+        "id": 301,
+        "name": "璀璨原钻碎屑",
+        "type": "gem",
+        "star": 2
+      },
+      "璀璨原钻断片": {
+        "id": 302,
+        "name": "璀璨原钻断片",
+        "type": "gem",
+        "star": 3
+      },
+      "璀璨原钻块": {
+        "id": 303,
+        "name": "璀璨原钻块",
+        "type": "gem",
+        "star": 4
+      },
+      "璀璨原钻": {
+        "id": 304,
+        "name": "璀璨原钻",
+        "type": "gem",
+        "star": 5
+      }
+    }
+  },
+  "灭诤草蔓": {
+    "id": "n113040",
+    "name": "灭诤草蔓",
+    "type": "boss",
+    "star": 4
+  },
+  "？？？": {
+    "id": "n113042",
+    "name": "？？？",
+    "type": "weekly",
+    "star": 5
+  },
+  "傀儡的悬丝": {
+    "id": "n113041",
+    "name": "傀儡的悬丝",
+    "type": "weekly",
+    "star": 5
+  },
+  "无心的渊镜": {
+    "id": "n113042",
+    "name": "无心的渊镜",
+    "type": "weekly",
+    "star": 5
+  },
+  "空行的虚铃": {
+    "id": "n113043",
+    "name": "空行的虚铃",
+    "type": "weekly",
+    "star": 5
+  },
+  "混沌真眼": {
+    "id": 173,
+    "name": "混沌真眼",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "混沌机关": {
+        "id": 171,
+        "name": "混沌机关",
+        "type": "monster",
+        "star": 2
+      },
+      "混沌枢纽": {
+        "id": 172,
+        "name": "混沌枢纽",
+        "type": "monster",
+        "star": 3
+      },
+      "混沌真眼": {
+        "id": 173,
+        "name": "混沌真眼",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "远海夷地的金枝": {
+    "id": 564,
+    "name": "远海夷地的金枝",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "远海夷地的瑚枝": {
+        "id": 561,
+        "name": "远海夷地的瑚枝",
+        "type": "weapon",
+        "star": 2
+      },
+      "远海夷地的玉枝": {
+        "id": 562,
+        "name": "远海夷地的玉枝",
+        "type": "weapon",
+        "star": 3
+      },
+      "远海夷地的琼枝": {
+        "id": 563,
+        "name": "远海夷地的琼枝",
+        "type": "weapon",
+        "star": 4
+      },
+      "远海夷地的金枝": {
+        "id": 564,
+        "name": "远海夷地的金枝",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "黑晶号角": {
+    "id": 63,
+    "name": "黑晶号角",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "沉重号角": {
+        "id": 61,
+        "name": "沉重号角",
+        "type": "monster",
+        "star": 2
+      },
+      "黑铜号角": {
+        "id": 62,
+        "name": "黑铜号角",
+        "type": "monster",
+        "star": 3
+      },
+      "黑晶号角": {
+        "id": 63,
+        "name": "黑晶号角",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "高塔孤王的碎梦": {
+    "id": 504,
+    "name": "高塔孤王的碎梦",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "高塔孤王的破瓦": {
+        "id": 501,
+        "name": "高塔孤王的破瓦",
+        "type": "weapon",
+        "star": 2
+      },
+      "高塔孤王的残垣": {
+        "id": 502,
+        "name": "高塔孤王的残垣",
+        "type": "weapon",
+        "star": 3
+      },
+      "高塔孤王的断片": {
+        "id": 503,
+        "name": "高塔孤王的断片",
+        "type": "weapon",
+        "star": 4
+      },
+      "高塔孤王的碎梦": {
+        "id": 504,
+        "name": "高塔孤王的碎梦",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "地脉的新芽": {
+    "id": 73,
+    "name": "地脉的新芽",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "地脉的旧枝": {
+        "id": 71,
+        "name": "地脉的旧枝",
+        "type": "monster",
+        "star": 2
+      },
+      "地脉的枯叶": {
+        "id": 72,
+        "name": "地脉的枯叶",
+        "type": "monster",
+        "star": 3
+      },
+      "地脉的新芽": {
+        "id": 73,
+        "name": "地脉的新芽",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "凛风奔狼的怀乡": {
+    "id": 524,
+    "name": "凛风奔狼的怀乡",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "凛风奔狼的始龀": {
+        "id": 521,
+        "name": "凛风奔狼的始龀",
+        "type": "weapon",
+        "star": 2
+      },
+      "凛风奔狼的裂齿": {
+        "id": 522,
+        "name": "凛风奔狼的裂齿",
+        "type": "weapon",
+        "star": 3
+      },
+      "凛风奔狼的断牙": {
+        "id": 523,
+        "name": "凛风奔狼的断牙",
+        "type": "weapon",
+        "star": 4
+      },
+      "凛风奔狼的怀乡": {
+        "id": 524,
+        "name": "凛风奔狼的怀乡",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "混沌炉心": {
+    "id": 83,
+    "name": "混沌炉心",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "混沌装置": {
+        "id": 81,
+        "name": "混沌装置",
+        "type": "monster",
+        "star": 2
+      },
+      "混沌回路": {
+        "id": 82,
+        "name": "混沌回路",
+        "type": "monster",
+        "star": 3
+      },
+      "混沌炉心": {
+        "id": 83,
+        "name": "混沌炉心",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "狮牙斗士的理想": {
+    "id": 544,
+    "name": "狮牙斗士的理想",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "狮牙斗士的枷锁": {
+        "id": 541,
+        "name": "狮牙斗士的枷锁",
+        "type": "weapon",
+        "star": 2
+      },
+      "狮牙斗士的铁链": {
+        "id": 542,
+        "name": "狮牙斗士的铁链",
+        "type": "weapon",
+        "star": 3
+      },
+      "狮牙斗士的镣铐": {
+        "id": 543,
+        "name": "狮牙斗士的镣铐",
+        "type": "weapon",
+        "star": 4
+      },
+      "狮牙斗士的理想": {
+        "id": 544,
+        "name": "狮牙斗士的理想",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "督察长祭刀": {
+    "id": 103,
+    "name": "督察长祭刀",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "猎兵祭刀": {
+        "id": 101,
+        "name": "猎兵祭刀",
+        "type": "monster",
+        "star": 2
+      },
+      "特工祭刀": {
+        "id": 102,
+        "name": "特工祭刀",
+        "type": "monster",
+        "star": 3
+      },
+      "督察长祭刀": {
+        "id": 103,
+        "name": "督察长祭刀",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "孤云寒林的神体": {
+    "id": 514,
+    "name": "孤云寒林的神体",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "孤云寒林的光砂": {
+        "id": 511,
+        "name": "孤云寒林的光砂",
+        "type": "weapon",
+        "star": 2
+      },
+      "孤云寒林的辉岩": {
+        "id": 512,
+        "name": "孤云寒林的辉岩",
+        "type": "weapon",
+        "star": 3
+      },
+      "孤云寒林的圣骸": {
+        "id": 513,
+        "name": "孤云寒林的圣骸",
+        "type": "weapon",
+        "star": 4
+      },
+      "孤云寒林的神体": {
+        "id": 514,
+        "name": "孤云寒林的神体",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "雾虚灯芯": {
+    "id": 93,
+    "name": "雾虚灯芯",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "雾虚花粉": {
+        "id": 91,
+        "name": "雾虚花粉",
+        "type": "monster",
+        "star": 2
+      },
+      "雾虚草囊": {
+        "id": 92,
+        "name": "雾虚草囊",
+        "type": "monster",
+        "star": 3
+      },
+      "雾虚灯芯": {
+        "id": 93,
+        "name": "雾虚灯芯",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "雾海云间的转还": {
+    "id": 534,
+    "name": "雾海云间的转还",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "雾海云间的铅丹": {
+        "id": 531,
+        "name": "雾海云间的铅丹",
+        "type": "weapon",
+        "star": 2
+      },
+      "雾海云间的汞丹": {
+        "id": 532,
+        "name": "雾海云间的汞丹",
+        "type": "weapon",
+        "star": 3
+      },
+      "雾海云间的金丹": {
+        "id": 533,
+        "name": "雾海云间的金丹",
+        "type": "weapon",
+        "star": 4
+      },
+      "雾海云间的转还": {
+        "id": 534,
+        "name": "雾海云间的转还",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "石化的骨片": {
+    "id": 143,
+    "name": "石化的骨片",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "脆弱的骨片": {
+        "id": 141,
+        "name": "脆弱的骨片",
+        "type": "monster",
+        "star": 2
+      },
+      "结实的骨片": {
+        "id": 142,
+        "name": "结实的骨片",
+        "type": "monster",
+        "star": 3
+      },
+      "石化的骨片": {
+        "id": 143,
+        "name": "石化的骨片",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "漆黑陨铁的一块": {
+    "id": 554,
+    "name": "漆黑陨铁的一块",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "漆黑陨铁的一粒": {
+        "id": 551,
+        "name": "漆黑陨铁的一粒",
+        "type": "weapon",
+        "star": 2
+      },
+      "漆黑陨铁的一片": {
+        "id": 552,
+        "name": "漆黑陨铁的一片",
+        "type": "weapon",
+        "star": 3
+      },
+      "漆黑陨铁的一角": {
+        "id": 553,
+        "name": "漆黑陨铁的一角",
+        "type": "weapon",
+        "star": 4
+      },
+      "漆黑陨铁的一块": {
+        "id": 554,
+        "name": "漆黑陨铁的一块",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "幽邃刻像": {
+    "id": 153,
+    "name": "幽邃刻像",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "晦暗刻像": {
+        "id": 151,
+        "name": "晦暗刻像",
+        "type": "monster",
+        "star": 2
+      },
+      "夤夜刻像": {
+        "id": 152,
+        "name": "夤夜刻像",
+        "type": "monster",
+        "star": 3
+      },
+      "幽邃刻像": {
+        "id": 153,
+        "name": "幽邃刻像",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "今昔剧画之鬼人": {
+    "id": 584,
+    "name": "今昔剧画之鬼人",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "今昔剧画之恶尉": {
+        "id": 581,
+        "name": "今昔剧画之恶尉",
+        "type": "weapon",
+        "star": 2
+      },
+      "今昔剧画之虎啮": {
+        "id": 582,
+        "name": "今昔剧画之虎啮",
+        "type": "weapon",
+        "star": 3
+      },
+      "今昔剧画之一角": {
+        "id": 583,
+        "name": "今昔剧画之一角",
+        "type": "weapon",
+        "star": 4
+      },
+      "今昔剧画之鬼人": {
+        "id": 584,
+        "name": "今昔剧画之鬼人",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "混沌锚栓": {
+    "id": "n112070",
+    "name": "混沌锚栓",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "混沌容器": {
+        "id": "n112068",
+        "name": "混沌容器",
+        "type": "monster",
+        "star": 2
+      },
+      "混沌模块": {
+        "id": "n112069",
+        "name": "混沌模块",
+        "type": "monster",
+        "star": 3
+      },
+      "混沌锚栓": {
+        "id": "n112070",
+        "name": "混沌锚栓",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "谧林涓露的金符": {
+    "id": "n114040",
+    "name": "谧林涓露的金符",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "谧林涓露的铜符": {
+        "id": "n114037",
+        "name": "谧林涓露的铜符",
+        "type": "weapon",
+        "star": 2
+      },
+      "谧林涓露的铁符": {
+        "id": "n114038",
+        "name": "谧林涓露的铁符",
+        "type": "weapon",
+        "star": 3
+      },
+      "谧林涓露的银符": {
+        "id": "n114039",
+        "name": "谧林涓露的银符",
+        "type": "weapon",
+        "star": 4
+      },
+      "谧林涓露的金符": {
+        "id": "n114040",
+        "name": "谧林涓露的金符",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "辉光棱晶": {
+    "id": "n112073",
+    "name": "辉光棱晶",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "破缺棱晶": {
+        "id": "n112071",
+        "name": "破缺棱晶",
+        "type": "monster",
+        "star": 2
+      },
+      "混浊棱晶": {
+        "id": "n112072",
+        "name": "混浊棱晶",
+        "type": "monster",
+        "star": 3
+      },
+      "辉光棱晶": {
+        "id": "n112073",
+        "name": "辉光棱晶",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "鸣神御灵的勇武": {
+    "id": 574,
+    "name": "鸣神御灵的勇武",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "鸣神御灵的明惠": {
+        "id": 571,
+        "name": "鸣神御灵的明惠",
+        "type": "weapon",
+        "star": 2
+      },
+      "鸣神御灵的欢喜": {
+        "id": 572,
+        "name": "鸣神御灵的欢喜",
+        "type": "weapon",
+        "star": 3
+      },
+      "鸣神御灵的亲爱": {
+        "id": 573,
+        "name": "鸣神御灵的亲爱",
+        "type": "weapon",
+        "star": 4
+      },
+      "鸣神御灵的勇武": {
+        "id": 574,
+        "name": "鸣神御灵的勇武",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "烈日威权的旧日": {
+    "id": "n114048",
+    "name": "烈日威权的旧日",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "烈日威权的残响": {
+        "id": "n114045",
+        "name": "烈日威权的残响",
+        "type": "weapon",
+        "star": 2
+      },
+      "烈日威权的余光": {
+        "id": "n114046",
+        "name": "烈日威权的余光",
+        "type": "weapon",
+        "star": 3
+      },
+      "烈日威权的梦想": {
+        "id": "n114047",
+        "name": "烈日威权的梦想",
+        "type": "weapon",
+        "star": 4
+      },
+      "烈日威权的旧日": {
+        "id": "n114048",
+        "name": "烈日威权的旧日",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "隐兽鬼爪": {
+    "id": 176,
+    "name": "隐兽鬼爪",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "隐兽指爪": {
+        "id": 174,
+        "name": "隐兽指爪",
+        "type": "monster",
+        "star": 2
+      },
+      "隐兽利爪": {
+        "id": 175,
+        "name": "隐兽利爪",
+        "type": "monster",
+        "star": 3
+      },
+      "隐兽鬼爪": {
+        "id": 176,
+        "name": "隐兽鬼爪",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "绿洲花园的真谛": {
+    "id": "n114044",
+    "name": "绿洲花园的真谛",
+    "type": "weapon",
+    "star": 5,
+    "items": {
+      "绿洲花园的追忆": {
+        "id": "n114041",
+        "name": "绿洲花园的追忆",
+        "type": "weapon",
+        "star": 2
+      },
+      "绿洲花园的恩惠": {
+        "id": "n114042",
+        "name": "绿洲花园的恩惠",
+        "type": "weapon",
+        "star": 3
+      },
+      "绿洲花园的哀思": {
+        "id": "n114043",
+        "name": "绿洲花园的哀思",
+        "type": "weapon",
+        "star": 4
+      },
+      "绿洲花园的真谛": {
+        "id": "n114044",
+        "name": "绿洲花园的真谛",
+        "type": "weapon",
+        "star": 5
+      }
+    }
+  },
+  "偏光棱镜": {
+    "id": 183,
+    "name": "偏光棱镜",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "黯淡棱镜": {
+        "id": 181,
+        "name": "黯淡棱镜",
+        "type": "monster",
+        "star": 2
+      },
+      "水晶棱镜": {
+        "id": 182,
+        "name": "水晶棱镜",
+        "type": "monster",
+        "star": 3
+      },
+      "偏光棱镜": {
+        "id": 183,
+        "name": "偏光棱镜",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  },
+  "茁壮菌核": {
+    "id": "n112064",
+    "name": "茁壮菌核",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "失活菌核": {
+        "id": "n112062",
+        "name": "失活菌核",
+        "type": "monster",
+        "star": 2
+      },
+      "休眠菌核": {
+        "id": "n112063",
+        "name": "休眠菌核",
+        "type": "monster",
+        "star": 3
+      },
+      "茁壮菌核": {
+        "id": "n112064",
+        "name": "茁壮菌核",
+        "type": "monster",
+        "star": 4
+      }
+    }
+  }
 }

@@ -1,4 +1,4 @@
-export default function (step) {
+export default function (step, staticStep) {
   return {
     翡玉法球: {
       check: ({ element }) => element === '水',
@@ -106,7 +106,7 @@ export default function (step) {
         shield: step(20)
       }
     }],
-    不灭月华: {
+    不灭月华: [staticStep('heal', 10, 2.5), {
       title: '治疗加成提高[_heal]%，普攻伤害增加[aPlus]',
       refine: {
         _heal: step(10, 2.5)
@@ -114,7 +114,7 @@ export default function (step) {
       data: {
         aPlus: ({ attr, calc, refine }) => calc(attr.hp) * step(1, 0.5)[refine] / 100
       }
-    },
+    }],
     神乐之真意: {
       title: '满层提高元素战技伤害[eDmg]%，元素伤害提高[dmg]%',
       refine: {

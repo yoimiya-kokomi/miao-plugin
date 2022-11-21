@@ -1,4 +1,4 @@
-export default function (step) {
+export default function (step, staticStep) {
   return {
     沐浴龙血的剑: {
       check: ({ element }) => ['火', '雷'].includes(element),
@@ -99,12 +99,12 @@ export default function (step) {
         phy: step(8)
       }
     },
-    狼的末路: {
+    狼的末路: [staticStep('atkPct', 20), {
       title: '攻击命中生命值低于30%的敌人时，攻击力提升[atkPct]%',
       refine: {
         atkPct: step(40)
       }
-    },
+    }],
     无工之剑: [{
       title: '护盾强效提高[shield]%',
       refine: {
@@ -117,19 +117,19 @@ export default function (step) {
         atkPct: step(4)
       }
     }],
-    松籁响起之时: {
+    松籁响起之时: [staticStep('atkPct', 16), {
       title: 'Buff状态下提高攻击力[atkPct]%',
       refine: {
         atkPct: step(20)
       }
-    },
-    赤角石溃杵: {
+    }],
+    赤角石溃杵: [staticStep('defPct', 28), {
       title: '普通攻击与重击造成的伤害值提高[aPlus]',
       data: {
         aPlus: ({ attr, calc, refine }) => calc(attr.def) * step(40)[refine] / 100,
         a2Plus: ({ attr, calc, refine }) => calc(attr.def) * step(40)[refine] / 100
       }
-    },
+    }],
     森林王器: {
       title: '拾取种识之叶的角色元素精通提升[mastery]',
       refine: {
