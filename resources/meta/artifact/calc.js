@@ -1,4 +1,4 @@
-const attr = function (key, val, unit = '%') {
+const attr = function (key, val, elem = '', unit = '%') {
   const keyMap = {
     hp: '生命值',
     hpPlus: '生命值',
@@ -11,13 +11,16 @@ const attr = function (key, val, unit = '%') {
     heal: '治疗',
     mastery: '元素精通'
   }
-  let data = {}
-  data[key] = val
-  return {
+  let ret = {
     title: `${keyMap[key]}提高${val}${unit}`,
     isStatic: true,
-    data
+    data: {}
   }
+  ret.data[key] = val
+  if (elem) {
+    ret.elem = elem
+  }
+  return ret
 }
 
 const buffs = {
@@ -100,11 +103,11 @@ const buffs = {
   },
 
   冒险家: {
-    2: attr('hpPlus', 1000, '点')
+    2: attr('hpPlus', 1000, '', '点')
   },
 
   幸运儿: {
-    2: attr('defPlus', 100, '点')
+    2: attr('defPlus', 100, '', '点')
   },
 
   学士: {
@@ -117,7 +120,7 @@ const buffs = {
   },
 
   冰风迷途的勇士: {
-    2: attr('dmg', 15),
+    2: attr('dmg', 15, '冰'),
     4: {
       check: ({ element }) => element === '冰',
       title: '攻击处于冰元素影响下的敌人时，暴击率提高20%',
@@ -158,7 +161,7 @@ const buffs = {
   },
 
   角斗士的终幕礼: {
-    2: attr('atk', 18),
+    2: attr('atkPct', 18),
     4: {
       check: ({ weaponType }) => ['单手剑', '双手剑', '长柄武器'].includes(weaponType),
       title: '角色普通攻击造成的伤害提高35%',
@@ -169,7 +172,7 @@ const buffs = {
   },
 
   翠绿之影: {
-    2: attr('dmg', 15),
+    2: attr('dmg', 15, '风'),
     4: {
       title: '扩散反应造成的伤害提升60%，降低对应元素抗性40%',
       sort: 5,
@@ -192,7 +195,7 @@ const buffs = {
   },
 
   如雷的盛怒: {
-    2: attr('dmg', 15),
+    2: attr('dmg', 15, '雷'),
     4: {
       title: '超载、感电、超导反应造成的伤害提升40%，超激化反应带来的伤害提升提高20%',
       data: {
@@ -205,7 +208,7 @@ const buffs = {
   },
 
   炽烈的炎之魔女: {
-    2: attr('dmg', 15),
+    2: attr('dmg', 15, '火'),
     4: {
       check: ({ element }) => element === '火',
       title: '蒸发、融化伤害提高15%，[buffCount]层额外提高[dmg]%火元素伤害加成，超载、燃烧、烈绽放反应造成的伤害提升40%',
@@ -248,7 +251,7 @@ const buffs = {
   },
 
   悠古的磐岩: {
-    2: attr('dmg', 15),
+    2: attr('dmg', 15, '岩'),
     4: {
       title: '获得元素反应晶片，对应元素伤害提高35%',
       data: {
@@ -269,7 +272,7 @@ const buffs = {
   },
 
   沉沦之心: {
-    2: attr('dmg', 15),
+    2: attr('dmg', 15, '水'),
     4: {
       title: '施放元素战技后，普攻与重击伤害提高30%',
       data: {
@@ -301,7 +304,7 @@ const buffs = {
   },
 
   追忆之注连: {
-    2: attr('atk', 15),
+    2: attr('atkPct', 18),
     4: {
       title: '施放元素战技后，普通攻击、重击、下落攻击造成的伤害提高50%',
       data: {
@@ -360,7 +363,7 @@ const buffs = {
   },
 
   深林的记忆: {
-    2: attr('dmg', 15),
+    2: attr('dmg', 15, '草'),
     4: {
       title: '元素战技或元素爆发命中敌人后，使命中目标的草元素抗性降低30%',
       data: {
@@ -380,7 +383,7 @@ const buffs = {
   },
 
   沙上楼阁史话: {
-    2: attr('dmg', 15),
+    2: attr('dmg', 15, '风'),
     4: {
       title: '重击命中敌人后，普攻重击与下落攻击伤害提升40',
       data: {

@@ -46,7 +46,12 @@ export const defDmgIdx = 2
 export const mainAttr = 'hp,atk'
 
 export const buffs = [{
-  title: '心海被动：治疗加成提高25%'
+  title: '心海被动：暴击率降低100%，治疗加成提高25%',
+  isStatic: true,
+  data: {
+    cpct: -100,
+    heal: 25
+  }
 }, {
   title: '心海被动：开Q后重击伤害基于治疗加成提高[aPlus]',
   data: {

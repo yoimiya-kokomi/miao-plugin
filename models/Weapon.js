@@ -1,13 +1,11 @@
 import Base from './Base.js'
 import { Data } from '../components/index.js'
-
-let data = {}
-let abbr = {}
+import { data as weaponData, abbr } from '../resources/meta/weapon/index.js'
 
 class Weapon extends Base {
   constructor (name) {
     super(name)
-    let meta = data[name]
+    let meta = weaponData[name]
     if (!meta) {
       return false
     }
@@ -56,7 +54,7 @@ class Weapon extends Base {
   }
 
   static get (name) {
-    if (data[name]) {
+    if (weaponData[name]) {
       return new Weapon(name)
     }
     return false
@@ -65,9 +63,3 @@ class Weapon extends Base {
 
 export default Weapon
 
-// lazy load
-setTimeout(async function init () {
-  let ret = await Data.importModule('resources/meta/weapon/index.js')
-  data = ret.data
-  abbr = ret.abbr
-})

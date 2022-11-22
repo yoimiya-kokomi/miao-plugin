@@ -10,13 +10,11 @@ import { attrMap, attrNameMap, attrValue } from '../resources/meta/artifact/arti
 import CharArtis from './profile-lib/CharArtis.js'
 
 export default class ProfileArtis extends Base {
-  constructor (charid = 0, ds = false) {
+  constructor (charid = 0, elem = '') {
     super()
     this.charid = charid
+    this.elem = elem
     this.artis = {}
-    if (ds) {
-      this.setArtisSet(ds)
-    }
   }
 
   setProfile (profile, artis) {
@@ -224,7 +222,7 @@ export default class ProfileArtis extends Base {
     })
     let totalMark = 0
     this.forEach((arti, idx) => {
-      let mark = ArtisMark.getMark(charCfg, idx, arti.main, arti.attrs)
+      let mark = ArtisMark.getMark(charCfg, idx, arti.main, arti.attrs, this.elem)
       totalMark += mark
       setCount[arti.set] = (setCount[arti.set] || 0) + 1
       if (!withDetail) {
@@ -243,7 +241,7 @@ export default class ProfileArtis extends Base {
           _mark: mark,
           mark: Format.comma(mark, 1),
           markClass: ArtisMark.getMarkClass(mark),
-          main: ArtisMark.formatArti(arti.main, charCfg.mark, true),
+          main: ArtisMark.formatArti(arti.main, charCfg.mark, true, this.elem || ''),
           attrs: ArtisMark.formatArti(arti.attrs, charCfg.mark)
         }
       }

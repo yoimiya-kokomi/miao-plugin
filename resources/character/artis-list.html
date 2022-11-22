@@ -26,7 +26,7 @@
     <ul class="detail attr">
       <li class="arti-main"><span class="title">{{ds.main.title}}</span><span class="val">+{{ds.main.value}}</span></li>
       {{each ds.attrs attr}}
-      {{if attr.title}}
+      {{if attr && attr.title}}
       <li class="{{ds.usefulMark[attr.title]*1 > 79.9 ?`great`:(ds.usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}">
         <span class="title"> {{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{attr.title}}</span>
         <span class="val">+{{attr.value}}</span></li>

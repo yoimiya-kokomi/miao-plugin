@@ -63,13 +63,24 @@ let DmgBuffs = {
       melt: '融化',
       swirl: '扩散'
     }
+    let mKey2 = {
+      aggravate: '超激化'
+    }
     lodash.forEach(buffs, (buff, idx) => {
-      if (lodash.isString(buff) && mKey[buff]) {
-        buff = {
-          title: `元素精通：${mKey[buff]}伤害提高[${buff}]%`,
-          mastery: buff
+      if (lodash.isString(buff)) {
+        if (mKey[buff]) {
+          buff = {
+            title: `元素精通：${mKey[buff]}伤害提高[${buff}]%`,
+            mastery: buff
+          }
+          buffs[idx] = buff
+        } else if (mKey2[buff]) {
+          buff = {
+            title: `元素精通：触发${mKey2[buff]}伤害值提高[${buff}]`,
+            mastery: buff
+          }
+          buffs[idx] = buff
         }
-        buffs[idx] = buff
       }
       buff.sort = lodash.isUndefined(buff.sort) ? 1 : buff.sort
     })

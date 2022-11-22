@@ -75,14 +75,14 @@ export default function (step, staticStep) {
         shield: step(20)
       }
     }],
-    和璞鸢: {
+    和璞鸢: [staticStep(), {
       title: '满层攻击力提高[atkPct]%，伤害提升[dmg]%',
       refine: {
         atkPct: [3.2 * 7, 3.9 * 7, 4.6 * 7, 5.3 * 7, 6 * 7],
         dmg: step(12),
         phy: step(12)
       }
-    },
+    }],
     护摩之杖: [staticStep('hpPct', 20), {
       title: '角色生命低于50%时额外获得[atkPlus]攻击力',
       data: {
@@ -123,7 +123,8 @@ export default function (step, staticStep) {
       }
     },
     赤沙之杖: {
-      title: '赤沙之杖被动：基于元素精通获得攻击力[_atk1]，5层Buff提高攻击力[_atk2]',
+      title: '赤沙之杖被动：基于元素精通获得攻击力[_atk1]，3层Buff提高攻击力[_atk2]',
+      sort: 7,
       data: {
         _atk1: ({ attr, calc, refine }) => step(52)[refine] * calc(attr.mastery) / 100,
         _atk2: ({ attr, calc, refine }) => step(28 * 3)[refine] * calc(attr.mastery) / 100,

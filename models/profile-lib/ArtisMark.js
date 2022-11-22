@@ -1,5 +1,6 @@
 import lodash from 'lodash'
 import { Format } from '../../components/index.js'
+import { Character } from '../index.js'
 import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/artis-mark.js'
 
 let ArtisMark = {
@@ -29,13 +30,13 @@ let ArtisMark = {
    * @param isMain
    * @returns {{title: *, value: string}|*[]}
    */
-  formatArti (ds, markCfg = false, isMain = false) {
+  formatArti (ds, markCfg = false, isMain = false, elem = '') {
     if (ds[0] && ds[0].title) {
       let ret = []
       let totalUpNum = 0
       let ltArr = []
       lodash.forEach(ds, (d) => {
-        let arti = ArtisMark.formatArti(d, markCfg, isMain)
+        let arti = ArtisMark.formatArti(d, markCfg)
         totalUpNum += arti.upNum
         if (arti.hasLt) {
           ltArr.push(arti)
@@ -74,7 +75,12 @@ let ArtisMark = {
 
     if (/元素伤害加成/.test(title)) {
       title = title.replace('元素伤害', '伤')
-      key = 'dmg'
+      let mainElem = Character.matchElem(title)
+      if (elem && mainElem.elem !== elem) {
+        key = '_dmg'
+      } else {
+        key = 'dmg'
+      }
     } else if (title === '物理伤害加成') {
       title = '物伤加成'
       key = 'phy'
@@ -94,9 +100,10 @@ let ArtisMark = {
     }
 
     if (markCfg) {
-      let mark = markCfg[key] * num
+      let mark = markCfg[key] * num || 0
       if (isMain) {
         mark = mark / 4 + 0.01
+        ret.key = key
       }
       ret.mark = Format.comma(mark || 0)
       ret._mark = mark || 0
@@ -133,14 +140,16 @@ let ArtisMark = {
     }
   },
 
-  getMark (charCfg, posIdx, mainAttr, subAttr) {
+  getMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
     let ret = 0
     let { mark, maxMark, weight } = charCfg
-    let mAttr = ArtisMark.getAttr(mainAttr)
+    let mAttr = ArtisMark.getAttr(mainAttr, elem)
 
     let fixPct = 1
     if (posIdx >= 3) {
-      fixPct = Math.max(0, Math.min(1, (weight[mAttr] || 0) / (maxMark['m' + posIdx])))
+      if (mAttr !== 'recharge') {
+        fixPct = Math.max(0, Math.min(1, (weight[mAttr] || 0) / (maxMark['m' + posIdx])))
+      }
       ret += ArtisMark.getAttrMark(mark, mainAttr) / 4
     }
 
@@ -150,11 +159,14 @@ let ArtisMark = {
 
     return ret * (1 + fixPct) / 2 / maxMark[posIdx] * 66
   },
-  getAttr (ds) {
+  getAttr (ds, elem = '') {
     let title = ds.title || ds[0] || ''
     let attr = attrNameMap[title]
     if (/元素伤害/.test(title)) {
       attr = 'dmg'
+      if (elem && Character.matchElem(title).elem !== elem) {
+        attr = '_dmg'
+      }
     } else if (/物理|物伤/.test(title)) {
       attr = 'phy'
     }

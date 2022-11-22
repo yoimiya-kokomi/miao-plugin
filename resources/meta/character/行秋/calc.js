@@ -12,6 +12,12 @@ export const details = [{
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
+  title: '行秋被动：获得20%水伤加成',
+  isStatic: true,
+  data: {
+    dmg: 20
+  }
+}, {
   title: '行秋2命：受到剑雨攻击的敌人水元素抗性降低15%',
   cons: 2,
   data: {

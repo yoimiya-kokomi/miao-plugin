@@ -176,6 +176,11 @@ class Character extends Base {
     return costume.includes(id * 1)
   }
 
+  isElem (elem = '') {
+    elem = elem.toLowerCase()
+    return this.elem === elem || this.elemName === elem
+  }
+
   // 获取角色插画
   getImgs (costume = '') {
     if (!lodash.isArray(costume)) {
@@ -303,6 +308,30 @@ class Character extends Base {
   // 获取排序ID
   static sortIds (arr) {
     return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))
+  }
+
+  async getCalcRule () {
+    if (!this._calcRule && this._calcRule !== false) {
+      let cfg = await Data.importModule(`resources/meta/character/${this.name}/calc.js`)
+      if (lodash.isEmpty(cfg)) {
+        this._calcRule = false
+      } else {
+        this._calcRule = {
+          details: cfg.details || false, // 计算详情
+          buffs: cfg.buffs || [], // 角色buff
+          defParams: cfg.defParams || {}, // 默认参数，一般为空
+          defDmgIdx: cfg.defDmgIdx || -1, // 默认详情index
+          defDmgKey: cfg.defDmgKey || '',
+          mainAttr: cfg.mainAttr || 'atk,cpct,cdmg', // 伤害属性
+          enemyName: cfg.enemyName || '小宝' // 敌人名称
+        }
+      }
+    }
+    return this._calcRule
+  }
+
+  static matchElem (str, def) {
+    return CharId.matchElem(str, def)
   }
 }
 

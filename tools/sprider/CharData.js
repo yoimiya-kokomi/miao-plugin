@@ -80,9 +80,6 @@ const CharData = {
     let lvs = []
     let lvStat = {}
     stat.find('tr:gt(0)').each(function (i) {
-      if (i === 3 || i === 4) {
-        return
-      }
       let tr = $(this)
       let lvl = tr.find('td:first').text()
       lvs.push(lvl)
@@ -392,6 +389,9 @@ const CharData = {
               let v1 = v[0].replace('%', '').trim()
               valNum += v1 * (v[1] || 1)
               valArr2.push(v1 * 1)
+              if (v[1]) {
+                valArr2.push(v[1] * 1)
+              }
             })
             valArr.push(valNum)
           })

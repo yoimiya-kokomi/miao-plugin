@@ -497,6 +497,7 @@ body {
   display: table-row;
   line-height: 26px;
   height: 26px;
+  white-space: nowrap;
 }
 .artis ul.detail li span {
   position: initial;

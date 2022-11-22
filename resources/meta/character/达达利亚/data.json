@@ -12,9 +12,7 @@
   "desc": "愚人众执行官第十一位，「公子」，其战绩威名远扬。",
   "cncv": "鱼冻",
   "jpcv": "木村良平",
-  "costume": [
-    900001
-  ],
+  "costume": false,
   "ver": 1,
   "baseAttr": {
     "hp": 13103,

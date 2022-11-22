@@ -83,7 +83,7 @@ let Profile = {
   get (uid, charId, onlyHasData = false) {
     let data = Profile._get(uid, charId)
     if (data) {
-      let profile = new ProfileData(data)
+      let profile = new ProfileData(data, uid)
       if (onlyHasData && !profile.hasData) {
         return false
       }
@@ -106,7 +106,7 @@ let Profile = {
     if (userData && userData.chars) {
       let ret = {}
       lodash.forEach(userData.chars, (ds, id) => {
-        let profile = new ProfileData(ds)
+        let profile = new ProfileData(ds, uid)
         if (profile.hasData) {
           ret[id] = profile
         }

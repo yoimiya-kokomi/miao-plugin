@@ -22,8 +22,11 @@ export async function groupRank (e) {
   let mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
   let name = msg.replace(/(#|最强|最高分|第一|最高|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
   let char = Character.get(name)
-  if (!char && type !== 'list') {
-    return false
+  if (!char) {
+    // 名字不存在或不为列表模式，则返回false
+    if (name || type !== 'list') {
+      return false
+    }
   }
   if (!groupRank) {
     e.reply('群面板排名功能已禁用...')

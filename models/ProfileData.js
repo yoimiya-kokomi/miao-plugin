@@ -6,7 +6,7 @@ import { Character, ProfileArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile-lib/AttrCalc.js'
 
 export default class ProfileData extends Base {
-  constructor (ds = {}) {
+  constructor (ds = {}, uid) {
     super()
     let char = Character.get({ id: ds.id, elem: ds.elem })
     if (!char) {
@@ -14,14 +14,17 @@ export default class ProfileData extends Base {
     }
     this.id = char.id
     this.char = char
+    this.uid = uid || ''
 
     this.setBasic(ds)
     ds.attr && this.setAttr(ds.attr)
     ds.weapon && this.setWeapon(ds.weapon)
     ds.talent && this.setTalent(ds.talent)
-    this.artis = new ProfileArtis(this.id)
+    this.artis = new ProfileArtis(this.id, this.elem)
     ds.artis && this.setArtis(ds.artis)
-    this.calcAttr()
+    if (process.argv.includes('web-debug')) {
+      AttrCalc.getAttr(this)
+    }
   }
 
   setBasic (ds = {}) {
@@ -29,8 +32,9 @@ export default class ProfileData extends Base {
     this.cons = ds.cons || 0
     this.fetter = ds.fetter || 0
     this._costume = ds.costume || 0
-    this.elem = ds.elem || ''
+    this.elem = ds.elem || this.char.elem || ''
     this.dataSource = ds.dataSource || 'enka'
+    this.promote = lodash.isUndefined(ds.promote) ? AttrCalc.calcPromote(this.level) : (ds.promote || 0)
     this._time = ds._time || ds.updateTime || new Date() * 1
   }
 
@@ -44,17 +48,17 @@ export default class ProfileData extends Base {
     })
   }
 
-  calcAttr () {
-    this.attr2 = AttrCalc.getAttr(this)
-  }
-
   setWeapon (ds = {}) {
     this.weapon = {
       name: ds.name,
       star: ds.rank || ds.star || 1,
       level: ds.level || ds.lv || 1,
-      promote: ds.promote || 1,
+      promote: ds.promote || 0,
       affix: ds.affix
+    }
+    let w = this.weapon
+    if (w.level < 20) {
+      w.promote = 0
     }
   }
 
@@ -111,7 +115,7 @@ export default class ProfileData extends Base {
 
   // toJSON 供保存使用
   toJSON () {
-    return this.getData('id,name,level,cons,fetter,attr,weapon,talent,artis,dataSource,costume,elem,_time')
+    return this.getData('id,name,level,promote,cons,fetter,attr,weapon,talent,artis,dataSource,costume,elem,_time')
   }
 
   get updateTime () {

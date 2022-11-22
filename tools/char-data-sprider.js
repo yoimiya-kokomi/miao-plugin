@@ -4,7 +4,6 @@ import lodash from 'lodash'
 import fetch from 'node-fetch'
 import ImgDownloader from './sprider/ImgDown.js'
 import CharData from './sprider/CharData.js'
-import CharMeta from './sprider/CharMeta.js'
 import { Data } from '../components/index.js'
 import tId from './sprider/TalentId.js'
 
@@ -264,4 +263,4 @@ let eta = {
   流浪者: '2022-12-07 11:00:00',
   珐露珊: '2022-12-07 11:00:00'
 }
-await down('60', true)
+await down('42', true)

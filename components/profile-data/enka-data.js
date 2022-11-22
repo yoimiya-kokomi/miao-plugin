@@ -38,6 +38,7 @@ let EnkaData = {
     let profile = new ProfileData({ id: char.id })
     profile.setBasic({
       level: data.propMap['4001'].val * 1,
+      promote: data.propMap['1002'].val * 1,
       cons: data.talentIdList ? data.talentIdList.length : 0,
       fetter: data.fetterInfo.expLevel,
       costume: char.checkCostume(data.costumeId) ? data.costumeId : 0,

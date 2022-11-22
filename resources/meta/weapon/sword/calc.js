@@ -127,7 +127,12 @@ export default function (step, staticStep) {
         dmg: step(28)
       }
     }],
-    苍古自由之誓: [staticStep('dmg', 10), {
+    苍古自由之誓: [{
+      title: '造成的伤害提高[dmg]%',
+      refine: {
+        dmg: step(10)
+      }
+    }, {
       title: '触发Buff后提高普攻重击与下落攻击[aDmg]%，攻击力提升[atkPct]%',
       refine: {
         aDmg: step(16),
@@ -155,7 +160,7 @@ export default function (step, staticStep) {
         atkPct: step(4)
       }
     }],
-    天空之刃: [{
+    天空之刃: [staticStep('cpct', 4), {
       title: '普攻与重击的伤害值提高[aPlus]',
       data: {
         aPlus: ({ attr, calc, refine }) => calc(attr.atk) * step(20)[refine] / 100,

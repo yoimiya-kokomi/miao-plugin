@@ -18,13 +18,19 @@ export const details = [{
   params: { q: 3 },
   dmg: ({ talent }, dmg) => dmg(talent.e['冥祭伤害'], 'e')
 }, {
+  title: 'Q后强化E·超激化',
+  params: { q: 3 },
+  dmg: ({ talent }, dmg) => dmg(talent.e['冥祭伤害'], 'e', '超激化')
+}/*, {
+
   title: 'Q+末途真眼 渡荒之雷',
   params: { q: 4 },
   dmg: ({ talent }, dmg) => dmg(100, 'e')
-}]
+}*/]
 
-export const defDmgIdx = 2
+export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg,mastery'
+export const defParams = { q: 3 }
 
 export const buffs = [{
   title: '赛诺Q：Q状态下提升元素精通100点',
@@ -47,8 +53,8 @@ export const buffs = [{
   title: '赛诺被动：基于元素精通提升普攻[_aPlus]点伤害值，渡荒之雷提升[_ePlus]伤害值',
   data: {
     aPlus: ({ attr, calc, params }) => params.q === 1 ? calc(attr.mastery) * 1.5 : 0,
-    _aPlus: ({ attr, calc, params }) => params.q === 1 ? calc(attr.mastery) * 1.5 : 0,
+    _aPlus: ({ attr, calc, params }) => calc(attr.mastery) * 1.5,
     ePlus: ({ attr, calc, params }) => params.q === 4 ? calc(attr.mastery) / 2.5 : 0,
-    _ePlus: ({ attr, calc, params }) => params.q === 4 ? calc(attr.mastery) / 2.5 : 0
+    _ePlus: ({ attr, calc, params }) => calc(attr.mastery) / 2.5
   }
-}]
+}/*, 'aggravate'*/]
