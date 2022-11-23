@@ -12,7 +12,7 @@
 
   {{each artis ds}}
   <div class="item arti">
-    {{if ds && ds.name && ds.main && ds.main.title && ds.main.title!="undefined"}}
+    {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
     <div class="avatar">
       <img src="{{_res_path}}{{ds.side}}" onerror="whenError(this)"/>
     </div>
@@ -24,11 +24,12 @@
       <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
     </div>
     <ul class="detail attr">
-      <li class="arti-main"><span class="title">{{ds.main.title}}</span><span class="val">+{{ds.main.value}}</span></li>
+      <li class="arti-main"><span class="title">{{artisKeyTitle[ds.main?.key]}}</span><span class="val">+{{ds.main?.value}}</span>
+      </li>
       {{each ds.attrs attr}}
-      {{if attr && attr.title}}
-      <li class="{{ds.usefulMark[attr.title]*1 > 79.9 ?`great`:(ds.usefulMark[attr.title]*1>0 ? `useful`:`nouse`)}}">
-        <span class="title"> {{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{attr.title}}</span>
+      {{if attr && attr.key}}
+      <li class="{{ds.charWeight[attr.key]*1 > 79.9 ?`great`:(ds.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
+        <span class="title"> {{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key]}}</span>
         <span class="val">+{{attr.value}}</span></li>
       {{/if}}
       {{/each}}

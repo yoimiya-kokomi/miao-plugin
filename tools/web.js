@@ -47,7 +47,7 @@ app.get('/', function (req, res) {
 
 app.get('/:page', function (req, res) {
   let [plugin, app, page] = req.params.page.split('_')
-  if (page == 'favicon.ico') {
+  if (plugin == 'favicon.ico') {
     return res.send('')
   }
   let data = JSON.parse(fs.readFileSync(_path + `/data/ViewData/${plugin}/${app}_${page}.json`, 'utf8'))

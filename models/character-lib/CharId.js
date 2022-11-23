@@ -1,6 +1,6 @@
-/*
-* 角色别名及角色ID相关
-* */
+/**
+ * 角色别名及角色ID相关
+ * */
 import lodash from 'lodash'
 import { Data } from '../../components/index.js'
 import { charPosIdx, elemAlias } from './CharMeta.js'
@@ -143,6 +143,7 @@ const CharId = {
   getElemName (elem = '') {
     return elemTitleMap[CharId.getElem(elem)]
   },
+  elemTitleMap,
 
   // 名字匹配元素
   matchElem (name = '', defElem = '') {

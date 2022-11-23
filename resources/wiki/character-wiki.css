@@ -122,12 +122,6 @@ body {
 .talent-cont strong {
   color: #d3bc8e;
 }
-.weapon-list {
-  padding: 3px;
-}
-.weapon-list .item {
-  margin: 3px;
-}
 .char-holding {
   display: flex;
   padding: 8px;
@@ -204,6 +198,13 @@ body {
   font-size: 12px;
   transform: scale(0.9);
   margin-top: -3px;
+}
+.weapon-list {
+  padding: 3px;
+}
+.weapon-list .item {
+  margin: 3px 3px 3px 4px;
+  width: 74px;
 }
 .artis-list .item-bg {
   background-size: contain;

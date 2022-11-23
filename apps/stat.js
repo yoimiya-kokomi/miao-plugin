@@ -5,7 +5,7 @@
 import lodash from 'lodash'
 import { Cfg, Common, App, Data } from '../components/index.js'
 import { Abyss, AvatarList, Character, MysApi } from '../models/index.js'
-import HutaoApi from './stat/HutaoApi.js'
+import HutaoApi from './wiki/HutaoApi.js'
 
 let app = App.init({
   id: 'stat',

@@ -9,17 +9,16 @@ async function init () {
   let charPath = process.cwd() + '/plugins/miao-plugin/resources/meta/character'
   let chars = fs.readdirSync(charPath)
   for (let char of chars) {
-    if (fs.existsSync(`${charPath}/${char}/artis.js`)) {
-      charCfg[char] = await Data.importModule(`resources/meta/character/${char}/artis.js`)
-    }
     // 允许自定义配置文件，会覆盖喵喵版评分规则
     if (fs.existsSync(`${charPath}/${char}/artis_user.js`)) {
       charCfg[char] = await Data.importModule(`resources/meta/character/${char}/artis_user.js`)
+    } else if (fs.existsSync(`${charPath}/${char}/artis.js`)) {
+      charCfg[char] = await Data.importModule(`resources/meta/character/${char}/artis.js`)
     }
   }
 }
-
 await init()
+
 const CharArtis = {
   reduceWeight (weight, key, plus, max) {
     let original = weight[key] || 0

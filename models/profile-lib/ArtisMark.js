@@ -1,16 +1,47 @@
 import lodash from 'lodash'
 import { Format } from '../../components/index.js'
-import { Character } from '../index.js'
 import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/artis-mark.js'
 
 let ArtisMark = {
+  // 根据Key获取标题
+  getKeyByTitle (title, dmg = false) {
+    if (/元素伤害加成/.test(title)) {
+      let elem = Format.elem(title)
+      return dmg ? 'dmg' : elem
+    } else if (title === '物理伤害加成') {
+      return 'phy'
+    }
+    return attrNameMap[title]
+  },
+
+  // 根据标题获取Key
+  getTitleByKey (key) {
+    // 检查是否是伤害字段
+    let dmg = Format.elemName(key, '')
+    if (dmg) {
+      return `${dmg}伤加成`
+    }
+    return attrMap[key].title
+  },
+
+  getKeyTitleMap () {
+    let ret = {}
+    lodash.forEach(attrMap, (ds, key) => {
+      ret[key] = ds.title
+    })
+    lodash.forEach(Format.elemTitleMap(), (name, key) => {
+      ret[key] = `${name}伤加成`
+    })
+    return ret
+  },
+
   formatAttr (ds) {
     if (!ds) {
       return {}
     }
     if (lodash.isArray(ds) && ds[0] && ds[1]) {
       return {
-        title: ds[0],
+        key: ArtisMark.getKeyByTitle(ds[0]),
         value: ds[1]
       }
     }
@@ -18,7 +49,7 @@ let ArtisMark = {
       return {}
     }
     return {
-      title: ds.title || ds.name || ds.key || ds.id || '',
+      key: ds.key || ArtisMark.getKeyByTitle(ds.title || ds.name || ds.key || ds.id || ''),
       value: ds.value || ''
     }
   },
@@ -30,13 +61,14 @@ let ArtisMark = {
    * @param isMain
    * @returns {{title: *, value: string}|*[]}
    */
-  formatArti (ds, markCfg = false, isMain = false, elem = '') {
-    if (ds[0] && ds[0].title) {
+  formatArti (ds, charAttrCfg = false, isMain = false, elem = '') {
+    // 若为attr数组
+    if (ds[0] && (ds[0].title || ds[0].key)) {
       let ret = []
       let totalUpNum = 0
       let ltArr = []
       lodash.forEach(ds, (d) => {
-        let arti = ArtisMark.formatArti(d, markCfg)
+        let arti = ArtisMark.formatArti(d, charAttrCfg)
         totalUpNum += arti.upNum
         if (arti.hasLt) {
           ltArr.push(arti)
@@ -56,51 +88,39 @@ let ArtisMark = {
       }
       return ret
     }
+
+    let key = ds.key
     let title = ds.title || ds[0]
-    let key = ''
+    if (!key) {
+      key = ArtisMark.getKeyByTitle(title)
+    } else if (!title) {
+      title = ArtisMark.getTitleByKey(key)
+    }
+    let isDmg = Format.isElem(key)
     let val = ds.value || ds[1]
     let value = val
     let num = ds.value || ds[1]
-    if (!title || title === 'undefined') {
+    if (!key || key === 'undefined') {
       return {}
     }
-    if (/伤害加成/.test(title) && val < 1) {
-      val = Format.pct(val * 100)
-      num = num * 100
-    } else if (/伤害加成|大|暴|充能|治疗/.test(title)) {
-      val = Format.pct(val)
-    } else {
-      val = Format.comma(val, 1)
-    }
 
-    if (/元素伤害加成/.test(title)) {
-      title = title.replace('元素伤害', '伤')
-      let mainElem = Character.matchElem(title)
-      if (elem && mainElem.elem !== elem) {
-        key = '_dmg'
-      } else {
-        key = 'dmg'
-      }
-    } else if (title === '物理伤害加成') {
-      title = '物伤加成'
-      key = 'phy'
-    }
+    let arrCfg = attrMap[isDmg ? 'dmg' : key]
 
-    key = key || attrNameMap[title]
+    val = Format[arrCfg.format](val, 1)
 
     let ret = {
-      title,
+      key,
       value: val
     }
     if (!isMain) {
-      let incRet = ArtisMark.getIncNum(title, value)
+      let incRet = ArtisMark.getIncNum(key, value)
       ret.upNum = incRet.num
       ret.hasGt = incRet.hasGt
       ret.hasLt = incRet.hasLt
     }
 
-    if (markCfg) {
-      let mark = markCfg[key] * num || 0
+    if (charAttrCfg) {
+      let mark = charAttrCfg[key]?.mark * num || 0
       if (isMain) {
         mark = mark / 4 + 0.01
         ret.key = key
@@ -111,8 +131,9 @@ let ArtisMark = {
     return ret
   },
 
-  getIncNum (title, value) {
-    let cfg = attrNameMap[title] && attrMap[attrNameMap[title]]
+  // 获取升级次数
+  getIncNum (key, value) {
+    let cfg = attrMap[key]
     if (!value || !cfg || !cfg.value || !cfg.valueMin) {
       return { num: 0 }
     }
@@ -130,6 +151,7 @@ let ArtisMark = {
     }
   },
 
+  // 获取评分档位
   getMarkClass (mark) {
     let pct = mark
     let scoreMap = [['D', 10], ['C', 16.5], ['B', 23.1], ['A', 29.7], ['S', 36.3], ['SS', 42.9], ['SSS', 49.5], ['ACE', 56.1], ['ACE²', 66]]
@@ -140,49 +162,31 @@ let ArtisMark = {
     }
   },
 
+  // 获取位置分数
   getMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
     let ret = 0
-    let { mark, maxMark, weight } = charCfg
-    let mAttr = ArtisMark.getAttr(mainAttr, elem)
-
+    let { attrs, posMaxMark } = charCfg
+    let key = mainAttr.key
     let fixPct = 1
+    posIdx = posIdx * 1
     if (posIdx >= 3) {
-      if (mAttr !== 'recharge') {
-        fixPct = Math.max(0, Math.min(1, (weight[mAttr] || 0) / (maxMark['m' + posIdx])))
+      let mainKey = key
+      if (key !== 'recharge') {
+        if (posIdx === 4 && Format.isElem(key) && key === elem) {
+          mainKey = 'dmg'
+        }
+        fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
       }
-      ret += ArtisMark.getAttrMark(mark, mainAttr) / 4
+      ret += (attrs[mainKey]?.mark || 0) * (mainAttr.value || 0) / 4
     }
 
     lodash.forEach(subAttr, (ds) => {
-      ret += ArtisMark.getAttrMark(mark, ds)
+      ret += (attrs[ds.key]?.mark || 0) * (ds.value || 0)
     })
+    return ret * (1 + fixPct) / 2 / posMaxMark[posIdx] * 66
+  },
 
-    return ret * (1 + fixPct) / 2 / maxMark[posIdx] * 66
-  },
-  getAttr (ds, elem = '') {
-    let title = ds.title || ds[0] || ''
-    let attr = attrNameMap[title]
-    if (/元素伤害/.test(title)) {
-      attr = 'dmg'
-      if (elem && Character.matchElem(title).elem !== elem) {
-        attr = '_dmg'
-      }
-    } else if (/物理|物伤/.test(title)) {
-      attr = 'phy'
-    }
-    return attr
-  },
-  getAttrMark (attrMark, ds) {
-    if (!ds) {
-      return 0
-    }
-    let attr = ArtisMark.getAttr(ds)
-    if (!attr) {
-      return 0
-    }
-    let val = ds.value || ds[1]
-    return (attrMark[attr] || 0) * val
-  },
+  // 获取位置最高分
   getMaxMark (attrs) {
     let ret = {}
     for (let idx = 1; idx <= 5; idx++) {
@@ -208,6 +212,8 @@ let ArtisMark = {
     }
     return ret
   },
+
+  // 获取最高分的属性
   getMaxAttr (attrs = {}, list2 = [], maxLen = 1, banAttr = '') {
     let tmp = []
     lodash.forEach(list2, (attr) => {

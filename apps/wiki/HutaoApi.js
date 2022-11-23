@@ -57,14 +57,6 @@ let HutaoApi = {
     return await HutaoApi.req('/Statistics/Avatar/AvatarCollocation')
   },
 
-  async getWeaponUsage () {
-    return await HutaoApi.req('/Statistics/AvatarWeaponUsage')
-  },
-
-  async getArtisUsage () {
-    return await HutaoApi.req('/Statistics/AvatarReliquaryUsage')
-  },
-
   async uploadData (data = {}) {
     let body = JSON.stringify(data)
     return await HutaoApi.req('/Record/UploadData', {

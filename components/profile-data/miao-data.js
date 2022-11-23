@@ -152,11 +152,14 @@ let MiaoData = {
         let tid = talentId[ds.id]
         key = talentKey[tid]
         elem = elem || talentElem[tid]
+        ret[key] = {
+          level: ds.level
+        }
       } else {
         key = ['a', 'e', 'q'][idx++]
-      }
-      ret[key] = {
-        level: ds.level
+        ret[key] = ret[key] || {
+          level: ds.level
+        }
       }
     })
 

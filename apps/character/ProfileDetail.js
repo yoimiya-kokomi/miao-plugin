@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { autoRefresh } from './ProfileCommon.js'
 import { Common, Format, Profile } from '../../components/index.js'
-import { MysApi, Avatar, ProfileRank } from '../../models/index.js'
+import { MysApi, Avatar, ProfileRank, ProfileArtis } from '../../models/index.js'
 
 export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let selfUser = await MysApi.initUser(e)
@@ -55,7 +55,6 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     dmg: p(Math.max(a.dmg * 1 || 0, a.phy * 1 || 0))
   }
 
-  let { artis, mark: totalMark, markClass: totalMarkClass, usefulMark, classTitle } = profile.getArtisMark()
 
   let enemyLv = await selfUser.getCfg('char.enemyLv', 91)
   let dmgMsg = []
@@ -94,6 +93,10 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     rank = await ProfileRank.create({ group: e.group_id, uid, qq: e.user_id })
     await rank.getRank(profile, true)
   }
+
+  let artisDetail = profile.getArtisMark()
+  let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
+
   // 渲染图像
   return await Common.render('character/profile-detail', {
     save_id: uid,
@@ -105,14 +108,11 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     dmgMsg,
     dmgRet: dmgCalc.dmgRet || false,
     dmgCfg: dmgCalc.dmgCfg || false,
-    artis,
+    artisDetail,
+    artisKeyTitle,
     enemyLv,
     imgs: char.getImgs(profile.costume),
     enemyName: dmgCalc.enemyName || '小宝',
-    totalMark: c(totalMark, 1),
-    totalMarkClass,
-    classTitle,
-    usefulMark,
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
     bodyClass: `char-${char.name}`,
     mode

@@ -1,4 +1,4 @@
-/*
+/**
 * 角色天赋相关处理
 * */
 import lodash from 'lodash'

@@ -1,12 +1,12 @@
-/*
-* 面板圣遗物
-* */
+/**
+ * 面板圣遗物
+ */
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Artifact, ArtifactSet, Character } from './index.js'
 import { Format, Data } from '../components/index.js'
 import ArtisMark from './profile-lib/ArtisMark.js'
-import { attrMap, attrNameMap, attrValue } from '../resources/meta/artifact/artis-mark.js'
+import { attrMap, attrValue } from '../resources/meta/artifact/artis-mark.js'
 import CharArtis from './profile-lib/CharArtis.js'
 
 export default class ProfileArtis extends Base {
@@ -87,16 +87,7 @@ export default class ProfileArtis extends Base {
     if (!main) {
       return ''
     }
-    let title = main.title
-    if (/元素伤害/.test(title)) {
-      return 'dmg'
-    }
-    if (attrNameMap[main.title]) {
-      return attrNameMap[main.title]
-    } else {
-      console.log(main.title)
-    }
-    return ''
+    return ArtisMark.getKeyByTitle(main.key, true) || ''
   }
 
   is (check, pos = '') {
@@ -126,6 +117,7 @@ export default class ProfileArtis extends Base {
     return check
   }
 
+  // 获取圣遗物数据
   getArtisData () {
     let ret = {}
     this.forEach((ds, idx) => {
@@ -139,6 +131,16 @@ export default class ProfileArtis extends Base {
     return ret
   }
 
+  /**
+   * 获取圣遗物套装数据
+   * @returns {*|{imgs: *[], names: *[], sets: {}, abbrs: *[], sName: string, name: (string|*)}}
+   * sets: 套装名:2/4
+   * names: [套装名]
+   * imgs: [img]
+   * abbrs：[别名]
+   * name: '组合名字'， 若为4件套会使用套装完整名
+   * sName: '简写名字'，若为4件套也会使用简写
+   */
   getSetData () {
     if (this._setData) {
       return this._setData
@@ -174,6 +176,10 @@ export default class ProfileArtis extends Base {
     return this._setData
   }
 
+  /**
+   * 获取角色配置
+   * @returns {{classTitle: *, weight: *, posMaxMark: {}, mark: {}, attrs: {}}}
+   */
   getCharCfg () {
     let char = Character.get(this.charid)
     let { attrWeight, title } = CharArtis.getCharArtisCfg(char, this.profile, this)
@@ -200,15 +206,13 @@ export default class ProfileArtis extends Base {
       }
       attrs[key] = ret
     })
-    let maxMark = ArtisMark.getMaxMark(attrs)
+    let posMaxMark = ArtisMark.getMaxMark(attrs)
     // 返回内容待梳理简化
     return {
       attrs,
       classTitle: title,
       weight: attrWeight,
-      // 待删除
-      mark: lodash.mapValues(attrs, (ds) => ds.mark),
-      maxMark
+      posMaxMark
     }
   }
 
@@ -216,10 +220,6 @@ export default class ProfileArtis extends Base {
     let charCfg = this.getCharCfg()
     let artis = {}
     let setCount = {}
-    let usefulMark = {}
-    lodash.forEach(charCfg.attrs, (ds) => {
-      usefulMark[ds.title] = ds.weight
-    })
     let totalMark = 0
     this.forEach((arti, idx) => {
       let mark = ArtisMark.getMark(charCfg, idx, arti.main, arti.attrs, this.elem)
@@ -241,8 +241,8 @@ export default class ProfileArtis extends Base {
           _mark: mark,
           mark: Format.comma(mark, 1),
           markClass: ArtisMark.getMarkClass(mark),
-          main: ArtisMark.formatArti(arti.main, charCfg.mark, true, this.elem || ''),
-          attrs: ArtisMark.formatArti(arti.attrs, charCfg.mark)
+          main: ArtisMark.formatArti(arti.main, charCfg.attrs, true, this.elem || ''),
+          attrs: ArtisMark.formatArti(arti.attrs, charCfg.attrs)
         }
       }
     })
@@ -270,7 +270,7 @@ export default class ProfileArtis extends Base {
       classTitle: charCfg.classTitle
     }
     if (withDetail) {
-      ret.usefulMark = usefulMark
+      ret.charWeight = charCfg.weight
     }
     return ret
   }
@@ -289,5 +289,9 @@ export default class ProfileArtis extends Base {
 
   eachArtisSet (fn) {
     ProfileArtis._eachArtisSet(this.sets, fn)
+  }
+
+  static getArtisKeyTitle () {
+    return ArtisMark.getKeyTitleMap()
   }
 }

@@ -149,10 +149,6 @@ const CharMeta = {
     return type === 'all' ? ret : ret[0]
   },
 
-  getLvStat (char) {
-
-  },
-
   getDesc (desc) {
     desc = desc.replace(/。$/, '')
     desc = desc.replace('</br>', '，')

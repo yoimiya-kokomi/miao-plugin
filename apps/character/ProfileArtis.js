@@ -5,7 +5,7 @@
 import lodash from 'lodash'
 import { Profile, Common } from '../../components/index.js'
 import { getTargetUid, profileHelp, autoGetProfile } from './ProfileCommon.js'
-import { Artifact, Character } from '../../models/index.js'
+import { Artifact, Character, ProfileArtis } from '../../models/index.js'
 
 /*
 * 角色圣遗物面板
@@ -27,9 +27,11 @@ export async function profileArtis (e) {
   }
 
   let charCfg = profile.artis.getCharCfg()
-  let { artis, mark: totalMark, markClass: totalMarkClass, usefulMark } = profile.getArtisMark()
 
   let { attrMap } = Artifact.getMeta()
+
+  let artisDetail = profile.getArtisMark()
+  let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
 
   // 渲染图像
   return await Common.render('character/artis-mark', {
@@ -38,10 +40,9 @@ export async function profileArtis (e) {
     splash: char.getImgs(profile.costume).splash,
     data: profile,
     costume: profile.costume ? '2' : '',
-    artis,
-    totalMark,
-    totalMarkClass,
-    usefulMark,
+    artisDetail,
+    artisKeyTitle,
+
     attrMap,
     charCfg
   }, { e, scale: 1.3 })
@@ -72,7 +73,7 @@ export async function profileArtisList (e) {
     }
     let profileArtis = profile.getArtisMark()
     lodash.forEach(profileArtis.artis, (arti, idx) => {
-      arti.usefulMark = profileArtis.usefulMark
+      arti.charWeight = profileArtis.charWeight
       arti.avatar = name
       arti.side = char.side
       artis.push(arti)
@@ -87,11 +88,13 @@ export async function profileArtisList (e) {
   artis = lodash.sortBy(artis, '_mark')
   artis = artis.reverse()
   artis = artis.slice(0, 28)
+  let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
 
   // 渲染图像
   return await Common.render('character/artis-list', {
     save_id: uid,
     uid,
-    artis
+    artis,
+    artisKeyTitle
   }, { e, scale: 1.4 })
 }
