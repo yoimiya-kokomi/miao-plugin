@@ -17,6 +17,9 @@ export const avatarWife = true
 // 戳一戳卡片
 export const avatarPoke = true
 
+// 数字分组
+export const commaGroup = 3
+
 /** ************ 【角色资料与信息查询】 ************* */
 // #刻晴图鉴 的图鉴信息
 export const charWiki = true
