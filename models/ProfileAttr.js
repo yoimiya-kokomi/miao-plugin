@@ -1,7 +1,5 @@
 import lodash from 'lodash'
 import Base from './Base.js'
-import DmgMastery from './profile-lib/DmgMastery.js'
-import { Format } from '../components/index.js'
 
 const baseAttr = 'atk,def,hp,mastery,recharge,cpct,cdmg,dmg,phy,heal,shield'.split(',')
 let attrReg = new RegExp(`^(${baseAttr.join('|')})(Base|Plus|Pct|Inc)$`)
@@ -9,10 +7,10 @@ let attrReg = new RegExp(`^(${baseAttr.join('|')})(Base|Plus|Pct|Inc)$`)
 class ProfileAttr extends Base {
   constructor (data = null) {
     super()
-    this._init(data)
+    this.init(data)
   }
 
-  _init (data) {
+  init (data) {
     // 基础属性
     this._attr = {}
     let attr = this._attr
@@ -28,7 +26,7 @@ class ProfileAttr extends Base {
     }
   }
 
-  static init (data = null) {
+  static create (data = null) {
     return new ProfileAttr(data)
   }
 
@@ -71,6 +69,7 @@ class ProfileAttr extends Base {
     if (testRet && testRet[1] && testRet[2]) {
       let key = testRet[1]
       let key2 = testRet[2].toLowerCase()
+      attr[key][key2] = attr[key][key2] || 0
       attr[key][key2] += val * 1
       return true
     }
@@ -105,6 +104,7 @@ class ProfileAttr extends Base {
         ret[`${key}Base`] = this[`${key}Base`]
       }
     })
+    ret._calc = true
     return ret
   }
 }

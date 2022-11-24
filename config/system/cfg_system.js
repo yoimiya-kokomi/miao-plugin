@@ -47,14 +47,7 @@ export const cfgSchema = {
         key: '戳一戳',
         def: true,
         oldCfgKey: 'char.poke'
-      },
-      commaGroup: {
-        title: '数字逗号分组',
-        key: '逗号',
-        def: 3,
-        type: 'num',
-        desc: '根据语言习惯设置数字分组，如千位组设为 3，万位组设为 4。（暂不支持欧洲样式）'
-      },
+      }
     }
   },
   wiki: {
@@ -108,6 +101,19 @@ export const cfgSchema = {
         def: false,
         oldCfgKey: 'sys.help',
         desc: '开启后将使用喵喵版帮助作为Yunzai的默认帮助，默认关闭'
+      },
+      commaGroup: {
+        title: '数字逗号分组',
+        key: '逗号',
+        def: 3,
+        type: 'num',
+        desc: '根据语言习惯设置数字分组，如千位组设为3，万位组设为4'
+      },
+      attrCalc: {
+        title: '面板计算属性',
+        key: '计算',
+        def: false,
+        desc: '实验特性：#雷神面板 使用面板计算属性取代展柜属性'
       }
     }
   }

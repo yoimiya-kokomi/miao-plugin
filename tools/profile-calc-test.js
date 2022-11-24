@@ -5,9 +5,10 @@ import lodash from 'lodash'
 
 let _path = process.cwd()
 
-async function testCalcAttr (profile) {
+function testCalcAttr (profile) {
   if (profile.hasData) {
-    let attr2 = await AttrCalc.getAttr(profile)
+    let attrCalc = AttrCalc.create(profile)
+    let attr2 = attrCalc.calc()
     let char = profile.char
     let ret = {}
     lodash.forEach(profile.attr, (val, key) => {
@@ -90,9 +91,7 @@ async function test (ignore) {
       if (ignore.includes(uid * 1)) {
         continue
       }
-
-
-      await Profile.forEach(uid, async (profile) => {
+      Profile.forEach(uid, (profile) => {
         if (count > 0) {
           return false
         }
@@ -101,7 +100,7 @@ async function test (ignore) {
           return true
         }
         console.log(profile.id)
-        let ret = await testCalcAttr(profile)
+        let ret = testCalcAttr(profile)
         if (ret === false) {
           count++
         }

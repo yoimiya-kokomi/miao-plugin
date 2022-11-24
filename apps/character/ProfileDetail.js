@@ -100,7 +100,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   return await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
-    data: avatar.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime'),
+    data: avatar.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime,_attrCalc'),
     attr,
     elem: char.elem,
     dmgData,

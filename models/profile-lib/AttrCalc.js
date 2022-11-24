@@ -18,28 +18,27 @@ class AttrCalc {
   /**
    * 静态调用入口
    * @param profile
-   * @returns {boolean|void}
+   * @returns {AttrCalc}
    */
-  static async getAttr (profile) {
-    let attr = new AttrCalc(profile)
-    return await attr.calc()
+  static create (profile) {
+    return new AttrCalc(profile)
   }
 
   /**
-   * 实例调用入口
-   * @param profile
+   * 面板属性计算
+   * @returns {{}}
    */
-  async calc (profile) {
-    this.attr = ProfileAttr.init({
+  calc () {
+    this.attr = ProfileAttr.create({
       recharge: 100,
       cpct: 5,
       cdmg: 50
     })
-    await this.setCharAttr()
+    this.setCharAttr()
     this.setWeaponAttr()
     this.setArtisAttr()
     if (process.argv.includes('web-debug')) {
-      //  console.log(this.attr, this.attr.getAttr())
+      // console.log(this.attr, this.attr.getAttr())
     }
     return this.attr.getAttr()
   }
@@ -52,7 +51,7 @@ class AttrCalc {
    * 计算角色属性
    * @param affix
    */
-  async setCharAttr (affix = '') {
+  setCharAttr (affix = '') {
     let { char, level, promote } = this.profile
     let metaAttr = char.detail?.attr || {}
     let { keys = {}, details = {} } = metaAttr
@@ -87,7 +86,7 @@ class AttrCalc {
     this.addAttr('defBase', getLvData(2))
     this.addAttr(keys[3], getLvData(3, true))
 
-    let charBuffs = await char.getCalcRule()
+    let charBuffs = char.getCalcRule()
     lodash.forEach(charBuffs.buffs, (buff) => {
       if (!buff.isStatic) {
         return true
@@ -189,7 +188,6 @@ class AttrCalc {
     if (Format.isElem(key) && char.elem === key) {
       key = 'dmg'
     }
-
     if (!key) {
       return false
     }

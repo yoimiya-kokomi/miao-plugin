@@ -1,14 +1,50 @@
 import { Data } from '../../components/index.js'
 import lodash from 'lodash'
+import fs from 'fs'
+
+const charPath = process.cwd() + '/plugins/miao-plugin/resources/meta/character'
+let cfgMap = {
+  char: {},
+  async init () {
+    let chars = fs.readdirSync(charPath)
+    for (let char of chars) {
+      cfgMap.char[char] = {}
+      let curr = cfgMap.char[char]
+      // 评分规则
+      if (cfgMap.exists(char, 'artis_user')) {
+        curr.artis = await cfgMap.getCfg(char, 'artis_user', 'default')
+      } else if (cfgMap.exists(char, 'artis')) {
+        curr.artis = await cfgMap.getCfg(char, 'artis', 'default')
+      }
+      // 伤害计算
+      if (cfgMap.exists(char, 'calc_user')) {
+        curr.calc = await cfgMap.getCfg(char, 'calc_user')
+      } else if (cfgMap.exists(char, 'calc')) {
+        curr.calc = await cfgMap.getCfg(char, 'calc')
+      }
+    }
+  },
+  exists (char, file) {
+    return fs.existsSync(`${charPath}/${char}/${file}.js`)
+  },
+  async getCfg (char, file, module = '') {
+    let cfg = await Data.importModule(`resources/meta/character/${char}/${file}.js`)
+    if (module) {
+      return cfg[module]
+    }
+    return cfg
+  }
+}
+await cfgMap.init()
 
 /**
  * 角色相关配置
  */
 let CharCfg = {
   // 获取角色伤害计算相关配置
-  async getCalcRule (char) {
-    let cfg = await Data.importModule(`resources/meta/character/${char.name}/calc.js`)
-    if (lodash.isEmpty(cfg)) {
+  getCalcRule (char) {
+    let cfg = cfgMap.char[char.name]?.calc
+    if (!cfg || lodash.isEmpty(cfg)) {
       return false
     }
     return {
@@ -20,6 +56,9 @@ let CharCfg = {
       mainAttr: cfg.mainAttr || 'atk,cpct,cdmg', // 伤害属性
       enemyName: cfg.enemyName || '小宝' // 敌人名称
     }
+  },
+  getArtisCfg (char) {
+    return cfgMap.char[char.name]?.artis || false
   }
 }
 export default CharCfg

@@ -316,11 +316,18 @@ class Character extends Base {
   }
 
   // 获取伤害计算配置
-  async getCalcRule () {
+  getCalcRule () {
     if (!this._calcRule && this._calcRule !== false) {
-      this._calcRule = await CharCfg.getCalcRule(this)
+      this._calcRule = CharCfg.getCalcRule(this)
     }
     return this._calcRule
+  }
+
+  getArtisCfg () {
+    if (!this._artisRule && this._artisRule !== false) {
+      this._artisRule = CharCfg.getArtisCfg(this)
+    }
+    return this._artisRule
   }
 }
 
