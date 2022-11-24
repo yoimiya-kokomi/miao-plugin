@@ -37,6 +37,7 @@ let DmgBuffs = {
     if (lodash.isPlainObject(weaponCfg)) {
       weaponCfg = [weaponCfg]
     }
+    let ret = []
     lodash.forEach(weaponCfg, (ds) => {
       if (ds.isStatic) {
         return true
@@ -50,8 +51,9 @@ let DmgBuffs = {
           ds.data[key] = ({ refine }) => r[refine] * (ds.buffCount || 1)
         })
       }
+      ret.push(ds)
     })
-    return weaponCfg
+    return ret
   },
 
   getBuffs (profile, buffs = []) {

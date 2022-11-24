@@ -132,7 +132,9 @@ let DmgAttr = {
           }
         }
       }
-
+      if (buff.isStatic) {
+        return
+      }
       // 如果存在rule，则进行计算
       if (buff.check && !buff.check(ds)) {
         return
