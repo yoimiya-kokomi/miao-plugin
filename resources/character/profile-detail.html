@@ -40,14 +40,6 @@
       <li><i class="i-re"></i>元素充能<strong>{{attr.recharge}}</strong></li>
       <li><i class="i-dmg"></i>伤害加成<strong>{{attr.dmg}}</strong></li>
     </ul>
-    <div class="data-info">
-      {{if data.dataSource}}
-      <span>{{if data._attrCalc}}[ 面板属性计算：开启 ]  ·{{/if}} 数据源：{{ {miao:"喵喵Api",enka:"Enka.Network",input:"手工录入"}[data.dataSource]||data.dataSource }}</span>
-      {{/if}}
-      {{if data.updateTime}}
-      <span class="time">{{data.updateTime}}</span>
-      {{/if}}
-    </div>
   </div>
 
   <div class="char-cons">
@@ -60,6 +52,15 @@
       </div>
     </div>
     {{/each}}
+  </div>
+
+  <div class="data-info">
+    {{if data.dataSource}}
+    <span>{{if data._attrCalc}}[面板计算：开启]  ·{{/if}} 数据源：{{ {miao:"喵喵Api",enka:"Enka.Network",input:"手工录入"}[data.dataSource]||data.dataSource }}</span>
+    {{/if}}
+    {{if data.updateTime}}
+    <span class="time">{{data.updateTime}}</span>
+    {{/if}}
   </div>
 </div>
 

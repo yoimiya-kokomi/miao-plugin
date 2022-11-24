@@ -1,6 +1,5 @@
 import { User } from './index.js'
-import YzMysInfo from './mys-lib/YzMysInfo.js'
-import YzMysApi from './mys-lib/YzMysApi.js'
+import { Version } from '../components/index.js'
 
 export default class MysApi {
   constructor (e, uid, mysInfo) {
@@ -14,16 +13,16 @@ export default class MysApi {
   }
 
   static async init (e, cfg = 'all') {
+    if (!e.runtime) {
+      Version.runtime()
+      return false
+    }
     if (typeof (cfg) === 'string') {
       cfg = { auth: cfg }
     }
     let { auth = 'all' } = cfg
     let mys = false
-    if (e.runtime) {
-      mys = await e.runtime.getMysInfo(auth)
-    } else {
-      mys = await YzMysInfo.init(e, auth === 'cookie' ? 'detail' : 'roleIndex')
-    }
+    mys = await e.runtime.getMysInfo(auth)
     if (!mys) {
       return false
     }
@@ -33,10 +32,14 @@ export default class MysApi {
   }
 
   static async initUser (e, cfg = 'all') {
+    if (!e.runtime) {
+      Version.runtime()
+      return false
+    }
     if (typeof (cfg) === 'string') {
       cfg = { auth: cfg }
     }
-    let uid = await YzMysInfo.getUid(e)
+    let uid = e.runtime?.uid
     if (uid) {
       return new User({ id: e.user_id, uid: uid })
     }
@@ -63,11 +66,11 @@ export default class MysApi {
     return new User({ id: this.e.user_id, uid: this.uid })
   }
 
-  getMysApi (e) {
+  async getMysApi (e, targetType = 'all', option = {}) {
     if (this.mys) {
       return this.mys
     }
-    this.mys = new YzMysApi(this.uid, this.ck, { log: false, e })
+    this.mys = await e.runtime.getMysApi(targetType, option)
     return this.mys
   }
 
@@ -76,7 +79,7 @@ export default class MysApi {
       return false
     }
     let e = this.e
-    let mys = this.getMysApi(e)
+    let mys = await this.getMysApi(e, api, { log: false })
     // 暂时先在plugin侧阻止错误，防止刷屏
     e._original_reply = e._original_reply || e.reply
     e._reqCount = e._reqCount || 0

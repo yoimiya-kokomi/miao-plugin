@@ -1,7 +1,7 @@
 // #老婆
 import lodash from 'lodash'
 import { Common } from '../../components/index.js'
-import { Character, MysApi } from '../../models/index.js'
+import { Character, MysApi, AvatarList } from '../../models/index.js'
 import { getAvatarList, renderAvatar } from './AvatarCard.js'
 
 const relationMap = {
