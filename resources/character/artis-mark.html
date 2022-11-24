@@ -84,7 +84,7 @@
           {{if ds.main.title === '充能效率'}}
           *100%
           {{else}}
-          {{set mainWeight = charCfg?.weight[ds.main?.key===data.elem?'dmg':ds.main?.key] || 0}}
+          {{set mainWeight = charCfg?.attrs[ds.main?.key===data.elem?'dmg':ds.main?.key]?.weight || 0}}
          *{{(50  +  50 * mainWeight / charCfg.posMaxMark["m"+idx] ).toFixed(0)}}%
           {{/if}}
         </span>
@@ -117,10 +117,11 @@
       <div>主词条最高分</div>
     </div>
     {{each attrMap ds key}}
-    {{if ds.type!== "plus" && charCfg.weight[key] > 0}}
+    {{set keyCfg = charCfg.attrs[key]||{} }}
+    {{if ds.type!== "plus" && keyCfg?.weight > 0}}
     <div class="tr">
       <div class="th">{{ds.title}}</div>
-      <div class="td">{{charCfg.weight[key]}}</div>
+      <div class="td">{{keyCfg?.weight}}</div>
       <div class="td">{{ds.text}}</div>
       <div class="td">{{charCfg.attrs[key]?.mark > 0 ? (46.6/6 / 100 * charCfg.attrs[key]?.mark).toFixed(2) : "-"}}
       </div>
@@ -128,10 +129,10 @@
         {{if ['元素伤害','物伤加成','治疗加成'].includes(ds.title)}}
         &nbsp; &nbsp; -
         {{else}}
-        {{ mark(charCfg.weight[key]) }}
+        {{ mark(keyCfg?.weight) }}
         {{/if}}
       </div>
-      <div class="td"> {{ mark(charCfg.weight[key] / 3 ) }}</div>
+      <div class="td"> {{ mark(keyCfg?.weight / 3 ) }}</div>
     </div>
     {{/if}}{{/each}}
   </div>

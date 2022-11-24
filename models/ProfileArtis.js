@@ -211,7 +211,6 @@ export default class ProfileArtis extends Base {
     return {
       attrs,
       classTitle: title,
-      weight: attrWeight,
       posMaxMark
     }
   }
@@ -270,7 +269,7 @@ export default class ProfileArtis extends Base {
       classTitle: charCfg.classTitle
     }
     if (withDetail) {
-      ret.charWeight = charCfg.weight
+      ret.charWeight = lodash.mapValues(charCfg.attrs, ds => ds.weight)
     }
     return ret
   }

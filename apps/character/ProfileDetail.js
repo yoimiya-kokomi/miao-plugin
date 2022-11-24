@@ -55,7 +55,6 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     dmg: p(Math.max(a.dmg * 1 || 0, a.phy * 1 || 0))
   }
 
-
   let enemyLv = await selfUser.getCfg('char.enemyLv', 91)
   let dmgMsg = []
   let dmgData = []
