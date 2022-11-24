@@ -47,7 +47,14 @@ export const cfgSchema = {
         key: '戳一戳',
         def: true,
         oldCfgKey: 'char.poke'
-      }
+      },
+      commaGroup: {
+        title: '数字逗号分组',
+        key: '逗号',
+        def: 3,
+        type: 'num',
+        desc: '根据语言习惯设置数字分组，如千位组设为 3，万位组设为 4。（暂不支持欧洲样式）'
+      },
     }
   },
   wiki: {
