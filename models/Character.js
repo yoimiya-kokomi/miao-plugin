@@ -6,7 +6,7 @@
 * */
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Data } from '../components/index.js'
+import { Data, Format } from '../components/index.js'
 import CharImg from './character-lib/CharImg.js'
 import CharTalent from './character-lib/CharTalent.js'
 import CharId from './character-lib/CharId.js'
@@ -33,7 +33,7 @@ class Character extends Base {
     if (!this.isCustom) {
       let meta = getMeta(name)
       this.meta = meta
-      this.elem = CharId.getElem(elem || meta.elem) || 'anemo'
+      this.elem = Format.elem(elem || meta.elem, 'anemo')
     } else {
       this.meta = {}
     }
@@ -95,7 +95,7 @@ class Character extends Base {
 
   // 获取元素名称
   get elemName () {
-    return CharId.getElemName(this.elem)
+    return Format.elemName(this.elem)
   }
 
   // 获取角色描述
@@ -321,14 +321,6 @@ class Character extends Base {
       this._calcRule = await CharCfg.getCalcRule(this)
     }
     return this._calcRule
-  }
-
-  static matchElem (str, def) {
-    return CharId.matchElem(str, def)
-  }
-
-  static matchElemName () {
-
   }
 }
 

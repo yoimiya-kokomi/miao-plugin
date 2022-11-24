@@ -19,7 +19,9 @@ export default class ProfileArtis extends Base {
 
   setProfile (profile, artis) {
     this.profile = profile
-    this.setArtisSet(artis)
+    if (artis) {
+      this.setArtisSet(artis)
+    }
   }
 
   setArtisSet (ds) {
@@ -73,6 +75,10 @@ export default class ProfileArtis extends Base {
 
   get names () {
     return this.getSetData().names || []
+  }
+
+  get hasArtis () {
+    return !lodash.isEmpty(this.artis)
   }
 
   mainAttr (idx = '') {

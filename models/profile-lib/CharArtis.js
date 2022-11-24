@@ -17,20 +17,13 @@ async function init () {
     }
   }
 }
+
 await init()
 
 const CharArtis = {
-  reduceWeight (weight, key, plus, max) {
-    let original = weight[key] || 0
-    if (original < max) {
-      weight[key] = Math.max(original + plus, max)
-      return true
-    }
-    return false
-  },
+
   getCharArtisCfg (char, profile, artis) {
     let { attr, weapon } = profile
-
     let rule = function (title, attrWeight) {
       return {
         title,

@@ -6,7 +6,7 @@ let ArtisMark = {
   // 根据Key获取标题
   getKeyByTitle (title, dmg = false) {
     if (/元素伤害加成/.test(title)) {
-      let elem = Format.elem(title)
+      let elem = Format.matchElem(title)
       return dmg ? 'dmg' : elem
     } else if (title === '物理伤害加成') {
       return 'phy'
@@ -29,7 +29,7 @@ let ArtisMark = {
     lodash.forEach(attrMap, (ds, key) => {
       ret[key] = ds.title
     })
-    lodash.forEach(Format.elemTitleMap(), (name, key) => {
+    Format.eachElem((key, name) => {
       ret[key] = `${name}伤加成`
     })
     return ret

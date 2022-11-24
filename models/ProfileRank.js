@@ -30,7 +30,7 @@ export default class ProfileRank {
    * @returns {Promise<{}|boolean>}
    */
   async getRank (profile, force = false) {
-    if (!this.groupId || !this.allowRank || !profile.hasData) {
+    if (!profile || !this.groupId || !this.allowRank || !profile.hasData) {
       return false
     }
     let ret = {}
@@ -46,7 +46,7 @@ export default class ProfileRank {
   }
 
   async getTypeRank (profile, type, force) {
-    if (!profile.hasData || !type) {
+    if (!profile || !profile.hasData || !type) {
       return false
     }
     if (type === 'dmg' && !profile.hasDmg) {
@@ -85,7 +85,13 @@ export default class ProfileRank {
   }
 
   async getTypeValue (profile, type) {
+    if (!profile || !profile.hasData) {
+      return false
+    }
     if (type === 'mark') {
+      if (!profile?.artis?.hasArtis) {
+        return false
+      }
       let mark = profile.getArtisMark(false)
       if (mark && mark._mark) {
         return {

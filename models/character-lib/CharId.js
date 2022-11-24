@@ -2,8 +2,8 @@
  * 角色别名及角色ID相关
  * */
 import lodash from 'lodash'
-import { Data } from '../../components/index.js'
-import { charPosIdx, elemAlias } from './CharMeta.js'
+import { Data, Format } from '../../components/index.js'
+import { charPosIdx } from './CharMeta.js'
 
 // 别名表
 let aliasMap = {}
@@ -15,10 +15,6 @@ let abbrMap = {}
 let wifeMap = {}
 // id排序
 let idSort = {}
-// 元素属性映射
-let elemMap = {}
-// 元素名
-let elemTitleMap = {}
 
 let gsCfg
 
@@ -70,12 +66,6 @@ lodash.forEach(charPosIdx, (chars, pos) => {
   })
 })
 
-lodash.forEach(elemAlias, (txt, key) => {
-  elemMap[key] = key
-  elemTitleMap[key] = txt[0]
-  Data.eachStr(txt, (t) => (elemMap[t] = key))
-})
-
 const CharId = {
   aliasMap,
   idMap,
@@ -92,7 +82,7 @@ const CharId = {
     if (!lodash.isObject(ds)) {
       ds = lodash.trim(ds || '').toLowerCase()
       // 尝试使用元素起始匹配
-      let em = CharId.matchElem(ds)
+      let em = Format.matchElem(ds, '', true)
       if (em && aliasMap[em.name] && CharId.isTraveler(aliasMap[em.name])) {
         return ret(aliasMap[em.name], em.elem)
       }
@@ -112,7 +102,7 @@ const CharId = {
     }
     // 获取字段进行匹配
     let { id = '', name = '' } = ds
-    let elem = CharId.getElem(ds.elem || ds.element) || ''
+    let elem = Format.elem(ds.elem || ds.element)
     // 直接匹配
     if (aliasMap[id || name]) {
       return ret(aliasMap[id || name], elem)
@@ -129,36 +119,6 @@ const CharId = {
   isTraveler (id) {
     if (id) {
       return [10000007, 10000005, 20000000].includes(id * 1)
-    }
-    return false
-  },
-
-  // 获取元素
-  getElem (elem = '') {
-    elem = elem.toLowerCase()
-    return elemMap[elem] || false
-  },
-
-  // 获取元素名
-  getElemName (elem = '') {
-    return elemTitleMap[CharId.getElem(elem)]
-  },
-  elemTitleMap,
-
-  // 名字匹配元素
-  matchElem (name = '', defElem = '') {
-    const elemReg = new RegExp(`^(${lodash.keys(elemMap).join('|')})`)
-    let elemRet = elemReg.exec(name)
-    if (elemRet && elemRet[1]) {
-      return {
-        elem: CharId.getElem(elemRet[1]),
-        name: name.replace(elemReg, '')
-      }
-    } else if (defElem) {
-      return {
-        elem: CharId.getElem(defElem),
-        name
-      }
     }
     return false
   },

@@ -53,7 +53,7 @@ export const usefulAttr = {
   荧: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   赛诺: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   坎蒂丝: { hp: 75, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
-  妮露: { hp: 80, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 80, phy: 0, recharge: 30, heal: 0 },
+  妮露: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   纳西妲: { hp: 0, atk: 55, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   多莉: { hp: 75, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 75, phy: 0, recharge: 55, heal: 100 },
   莱依拉: { hp: 100, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 35 }

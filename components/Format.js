@@ -1,9 +1,8 @@
 import lodash from 'lodash'
-import { Character } from '../models/index.js'
-
-let CharId = Character.CharId
+import Elem from './common-lib/elem.js'
 
 let Format = {
+  ...Elem,
   int: function (d) {
     return parseInt(d)
   },
@@ -18,25 +17,7 @@ let Format = {
   },
   percent: function (num, fix = 1) {
     return Format.pct(num * 100, fix)
-  },
-
-  elem: function (str, def = '') {
-    let ret = CharId.matchElem(str, def)
-    return ret ? ret.elem : def
-  },
-
-  elemName: function (elem, def = '') {
-    return CharId.getElemName(elem) || def
-  },
-
-  isElem (elem) {
-    return !!CharId.getElemName(elem)
-  },
-
-  elemTitleMap () {
-    return CharId.elemTitleMap
   }
-
 }
 
 export default Format

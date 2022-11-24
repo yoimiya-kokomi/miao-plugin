@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 属性计算
 * */
-import { attrMap, eleMap } from './DmgCalcMeta.js'
+import { attrMap } from '../../resources/meta/artifact/index.js'
 import lodash from 'lodash'
 import DmgMastery from './DmgMastery.js'
 import { Format } from '../../components/index.js'
@@ -64,7 +64,7 @@ let DmgAttr = {
 
     ret.weapon = weapon // 武器
     ret.weaponType = char.weaponType // 武器类型
-    ret.element = eleMap[char.elem.toLowerCase()] // 元素类型
+    ret.element = Format.elemName(char.elem) // 元素类型
     ret.refine = ((weapon.affix || ret.refine || 1) * 1 - 1) || 0 // 武器精炼
     ret.multi = 0 // 倍率独立乘区
     ret.vaporize = 0 // 蒸发
@@ -94,7 +94,7 @@ let DmgAttr = {
       refine: attr.refine,
       weaponType: attr.weaponType,
       weapon: attr.weapon,
-      element: eleMap[attr.element] || attr.element,
+      element: Format.elemName(attr.element) || attr.element,
       // 计算属性
       calc: DmgAttr.getAttrValue
     }
@@ -107,11 +107,11 @@ let DmgAttr = {
 
     if (incAttr && attrMap[incAttr]) {
       let aCfg = attrMap[incAttr]
-      attr[incAttr][aCfg.type] += aCfg.val
+      attr[incAttr][aCfg.calc] += aCfg.value
     }
     if (reduceAttr && attrMap[reduceAttr]) {
       let aCfg = attrMap[reduceAttr]
-      attr[reduceAttr][aCfg.type] -= aCfg.val
+      attr[reduceAttr][aCfg.calc] -= aCfg.value
     }
 
     lodash.forEach(buffs, (buff) => {

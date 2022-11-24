@@ -63,9 +63,7 @@ export default class ProfileData extends Base {
   }
 
   setArtis (ds = false) {
-    if (ds) {
-      this.artis.setProfile(this, ds)
-    }
+    this.artis.setProfile(this, ds)
   }
 
   setTalent (ds = {}, mode = 'level') {

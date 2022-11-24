@@ -35,7 +35,9 @@ export const abbr = {
   辰砂往生录: '辰砂',
   来歆余响: '余响',
   深林的记忆: '草套',
-  饰金之梦: '饰金'
+  饰金之梦: '饰金',
+  沙上楼阁史话: '沙套',
+  乐园遗落之花: '乐园'
 }
 
 export const attrValue = {
@@ -50,17 +52,21 @@ export const attrValue = {
   phy: 7.288,
   heal: 4.487
 }
+/**
+ *
+ * @type {{phy: {format: string, text: string, title: string, type: string, value: number}, def: {valueMin: number, format: string, calc: string, text: string, title: string, type: string, value: number}, hp: {valueMin: number, format: string, calc: string, text: string, title: string, type: string, value: number}, atkPlus: {valueMin: number, format: string, title: string, type: string, value: number, base: string}, hpPlus: {valueMin: number, format: string, title: string, type: string, value: number, base: string}, mastery: {valueMin: number, format: string, calc: string, text: string, title: string, type: string, value: number}, cpct: {valueMin: number, format: string, calc: string, text: string, title: string, type: string, value: number}, defPlus: {valueMin: number, format: string, title: string, type: string, value: number, base: string}, cdmg: {valueMin: number, format: string, calc: string, text: string, title: string, type: string, value: number}, recharge: {valueMin: number, format: string, calc: string, text: string, title: string, type: string, value: number}, heal: {format: string, text: string, title: string, type: string, value: number}, atk: {valueMin: number, format: string, calc: string, text: string, title: string, type: string, value: number}, dmg: {format: string, text: string, title: string, type: string, value: number}}}
+ */
 export const attrMap = {
-  atk: { title: '大攻击', format: 'pct', type: 'normal', value: 5.83, text: '5.83%', valueMin: 4.08 },
+  atk: { title: '大攻击', format: 'pct', calc: 'pct', type: 'normal', value: 5.83, text: '5.83%', valueMin: 4.08 },
   atkPlus: { title: '小攻击', format: 'comma', type: 'plus', base: 'atk', value: 19.45, valueMin: 13.62 },
-  def: { title: '大防御', format: 'pct', type: 'normal', value: 7.29, text: '7.29%', valueMin: 5.1 },
+  def: { title: '大防御', format: 'pct', calc: 'pct', type: 'normal', value: 7.29, text: '7.29%', valueMin: 5.1 },
   defPlus: { title: '小防御', format: 'comma', type: 'plus', base: 'def', value: 23.15, valueMin: 16.2 },
-  hp: { title: '大生命', format: 'pct', type: 'normal', value: 5.83, text: '5.83%', valueMin: 4.08 },
+  hp: { title: '大生命', format: 'pct', calc: 'pct', type: 'normal', value: 5.83, text: '5.83%', valueMin: 4.08 },
   hpPlus: { title: '小生命', format: 'comma', type: 'plus', base: 'hp', value: 298.75, valueMin: 209.13 },
-  cpct: { title: '暴击率', format: 'pct', type: 'normal', value: 3.89, text: '3.89%', valueMin: 2.72 },
-  cdmg: { title: '暴击伤害', format: 'pct', type: 'normal', value: 7.77, text: '7.77%', valueMin: 5.44 },
-  mastery: { title: '元素精通', format: 'comma', type: 'normal', value: 23.31, text: '23.31', valueMin: 16.32 },
-  recharge: { title: '充能效率', format: 'pct', type: 'normal', value: 6.48, text: '6.48%', valueMin: 4.53 },
+  cpct: { title: '暴击率', format: 'pct', calc: 'plus', type: 'normal', value: 3.89, text: '3.89%', valueMin: 2.72 },
+  cdmg: { title: '暴击伤害', format: 'pct', calc: 'plus', type: 'normal', value: 7.77, text: '7.77%', valueMin: 5.44 },
+  mastery: { title: '元素精通', format: 'comma', calc: 'plus', type: 'normal', value: 23.31, text: '23.31', valueMin: 16.32 },
+  recharge: { title: '充能效率', format: 'pct', calc: 'plus', type: 'normal', value: 6.48, text: '6.48%', valueMin: 4.53 },
   dmg: { title: '元素伤害', format: 'pct', type: 'normal', value: 5.825, text: '5.83%' },
   phy: { title: '物伤加成', format: 'pct', type: 'normal', value: 7.288, text: '7.29%' },
   heal: { title: '治疗加成', format: 'pct', type: 'normal', value: 4.487, text: '4.49%' }
