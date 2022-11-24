@@ -1,6 +1,5 @@
 import { Data } from '../../../components/index.js'
 import lodash from 'lodash'
-import { abbr, attrMap } from './meta.js'
 import calc from './calc.js'
 
 let artiSetMap = {}
@@ -26,4 +25,5 @@ lodash.forEach(artis, (ds) => {
   })
 })
 
-export { abbr, artiMap, artiSetMap, attrMap, calc }
+export { artiMap, artiSetMap, calc }
+export * from './meta.js'

@@ -6,7 +6,7 @@ import Base from './Base.js'
 import { Artifact, ArtifactSet, Character } from './index.js'
 import { Format, Data } from '../components/index.js'
 import ArtisMark from './profile-lib/ArtisMark.js'
-import { attrMap, attrValue } from '../resources/meta/artifact/artis-mark.js'
+import { attrMap, attrValue } from '../resources/meta/artifact/index.js'
 import CharArtis from './profile-lib/CharArtis.js'
 
 export default class ProfileArtis extends Base {

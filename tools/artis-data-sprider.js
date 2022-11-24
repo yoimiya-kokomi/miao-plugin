@@ -86,7 +86,7 @@ async function down (sets = '') {
     }
     ds.sets = await getSets(ds.id)
     console.log(`arti ${ds.id}:${ds.name} Done`)
-    Data.createDir(`resources/meta/artifact/${ds.name}`)
+    Data.createDir(`resources/meta/artifact/imgs/${ds.name}`)
 
     lodash.forEach(ds.sets, (s, idx) => {
       imgs.push({
@@ -100,7 +100,7 @@ async function down (sets = '') {
 
   const _path = process.cwd()
   const _root = _path + '/plugins/miao-plugin/'
-  const _aRoot = _root + 'resources/meta/artifact/'
+  const _aRoot = _root + 'resources/meta/artifact/imgs/'
   await Data.asyncPool(5, imgs, async function (ds) {
     if (fs.existsSync(`${_aRoot}/${ds.file}`)) {
       // console.log(`已存在，跳过 ${ds.file}`)

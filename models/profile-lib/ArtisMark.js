@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { Format } from '../../components/index.js'
-import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/artis-mark.js'
+import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/index.js'
 
 let ArtisMark = {
   // 根据Key获取标题

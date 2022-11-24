@@ -37,7 +37,7 @@ class Artifact extends Base {
   }
 
   get img () {
-    return `meta/artifact/${this.setName}/${this.idx}.webp`
+    return `meta/artifact/imgs/${this.setName}/${this.idx}.webp`
   }
 
   static getSetNameByArti (name) {
