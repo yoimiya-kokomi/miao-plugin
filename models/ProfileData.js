@@ -21,7 +21,7 @@ export default class ProfileData extends Base {
     ds.talent && this.setTalent(ds.talent)
     this.artis = new ProfileArtis(this.id, this.elem)
     ds.artis && this.setArtis(ds.artis)
-    if (Cfg.get('attrCalc')) {
+    if (Cfg.get('attrCalc') && this.hasData) {
       this._attr = AttrCalc.create(this)
       this.attr = this._attr.calc()
       this._attrCalc = true
@@ -89,16 +89,16 @@ export default class ProfileData extends Base {
     if (!this.dataSource || !['enka', 'input2', 'miao', 'miao-pre'].includes(this.dataSource)) {
       return false
     }
-    // 检查旅行者
-    if (['空', '荧'].includes(this.name)) {
-      return !!this.elem
-    }
     // 检查属性
-    if (!this.weapon || !this.attr || !this.talent || !this.artis) {
+    if (!this.weapon || !this.talent || !this.artis) {
       return false
     }
     if (this.dataSource === 'miao-pre') {
       this.dataSource = 'miao'
+    }
+    // 检查旅行者
+    if (['空', '荧'].includes(this.name)) {
+      return !!this.elem
     }
     return true
   }
