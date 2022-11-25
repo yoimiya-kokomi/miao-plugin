@@ -96,10 +96,6 @@ let Data = {
     return ret.default || {}
   },
 
-  async import (name) {
-    return await Data.importModule(`components/optional-lib/${name}.js`)
-  },
-
   async importCfg (key) {
     let sysCfg = await Data.importModule(`config/system/${key}_system.js`)
     let diyCfg = await Data.importModule(`config/${key}.js`)

@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { plugin } from '../adapter/index.js'
+import plugin from './common-lib/plugin.js'
 
 class App {
   constructor (cfg) {

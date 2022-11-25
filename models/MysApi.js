@@ -12,17 +12,12 @@ export default class MysApi {
     e.isSelfCookie = this.isSelfCookie
   }
 
-  static async init (e, cfg = 'all') {
+  static async init (e, auth = 'all') {
     if (!e.runtime) {
       Version.runtime()
       return false
     }
-    if (typeof (cfg) === 'string') {
-      cfg = { auth: cfg }
-    }
-    let { auth = 'all' } = cfg
-    let mys = false
-    mys = await e.runtime.getMysInfo(auth)
+    let mys = await e.runtime.getMysInfo(auth)
     if (!mys) {
       return false
     }
@@ -31,17 +26,22 @@ export default class MysApi {
     return e._mys
   }
 
-  static async initUser (e, cfg = 'all') {
+  static async initUser (e, auth = 'all') {
     if (!e.runtime) {
       Version.runtime()
       return false
     }
-    if (typeof (cfg) === 'string') {
-      cfg = { auth: cfg }
+    let uid = e.runtime.uid
+    if (e.at) {
+      // 暂时使用MysApi.init替代
+      let mys = await MysApi.init(e, auth)
+      if (!mys) {
+        return false
+      }
+      uid = mys.uid || uid
     }
-    let uid = e.runtime?.uid
     if (uid) {
-      return new User({ id: e.user_id, uid: uid })
+      return new User({ id: e.user_id, uid })
     }
     return false
   }

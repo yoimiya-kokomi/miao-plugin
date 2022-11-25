@@ -388,7 +388,7 @@ async function uploadData (e) {
   if (!Cfg.get('uploadAbyssData', false) && !isMatch) {
     return false
   }
-  let mys = await MysApi.init(e, { auth: 'all' })
+  let mys = await MysApi.init(e, 'all')
   if (!mys || !mys.uid) {
     if (isMatch) {
       e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)

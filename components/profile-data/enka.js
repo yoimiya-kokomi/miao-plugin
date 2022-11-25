@@ -14,7 +14,7 @@ export default new ProfileServ({
     }
     let proxy = this.getCfg('proxyAgent')
     if (proxy) {
-      let { HttpsProxyAgent } = await Data.import('https-proxy-agent')
+      let HttpsProxyAgent = await import('https-proxy-agent')
       params.agent = new HttpsProxyAgent(proxy)
     }
     return { api, params }

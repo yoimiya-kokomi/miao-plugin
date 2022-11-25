@@ -1,6 +1,6 @@
 /**
-* 角色照片及角色图像资源相关
-* */
+ * 角色照片及角色图像资源相关
+ * */
 import fs from 'fs'
 import lodash from 'lodash'
 import sizeOf from 'image-size'
@@ -78,10 +78,13 @@ const CharImg = {
     add('face', 'imgs/face', `imgs/face${costumeCfg[0]}`)
     add('side', 'imgs/side', `imgs/side${costumeCfg[0]}`)
     add('gacha', 'imgs/gacha')
+    // 检查彩蛋自定义
     if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/profile/super-character/${name}.webp`)) {
       imgs.splash = `profile/super-character/${name}.webp`
     } else if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/${nPath}/imgs/splash0.webp`)) {
       imgs.splash = `${nPath}imgs/splash0.webp`
+    } else if (fs.existsSync(`${rPath}/profile/normal-character/${name}.webp`)) {
+      imgs.splash = `profile/normal-character/${name}.webp`
     } else {
       add('splash', 'imgs/splash', `imgs/splash${costumeCfg[0]}`)
     }
