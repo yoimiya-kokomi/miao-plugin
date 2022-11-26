@@ -6,7 +6,7 @@ import { Character, ProfileArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile-lib/AttrCalc.js'
 
 export default class ProfileData extends Base {
-  constructor (ds = {}, uid) {
+  constructor (ds = {}, uid, attrCalc = true) {
     super()
     let char = Character.get({ id: ds.id, elem: ds.elem })
     if (!char) {
@@ -21,10 +21,8 @@ export default class ProfileData extends Base {
     ds.talent && this.setTalent(ds.talent)
     this.artis = new ProfileArtis(this.id, this.elem)
     ds.artis && this.setArtis(ds.artis)
-    if (Cfg.get('attrCalc') && this.hasData) {
-      this._attr = AttrCalc.create(this)
-      this.attr = this._attr.calc()
-      this._attrCalc = true
+    if (attrCalc && Cfg.get('attrCalc') && this.hasData) {
+      this.calcAttr()
     }
   }
 
@@ -34,6 +32,12 @@ export default class ProfileData extends Base {
       return false
     }
     return profile
+  }
+
+  calcAttr () {
+    this._attr = AttrCalc.create(this)
+    this.attr = this._attr.calc()
+    this._attrCalc = true
   }
 
   setBasic (ds = {}) {
@@ -75,7 +79,7 @@ export default class ProfileData extends Base {
     this.artis.setProfile(this, ds)
   }
 
-  setTalent (ds = {}, mode = 'level') {
+  setTalent (ds = {}, mode = 'original') {
     this.talent = this.char.getAvatarTalent(ds, this.cons, mode)
   }
 
@@ -86,15 +90,12 @@ export default class ProfileData extends Base {
   // 判断当前profileData是否具有有效数据
   get hasData () {
     // 检查数据源
-    if (!this.dataSource || !['enka', 'input2', 'miao', 'miao-pre'].includes(this.dataSource)) {
+    if (!this.dataSource || !['enka', 'change', 'miao'].includes(this.dataSource)) {
       return false
     }
     // 检查属性
     if (!this.weapon || !this.talent || !this.artis) {
       return false
-    }
-    if (this.dataSource === 'miao-pre') {
-      this.dataSource = 'miao'
     }
     // 检查旅行者
     if (['空', '荧'].includes(this.name)) {
@@ -122,7 +123,12 @@ export default class ProfileData extends Base {
 
   // toJSON 供保存使用
   toJSON () {
-    return this.getData('id,name,level,promote,cons,fetter,attr,weapon,talent,artis,dataSource,costume,elem,_time')
+    let ret = {
+      ...this.getData('id,name,elem,level,promote,fetter,costume,cons,talent,attr,weapon,artis,dataSource,_time')
+    }
+    ret.talent = lodash.mapValues(this.talent, (ds) => ds.original)
+    ret.costume = this.costume[0] || 0
+    return ret
   }
 
   get updateTime () {

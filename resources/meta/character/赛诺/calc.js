@@ -47,7 +47,7 @@ export const buffs = [{
 }, {
   title: '赛诺被动：末途真眼状态提升E 35%伤害，发射渡荒之雷造成100%攻击力伤害',
   data: {
-    ePlus: ({ params }) => [3, 4].includes(params.q) ? 35 : 0
+    eDmg: ({ params }) => [3, 4].includes(params.q) ? 35 : 0
   }
 }, {
   title: '赛诺被动：基于元素精通提升普攻[_aPlus]点伤害值，渡荒之雷提升[_ePlus]伤害值',

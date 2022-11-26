@@ -135,7 +135,7 @@ export async function autoGetProfile (e, uid, avatar, callback) {
       e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`)
     }
     return { err: true }
-  } else if (!['enka', 'input2', 'miao'].includes(profile.dataSource)) {
+  } else if (!['enka', 'miao'].includes(profile.dataSource)) {
     if (!await refresh()) {
       e.reply('缓存数据错误，请重新获取面板信息后查看')
     }
@@ -143,32 +143,6 @@ export async function autoGetProfile (e, uid, avatar, callback) {
   }
 
   return { profile, char, refresh }
-}
-
-export async function inputProfile (e) {
-  let uid = await getTargetUid(e)
-  if (!uid) {
-    return true
-  }
-
-  if (e.inputData.trim().length < 5) {
-    e.reply('【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0')
-    return true
-    // await profileHelp(e);
-  }
-
-  let ret = Profile.inputProfile(uid, e)
-  let char = Character.get(e.avatar)
-  if (lodash.isString(ret)) {
-    e.reply(ret)
-    return true
-  } else if (ret) {
-    e.reply(`${char.name}信息手工录入完成，你可以使用 #角色名+面板 / #角色名+伤害 来查看详细角色面板属性了`)
-  } else {
-    e.reply(`${char.name}信息手工录入失败，请检查录入格式。回复 #角色面板帮助 可查看录入提示`)
-    e.reply('【输入示例】\n#录入夜兰面板 生命14450+25469, 攻击652+444, 防御548+144, 元素精通84, 暴击76.3, 爆伤194.2, 治疗0,充能112.3,元素伤害61.6,物伤0')
-  }
-  return true
 }
 
 /*
@@ -219,7 +193,7 @@ export async function getProfileAll (e) {
 
   let chars = []
   lodash.forEach(profiles || [], (ds) => {
-    if (!['enka', 'input2', 'miao'].includes(ds.dataSource)) {
+    if (!['enka', 'miao'].includes(ds.dataSource)) {
       return true
     }
     ds.name && chars.push(ds.name)

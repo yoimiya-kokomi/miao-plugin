@@ -3,6 +3,7 @@ export const details = [{
   dmg: ({ talent, attr }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
   title: '半血开E重击蒸发',
+  showDetail: true,
   dmg: ({ talent, attr }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 }, {
   title: '半血开E后Q',

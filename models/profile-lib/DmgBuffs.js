@@ -72,7 +72,7 @@ let DmgBuffs = {
       if (lodash.isString(buff)) {
         if (mKey[buff]) {
           buff = {
-            title: `元素精通：${mKey[buff]}伤害提高[${buff}]%`,
+            title: `元素精通：${mKey[buff]}伤害提高[_${buff}]%`,
             mastery: buff
           }
           buffs[idx] = buff

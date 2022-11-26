@@ -163,7 +163,7 @@ const buffs = {
   角斗士的终幕礼: {
     2: attr('atkPct', 18),
     4: {
-      check: ({ weaponType }) => ['单手剑', '双手剑', '长柄武器'].includes(weaponType),
+      check: ({ weaponTypeName }) => ['单手剑', '双手剑', '长柄武器'].includes(weaponTypeName),
       title: '角色普通攻击造成的伤害提高35%',
       data: {
         aDmg: 35
@@ -186,7 +186,7 @@ const buffs = {
   流浪大地的乐团: {
     2: attr('mastery', 80),
     4: {
-      check: ({ weaponType }) => ['法器', '弓'].includes(weaponType),
+      check: ({ weaponTypeName }) => ['法器', '弓'].includes(weaponTypeName),
       title: '乐团4：角色重击造成的伤害提高35%',
       data: {
         a2Dmg: 35

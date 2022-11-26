@@ -172,14 +172,10 @@ let EnkaData = {
         let tid = talentId[id]
         key = talentKey[tid]
         elem = elem || talentElem[tid]
-        ret[key] = {
-          original: lv
-        }
+        ret[key] = lv
       } else {
         key = ['a', 'e', 'q'][idx++]
-        ret[key] = ret[key] || {
-          original: lv
-        }
+        ret[key] = ret[key] || lv
       }
     })
     return {

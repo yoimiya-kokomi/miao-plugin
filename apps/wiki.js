@@ -107,7 +107,7 @@ async function wiki (e) {
 
 async function renderWiki ({ e, char }) {
   let data = char.getData()
-  lodash.extend(data, char.getData('weaponType,elemName'))
+  lodash.extend(data, char.getData('weaponTypeName,elemName'))
   // 命座持有
   let holding = await CharWiki.getHolding(char.id)
   let usage = await CharWiki.getUsage(char.id)

@@ -13,13 +13,19 @@ import { Artifact, Character, ProfileArtis } from '../../models/index.js'
 export async function profileArtis (e) {
   let { uid, avatar } = e
 
-  let { profile, char, err } = await autoGetProfile(e, uid, avatar, async () => {
-    await profileArtis(e)
-  })
-
-  if (err) {
-    return false
+  let profile
+  if (e._profile) {
+    profile = e._profile
+  } else {
+    let autoRet = await autoGetProfile(e, uid, avatar, async () => {
+      await profileArtis(e)
+    })
+    if (autoRet.err) {
+      return false
+    }
+    profile = autoRet.profile
   }
+  let char = profile.char
 
   if (!profile.hasArtis()) {
     e.reply('未能获得圣遗物详情，请重新获取面板信息后查看')
@@ -42,9 +48,9 @@ export async function profileArtis (e) {
     costume: profile.costume ? '2' : '',
     artisDetail,
     artisKeyTitle,
-
     attrMap,
-    charCfg
+    charCfg,
+    changeProfile: e._profileMsg
   }, { e, scale: 1.3 })
 }
 

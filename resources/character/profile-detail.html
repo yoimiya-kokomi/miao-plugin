@@ -64,7 +64,15 @@
   </div>
 </div>
 
-{{if mode === "profile" && dataSource !== "input2"}}
+{{if changeProfile}}
+<div class="cont">
+  <div class="cont-footer  dmg-desc">
+    <strong>该面板为非实际数据。当前替换命令：</strong> {{changeProfile}}
+  </div>
+</div>
+{{/if}}
+
+{{if mode === "profile"}}
 {{set ad = artisDetail}}
 <div class="artis">
   <div>
@@ -114,48 +122,12 @@
 </div>
 {{/if}}
 
-{{if dataSource === "input2"}}
-<div class="cont">
-  <div class="cont-footer  dmg-desc">
-    面板信息来源于手工输入，面板信息及伤害计算可能不准确。通过<strong>#录入{{data.abbr}}面板</strong>可录入面板数据
-  </div>
-</div>
-{{else if mode === "profile"}}
+{{if mode === "profile"}}
 <div class="cont">
   <div class="cont-footer dmg-desc">
     当前评分为<strong>喵喵版评分规则</strong>，分值仅供参考与娱乐。可使用<strong>#{{data.abbr}}圣遗物</strong>来查看评分详情
   </div>
 </div>
-{{/if}}
-
-{{if mode === "profile" && dataSource === "input2"}}
-<div class="artis input-mode">
-
-  <div class="item weapon">
-    <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
-    <div class="head">
-      <strong>{{weapon.name}}</strong>
-      <div class="star star-{{weapon.star}}"></div>
-      <span>Lv.{{weapon.leve || weapon.level}} <span
-          class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
-    </div>
-  </div>
-
-  {{each artis ds}}
-  <div class="item arti">
-    {{if ds && ds.name }}
-    <div class="arti-icon">
-      <div class="img" src="{{_res_path}}{{ds.img}}"></div>
-      <span>+{{ds.level}}</span>
-    </div>
-    <div class="head">
-      <strong>{{ds.name}}</strong>
-    </div>
-    {{/if}}
-  </div>
-  {{/each}}
-</div>
-
 {{/if}}
 
 {{if dmgData.length > 0}}

@@ -29,12 +29,7 @@ let ProfileFile = {
     lodash.assignIn(userData, lodash.pick(data, 'uid,name,lv,avatar'.split(',')))
     userData.chars = userData.chars || {}
     lodash.forEach(data.chars, (char, charId) => {
-      let original = userData.chars[charId] || {}
-      if (char.dataSource === 'miao-pre' && original && original.dataSource) {
-        original.dataSource = char.dataSource
-      } else {
-        userData.chars[charId] = char
-      }
+      userData.chars[charId] = char
     })
     fs.writeFileSync(userFile, JSON.stringify(userData), '', ' ')
     return data

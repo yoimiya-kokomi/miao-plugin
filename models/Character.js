@@ -80,8 +80,12 @@ class Character extends Base {
     return CharId.isTraveler(this.id)
   }
 
-  // 获取武器类型
   get weaponType () {
+    return this.weapon
+  }
+
+  // 获取武器类型
+  get weaponTypeName () {
     const map = {
       sword: '单手剑',
       catalyst: '法器',
@@ -89,7 +93,7 @@ class Character extends Base {
       claymore: '双手剑',
       polearm: '长柄武器'
     }
-    let weaponType = this.weapon || ''
+    let weaponType = this.weaponType || ''
     return map[weaponType.toLowerCase()] || ''
   }
 
@@ -165,7 +169,7 @@ class Character extends Base {
     return CharImg.getCardImg(this.name, se, def)
   }
 
-  getAvatarTalent (talent = {}, cons = 0, mode = 'level') {
+  getAvatarTalent (talent = {}, cons = 0, mode = 'original') {
     return CharTalent.getAvatarTalent(this.id, talent, cons, mode, this.talentCons)
   }
 

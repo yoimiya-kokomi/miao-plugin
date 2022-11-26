@@ -1,11 +1,12 @@
 import { Common, App } from '../components/index.js'
 import { Character } from '../models/index.js'
-import { getTargetUid, getProfile, profileHelp, inputProfile } from './character/ProfileCommon.js'
+import { getTargetUid, getProfile, profileHelp } from './character/ProfileCommon.js'
 import { profileArtis, profileArtisList } from './character/ProfileArtis.js'
 import { renderProfile } from './character/ProfileDetail.js'
 import { profileStat } from './character/ProfileStat.js'
 import { profileList } from './character/ProfileList.js'
 import { enemyLv } from './character/ProfileUtils.js'
+import ProfileChange from './profile/ProfileChange.js'
 import { groupRank, resetRank, refreshRank } from './character/ProfileRank.js'
 
 let app = App.init({
@@ -13,7 +14,7 @@ let app = App.init({
   name: '角色面板'
 })
 app.reg('profile-detail', profileDetail, {
-  rule: /^#*(更新|录入)?(.+)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)(\d{9})*(更新)?$/,
+  rule: /^#*([^#]+)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)\s*(\d{9})*(.*[换变改].*)?$/,
   name: '角色面板'
 })
 
@@ -80,6 +81,18 @@ export async function profileDetail (e) {
     return false
   }
   let mode = 'profile'
+  let profileChange = false
+  let changeMsg = msg
+  let pc = ProfileChange.matchMsg(msg)
+  if (pc && pc.char && pc.change) {
+    e.uid = pc.uid || e.runtime.uid
+    profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change)
+    if (profileChange && profileChange.char) {
+      msg = `#${profileChange.char?.name}${pc.mode || '面板'}`
+      e._profile = profileChange
+      e._profileMsg = changeMsg
+    }
+  }
   let uidRet = /[0-9]{9}/.exec(msg)
   if (uidRet) {
     e.uid = uidRet[0]
@@ -106,14 +119,6 @@ export async function profileDetail (e) {
   } else if (/(详情|详细|面板)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板)$/.test(msg))) {
     mode = 'refresh'
     name = name.replace(/详情|详细|面板|更新/g, '').trim()
-  } else if (/(录入|输入)/.test(msg) && /(详情|详细|面板)/.test(msg)) {
-    mode = 'input'
-    let nameRet = /(?:录入|输入)(.+)(?:面板|详细|详情|数据)+/.exec(name)
-    if (nameRet) {
-      name = nameRet[1]
-      e.inputData = msg.replace(nameRet[0], '')
-    }
-    name = name.replace(/录入|输入|详情|详细|面板|数据|[0-9]|\.|\+/g, '').trim()
   } else if (/圣遗物/.test(msg)) {
     mode = 'artis'
     name = name.replace('圣遗物', '').trim()
@@ -127,7 +132,7 @@ export async function profileDetail (e) {
     return false
   }
 
-  let uid = await getTargetUid(e)
+  let uid = e.uid || await getTargetUid(e)
   if (!uid) {
     return true
   }
@@ -138,16 +143,13 @@ export async function profileDetail (e) {
     e.reply('自定义角色暂不支持此功能')
     return true
   }
-  if (!char.isRelease) {
+  if (!char.isRelease && !profileChange) {
     e.reply('角色尚未实装')
     return true
   }
 
   if (mode === 'profile' || mode === 'dmg') {
     return renderProfile(e, char, mode, { dmgIdx })
-  } else if (mode === 'input') {
-    await inputProfile(e, mode)
-    return true
   } else if (mode === 'refresh') {
     await getProfile(e)
     return true

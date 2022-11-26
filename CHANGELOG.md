@@ -2,10 +2,11 @@
 
 * 角色普通立绘支持自定义，用于面板、图鉴等场景
     * 立绘可放置在 **resources/profile/normal-character/** 目录下，webp格式
+    * 由于缓存，新增的角色图需要重启bot生效（已有图像替换无需重启）
 * 去除插件内自带的V2/V3兼容逻辑，使用runtime进行V2/V3兼容，如使用遇到问题请升级至最新版Yunzai
     * V3-Yunzai：官方Yunzai最新版本
     * V2-Yunzai：喵版V2-Yunzai，2.2.3版本。其余分值维护的V2-Yunzai可合并2.2.3版本
-    * 较低版本的Yuznai可能无法正常使用miao-plugin
+    * 较低版本的Yunzai可能无法正常使用miao-plugin
 * 一些已知问题修复
 
 # 2.1.1

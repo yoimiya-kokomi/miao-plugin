@@ -62,4 +62,3 @@ class Weapon extends Base {
 }
 
 export default Weapon
-

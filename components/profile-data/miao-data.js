@@ -41,7 +41,7 @@ let MiaoData = {
     profile.setWeapon(MiaoData.getWeapon(ds.weapon))
     profile.setArtis(MiaoData.getArtifact(ds.reliquary))
     let talentRet = MiaoData.getTalent(char.id, ds.skill)
-    profile.setTalent(talentRet.talent)
+    profile.setTalent(talentRet.talent, 'level')
     if (talentRet.elem) {
       profile.elem = talentRet.elem
     }

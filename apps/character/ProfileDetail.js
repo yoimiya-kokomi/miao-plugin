@@ -18,6 +18,8 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     return true
   }
 
+  let profile = e._profile || Profile.get(uid, char.id)
+
   let refresh = async () => {
     let refreshRet = await autoRefresh(e)
     if (refreshRet) {
@@ -25,8 +27,6 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     }
     return refreshRet
   }
-
-  let profile = Profile.get(uid, char.id)
 
   if (!profile || !profile.hasData) {
     if (await refresh()) {
@@ -88,7 +88,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     basic.avg = Format.comma(basic.avg)
   }
   let rank = false
-  if (e.group_id) {
+  if (e.group_id && !e._profile) {
     rank = await ProfileRank.create({ group: e.group_id, uid, qq: e.user_id })
     await rank.getRank(profile, true)
   }
@@ -114,6 +114,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     enemyName: dmgCalc.enemyName || '小宝',
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
     bodyClass: `char-${char.name}`,
-    mode
+    mode,
+    changeProfile: e._profileMsg
   }, { e, scale: 1.6 })
 }

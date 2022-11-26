@@ -63,7 +63,7 @@ let DmgAttr = {
     }
 
     ret.weapon = weapon // 武器
-    ret.weaponType = char.weaponType // 武器类型
+    ret.weaponTypeName = char.weaponTypeName // 武器类型
     ret.element = Format.elemName(char.elem) // 元素类型
     ret.refine = ((weapon.affix || ret.refine || 1) * 1 - 1) || 0 // 武器精炼
     ret.multi = 0 // 倍率独立乘区
@@ -92,7 +92,7 @@ let DmgAttr = {
       attr,
       params,
       refine: attr.refine,
-      weaponType: attr.weaponType,
+      weaponTypeName: attr.weaponTypeName,
       weapon: attr.weapon,
       element: Format.elemName(attr.element) || attr.element,
       // 计算属性
@@ -152,7 +152,7 @@ let DmgAttr = {
         // let masteryNum = 2.78 * mastery / (mastery + 1400) * 100;
         buff.data = buff.data || {}
         lodash.forEach(buff.mastery.split(','), (key) => {
-          buff.data[key] = DmgMastery.getMultiple(key, mastery)
+          buff.data['_' + key] = DmgMastery.getMultiple(key, mastery) * 100
         })
       }
 

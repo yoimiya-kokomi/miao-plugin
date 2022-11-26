@@ -8,7 +8,7 @@ import { Profile } from '../components/index.js'
 import { Artifact, Character, Weapon, ArtifactSet } from './index.js'
 import moment from 'moment'
 
-const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponType,elem'.split(',')
+const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName,elem'.split(',')
 
 export default class Avatar extends Base {
   constructor (data = {}, pd = false, hasCk = true) {

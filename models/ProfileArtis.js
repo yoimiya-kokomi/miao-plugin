@@ -93,7 +93,7 @@ export default class ProfileArtis extends Base {
     if (!main) {
       return ''
     }
-    return ArtisMark.getKeyByTitle(main.key, true) || ''
+    return main.key || ''
   }
 
   is (check, pos = '') {
@@ -115,7 +115,8 @@ export default class ProfileArtis extends Base {
     let mainAttr = this.mainAttr()
     let check = true
     Data.eachStr(pos.toString(), (p) => {
-      if (!attr.split(',').includes(mainAttr[p])) {
+      let attrs = attr.split(',')
+      if (!attrs.includes(mainAttr[p]) && (p === '4' && !attrs.includes('dmg') && Format.isElem(mainAttr[p]))) {
         check = false
         return false
       }
