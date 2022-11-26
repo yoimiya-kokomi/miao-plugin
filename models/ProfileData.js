@@ -66,7 +66,7 @@ export default class ProfileData extends Base {
       name: ds.name,
       star: ds.rank || ds.star || 1,
       level: ds.level || ds.lv || 1,
-      promote: ds.promote || 0,
+      promote: lodash.isUndefined(ds.promote) ? AttrCalc.calcPromote(ds.level || ds.lv || 1) : (ds.promote || 0),
       affix: ds.affix
     }
     let w = this.weapon
