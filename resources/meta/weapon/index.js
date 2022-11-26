@@ -54,9 +54,6 @@ lodash.forEach(abbr, (a, name) => {
   aliasMap[a] = name
 })
 lodash.forEach(data, (ds, name) => {
-  if (!aliasMap[name]) {
-    console.log(name)
-  }
   aliasMap[name] = name
 })
 
