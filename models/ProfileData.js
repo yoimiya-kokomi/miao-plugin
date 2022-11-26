@@ -121,6 +121,10 @@ export default class ProfileData extends Base {
     return [costume, 'normal']
   }
 
+  get originalTalent () {
+    return lodash.mapValues(this.talent, (ds) => ds.original)
+  }
+
   // toJSON 供保存使用
   toJSON () {
     let ret = {

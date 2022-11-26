@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { Profile } from '../../components/index.js'
+import { Profile, Data } from '../../components/index.js'
 import { Character, ProfileData, Weapon } from '../../models/index.js'
 
 const keyMap = {
@@ -98,7 +98,7 @@ const ProfileChange = {
           return true
         }
       }
-      let char = {}
+      let char = change.char || {}
       // 命座匹配
       let consRet = /([0-6零一二三四五六满])命/.exec(txt)
       if (consRet && consRet[1]) {
@@ -180,7 +180,7 @@ const ProfileChange = {
       uid,
       id: char.id,
       level,
-      cons: dc.cons || source.cons || 0,
+      cons: Data.def(dc.cons, source.cons, 0),
       fetter: source.fetter || 10,
       elem: source.elem || char.elem,
       dataSource: 'change',
@@ -188,7 +188,7 @@ const ProfileChange = {
     }, uid, false)
 
     // 设置武器
-    let wCfg = ds.weapon
+    let wCfg = ds.weapon || {}
     let wSource = getSource(wCfg).weapon || {}
     let weapon = Weapon.get(wCfg?.weapon || wSource?.name || defWeapon[char.weaponType])
     if (!weapon || weapon.type !== char.weaponType) {
@@ -207,7 +207,7 @@ const ProfileChange = {
 
     // 设置天赋
     if (ds?.char?.talent || source?.talent) {
-      ret.setTalent(ds?.char?.talent || source?.talent, 'level')
+      ret.setTalent(ds?.char?.talent || source?.originalTalent, 'level')
     } else {
       ret.setTalent({ a: 9, e: 9, q: 9 }, 'original')
     }
