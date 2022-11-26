@@ -10,7 +10,7 @@ let artisBuffs = {}
 
 // lazy load
 setTimeout(async function init () {
-  weaponBuffs = (await Data.importModule('resources/meta/weapon/index.js')).calc || {}
+  weaponBuffs = (await Data.importModule('resources/meta/weapon/index.js')).weaponBuffs || {}
   artisBuffs = (await Data.importModule('resources/meta/artifact/index.js')).calc || {}
 })
 

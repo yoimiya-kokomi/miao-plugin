@@ -1,6 +1,7 @@
 import Base from './Base.js'
 import { Data } from '../components/index.js'
-import { data as weaponData, abbr } from '../resources/meta/weapon/index.js'
+import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet } from '../resources/meta/weapon/index.js'
+import lodash from 'lodash'
 
 class Weapon extends Base {
   constructor (name) {
@@ -21,7 +22,7 @@ class Weapon extends Base {
   }
 
   get abbr () {
-    return abbr[this.name] || this.name
+    return weaponAbbr[this.name] || this.name
   }
 
   get title () {
@@ -53,9 +54,20 @@ class Weapon extends Base {
     return this._detail
   }
 
-  static get (name) {
-    if (weaponData[name]) {
-      return new Weapon(name)
+  static isWeaponSet (name) {
+    return weaponSet.includes(name)
+  }
+
+  static get (name, type = '') {
+    name = lodash.trim(name)
+    if (weaponAlias[name]) {
+      return new Weapon(weaponAlias[name])
+    }
+    if (type) {
+      let name2 = name + (weaponType[type] || type)
+      if (weaponAlias[name2]) {
+        return new Weapon(weaponAlias[name2])
+      }
     }
     return false
   }

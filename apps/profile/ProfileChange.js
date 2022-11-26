@@ -38,7 +38,7 @@ const ProfileChange = {
       return false
     }
     msg = msg.toLowerCase().replace(/uid ?:? ?/, '')
-    let regRet = /^#*(\d{9})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)\s*(\d{9})?(.+)/.exec(msg)
+    let regRet = /^#*(\d{9})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?|换)\s*(\d{9})?(.+)/.exec(msg)
     if (!regRet || !regRet[2]) {
       return false
     }
@@ -50,7 +50,7 @@ const ProfileChange = {
       return false
     }
     ret.char = char.id
-    ret.mode = regRet[3]
+    ret.mode = regRet[3] === '换' ? '面板' : regRet[3]
     ret.uid = regRet[1] || regRet[4] || ''
     msg = regRet[5]
 
@@ -84,11 +84,11 @@ const ProfileChange = {
       if (wRet && wRet[4]) {
         let weaponName = lodash.trim(wRet[4])
         let weapon = Weapon.get(weaponName)
-        if (weapon || weaponName === '武器') {
+        if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {
           let affix = wRet[1] || wRet[3]
           affix = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5 }[affix] || affix * 1
           let tmp = {
-            weapon: weaponName === '武器' ? '' : weaponName,
+            weapon: (Weapon.isWeaponSet(weaponName) ? weaponName : weapon?.name) || '',
             affix: affix || '',
             level: wRet[2] * 1 || ''
           }
@@ -182,7 +182,7 @@ const ProfileChange = {
       level,
       cons: Data.def(dc.cons, source.cons, 0),
       fetter: source.fetter || 10,
-      elem: source.elem || char.elem,
+      elem: char.elem,
       dataSource: 'change',
       promote
     }, uid, false)
@@ -190,7 +190,7 @@ const ProfileChange = {
     // 设置武器
     let wCfg = ds.weapon || {}
     let wSource = getSource(wCfg).weapon || {}
-    let weapon = Weapon.get(wCfg?.weapon || wSource?.name || defWeapon[char.weaponType])
+    let weapon = Weapon.get(wCfg?.weapon || wSource?.name || defWeapon[char.weaponType], char.weaponType)
     if (!weapon || weapon.type !== char.weaponType) {
       weapon = Weapon.get(defWeapon[char.weaponType])
     }

@@ -1,6 +1,6 @@
 import { Data } from '../../../components/index.js'
 import lodash from 'lodash'
-import { weaponType, abbr } from './meta.js'
+import { weaponType, abbr, alias, weaponSet } from './meta.js'
 
 let calc = {}
 let data = {}
@@ -43,4 +43,25 @@ for (let type in weaponType) {
   })
 }
 
-export { abbr, weaponType, calc, data }
+let aliasMap = {}
+lodash.forEach(alias, (txt, name) => {
+  Data.eachStr(txt, (t) => {
+    aliasMap[t] = name
+    aliasMap[name] = name
+  })
+})
+lodash.forEach(abbr, (a, name) => {
+  aliasMap[a] = name
+})
+lodash.forEach(data, (ds, name) => {
+  if (!aliasMap[name]) {
+    console.log(name)
+  }
+  aliasMap[name] = name
+})
+
+export const weaponBuffs = calc
+export const weaponData = data
+export const weaponAbbr = abbr
+export const weaponAlias = aliasMap
+export { weaponType, weaponSet }

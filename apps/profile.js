@@ -14,8 +14,12 @@ let app = App.init({
   name: '角色面板'
 })
 app.reg('profile-detail', profileDetail, {
-  rule: /^#*([^#]+)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)\s*(\d{9})*(.*[换变改].*)?$/,
+  rule: /^#*([^#]+)\s*(详细|详情|面板|面版|圣遗物|伤害[1-7]?)\s*(\d{9})*(.*[换变改].*)?$/,
   name: '角色面板'
+})
+app.reg('profile-change', profileDetail, {
+  rule: /^#.+换.+$/,
+  name: '角色面板计算'
 })
 
 app.reg('group-profile', groupRank, {
@@ -77,7 +81,7 @@ export async function profileDetail (e) {
   if (!msg) {
     return false
   }
-  if (!/详细|详情|面板|面版|圣遗物|伤害/.test(msg)) {
+  if (!/详细|详情|面板|面版|圣遗物|伤害|换/.test(msg)) {
     return false
   }
   let mode = 'profile'

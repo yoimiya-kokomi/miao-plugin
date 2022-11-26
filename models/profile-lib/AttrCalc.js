@@ -6,7 +6,7 @@
 import { Weapon, ProfileAttr } from '../index.js'
 import { Format } from '../../components/index.js'
 import { calc as artisBuffs } from '../../resources/meta/artifact/index.js'
-import { calc as weaponBuffs } from '../../resources/meta/weapon/index.js'
+import { weaponBuffs } from '../../resources/meta/weapon/index.js'
 import lodash from 'lodash'
 
 class AttrCalc {
