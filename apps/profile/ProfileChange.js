@@ -206,10 +206,10 @@ const ProfileChange = {
     ret.setWeapon(wDs)
 
     // 设置天赋
-    if (ds?.char?.talent || source?.talent) {
-      ret.setTalent(ds?.char?.talent || source?.originalTalent, 'level')
+    if (ds?.char?.talent) {
+      ret.setTalent(ds?.char?.talent, 'level')
     } else {
-      ret.setTalent({ a: 9, e: 9, q: 9 }, 'original')
+      ret.setTalent(source?.originalTalent || { a: 9, e: 9, q: 9 }, 'original')
     }
 
     // 设置圣遗物
