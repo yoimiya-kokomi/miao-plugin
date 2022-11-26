@@ -25,7 +25,7 @@ setTimeout(async function () {
     let msgs = [`当前喵喵版本: ${Version.version}`, '您可使用 #喵喵版本 命令查看更新信息']
     await relpyPrivate(msg.qq, msgs.join('\n'))
   }
-  if (!fs.existsSync(process.cwd() + (Version.isV3 ? '/lib/plugins/runtime.js' : '/lib/adapter/runtime.js'))) {
+  if (!fs.existsSync(process.cwd() + '/lib/plugins/runtime.js')) {
     let msg = '警告：未检测到runtime，miao-plugin可能无法正常工作。请升级至最新版Yunzai以使用miao-plugin'
     if (!await redis.get('miao:runtime-warning')) {
       await relpyPrivate(msg.qq, msg)
