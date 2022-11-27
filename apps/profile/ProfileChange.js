@@ -80,17 +80,17 @@ const ProfileChange = {
         }
       }
       // 匹配武器
-      let wRet = /^(?:精炼?([1-5一二三四五]))?\s*(?:等?级?([1-9][0-9])?级?)?\s*(?:精炼?([1-5一二三四五]))?\s*(.*)$/.exec(txt)
-      if (wRet && wRet[4]) {
-        let weaponName = lodash.trim(wRet[4])
+      let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?精炼?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
+      if (wRet && wRet[5]) {
+        let weaponName = lodash.trim(wRet[5])
         let weapon = Weapon.get(weaponName)
         if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {
-          let affix = wRet[1] || wRet[3]
-          affix = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5 }[affix] || affix * 1
+          let affix = wRet[2] || wRet[3]
+          affix = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 满: 5 }[affix] || affix * 1
           let tmp = {
             weapon: (Weapon.isWeaponSet(weaponName) ? weaponName : weapon?.name) || '',
             affix: affix || '',
-            level: wRet[2] * 1 || ''
+            level: wRet[1] * 1 || wRet[4] * 1 || ''
           }
           if (lodash.values(tmp).join('')) {
             change.weapon = tmp
@@ -197,12 +197,12 @@ const ProfileChange = {
     let wDs = {
       name: weapon.name,
       star: weapon.star,
-      level: wCfg.level || wSource.level || weapon.maxLv || 90,
-      affix: wCfg.affix || wSource.affix || (weapon.star === 5 ? 1 : 5)
+      level: wCfg.level || wSource.level || weapon.maxLv || 90
     }
     if (wSource.level === wDs.level) {
       wDs.promote = wSource.promote
     }
+    wDs.affix = wCfg.affix || ((wDs.star === 5 && wSource.star !== 5) ? 1 : (wSource.affix || 5))
     ret.setWeapon(wDs)
 
     // 设置天赋
