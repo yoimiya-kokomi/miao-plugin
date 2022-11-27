@@ -85,4 +85,4 @@ export const mainAttr = {
   5: 'atk,def,hp,mastery,heal,cpct,cdmg'.split(',')
 }
 
-export const subAttr = 'atk,def,hp,mastery,recharge,cpct,cdmg'.split(',')
+export const subAttr = 'atk,atkPlus,def,defPlus,hp,hpPlus,mastery,recharge,cpct,cdmg'.split(',')

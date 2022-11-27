@@ -3,6 +3,8 @@ import { Data } from '../index.js'
 import { ProfileServ } from '../../models/index.js'
 import EnkaData from './enka-data.js'
 
+let HttpsProxyAgent = ''
+
 export default new ProfileServ({
   id: 'enka',
   cfgKey: 'enkaApi',
@@ -14,8 +16,16 @@ export default new ProfileServ({
     }
     let proxy = this.getCfg('proxyAgent')
     if (proxy) {
-      let HttpsProxyAgent = await import('https-proxy-agent')
-      params.agent = new HttpsProxyAgent(proxy)
+
+      if (HttpsProxyAgent === '') {
+        HttpsProxyAgent = await import('https-proxy-agent').catch((err) => {
+          logger.error(err)
+        })
+        HttpsProxyAgent = HttpsProxyAgent ? HttpsProxyAgent.default : undefined
+      }
+      if (HttpsProxyAgent) {
+        params.agent = new HttpsProxyAgent(proxy)
+      }
     }
     return { api, params }
   },

@@ -56,7 +56,7 @@
 
   <div class="data-info">
     {{if data.dataSource}}
-    <span>{{if data._attrCalc}}[面板计算：开启]  ·{{/if}} 数据源：{{ {miao:"喵喵Api",enka:"Enka.Network",input:"手工录入"}[data.dataSource]||data.dataSource }}</span>
+    <span>{{if data._attrCalc}}[启用计算]  ·{{/if}} 数据源：{{ {miao:"喵喵Api",enka:"Enka.Network",change:"面板变换"}[data.dataSource]||data.dataSource }}</span>
     {{/if}}
     {{if data.updateTime}}
     <span class="time">{{data.updateTime}}</span>
