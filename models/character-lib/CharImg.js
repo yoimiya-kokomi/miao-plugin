@@ -78,15 +78,31 @@ const CharImg = {
     add('face', 'imgs/face', `imgs/face${costumeCfg[0]}`)
     add('side', 'imgs/side', `imgs/side${costumeCfg[0]}`)
     add('gacha', 'imgs/gacha')
-    // 检查彩蛋自定义
-    if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/profile/super-character/${name}.webp`)) {
-      imgs.splash = `profile/super-character/${name}.webp`
-    } else if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/${nPath}/imgs/splash0.webp`)) {
-      imgs.splash = `${nPath}imgs/splash0.webp`
-    } else if (fs.existsSync(`${rPath}/profile/normal-character/${name}.webp`)) {
-      imgs.splash = `profile/normal-character/${name}.webp`
-    } else {
-      add('splash', 'imgs/splash', `imgs/splash${costumeCfg[0]}`)
+    // 随机角色面板图
+    let isRandom = false
+    let randomMode = true // 随机模式开关
+    let randomImgPath = `${rPath}/profile/randomMode-character/${name}/`
+    if (randomMode && fs.existsSync(randomImgPath)) {
+      let imgUrls = fs.readdirSync(randomImgPath).filter((fileUrl) => {
+        return fileUrl.includes('.webp')
+      })
+      // console.log(imgUrls)
+      if (imgUrls.length != 0) {
+        imgs.splash = `profile/randomMode-character/${name}/` + imgUrls[lodash.random(0, imgUrls.length - 1)]
+        isRandom = true
+      }
+    }
+    if (!isRandom) {
+      // 检查彩蛋自定义
+      if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/profile/super-character/${name}.webp`)) {
+        imgs.splash = `profile/super-character/${name}.webp`
+      } else if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/${nPath}/imgs/splash0.webp`)) {
+        imgs.splash = `${nPath}imgs/splash0.webp`
+      } else if (fs.existsSync(`${rPath}/profile/normal-character/${name}.webp`)) {
+        imgs.splash = `profile/normal-character/${name}.webp`
+      } else {
+        add('splash', 'imgs/splash', `imgs/splash${costumeCfg[0]}`)
+      }
     }
     tAdd('card', 'imgs/card')
     tAdd('banner', 'imgs/banner')
