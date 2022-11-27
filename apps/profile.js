@@ -59,7 +59,7 @@ app.reg('profile-stat', profileStat, {
 })
 
 app.reg('profile-help', profileHelp, {
-  rule: /^#角色面板帮助$/,
+  rule: /^#(角色|换|更换)?面[板版]帮助$/,
   name: '角色面板帮助'
 })
 
