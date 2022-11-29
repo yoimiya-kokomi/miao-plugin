@@ -108,7 +108,7 @@ const ProfileChange = {
       }
 
       // 天赋匹配
-      let talentRet = /(?:天赋|技能)((?:[1][01]|[1-9])[ ,]?)((?:[1][0-3]|[1-9])[ ,]?)([1][0-3]|[1-9])/.exec(txt)
+      let talentRet = /(?:天赋|技能)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/.exec(txt)
       if (talentRet) {
         let [match, a, e, q] = talentRet
         char.talent = {
