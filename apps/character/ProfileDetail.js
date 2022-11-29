@@ -95,7 +95,8 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
 
   let artisDetail = profile.getArtisMark()
   let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
-
+  let imgs = char.getImgs(profile.costume)
+  imgs.img = imgs.isRandom ? imgs.randomImg.path + imgs.randomImg.urls[lodash.random(0, imgs.randomImg.urls.length - 1)] : imgs.splash
   // 渲染图像
   return await Common.render('character/profile-detail', {
     save_id: uid,
@@ -110,7 +111,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     artisDetail,
     artisKeyTitle,
     enemyLv,
-    imgs: char.getImgs(profile.costume),
+    imgs,
     enemyName: dmgCalc.enemyName || '小宝',
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
     bodyClass: `char-${char.name}`,

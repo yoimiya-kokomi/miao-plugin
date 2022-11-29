@@ -78,6 +78,21 @@ const CharImg = {
     add('face', 'imgs/face', `imgs/face${costumeCfg[0]}`)
     add('side', 'imgs/side', `imgs/side${costumeCfg[0]}`)
     add('gacha', 'imgs/gacha')
+    // 随机角色面板图
+    imgs.isRandom = false
+    let randomMode = true // 随机模式开关
+    let randomImgPath = `${rPath}/profile/randomMode-character/${name}/`
+    if (randomMode && fs.existsSync(randomImgPath)) {
+      let imgUrls = fs.readdirSync(randomImgPath).filter((fileUrl) => {
+        return fileUrl.includes('.webp')
+      })
+      if (imgUrls.length != 0) {
+        imgs.randomImg = {}
+        imgs.randomImg.path = `profile/randomMode-character/${name}/`
+        imgs.randomImg.urls = imgUrls
+        imgs.isRandom = true
+      }
+    }
     // 检查彩蛋自定义
     if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/profile/super-character/${name}.webp`)) {
       imgs.splash = `profile/super-character/${name}.webp`
