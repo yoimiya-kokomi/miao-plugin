@@ -38,7 +38,7 @@ const ProfileChange = {
       return false
     }
     msg = msg.toLowerCase().replace(/uid ?:? ?/, '')
-    let regRet = /^#*(\d{9})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?|换)\s*(\d{9})?(.+)/.exec(msg)
+    let regRet = /^#*(\d{9})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9})?[变换改](.+)/.exec(msg)
     if (!regRet || !regRet[2]) {
       return false
     }
