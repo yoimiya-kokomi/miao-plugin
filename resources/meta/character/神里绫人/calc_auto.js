@@ -8,7 +8,7 @@ export const details = [{
   params: { q: 1 ,
     team:false},
   dmg: ({ talent }, dmg) => dmg(talent.e['三段瞬水剑伤害'], 'a', 'vaporize')
-},, {
+}, {
   title: '绫夜万班瞬水剑三段蒸发',
   params: { q: 1 ,
     team:true},
