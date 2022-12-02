@@ -19,11 +19,22 @@ export const details = [{
 }, {
   title: 'Q两段总伤害',
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q')
+}, {
+  title: '丰穰之核伤害',
+  params: { bloom: true },
+  dmg: ({calc, attr}, { reaction }) => {
+      return reaction('bloom')}
 }]
 
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
 export const buffs = [{
+  title: '妮露天赋：丰穰之核增伤[bloom]%,元素精通提升100点',
+  data: {
+    bloom: ({ calc, attr }) => Math.min(400,(calc(attr.hp)-30000)/1000*9),
+    mastery:({ params }) => params.bloom ? 100 : 0
+  }
+},{
   title: '妮露1命：水月造成的伤害提升65%',
   cons: 1,
   data: {
