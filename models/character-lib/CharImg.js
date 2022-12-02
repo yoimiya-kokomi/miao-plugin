@@ -5,6 +5,7 @@ import fs from 'fs'
 import lodash from 'lodash'
 import sizeOf from 'image-size'
 
+const rPath = `${process.cwd()}/plugins/miao-plugin/resources`
 const CharImg = {
 
   // 获取角色的插画
@@ -53,6 +54,33 @@ const CharImg = {
     return ret
   },
 
+  getRandomImg (imgPaths, defImgs = []) {
+    for (let imgPath of imgPaths) {
+      let ret = []
+      for (let type of ['webp', 'png']) {
+        if (fs.existsSync(`${rPath}/${imgPath}.${type}`)) {
+          ret.push(imgPath + '.webp')
+        }
+      }
+      if (fs.existsSync(`${rPath}/${imgPath}`)) {
+        let imgs = fs.readdirSync(`${rPath}/${imgPath}`).filter((file) => {
+          return /\.(png|webp)$/.test(file)
+        })
+        for (let img of imgs) {
+          ret.push(`${imgPath}/${encodeURI(img)}`)
+        }
+      }
+      if (ret.length > 0) {
+        return lodash.sample(ret)
+      }
+    }
+    for (let defImg of defImgs) {
+      if (fs.existsSync(`${rPath}/${defImg}`)) {
+        return defImg
+      }
+    }
+  },
+
   // 获取角色的图像资源数据
   getImgs (name, costumeCfg = '', travelerElem = '', fileType = 'webp') {
     if (!lodash.isArray(costumeCfg)) {
@@ -62,7 +90,6 @@ const CharImg = {
     if (!['空', '荧', '旅行者'].includes(name)) {
       travelerElem = ''
     }
-    const rPath = `${process.cwd()}/plugins/miao-plugin/resources`
     const nPath = `/meta/character/${name}/`
     const tPath = `/meta/character/旅行者/${travelerElem}/`
     let add = (key, path, path2) => {
@@ -78,16 +105,8 @@ const CharImg = {
     add('face', 'imgs/face', `imgs/face${costumeCfg[0]}`)
     add('side', 'imgs/side', `imgs/side${costumeCfg[0]}`)
     add('gacha', 'imgs/gacha')
+    add('splash', 'imgs/splash', `imgs/splash${costumeCfg[0]}`)
     // 检查彩蛋自定义
-    if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/profile/super-character/${name}.webp`)) {
-      imgs.splash = `profile/super-character/${name}.webp`
-    } else if (costumeCfg[1] === 'super' && fs.existsSync(`${rPath}/${nPath}/imgs/splash0.webp`)) {
-      imgs.splash = `${nPath}imgs/splash0.webp`
-    } else if (fs.existsSync(`${rPath}/profile/normal-character/${name}.webp`)) {
-      imgs.splash = `profile/normal-character/${name}.webp`
-    } else {
-      add('splash', 'imgs/splash', `imgs/splash${costumeCfg[0]}`)
-    }
     tAdd('card', 'imgs/card')
     tAdd('banner', 'imgs/banner')
     for (let i = 1; i <= 6; i++) {

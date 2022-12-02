@@ -197,15 +197,28 @@ class Character extends Base {
     }
     let costumeCfg = [this.checkCostume(costume[0]) ? '2' : '', costume[1] || 'normal']
 
-    let cacheId = `costume${costumeCfg.join('')}`
+    let cacheId = `costume${costume[0]}`
     if (!this._imgs) {
       this._imgs = {}
     }
-    if (this._imgs[cacheId]) {
-      return this._imgs[cacheId]
+    if (!this._imgs[cacheId]) {
+      this._imgs[cacheId] = CharImg.getImgs(this.name, costumeCfg, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
+
     }
-    this._imgs[cacheId] = CharImg.getImgs(this.name, costumeCfg, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
-    return this._imgs[cacheId]
+    let ret = this._imgs[cacheId]
+    let nPath = `meta/character/${this.name}`
+    if (costumeCfg[1] === 'super') {
+      ret.splash0 = CharImg.getRandomImg(
+        [`profile/super-character/${this.name}`, `profile/normal-character/${this.name}`],
+        [`${nPath}/imgs/splash0.webp`, `${nPath}/imgs/splash${costumeCfg[0]}.webp`, `/${nPath}/imgs/splash.webp`]
+      )
+    } else {
+      ret.splash0 = CharImg.getRandomImg(
+        [`profile/normal-character/${this.name}`],
+        [`${nPath}/imgs/splash${costumeCfg[0]}.webp`, `/${nPath}/imgs/splash.webp`]
+      )
+    }
+    return ret
   }
 
   // 获取详情数据
