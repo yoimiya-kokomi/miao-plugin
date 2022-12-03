@@ -97,7 +97,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
   let imgs = char.getImgs(profile.costume)
   // 渲染图像
-  return await Common.render('character/profile-detail', {
+  let msgRes =  await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
     data: avatar.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime,_attrCalc'),
@@ -116,5 +116,10 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     bodyClass: `char-${char.name}`,
     mode,
     changeProfile: e._profileMsg
-  }, { e, scale: 1.6 })
+  }, { e, scale: 1.6,retMsgId: true })
+  if (msgRes && msgRes.message_id) {
+    // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
+    await redis.set(`miao:original-picture:${msgRes.message_id}`, imgs.splash0, { EX: 3600 * 3 })
+  }
+  return true
 }

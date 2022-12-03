@@ -67,7 +67,7 @@ const CharImg = {
           return /\.(png|webp)$/.test(file)
         })
         for (let img of imgs) {
-          ret.push(`${imgPath}/${encodeURI(img)}`)
+          ret.push(`${imgPath}/${encodeURIComponent(img)}`)
         }
       }
       if (ret.length > 0) {
