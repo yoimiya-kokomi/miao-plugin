@@ -135,6 +135,12 @@ export default function (step, staticStep) {
         atkPlus: ({ attr, calc, refine }) => step(24)[refine] * calc(attr.mastery) / 100
       }
     },
+    图莱杜拉的回忆: {
+      title: '满Buff下提高普攻伤害[aDmg]%',
+      refine: {
+        aDmg: step(48)
+      }
+    },
     千夜浮梦: {
       title: '3个不同元素队友满层，元素伤害提高[dmg]%',
       buffCount: 3,
