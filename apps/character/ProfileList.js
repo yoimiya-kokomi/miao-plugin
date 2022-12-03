@@ -64,7 +64,7 @@ export async function profileList (e) {
       await profileList(e)
       return true
     } else {
-      e.reply('尚未获取任何角色数据')
+      e.reply(`本地暂无uid${uid}的面板数据...`)
     }
     return true
   }

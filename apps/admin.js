@@ -38,7 +38,7 @@ const checkAuth = async function (e) {
     (*/ω＼*)`)
     return false
   }
-  return await MysApi.initUser(e)
+  return true
 }
 
 async function sysCfg (e) {

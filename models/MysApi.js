@@ -27,23 +27,32 @@ export default class MysApi {
   }
 
   static async initUser (e, auth = 'all') {
-    if (!e.runtime) {
+    let { runtime } = e
+    if (!runtime) {
       Version.runtime()
       return false
     }
-    let uid = e.runtime.uid
-    if (e.at) {
-      // 暂时使用MysApi.init替代
-      let mys = await MysApi.init(e, auth)
-      if (!mys) {
-        return false
+    let uid
+    if (runtime.getUid) {
+      uid = await runtime.getUid()
+    } else {
+      // 兼容处理老版本Yunzai
+      uid = runtime.uid || e.uid
+      if (e.at) {
+        // 暂时使用MysApi.init替代
+        let mys = await MysApi.init(e, auth)
+        if (!mys) {
+          return false
+        }
+        uid = mys.uid || uid
       }
-      uid = mys.uid || uid
     }
     if (uid) {
       return new User({ id: e.user_id, uid })
+    } else {
+      e.reply('请先#绑定uid')
+      return false
     }
-    return false
   }
 
   get isSelfCookie () {

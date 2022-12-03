@@ -11,8 +11,9 @@ import { Character } from '../../models/index.js'
 const resPath = process.cwd() + '/plugins/miao-plugin/resources/'
 let regex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:照片|写真|图片|图像)\s*$/
 let profileRegex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:面板图)\s*$/
-let isProfile = false;
-export async function uploadCharacterImg(e) {
+let isProfile = false
+
+export async function uploadCharacterImg (e) {
   let promise = await isAllowedToUploadCharacterImage(e)
   if (!promise) {
     return false
@@ -22,7 +23,7 @@ export async function uploadCharacterImg(e) {
   let msg = e.msg
   let regRet = regex.exec(msg)
   if (msg.includes('面板')) {
-    isProfile = true;
+    isProfile = true
     regRet = profileRegex.exec(msg)
   }
 
@@ -40,7 +41,7 @@ export async function uploadCharacterImg(e) {
       imageMessages.push(val)
     }
   }
-  if (imageMessages.length === 0) {
+  if (imageMessages.length === 0 && e.source) {
     let source
     if (e.isGroup) {
       // 支持at图片添加，以及支持后发送
@@ -52,9 +53,9 @@ export async function uploadCharacterImg(e) {
       for (let val of source.message) {
         if (val.type === 'image') {
           imageMessages.push(val)
-        } else if (val.type === 'xml') { //支持合并转发消息内置的图片批量上传，喵喵 喵喵喵？ 喵喵喵喵
+        } else if (val.type === 'xml') { // 支持合并转发消息内置的图片批量上传，喵喵 喵喵喵？ 喵喵喵喵
           let resid = val.data.match(/m_resid="(\d|\w|\/)*"/)[0].replace(/m_resid=|"/g, '')
-          if (!resid) break;
+          if (!resid) break
           let message = await Bot.getForwardMsg(resid)
           for (const item of message) {
             for (const i of item.message) {
@@ -75,10 +76,10 @@ export async function uploadCharacterImg(e) {
   return true
 }
 
-async function saveImages(e, name, imageMessages) {
+async function saveImages (e, name, imageMessages) {
   let imgMaxSize = e?.groupConfig?.imgMaxSize || 5
   let pathSuffix = `character-img/${name}/upload`
-  if (isProfile) pathSuffix = `profile/normal-character/${name}`;
+  if (isProfile) pathSuffix = `profile/normal-character/${name}`
   let path = resPath + pathSuffix
 
   if (!fs.existsSync(path)) {
@@ -130,8 +131,8 @@ async function saveImages(e, name, imageMessages) {
   return true
 }
 
-async function isAllowedToUploadCharacterImage(e) {
-  let sendMsg = e.msg.includes('上传') ? '添加' : '删除';
+async function isAllowedToUploadCharacterImage (e) {
+  let sendMsg = e.msg.includes('上传') ? '添加' : '删除'
   if (!e.message) {
     return false
   }
@@ -162,8 +163,9 @@ async function isAllowedToUploadCharacterImage(e) {
   }
   return true
 }
-//仅支持面板图删除
-export async function delProflie(e) {
+
+// 仅支持面板图删除
+export async function delProfileImg (e) {
   let promise = await isAllowedToUploadCharacterImage(e)
   if (!promise) {
     return false
@@ -173,7 +175,7 @@ export async function delProflie(e) {
     return false
   }
   let name = char.name
-  let pathSuffix = `profile/normal-character/${name}`;
+  let pathSuffix = `profile/normal-character/${name}`
   let path = resPath + pathSuffix
   let num = e.msg.match(/\d+/)
   if (!num) {
@@ -181,8 +183,10 @@ export async function delProflie(e) {
     return
   }
   try {
-    let File = fs.readdirSync(`${path}`)
-    fs.unlinkSync(`${path}/${File[num - 1]}`)
+    let imgs = fs.readdirSync(`${path}`).filter((file) => {
+      return /\.(png|webp)$/.test(file)
+    })
+    fs.unlinkSync(`${path}/${imgs[num - 1]}`)
     e.reply('删除成功')
   } catch (err) {
     e.reply('删除失败，请检查序列号是否正确')
@@ -190,31 +194,38 @@ export async function delProflie(e) {
   return true
 }
 
-export async function proflieList(e) {
+export async function profileImgList (e) {
   let msglist = []
   let char = Character.get(e.msg.replace(/#|面板图列表/g, ''))
   if (!char || !char.name) {
     return false
   }
-  let nickname = Bot.nickname;
+  let nickname = Bot.nickname
   if (e.isGroup) {
     let info = await Bot.getGroupMemberInfo(e.group_id, Bot.uin)
     nickname = info.card || info.nickname
   }
   let name = char.name
-  let pathSuffix = `profile/normal-character/${name}`;
+  let pathSuffix = `profile/normal-character/${name}`
   let path = resPath + pathSuffix
+  if (!fs.existsSync(path)) {
+    e.reply(`暂无${char.name}的角色面板图`)
+    return true
+  }
   try {
-
-    let File = fs.readdirSync(`${path}`)
+    let imgs = fs.readdirSync(`${path}`).filter((file) => {
+      return /\.(png|webp)$/.test(file)
+    })
     msglist.push({
-      message: [`当前查看的是${name}面板图,共${File.length}张，可输入【#删除${name}面板图(序列号)】进行删除`],
+      message: [`当前查看的是${name}面板图,共${imgs.length}张，可输入【#删除${name}面板图(序列号)】进行删除`],
       nickname: nickname,
       user_id: Bot.uin
     })
-    for (let i = 0; i < File.length; i++) { //合并转发最多99？ 但是我感觉不会有这么多先不做处理
+    for (let i = 0; i < imgs.length; i++) {
+      // 合并转发最多99？ 但是我感觉不会有这么多先不做处理
+      console.log(`${path}${imgs[i]}`)
       msglist.push({
-        message: [`${i + 1}.`, segment.image(`${path}/${File[i]}`)],
+        message: [`${i + 1}.`, segment.image(`${path}/${imgs[i]}`)],
         nickname: nickname,
         user_id: Bot.uin
       })
@@ -222,6 +233,8 @@ export async function proflieList(e) {
     let msgRsg = await e.reply(await Bot.makeForwardMsg(msglist))
     if (!msgRsg) e.reply('风控了，可私聊查看', true)
   } catch (err) {
-    logger.error(err); e.reply('没有角色面板图')
+    logger.error(err)
+    e.reply(`暂无${char.name}的角色面板图~`)
   }
+  return true
 }
