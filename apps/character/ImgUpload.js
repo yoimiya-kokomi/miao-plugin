@@ -10,8 +10,9 @@ import { Character } from '../../models/index.js'
 
 const resPath = process.cwd() + '/plugins/miao-plugin/resources/'
 let regex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:照片|写真|图片|图像)\s*$/
-
-export async function uploadCharacterImg (e) {
+let profileRegex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:面板图)\s*$/
+let isProfile = false;
+export async function uploadCharacterImg(e) {
   let promise = await isAllowedToUploadCharacterImage(e)
   if (!promise) {
     return false
@@ -20,6 +21,11 @@ export async function uploadCharacterImg (e) {
   let imageMessages = []
   let msg = e.msg
   let regRet = regex.exec(msg)
+  if (msg.includes('面板')) {
+    isProfile = true;
+    regRet = profileRegex.exec(msg)
+  }
+
   // 通过解析正则获取消息中的角色名
   if (!regRet || !regRet[1]) {
     return false
@@ -46,6 +52,17 @@ export async function uploadCharacterImg (e) {
       for (let val of source.message) {
         if (val.type === 'image') {
           imageMessages.push(val)
+        } else if (val.type === 'xml') { //支持合并转发消息内置的图片批量上传，喵喵 喵喵喵？ 喵喵喵喵
+          let resid = val.data.match(/m_resid="(\d|\w|\/)*"/)[0].replace(/m_resid=|"/g, '')
+          if (!resid) break;
+          let message = await Bot.getForwardMsg(resid)
+          for (const item of message) {
+            for (const i of item.message) {
+              if (i.type === 'image') {
+                imageMessages.push(i)
+              }
+            }
+          }
         }
       }
     }
@@ -58,9 +75,10 @@ export async function uploadCharacterImg (e) {
   return true
 }
 
-async function saveImages (e, name, imageMessages) {
+async function saveImages(e, name, imageMessages) {
   let imgMaxSize = e?.groupConfig?.imgMaxSize || 5
   let pathSuffix = `character-img/${name}/upload`
+  if (isProfile) pathSuffix = `profile/normal-character/${name}`;
   let path = resPath + pathSuffix
 
   if (!fs.existsSync(path)) {
@@ -88,6 +106,7 @@ async function saveImages (e, name, imageMessages) {
     if (response.headers.get('content-type') === 'image/gif') {
       fileType = 'gif'
     }
+    if (isProfile) fileType = 'webp'
     let imgPath = `${path}/${fileName}.${fileType}`
     const streamPipeline = promisify(pipeline)
     await streamPipeline(response.body, fs.createWriteStream(imgPath))
@@ -111,7 +130,8 @@ async function saveImages (e, name, imageMessages) {
   return true
 }
 
-async function isAllowedToUploadCharacterImage (e) {
+async function isAllowedToUploadCharacterImage(e) {
+  let sendMsg = e.msg.includes('上传') ? '添加' : '删除';
   if (!e.message) {
     return false
   }
@@ -123,7 +143,7 @@ async function isAllowedToUploadCharacterImage (e) {
     return true
   }
   if (e.isPrivate) {
-    e.reply('只有主人才能添加...')
+    e.reply(`只有主人才能${sendMsg}...`)
     return false
   }
   let groupId = e.group_id
@@ -133,12 +153,75 @@ async function isAllowedToUploadCharacterImage (e) {
   const addLimit = e.groupConfig?.imgAddLimit || 2
   const isAdmin = ['owner', 'admin'].includes(e.sender.role)
   if (addLimit === 2) {
-    e.reply('只有主人才能添加...')
+    e.reply(`只有主人才能${sendMsg}...`)
     return false
   }
   if (addLimit === 1 && !isAdmin) {
-    e.reply('只有管理员才能添加...')
+    e.reply(`只有管理员才能${sendMsg}...`)
     return false
   }
   return true
+}
+//仅支持面板图删除
+export async function delProflie(e) {
+  let promise = await isAllowedToUploadCharacterImage(e)
+  if (!promise) {
+    return false
+  }
+  let char = Character.get(e.msg.replace(/#|面板图|列表|上传|删除|\d+/g, '').trim())
+  if (!char || !char.name) {
+    return false
+  }
+  let name = char.name
+  let pathSuffix = `profile/normal-character/${name}`;
+  let path = resPath + pathSuffix
+  let num = e.msg.match(/\d+/)
+  if (!num) {
+    e.reply(`删除哪张捏？请输入数字序列号,可输入【#${name}面板图列表】查看序列号`)
+    return
+  }
+  try {
+    let File = fs.readdirSync(`${path}`)
+    fs.unlinkSync(`${path}/${File[num - 1]}`)
+    e.reply('删除成功')
+  } catch (err) {
+    e.reply('删除失败，请检查序列号是否正确')
+  }
+  return true
+}
+
+export async function proflieList(e) {
+  let msglist = []
+  let char = Character.get(e.msg.replace(/#|面板图列表/g, ''))
+  if (!char || !char.name) {
+    return false
+  }
+  let nickname = Bot.nickname;
+  if (e.isGroup) {
+    let info = await Bot.getGroupMemberInfo(e.group_id, Bot.uin)
+    nickname = info.card || info.nickname
+  }
+  let name = char.name
+  let pathSuffix = `profile/normal-character/${name}`;
+  let path = resPath + pathSuffix
+  try {
+
+    let File = fs.readdirSync(`${path}`)
+    msglist.push({
+      message: [`当前查看的是${name}面板图,共${File.length}张，可输入【#删除${name}面板图(序列号)】进行删除`],
+      nickname: nickname,
+      user_id: Bot.uin
+    })
+    for (let i = 0; i < File.length; i++) { //合并转发最多99？ 但是我感觉不会有这么多先不做处理
+      msglist.push({
+        message: [`${i + 1}.`, segment.image(`${path}/${File[i]}`)],
+        nickname: nickname,
+        user_id: Bot.uin
+      })
+    }
+    let msgRsg = await e.reply(await Bot.makeForwardMsg(msglist))
+    if (!msgRsg) e.reply('风控了，可私聊查看', true)
+  } catch (err) {
+    logger.error(err); e.reply('没有角色面板图')
+  }
 }
