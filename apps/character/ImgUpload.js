@@ -54,7 +54,7 @@ export async function uploadCharacterImg (e) {
         if (val.type === 'image') {
           imageMessages.push(val)
         } else if (val.type === 'xml') { // 支持合并转发消息内置的图片批量上传，喵喵 喵喵喵？ 喵喵喵喵
-          let resid = val.data.match(/m_resid="(\d|\w|\/)*"/)[0].replace(/m_resid=|"/g, '')
+          let resid = val.data.match(/m_resid="(\d|\w|\/|\+)*"/)[0].replace(/m_resid=|"/g, '')
           if (!resid) break
           let message = await Bot.getForwardMsg(resid)
           for (const item of message) {
@@ -132,7 +132,7 @@ async function saveImages (e, name, imageMessages) {
 }
 
 async function isAllowedToUploadCharacterImage (e) {
-  let sendMsg = e.msg.includes('上传') ? '添加' : '删除'
+  let sendMsg = /上传|添加/.test(e.msg) ? '添加' : '删除'
   if (!e.message) {
     return false
   }
