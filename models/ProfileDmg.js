@@ -19,7 +19,11 @@ export default class ProfileDmg extends Base {
 
   static dmgRulePath (name) {
     const _path = process.cwd()
-    let path = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc.js`
+    let path = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc_auto.js`
+    if (fs.existsSync(path)&&Common.cfg('teamCalc')) {
+      return path
+    }
+    path = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc.js`
     if (fs.existsSync(path)) {
       return path
     }

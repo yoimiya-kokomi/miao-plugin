@@ -22,6 +22,12 @@ export const cfgSchema = {
         def: false,
         desc: '群内的面板伤害及圣遗物排名与查看功能，默认关闭。请根据群友心理素质自行决定是否开启'
       },
+      teamCalc: {
+        title: '组队伤害',
+        key: '组队',
+        def: false,
+        desc: '组队伤害，测试阶段。开启后请重启喵喵'
+      },
       groupRankLimit: {
         title: '排名限制',
         key: '限制',

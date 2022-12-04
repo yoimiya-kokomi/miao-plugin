@@ -1,23 +1,41 @@
 export const details = [{
   title: '蓄力总伤害',
-  params: { team:false,alter:false},
+  params: {
+      team:false,
+      alter:false,
+      q: 0
+  },
   dmg: ({ talent }, dmg) => dmg(talent.a['霜华矢·霜华绽发伤害'] + talent.a['霜华矢命中伤害'], 'a2')
 }, {
   title: '蓄力融化',
-  params: { team:false,alter:false},
+  params: {
+      team:false,
+      alter:false,
+      q: 0
+  },
   dmg: ({ talent }, dmg) => dmg(talent.a['霜华矢·霜华绽发伤害'] + talent.a['霜华矢命中伤害'], 'a2', 'melt')
 }, {
   title: '甘鹤万班蓄力融化',
-  params: { team:true,alter:false},
+  params: {
+      team:true,
+      alter:false,
+      q: 0
+  },
   dmg: ({ talent }, dmg) => dmg(talent.a['霜华矢·霜华绽发伤害'] + talent.a['霜华矢命中伤害'], 'a2', 'melt')
 }, {
   title: '甘纳万班蓄力融化',
-  params: { team:true,alter:true},
+  params: {
+      team:true,
+      alter:true,
+      q: 0
+  },
   dmg: ({ talent }, dmg) => dmg(talent.a['霜华矢·霜华绽发伤害'] + talent.a['霜华矢命中伤害'], 'a2', 'melt')
 }, {
   title: 'Q单个冰凌伤害',
   params: {
-    q: 1
+      team:false,
+      alter:false,
+      q: 1
   },
   dmg: ({ talent }, dmg) => dmg(talent.q['冰棱伤害'], 'q')
 }]
