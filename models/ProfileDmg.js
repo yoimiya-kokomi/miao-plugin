@@ -6,6 +6,7 @@ import { attrMap } from '../resources/meta/artifact/index.js'
 import DmgBuffs from './profile-lib/DmgBuffs.js'
 import DmgAttr from './profile-lib/DmgAttr.js'
 import DmgCalc from './profile-lib/DmgCalc.js'
+import { Common } from '../components/index.js'
 
 export default class ProfileDmg extends Base {
   constructor (profile = {}) {
