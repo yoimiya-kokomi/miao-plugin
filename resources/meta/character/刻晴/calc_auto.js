@@ -1,18 +1,18 @@
 export const details = [{
   title: 'E后重击伤害',
-  params: { q: 1 ,team:false},
+  params: { q: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
   title: 'Q单段伤害',
-  params: { q: 1 ,team:false},
+  params: { q: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['连斩伤害2'][0], 'q')
 }, {
   title: 'Q总伤害',
-  params: { q: 1 ,team:false},
+  params: { q: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + talent.q['连斩伤害'] + talent.q['最后一击伤害'], 'q')
 }, {
   title: 'Q总伤害·超激化',
-  params: { q: 1 ,team:false},
+  params: { q: 1, team: false },
   dmg: ({ talent }, dmg) => {
     let t1j = dmg(talent.q['技能伤害'], 'q', '超激化')
     let t2j = dmg(talent.q['连斩伤害'] / 8, 'q', '超激化')
@@ -25,7 +25,7 @@ export const details = [{
   }
 }, {
   title: '刻九万妲Q激化总伤',
-  params: { q: 1,team:true},
+  params: { q: 1, team: true },
   dmg: ({ talent }, dmg) => {
     let t1j = dmg(talent.q['技能伤害'], 'q', '超激化')
     let t2j = dmg(talent.q['连斩伤害'] / 8, 'q', '超激化')
@@ -39,8 +39,8 @@ export const details = [{
 }]
 
 export const defParams = {
-    q: 1,
-    team:true
+  q: 1,
+  team: true
 }
 
 export const defDmgIdx = 4
@@ -63,54 +63,60 @@ export const buffs = [{
   data: {
     dmg: 24
   }
-}, {check: ({ cons,params }) => cons <= 1 && params.team === true,
-    title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
-    data: {
-      aDmg:16,
-      a2Dmg:16,
-      a3Dmg:16,
-      dmg: 40,
-      atkPct:20,
-      kx:40,
-   }
-  }, {check: ({ cons,params }) => ((cons < 6 && cons >1) && params.team === true),
-    title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-    data: {
-      aDmg:16,
-      a2Dmg:16,
-      a3Dmg:16,
-      dmg: 48,
-      atkPct:20,
-      kx:40,
-      mastery:200
-   }
-  }, {check: ({ cons,params }) =>  (cons >= 6 && params.team === true),
-    title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-    data: {
-      aDmg:32,
-      a2Dmg:32,
-      a3Dmg:32,
-      dmg: 48,
-      atkPct:40,
-      kx:40,
-      mastery:200
-   }
-  }, {check: ({ params }) => params.team === true,
-    title: '宗室天空九条：增加[atkPlus]点攻击力与[cdmg]%爆伤,攻击[atkPct]%',
-    data: {
-      atkPlus: 794.2,
-      cdmg:60,
-      atkPct:20
-   }
-  }, {check: ({ cons,params }) =>  (cons >= 2&& params.team === true),
-    title: '千夜2命纳西妲：增加精通[mastery],减防[enemyDef]%',
-    data: {
-      mastery: 290,
-      enemyDef: 30
-   }
-  }, {check: ({ cons,params }) =>  (cons < 2&& params.team === true),
-    title: '千夜0命纳西妲：增加精通[mastery]',
-    data: {
-      mastery: 290,
-   }
-  }]
+}, {
+  check: ({ cons, params }) => cons <= 1 && params.team === true,
+  title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
+  data: {
+    aDmg: 16,
+    a2Dmg: 16,
+    a3Dmg: 16,
+    dmg: 40,
+    atkPct: 20,
+    kx: 40
+  }
+}, {
+  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
+  title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
+  data: {
+    aDmg: 16,
+    a2Dmg: 16,
+    a3Dmg: 16,
+    dmg: 48,
+    atkPct: 20,
+    kx: 40,
+    mastery: 200
+  }
+}, {
+  check: ({ cons, params }) => (cons >= 6 && params.team === true),
+  title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
+  data: {
+    aDmg: 32,
+    a2Dmg: 32,
+    a3Dmg: 32,
+    dmg: 48,
+    atkPct: 40,
+    kx: 40,
+    mastery: 200
+  }
+}, {
+  check: ({ params }) => params.team === true,
+  title: '宗室天空九条：增加[atkPlus]点攻击力与[cdmg]%爆伤,攻击[atkPct]%',
+  data: {
+    atkPlus: 794.2,
+    cdmg: 60,
+    atkPct: 20
+  }
+}, {
+  check: ({ cons, params }) => (cons >= 2 && params.team === true),
+  title: '千夜2命纳西妲：增加精通[mastery],减防[enemyDef]%',
+  data: {
+    mastery: 290,
+    enemyDef: 30
+  }
+}, {
+  check: ({ cons, params }) => (cons < 2 && params.team === true),
+  title: '千夜0命纳西妲：增加精通[mastery]',
+  data: {
+    mastery: 290
+  }
+}]

@@ -345,7 +345,6 @@ const buffs = {
     2: attr('atkPct', 18),
     4: {
       title: '满层提高48%攻击力',
-
       data: {
         atkPct: 48
       }
@@ -356,6 +355,7 @@ const buffs = {
     2: attr('atkPct', 18),
     4: {
       title: '触发提高普攻[aPlus]伤害',
+      sort: 0,
       data: {
         aPlus: ({ attr }) => (attr.atk.base + attr.atk.plus + attr.atk.pct * attr.atk.base / 100) * 0.35
       }

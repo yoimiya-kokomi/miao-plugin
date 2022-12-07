@@ -6,12 +6,15 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['爆炸伤害'], 'e')
 }, {
   title: '兔兔伯爵蒸发',
+  dmgKey: 'e',
   check: ({ cons }) => cons < 2,
   dmg: ({ talent }, dmg) => dmg(talent.e['爆炸伤害'], 'e', 'vaporize')
 }, {
   title: '引爆兔兔伯爵蒸发',
   cons: 2,
-  dmg: ({ talent }, dmg) => dmg(talent.e['爆炸伤害'] * 3, 'e', 'vaporize')
+  dmgKey: 'e',
+  params: { e: true },
+  dmg: ({ talent }, dmg) => dmg(talent.e['爆炸伤害'], 'e', 'vaporize')
 }, {
   title: 'Q箭雨总伤害',
   params: { q: true },
@@ -19,6 +22,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
+export const defDmgKey = 'e'
 
 export const buffs = [{
   title: '安柏天赋：命中弱点后攻击力提升15%',
@@ -32,5 +36,8 @@ export const buffs = [{
   }
 }, {
   title: '安柏2命：瞄准引爆兔兔伯爵伤害提高200%',
-  cons: 2
+  cons: 2,
+  data: {
+    eDmg: ({ params }) => params.e ? 200 : 0
+  }
 }, 'vaporize']
