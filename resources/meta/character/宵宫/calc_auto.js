@@ -70,7 +70,7 @@ export const buffs = [{
   data: {
     dmg: ({ params }) => params.num ? params.num * 2 : 20
   }
-}, {
+}, {{ params }) => params.team === true,
   title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
   sort: 9,
   data: {
