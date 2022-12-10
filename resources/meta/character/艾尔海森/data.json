@@ -1,0 +1,45 @@
+{
+  "id": 10000078,
+  "name": "艾尔海森",
+  "abbr": "艾尔海森",
+  "title": "？？？",
+  "star": 5,
+  "elem": "dendro",
+  "allegiance": "？？？",
+  "weapon": "sword",
+  "birth": "1-1",
+  "astro": "天隼座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 13348,
+    "atk": 313.32,
+    "def": 781.62
+  },
+  "growAttr": {
+    "key": "dmg",
+    "value": 28.8
+  },
+  "talentKey": {
+    "7831": "a",
+    "7832": "e",
+    "7839": "q"
+  },
+  "talentId": {},
+  "talentCons": {
+    "e": 3,
+    "q": 5
+  },
+  "materials": {
+    "gem": "生长碧翡",
+    "boss": "苍砾蕊羽",
+    "specialty": "沙脂蛹",
+    "normal": "织金红绸",
+    "talent": "「巧思」的哲学",
+    "weekly": "无心的渊镜"
+  },
+  "eta": 1674010800000
+}
