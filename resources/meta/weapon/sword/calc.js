@@ -148,6 +148,13 @@ export default function (step, staticStep) {
 
       }
     }],
+    裁叶萃光: [staticStep('cpct', 4), {
+      title: '普攻与元素战技造成的伤害值提高[aPlus]',
+      data: {
+        aPlus: ({ attr, calc, refine }) => calc(attr.mastery) * [200, 230, 260, 290, 320][refine] / 100,
+        ePlus: ({ attr, calc, refine }) => calc(attr.mastery) * [200, 230, 260, 290, 320][refine] / 100,
+      }
+    }],
     斫峰之刃: [{
       title: '护盾强效提升[shield]%',
       refine: {

@@ -59,4 +59,6 @@ export const usefulAttr = {
   莱依拉: { hp: 100, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 35 },
   流浪者: { hp: 0, atk: 80, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 35, heal: 0 },
   珐露珊: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 75, phy: 0, recharge: 75, heal: 0 },
+  瑶瑶: { hp: 75, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 75, phy: 0, recharge: 75, heal: 75 },
+  艾尔海森: { hp: 0, atk: 50, def: 0, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, phy: 0, recharge: 35, heal: 0 },
 }
