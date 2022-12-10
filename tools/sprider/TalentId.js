@@ -1157,6 +1157,42 @@ export default  {
     SideIconName: "UI_AvatarIcon_Side_Layla",
     QualityType: "QUALITY_PURPLE"
   },
+  10000075: {
+    Element: "Wind",
+    Consts: ["UI_Talent_S_Wanderer_01", "UI_Talent_S_Wanderer_02", "UI_Talent_U_Wanderer_02", "UI_Talent_S_Wanderer_03", "UI_Talent_U_Wanderer_01", "UI_Talent_S_Wanderer_04"],
+    SkillOrder: [10751, 10752, 10755],
+    Skills: {
+      10751: "Skill_A_Catalyst_MD",
+      10752: "Skill_S_Wanderer_01",
+      10755: "Skill_E_Wanderer_01"
+    },
+    ProudMap: {
+      10751: 7531,
+      10752: 7532,
+      10755: 7539
+    },
+    NameTextMapHash: 3230559562,
+    SideIconName: "UI_AvatarIcon_Side_Wanderer",
+    QualityType: "QUALITY_ORANGE"
+  },
+  10000076: {
+    Element: "Wind",
+    Consts: ["UI_Talent_S_Faruzan_01", "UI_Talent_S_Faruzan_02", "UI_Talent_U_Faruzan_01", "UI_Talent_S_Faruzan_03", "UI_Talent_U_Faruzan_02", "UI_Talent_S_Faruzan_04"],
+    SkillOrder: [10761, 10762, 10765],
+    Skills: {
+      10761: "Skill_A_02",
+      10762: "Skill_S_Faruzan_01",
+      10765: "Skill_E_Faruzan_01"
+    },
+    ProudMap: {
+      10761: 7631,
+      10762: 7632,
+      10765: 7639
+    },
+    NameTextMapHash: 2387711994,
+    SideIconName: "UI_AvatarIcon_Side_Faruzan",
+    QualityType: "QUALITY_PURPLE"
+  },
   "10000005-501": {
     Element: "None",
     Consts: ["None", "None", "None", "None", "None", "None"],
