@@ -7,11 +7,7 @@ export const details = [{
   params: { pyro: false, cryo: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
-  title: '开E满染火首段普攻',
-  params: { pyro: true, cryo: false },
-  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
-}, {
-  title: '开E满染火染冰首段普攻',
+  title: '开E满染火冰首段普攻',
   params: { pyro: true, cryo: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 }, {
@@ -20,7 +16,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }]
 
-export const defDmgIdx = 3
+export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
