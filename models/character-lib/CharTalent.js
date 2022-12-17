@@ -1,6 +1,6 @@
 /**
-* 角色天赋相关处理
-* */
+ * 角色天赋相关处理
+ * */
 import lodash from 'lodash'
 
 const CharTalent = {
@@ -19,6 +19,20 @@ const CharTalent = {
       if (lodash.isNumber(ds)) {
         value = ds
       }
+      if (mode !== 'level') {
+        // 基于original计算level
+        value = value || ds.original || ds.level_original || ds.level || ds.level_current
+        if (value > 10) {
+          mode = 'level'
+        } else {
+          original = value
+          if (key === 'a') {
+            level = aPlus ? value + 1 : value
+          } else {
+            level = cons >= consTalent[key] ? (value + 3) : value
+          }
+        }
+      }
       if (mode === 'level') {
         // 基于level计算original
         value = value || ds.level || ds.level_current || ds.original || ds.level_original
@@ -27,15 +41,6 @@ const CharTalent = {
           original = aPlus ? value - 1 : value
         } else {
           original = cons >= consTalent[key] ? (value - 3) : value
-        }
-      } else {
-        // 基于original计算level
-        value = value || ds.original || ds.level_original || ds.level || ds.level_current
-        original = value
-        if (key === 'a') {
-          level = aPlus ? value + 1 : value
-        } else {
-          level = cons >= consTalent[key] ? (value + 3) : value
         }
       }
       ret[key] = { level, original }
