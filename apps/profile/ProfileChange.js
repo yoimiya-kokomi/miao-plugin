@@ -197,12 +197,12 @@ const ProfileChange = {
     let wDs = {
       name: weapon.name,
       star: weapon.star,
-      level: wCfg.level || wSource.level || weapon.maxLv || 90
+      level: Math.min(weapon.maxLv || 90, wCfg.level || wSource.level || 90)
     }
     if (wSource.level === wDs.level) {
       wDs.promote = wSource.promote
     }
-    wDs.affix = wCfg.affix || ((wDs.star === 5 && wSource.star !== 5) ? 1 : (wSource.affix || 5))
+    wDs.affix = Math.min(weapon.maxAffix || 5, wCfg.affix || ((wDs.star === 5 && wSource.star !== 5) ? 1 : (wSource.affix || 5)))
     ret.setWeapon(wDs)
 
     // 设置天赋

@@ -56,6 +56,9 @@ function checkCharacter (e) {
   }
   let name = msg.replace(/#|老婆|老公|卡片/g, '').trim()
 
+  // cache gsCfg
+  Character.gsCfg = Character.gsCfg || e?.runtime?.gsCfg
+
   let char = Character.get(name.trim())
 
   if (!char) {

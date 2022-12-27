@@ -16,8 +16,6 @@ let wifeMap = {}
 // id排序
 let idSort = {}
 
-let gsCfg
-
 async function init () {
   let { sysCfg, diyCfg } = await Data.importCfg('character')
   lodash.forEach([diyCfg.customCharacters, sysCfg.characters], (roleIds) => {
@@ -51,7 +49,6 @@ async function init () {
     })
   })
   abbrMap = sysCfg.abbr
-  gsCfg = await Data.importDefault('plugins/genshin/model/gsCfg.js', 'root')
 }
 
 await init()
@@ -72,7 +69,7 @@ const CharId = {
   abbrMap,
   wifeMap,
   idSort,
-  getId (ds = '') {
+  getId (ds = '', gsCfg = null) {
     if (!ds) {
       return false
     }
@@ -80,7 +77,8 @@ const CharId = {
       return { id, elem, name: idMap[id] }
     }
     if (!lodash.isObject(ds)) {
-      ds = lodash.trim(ds || '').toLowerCase()
+      let original = lodash.trim(ds || '')
+      ds = original.toLowerCase()
       // 尝试使用元素起始匹配
       let em = Format.matchElem(ds, '', true)
       if (em && aliasMap[em.name] && CharId.isTraveler(aliasMap[em.name])) {
@@ -92,7 +90,7 @@ const CharId = {
       }
       // 调用V3方法匹配
       if (gsCfg && gsCfg.getRole) {
-        let roleRet = gsCfg.getRole(ds)
+        let roleRet = gsCfg.getRole(original)
         if (roleRet.name && aliasMap[roleRet.name]) {
           return ret(aliasMap[roleRet.name])
         }

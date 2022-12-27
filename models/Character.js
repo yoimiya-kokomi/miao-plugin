@@ -203,7 +203,6 @@ class Character extends Base {
     }
     if (!this._imgs[cacheId]) {
       this._imgs[cacheId] = CharImg.getImgs(this.name, costumeCfg, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
-
     }
     let ret = this._imgs[cacheId]
     let nPath = `meta/character/${this.name}`
@@ -288,7 +287,7 @@ class Character extends Base {
 
   // 基于角色名获取Character
   static get (val) {
-    let id = CharId.getId(val)
+    let id = CharId.getId(val, Character.gsCfg)
     if (!id) {
       return false
     }

@@ -41,6 +41,15 @@ class Weapon extends Base {
     return this.getDetail()
   }
 
+  get maxLv () {
+    return this.star <= 2 ? 70 : 90
+  }
+
+  get maxAffix () {
+    let datas = this.detail?.affixData?.datas || {}
+    return (datas['0'] && datas['0'][4]) ? 5 : 1
+  }
+
   getDetail () {
     if (this._detail) {
       return this._detail

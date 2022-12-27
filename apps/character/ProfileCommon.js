@@ -51,12 +51,12 @@ export async function getTargetUid (e) {
   }
 
   try {
-    let mys = await MysApi.init(e)
+    let user = await MysApi.initUser(e)
 
-    if (!mys || !mys.uid) {
+    if (!user || !user.uid) {
       return false
     }
-    uid = mys.uid
+    uid = user.uid
     if (!uid || !uidReg.test(uid)) {
       e.reply('请先发送【#绑定+你的UID】来绑定查询目标')
       return false

@@ -26,6 +26,7 @@ export default function (step, staticStep) {
     },
     千岩长枪: {
       title: '四璃月队伍提高[atkPct]%攻击力及[cpct]%的暴击率提高',
+      buffCount: 4,
       refine: {
         atkPct: [7, 8, 9, 10, 11],
         cpct: [3, 4, 5, 6, 7]
