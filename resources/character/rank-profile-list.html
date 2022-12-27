@@ -73,11 +73,11 @@
       {{each keys key}}
       <div class="talent-item">
         <div class="talent-icon
-               {{talent[key].level > talent[key].original ? `talent-plus`:``}}
-                {{talent[key].original >= 10 ? `talent-crown`:``}}">
+               {{talent[key]?.level > talent[key]?.original ? `talent-plus`:``}}
+                {{talent[key]?.original >= 10 ? `talent-crown`:``}}">
           <div class="talent-icon-img"
                style="background-image:url({{_res_path}}{{ds.imgs[key]}})"></div>
-          <span>{{talent[key].level}}</span>
+          <span>{{talent[key]?.level}}</span>
         </div>
       </div>
       {{/each}}
