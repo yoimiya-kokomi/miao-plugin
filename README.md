@@ -26,9 +26,18 @@ git clone https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugi
 
 ## Yunzai版本与支持
 
+### V3-Yunzai
+
+目前V3-Yunzai已基本重构完毕，具体可参见 [Yunzai-V3](https://github.com/Le-niao/Yunzai-Bot) ，miao-plugin已经支持V3版本Yunzai，可直接使用。
+
+推荐直接使用V3-Yunzai搭配miao-plugin使用。（不能做V2钉子户——喵佬）
+
+[issue#13](https://github.com/yoimiya-kokomi/miao-plugin/issues/74) : 如启动时报 Cannot find package 'image-size'
+的错误，直接在yunzai根目录下`pnpm add image-size -w` 或使用cnpm、npm等包管理工具安装image-size库即可
+
 ### V2-Yunzai
 
-在V3整体稳定前，推荐使用V2版Yunzai安装miao-plugin。 由于官方Yunzai已经停止更新，可使用喵喵版V2-Yunzai
+miao-plugin仍支持使用V2版Yunzai安装miao-plugin。 由于官方Yunzai已经停止更新，可使用喵喵版V2-Yunzai
 
 在Yunzai根目录夹打开终端，运行
 
@@ -43,15 +52,6 @@ git remote set-url origin https://github.com/yoimiya-kokomi/Yunzai-Bot
 即可切换Yunzai远程仓库地址，运行git pull拉取更新即可使用喵喵版V2-Yunzai（版本>2.2.0)
 
 V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新卡池等信息
-
-### V3-Yunzai
-
-目前V3-Yunzai正在重构中，具体可参见 [Yunzai-V3](https://github.com/Le-niao/Yunzai-Bot) ，miao-plugin已经初步支持V3版本Yunzai，可直接使用。
-
-由于miao-plugin对V3-Yunzai正在适配中，部分功能可能尚未适配或工作不正常，如遇问题可通过issue提报
-
-[issue#13](https://github.com/yoimiya-kokomi/miao-plugin/issues/74) : 如启动时报 Cannot find package 'image-size'
-的错误，直接在yunzai根目录下`pnpm add image-size -w` 或使用cnpm、npm等包管理工具安装image-size库即可
 
 ---
 
