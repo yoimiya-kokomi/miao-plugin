@@ -65,7 +65,7 @@ export const buffs = [{
     mastery: 200
   }
 }, {
-  check: ({ cons, params }) => (cons <= 2 && params.team === true),
+  check: ({ cons, params }) => (cons <= 5 && params.team === true),
   title: '精1终末0命温迪：增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
   data: {
     atkPct: 20,
