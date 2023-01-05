@@ -28,6 +28,12 @@ export const details = [{
   }
   
   export const buffs = [{
+    check: ({ params }) => params.team === true,
+    title: '双水共鸣：获得[hpPct]%生命值',
+    data: {
+      hpPct: 25
+    }
+  },{
     title: '蝶引来生：开E获得[atkPlus]点攻击力加成',
     data: {
       atkPlus: ({ talent, attr, calc }) => {
