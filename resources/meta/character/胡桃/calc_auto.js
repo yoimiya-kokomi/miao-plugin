@@ -20,7 +20,7 @@ export const details = [{
     dmg: ({ talent, attr }, dmg) => dmg(talent.q['低血量时技能伤害'], 'q', 'vaporize')
   }]
   
-  export const defDmgIdx = 1
+  export const defDmgIdx = 2
   export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
   
   export const defParams = {
