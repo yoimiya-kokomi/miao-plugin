@@ -57,7 +57,7 @@ export const buffs = [{
     eDef: 60
   }
 }, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
+  check: ({ cons, params }) => ((cons == 6) && params.team === true),
   title: '精5终末6命温迪：增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
   data: {
     atkPct: 40,
@@ -65,7 +65,7 @@ export const buffs = [{
     mastery: 200
   }
 }, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true),
+  check: ({ cons, params }) => (cons <= 5 && params.team === true),
   title: '精1终末0命温迪：增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
   data: {
     atkPct: 20,
