@@ -28,8 +28,13 @@ export async function groupRank (e) {
       return false
     }
   }
+  let groupCfg = await ProfileRank.getGroupCfg(groupId)
   if (!groupRank) {
-    e.reply('群面板排名功能已禁用...')
+    e.reply('群面板排名功能已禁用，主人可通过【#喵喵设置】启用...')
+    return true
+  }
+  if (groupCfg.status === 1) {
+    e.reply('本群已关闭群排名，主人可通过【#启用排名】启用...')
     return true
   }
   if (type === 'detail') {
@@ -127,6 +132,24 @@ export async function refreshRank (e) {
     }
   }
   e.reply(`本群排名已刷新，共刷新${count}个UID数据...`)
+}
+
+export async function manageRank (e) {
+  let groupId = e.group_id
+  if (!groupId) {
+    return true
+  }
+  let isClose = /(关闭|禁用)/.test(e.msg)
+  if (!e.isMaster) {
+    e.reply(`只有管理员可${isClose ? '禁用' : '启用'}排名...`)
+    return true
+  }
+  await ProfileRank.setGroupStatus(groupId, isClose ? 1 : 0)
+  if (isClose) {
+    e.reply('当前群排名功能已禁用...')
+  } else {
+    e.reply('当前群排名功能已启用...\n如数据有问题可通过【#刷新排名】命令来刷新当前群内排名')
+  }
 }
 
 async function renderCharRankList ({ e, uids, char, mode, groupId }) {

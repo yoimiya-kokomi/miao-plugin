@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import moment from 'moment'
-import { Common } from '../components/index.js'
+import { Common, Data } from '../components/index.js'
 
 export default class ProfileRank {
   constructor (data) {
@@ -185,22 +185,29 @@ export default class ProfileRank {
       5: '绑定CK，或列表有16个角色数据且包含安柏&凯亚&丽莎'
     }
     let rankLimit = Common.cfg('groupRankLimit') * 1 || 1
-    let ret = {
+    let ret = await Data.redisGet(`miao:rank:${groupId}:cfg`, {
       timestamp: (new Date()) * 1,
       status: 0
-    }
-    try {
-      let cfg = await redis.get(`miao:rank:${groupId}:cfg`)
-      if (!cfg) {
-        await redis.set(`miao:rank:${groupId}:cfg`, JSON.stringify(ret), { EX: 3600 * 24 * 365 })
-      } else {
-        ret = JSON.parse(cfg)
-      }
-    } catch (e) {
-    }
+    })
+    await Data.redisSet(`miao:rank:${groupId}:cfg`, ret, 3600 * 24 * 365)
     ret.limitTxt = rankLimitTxt[rankLimit]
     ret.time = moment(new Date(ret.timestamp)).format('MM-DD HH:mm')
     return ret
+  }
+
+  /**
+   * 设置群开关状态
+   * @param groupId
+   * @param status：0开启，1关闭
+   * @returns {Promise<void>}
+   */
+  static async setGroupStatus (groupId, status = 0) {
+    let cfg = await Data.redisGet(`miao:rank:${groupId}:cfg`, {
+      timestamp: (new Date()) * 1,
+      status
+    })
+    cfg.status = status
+    await Data.redisSet(`miao:rank:${groupId}:cfg`, cfg, 3600 * 24 * 365)
   }
 
   static async setUidInfo ({ uid, qq, profiles, uidType = 'bind' }) {

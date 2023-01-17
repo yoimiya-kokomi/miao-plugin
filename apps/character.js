@@ -3,7 +3,7 @@ import { Character } from '../models/index.js'
 import { renderAvatar } from './character/AvatarCard.js'
 import { uploadCharacterImg } from './character/ImgUpload.js'
 import { wife, wifeReg } from './character/AvatarWife.js'
-import { getOriginalPicture } from './character/ProfileUtils.js'
+import { getOriginalPicture } from './profile/ProfileUtils.js'
 
 let app = App.init({
   id: 'character',

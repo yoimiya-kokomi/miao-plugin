@@ -58,14 +58,14 @@ let Data = {
     delete data._res
     return fs.writeFileSync(`${root}/${file}`, JSON.stringify(data, null, space))
   },
-  delfile(file){
+  delfile (file) {
     try {
       fs.unlinkSync(`${_path}/${file}`)
-      return true;
+      return true
     } catch (error) {
       logger.error(`文件删除失败：${error}`)
     }
-    return false;
+    return false
   },
   async getCacheJSON (key) {
     try {
@@ -80,6 +80,22 @@ let Data = {
   },
 
   async setCacheJSON (key, data, EX = 3600 * 24 * 90) {
+    await redis.set(key, JSON.stringify(data), { EX })
+  },
+
+  async redisGet (key, def = {}) {
+    try {
+      let txt = await redis.get(key)
+      if (txt) {
+        return JSON.parse(txt)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+    return def
+  },
+
+  async redisSet (key, data, EX = 3600 * 24 * 90) {
     await redis.set(key, JSON.stringify(data), { EX })
   },
 

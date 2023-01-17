@@ -36,8 +36,8 @@ export async function profileList (e) {
   if (groupId) {
     rank = await ProfileRank.create({ groupId, uid, qq: e.user_id })
   }
-  const groupRank = rank && (cfg?.diyCfg?.groupRank || false)
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
+  const groupRank = rank && (cfg?.diyCfg?.groupRank || false) && rankCfg.status !== 1
   await Profile.forEach(uid, async function (profile) {
     if (!profile.hasData) {
       return true

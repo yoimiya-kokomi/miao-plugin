@@ -1,14 +1,14 @@
 import { Common, App, Data } from '../components/index.js'
 import { Character } from '../models/index.js'
-import { getTargetUid, getProfile, profileHelp } from './character/ProfileCommon.js'
-import { profileArtis, profileArtisList } from './character/ProfileArtis.js'
-import { renderProfile } from './character/ProfileDetail.js'
-import { profileStat } from './character/ProfileStat.js'
-import { profileList } from './character/ProfileList.js'
+import { getTargetUid, getProfile, profileHelp } from './profile/ProfileCommon.js'
+import { profileArtis, profileArtisList } from './profile/ProfileArtis.js'
+import { renderProfile } from './profile/ProfileDetail.js'
+import { profileStat } from './profile/ProfileStat.js'
+import { profileList } from './profile/ProfileList.js'
 import { uploadCharacterImg, delProfileImg, profileImgList } from './character/ImgUpload.js'
-import { enemyLv } from './character/ProfileUtils.js'
+import { enemyLv } from './profile/ProfileUtils.js'
 import ProfileChange from './profile/ProfileChange.js'
-import { groupRank, resetRank, refreshRank } from './character/ProfileRank.js'
+import { groupRank, resetRank, refreshRank, manageRank } from './profile/ProfileRank.js'
 
 let app = App.init({
   id: 'profile',
@@ -36,6 +36,11 @@ app.reg('reset-rank', resetRank, {
 app.reg('refresh-rank', refreshRank, {
   rule: /^#(刷新|更新|重新加载)(群内|群|全部)*(排名|排行)$/,
   name: '重置排名'
+})
+
+app.reg('manage-rank', manageRank, {
+  rule: /^#(开启|打开|启用|关闭|禁用)(群内|群|全部)*(排名|排行)$/,
+  name: '打开关闭'
 })
 
 app.reg('rank-list', groupRank, {

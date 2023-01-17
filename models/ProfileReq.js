@@ -24,8 +24,8 @@ export default class ProfileReq extends Base {
     if (!ext || isNaN(ext)) {
       return false
     }
-    let cd = new Date() * 1 - ext
-    if (cd < 0) {
+    let cd = (new Date() * 1) - ext
+    if (cd < 0 && Math.abs(cd) < 100 * 60 * 1000) {
       return Math.ceil(0 - cd / 1000)
     }
     return false

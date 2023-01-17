@@ -191,6 +191,11 @@ let Cal = {
     return ret
   },
 
+  /**
+   * 获取角色数据
+   * @param dateList
+   * @returns {{charBirth: {}, charNum: number, charTalent: (*|{})}}
+   */
   getCharData (dateList) {
     let charBirth = {}
     let charTalent = {}
@@ -235,6 +240,18 @@ let Cal = {
     return { charBirth, charNum, charTalent }
   },
 
+  /**
+   * 获取日历列表
+   * @param ds
+   * @param target
+   * @param startTime
+   * @param endTime
+   * @param totalRange
+   * @param now
+   * @param timeMap
+   * @param isAct
+   * @returns {boolean}
+   */
   getList (ds, target, { startTime, endTime, totalRange, now, timeMap = {} }, isAct = false) {
     let type = isAct ? 'activity' : 'normal'
     let id = ds.ann_id
@@ -297,22 +314,23 @@ let Cal = {
     } else if (isAct) {
       label = sDate.format('MM-DD HH:mm') + ' ~ ' + eDate.format('MM-DD HH:mm')
     }
-
-    target.push({
-      ...extra,
-      id,
-      title,
-      type,
-      mergeStatus: ['activity', 'normal'].includes(type) ? 1 : 0,
-      banner,
-      icon: ds.tag_icon,
-      left,
-      width,
-      label,
-      duration: eTime - sTime,
-      start: sDate.format('MM-DD HH:mm'),
-      end: eDate.format('MM-DD HH:mm')
-    })
+    if (sDate <= endTime && eDate >= startTime) {
+      target.push({
+        ...extra,
+        id,
+        title,
+        type,
+        mergeStatus: ['activity', 'normal'].includes(type) ? 1 : 0,
+        banner,
+        icon: ds.tag_icon,
+        left,
+        width,
+        label,
+        duration: eTime - sTime,
+        start: sDate.format('MM-DD HH:mm'),
+        end: eDate.format('MM-DD HH:mm')
+      })
+    }
   },
 
   async get () {

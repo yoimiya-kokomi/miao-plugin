@@ -1,3 +1,6 @@
+/**
+ * 面板数据替换相关逻辑
+ */
 import lodash from 'lodash'
 import { Profile, Data } from '../../components/index.js'
 import { Character, ProfileData, Weapon } from '../../models/index.js'
@@ -18,7 +21,7 @@ lodash.forEach(keyMap, (val, key) => {
   })
 })
 const keyReg = new RegExp(`^(\\d{9})?\\s*(.+?)\\s*(\\d{9})?\\s*((?:${lodash.keys(keyTitleMap).join('|')}|\\+)+)$`)
-
+// 默认武器
 let defWeapon = {
   bow: '西风猎弓',
   catalyst: '西风秘典',
@@ -140,12 +143,17 @@ const ProfileChange = {
   },
 
   /**
-   *
+   * 获取面板数据
+   * @param uid
+   * @param charid
+   * @param ds
+   * @returns {ProfileData|boolean}
    */
   getProfile (uid, charid, ds) {
     if (!charid) {
       return false
     }
+
     let source = Profile.get(uid, charid)
     let dc = ds.char || {}
     if (!source || !source.hasData) {
