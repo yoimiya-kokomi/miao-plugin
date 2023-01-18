@@ -140,4 +140,4 @@ async function down (t, n) {
 }
 
 // 'sword', 'claymore', 'polearm', 'bow', 'catalyst'
-await down('sword', '裁叶萃光')
+await down('claymore', '苇海信标')
