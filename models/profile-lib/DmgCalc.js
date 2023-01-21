@@ -89,7 +89,7 @@ let DmgCalc = {
     // 反应区
     let eleNum = isEle ? DmgMastery.getBasePct(ele, attr.element) : 1
     let eleBase = isEle ? 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, calc(attr.mastery)) : 1
-    let dmgBase = (mode === 'basic') ? basicNum : atkNum * pctNum * (1 + multiNum) + plusNum
+    let dmgBase = (mode === 'basic') ? basicNum + plusNum : atkNum * pctNum * (1 + multiNum) + plusNum
     let ret = {}
 
     switch (ele) {
