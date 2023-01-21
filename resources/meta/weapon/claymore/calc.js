@@ -141,6 +141,24 @@ export default function (step, staticStep) {
       data: {
         atkPlus: ({ attr, calc, refine }) => step(24)[refine] * calc(attr.mastery) / 100
       }
-    }
+    },
+    饰铁之花: {
+      title: '元素战技或触发元素反应提高[atkPct]%攻击力，[mastery]点元素精通',
+      refine: {
+        atkPct: step(12),
+        mastery: step(48)
+      }
+    },
+    苇海信标: [{
+      title: '元素战技命中敌人并受伤害后提升攻击力[atkPct]%',
+      refine: {
+        atkPct: step(40)
+      }
+    }, {
+      title: '不处于护盾下时，提高[hpPct]%生命值',
+      refine: {
+        hpPct: step(32)
+      }
+    }]
   }
 }

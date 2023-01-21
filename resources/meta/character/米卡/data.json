@@ -1,0 +1,45 @@
+{
+  "id": 10000080,
+  "name": "米卡",
+  "abbr": "米卡",
+  "title": "晴霜的标绘",
+  "star": 4,
+  "elem": "cryo",
+  "allegiance": "？？？",
+  "weapon": "polearm",
+  "birth": "1-1",
+  "astro": "林鸽座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 12506,
+    "atk": 169.92,
+    "def": 593.79
+  },
+  "growAttr": {
+    "key": "hpPct",
+    "value": 24
+  },
+  "talentKey": {
+    "8031": "a",
+    "8032": "e",
+    "8039": "q"
+  },
+  "talentId": {},
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  },
+  "materials": {
+    "gem": "哀叙冰玉",
+    "boss": "苍砾蕊羽",
+    "specialty": "钩钩果",
+    "normal": "尉官的徽记",
+    "talent": "「诗文」的哲学",
+    "weekly": "无心的渊镜"
+  },
+  "eta": 1677636000000
+}

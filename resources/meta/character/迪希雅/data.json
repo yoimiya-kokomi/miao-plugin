@@ -1,0 +1,45 @@
+{
+  "id": 10000079,
+  "name": "迪希雅",
+  "abbr": "迪希雅",
+  "title": "炽鬃之狮",
+  "star": 5,
+  "elem": "pyro",
+  "allegiance": "？？？",
+  "weapon": "claymore",
+  "birth": "1-1",
+  "astro": "蝎尾鬃狮座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 15675,
+    "atk": 265.49,
+    "def": 627.91
+  },
+  "growAttr": {
+    "key": "hpPct",
+    "value": 28.8
+  },
+  "talentKey": {
+    "7931": "a",
+    "7932": "e",
+    "7939": "q"
+  },
+  "talentId": {},
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  },
+  "materials": {
+    "gem": "燃愿玛瑙",
+    "boss": "导光四面体",
+    "specialty": "沙脂蛹",
+    "normal": "织金红绸",
+    "talent": "「笃行」的哲学",
+    "weekly": "傀儡的悬丝"
+  },
+  "eta": 1677636000000
+}

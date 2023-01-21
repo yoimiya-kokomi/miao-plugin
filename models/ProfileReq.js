@@ -33,7 +33,7 @@ export default class ProfileReq extends Base {
 
   err (msg = '', cd = 0) {
     const msgs = {
-      error: '请求失败，可能是服务负载较高，请稍后重试...',
+      error: '请求失败，可能是面板服务升级维护或遇到故障，请稍后重试...',
       empty: '请将角色放置在【游戏内】角色展柜，并打开【显示详情】，等待5分钟重新获取面板'
     }
     msg = msgs[msg] || msg

@@ -12,7 +12,9 @@
   "desc": "稻妻「社奉行」神里家的大小姐。端庄而文雅，聪慧又坚韧。",
   "cncv": "小N",
   "jpcv": "早见沙织",
-  "costume": false,
+  "costume": [
+    200201
+  ],
   "ver": 1,
   "baseAttr": {
     "hp": 12858,
