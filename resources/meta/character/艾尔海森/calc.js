@@ -16,7 +16,7 @@ title: '3枚光幕单段伤害',
     const td = talent.e['1枚光幕攻击伤害2']
     const em = calc(attr.mastery)
     const atk = calc(attr.atk)
-    return basic(td[0] * 0.5558 * atk / 100 + td[1] * 0.5558 * em / 100, 'e')
+    return basic(td[0]  * atk / 100 + td[1]  * em / 100, 'e')
   }
 }, {
   title: '3枚光幕单段激化伤害',
@@ -24,7 +24,7 @@ title: '3枚光幕单段伤害',
     const td = talent.e['1枚光幕攻击伤害2']
     const em = calc(attr.mastery)
     const atk = calc(attr.atk)
-    return basic(td[0] * 0.5558 * atk / 100 + td[1] * 0.5558 * em / 100, 'e', 'spread')
+    return basic(td[0]  * atk / 100 + td[1]  * em / 100, 'e', 'spread')
   }
 }, {
   title: 'Q激化总伤-4段',
@@ -67,14 +67,14 @@ export const defParams = {
 export const buffs = [ {
   title: '艾尔海森被动：基于元素精通提升EQ伤害[eDmg]%',
   data: {
-    eDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery) ) * 0.12),
-    qDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery) ) * 0.12),
+    eDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery) ) * 0.1),
+    qDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery) ) * 0.1),
   }
 },{
-  title: '艾尔海森二命：每1枚产生的琢光镜将使元素精通提升40点，默认3层',
+  title: '艾尔海森二命：每1枚产生的琢光镜将使元素精通提升50点，默认3层',
   cons: 2,
   data: {
-    mastery: 120
+    mastery: 150
   }
 },{check: ({ params }) => params.q === false,
   title: '艾尔海森四命：每1枚产生的琢光镜将使草元素伤害提升10%，默认3层,不加成Q',

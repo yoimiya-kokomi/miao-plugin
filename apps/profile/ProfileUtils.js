@@ -24,7 +24,7 @@ export async function getOriginalPicture (e) {
   if (source) {
     let imgPath = await redis.get(`miao:original-picture:${source.message_id}`)
     if (imgPath) {
-      e.reply([segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + decodeURIComponent(imgPath))])
+      e.reply([segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + decodeURIComponent(imgPath))], false, { recallMsg: 30 })
       return true
     }
     if (source.time) {
