@@ -151,7 +151,7 @@ export default class ProfileRank {
    * @returns {Promise<ConvertArgumentType<ZMember, string>[]|boolean>}
    */
   static async getGroupUidList (groupId, charId, type = 'mark') {
-    let uids = await redis.zRangeWithScores(`miao:rank:${groupId}:${type}:${charId}`, -15, -1)
+    let uids = await redis.zRangeWithScores(`miao:rank:${groupId}:${type}:${charId}`, -20, -1)
     return uids ? uids.reverse() : false
   }
 
