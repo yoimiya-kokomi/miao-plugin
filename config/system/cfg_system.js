@@ -40,7 +40,14 @@ export const cfgSchema = {
         key: '深渊',
         def: false,
         oldCfgKey: 'wiki.abyss',
-        desc: '使用【#上传深渊】功能取代【#深渊功能】,默认关闭'
+        desc: '使用【#上传深渊】功能取代【#深渊】功能,默认关闭'
+      },
+      profileStat: {
+        title: '面板练度统计',
+        key: '练度统计',
+        def: false,
+        oldCfgKey: 'profile.stat',
+        desc: '使用【#面板练度统计】功能取代【#练度统计】功能,默认关闭'
       },
       avatarWife: {
         title: '老婆查询',

@@ -1,8 +1,12 @@
 import lodash from 'lodash'
-import { Common, Data } from '../../components/index.js'
+import {Cfg, Common, Data } from '../../components/index.js'
 import { AvatarList, ProfileRank } from '../../models/index.js'
 
 export async function profileStat (e) {
+  let isMatch = /^#(喵喵|面板)练度统计?$/.test(e.original_msg || e.msg || '')
+  if (!Cfg.get('profileStat', false) && !isMatch) {
+    return false
+}
   // 缓存时间，单位小时
 
   let msg = e.msg.replace('#', '').trim()

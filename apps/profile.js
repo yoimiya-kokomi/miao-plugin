@@ -60,7 +60,7 @@ app.reg('profile-list', profileList, {
 })
 
 app.reg('profile-stat', profileStat, {
-  rule: /^#面板练度统计$/,
+  rule: /^#(面板|喵喵)?练度统计$/,
   name: '面板练度统计$'
 })
 
