@@ -3,7 +3,7 @@ import {Cfg, Common, Data } from '../../components/index.js'
 import { AvatarList, ProfileRank } from '../../models/index.js'
 
 export async function profileStat (e) {
-  let isMatch = /^#(喵喵|面板)练度统计?$/.test(e.original_msg || e.msg || '')
+  let isMatch = /^#*(我的)*(技能|天赋|武器|角色|练度|面板|喵喵)+(汇总|统计|列表)?$/.test(e.original_msg || e.msg || '')
   if (!Cfg.get('profileStat', false) && !isMatch) {
     return false
 }
