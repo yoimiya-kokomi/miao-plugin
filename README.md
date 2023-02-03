@@ -90,6 +90,8 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 
 ---
 
+**在有一定阅读理解能力基础下，建议阅读 [CHANGELOG.md](https://github.com/yoimiya-kokomi/miao-plugin/blob/master/CHANGELOG.md) 以了解更多内容。**
+
 其余文档咕咕咕中
 
 ---
@@ -97,7 +99,7 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 # 免责声明
 
 1. 功能仅限内部交流与小范围使用，请勿将Yunzai-Bot及Miao-Plugin用于以盈利为目的的场景
-3. 图片与其他素材均来自于网络，仅供交流学习使用，如有侵权请联系，会立即删除
+2. 图片与其他素材均来自于网络，仅供交流学习使用，如有侵权请联系，会立即删除
 
 # 其他
 
