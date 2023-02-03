@@ -90,7 +90,7 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 
 ---
 
-**在有一定阅读理解能力基础下，建议阅读 [CHANGELOG.md](https://github.com/yoimiya-kokomi/miao-plugin/blob/master/CHANGELOG.md) 以了解更多内容。**
+**在有一定阅读理解能力基础下，建议阅读 [CHANGELOG.md](CHANGELOG.md) 以了解更多内容。**
 
 其余文档咕咕咕中
 
