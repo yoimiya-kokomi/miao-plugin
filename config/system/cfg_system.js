@@ -49,6 +49,14 @@ export const cfgSchema = {
         oldCfgKey: 'profile.stat',
         desc: '使用【#面板练度统计】功能取代【#练度统计】功能,默认关闭'
       },
+      rankNumber: {
+        title: '排行人数',
+        key: '排行人数',
+        type: 'num',
+        def: 15,
+        input: (n) => Math.min(30, Math.max(5, (n * 1 || 15))),
+        desc: '可选值5~30，建议15。设置高排行人数会导致渲染图片速度加长，发送缓慢'
+      },
       avatarWife: {
         title: '老婆查询',
         key: '老婆',

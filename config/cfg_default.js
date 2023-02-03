@@ -14,6 +14,9 @@ export const uploadAbyssData = false
 // 使用【#面板练度统计】功能取代【#练度统计】功能,默认关闭
 export const profileStat = false
 
+// 可选值5~30，建议15。设置高排行人数会导致渲染图片速度加长，发送缓慢
+export const rankNumber = 15
+
 // 老婆查询
 export const avatarWife = true
 
