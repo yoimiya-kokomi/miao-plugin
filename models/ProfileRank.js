@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import moment from 'moment'
-import { Common, Data } from '../components/index.js'
+import { Cfg, Common, Data, } from '../components/index.js'
 
 export default class ProfileRank {
   constructor (data) {
@@ -151,7 +151,8 @@ export default class ProfileRank {
    * @returns {Promise<ConvertArgumentType<ZMember, string>[]|boolean>}
    */
   static async getGroupUidList (groupId, charId, type = 'mark') {
-    let uids = await redis.zRangeWithScores(`miao:rank:${groupId}:${type}:${charId}`, -20, -1)
+    let number = Cfg.get('rankNumber', 15)
+    let uids = await redis.zRangeWithScores(`miao:rank:${groupId}:${type}:${charId}`, -`${number}`, -1)
     return uids ? uids.reverse() : false
   }
 
