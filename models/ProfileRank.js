@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import moment from 'moment'
-import { Cfg, Common, Data, } from '../components/index.js'
+import { Cfg, Common, Data } from '../components/index.js'
 
 export default class ProfileRank {
   constructor (data) {
@@ -193,6 +193,7 @@ export default class ProfileRank {
     await Data.redisSet(`miao:rank:${groupId}:cfg`, ret, 3600 * 24 * 365)
     ret.limitTxt = rankLimitTxt[rankLimit]
     ret.time = moment(new Date(ret.timestamp)).format('MM-DD HH:mm')
+    ret.number = Cfg.get('rankNumber', 15)
     return ret
   }
 
