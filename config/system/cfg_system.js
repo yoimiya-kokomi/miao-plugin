@@ -35,6 +35,14 @@ export const cfgSchema = {
         type: 'num',
         desc: '参与排名的限制条件：1:无限制 2:有CK 3:有16个角色或有CK 4:有御三家(安柏&凯亚&丽莎)或有CK 5:有16个角色+御三家或有CK。 若改变设置请根据情况决定是否需要【#重置排名】'
       },
+      rankNumber: {
+        title: '排名人数',
+        key: '排名人数',
+        type: 'num',
+        def: 15,
+        input: (n) => Math.min(30, Math.max(5, (n * 1 || 15))),
+        desc: '可选值5~30，建议15。设置高排名人数会导致渲染图片速度加长，发送缓慢'
+      },
       uploadAbyssData: {
         title: '上传深渊',
         key: '深渊',
@@ -48,14 +56,6 @@ export const cfgSchema = {
         def: false,
         oldCfgKey: 'profile.stat',
         desc: '使用【#面板练度统计】功能取代【#练度统计】功能,默认关闭'
-      },
-      rankNumber: {
-        title: '排行人数',
-        key: '排行人数',
-        type: 'num',
-        def: 15,
-        input: (n) => Math.min(30, Math.max(5, (n * 1 || 15))),
-        desc: '可选值5~30，建议15。设置高排行人数会导致渲染图片速度加长，发送缓慢'
       },
       avatarWife: {
         title: '老婆查询',
