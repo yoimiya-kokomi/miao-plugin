@@ -41,7 +41,15 @@ export const cfgSchema = {
         type: 'num',
         def: 15,
         input: (n) => Math.min(30, Math.max(5, (n * 1 || 15))),
-        desc: '可选值5~30，建议15。设置高排名人数会导致渲染图片速度加长，发送缓慢'
+        desc: '可选值5~30，建议15。设置高排名人数会提高图片的长度，图片较大可能会影响渲染与发送速度'
+      },
+      artisNumber: {
+        title: '圣遗物列表数量',
+        key: '圣遗物数量',
+        type: 'num',
+        def: 28,
+        input: (n) => Math.min(100, Math.max(4, (n * 1 || 28))),
+        desc: '可选值4~100，建议28，最终圣遗物数量取决于面板内圣遗物数量。设置高圣遗物数量会提高图片的长度，图片较大可能会影响渲染与发送速度'
       },
       uploadAbyssData: {
         title: '上传深渊',
