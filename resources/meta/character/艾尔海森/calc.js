@@ -1,8 +1,8 @@
 export const details = [{
-  title: '附魔普攻第一段激化伤害',
+  title: 'E普攻第一段激化',
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', '超激化')
-},{
-  title: 'E突进激化伤害',
+}, {
+  title: 'E突进激化',
   params: { e: true, q: false },
   dmg: ({ talent, calc, attr }, { basic }) => {
     const td = talent.e['突进攻击伤害2']
@@ -11,20 +11,20 @@ export const details = [{
     return basic(td[0] * atk / 100 + td[1] * em / 100, 'e', 'spread')
   }
 }, {
-title: '3枚光幕单段伤害',
+  title: '3枚光幕单段',
   dmg: ({ talent, calc, attr }, { basic }) => {
     const td = talent.e['1枚光幕攻击伤害2']
     const em = calc(attr.mastery)
     const atk = calc(attr.atk)
-    return basic(td[0]  * atk / 100 + td[1]  * em / 100, 'e')
+    return basic(td[0] * atk / 100 + td[1] * em / 100, 'e')
   }
 }, {
-  title: '3枚光幕单段激化伤害',
+  title: '3枚光幕单段激化',
   dmg: ({ talent, calc, attr }, { basic }) => {
     const td = talent.e['1枚光幕攻击伤害2']
     const em = calc(attr.mastery)
     const atk = calc(attr.atk)
-    return basic(td[0]  * atk / 100 + td[1]  * em / 100, 'e', 'spread')
+    return basic(td[0] * atk / 100 + td[1] * em / 100, 'e', 'spread')
   }
 }, {
   title: 'Q激化总伤-4段',
@@ -60,33 +60,35 @@ export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const defParams = {
-    q: false,
-    e:true
+  q: false,
+  e: true
 }
 
-export const buffs = [ {
+export const buffs = [{
   title: '艾尔海森被动：基于元素精通提升EQ伤害[eDmg]%',
   data: {
-    eDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery) ) * 0.1),
-    qDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery) ) * 0.1),
+    eDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery)) * 0.1),
+    qDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery)) * 0.1)
   }
-},{
-  title: '艾尔海森二命：每1枚产生的琢光镜将使元素精通提升50点，默认3层',
+}, {
+  title: '海森2命：每1枚产生的琢光镜将使元素精通提升50点，默认3层',
   cons: 2,
   data: {
     mastery: 150
   }
-},{check: ({ params }) => params.q === false,
-  title: '艾尔海森四命：每1枚产生的琢光镜将使草元素伤害提升10%，默认3层,不加成Q',
+}, {
+  check: ({ params }) => params.q === false,
+  title: '海森4命：每1枚产生的琢光镜将使草元素伤害提升10%，默认3层,不加成Q',
   cons: 4,
   data: {
     dmg: 30
   }
-},{check: ({ params }) => params.q === false,
+}, {
+  check: ({ params }) => params.q === false,
   title: '艾尔海森六命：暴击率提升10%，暴击伤害提升70%,不加成Q',
   cons: 6,
   data: {
     cpct: 10,
-    cdmg:70
+    cdmg: 70
   }
 }]
