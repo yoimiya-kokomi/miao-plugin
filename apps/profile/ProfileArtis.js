@@ -3,7 +3,7 @@
 *
 * */
 import lodash from 'lodash'
-import { Profile, Common } from '../../components/index.js'
+import { Cfg, Profile, Common } from '../../components/index.js'
 import { getTargetUid, profileHelp, autoGetProfile } from './ProfileCommon.js'
 import { Artifact, Character, ProfileArtis } from '../../models/index.js'
 
@@ -93,7 +93,8 @@ export async function profileArtisList (e) {
   }
   artis = lodash.sortBy(artis, '_mark')
   artis = artis.reverse()
-  artis = artis.slice(0, 28)
+  let number = Cfg.get('artisNumber', 28)
+  artis = artis.slice(0, `${number}`)
   let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
 
   // 渲染图像
