@@ -36,8 +36,8 @@ export const cfgSchema = {
         desc: '参与排名的限制条件：1:无限制 2:有CK 3:有16个角色或有CK 4:有御三家(安柏&凯亚&丽莎)或有CK 5:有16个角色+御三家或有CK。 若改变设置请根据情况决定是否需要【#重置排名】'
       },
       rankNumber: {
-        title: '排名人数',
-        key: '排名人数',
+        title: '排行人数',
+        key: '排行人数',
         type: 'num',
         def: 15,
         input: (n) => Math.min(30, Math.max(5, (n * 1 || 15))),
