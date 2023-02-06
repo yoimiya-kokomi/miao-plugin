@@ -1,32 +1,28 @@
 export const cfgSchema = {
-  char: {
-    title: '玩家&老婆卡片展示',
+  profile: {
+    title: '角色面板相关设置',
     cfg: {
-      avatarCard: {
-        title: '角色查询',
-        key: '角色',
-        def: true,
-        desc: '使用喵喵版角色卡片作为默认角色卡片功能',
-        showDesc: false,
-        oldCfgKey: 'char.char'
-      },
       avatarProfile: {
         title: '面板查询',
-        key: '面板',
-        def: true,
-        oldCfgKey: 'char.profile'
+        key: '面板查询',
+        def: true
+      },
+      profileChange: {
+        title: '面板替换',
+        key: '面板替换',
+        def: true
+      },
+      profileStat: {
+        title: '面板练度统计',
+        key: '练度统计',
+        def: false,
+        desc: '使用【#面板练度统计】功能取代【#练度统计】功能，默认关闭'
       },
       groupRank: {
         title: '群面板排名',
         key: '排名',
         def: false,
         desc: '群内的面板伤害及圣遗物排名与查看功能，默认关闭。请根据群友心理素质自行决定是否开启'
-      },
-      teamCalc: {
-        title: '组队伤害',
-        key: '组队',
-        def: false,
-        desc: '组队伤害，测试阶段。开启后请重启喵喵'
       },
       groupRankLimit: {
         title: '排名限制',
@@ -43,6 +39,20 @@ export const cfgSchema = {
         input: (n) => Math.min(30, Math.max(5, (n * 1 || 15))),
         desc: '可选值5~30，建议15。设置高排名人数会提高图片的长度，图片较大可能会影响渲染与发送速度'
       },
+      profileServ: {
+        title: '面板服务',
+        key: '面板服务',
+        type: 'num',
+        def: 2,
+        input: (n) => n * 1 === 1 ? 1 : 2,
+        desc: '面板服务优先选择：1：自动（具备有效Token时优先喵喵Api，否则Enka），2：Enka服务优先'
+      },
+      teamCalc: {
+        title: '组队加成伤害',
+        key: '组队',
+        def: false,
+        desc: '伤害计算包含组队Buff。目前为测试阶段，数据可能不准确，请慎重开启。数据为固定Buff而非真实面板数据，最终计算数值可能有偏差。开启后请重启喵喵'
+      },
       artisNumber: {
         title: '圣遗物列表数量',
         key: '圣遗物数量',
@@ -50,32 +60,34 @@ export const cfgSchema = {
         def: 28,
         input: (n) => Math.min(100, Math.max(4, (n * 1 || 28))),
         desc: '可选值4~100，建议28，最终圣遗物数量取决于面板内圣遗物数量。设置高圣遗物数量会提高图片的长度，图片较大可能会影响渲染与发送速度'
+      }
+    }
+  },
+  char: {
+    title: '玩家&老婆卡片展示',
+    cfg: {
+      avatarCard: {
+        title: '角色查询',
+        key: '角色',
+        def: true,
+        desc: '使用喵喵版角色卡片作为默认角色卡片功能',
+        showDesc: false
       },
       uploadAbyssData: {
         title: '上传深渊',
         key: '深渊',
         def: false,
-        oldCfgKey: 'wiki.abyss',
         desc: '使用【#上传深渊】功能取代【#深渊】功能,默认关闭'
-      },
-      profileStat: {
-        title: '面板练度统计',
-        key: '练度统计',
-        def: false,
-        oldCfgKey: 'profile.stat',
-        desc: '使用【#面板练度统计】功能取代【#练度统计】功能,默认关闭'
       },
       avatarWife: {
         title: '老婆查询',
         key: '老婆',
-        def: true,
-        oldCfgKey: 'char.wife'
+        def: true
       },
       avatarPoke: {
         title: '戳一戳卡片',
         key: '戳一戳',
-        def: true,
-        oldCfgKey: 'char.poke'
+        def: true
       }
     }
   },
@@ -93,21 +105,23 @@ export const cfgSchema = {
         title: '角色图鉴-天赋',
         key: '天赋',
         def: true,
-        oldCfgKey: 'wiki.wiki',
         showDesc: false,
         desc: '#刻晴天赋/#刻晴命座 的天赋信息'
+      },
+      notReleasedData: {
+        title: '未实装角色数据',
+        key: '未实装',
+        def: true
       },
       charPic: {
         title: '角色图片',
         key: '图片',
-        def: true,
-        oldCfgKey: 'wiki.pic'
+        def: true
       },
       charPicSe: {
         title: '小清新角色图',
         key: '小清新',
         def: false,
-        oldCfgKey: 'char.se',
         desc: '启用后会启用角色图及增量包中的小清新图像，勇士啊，你准备好了吗'
       }
     }
@@ -121,14 +135,12 @@ export const cfgSchema = {
         type: 'num',
         def: 100,
         input: (n) => Math.min(200, Math.max(50, (n * 1 || 100))),
-        oldCfgKey: 'sys.scale',
         desc: '可选值50~200，建议100。设置高精度会提高图片的精细度，但因图片较大可能会影响渲染与发送速度'
       },
       help: {
         title: '喵喵作为默认帮助',
         key: '帮助',
         def: false,
-        oldCfgKey: 'sys.help',
         desc: '开启后将使用喵喵版帮助作为Yunzai的默认帮助，默认关闭'
       },
       commaGroup: {
@@ -137,12 +149,6 @@ export const cfgSchema = {
         def: 3,
         type: 'num',
         desc: '根据语言习惯设置数字分组，如千位组设为3，万位组设为4'
-      },
-      attrCalc: {
-        title: '面板计算属性',
-        key: '计算',
-        def: false,
-        desc: '使用基于武器&圣遗物计算的面板属性取代服务读取的面板数据，可规避双水buff等导致的一些面板数据错误。开启后部分角色属性可能会轻微变化，请根据需求开启关闭'
       }
     }
   }

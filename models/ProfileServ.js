@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Data } from '../components/index.js'
+import { Data, Cfg } from '../components/index.js'
 
 let { sysCfg, diyCfg } = await Data.importCfg('profile')
 
@@ -85,5 +85,12 @@ export default class ProfileServ extends Base {
 }
 
 ProfileServ.getServ = function ({ uid, serv }) {
-  return (diyCfg.getProfileServ || sysCfg.getProfileServ)({ uid, serv, diyCfg })
+  let { Miao, Enka } = serv
+  let token = diyCfg?.miaoApi?.token
+  let qq = diyCfg?.miaoApi?.qq
+
+  if (qq && token && token.length === 32 && !/^test/.test(token) && Cfg.get('profileServ') === 1) {
+    return Miao
+  }
+  return Enka
 }

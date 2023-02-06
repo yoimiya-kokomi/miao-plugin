@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import moment from 'moment'
-import { Data, Cfg } from '../components/index.js'
+import { Data } from '../components/index.js'
 import { Character, ProfileArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile-lib/AttrCalc.js'
 
@@ -21,7 +21,7 @@ export default class ProfileData extends Base {
     ds.talent && this.setTalent(ds.talent)
     this.artis = new ProfileArtis(this.id, this.elem)
     ds.artis && this.setArtis(ds.artis)
-    if (attrCalc && Cfg.get('attrCalc') && this.hasData) {
+    if (attrCalc && this.hasData) {
       this.calcAttr()
     }
   }
@@ -37,7 +37,6 @@ export default class ProfileData extends Base {
   calcAttr () {
     this._attr = AttrCalc.create(this)
     this.attr = this._attr.calc()
-    this._attrCalc = true
   }
 
   setBasic (ds = {}) {

@@ -1,4 +1,4 @@
-import { Common, App, Data } from '../components/index.js'
+import { Common, App, Data, Cfg } from '../components/index.js'
 import { Character } from '../models/index.js'
 import { getTargetUid, getProfile, profileHelp } from './profile/ProfileCommon.js'
 import { profileArtis, profileArtisList } from './profile/ProfileArtis.js'
@@ -125,6 +125,10 @@ export async function profileDetail (e) {
   let changeMsg = msg
   let pc = ProfileChange.matchMsg(msg)
   if (pc && pc.char && pc.change) {
+    if (!Cfg.get('profileChange')) {
+      e.reply('面板替换功能已禁用...')
+      return true
+    }
     e.uid = pc.uid || e.runtime.uid
     profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change)
     if (profileChange && profileChange.char) {
@@ -183,9 +187,14 @@ export async function profileDetail (e) {
     e.reply('自定义角色暂不支持此功能')
     return true
   }
-  if (!char.isRelease && !profileChange) {
-    e.reply('角色尚未实装')
-    return true
+  if (!char.isRelease) {
+    if (!profileChange) {
+      e.reply('角色尚未实装')
+      return true
+    } else if (Cfg.get('notReleasedData') === false) {
+      e.reply('未实装角色面板已禁用...')
+      return true
+    }
   }
 
   if (mode === 'profile' || mode === 'dmg') {

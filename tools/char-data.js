@@ -275,4 +275,4 @@ let eta = {
   迪希雅: '2023-03-01',
   米卡: '2023-03-01'
 }
-await down('丽莎', true)
+await down('迪希雅,米卡', true)

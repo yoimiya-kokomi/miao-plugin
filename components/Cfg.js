@@ -7,15 +7,8 @@ const _cfgPath = `${_path}/plugins/miao-plugin/components/`
 let cfg = {}
 
 try {
-  if (fs.existsSync(_cfgPath + 'cfg.json')) {
-    cfg = await cfgData.loadOldData()
-    cfgData.saveCfg(cfg)
-    fs.unlinkSync(_cfgPath + 'cfg.json')
-  } else {
-    cfg = await cfgData.getCfg()
-    cfgData.saveCfg(cfg)
-  }
   cfg = await cfgData.getCfg()
+  cfgData.saveCfg(cfg)
 } catch (e) {
   // do nth
 }

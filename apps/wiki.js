@@ -81,6 +81,10 @@ async function wiki (e) {
     e.reply('暂不支持自定义角色')
     return true
   }
+  if (!char.isRelease && Cfg.get('notReleasedData') === false) {
+    e.reply('未实装角色资料已禁用...')
+    return true
+  }
   let lvs = []
   for (let i = 1; i <= 15; i++) {
     lvs.push('Lv' + i)

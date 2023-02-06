@@ -97,10 +97,10 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
   let imgs = char.getImgs(profile.costume)
   // 渲染图像
-  let msgRes =  await Common.render('character/profile-detail', {
+  let msgRes = await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
-    data: avatar.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime,_attrCalc'),
+    data: avatar.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime'),
     attr,
     elem: char.elem,
     dmgData,

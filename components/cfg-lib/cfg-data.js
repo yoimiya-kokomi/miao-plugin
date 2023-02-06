@@ -4,23 +4,6 @@ import { Data } from '../index.js'
 import fs from 'node:fs'
 
 let cfgData = {
-  async loadOldData () {
-    const _path = process.cwd()
-    const _cfgPath = `${_path}/plugins/miao-plugin/components/`
-    if (!fs.existsSync(_cfgPath + 'cfg.json')) {
-      return false
-    }
-    let old = Data.readJSON('/components/cfg.json')
-    let cfg = await Data.importModule('/config/cfg.js')
-    let ret = {}
-    lodash.forEach(cfgSchema, (cfgGroup) => {
-      lodash.forEach(cfgGroup.cfg, (cfgItem, cfgKey) => {
-        ret[cfgKey] = Data.def(cfg[cfgKey], cfgItem.oldCfgKey ? Data.getVal(old, cfgItem.oldCfgKey) : undefined, cfgItem.def)
-      })
-    })
-    return ret
-  },
-
   saveCfg (cfg) {
     let ret = []
     lodash.forEach(cfgSchema, (cfgGroup) => {
@@ -38,7 +21,13 @@ let cfgData = {
   },
 
   async getCfg () {
-    return lodash.toPlainObject(await Data.importModule('/config/cfg.js'))
+    let ret = lodash.toPlainObject(await Data.importModule('/config/cfg.js'))
+    lodash.forEach(cfgSchema, (cfgGroup) => {
+      lodash.forEach(cfgGroup.cfg, (cfgItem, cfgKey) => {
+        ret[cfgKey] = Data.def(ret[cfgKey], cfgItem.def)
+      })
+    })
+    return ret
   },
 
   getCfgSchemaMap () {

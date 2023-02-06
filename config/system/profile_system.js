@@ -3,16 +3,6 @@
 * 如需自定义配置请复制修改上一级profile_default.js
 * */
 
-export const getProfileServ = ({ uid, serv, diyCfg }) => {
-  let { Miao, Enka } = serv
-  let token = diyCfg?.miaoApi?.token
-  let qq = diyCfg?.miaoApi?.qq
-  if (qq && token && token.length === 32 && !/^test/.test(token)) {
-    return Miao
-  }
-  return Enka
-}
-
 export const miaoApi = {
   listApi: ({ uid, diyCfg }) => {
     let qq = /\d{5,12}/.test(diyCfg.qq) ? diyCfg.qq : 'none'
