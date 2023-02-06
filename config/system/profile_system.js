@@ -25,11 +25,7 @@ export const enkaApi = {
   url: 'https://enka.network/',
   userAgent: 'Miao-Plugin/3.0',
   listApi: ({ url, uid, diyCfg }) => {
-    let api = `${url}u/${uid}/__data.json`
-    if (diyCfg?.apiKey) {
-      api += '?key=' + diyCfg.apiKey
-    }
-    return api
+    return api `${url}api/uid/${uid}/`
   }
 }
 
