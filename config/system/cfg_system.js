@@ -43,7 +43,7 @@ export const cfgSchema = {
         title: '面板服务',
         key: '面板服务',
         type: 'num',
-        def: 2,
+        def: 1,
         input: (n) => n * 1 === 1 ? 1 : 2,
         desc: '面板服务优先选择：1：自动（具备有效Token时优先喵喵Api，否则Enka），2：Enka服务优先'
       },
