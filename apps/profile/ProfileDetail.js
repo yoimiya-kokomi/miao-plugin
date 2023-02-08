@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { autoRefresh } from './ProfileCommon.js'
-import { Common, Format, Profile } from '../../components/index.js'
-import { MysApi, Avatar, ProfileRank, ProfileArtis } from '../../models/index.js'
+import { Common, Format } from '../../components/index.js'
+import { MysApi, Avatar, ProfileRank, ProfileArtis, Player } from '../../models/index.js'
 
 export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let selfUser = await MysApi.initUser(e)
@@ -18,7 +18,8 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     return true
   }
 
-  let profile = e._profile || Profile.get(uid, char.id)
+  let player = Player.create(uid)
+  let profile = e._profile || player.getProfile(char.id)
 
   let refresh = async () => {
     let refreshRet = await autoRefresh(e)
@@ -116,7 +117,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     bodyClass: `char-${char.name}`,
     mode,
     changeProfile: e._profileMsg
-  }, { e, scale: 1.6,retMsgId: true })
+  }, { e, scale: 1.6, retMsgId: true })
   if (msgRes && msgRes.message_id) {
     // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
     await redis.set(`miao:original-picture:${msgRes.message_id}`, imgs.splash0, { EX: 3600 * 3 })

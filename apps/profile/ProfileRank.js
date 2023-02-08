@@ -1,6 +1,6 @@
-import { Character, ProfileRank, ProfileDmg, Avatar } from '../../models/index.js'
+import { Character, ProfileRank, ProfileDmg, Avatar, Player } from '../../models/index.js'
 import { renderProfile } from './ProfileDetail.js'
-import { Data, Profile, Common, Format } from '../../components/index.js'
+import { Data, Common, Format } from '../../components/index.js'
 import lodash from 'lodash'
 
 export async function groupRank (e) {
@@ -115,7 +115,8 @@ export async function refreshRank (e) {
   let count = 0
   for (let qq in groupUids) {
     for (let { uid, type } of groupUids[qq]) {
-      let profiles = Profile.getAll(uid)
+      let player = new Player(uid)
+      let profiles = player.getProfiles()
       // 刷新rankLimit
       await ProfileRank.setUidInfo({ uid, profiles, qq, uidType: type })
       let rank = await ProfileRank.create({ groupId, uid, qq })
@@ -156,13 +157,14 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   let list = []
   for (let ds of uids) {
     let uid = ds.uid || ds.value
-    let profile = Profile.get(uid, ds.charId || char.id)
+    let player = Player.create(uid)
+    let avatar = player.getAvatar(ds.charId || char.id)
+    let profile = avatar.getProfile()
 
     if (profile) {
       let profileRank = await ProfileRank.create({ groupId, uid })
       let data = await profileRank.getRank(profile, true)
       let mark = data?.mark?.data
-      let avatar = new Avatar(profile, uid)
       let tmp = {
         uid,
         isMax: !char,

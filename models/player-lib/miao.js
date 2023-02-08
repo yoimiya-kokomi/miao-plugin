@@ -1,6 +1,6 @@
 import lodash from 'lodash'
-import { Data } from '../index.js'
-import { ProfileServ } from '../../models/index.js'
+import { Data } from '../../components/index.js'
+import { ProfileServ } from '../index.js'
 import MiaoData from './miao-data.js'
 
 export default new ProfileServ({
@@ -18,19 +18,14 @@ export default new ProfileServ({
     return data
   },
 
-  userData (data) {
-    return Data.getData(data, 'name:nickname,avatar:profilePicture.avatarID,level,signature')
-  },
-
-  profileData (data) {
-    let ret = {}
+  updatePlayer (player, data) {
+    player.setBasicData(Data.getData(data, 'name:nickname,face:profilePicture.avatarID,card:nameCardID,level,word:worldLevel,sign:signature'))
     lodash.forEach(data.showAvatarInfoList, (ds) => {
-      let profile = MiaoData.getProfile(ds)
-      if (profile && profile.id) {
-        ret[profile.id] = profile
+      let ret = MiaoData.setAvatar(player, ds)
+      if (ret) {
+        player._update.push(ret.id)
       }
     })
-    return ret
   },
 
   // 获取冷却时间

@@ -4,8 +4,8 @@
 import lodash from 'lodash'
 import { segment } from 'oicq'
 import { profileList } from './ProfileList.js'
-import { Profile, Version } from '../../components/index.js'
-import { Character, MysApi } from '../../models/index.js'
+import { Version } from '../../components/index.js'
+import { Character, MysApi, Player } from '../../models/index.js'
 
 /*
 * 获取面板查询的 目标uid
@@ -87,7 +87,8 @@ export async function autoRefresh (e) {
   e.isRefreshed = true
 
   // 数据更新
-  let data = await Profile.request(uid, e)
+  let player = Player.create(uid)
+  let data = await player.refreshProfile(e)
   if (!data) {
     return false
   }
@@ -127,7 +128,7 @@ export async function autoGetProfile (e, uid, avatar, callback) {
     return { err: true }
   }
 
-  let profile = Profile.get(uid, char.id)
+  let profile = Player.getAvatar(uid, char.id)
   if (!profile || !profile.hasData) {
     if (await refresh()) {
       return { err: true }
@@ -155,17 +156,18 @@ export async function getProfile (e) {
   }
 
   // 数据更新
-  let data = await Profile.request(uid, e)
-  if (!data) {
+  let player = Player.create(uid)
+  let ret = await player.refreshProfile(e)
+  if (!ret) {
     return true
   }
 
-  if (!data.chars) {
+  if (!player._update.length === 0) {
     e.reply('获取角色面板数据失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~')
   } else {
     let ret = {}
-    lodash.forEach(data.chars, (ds) => {
-      let char = Character.get(ds.id)
+    lodash.forEach(player._update, (id) => {
+      let char = Character.get(id)
       if (char) {
         ret[char.name] = true
       }
@@ -177,41 +179,6 @@ export async function getProfile (e) {
       return await profileList(e)
     }
   }
-  return true
-}
-
-/*
-* 获取面板列表
-* */
-export async function getProfileAll (e) {
-  let uid = await getTargetUid(e)
-  if (!uid) {
-    return true
-  }
-
-  let profiles = Profile.getAll(uid) || {}
-
-  let chars = []
-  lodash.forEach(profiles || [], (ds) => {
-    if (!['enka', 'miao'].includes(ds.dataSource)) {
-      return true
-    }
-    ds.name && chars.push(ds.name)
-  })
-
-  if (chars.length === 0) {
-    if (await autoRefresh(e)) {
-      await getProfileAll(e)
-      return true
-    } else {
-      e.reply('尚未获取任何角色数据')
-      await profileHelp(e)
-    }
-    return true
-  }
-
-  e.reply(`uid${uid} 已获取面板角色： ` + chars.join(', '))
-
   return true
 }
 

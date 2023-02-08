@@ -3,9 +3,9 @@
 *
 * */
 import lodash from 'lodash'
-import { Cfg, Profile, Common } from '../../components/index.js'
+import { Cfg, Common } from '../../components/index.js'
 import { getTargetUid, profileHelp, autoGetProfile } from './ProfileCommon.js'
-import { Artifact, Character, ProfileArtis } from '../../models/index.js'
+import { Artifact, Character, ProfileArtis, Player } from '../../models/index.js'
 
 /*
 * 角色圣遗物面板
@@ -64,14 +64,12 @@ export async function profileArtisList (e) {
   }
 
   let artis = []
-  let profiles = Profile.getAll(uid) || {}
-
-  if (!profiles || profiles.length === 0) {
-    e.reply('暂无角色圣遗物详情')
-    return true
-  }
-
-  lodash.forEach(profiles || [], (profile) => {
+  let player = Player.create(uid)
+  player.forEachAvatar((avatar) => {
+    let profile = avatar.getProfile()
+    if (!profile) {
+      return true
+    }
     let name = profile.name
     let char = Character.get(name)
     if (!profile.hasData || !profile.hasArtis()) {

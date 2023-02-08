@@ -2,8 +2,8 @@
  * 面板数据替换相关逻辑
  */
 import lodash from 'lodash'
-import { Profile, Data } from '../../components/index.js'
-import { Character, ProfileData, Weapon } from '../../models/index.js'
+import { Data } from '../../components/index.js'
+import { Character, ProfileData, Weapon,Player } from '../../models/index.js'
 
 const keyMap = {
   artis: '圣遗物',
@@ -153,8 +153,9 @@ const ProfileChange = {
     if (!charid) {
       return false
     }
+    let player = Player.create(uid)
 
-    let source = Profile.get(uid, charid)
+    let source = player.getProfile(charid)
     let dc = ds.char || {}
     if (!source || !source.hasData) {
       source = {}
@@ -168,7 +169,7 @@ const ProfileChange = {
 
     let profiles = {}
     if (source && source.id) {
-      profiles[`${source.uid}:${source.id}`] = source
+      profiles[`${player.uid}:${source.id}`] = source
     }
     // 获取source
     let getSource = function (cfg) {
@@ -176,10 +177,11 @@ const ProfileChange = {
         return source
       }
       let cuid = cfg.uid || uid
+      let cPlayer = Player.create(uid)
       let id = cfg.char || source.id
       let key = cuid + ':' + id
       if (!profiles[key]) {
-        profiles[key] = Profile.get(cuid, id) || {}
+        profiles[key] = cPlayer.getProfile(id) || {}
       }
       return profiles[key]?.id ? profiles[key] : source
     }

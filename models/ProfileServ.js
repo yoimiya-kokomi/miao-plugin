@@ -75,12 +75,8 @@ export default class ProfileServ extends Base {
     return Math.max(cdTime, this.execFn('cdTime', [data], 60))
   }
 
-  getUserData (data) {
-    return this.execFn('userData', [data], {})
-  }
-
-  getProfileData (data) {
-    return this.execFn('profileData', [data], {})
+  updatePlayer (player, data) {
+    return this.execFn('updatePlayer', [player, data], {})
   }
 }
 

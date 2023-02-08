@@ -4,8 +4,7 @@
 * */
 import Base from './Base.js'
 import lodash from 'lodash'
-import { Profile } from '../components/index.js'
-import { Artifact, Character, Weapon, ArtifactSet } from './index.js'
+import { Artifact, Character, Weapon, ArtifactSet, Player } from './index.js'
 import moment from 'moment'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName,elem'.split(',')
@@ -34,7 +33,7 @@ export default class Avatar extends Base {
         profile = pd
       } else if (/\d{9}/.test(pd)) {
         uid = pd
-        profile = Profile.get(pd, char.id, true)
+        profile =  Player.getAvatar(pd, char.id, true)
       }
     }
     if (profile && profile.isProfile && profile.hasData) {

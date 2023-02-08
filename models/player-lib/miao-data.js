@@ -1,6 +1,28 @@
-import { Character, ProfileData } from '../../models/index.js'
+import { Character, Artifact } from '../index.js'
 import lodash from 'lodash'
-import { artiIdx, artiSetMap, attrMap } from './miao-meta.js'
+
+const attrMap = {
+  HP: 'hpPlus',
+  HP_PERCENT: 'hp',
+  ATTACK: 'atkPlus',
+  ATTACK_PERCENT: 'atk',
+  DEFENSE: 'defPlus',
+  DEFENSE_PERCENT: 'def',
+  FIRE_ADD_HURT: '',
+  ICE_ADD_HURT: 'cryo',
+  ROCK_ADD_HURT: 'geo',
+  ELEC_ADD_HURT: 'electro',
+  WIND_ADD_HURT: 'anemo',
+  WATER_ADD_HURT: 'hydro',
+  PHYSICAL_ADD_HURT: 'phy',
+  GRASS_ADD_HURT: 'dendro',
+  HEAL_ADD: 'heal',
+  ELEMENT_MASTERY: 'mastery',
+  CRITICAL: 'cpct',
+  CRITICAL_HURT: 'cdmg',
+  CHARGE_EFFICIENCY: 'recharge'
+}
+
 
 let MiaoData = {
   key: 'miao',
@@ -27,70 +49,21 @@ let MiaoData = {
       level: ds.level
     }
   },
-  getProfile (ds) {
+  setAvatar (player, ds) {
     let char = Character.get(ds.id)
-    let profile = new ProfileData({ id: char.id })
-    profile.setBasic({
+    let avatar = player.getAvatar(ds.id)
+    let talentRet = MiaoData.getTalent(char.id, ds.skill)
+    avatar.setAvatar({
       level: ds.level,
       cons: ds.constellationNum || 0,
       fetter: ds.fetterLevel,
       costume: char.checkCostume(ds.costumeID) ? ds.costumeID : 0,
-      dataSource: 'miao'
-    })
-    profile.setAttr(MiaoData.getAttr(ds.combatValue))
-    profile.setWeapon(MiaoData.getWeapon(ds.weapon))
-    profile.setArtis(MiaoData.getArtifact(ds.reliquary))
-    let talentRet = MiaoData.getTalent(char.id, ds.skill)
-    profile.setTalent(talentRet.talent, 'level')
-    if (talentRet.elem) {
-      profile.elem = talentRet.elem
-    }
-    return profile
-  },
-  getAttr (data) {
-    let ret = {}
-    lodash.forEach({
-      atk: 'attack',
-      atkBase: 'baseATK',
-      hp: 'health',
-      hpBase: 'baseHP',
-      def: 'defense',
-      defBase: 'baseDEF',
-      mastery: 'elementMastery',
-      cpct: {
-        src: 'critRate',
-        pct: true
-      },
-      cdmg: {
-        src: 'critDamage',
-        pct: true
-      },
-      heal: {
-        src: 'heal',
-        pct: true
-      },
-      recharge: {
-        src: 'recharge',
-        pct: true
-      }
-    }, (cfg, key) => {
-      if (!lodash.isObject(cfg)) {
-        cfg = { src: cfg }
-      }
-      let val = data[cfg.src] || 0
-      if (cfg.pct) {
-        val = val * 100
-      }
-      ret[key] = val
-    })
-    let maxDmg = 0
-    let hurt = data.addHurt || {}
-    lodash.forEach('fire,elec,water,grass,wind,rock,ice'.split(','), (key) => {
-      maxDmg = Math.max(hurt[key] * 100, maxDmg)
-    })
-    ret.dmg = maxDmg
-    ret.phy = hurt.physical * 100
-    return ret
+      elem: talentRet.elem,
+      weapon: MiaoData.getWeapon(ds.weapon),
+      talent: talentRet.talent,
+      artis: MiaoData.getArtifact(ds.reliquary)
+    }, 'miao')
+    return avatar
   },
   getWeapon (weapon) {
     return {
@@ -116,18 +89,23 @@ let MiaoData = {
       if (value && value < 1) {
         value = value * 100
       }
-      return [attrMap[name], value]
+      return { key: attrMap[name], value }
     }
-
     lodash.forEach(data, (ds) => {
       let sub = ds.appendAffix || []
-      let idx = artiIdx[ds.type]
+      let idx = {
+        生之花: 1,
+        死之羽: 2,
+        时之沙: 3,
+        空之杯: 4,
+        理之冠: 5
+      }[ds.type]
       if (!idx) {
         return
       }
-      ret[`arti${idx}`] = {
+      ret[idx] = {
         name: ds.name,
-        set: artiSetMap[ds.name] || '',
+        set: Artifact.getSetNameByArti(ds.name) || '',
         level: ds.level,
         main: get(ds.mainAffix),
         attrs: [
@@ -162,7 +140,6 @@ let MiaoData = {
         }
       }
     })
-
     return {
       talent: ret,
       elem

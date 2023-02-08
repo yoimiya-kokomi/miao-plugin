@@ -4,7 +4,7 @@
 * */
 import lodash from 'lodash'
 import { Cfg, Common, App, Data } from '../components/index.js'
-import { Abyss, AvatarList, Character, MysApi } from '../models/index.js'
+import { Abyss, Character, MysApi, Player } from '../models/index.js'
 import HutaoApi from './wiki/HutaoApi.js'
 
 let app = App.init({
@@ -195,6 +195,9 @@ async function abyssTeam (e) {
   if (!mys || !mys.uid || !mys.isSelfCookie) {
     return true
   }
+  let player = Player.create(e)
+  await player.refreshMys()
+  await player.refreshTalent()
 
   let abyssData = await HutaoApi.getAbyssTeam()
   if (!abyssData || !abyssData.data) {
@@ -202,18 +205,7 @@ async function abyssTeam (e) {
     return true
   }
   abyssData = abyssData.data
-  let avatars
-  try {
-    avatars = await AvatarList.getAll(e, mys)
-    // resDetail = await mys.getCharacter()
-    if (!avatars) {
-      e.reply('角色信息获取失败')
-      return true
-    }
-  } catch (err) {
-    // console.log(err);
-  }
-  let avatarData = await avatars.getTalentData()
+  let avatarData = player.getAvatarData()
   let avatarRet = {}
   let data = {}
   let noAvatar = {}
@@ -397,6 +389,7 @@ async function uploadData (e) {
   }
   let ret = {}
   let uid = mys.uid
+  let player = Player.create(e)
   let resDetail, resAbyss
   try {
     resAbyss = await mys.getSpiralAbyss(1)
@@ -413,9 +406,6 @@ async function uploadData (e) {
         return false
       }
     }
-    if (resAbyss.floors.length > 0 && !await AvatarList.hasTalentCache(uid)) {
-      e.reply('正在获取用户信息，请稍候...')
-    }
     resDetail = await mys.getCharacter()
     if (!resDetail || !resAbyss || !resDetail.avatars || resDetail.avatars.length <= 3) {
       e.reply('角色信息获取失败')
@@ -431,6 +421,9 @@ async function uploadData (e) {
   } catch (err) {
     // console.log(err);
   }
+  // 更新player信息
+  player.setMysCharData(resDetail)
+
   if (ret && ret.retcode === 0) {
     let stat = []
     if (ret.data) {
@@ -440,7 +433,6 @@ async function uploadData (e) {
       }
       let abyss = new Abyss(resAbyss)
       let abyssData = abyss.getData()
-      let avatars = new AvatarList(uid, resDetail.avatars)
       let avatarIds = abyss.getAvatars()
       let overview = ret.info || (await HutaoApi.getOverview())?.data || {}
       let addMsg = function (title, ds) {
@@ -484,7 +476,8 @@ async function uploadData (e) {
       }
       addMsg('最强一击', ret.data?.damage || abyssData?.stat?.dmg || {})
       addMsg('最高承伤', ret.data?.takeDamage || abyssData?.stat.takeDmg || {})
-      let avatarData = await avatars.getTalentData(avatarIds, mys)
+      await player.refreshTalent(avatarIds)
+      let avatarData = player.getAvatarData(avatarIds)
       return await Common.render('stat/abyss-summary', {
         abyss: abyssData,
         avatars: avatarData,

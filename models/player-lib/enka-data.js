@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import enkaMeta from './enka-meta.js'
-import { Character, ArtifactSet, ProfileData } from '../../models/index.js'
+import { Character, ArtifactSet, ProfileData } from '../index.js'
 
 const artiIdx = {
   EQUIP_BRACER: 1,

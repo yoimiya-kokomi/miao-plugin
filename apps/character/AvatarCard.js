@@ -1,12 +1,14 @@
-import { Character, Avatar, MysApi } from '../../models/index.js'
-import { Cfg, Common, Profile } from '../../components/index.js'
+import { Character, Avatar, MysApi, Player } from '../../models/index.js'
+import { Cfg, Common } from '../../components/index.js'
 import lodash from 'lodash'
 import { segment } from 'oicq'
+import moment from 'moment'
 
 export async function renderAvatar (e, avatar, renderType = 'card') {
   // 如果传递的是名字，则获取
   let uid = e.uid
   if (typeof (avatar) === 'string') {
+    // 检查角色
     let char = Character.get(avatar)
     if (!char) {
       return false
@@ -17,21 +19,12 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
     if (!char.isRelease) {
       avatar = { id: char.id, name: char.name, detail: false }
     } else {
-      let profile = Profile.get(uid, char.id, true)
-      if (profile && profile.hasData) {
-        // 优先使用Profile数据
-        avatar = profile
-      } else {
-        // 使用Mys数据兜底
-        let charData = await mys.getCharacter()
-        if (!charData) return true
-
-        let avatars = charData.avatars
-        if (char.isTraveler) {
-          char = await char.checkAvatars(avatars, uid)
-        }
-        avatars = lodash.keyBy(avatars, 'id')
-        avatar = avatars[char.id] || { id: char.id, name: char.name, detail: false }
+      let player = Player.create(e)
+      await player.refreshMys()
+      await player.refreshTalent(char.id)
+      avatar = player.getAvatar(char.id)
+      if (!avatar) {
+        avatar = { id: char.id, name: char.name, detail: false }
       }
     }
   }
@@ -39,8 +32,8 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
 }
 
 // 渲染角色卡片
-async function renderCard (e, ds, renderType = 'card') {
-  let char = Character.get(ds)
+async function renderCard (e, avatar, renderType = 'card') {
+  let char = Character.get(avatar.id)
   if (!char) {
     return false
   }
@@ -54,11 +47,13 @@ async function renderCard (e, ds, renderType = 'card') {
   let custom = char.isCustom
   let isRelease = char.isRelease
   if (isRelease) {
-    let mys = await MysApi.init(e)
-    let avatar = new Avatar(ds, uid, mys.isSelfCookie)
-    data = avatar.getData('id,name,sName,level,fetter,cons,weapon,elem,artis,artisSet,imgs,dataSourceName,updateTime')
-    data.talent = await avatar.getTalent(mys)
-    if (data.talent) {
+    data = avatar.getDetail()
+    data.imgs = char.imgs
+    data.source = avatar._source
+    data.artis = avatar.getArtisDetail()
+    data.updateTime = moment(new Date(avatar._time)).format('MM-DD HH:mm')
+    if (data.hasTalent) {
+      data.talent = avatar.talent
       data.talentMap = ['a', 'e', 'q']
       // 计算皇冠个数
       data.crownNum = lodash.filter(lodash.map(data.talent, (d) => d.original), (d) => d >= 10).length
@@ -66,6 +61,7 @@ async function renderCard (e, ds, renderType = 'card') {
   } else {
     data = char.getData('id,name,sName')
   }
+
   let width = 600
   let imgCss = ''
   let scale = 1.2
@@ -91,34 +87,4 @@ async function renderCard (e, ds, renderType = 'card') {
     await redis.set(`miao:original-picture:${msgRes.message_id}`, bg.img, { EX: 3600 * 3 })
   }
   return true
-}
-
-export async function getAvatarList (e, type, mys) {
-  let data = await mys.getCharacter()
-  if (!data) return false
-
-  let avatars = data.avatars
-
-  if (!avatars || avatars.length <= 0) {
-    return false
-  }
-  let list = []
-  for (let val of avatars) {
-    if (type !== false) {
-      if (!Character.checkWifeType(val.id, type)) {
-        continue
-      }
-    }
-    if (val.rarity > 5) {
-      val.rarity = 5
-    }
-    list.push(val)
-  }
-
-  if (list.length <= 0) {
-    return false
-  }
-  let sortKey = 'level,fetter,weapon_level,rarity,weapon_rarity,cons,weapon_affix_level'
-  list = lodash.orderBy(list, sortKey, lodash.repeat('desc,', sortKey.length).split(','))
-  return list
 }

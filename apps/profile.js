@@ -1,5 +1,5 @@
 import { Common, App, Data, Cfg } from '../components/index.js'
-import { Character } from '../models/index.js'
+import { Character, Player } from '../models/index.js'
 import { getTargetUid, getProfile, profileHelp } from './profile/ProfileCommon.js'
 import { profileArtis, profileArtisList } from './profile/ProfileArtis.js'
 import { renderProfile } from './profile/ProfileDetail.js'

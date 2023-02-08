@@ -3,8 +3,11 @@ import Character from './Character.js'
 import Artifact from './Artifact.js'
 import ArtifactSet from './ArtifactSet.js'
 import Avatar from './Avatar.js'
+import AvatarData from './AvatarData.js'
+import AvatarArtis from './AvatarArtis.js'
 import AvatarList from './AvatarList.js'
 import Abyss from './Abyss.js'
+import Player from './Player.js'
 import ProfileServ from './ProfileServ.js'
 import ProfileReq from './ProfileReq.js'
 import ProfileData from './ProfileData.js'
@@ -24,7 +27,9 @@ export {
   Artifact,
   ArtifactSet,
   Avatar,
+  AvatarData,
   AvatarList,
+  AvatarArtis,
   ProfileServ,
   ProfileReq,
   ProfileData,
@@ -35,5 +40,6 @@ export {
   Material,
   Weapon,
   User,
-  MysApi
+  MysApi,
+  Player
 }

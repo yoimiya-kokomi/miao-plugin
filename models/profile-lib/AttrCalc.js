@@ -103,7 +103,7 @@ class AttrCalc {
    * 计算武器属性
    */
   setWeaponAttr () {
-    let wData = this.profile?.weapon
+    let wData = this.profile?.weapon || {}
     let weapon = Weapon.get(wData?.name)
     let level = wData.level
     let promote = lodash.isUndefined(wData.promote) ? -1 : wData.promote

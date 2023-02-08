@@ -1,6 +1,6 @@
 import lodash from 'lodash'
-import { Data } from '../index.js'
-import { ProfileServ } from '../../models/index.js'
+import { Data } from '../../components/index.js'
+import { ProfileServ } from '../index.js'
 import EnkaData from './enka-data.js'
 
 let HttpsProxyAgent = ''

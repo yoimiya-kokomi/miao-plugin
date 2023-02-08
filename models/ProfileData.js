@@ -6,7 +6,7 @@ import { Character, ProfileArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile-lib/AttrCalc.js'
 
 export default class ProfileData extends Base {
-  constructor (ds = {}, uid, attrCalc = true) {
+  constructor (ds = {}) {
     super()
     let char = Character.get({ id: ds.id, elem: ds.elem })
     if (!char) {
@@ -14,20 +14,16 @@ export default class ProfileData extends Base {
     }
     this.id = char.id
     this.char = char
-    this.uid = uid || ''
     this.setBasic(ds)
-    ds.attr && this.setAttr(ds.attr)
     ds.weapon && this.setWeapon(ds.weapon)
     ds.talent && this.setTalent(ds.talent)
     this.artis = new ProfileArtis(this.id, this.elem)
     ds.artis && this.setArtis(ds.artis)
-    if (attrCalc && this.hasData) {
-      this.calcAttr()
-    }
+    this.calcAttr()
   }
 
-  static create (ds, uid) {
-    let profile = new ProfileData(ds, uid)
+  static create (ds) {
+    let profile = new ProfileData(ds)
     if (!profile) {
       return false
     }
@@ -50,16 +46,6 @@ export default class ProfileData extends Base {
     this._time = ds._time || ds.updateTime || new Date() * 1
   }
 
-  setAttr (ds) {
-    this.attr = lodash.extend(Data.getData(ds, 'atk,atkBase,def,defBase,hp,hpBase,mastery,recharge'), {
-      heal: ds.heal || ds.hInc || 0,
-      cpct: ds.cpct || ds.cRate,
-      cdmg: ds.cdmg || ds.cDmg,
-      dmg: ds.dmg || ds.dmgBonus || 0,
-      phy: ds.phy || ds.phyBonus || 0
-    })
-  }
-
   setWeapon (ds = {}) {
     this.weapon = {
       name: ds.name,
@@ -75,7 +61,7 @@ export default class ProfileData extends Base {
   }
 
   setArtis (ds = false) {
-    this.artis.setProfile(this, ds)
+    this.artis.setProfile(this, ds.artis || ds)
   }
 
   setTalent (ds = {}, mode = 'original') {

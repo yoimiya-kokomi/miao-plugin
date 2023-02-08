@@ -6,8 +6,8 @@
 * */
 import Base from './Base.js'
 import lodash from 'lodash'
-import { Data, Common, Profile } from '../components/index.js'
-import { Avatar, MysApi } from './index.js'
+import { Data, Common } from '../components/index.js'
+import { Avatar, MysApi, Player } from './index.js'
 
 export default class AvatarList extends Base {
   constructor (uid, datas = [], withProfile = false) {
@@ -18,8 +18,9 @@ export default class AvatarList extends Base {
     this.uid = uid
     let avatars = {}
     let profiles = {}
+    let player = Player.create(uid)
     if (withProfile) {
-      profiles = Profile.getAll(uid)
+      // TODO
     }
     lodash.forEach(datas, (ds) => {
       let avatar = new Avatar(ds, profiles[ds.id] || false)

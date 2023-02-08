@@ -1,8 +1,8 @@
 // #老婆
 import lodash from 'lodash'
 import { Common } from '../../components/index.js'
-import { Character, MysApi, AvatarList } from '../../models/index.js'
-import { getAvatarList, renderAvatar } from './AvatarCard.js'
+import { Character, MysApi, Player } from '../../models/index.js'
+import { renderAvatar } from './AvatarCard.js'
 
 const relationMap = {
   wife: {
@@ -74,6 +74,7 @@ export async function wife (e) {
   if (!mys || !mys.uid) {
     return true
   }
+  let player = Player.create(e)
   let selfUser = mys.selfUser
   let isSelf = true
   let renderType = (action === '卡片' ? 'card' : 'photo')
@@ -92,7 +93,7 @@ export async function wife (e) {
         if (wifeList && wifeList.length > 0 && isSelf && !e.isPoke) {
           if (wifeList[0] === '随机') {
             // 如果选择为全部，则从列表中随机选择一个
-            avatarList = await getAvatarList(e, targetCfg.type, mys)
+            avatarList = await getAvatarList(player, targetCfg.type, mys)
             let avatar = lodash.sample(avatarList)
             return renderAvatar(e, avatar, renderType)
           } else {
@@ -101,19 +102,11 @@ export async function wife (e) {
           }
         }
       }
-      // 如果未指定过，则从列表中排序并随机选择前5个
-      if (e.isPoke) {
-        avatarList = await getAvatarList(e, false, mys)
-        if (avatarList && avatarList.length > 0) {
-          avatar = lodash.sample(avatarList)
-          return await renderAvatar(e, avatar, renderType)
-        }
-      } else {
-        avatarList = await getAvatarList(e, targetCfg.type, mys)
-        if (avatarList && avatarList.length > 0) {
-          avatar = lodash.sample(avatarList.slice(0, 5))
-          return await renderAvatar(e, avatar, renderType)
-        }
+      // 如果未指定过，则从列表中排序并随机选择
+      avatarList = await getAvatarList(player, e.isPoke ? false : targetCfg.type, mys)
+      if (avatarList && avatarList.length > 0) {
+        avatar = lodash.sample(avatarList)
+        return await renderAvatar(e, avatar, renderType)
       }
       e.reply('在当前米游社公开展示的角色中未能找到适合展示的角色..')
       return true
@@ -168,4 +161,24 @@ export async function wife (e) {
 
 export async function pokeWife (e, components) {
   return await wife(e, components)
+}
+
+async function getAvatarList (player, type, mys) {
+  await player.refreshMys()
+  let list = []
+  player.forEachAvatar((avatar) => {
+    if (type !== false) {
+      if (!Character.checkWifeType(avatar.id, type)) {
+        return true
+      }
+    }
+    list.push(avatar)
+  })
+
+  if (list.length <= 0) {
+    return false
+  }
+  let sortKey = 'level,fetter,weapon_level,rarity,weapon_rarity,cons,weapon_affix_level'
+  list = lodash.orderBy(list, sortKey, lodash.repeat('desc,', sortKey.length).split(','))
+  return list
 }

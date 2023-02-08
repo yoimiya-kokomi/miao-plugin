@@ -51,16 +51,16 @@ export default class ProfileReq extends Base {
     this.e.reply(msg)
   }
 
-  async request () {
+  async request (player) {
     let Serv = ProfileReq.getServ(this.uid)
     let reqParam = await Serv.getReqParam(this.uid)
 
     let cdTime = await this.inCd()
     if (cdTime) {
-      return this.err(`请求过快，请${cdTime}秒后重试..`)
+      // return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
-    this.msg(`开始获取uid:${this.uid}的数据，可能会需要一定时间~`)
+    // this.msg(`开始获取uid:${this.uid}的数据，可能会需要一定时间~`)
     await sleep(100)
     // 发起请求
     let data = {}
@@ -92,16 +92,12 @@ export default class ProfileReq extends Base {
     if (data === false) {
       return false
     }
-    let userData = Serv.getUserData(data)
-    let profiles = Serv.getProfileData(data)
+    Serv.updatePlayer(player, data)
     cdTime = Serv.getCdTime(data)
     if (cdTime) {
       await this.setCd(cdTime)
     }
-    return lodash.extend({
-      uid: this.uid,
-      chars: profiles
-    }, userData)
+    return player
   }
 }
 

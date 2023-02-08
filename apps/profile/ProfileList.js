@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { autoRefresh, getTargetUid } from './ProfileCommon.js'
-import { ProfileRank } from '../../models/index.js'
-import { Common, Profile, Data } from '../../components/index.js'
+import { ProfileRank, Player } from '../../models/index.js'
+import { Common, Data } from '../../components/index.js'
 
 export async function profileList (e) {
   let uid = await getTargetUid(e)
@@ -14,7 +14,7 @@ export async function profileList (e) {
     isSelfUid = uids.join(',').split(',').includes(uid + '')
   }
   let rank = false
-  let servName = Profile.getServName(uid)
+  let servName = Player.getProfileServName(uid)
   let hasNew = false
   let newCount = 0
 
@@ -27,7 +27,8 @@ export async function profileList (e) {
   }
   const cfg = await Data.importCfg('cfg')
   // 获取面板数据
-  let profiles = Profile.getAll(uid)
+  let player = Player.create(uid)
+  let profiles = player.getProfiles()
   // 检测标志位
   let qq = (e.at && !e.atBot) ? e.at : e.qq
   await ProfileRank.setUidInfo({ uid, profiles, qq, uidType: isSelfUid ? 'ck' : 'bind' })
@@ -38,8 +39,9 @@ export async function profileList (e) {
   }
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
   const groupRank = rank && (cfg?.diyCfg?.groupRank || false) && rankCfg.status !== 1
-  await Profile.forEach(uid, async function (profile) {
-    if (!profile.hasData) {
+  await player.forEachAvatarAsync(async function (avatar) {
+    let profile = avatar.getProfile()
+    if (!profile) {
       return true
     }
     let char = profile.char
