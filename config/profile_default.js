@@ -9,13 +9,13 @@
 * 【Enka官网】：https://enka.network/
 *
 * 感谢Enka提供的面板查询服务
-* https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199348789
-* 如果可以的话，也可考虑在Patreon上支持Enka，或提供闲置的原神账户，具体可在Discord联系
+* 如果可以的话，也可考虑在Patreon上支持Enka
+* 【Patreon】：https://www.patreon.com/algoinde
 *
-* 如Enka服务访问不稳定，可尝试更换MiniGrayGay大佬提供的中转服务
-* 【广州节点】：https://enka.microgg.cn/
-* 【上海节点】：https://enka.minigg.cn/
-* 推荐使用【广州】或【上海】节点，如访问enka官网相对稳定的话推荐优先使用官方地址
+* 目前使用Miao-Plugin的默认UA请求国服UID时
+* 会默认重定向 https://enka.network/ 到 https://profile.microgg.cn/
+* 如果没有外服uid查询请求，可直接在配置文件改为 https://profile.microgg.cn/
+* 
 * 感谢@MiniGrayGay 大佬提供的服务(Github: https://github.com/MiniGrayGay)
 *
 * 使用代理(科学上网)可以配置proxyAgent
