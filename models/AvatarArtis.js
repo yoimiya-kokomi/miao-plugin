@@ -31,7 +31,7 @@ export default class AvatarArtis extends Base {
     if (!this.hasArtis || AvatarArtis.isProfileArtis(ds) || !AvatarArtis.isProfileArtis(this.artis)) {
       for (let idx = 1; idx <= 5; idx++) {
         if (ds[idx]) {
-          this.setArtis(idx, ds[idx] || {})
+          this.setArtis(idx, ds[idx] || ds[`arti${idx}`] || {})
         }
       }
       return true

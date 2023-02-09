@@ -181,6 +181,9 @@ class AttrCalc {
    * @returns {boolean}
    */
   calcArtisAttr (ds, char) {
+    if (!ds) {
+      return false
+    }
     let key = ds.key
     if (Format.isElem(key) && char.elem === key) {
       key = 'dmg'

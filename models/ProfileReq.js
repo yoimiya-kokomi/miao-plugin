@@ -62,7 +62,7 @@ export default class ProfileReq extends Base {
     let reqParam = await serv.getReqParam(this.uid)
     let cdTime = await this.inCd()
     if (cdTime) {
-     // return this.err(`请求过快，请${cdTime}秒后重试..`)
+      return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
     this.msg(`开始获取uid:${this.uid}的数据，可能会需要一定时间~`)
