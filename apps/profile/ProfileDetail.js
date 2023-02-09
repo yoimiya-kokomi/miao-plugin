@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { autoRefresh } from './ProfileCommon.js'
 import { Common, Format } from '../../components/index.js'
-import { MysApi, Avatar, ProfileRank, ProfileArtis, Player } from '../../models/index.js'
+import { MysApi, ProfileRank, ProfileArtis, Player } from '../../models/index.js'
 
 export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let selfUser = await MysApi.initUser(e)
@@ -19,7 +19,8 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   }
 
   let player = Player.create(uid)
-  let profile = e._profile || player.getProfile(char.id)
+  let avatar = player.getAvatar(char.id)
+  let profile = e._profile || avatar.getProfile(char.id)
 
   let refresh = async () => {
     let refreshRet = await autoRefresh(e)
@@ -37,7 +38,6 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     }
     return true
   }
-  let avatar = new Avatar(profile)
   char = profile.char || char
   let a = profile.attr
   let c = Format.comma

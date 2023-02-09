@@ -79,14 +79,3 @@ export default class ProfileServ extends Base {
     return this.execFn('updatePlayer', [player, data], {})
   }
 }
-
-ProfileServ.getServ = function ({ uid, serv }) {
-  let { Miao, Enka } = serv
-  let token = diyCfg?.miaoApi?.token
-  let qq = diyCfg?.miaoApi?.qq
-
-  if (qq && token && token.length === 32 && !/^test/.test(token) && Cfg.get('profileServ') === 1) {
-    return Miao
-  }
-  return Enka
-}

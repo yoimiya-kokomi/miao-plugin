@@ -1,24 +1,20 @@
 /**
  * 用户数据文件
  */
+import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
-import fs from 'fs'
-import { ProfileReq, AvatarData } from './index.js'
-import Profile from './player-lib/profile.js'
-import lodash from 'lodash'
+import { AvatarData } from './index.js'
 
 import MysAvatar from './player-lib/MysAvatar.js'
+import Profile from './player-lib/Profile.js'
 
-const _path = process.cwd()
-const userPath = `${_path}/data/UserData/`
-if (!fs.existsSync(userPath)) {
-  fs.mkdirSync(userPath)
-}
+Data.createDir('/data/userData', 'root')
 
 export default class Player extends Base {
   constructor (uid) {
     super()
+    uid = uid?._mys?.uid || uid?.uid || uid
     if (!uid) {
       return false
     }
@@ -32,9 +28,9 @@ export default class Player extends Base {
   }
 
   static create (e) {
-    if (e?._mys?.uid) {
+    if (e?._mys?.uid || e.uid) {
       // 传入为e
-      let player = new Player(e?._mys?.uid)
+      let player = new Player(e?._mys?.uid || e.uid)
       player.e = e
       return player
     } else {
@@ -87,31 +83,20 @@ export default class Player extends Base {
     this._mys = ds._mys || this._mys
   }
 
-  /**
-   * 设置角色列表
-   * @param ds
-   */
+  // 设置角色列表
   setAvatars (ds) {
     lodash.forEach(ds, (avatar) => {
       this.setAvatar(avatar)
     })
   }
 
-  /**
-   * 设置角色
-   * @param ds
-   * @param dataSource
-   */
-  setAvatar (ds, source) {
+  // 设置角色数据
+  setAvatar (ds, source = '') {
     let avatar = this.getAvatar(ds.id)
     avatar.setAvatar(ds, source)
   }
 
-  /**
-   * 获取角色
-   * @param id
-   * @returns {*}
-   */
+  // 获取Avatar角色
   getAvatar (id) {
     if (!this._avatars[id]) {
       this._avatars[id] = AvatarData.create({ id })
@@ -119,11 +104,7 @@ export default class Player extends Base {
     return this._avatars[id]
   }
 
-  /**
-   * 循环角色
-   * @param fn
-   * @returns {Promise<boolean>}
-   */
+  // 异步循环角色
   async forEachAvatarAsync (fn) {
     for (let id in this._avatars) {
       let ret = await fn(this._avatars[id], id)
@@ -133,6 +114,7 @@ export default class Player extends Base {
     }
   }
 
+  // 循环Avatar
   forEachAvatar (fn) {
     for (let id in this._avatars) {
       let ret = fn(this._avatars[id], id)
@@ -142,6 +124,7 @@ export default class Player extends Base {
     }
   }
 
+  // 获取所有Avatar数据
   getAvatarData (ids = '') {
     let ret = {}
     if (!ids) {
@@ -156,20 +139,13 @@ export default class Player extends Base {
     return ret
   }
 
-  /**
-   * 获取当前用户指定charid面板数据
-   * @param id
-   * @returns {*}
-   */
+  // 获取指定角色的面板数据
   getProfile (id) {
     let avatar = this.getAvatar(id)
     return avatar.getProfile()
   }
 
-  /**
-   * 获取当前用户所有面板数据
-   * @returns {{}}
-   */
+  // 获取所有面板数据
   getProfiles () {
     let ret = {}
     lodash.forEach(this._avatars, (avatar) => {
@@ -181,28 +157,9 @@ export default class Player extends Base {
     return ret
   }
 
-  /**
-   * 更新面板
-   * @param e
-   * @returns {Promise<boolean|*|undefined>}
-   */
-  async refreshProfile (e, force = true) {
-    this._update = []
-    let { uid } = this
-    if (uid.toString().length !== 9) {
-      return false
-    }
-    let req = new ProfileReq({ e, uid })
-    try {
-      await req.request(this)
-      this._profile = new Date() * 1
-      this.save()
-      return this._update.length
-    } catch (err) {
-      console.log(err)
-      e.reply('请求失败')
-      return false
-    }
+  // 更新面板
+  async refreshProfile (force = true) {
+    return await Profile.refreshProfile(this, force)
   }
 
   // 更新米游社数据
@@ -220,17 +177,9 @@ export default class Player extends Base {
     return await MysAvatar.refreshTalent(this, ids, force)
   }
 
-  /**
-   * 获取面板更新服务名
-   * @param uid
-   * @returns {*}
-   */
+  // 获取面板更新服务名
   static getProfileServName (uid) {
-    let Serv = ProfileReq.getServ(uid)
+    let Serv = Profile.getServ(uid)
     return Serv.name
-  }
-
-  static getAvatar (uid, charId, onlyHasData = false) {
-    return Profile.get(uid, charId, onlyHasData)
   }
 }

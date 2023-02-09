@@ -8,19 +8,23 @@ import AttrCalc from './profile-lib/AttrCalc.js'
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
 
 export default class AvatarData extends Base {
-  constructor (ds = {}, dataSource) {
+  constructor (ds = {}, source) {
     super()
     let char = Character.get({ id: ds.id, elem: ds.elem })
     if (!char) {
-      return false
+      return
     }
     this.id = char.id
     this.char = char
-    this.artis = new AvatarArtis(this.id)
-    this.setAvatar(ds, dataSource)
+    this.initArtis()
+    this.setAvatar(ds, source)
   }
 
-  static create (ds, dataSource) {
+  initArtis () {
+    this.artis = new AvatarArtis(this.id)
+  }
+
+  static create (ds, source) {
     let avatar = new AvatarData(ds)
     if (!avatar) {
       return false
@@ -38,7 +42,7 @@ export default class AvatarData extends Base {
     this._now = new Date() * 1
     this.setBasic(ds, source)
     ds.weapon && this.setWeapon(ds.weapon)
-    ds.talent && this.setTalent(ds.talent, source)
+    ds.talent && this.setTalent(ds.talent, 'original', source)
     ds.artis && this.setArtis(ds)
     delete this._now
   }
@@ -88,7 +92,7 @@ export default class AvatarData extends Base {
     }
   }
 
-  setTalent (ds = {}, source = '', mode = 'original') {
+  setTalent (ds = {}, mode = 'original', source = '') {
     const now = this._now || (new Date()) * 1
     let ret = this.char.getAvatarTalent(ds, this.cons, mode)
     this.talent = ret || this.talent
@@ -141,7 +145,7 @@ export default class AvatarData extends Base {
       }
       let ret = char.getAvatarTalent(talent, this.cons, 'original')
       if (ret) {
-        this.setTalent(ret, 'mys')
+        this.setTalent(ret, 'original', 'mys')
       }
       return true
     }
@@ -188,7 +192,7 @@ export default class AvatarData extends Base {
 
   // 判断当前profileData是否具备有效圣遗物信息
   hasArtis () {
-    return this.hasData && this.artis.length > 0
+    return this.isProfile && this.artis.length > 0
   }
 
   get costume () {
@@ -216,6 +220,26 @@ export default class AvatarData extends Base {
     return this.getData(keys || 'id,name,level,star,cons,fetter,elem,face,side,gacha,abbr,weapon,talent,artisSet') || {}
   }
 
+  /**
+   * 获取圣遗物套装属性
+   * @returns {boolean|*|{imgs: *[], names: *[], sets: {}, abbrs: *[], sName: string, name: (string|*)}|{}}
+   */
+  get artisSet () {
+    return this.artis.getSetData()
+  }
+
+  getArtisDetail () {
+    return this.artis.getDetail()
+  }
+
+  get dataSource () {
+    return {
+      enka: 'Enka.Network',
+      miao: '喵喵Api',
+      mys: '米游社'
+    }[this._source] || this._source
+  }
+
   get updateTime () {
     let time = this._time
     if (!time) {
@@ -228,17 +252,5 @@ export default class AvatarData extends Base {
       return moment(new Date(time)).format('MM-DD HH:mm')
     }
     return ''
-  }
-
-  /**
-   * 获取圣遗物套装属性
-   * @returns {boolean|*|{imgs: *[], names: *[], sets: {}, abbrs: *[], sName: string, name: (string|*)}|{}}
-   */
-  get artisSet () {
-    return this.artis.geSetData()
-  }
-
-  getArtisDetail () {
-    return this.artis.getDetail()
   }
 }

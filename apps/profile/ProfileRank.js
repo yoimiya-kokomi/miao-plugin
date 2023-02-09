@@ -1,4 +1,4 @@
-import { Character, ProfileRank, ProfileDmg, Avatar, Player } from '../../models/index.js'
+import { Character, ProfileRank, ProfileDmg, Player } from '../../models/index.js'
 import { renderProfile } from './ProfileDetail.js'
 import { Data, Common, Format } from '../../components/index.js'
 import lodash from 'lodash'

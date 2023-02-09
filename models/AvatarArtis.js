@@ -27,7 +27,7 @@ export default class AvatarArtis extends Base {
     return ret
   }
 
-  setArtisData (ds = {}, dataSource) {
+  setArtisData (ds = {}, source) {
     if (!this.hasArtis || AvatarArtis.isProfileArtis(ds) || !AvatarArtis.isProfileArtis(this.artis)) {
       for (let idx = 1; idx <= 5; idx++) {
         if (ds[idx]) {
@@ -204,7 +204,7 @@ export default class AvatarArtis extends Base {
    * name: '组合名字'， 若为4件套会使用套装完整名
    * sName: '简写名字'，若为4件套也会使用简写
    */
-  geSetData () {
+  getSetData () {
     let setCount = {}
     this.forEach((arti, idx) => {
       setCount[arti.set] = (setCount[arti.set] || 0) + 1

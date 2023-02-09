@@ -1,9 +1,8 @@
 import lodash from 'lodash'
 import { Data } from '../../components/index.js'
-import { ProfileServ } from '../index.js'
-import MiaoData from './miao-data.js'
+import MiaoData from './MiaoData.js'
 
-export default new ProfileServ({
+export default {
   key: 'miao',
   name: '喵喵Api',
   cfgKey: 'miaoApi',
@@ -36,4 +35,4 @@ export default new ProfileServ({
     }
     return 60
   }
-})
+}

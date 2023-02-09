@@ -10,7 +10,7 @@ import { Character, MysApi, Player } from '../../models/index.js'
 /*
 * 获取面板查询的 目标uid
 * */
-export async function getTargetUid (e) {
+const _getTargetUid = async function (e) {
   let uidReg = /[1-9][0-9]{8}/
 
   if (e.uid && uidReg.test(e.uid)) {
@@ -67,6 +67,14 @@ export async function getTargetUid (e) {
   return uid || false
 }
 
+export async function getTargetUid (e) {
+  let uid = await _getTargetUid(e)
+  if (uid) {
+    e.uid = uid
+  }
+  return uid
+}
+
 /*
 * 自动更新面板数据
 * */
@@ -87,8 +95,8 @@ export async function autoRefresh (e) {
   e.isRefreshed = true
 
   // 数据更新
-  let player = Player.create(uid)
-  let data = await player.refreshProfile(e)
+  let player = Player.create(e)
+  let data = await player.refreshProfile()
   if (!data) {
     return false
   }
@@ -128,7 +136,8 @@ export async function autoGetProfile (e, uid, avatar, callback) {
     return { err: true }
   }
 
-  let profile = Player.getAvatar(uid, char.id)
+  let player = Player.create(e)
+  let profile = player.getProfile(char.id)
   if (!profile || !profile.hasData) {
     if (await refresh()) {
       return { err: true }
@@ -136,13 +145,7 @@ export async function autoGetProfile (e, uid, avatar, callback) {
       e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`)
     }
     return { err: true }
-  } else if (!['enka', 'miao'].includes(profile.dataSource)) {
-    if (!await refresh()) {
-      e.reply('缓存数据错误，请重新获取面板信息后查看')
-    }
-    return { err: true }
   }
-
   return { profile, char, refresh }
 }
 
@@ -156,8 +159,8 @@ export async function getProfile (e) {
   }
 
   // 数据更新
-  let player = Player.create(uid)
-  let ret = await player.refreshProfile(e)
+  let player = Player.create(e)
+  let ret = await player.refreshProfile()
   if (!ret) {
     return true
   }

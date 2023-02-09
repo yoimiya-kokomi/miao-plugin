@@ -1,4 +1,4 @@
-export default {
+export const idsMap = {
   20848859: '黑岩斩刀',
   33330467: '元素熟练',
   37147251: '匣里日月',
@@ -472,4 +472,41 @@ export default {
   FIGHT_PROP_WIND_ADD_HURT: '风元素伤害加成',
   FIGHT_PROP_WIND_SUB_HURT: '风元素抗性',
   level: '等级'
+}
+
+// 圣遗物词条映射
+export const attrMap = {
+  HP: 'hpPlus',
+  HP_PERCENT: 'hp',
+  ATTACK: 'atkPlus',
+  ATTACK_PERCENT: 'atk',
+  DEFENSE: 'defPlus',
+  DEFENSE_PERCENT: 'def',
+  FIRE_ADD_HURT: '',
+  ICE_ADD_HURT: 'cryo',
+  ROCK_ADD_HURT: 'geo',
+  ELEC_ADD_HURT: 'electro',
+  WIND_ADD_HURT: 'anemo',
+  WATER_ADD_HURT: 'hydro',
+  PHYSICAL_ADD_HURT: 'phy',
+  GRASS_ADD_HURT: 'dendro',
+  HEAL_ADD: 'heal',
+  ELEMENT_MASTERY: 'mastery',
+  CRITICAL: 'cpct',
+  CRITICAL_HURT: 'cdmg',
+  CHARGE_EFFICIENCY: 'recharge'
+}
+
+// 圣遗物位置映射
+export const artisIdxMap = {
+  EQUIP_BRACER: 1,
+  EQUIP_NECKLACE: 2,
+  EQUIP_SHOES: 3,
+  EQUIP_RING: 4,
+  EQUIP_DRESS: 5,
+  生之花: 1,
+  死之羽: 2,
+  时之沙: 3,
+  空之杯: 4,
+  理之冠: 5
 }

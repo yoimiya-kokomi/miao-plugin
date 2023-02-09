@@ -47,7 +47,6 @@ export async function profileList (e) {
     let char = profile.char
     let tmp = char.getData('id,face,name,abbr,element,star')
     tmp.face = char.getImgs(profile.costume).face
-    tmp.source = profile.dataSource
     tmp.level = profile.level || 1
     tmp.cons = profile.cons
     tmp.isNew = 0

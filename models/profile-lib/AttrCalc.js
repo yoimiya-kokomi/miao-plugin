@@ -37,9 +37,6 @@ class AttrCalc {
     this.setCharAttr()
     this.setWeaponAttr()
     this.setArtisAttr()
-    if (process.argv.includes('web-debug')) {
-      // console.log(this.attr, this.attr.getAttr())
-    }
     return this.attr.getAttr()
   }
 

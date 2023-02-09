@@ -1,4 +1,4 @@
-import { Character, Avatar, MysApi, Player } from '../../models/index.js'
+import { Character, MysApi, Player } from '../../models/index.js'
 import { Cfg, Common } from '../../components/index.js'
 import lodash from 'lodash'
 import { segment } from 'oicq'
@@ -6,7 +6,6 @@ import moment from 'moment'
 
 export async function renderAvatar (e, avatar, renderType = 'card') {
   // 如果传递的是名字，则获取
-  let uid = e.uid
   if (typeof (avatar) === 'string') {
     // 检查角色
     let char = Character.get(avatar)
@@ -15,7 +14,6 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
     }
     let mys = await MysApi.init(e)
     if (!mys) return true
-    uid = mys.uid
     if (!char.isRelease) {
       avatar = { id: char.id, name: char.name, detail: false }
     } else {

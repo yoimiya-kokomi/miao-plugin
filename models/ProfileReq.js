@@ -8,10 +8,17 @@ function sleep (ms) {
 }
 
 export default class ProfileReq extends Base {
-  constructor ({ e, uid }) {
+  constructor (e) {
     super()
     this.e = e
-    this.uid = uid
+    this.uid = e.uid
+  }
+
+  static create (e) {
+    if (!e || !e.uid) {
+      return false
+    }
+    return new ProfileReq(e)
   }
 
   async setCd (seconds = 60) {
@@ -51,16 +58,14 @@ export default class ProfileReq extends Base {
     this.e.reply(msg)
   }
 
-  async request (player) {
-    let Serv = ProfileReq.getServ(this.uid)
-    let reqParam = await Serv.getReqParam(this.uid)
-
+  async requestProfile (player, serv) {
+    let reqParam = await serv.getReqParam(this.uid)
     let cdTime = await this.inCd()
     if (cdTime) {
-      // return this.err(`请求过快，请${cdTime}秒后重试..`)
+     // return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
-    // this.msg(`开始获取uid:${this.uid}的数据，可能会需要一定时间~`)
+    this.msg(`开始获取uid:${this.uid}的数据，可能会需要一定时间~`)
     await sleep(100)
     // 发起请求
     let data = {}
@@ -83,30 +88,20 @@ export default class ProfileReq extends Base {
       console.log('面板请求错误', e)
       data = {}
     }
-    data = await Serv.response(data, this)
+    data = await serv.response(data, this)
     // 设置CD
-    cdTime = Serv.getCdTime(data)
+    cdTime = serv.getCdTime(data)
     if (cdTime) {
       await this.setCd(cdTime)
     }
     if (data === false) {
       return false
     }
-    Serv.updatePlayer(player, data)
-    cdTime = Serv.getCdTime(data)
+    serv.updatePlayer(player, data)
+    cdTime = serv.getCdTime(data)
     if (cdTime) {
       await this.setCd(cdTime)
     }
     return player
   }
-}
-
-ProfileReq.serv = {}
-ProfileReq.regServ = function (serv) {
-  for (let key in serv) {
-    ProfileReq.serv[key] = serv[key]
-  }
-}
-ProfileReq.getServ = function (uid) {
-  return ProfileServ.getServ({ uid, serv: ProfileReq.serv })
 }
