@@ -5,7 +5,7 @@ import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/ar
 let ArtisMark = {
   // 根据Key获取标题
   getKeyByTitle (title, dmg = false) {
-    if (/元素伤害加成/.test(title)) {
+    if (/元素伤害加成/.test(title) || Format.isElem(title)) {
       let elem = Format.matchElem(title)
       return dmg ? 'dmg' : elem
     } else if (title === '物理伤害加成') {
@@ -229,6 +229,16 @@ let ArtisMark = {
     let ret = []
     lodash.forEach(tmp, (ds) => ret.push(ds.attr))
     return ret.slice(0, maxLen)
+  },
+
+  hasAttr (artis) {
+    for (let idx = 1; idx <= 5; idx++) {
+      let ds = artis[idx]
+      if (ds && (!ds.name || !ds.main || !ds.attrs || !ds?.main?.key)) {
+        return false
+      }
+    }
+    return true
   }
 }
 

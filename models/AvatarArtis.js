@@ -14,21 +14,8 @@ export default class AvatarArtis extends Base {
     this.artis = {}
   }
 
-  static isProfileArtis (ds) {
-    let ret = true
-    for (let idx = 1; idx <= 5; idx++) {
-      if (ds[idx]) {
-        if (!ds[idx].main || !ds[idx].attrs) {
-          ret = false
-          return ret
-        }
-      }
-    }
-    return ret
-  }
-
   setArtisData (ds = {}, source) {
-    if (!this.hasArtis || AvatarArtis.isProfileArtis(ds) || !AvatarArtis.isProfileArtis(this.artis)) {
+    if (!this.hasArtis || ArtisMark.hasAttr(ds) || !ArtisMark.hasAttr(this.artis)) {
       for (let idx = 1; idx <= 5; idx++) {
         if (ds[idx]) {
           this.setArtis(idx, ds[idx] || ds[`arti${idx}`] || {})
@@ -138,13 +125,7 @@ export default class AvatarArtis extends Base {
   }
 
   get hasAttr () {
-    for (let idx = 1; idx <= 5; idx++) {
-      let ds = this.artis[idx]
-      if (ds && (!ds.name || !ds.main || !ds.attrs)) {
-        return false
-      }
-    }
-    return true
+    return ArtisMark.hasAttr(this.artis)
   }
 
   mainAttr (idx = '') {

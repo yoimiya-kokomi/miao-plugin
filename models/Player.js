@@ -47,6 +47,7 @@ export default class Player extends Base {
     this.setBasicData(data)
     if (data.chars) {
       this.setAvatars(data.chars)
+      // 暂时保留旧数据，防止异常情况
       this._chars = data.chars
     }
     this.setAvatars(data.avatars || [])
@@ -61,6 +62,7 @@ export default class Player extends Base {
     lodash.forEach(this._avatars, (ds) => {
       ret.avatars[ds.id] = ds.toJSON()
     })
+    // 暂时保留旧数据，防止异常情况
     if (this._chars) {
       ret.chars = this._chars
     }

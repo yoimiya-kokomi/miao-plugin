@@ -77,6 +77,7 @@ export async function profileList (e) {
   chars = lodash.sortBy(chars, ['isNew', 'star', 'level', 'id'])
   chars = chars.reverse()
 
+  player.save()
   // 渲染图像
   return await Common.render('character/profile-list', {
     save_id: uid,
