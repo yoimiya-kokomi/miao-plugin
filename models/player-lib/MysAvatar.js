@@ -78,7 +78,7 @@ const MysAvatar = {
     }
     lodash.forEach(ids, (id) => {
       let avatar = player.getAvatar(id)
-      if (avatar.needRefreshTalent()) {
+      if (avatar.needRefreshTalent) {
         ret.push(avatar.id)
       }
     })
@@ -110,7 +110,7 @@ const MysAvatar = {
       for (let val of avatarArr) {
         for (let id of val) {
           let avatar = player.getAvatar(id)
-          skillRet.push(await avatar.refreshTalent(mys))
+          skillRet.push(await MysAvatar.refreshAvatarTalent(avatar, mys))
         }
         skillRet = await Promise.all(skillRet)
         skillRet = skillRet.filter(item => item.id)
@@ -118,6 +118,42 @@ const MysAvatar = {
       }
     }
     player.save()
+  },
+
+  async refreshAvatarTalent (avatar, mys) {
+    if (mys && mys.isSelfCookie) {
+      let char = avatar.char
+      if (!char) {
+        return false
+      }
+      let id = char.id
+      let talent = {}
+      let talentRes = await mys.getDetail(id)
+      // { data: null, message: '请先登录', retcode: -100, api: 'detail' }
+      if (talentRes && talentRes.skill_list) {
+        let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
+        for (let val of talentList) {
+          let { max_level: maxLv, level_current: lv } = val
+          if (val.name.includes('普通攻击')) {
+            talent.a = lv
+            continue
+          }
+          if (maxLv >= 10 && !talent.e) {
+            talent.e = lv
+            continue
+          }
+          if (maxLv >= 10 && !talent.q) {
+            talent.q = lv
+          }
+        }
+      }
+      let ret = char.getAvatarTalent(talent, avatar.cons, 'original')
+      if (ret) {
+        avatar.setTalent(ret, 'original', 'mys')
+      }
+      return true
+    }
+    return false
   }
 }
 export default MysAvatar

@@ -54,6 +54,26 @@ const Profile = {
       e.reply(`UID:${uid}更新面板失败，更新服务：${serv.name}`)
       return false
     }
+  },
+
+  isProfile (avatar) {
+    // 检查数据源
+    if (!avatar._source || !['enka', 'change', 'miao'].includes(avatar._source)) {
+      return false
+    }
+    // 检查武器及天赋
+    if (!avatar.weapon || !avatar.talent) {
+      return false
+    }
+    // 检查圣遗物词条是否完备
+    if (!avatar.artis || !avatar.artis.hasAttr) {
+      return false
+    }
+    // 检查旅行者
+    if (['空', '荧'].includes(avatar.name)) {
+      return !!avatar.elem
+    }
+    return true
   }
 }
 

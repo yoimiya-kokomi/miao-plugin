@@ -4,6 +4,7 @@ import moment from 'moment'
 import { Character, AvatarArtis, ProfileData, Weapon } from './index.js'
 import { Data } from '../components/index.js'
 import AttrCalc from './profile-lib/AttrCalc.js'
+import Profile from './player-lib/Profile.js'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
 
@@ -107,49 +108,13 @@ export default class AvatarData extends Base {
    * 当前数据是否需要更新天赋
    * @returns {boolean}
    */
-  needRefreshTalent () {
+  get needRefreshTalent () {
     // 不存在天赋数据
     if (!this.hasTalent) {
       return true
     }
     // 超过2个小时的天赋数据进行请求
     return (new Date() * 1) - this._talent > 3600 * 2 * 1000
-  }
-
-  async refreshTalent (mys) {
-    if (mys && mys.isSelfCookie) {
-      let char = this.char
-      if (!char) {
-        return false
-      }
-      let id = char.id
-      let talent = {}
-      let talentRes = await mys.getDetail(id)
-      // { data: null, message: '请先登录', retcode: -100, api: 'detail' }
-      if (talentRes && talentRes.skill_list) {
-        let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
-        for (let val of talentList) {
-          let { max_level: maxLv, level_current: lv } = val
-          if (val.name.includes('普通攻击')) {
-            talent.a = lv
-            continue
-          }
-          if (maxLv >= 10 && !talent.e) {
-            talent.e = lv
-            continue
-          }
-          if (maxLv >= 10 && !talent.q) {
-            talent.q = lv
-          }
-        }
-      }
-      let ret = char.getAvatarTalent(talent, this.cons, 'original')
-      if (ret) {
-        this.setTalent(ret, 'original', 'mys')
-      }
-      return true
-    }
-    return false
   }
 
   setArtis (ds, source) {
@@ -164,23 +129,9 @@ export default class AvatarData extends Base {
     return this.char?.name || ''
   }
 
-  /**
-   *
-   */
+  // 是否是合法面板数据
   get isProfile () {
-    // 检查数据源
-    if (!this._source || !['enka', 'change', 'miao'].includes(this._source)) {
-      return false
-    }
-    // 检查属性
-    if (!this.weapon || !this.talent || !this.artis) {
-      return false
-    }
-    // 检查旅行者
-    if (['空', '荧'].includes(this.name)) {
-      return !!this.elem
-    }
-    return true
+    return Profile.isProfile(this)
   }
 
   getProfile () {

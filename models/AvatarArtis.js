@@ -137,6 +137,16 @@ export default class AvatarArtis extends Base {
     return !lodash.isEmpty(this.artis)
   }
 
+  get hasAttr () {
+    for (let idx = 1; idx <= 5; idx++) {
+      let ds = this.artis[idx]
+      if (ds && (!ds.name || !ds.main || !ds.attrs)) {
+        return false
+      }
+    }
+    return true
+  }
+
   mainAttr (idx = '') {
     if (!idx) {
       let ret = {}

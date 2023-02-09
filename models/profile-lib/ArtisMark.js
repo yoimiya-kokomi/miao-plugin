@@ -167,6 +167,9 @@ let ArtisMark = {
     let ret = 0
     let { attrs, posMaxMark } = charCfg
     let key = mainAttr?.key
+    if (!key) {
+      return 0
+    }
     let fixPct = 1
     posIdx = posIdx * 1
     if (posIdx >= 3) {
