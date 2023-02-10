@@ -88,18 +88,20 @@ const MysAvatar = {
     let role = infoData.role
     // 设置角色信息
     let homeLevel = ((infoData?.homes || [])[0])?.level
-    player.setBasicData({
-      level: role.level,
-      name: role.nickname
-    })
+    if(role) {
+      player.setBasicData({
+        level: role.level,
+        name: role.nickname
+      })
+    }
     // 设置角色数据
-    lodash.forEach(infoData.avatars, (ds) => {
+    lodash.forEach(infoData?.avatars || [], (ds) => {
       let avatar = Data.getData(ds, 'id,level,cons:actived_constellation_num,fetter')
       avatar.elem = ds.element.toLowerCase()
       player.setAvatar(avatar, 'mys')
     })
     let stats = {}
-    lodash.forEach(infoData.stats, (num, key) => {
+    lodash.forEach(infoData?.stats || [], (num, key) => {
       key = key.replace('_number', '')
       if (key !== 'spiral_abyss') {
         stats[lodash.camelCase(key)] = num
@@ -107,7 +109,7 @@ const MysAvatar = {
     })
 
     let exploration = {}
-    lodash.forEach(infoData.world_explorations, (ds) => {
+    lodash.forEach(infoData?.world_explorations || [], (ds) => {
       let { name } = ds
       if (name === '层岩巨渊') {
         return true
