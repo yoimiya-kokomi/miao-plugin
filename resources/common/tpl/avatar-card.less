@@ -1,23 +1,27 @@
+
 .avatar-card {
+  @px: 1.5px;
+
+
   margin: 3px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
-  font-size: 13px;
-  border-radius: 7px;
+  font-size: @px*13;
+  border-radius: @px*7;
 
 
   .card {
-    border-radius: 7px;
-    box-shadow: 0 2px 6px 0 rgb(132 93 90 / 30%);
+    border-radius: @px*7;
+    box-shadow: 0 2px @px*6 0 rgb(132 93 90 / 30%);
     position: relative;
     overflow: hidden;
     background: #e7e5d9;
-    width: 70px;
+    width: @px*70;
   }
 
   .avatar-face {
-    width: 70px;
-    height: 70px;
-    border-radius: 7px 7px 15px 0;
+    width: @px*70;
+    height: @px*70;
+    border-radius: @px*7 @px*7 @px*15 0;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;
@@ -26,7 +30,6 @@
     .img {
       background-position: center bottom;
     }
-
 
     .avatar-level {
       position: absolute;
@@ -38,9 +41,7 @@
       color: #fff;
     }
 
-
   }
-
 
   .cons {
     border-radius: 0 0 0 5px;
@@ -51,18 +52,18 @@
   }
 
   .avatar-talent {
-    height: 21px;
+    height: @px*20;
     padding: 3px 5px 2px;
-    font-size: 12px;
+    font-size: @px*12;
     width: 100%;
     color: #222;
     text-align: center;
     display: flex;
 
     .talent-item {
-      width: 20px;
-      height: 16px;
-      line-height: 17px;
+      width: @px*20;
+      height: @px*16;
+      line-height: @px*17;
       margin: 0 2px;
       text-align: center;
       display: block;
@@ -85,7 +86,7 @@
     }
 
     &.no-talent {
-      font-size: 12px;
+      font-size: @px*12;
       color: rgba(100, 100, 100, .5);
       text-align: center;
       padding: 3px 0 2px;
@@ -109,10 +110,10 @@
     color: #333;
 
     strong {
-      font-size: 14px;
+      font-size: @px*20px;
       display: block;
-      height: 23px;
-      line-height: 20px;
+      height: @px*23;
+      line-height: @px*20;
     }
 
     .cons {
@@ -129,14 +130,14 @@
     }
 
     .card {
-      width: 146px;
+      width: @px*146;
       display: flex;
     }
 
     .avatar-face {
-      height: 126px;
+      height: @px * 126;
       width: 76px;
-      border-radius: 7px 0 0 7px;
+      border-radius: @px*7 0 0 @px*7;
     }
 
     .img {
@@ -147,7 +148,7 @@
     }
 
     .avatar-info {
-      width: 70px;
+      width: @px*70;
     }
 
     .line {
@@ -162,77 +163,77 @@
 
   &.wide2 {
     .card {
-      width: 298px;
+      width: @px*298;
     }
 
     .avatar-face {
-      width: 146px;
+      width: @px*146;
 
       .img {
-        margin-top: -50px;
-        height: 176px;
+        margin-top: @px*-50;
+        height: @px*176;
       }
     }
 
     .avatar-info {
-      width: 146px;
-      padding-left: 5px;
+      width: @px*146;
+      padding-left: @px*5;
     }
 
 
   }
 
-}
 
-.avatar-detail {
-  display: flex;
-  padding: 0 1px 2px;
+  .avatar-detail {
+    display: flex;
+    padding: 0 1px 2px;
 
-  .item {
-    width: 31px;
-    height: 31px;
-    border-radius: 4px;
-    margin: 1px;
-  }
-}
-
-.avatar-weapon {
-  .icon {
-    border-radius: 4px;
-  }
-
-  .cons {
-    top: initial;
-    bottom: 0;
-    padding: 1px 3px;
-    border-radius: 3px 0 0 0;
-  }
-}
-
-.avatar-artis {
-  position: relative;
-
-  .artis {
-    background: rgba(0, 0, 0, 0.5)
-  }
-
-  &.artis2 {
-    .img {
-      position: absolute;
-      transform: scale(.7);
-      width: 92%;
-      height: 92%;
-      margin: 4%;
-
-      &:first-child {
-        transform-origin: left top;
-      }
-
-      &:last-child {
-        transform-origin: right bottom;
-      }
+    .item {
+      width: @px*31;
+      height: @px*31;
+      border-radius: 4px;
+      margin: 1px;
     }
   }
 
+  .avatar-weapon {
+    .icon {
+      border-radius: 4px;
+    }
 
+    .cons {
+      top: initial;
+      bottom: 0;
+      padding: 1px 3px;
+      border-radius: 3px 0 0 0;
+    }
+  }
+
+  .avatar-artis {
+    position: relative;
+
+    .artis {
+      background: rgba(0, 0, 0, 0.5)
+    }
+
+    &.artis2 {
+      .img {
+        position: absolute;
+        transform: scale(.7);
+        width: 92%;
+        height: 92%;
+        margin: 4%;
+
+        &:first-child {
+          transform-origin: left top;
+        }
+
+        &:last-child {
+          transform-origin: right bottom;
+        }
+      }
+    }
+
+
+  }
 }

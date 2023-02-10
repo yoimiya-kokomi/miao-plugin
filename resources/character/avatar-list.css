@@ -1,14 +1,43 @@
 .container {
-  width: 525px;
+  width: 740px;
   background-size: cover;
 }
 .head-box {
   margin-top: 0;
 }
-#profile-stat {
+#avatar-list {
   width: calc(100% + 30px);
   margin: 0 -15px -5px;
   overflow: hidden;
+}
+.exploration {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 6px;
+}
+.exploration .item {
+  width: 95px;
+  height: 106.4px;
+  background: url('./imgs/exploration.webp') no-repeat;
+  background-size: auto 100%;
+  border-radius: 4px;
+  margin: 4px;
+  text-align: center;
+  color: #fff;
+}
+.exploration .item strong {
+  font-size: 18px;
+  display: block;
+  height: 22px;
+  line-height: 22px;
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.exploration .item span {
+  margin-top: 60px;
+  font-size: 12px;
+  height: 18px;
+  line-height: 18px;
+  display: block;
 }
 .cont-title {
   padding: 8px 15px;

@@ -1,6 +1,5 @@
-import lodash from 'lodash'
-import { Cfg, Common, Data } from '../../components/index.js'
-import { MysApi, ProfileRank, Player } from '../../models/index.js'
+import { Cfg, Common } from '../../components/index.js'
+import { MysApi, Player } from '../../models/index.js'
 
 export async function profileStat (e) {
   let isMatch = /^#(面板|喵喵|角色|武器|天赋|技能|圣遗物)练度统计?$/.test(e.original_msg || e.msg || '')
@@ -24,6 +23,8 @@ export async function profileStat (e) {
 
   let player = Player.create(e)
 
+  await player.refreshMysInfo()
+
   let avatarRet = await player.refreshAndGetAvatarData({
     rank: true,
     retType: 'array',
@@ -35,10 +36,11 @@ export async function profileStat (e) {
   return await Common.render(isAvatarList ? 'character/avatar-list' : 'character/profile-stat', {
     save_id: uid,
     uid,
+    info: player.info || {},
     isStat: !isAvatarList,
     talentLvMap: '0,1,1,1,2,2,3,3,3,4,5'.split(','),
     avatars: avatarRet,
     isSelf: e.isSelf,
     talentNotice
-  }, { e, scale: isAvatarList ? 2.2 : 1.8 })
+  }, { e, scale: 1.4 })
 }

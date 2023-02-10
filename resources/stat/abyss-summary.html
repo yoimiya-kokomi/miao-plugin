@@ -8,31 +8,14 @@
 
 {{block 'main'}}
 {{ set upDown = {up:'上半', down:'下半'} }}
+<div class="head-box type">
+  <div class="title">#上传深渊<span>{{abyss.schedule}} · {{abyss.total}}次战斗</span></div>
+  <div class="uid">UID:{{uid}}</div>
+</div>
 <div class="info_box">
 
   <div class="abyss-stat-cont">
-    <div>
-      <div class="head-box type">
-        <div class="title">#上传深渊<span>{{abyss.schedule}}</span></div>
-        <div class="label">UID:{{uid}} <span>· {{abyss.total}}次战斗</span></div>
-      </div>
 
-      <div class="abyss-data cont">
-        {{set st = abyss?.stat || {} }}
-        {{set dataMap = {defeat:"最多击破",e:"元素战技",q:"元素爆发"} }}
-        {{each dataMap title key}}
-        <div class="abyss-item">
-          <div class="info">
-            <strong>{{title}}</strong>
-            <span>{{st[key]?.value || 0}}</span>
-          </div>
-          {{if st[key]}}
-          <% include(_tpl_path+'/avatar-card.html', [avatars[st[key]?.id],{_res_path}]) %>
-          {{/if}}
-        </div>
-        {{/each}}
-      </div>
-    </div>
     <div class="abyss-stat">
       {{each stat ds}}
       {{set avatar = avatars[ds.id]}}
@@ -44,6 +27,8 @@
         </div>
         <div class="avatar-banner avatar-{{avatar.name}}"
              style="background-image:url({{_res_path}}{{avatar.gacha}})"></div>
+
+        {{if ds.msg}}
         <div class="stat-msg">
           {{each ds.msg msg}}
           {{if msg.txt}}
@@ -53,6 +38,7 @@
           {{/if}}
           {{/each}}
         </div>
+        {{/if}}
         {{/if}}
       </div>
       {{/each}}

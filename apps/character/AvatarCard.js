@@ -18,7 +18,7 @@ export async function renderAvatar (e, avatar, renderType = 'card') {
       avatar = { id: char.id, name: char.name, detail: false }
     } else {
       let player = Player.create(e)
-      await player.refreshMys()
+      await player.refreshMysAvatar()
       await player.refreshTalent(char.id)
       avatar = player.getAvatar(char.id)
       if (!avatar) {

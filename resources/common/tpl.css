@@ -140,21 +140,21 @@
 .avatar-card {
   margin: 3px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
-  font-size: 13px;
-  border-radius: 7px;
+  font-size: 19.5px;
+  border-radius: 10.5px;
 }
 .avatar-card .card {
-  border-radius: 7px;
-  box-shadow: 0 2px 6px 0 rgba(132, 93, 90, 0.3);
+  border-radius: 10.5px;
+  box-shadow: 0 2px 9px 0 rgba(132, 93, 90, 0.3);
   position: relative;
   overflow: hidden;
   background: #e7e5d9;
-  width: 70px;
+  width: 105px;
 }
 .avatar-card .avatar-face {
-  width: 70px;
-  height: 70px;
-  border-radius: 7px 7px 15px 0;
+  width: 105px;
+  height: 105px;
+  border-radius: 10.5px 10.5px 22.5px 0;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
@@ -180,18 +180,18 @@
   top: 0;
 }
 .avatar-card .avatar-talent {
-  height: 21px;
+  height: 30px;
   padding: 3px 5px 2px;
-  font-size: 12px;
+  font-size: 18px;
   width: 100%;
   color: #222;
   text-align: center;
   display: flex;
 }
 .avatar-card .avatar-talent .talent-item {
-  width: 20px;
-  height: 16px;
-  line-height: 17px;
+  width: 30px;
+  height: 24px;
+  line-height: 25.5px;
   margin: 0 2px;
   text-align: center;
   display: block;
@@ -211,7 +211,7 @@
   box-shadow: 0 0 2px 0 #000;
 }
 .avatar-card .avatar-talent.no-talent {
-  font-size: 12px;
+  font-size: 18px;
   color: rgba(100, 100, 100, 0.5);
   text-align: center;
   padding: 3px 0 2px;
@@ -230,10 +230,10 @@
   color: #333;
 }
 .avatar-card .avatar-name strong {
-  font-size: 14px;
+  font-size: 30px;
   display: block;
-  height: 23px;
-  line-height: 20px;
+  height: 34.5px;
+  line-height: 30px;
 }
 .avatar-card .avatar-name .cons {
   position: initial;
@@ -245,13 +245,13 @@
   display: none;
 }
 .avatar-card.card-wide .card {
-  width: 146px;
+  width: 219px;
   display: flex;
 }
 .avatar-card.card-wide .avatar-face {
-  height: 126px;
+  height: 189px;
   width: 76px;
-  border-radius: 7px 0 0 7px;
+  border-radius: 10.5px 0 0 10.5px;
 }
 .avatar-card.card-wide .img {
   background-size: 100% auto;
@@ -260,7 +260,7 @@
   margin-top: -9px;
 }
 .avatar-card.card-wide .avatar-info {
-  width: 70px;
+  width: 105px;
 }
 .avatar-card.card-wide .line {
   display: block;
@@ -271,55 +271,55 @@
   transform: scale(0.8);
 }
 .avatar-card.wide2 .card {
-  width: 298px;
+  width: 447px;
 }
 .avatar-card.wide2 .avatar-face {
-  width: 146px;
+  width: 219px;
 }
 .avatar-card.wide2 .avatar-face .img {
-  margin-top: -50px;
-  height: 176px;
+  margin-top: -75px;
+  height: 264px;
 }
 .avatar-card.wide2 .avatar-info {
-  width: 146px;
-  padding-left: 5px;
+  width: 219px;
+  padding-left: 7.5px;
 }
-.avatar-detail {
+.avatar-card .avatar-detail {
   display: flex;
   padding: 0 1px 2px;
 }
-.avatar-detail .item {
-  width: 31px;
-  height: 31px;
+.avatar-card .avatar-detail .item {
+  width: 46.5px;
+  height: 46.5px;
   border-radius: 4px;
   margin: 1px;
 }
-.avatar-weapon .icon {
+.avatar-card .avatar-weapon .icon {
   border-radius: 4px;
 }
-.avatar-weapon .cons {
+.avatar-card .avatar-weapon .cons {
   top: initial;
   bottom: 0;
   padding: 1px 3px;
   border-radius: 3px 0 0 0;
 }
-.avatar-artis {
+.avatar-card .avatar-artis {
   position: relative;
 }
-.avatar-artis .artis {
+.avatar-card .avatar-artis .artis {
   background: rgba(0, 0, 0, 0.5);
 }
-.avatar-artis.artis2 .img {
+.avatar-card .avatar-artis.artis2 .img {
   position: absolute;
   transform: scale(0.7);
   width: 92%;
   height: 92%;
   margin: 4%;
 }
-.avatar-artis.artis2 .img:first-child {
+.avatar-card .avatar-artis.artis2 .img:first-child {
   transform-origin: left top;
 }
-.avatar-artis.artis2 .img:last-child {
+.avatar-card .avatar-artis.artis2 .img:last-child {
   transform-origin: right bottom;
 }
 .item-list {

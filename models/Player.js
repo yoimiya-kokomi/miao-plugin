@@ -57,7 +57,7 @@ export default class Player extends Base {
    * 保存json文件
    */
   save () {
-    let ret = Data.getData(this, 'uid,name,level,word,face,card,sign,_mys,_profile')
+    let ret = Data.getData(this, 'uid,name,level,word,face,card,sign,info,_info,_mys,_profile')
     ret.avatars = {}
     lodash.forEach(this._avatars, (ds) => {
       ret.avatars[ds.id] = ds.toJSON()
@@ -75,14 +75,16 @@ export default class Player extends Base {
    */
   setBasicData (ds) {
     this.name = ds.name || this.name || ''
-    this.level = ds.level || this.level || 1
-    this.word = ds.word || this.word || 1
+    this.level = ds.level || this.level || ''
+    this.word = ds.word || this.word || ''
     this.face = ds.face || this.face || ''
     this.card = ds.card || this.card || ''
     this.sign = ds.sign || this.sign || ''
+    this.info = ds.info || this.info || false
     this._avatars = this._avatars || {}
     this._profile = ds._profile || this._profile
     this._mys = ds._mys || this._mys
+    this._info = ds._info || this._info
   }
 
   // 设置角色列表
@@ -165,8 +167,12 @@ export default class Player extends Base {
   }
 
   // 更新米游社数据
-  async refreshMys (force = false) {
-    return MysAvatar.refreshMys(this, force)
+  async refreshMysAvatar (force = false) {
+    return MysAvatar.refreshMysAvatar(this, force)
+  }
+
+  async refreshMysInfo (force = false) {
+    return await MysAvatar.refreshMysInfo(this, force)
   }
 
   // 通过已有的Mys CharData更新
@@ -187,7 +193,7 @@ export default class Player extends Base {
 
   async refreshAndGetAvatarData (cfg) {
     // 更新角色信息
-    await this.refreshMys(cfg.force)
+    await this.refreshMysAvatar(cfg.force)
 
     // 更新天赋信息
     if (cfg.refreshTalent !== false) {

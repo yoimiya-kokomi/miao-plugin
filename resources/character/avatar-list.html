@@ -8,10 +8,21 @@
 
 {{block 'main'}}
 <div class="head-box">
-  <div class="title">#角色列表</div>
-  <div class="label">UID:{{uid}} 共{{avatars.length }}名角色</div>
+  <div class="title">#角色</div>
 </div>
-<div id="profile-stat">
+<div id="avatar-list">
+  {{if info && info.exploration}}
+  {{set citys = ['蒙德','龙脊雪山','璃月','层岩巨渊','稻妻','渊下宫','须弥'] }}
+  <div class="exploration">
+    {{each citys city idx}}
+    <div class="item city-{{idx+1}}" style="background-position:{{idx}}0% 0">
+      <span>{{city}}</span>
+      <strong>{{ (info.exploration[city]||0)/10 || '0'}}%</strong>
+
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
   <div class="cont avatar-cont">
     <div class="cont-title">角色列表</div>
     <div class="avatar-list">

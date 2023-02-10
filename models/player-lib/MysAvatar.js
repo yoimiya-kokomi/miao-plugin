@@ -9,7 +9,7 @@ const MysAvatar = {
    * @param force
    * @returns {Promise<boolean>}
    */
-  async refreshMys (player, force = false) {
+  async refreshMysAvatar (player, force = false) {
     let mys = player?.e?._mys
     if (!mys) {
       return false
@@ -26,6 +26,27 @@ const MysAvatar = {
   },
 
   /**
+   * 更新米游社统计信息
+   * @param player
+   * @param force
+   * @returns {Promise<boolean>}
+   */
+  async refreshMysInfo (player, force = false) {
+    let mys = player?.e?._mys
+    if (!mys) {
+      return false
+    } // 不必要更新
+    if (player._info && (new Date() * 1 - player._info < 10 * 60 * 1000) && !force) {
+      return false
+    }
+    let infoData = await mys.getIndex()
+    if (!infoData) {
+      return false
+    }
+    MysAvatar.setMysInfo(player, infoData)
+  },
+
+  /**
    * 根据已有Mys CharData更新player
    * @param player
    * @param charData
@@ -39,7 +60,7 @@ const MysAvatar = {
     lodash.forEach(charData.avatars, (ds) => {
       let avatar = Data.getData(ds, 'id,level,cons:actived_constellation_num,fetter')
       avatar.elem = ds.element.toLowerCase()
-      // 处理实装数据
+      // 处理时装数据
       let costume = (ds?.costumes || [])[0]
       if (costume && costume.id) {
         avatar.costume = costume.id
@@ -60,6 +81,45 @@ const MysAvatar = {
       player.setAvatar(avatar, 'mys')
     })
     player._mys = new Date() * 1
+    player.save()
+  },
+
+  setMysInfo (player, infoData) {
+    let role = infoData.role
+    // 设置角色信息
+    let homeLevel = ((infoData?.homes || [])[0])?.level
+    player.setBasicData({
+      level: role.level,
+      name: role.nickname
+    })
+    // 设置角色数据
+    lodash.forEach(infoData.avatars, (ds) => {
+      let avatar = Data.getData(ds, 'id,level,cons:actived_constellation_num,fetter')
+      avatar.elem = ds.element.toLowerCase()
+      player.setAvatar(avatar, 'mys')
+    })
+    let stats = {}
+    lodash.forEach(infoData.stats, (num, key) => {
+      key = key.replace('_number', '')
+      if (key !== 'spiral_abyss') {
+        stats[lodash.camelCase(key)] = num
+      }
+    })
+
+    let exploration = {}
+    lodash.forEach(infoData.world_explorations, (ds) => {
+      let { name } = ds
+      if (name === '层岩巨渊') {
+        return true
+      }
+      exploration[name === '层岩巨渊·地下矿区' ? '层岩巨渊' : name] = ds.exploration_percentage
+    })
+    player.info = {
+      homeLevel,
+      stats,
+      exploration
+    }
+    player._info = new Date() * 1
     player.save()
   },
 

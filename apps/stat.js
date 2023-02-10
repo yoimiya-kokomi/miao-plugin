@@ -196,7 +196,7 @@ async function abyssTeam (e) {
     return true
   }
   let player = Player.create(e)
-  await player.refreshMys()
+  await player.refreshMysAvatar()
   await player.refreshTalent()
 
   let abyssData = await HutaoApi.getAbyssTeam()
@@ -465,7 +465,7 @@ async function uploadData (e) {
           }
         }
         if (ds.percent) {
-          pct(ds.percent, char.name)
+          pct(ds.percent, char.sName)
           pct(ds.percentTotal, '总记录')
         } else {
           msg.push({
@@ -476,6 +476,18 @@ async function uploadData (e) {
       }
       addMsg('最强一击', ret.data?.damage || abyssData?.stat?.dmg || {})
       addMsg('最高承伤', ret.data?.takeDamage || abyssData?.stat.takeDmg || {})
+      let abyssStat = abyssData?.stat || {}
+      lodash.forEach({ defeat: '最多击破', e: '元素战技', q: '元素爆发' }, (title, key) => {
+        if (abyssStat[key]) {
+          stat.push({
+            title,
+            id: abyssStat[key]?.id || 0,
+            value: `${abyssStat[key]?.value}次`
+          })
+        } else {
+          stat.push({})
+        }
+      })
       await player.refreshTalent(avatarIds)
       let avatarData = player.getAvatarData(avatarIds)
       return await Common.render('stat/abyss-summary', {
@@ -485,7 +497,7 @@ async function uploadData (e) {
         save_id: uid,
         totalCount: overview?.collectedPlayerCount || 0,
         uid
-      }, { e, scale: 1.8 })
+      }, { e, scale: 1.2 })
     } else {
       e.reply('暂未获得本期深渊挑战数据...')
       return true
