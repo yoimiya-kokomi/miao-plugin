@@ -7,8 +7,30 @@
 
 
 {{block 'main'}}
-<div class="head-box">
-  <div class="title">#角色</div>
+<div id="banner" style="background-image:url({{_res_path}}{{face?.banner}})">
+  <div class="face">
+    <span style="background-image:url({{_res_path}}{{face?.face}})"></span>
+  </div>
+  <div class="user-info">
+    <div class="name">
+      <strong>{{face.name}}</strong>
+      {{if face.level}}<span> #{{uid}}</span>{{/if}}
+    </div>
+    <div class="uid">
+      {{if face.level}} Lv.{{face.level}}·{{/if}}
+      {{ if info.activeDay}}{{info.activeDay}} {{/if}}
+    </div>
+  </div>
+  <div class="stat">
+    {{each info?.statMap title key}}
+    {{if info.stats[key] }}
+    <div class="stat-li">
+      <strong>{{info.stats[key]}}</strong>
+      <span>{{title}}</span>
+    </div>
+    {{/if}}
+    {{/each}}
+  </div>
 </div>
 <div id="avatar-list">
   {{if info && info.exploration}}

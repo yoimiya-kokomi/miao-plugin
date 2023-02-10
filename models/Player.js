@@ -161,6 +161,37 @@ export default class Player extends Base {
     return ret
   }
 
+  getInfo () {
+    let ret = {
+      ...(this.info || {}),
+      statMap: {
+        achievement: '成就数',
+        commonChest: '普通宝箱',
+        exquisiteChest: '精致宝箱',
+        preciousChest: '珍贵宝箱',
+        luxuriousChest: '豪华宝箱'
+      }
+    }
+    if (ret?.stats?.activeDay) {
+      let num = ret?.stats?.activeDay
+      let year = Math.floor(num / 365)
+      let month = Math.floor((num % 365) / 30.41)
+      let day = Math.floor((num % 365) % 30.41)
+      let msg = ''
+      if (year > 0) {
+        msg += year + '年'
+      }
+      if (month > 0) {
+        msg += month + '个月'
+      }
+      if (day > 0) {
+        msg += day + '天'
+      }
+      ret.activeDay = msg
+    }
+    return ret
+  }
+
   // 更新面板
   async refreshProfile (force = true) {
     return await Profile.refreshProfile(this, force)

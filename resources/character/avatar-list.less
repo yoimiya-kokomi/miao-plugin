@@ -8,6 +8,96 @@
   margin-top: 0;
 }
 
+#banner {
+  height: 90px;
+  background-size: auto 100%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-color: #f0ece4;
+  border-radius: 50px;
+  padding: 1px;
+  margin: 5px 0;
+  display: flex;
+  white-space: nowrap;
+  position: relative;
+
+  .face {
+    width: 70px;
+    height: 70px;
+    margin: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #000, 0 0 5px rgba(0, 0, 0, .5);
+    border: 3px solid #fff;
+    overflow: hidden;
+    background: url('../common/item/bg5.png');
+    background-size: cover;
+
+    span {
+      display: block;
+      width: 64px;
+      height: 64px;
+      background-size: auto 100%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .user-info {
+    padding: 15px 5px;
+    color: #414e64;
+
+    .name {
+      height: 32px;
+      line-height: 32px;
+
+      strong {
+        font-size: 26px;
+      }
+
+      span {
+        padding-left: 5px;
+      }
+    }
+
+    .uid {
+      height: 28px;
+      line-height: 28px;
+    }
+  }
+
+  .stat {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    display: flex;
+    background: rgba(255, 255, 255, .5);
+    margin: 20px 5px;
+    border-radius: 10px;
+  }
+
+  .stat-li {
+    padding: 7px;
+    width: 70px;
+    text-align: center;
+    position: relative;
+
+    &:nth-child(even) {
+      background: rgba(225, 225, 225, .8);
+    }
+
+
+    strong {
+      font-size: 22px;
+      display: block;
+    }
+
+    span {
+      display: block;
+      font-size: 14px;
+      color: #414e64;
+    }
+  }
+}
+
 #avatar-list {
   width: calc(100% + 30px);
   margin: 0 -15px -5px;
@@ -17,28 +107,28 @@
 .exploration {
   display: flex;
   flex-wrap: wrap;
-  padding: 6px;
+  padding: 16px;
 
   .item {
-    width: 95px;
-    height: 95*1.12px;
+    width: 93px;
+    height: 93*1.15px;
     background: url('./imgs/exploration.webp') no-repeat;
     background-size: auto 100%;
     border-radius: 4px;
-    margin: 4px;
+    margin: 3px;
     text-align: center;
     color: #fff;
 
     strong {
-      font-size: 18px;
+      font-size: 22px;
       display: block;
-      height: 22px;
-      line-height: 22px;
+      height: 26px;
+      line-height: 26px;
       text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .5);
     }
 
     span {
-      margin-top: 60px;
+      margin-top: 58px;
       font-size: 12px;
       height: 18px;
       line-height: 18px;
