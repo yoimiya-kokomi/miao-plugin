@@ -60,8 +60,8 @@ export const buffs = [{
   title: '提纳里被动：基于元素精通提升重击及Q伤害[a2Dmg]%',
   sort: 5,
   data: {
-    a2Dmg: ({ calc, attr }) => Math.min(80, calc(attr.mastery) * 0.08),
-    qDmg: ({ calc, attr }) => Math.min(80, calc(attr.mastery) * 0.08)
+    a2Dmg: ({ calc, attr }) => Math.min(60, calc(attr.mastery) * 0.06),
+    qDmg: ({ calc, attr }) => Math.min(60, calc(attr.mastery) * 0.06)
   }
 }, {
   title: '提纳里1命：重击暴击率提高15%',
