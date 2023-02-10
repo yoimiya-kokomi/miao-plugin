@@ -177,10 +177,10 @@ const ProfileChange = {
         return source
       }
       let cuid = cfg.uid || uid
-      let cPlayer = Player.create(uid)
       let id = cfg.char || source.id
       let key = cuid + ':' + id
       if (!profiles[key]) {
+        let cPlayer = Player.create(cuid)
         profiles[key] = cPlayer.getProfile(id) || {}
       }
       return profiles[key]?.id ? profiles[key] : source

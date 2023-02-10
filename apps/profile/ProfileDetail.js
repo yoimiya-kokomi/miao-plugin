@@ -199,7 +199,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let msgRes = await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
-    data: avatar.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime'),
+    data: profile.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime'),
     attr,
     elem: char.elem,
     dmgData,

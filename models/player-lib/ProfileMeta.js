@@ -482,7 +482,7 @@ export const attrMap = {
   ATTACK_PERCENT: 'atk',
   DEFENSE: 'defPlus',
   DEFENSE_PERCENT: 'def',
-  FIRE_ADD_HURT: '',
+  FIRE_ADD_HURT: 'pyro',
   ICE_ADD_HURT: 'cryo',
   ROCK_ADD_HURT: 'geo',
   ELEC_ADD_HURT: 'electro',
