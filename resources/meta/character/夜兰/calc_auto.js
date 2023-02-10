@@ -112,6 +112,7 @@ export const buffs = [{
   title: '千夜教官满命莫娜：获得[dmg]%增伤，双水,暴击[cpct]%,精通[mastery]',
   data: {
     dmg: 60,
+    vaporize:15,
     hpPct: 25,
     cpct: 15,
     mastery: 168
