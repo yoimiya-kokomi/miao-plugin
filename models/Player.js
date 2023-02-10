@@ -4,7 +4,7 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
-import { AvatarData } from './index.js'
+import { AvatarData, ProfileRank } from './index.js'
 
 import MysAvatar from './player-lib/MysAvatar.js'
 import Profile from './player-lib/Profile.js'
@@ -183,5 +183,48 @@ export default class Player extends Base {
   static getProfileServName (uid) {
     let Serv = Profile.getServ(uid)
     return Serv.name
+  }
+
+  async refreshAndGetAvatarData (cfg) {
+    // 更新角色信息
+    await this.refreshMys(cfg.force)
+
+    // 更新天赋信息
+    if (cfg.refreshTalent !== false) {
+      await this.refreshTalent(cfg.ids, cfg.force)
+    }
+
+    let rank = false
+    let e = this.e
+    if (cfg.rank === true && e && e.group_id) {
+      rank = await ProfileRank.create({ group: e.group_id, uid: this.uid, qq: e.user_id })
+    }
+
+    let avatarRet = {}
+    this.forEachAvatar((avatar) => {
+      let { talent } = avatar
+      let ds = avatar.getDetail()
+      ds.aeq = talent?.a?.original + talent?.e?.original + talent?.q?.original || 3
+      avatarRet[ds.id] = ds
+
+      let profile = avatar.getProfile()
+      if (profile) {
+        let mark = profile.getArtisMark(false)
+        ds.artisMark = Data.getData(mark, 'mark,markClass,names')
+        if (rank) {
+          rank.getRank(profile)
+        }
+      }
+    })
+    if (cfg.retType !== 'array') {
+      return avatarRet
+    }
+    avatarRet = lodash.values(avatarRet)
+    if (cfg.sort) {
+      let sortKey = 'level,star,aeq,cons,weapon.level,weapon.star,weapon.affix,fetter'.split(',')
+      avatarRet = lodash.orderBy(avatarRet, sortKey)
+      avatarRet = avatarRet.reverse()
+    }
+    return avatarRet
   }
 }

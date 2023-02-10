@@ -195,7 +195,7 @@ const ProfileChange = {
       elem: char.elem,
       dataSource: 'change',
       promote
-    }, uid, false)
+    }, false)
 
     // 设置武器
     let wCfg = ds.weapon || {}

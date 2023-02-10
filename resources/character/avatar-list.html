@@ -1,0 +1,30 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/avatar-list.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+{{/block}}
+
+
+{{block 'main'}}
+<div class="head-box">
+  <div class="title">#角色列表</div>
+  <div class="label">UID:{{uid}} 共{{avatars.length }}名角色</div>
+</div>
+<div id="profile-stat">
+  <div class="cont avatar-cont">
+    <div class="cont-title">角色列表</div>
+    <div class="avatar-list">
+      {{each avatars avatar idx}}
+      <% include(_layout_path+'../tpl/avatar-card.html', [avatar,{_res_path, cardType:'mini'}]) %>
+      {{/each}}
+    </div>
+  </div>
+  {{if talentNotice}}
+  <p class="cont-notice">{{@talentNotice}}</p>
+  {{/if}}
+
+</div>
+
+
+{{/block}}

@@ -15,56 +15,30 @@ export async function profileStat (e) {
     return false
   }
 
+  let isAvatarList = !/练度统计/.test(msg)
+
   let mys = await MysApi.init(e)
   if (!mys || !mys.uid) return false
 
   const uid = mys.uid
 
   let player = Player.create(e)
-  // 更新角色信息
-  await player.refreshMys()
 
-  // 更新天赋信息
-  await player.refreshTalent()
-
-  let rank = false
-  if (e.group_id) {
-    rank = await ProfileRank.create({ group: e.group_id, uid, qq: e.user_id })
-  }
-
-  let avatarRet = []
-  player.forEachAvatar((avatar) => {
-    let { talent } = avatar
-    let ds = avatar.getDetail()
-    ds.aeq = talent?.a?.original + talent?.e?.original + talent?.q?.original || 3
-    avatarRet.push(ds)
-
-    let profile = avatar.getProfile()
-    if (!profile) {
-      return true
-    }
-    if (profile) {
-      if (profile.hasData) {
-        let mark = profile.getArtisMark(false)
-        ds.artisMark = Data.getData(mark, 'mark,markClass,names')
-        if (rank) {
-          rank.getRank(profile)
-        }
-      }
-    }
+  let avatarRet = await player.refreshAndGetAvatarData({
+    rank: true,
+    retType: 'array',
+    sort: true
   })
 
-  let sortKey = 'level,star,aeq,cons,weapon.level,weapon.star,weapon.affix,fetter'.split(',')
-  avatarRet = lodash.orderBy(avatarRet, sortKey)
-  avatarRet = avatarRet.reverse()
   let talentNotice = ''
 
-  return await Common.render('character/profile-stat', {
+  return await Common.render(isAvatarList ? 'character/avatar-list' : 'character/profile-stat', {
     save_id: uid,
     uid,
+    isStat: !isAvatarList,
     talentLvMap: '0,1,1,1,2,2,3,3,3,4,5'.split(','),
     avatars: avatarRet,
     isSelf: e.isSelf,
     talentNotice
-  }, { e, scale: 1.8 })
+  }, { e, scale: isAvatarList ? 2.2 : 1.8 })
 }

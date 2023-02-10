@@ -5,9 +5,11 @@ import { ProfileArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile-lib/AttrCalc.js'
 
 export default class ProfileData extends AvatarData {
-  constructor (ds = {}) {
+  constructor (ds = {}, calc = true) {
     super(ds)
-    this.calcAttr()
+    if (calc) {
+      this.calcAttr()
+    }
   }
 
   initArtis () {

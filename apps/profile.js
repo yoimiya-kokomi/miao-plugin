@@ -59,7 +59,11 @@ app.reg('profile-list', profileList, {
 
 app.reg('profile-stat', profileStat, {
   rule: /^#(面板|喵喵|角色|武器|天赋|技能|圣遗物)?练度统计$/,
-  name: '面板练度统计$'
+  name: '面板练度统计'
+})
+app.reg('avatar-list', profileStat, {
+  rule: /^(#(角色|查询|查询角色|角色查询|人物)[ |0-9]*$)|(^(#*uid|#*UID)\+*[1|2|5-9][0-9]{8}$)|(^#[\+|＋]*[1|2|5-9][0-9]{8})/,
+  name: '角色查询'
 })
 
 app.reg('profile-help', profileHelp, {

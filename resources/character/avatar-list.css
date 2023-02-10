@@ -1,0 +1,40 @@
+.container {
+  width: 525px;
+  background-size: cover;
+}
+.head-box {
+  margin-top: 0;
+}
+#profile-stat {
+  width: calc(100% + 30px);
+  margin: 0 -15px -5px;
+  overflow: hidden;
+}
+.cont-title {
+  padding: 8px 15px;
+}
+.avatar-cont {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0;
+}
+.avatar-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+  border-radius: 10px;
+}
+.avatar-list .avatar-card {
+  margin: 5px;
+}
+.cont-notice {
+  color: #888;
+  background: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+  text-align: center;
+  padding: 8px;
+}
+.cont-notice span {
+  padding: 0 3px;
+  color: #555;
+}
+/*# sourceMappingURL=avatar-list.css.map */
