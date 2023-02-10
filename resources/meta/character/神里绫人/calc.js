@@ -20,6 +20,12 @@ export const buffs = [{
     hpPct: ({ params }) => params.q ? 0 : 50
   }
 }, {
+  cons: 1,
+  title: '绫人1命：对于生命值低于或等于50%的敌人，瞬水剑造成的伤害提升40%',
+  data: {
+    aDmg: 40
+  }
+}, {
   check: ({ cons }) => cons < 2,
   title: '4层浪闪：提高瞬水剑伤害[aPlus]',
   data: {
