@@ -2,7 +2,7 @@ export default function ({ attr, weapon, rule, def }) {
   let title = []
   let mastery = 0
   let hp = 80
-  if (attr.mastery > 120) {
+  if (attr.mastery > 80) {
     title.push('精通')
     mastery = 75
   }
