@@ -12,8 +12,25 @@ export default class ProfileData extends AvatarData {
     }
   }
 
-  initArtis () {
-    this.artis = new ProfileArtis(this.id, this.elem)
+  // 判断当前profileData是否具有有效数据
+  get hasData () {
+    return this.isProfile
+  }
+
+  get splashCostume () {
+    let costume = this._costume
+    if (lodash.isArray(costume)) {
+      costume = costume[0]
+    }
+    let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
+    if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass) || talent === '101010') {
+      return [costume, 'super']
+    }
+    return [costume, 'normal']
+  }
+
+  get hasDmg () {
+    return this.hasData && !!ProfileDmg.dmgRulePath(this.name)
   }
 
   static create (ds) {
@@ -22,6 +39,10 @@ export default class ProfileData extends AvatarData {
       return false
     }
     return profile
+  }
+
+  initArtis () {
+    this.artis = new ProfileArtis(this.id, this.elem)
   }
 
   setAttr (ds) {
@@ -40,24 +61,8 @@ export default class ProfileData extends AvatarData {
   }
 
   setArtis (ds = false) {
+    console.log('ds', ds.artis?.artis[1])
     this.artis?.setProfile(this, ds.artis?.artis || ds.artis || ds)
-  }
-
-  // 判断当前profileData是否具有有效数据
-  get hasData () {
-    return this.isProfile
-  }
-
-  get splashCostume () {
-    let costume = this._costume
-    if (lodash.isArray(costume)) {
-      costume = costume[0]
-    }
-    let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
-    if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass) || talent === '101010') {
-      return [costume, 'super']
-    }
-    return [costume, 'normal']
   }
 
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
@@ -66,10 +71,6 @@ export default class ProfileData extends AvatarData {
       return this.artis.getMarkDetail(withDetail)
     }
     return {}
-  }
-
-  get hasDmg () {
-    return this.hasData && !!ProfileDmg.dmgRulePath(this.name)
   }
 
   // 计算当前profileData的伤害信息

@@ -14,6 +14,38 @@ export default class AvatarArtis extends Base {
     this.artis = {}
   }
 
+  get sets () {
+    return this.getSetData().sets || {}
+  }
+
+  get names () {
+    return this.getSetData().names || []
+  }
+
+  get hasArtis () {
+    return !lodash.isEmpty(this.artis)
+  }
+
+  get hasAttr () {
+    return ArtisMark.hasAttr(this.artis)
+  }
+
+  static _eachArtisSet (sets, fn) {
+    lodash.forEach(sets || [], (v, k) => {
+      let artisSet = ArtifactSet.get(k)
+      if (artisSet) {
+        if (v >= 4) {
+          fn(artisSet, 2)
+        }
+        fn(artisSet, v)
+      }
+    })
+  }
+
+  static getArtisKeyTitle () {
+    return ArtisMark.getKeyTitleMap()
+  }
+
   setArtisData (ds = {}, profile = false) {
     // let force = !this.hasArtis || ArtisMark.hasAttr(ds) || !ArtisMark.hasAttr(this.artis)
     if (!profile || (profile && ArtisMark.hasAttr(ds))) {
@@ -33,16 +65,30 @@ export default class AvatarArtis extends Base {
       arti.name = ds._name || ds.name || arti.name || ''
       arti.set = ds._set || Artifact.getSetNameByArti(arti._name) || ds.set || ''
       arti.level = ds._level || ds.level || 1
-    } else {
-      arti.name = ds.name || arti.name || ''
-      arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
-      arti.level = ds.level || 1
+      arti.star = ds._star || ds.star || 5
+      arti.main = ds.main
+      arti.attrs = ds.attrs
+      return true
     }
-    // 存在面板数据，更新面板数据
-    if (ds.main && ds.attrs) {
+    arti.name = ds.name || arti.name || ''
+    arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
+    arti.level = ds.level || 1
+    arti.star = ds.star || 5
+
+    if (ds.mainId || ds.main) {
       arti._name = ds.name || arti.name
       arti._set = ds.set || Artifact.getSetNameByArti(arti.name) || arti.set || ''
       arti._level = ds.level || arti.level
+      arti._star = ds.star || arti.star || 5
+    }
+
+    // 存在面板数据，更新面板数据
+    if (ds.mainId && ds.attrIds) {
+      arti.mainId = ds.mainId
+      arti.attrIds = ds.attrIds
+      arti.main = Artifact.getMainById(ds.mainId, arti._level, arti._star)
+      arti.attrs = Artifact.getAttrsByIds(ds.attrIds)
+    } else if (ds.main && ds.attrs) {
       arti.main = ArtisMark.formatAttr(ds.main || {})
       arti.attrs = []
       for (let attrIdx in ds.attrs || []) {
@@ -79,11 +125,20 @@ export default class AvatarArtis extends Base {
       if (ds) {
         let tmp = {
           name: ds.name || '',
-          level: ds.level || 1
+          level: ds.level || 1,
+          star: ds.star || 5
         }
-        if (ds.main && ds.attrs) {
-          tmp._name = ds._name || null
-          tmp._level = ds._level || null
+        if ((ds.mainId && ds.attrIds) || (ds.main && ds.attrs)) {
+          if ((ds._name && ds._name !== ds.name) || (ds._level && ds._level !== ds.level) || (ds._star && ds._star !== ds.star)) {
+            tmp._name = ds._name || null
+            tmp._level = ds._level || null
+            tmp._star = ds._star || null
+          }
+        }
+        if (ds.mainId && ds.attrIds) {
+          tmp.mainId = ds.mainId || null
+          tmp.attrIds = ds.attrIds
+        } else if (ds.main && ds.attrs) {
           tmp.main = ds.main || null
           tmp.attrs = []
           for (let attrIdx in ds.attrs || []) {
@@ -121,22 +176,6 @@ export default class AvatarArtis extends Base {
       }
     }
     return ret
-  }
-
-  get sets () {
-    return this.getSetData().sets || {}
-  }
-
-  get names () {
-    return this.getSetData().names || []
-  }
-
-  get hasArtis () {
-    return !lodash.isEmpty(this.artis)
-  }
-
-  get hasAttr () {
-    return ArtisMark.hasAttr(this.artis)
   }
 
   mainAttr (idx = '') {
@@ -223,23 +262,7 @@ export default class AvatarArtis extends Base {
     }
   }
 
-  static _eachArtisSet (sets, fn) {
-    lodash.forEach(sets || [], (v, k) => {
-      let artisSet = ArtifactSet.get(k)
-      if (artisSet) {
-        if (v >= 4) {
-          fn(artisSet, 2)
-        }
-        fn(artisSet, v)
-      }
-    })
-  }
-
   eachArtisSet (fn) {
     AvatarArtis._eachArtisSet(this.sets, fn)
-  }
-
-  static getArtisKeyTitle () {
-    return ArtisMark.getKeyTitleMap()
   }
 }

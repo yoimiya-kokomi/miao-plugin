@@ -84,6 +84,7 @@ let MiaoData = {
       ret[idx] = {
         name: ds.name,
         level: ds.level,
+        star: ds.rank,
         main: get(ds.mainAffix),
         attrs: [
           get(sub[0]),

@@ -67,6 +67,27 @@ let EnkaData = {
 
   getArtifact (data) {
     let ret = {}
+    lodash.forEach(data, (ds) => {
+      let flat = ds.flat || {}
+      let re = ds.reliquary
+      let idx = artisIdxMap[flat.equipType]
+      if (!idx) {
+        return
+      }
+      let setName = idsMap[flat.setNameTextMapHash] || ''
+      ret[idx] = {
+        name: ArtifactSet.getArtiNameBySet(setName, idx),
+        level: Math.min(20, ((re.level) || 1) - 1),
+        star: flat.rankLevel || 5,
+        mainId: re.mainPropId,
+        attrIds: re.appendPropIdList
+      }
+    })
+    return ret
+  },
+
+  getArtifactBak (data) {
+    let ret = {}
     let get = function (d) {
       if (!d) {
         return {}

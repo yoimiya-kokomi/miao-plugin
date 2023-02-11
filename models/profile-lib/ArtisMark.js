@@ -67,23 +67,31 @@ let ArtisMark = {
       let ret = []
       let totalUpNum = 0
       let ltArr = []
+      let isIdAttr = false
+
       lodash.forEach(ds, (d) => {
+        isIdAttr = !!d.eff
         let arti = ArtisMark.formatArti(d, charAttrCfg)
+        ret.push(arti)
+        if (isIdAttr) {
+          return true
+        }
         totalUpNum += arti.upNum
         if (arti.hasLt) {
           ltArr.push(arti)
         }
-        ret.push(arti)
         delete arti.hasLt
         delete arti.hasGt
       })
-      ltArr = lodash.sortBy(ltArr, 'upNum').reverse()
-      for (let arti of ltArr) {
-        if (totalUpNum > 9) {
-          arti.upNum = arti.upNum - 1
-          totalUpNum--
-        } else {
-          break
+      if (!isIdAttr) {
+        ltArr = lodash.sortBy(ltArr, 'upNum').reverse()
+        for (let arti of ltArr) {
+          if (totalUpNum > 9) {
+            arti.upNum = arti.upNum - 1
+            totalUpNum--
+          } else {
+            break
+          }
         }
       }
       return ret
@@ -103,16 +111,13 @@ let ArtisMark = {
     if (!key || key === 'undefined') {
       return {}
     }
-
     let arrCfg = attrMap[isDmg ? 'dmg' : key]
-
     val = Format[arrCfg.format](val, 1)
-
     let ret = {
       key,
       value: val
     }
-    if (!isMain) {
+    if (!isMain && !ret.eff) {
       let incRet = ArtisMark.getIncNum(key, value)
       ret.upNum = incRet.num
       ret.hasGt = incRet.hasGt

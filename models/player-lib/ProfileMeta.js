@@ -1,3 +1,4 @@
+// Enka IdsMap
 export const idsMap = {
   20848859: '黑岩斩刀',
   33330467: '元素熟练',
