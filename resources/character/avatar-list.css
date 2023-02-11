@@ -41,8 +41,8 @@
   color: #414e64;
 }
 #banner .user-info .name {
-  height: 32px;
-  line-height: 32px;
+  height: 34px;
+  line-height: 34px;
 }
 #banner .user-info .name strong {
   font-size: 26px;
@@ -51,26 +51,38 @@
   padding-left: 5px;
 }
 #banner .user-info .uid {
-  height: 28px;
-  line-height: 28px;
+  height: 22px;
+  line-height: 22px;
+  font-size: 16px;
 }
 #banner .stat {
   position: absolute;
-  right: 20px;
+  right: 0;
   top: 0;
   display: flex;
   background: rgba(255, 255, 255, 0.5);
-  margin: 20px 5px;
-  border-radius: 10px;
+  margin: 16px;
+  border-radius: 29px;
+  height: 58px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
 }
 #banner .stat-li {
   padding: 7px;
   width: 70px;
+  height: 58px;
   text-align: center;
   position: relative;
 }
 #banner .stat-li:nth-child(even) {
   background: rgba(225, 225, 225, 0.8);
+}
+#banner .stat-li:first-child {
+  width: 78px;
+  padding-left: 15px;
+}
+#banner .stat-li:last-child {
+  width: 78px;
+  padding-right: 15px;
 }
 #banner .stat-li strong {
   font-size: 22px;
@@ -93,7 +105,7 @@
 }
 .exploration .item {
   width: 93px;
-  height: 106.95px;
+  height: 116.25px;
   background: url('./imgs/exploration.webp') no-repeat;
   background-size: auto 100%;
   border-radius: 4px;
@@ -102,18 +114,19 @@
   color: #fff;
 }
 .exploration .item strong {
-  font-size: 22px;
+  font-size: 24px;
   display: block;
-  height: 26px;
-  line-height: 26px;
+  height: 30px;
+  line-height: 30px;
   text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 .exploration .item span {
   margin-top: 58px;
-  font-size: 12px;
-  height: 18px;
-  line-height: 18px;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
   display: block;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 .cont-title {
   padding: 8px 15px;
@@ -132,14 +145,23 @@
   margin: 5px;
 }
 .cont-notice {
-  color: #888;
-  background: rgba(255, 255, 255, 0.4);
-  font-size: 13px;
-  text-align: center;
-  padding: 8px;
+  text-align: right;
+}
+.cont-notice strong {
+  color: #d3bc8e;
 }
 .cont-notice span {
   padding: 0 3px;
-  color: #555;
+  color: #aaa;
+}
+.ck-notice {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+}
+.ck-notice strong {
+  color: #d3bc8e;
+  padding: 0 2px;
+  font-weight: normal;
 }
 /*# sourceMappingURL=avatar-list.css.map */

@@ -1,6 +1,5 @@
 import { Cfg, Common } from '../../components/index.js'
 import { MysApi, Player, Character } from '../../models/index.js'
-import moment from 'moment'
 
 export async function profileStat (e) {
   let isMatch = /^#(面板|喵喵|角色|武器|天赋|技能|圣遗物)练度统计?$/.test(e.original_msg || e.msg || '')
@@ -32,7 +31,16 @@ export async function profileStat (e) {
     sort: true
   })
 
-  let talentNotice = ''
+  if (avatarRet.length === 0) {
+    e.reply(`暂未获得#${uid}角色数据，请绑定CK或 #更新面板`)
+    return true
+  }
+
+  let talentNotice = []
+
+  if (!mys.isSelfCookie) {
+    talentNotice.push('未绑定CK，信息可能展示不完全')
+  }
 
   let faceChar = Character.get(player.face || avatarRet[0]?.id)
   let face = {
@@ -47,11 +55,11 @@ export async function profileStat (e) {
     save_id: uid,
     uid,
     info: player.getInfo(),
-    isStat: !isAvatarList,
+    updateTime: player.getUpdateTime(),
+    isSelfCookie: e.isSelfCookie,
     talentLvMap: '0,1,1,1,2,2,3,3,3,4,5'.split(','),
     face,
     avatars: avatarRet,
-    isSelf: e.isSelf,
     talentNotice
   }, { e, scale: 1.4 })
 }

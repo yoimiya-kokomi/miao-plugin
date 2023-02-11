@@ -161,6 +161,17 @@ export default class Player extends Base {
     return ret
   }
 
+  getUpdateTime () {
+    let ret = {}
+    if (this._profile) {
+      ret.profile = MysAvatar.getDate(this._profile)
+    }
+    if (this._mys) {
+      ret.mys = MysAvatar.getDate(this._mys)
+    }
+    return ret
+  }
+
   getInfo () {
     let ret = {
       ...(this.info || {}),
@@ -189,6 +200,7 @@ export default class Player extends Base {
       }
       ret.activeDay = msg
     }
+    lodash.forEach(ret)
     return ret
   }
 
@@ -198,8 +210,8 @@ export default class Player extends Base {
   }
 
   // 更新米游社数据
-  async refreshMysAvatar (force = false) {
-    return MysAvatar.refreshMysAvatar(this, force)
+  async refreshMysDetail (force = false) {
+    return MysAvatar.refreshMysDetail(this, force)
   }
 
   async refreshMysInfo (force = false) {
@@ -224,7 +236,7 @@ export default class Player extends Base {
 
   async refreshAndGetAvatarData (cfg) {
     // 更新角色信息
-    await this.refreshMysAvatar(cfg.force)
+    await this.refreshMysDetail(cfg.force)
 
     // 更新天赋信息
     if (cfg.refreshTalent !== false) {

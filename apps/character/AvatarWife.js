@@ -164,7 +164,7 @@ export async function pokeWife (e, components) {
 }
 
 async function getAvatarList (player, type, mys) {
-  await player.refreshMysAvatar()
+  await player.refreshMysDetail()
   let list = []
   player.forEachAvatar((avatar) => {
     if (type !== false) {

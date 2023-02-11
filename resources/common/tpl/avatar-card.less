@@ -1,9 +1,7 @@
 
 .avatar-card {
   @px: 1.5px;
-
-
-  margin: 3px;
+  margin: @px*3;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
   font-size: @px*13;
   border-radius: @px*7;
@@ -36,16 +34,16 @@
       bottom: 0;
       background: rgba(0, 0, 0, 0.6);
       left: 0;
-      padding: 2px 5px 2px 3px;
-      border-radius: 0 4px 0 0;
+      padding: @px*2 @px*5 @px*2 @px*3;
+      border-radius: 0 @px*4 0 0;
       color: #fff;
     }
 
   }
 
   .cons {
-    border-radius: 0 0 0 5px;
-    padding: 2px 5px;
+    border-radius: 0 0 0 @px*5;
+    padding: @px*2 @px*5;
     position: absolute;
     right: 0;
     top: 0;
@@ -53,7 +51,7 @@
 
   .avatar-talent {
     height: @px*20;
-    padding: 3px 5px 2px;
+    padding: @px*3 @px*5 @px*2;
     font-size: @px*12;
     width: 100%;
     color: #222;
@@ -64,13 +62,13 @@
       width: @px*20;
       height: @px*16;
       line-height: @px*17;
-      margin: 0 2px;
+      margin: 0 @px*2;
       text-align: center;
       display: block;
       background-size: contain;
       opacity: 0.8;
       position: relative;
-      border-radius: 3px;
+      border-radius: @px*3;
       box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
 
       &.talent-plus {
@@ -81,7 +79,7 @@
       &.talent-crown {
         background: #d3bc8e;
         color: #3a2702;
-        box-shadow: 0 0 2px 0 #000;
+        box-shadow: 0 0 @px*2 0 #000;
       }
     }
 
@@ -89,7 +87,7 @@
       font-size: @px*12;
       color: rgba(100, 100, 100, .5);
       text-align: center;
-      padding: 3px 0 2px;
+      padding: @px*3 0 @px*2;
 
       span {
         transform: scale(.75);
@@ -106,7 +104,7 @@
   }
 
   .avatar-name {
-    padding: 8px 0 0 5px;
+    padding: @px*8 0 0 @px*5;
     color: #333;
 
     strong {
@@ -119,7 +117,7 @@
     .cons {
       position: initial;
       border-radius: 4px;
-      padding: 1px 3px;
+      padding: @px @px*3;
       vertical-align: baseline;
     }
   }
@@ -136,7 +134,7 @@
 
     .avatar-face {
       height: @px * 126;
-      width: 76px;
+      width: @px*76;
       border-radius: @px*7 0 0 @px*7;
     }
 
@@ -144,7 +142,7 @@
       background-size: 100% auto;
       background-position: 0 10%;
       height: 135px;
-      margin-top: -9px;
+      margin-top: @px*-9;
     }
 
     .avatar-info {
@@ -186,13 +184,14 @@
 
   .avatar-detail {
     display: flex;
-    padding: 0 1px 2px;
+    padding: 0 @px*1 @px*2 @px*2;
 
     .item {
       width: @px*31;
       height: @px*31;
-      border-radius: 4px;
-      margin: 1px;
+      border-radius: @px*3;
+      margin: @px*1;
+      overflow: hidden;
     }
   }
 
@@ -204,8 +203,8 @@
     .cons {
       top: initial;
       bottom: 0;
-      padding: 1px 3px;
-      border-radius: 3px 0 0 0;
+      padding: @px @px*3;
+      border-radius: @px*3 0 0 0;
     }
   }
 
@@ -233,7 +232,5 @@
         }
       }
     }
-
-
   }
 }

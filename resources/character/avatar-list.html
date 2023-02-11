@@ -14,10 +14,11 @@
   <div class="user-info">
     <div class="name">
       <strong>{{face.name}}</strong>
-      {{if face.level}}<span> #{{uid}}</span>{{/if}}
+      {{if face.level}} Lv.{{face.level}}{{/if}}
+
     </div>
     <div class="uid">
-      {{if face.level}} Lv.{{face.level}}·{{/if}}
+      {{if uid}}<span> #{{uid}}</span>{{/if}}
       {{ if info.activeDay}}{{info.activeDay}} {{/if}}
     </div>
   </div>
@@ -32,6 +33,9 @@
     {{/each}}
   </div>
 </div>
+{{if !isSelfCookie}}
+<div class="ck-notice">未绑定CK或CK失效，信息可能不完全。发送<strong>#体力帮助</strong>查看CK绑定方法，发送<strong>#更新面板</strong>更新游戏内角色展柜信息</div>
+{{/if}}
 <div id="avatar-list">
   {{if info && info?.exploration['蒙德']}}
   {{set citys = ['蒙德','龙脊雪山','璃月','层岩巨渊','稻妻','渊下宫','须弥'] }}
@@ -52,11 +56,16 @@
       <% include(_layout_path+'../tpl/avatar-card.html', [avatar,{_res_path, cardType:'mini'}]) %>
       {{/each}}
     </div>
+    <div class="cont-footer cont-notice">
+      <strong>数据更新时间</strong>
+      {{if updateTime.profile}}
+      <span>面板：{{updateTime.profile}}</span>
+      {{/if}}
+      {{if updateTime.mys}}
+      <span>米游社：{{updateTime.mys}}</span>
+      {{/if}}
+    </div>
   </div>
-  {{if talentNotice}}
-  <p class="cont-notice">{{@talentNotice}}</p>
-  {{/if}}
-
 </div>
 
 

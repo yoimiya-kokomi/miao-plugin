@@ -196,7 +196,7 @@ async function abyssTeam (e) {
     return true
   }
   let player = Player.create(e)
-  await player.refreshMysAvatar()
+  await player.refreshMysDetail()
   await player.refreshTalent()
 
   let abyssData = await HutaoApi.getAbyssTeam()

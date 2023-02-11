@@ -46,8 +46,8 @@
     color: #414e64;
 
     .name {
-      height: 32px;
-      line-height: 32px;
+      height: 34px;
+      line-height: 34px;
 
       strong {
         font-size: 26px;
@@ -59,29 +59,47 @@
     }
 
     .uid {
-      height: 28px;
-      line-height: 28px;
+      height: 22px;
+      line-height: 22px;
+      font-size: 16px;
     }
   }
 
   .stat {
     position: absolute;
-    right: 20px;
+    right: 0;
     top: 0;
     display: flex;
     background: rgba(255, 255, 255, .5);
-    margin: 20px 5px;
-    border-radius: 10px;
+    margin: 16px;
+    border-radius: 29px;
+    height: 58px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .4);
   }
 
   .stat-li {
+    @width: 70px;
+    @padding: 8px;
+
     padding: 7px;
-    width: 70px;
+    width: @width;
+    height: 58px;
     text-align: center;
     position: relative;
 
+
     &:nth-child(even) {
       background: rgba(225, 225, 225, .8);
+    }
+
+    &:first-child {
+      width: @width+@padding;
+      padding-left: 7px+@padding;
+    }
+
+    &:last-child {
+      width: @width+@padding;
+      padding-right: 7px+@padding;
     }
 
 
@@ -111,7 +129,7 @@
 
   .item {
     width: 93px;
-    height: 93*1.15px;
+    height: 93*1.25px;
     background: url('./imgs/exploration.webp') no-repeat;
     background-size: auto 100%;
     border-radius: 4px;
@@ -120,19 +138,20 @@
     color: #fff;
 
     strong {
-      font-size: 22px;
+      font-size: 24px;
       display: block;
-      height: 26px;
-      line-height: 26px;
+      height: 30px;
+      line-height: 30px;
       text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .5);
     }
 
     span {
       margin-top: 58px;
-      font-size: 12px;
-      height: 18px;
-      line-height: 18px;
+      font-size: 14px;
+      height: 20px;
+      line-height: 20px;
       display: block;
+      text-shadow: 0 0 1px rgba(0, 0, 0, .5);
     }
   }
 
@@ -160,14 +179,26 @@
 }
 
 .cont-notice {
-  color: #888;
-  background: rgba(255, 255, 255, .4);
-  font-size: 13px;
-  text-align: center;
-  padding: 8px;
+  text-align: right;
+
+  strong {
+    color: #d3bc8e;
+  }
 
   span {
     padding: 0 3px;
-    color: #555;
+    color: #aaa;
+  }
+}
+
+.ck-notice {
+  text-align: center;
+  color: rgba(255, 255, 255, .9);
+  font-size: 13px;
+
+  strong {
+    color: #d3bc8e;
+    padding: 0 2px;
+    font-weight: normal;
   }
 }

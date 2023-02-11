@@ -1,5 +1,6 @@
 import lodash from 'lodash'
 import { Common, Data } from '../../components/index.js'
+import moment from 'moment'
 
 const MysAvatar = {
   /**
@@ -9,7 +10,7 @@ const MysAvatar = {
    * @param force
    * @returns {Promise<boolean>}
    */
-  async refreshMysAvatar (player, force = false) {
+  async refreshMysDetail (player, force = false) {
     let mys = player?.e?._mys
     if (!mys) {
       return false
@@ -40,7 +41,7 @@ const MysAvatar = {
       return false
     }
     let infoData = await mys.getIndex()
-    if (!infoData) {
+    if (!infoData || !infoData.role) {
       return false
     }
     MysAvatar.setMysInfo(player, infoData)
@@ -88,7 +89,7 @@ const MysAvatar = {
     let role = infoData.role
     // 设置角色信息
     let homeLevel = ((infoData?.homes || [])[0])?.level
-    if(role) {
+    if (role) {
       player.setBasicData({
         level: role.level,
         name: role.nickname
@@ -216,6 +217,10 @@ const MysAvatar = {
       return true
     }
     return false
+  },
+
+  getDate (time) {
+    return time ? moment(new Date(time)).format('MM-DD HH:mm') : ''
   }
 }
 export default MysAvatar

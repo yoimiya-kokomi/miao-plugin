@@ -138,7 +138,7 @@
   background-color: #ff5722;
 }
 .avatar-card {
-  margin: 3px;
+  margin: 4.5px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
   font-size: 19.5px;
   border-radius: 10.5px;
@@ -168,20 +168,20 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   left: 0;
-  padding: 2px 5px 2px 3px;
-  border-radius: 0 4px 0 0;
+  padding: 3px 7.5px 3px 4.5px;
+  border-radius: 0 6px 0 0;
   color: #fff;
 }
 .avatar-card .cons {
-  border-radius: 0 0 0 5px;
-  padding: 2px 5px;
+  border-radius: 0 0 0 7.5px;
+  padding: 3px 7.5px;
   position: absolute;
   right: 0;
   top: 0;
 }
 .avatar-card .avatar-talent {
   height: 30px;
-  padding: 3px 5px 2px;
+  padding: 4.5px 7.5px 3px;
   font-size: 18px;
   width: 100%;
   color: #222;
@@ -192,13 +192,13 @@
   width: 30px;
   height: 24px;
   line-height: 25.5px;
-  margin: 0 2px;
+  margin: 0 3px;
   text-align: center;
   display: block;
   background-size: contain;
   opacity: 0.8;
   position: relative;
-  border-radius: 3px;
+  border-radius: 4.5px;
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
 }
 .avatar-card .avatar-talent .talent-item.talent-plus {
@@ -208,13 +208,13 @@
 .avatar-card .avatar-talent .talent-item.talent-crown {
   background: #d3bc8e;
   color: #3a2702;
-  box-shadow: 0 0 2px 0 #000;
+  box-shadow: 0 0 3px 0 #000;
 }
 .avatar-card .avatar-talent.no-talent {
   font-size: 18px;
   color: rgba(100, 100, 100, 0.5);
   text-align: center;
-  padding: 3px 0 2px;
+  padding: 4.5px 0 3px;
 }
 .avatar-card .avatar-talent.no-talent span {
   transform: scale(0.75);
@@ -226,7 +226,7 @@
   display: none;
 }
 .avatar-card .avatar-name {
-  padding: 8px 0 0 5px;
+  padding: 12px 0 0 7.5px;
   color: #333;
 }
 .avatar-card .avatar-name strong {
@@ -238,7 +238,7 @@
 .avatar-card .avatar-name .cons {
   position: initial;
   border-radius: 4px;
-  padding: 1px 3px;
+  padding: 1.5px 4.5px;
   vertical-align: baseline;
 }
 .avatar-card.card-wide .mini {
@@ -250,14 +250,14 @@
 }
 .avatar-card.card-wide .avatar-face {
   height: 189px;
-  width: 76px;
+  width: 114px;
   border-radius: 10.5px 0 0 10.5px;
 }
 .avatar-card.card-wide .img {
   background-size: 100% auto;
   background-position: 0 10%;
   height: 135px;
-  margin-top: -9px;
+  margin-top: -13.5px;
 }
 .avatar-card.card-wide .avatar-info {
   width: 105px;
@@ -286,13 +286,14 @@
 }
 .avatar-card .avatar-detail {
   display: flex;
-  padding: 0 1px 2px;
+  padding: 0 1.5px 3px 3px;
 }
 .avatar-card .avatar-detail .item {
   width: 46.5px;
   height: 46.5px;
-  border-radius: 4px;
-  margin: 1px;
+  border-radius: 4.5px;
+  margin: 1.5px;
+  overflow: hidden;
 }
 .avatar-card .avatar-weapon .icon {
   border-radius: 4px;
@@ -300,8 +301,8 @@
 .avatar-card .avatar-weapon .cons {
   top: initial;
   bottom: 0;
-  padding: 1px 3px;
-  border-radius: 3px 0 0 0;
+  padding: 1.5px 4.5px;
+  border-radius: 4.5px 0 0 0;
 }
 .avatar-card .avatar-artis {
   position: relative;

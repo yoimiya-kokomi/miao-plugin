@@ -19,7 +19,7 @@ export default class ProfileArtis extends AvatarArtis {
     this.profile = profile
     this.elem = profile.elem || profile.char?.elem
     if (artis) {
-      this.setArtisData(artis)
+      this.setArtisData(artis, true)
     }
   }
 

@@ -14,34 +14,43 @@ export default class AvatarArtis extends Base {
     this.artis = {}
   }
 
-  setArtisData (ds = {}, source) {
-    if (!this.hasArtis || ArtisMark.hasAttr(ds) || !ArtisMark.hasAttr(this.artis)) {
+  setArtisData (ds = {}, profile = false) {
+    // let force = !this.hasArtis || ArtisMark.hasAttr(ds) || !ArtisMark.hasAttr(this.artis)
+    if (!profile || (profile && ArtisMark.hasAttr(ds))) {
       for (let idx = 1; idx <= 5; idx++) {
-        if (ds[idx]) {
-          this.setArtis(idx, ds[idx] || ds[`arti${idx}`] || {})
+        if (ds[idx] || ds[`arti${idx}`]) {
+          this.setArtis(idx, ds[idx] || ds[`arti${idx}`], profile)
         }
       }
-      return true
     }
-    return false
   }
 
-  setArtis (idx = 1, ds = {}) {
+  setArtis (idx = 1, ds = {}, profile = false) {
     idx = idx.toString().replace('arti', '')
-    let ret = {}
-    ret.name = ds.name || ArtifactSet.getArtiNameBySet(ds.set, idx) || ''
-    ret.set = ds.set || Artifact.getSetNameByArti(ret.name) || ''
-    ret.level = ds.level || 1
+    this.artis[idx] = this.artis[idx] || {}
+    let arti = this.artis[idx]
+    if (profile) {
+      arti.name = ds._name || ds.name || arti.name || ''
+      arti.set = ds._set || Artifact.getSetNameByArti(arti._name) || ds.set || ''
+      arti.level = ds._level || ds.level || 1
+    } else {
+      arti.name = ds.name || arti.name || ''
+      arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
+      arti.level = ds.level || 1
+    }
+    // 存在面板数据，更新面板数据
     if (ds.main && ds.attrs) {
-      ret.main = ArtisMark.formatAttr(ds.main || {})
-      ret.attrs = []
+      arti._name = ds.name || arti.name
+      arti._set = ds.set || Artifact.getSetNameByArti(arti.name) || arti.set || ''
+      arti._level = ds.level || arti.level
+      arti.main = ArtisMark.formatAttr(ds.main || {})
+      arti.attrs = []
       for (let attrIdx in ds.attrs || []) {
         if (ds.attrs[attrIdx]) {
-          ret.attrs.push(ArtisMark.formatAttr(ds.attrs[attrIdx]))
+          arti.attrs.push(ArtisMark.formatAttr(ds.attrs[attrIdx]))
         }
       }
     }
-    this.artis[idx] = ret
   }
 
   forEach (fn) {
@@ -73,6 +82,8 @@ export default class AvatarArtis extends Base {
           level: ds.level || 1
         }
         if (ds.main && ds.attrs) {
+          tmp._name = ds._name || null
+          tmp._level = ds._level || null
           tmp.main = ds.main || null
           tmp.attrs = []
           for (let attrIdx in ds.attrs || []) {
@@ -87,15 +98,15 @@ export default class AvatarArtis extends Base {
     return ret
   }
 
-  getDetail () {
+  getDetail (profile = false) {
     let ret = {}
     for (let idx = 1; idx <= 5; idx++) {
       let ds = this.artis[idx]
       if (ds) {
-        let artis = Artifact.get(ds.name)
+        let artis = Artifact.get(profile ? ds._name : ds.name)
         let tmp = {
           ...artis?.getData('img,name,set'),
-          level: ds.level || 1
+          level: (profile ? ds._level : ds.level) || 1
         }
         if (ds.main && ds.attrs) {
           tmp.main = ds.main || null
@@ -171,20 +182,6 @@ export default class AvatarArtis extends Base {
     return check
   }
 
-  // 获取圣遗物数据
-  getArtisData () {
-    let ret = {}
-    this.forEach((ds, idx) => {
-      let arti = Artifact.get(ds.name)
-      ret[idx] = {
-        ...ds,
-        name: arti.name,
-        img: arti.img
-      }
-    })
-    return ret
-  }
-
   /**
    * 获取圣遗物套装数据
    * @returns {*|{imgs: *[], names: *[], sets: {}, abbrs: *[], sName: string, name: (string|*)}}
@@ -195,10 +192,10 @@ export default class AvatarArtis extends Base {
    * name: '组合名字'， 若为4件套会使用套装完整名
    * sName: '简写名字'，若为4件套也会使用简写
    */
-  getSetData () {
+  getSetData (profile = false) {
     let setCount = {}
     this.forEach((arti, idx) => {
-      setCount[arti.set] = (setCount[arti.set] || 0) + 1
+      setCount[profile ? arti._set : arti.set] = (setCount[profile ? arti._set : arti.set] || 0) + 1
     })
     let sets = {}
     let names = []
