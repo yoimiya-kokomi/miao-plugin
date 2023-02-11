@@ -71,11 +71,11 @@
     right: 0;
     top: 0;
     display: flex;
-    background: rgba(255, 255, 255, .5);
     margin: 16px;
     border-radius: 29px;
     height: 58px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .4);
+    overflow: hidden;
   }
 
   .stat-li {
@@ -89,8 +89,12 @@
     position: relative;
 
 
+    &:nth-child(odd) {
+      background: rgba(255, 255, 255, .65);
+    }
+
     &:nth-child(even) {
-      background: rgba(225, 225, 225, .8);
+      background: rgba(220, 220, 220, .5);
     }
 
     &:first-child {
@@ -136,11 +140,12 @@
     align-items: center;
 
     strong {
-      font-size: 24px;
+      font-size: 22px;
       display: block;
       height: 30px;
       line-height: 30px;
       text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .5);
+      font-weight: normal;
     }
 
     span {

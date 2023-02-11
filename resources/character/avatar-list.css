@@ -60,11 +60,11 @@
   right: 0;
   top: 0;
   display: flex;
-  background: rgba(255, 255, 255, 0.5);
   margin: 16px;
   border-radius: 29px;
   height: 58px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }
 .user-banner .stat-li {
   padding: 7px;
@@ -73,8 +73,11 @@
   text-align: center;
   position: relative;
 }
+.user-banner .stat-li:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.65);
+}
 .user-banner .stat-li:nth-child(even) {
-  background: rgba(225, 225, 225, 0.8);
+  background: rgba(220, 220, 220, 0.5);
 }
 .user-banner .stat-li:first-child {
   width: 80px;
@@ -111,11 +114,12 @@
   align-items: center;
 }
 .exploration .item strong {
-  font-size: 24px;
+  font-size: 22px;
   display: block;
   height: 30px;
   line-height: 30px;
   text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.5);
+  font-weight: normal;
 }
 .exploration .item span {
   margin-top: 58px;
