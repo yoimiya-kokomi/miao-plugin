@@ -8,7 +8,8 @@
   margin-top: 0;
 }
 
-#banner {
+
+.user-banner {
   height: 90px;
   background-size: auto 100%;
   background-position: right center;
@@ -50,7 +51,7 @@
       line-height: 34px;
 
       strong {
-        font-size: 26px;
+        font-size: 24px;
       }
 
       span {
@@ -79,7 +80,7 @@
 
   .stat-li {
     @width: 70px;
-    @padding: 8px;
+    @padding: 10px;
 
     padding: 7px;
     width: @width;
@@ -116,16 +117,12 @@
   }
 }
 
-#avatar-list {
-  width: calc(100% + 30px);
-  margin: 0 -15px -5px;
-  overflow: hidden;
-}
 
 .exploration {
   display: flex;
   flex-wrap: wrap;
-  padding: 16px;
+  margin: 10px 0;
+  justify-content: center;
 
   .item {
     width: 93px;
@@ -136,6 +133,7 @@
     margin: 3px;
     text-align: center;
     color: #fff;
+    align-items: center;
 
     strong {
       font-size: 24px;
@@ -154,17 +152,85 @@
       text-shadow: 0 0 1px rgba(0, 0, 0, .5);
     }
   }
+}
+
+.chest-list {
+  margin: 10px 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, .6);
+  padding: 0 15px;
+  display: flex;
+  justify-content: center;
+
+  .chest {
+    width: 20%;
+    display: flex;
+    padding: 15px 0;
+
+    &:nth-child(even) {
+      background: rgba(50, 50, 50, .5);
+    }
+
+    .value {
+      font-size: 24px;
+      line-height: 40px;
+      height: 40px;
+      padding-right: 8px;
+      text-align: right;
+      width: 70px;
+      text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .5);
+    }
+
+    .detail {
+      width: 60px;
+      height: 40px;
+      font-size: 13px;
+    }
+
+    .info {
+      display: flex;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      margin: 1px;
+      background: url('./imgs/chest.webp') no-repeat;
+      background-size: auto 100%;
+      vertical-align: center;
+    }
+
+    .max {
+      font-size: 12px;
+      padding-left: 3px;
+      color: #aaa;
+    }
+
+    .title {
+      height: 20px;
+      display: flex;
+      color: #d3bc8e;
+    }
 
 
+  }
 }
 
 .cont-title {
   padding: 8px 15px;
 }
 
+.avatar-cont-main {
+  overflow: hidden;
+}
+
 .avatar-cont {
   background: rgba(0, 0, 0, .5);
   padding: 0;
+  margin: 10px 0;
 }
 
 .avatar-list {

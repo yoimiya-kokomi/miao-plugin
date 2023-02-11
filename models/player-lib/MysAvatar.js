@@ -3,6 +3,17 @@ import { Common, Data } from '../../components/index.js'
 import moment from 'moment'
 
 const MysAvatar = {
+
+  needRefresh (time, force = 0, forceMap = {}) {
+    if (!time) {
+      return true
+    }
+    let duration = new Date() * 1 - time * 1
+    if (isNaN(duration) || duration < 0) {
+      return true
+    }
+    return duration > (forceMap[force] || 60) * 60 * 1000
+  },
   /**
    * 更新米游社角色信息
    * @param player
@@ -10,13 +21,12 @@ const MysAvatar = {
    * @param force
    * @returns {Promise<boolean>}
    */
-  async refreshMysDetail (player, force = false) {
+  async refreshMysDetail (player, force = 0) {
     let mys = player?.e?._mys
     if (!mys) {
       return false
     }
-    // 不必要更新
-    if ((new Date() * 1 - player._mys < 10 * 60 * 1000) && !force) {
+    if (!MysAvatar.needRefresh(player._mys, force, { 0: 60, 1: 2, 2: 0 })) {
       return false
     }
     let charData = await mys.getCharacter()
@@ -32,12 +42,12 @@ const MysAvatar = {
    * @param force
    * @returns {Promise<boolean>}
    */
-  async refreshMysInfo (player, force = false) {
+  async refreshMysInfo (player, force = 0) {
     let mys = player?.e?._mys
     if (!mys) {
       return false
     } // 不必要更新
-    if (player._info && (new Date() * 1 - player._info < 10 * 60 * 1000) && !force) {
+    if (!MysAvatar.needRefresh(player._info, force, { 0: 60, 1: 2, 2: 0 })) {
       return false
     }
     let infoData = await mys.getIndex()
@@ -130,9 +140,10 @@ const MysAvatar = {
    * 获取当前角色需要更新天赋的角色ID
    * @param player
    * @param ids 角色列表，若传入则查询指定角色列表，不传入查询全部
+   * @param force
    * @returns {*[]}
    */
-  getNeedRefreshIds (player, ids) {
+  getNeedRefreshIds (player, ids, force = 0) {
     let ret = []
     if (!ids) {
       ids = lodash.keys(player._avatars)
@@ -141,7 +152,7 @@ const MysAvatar = {
     }
     lodash.forEach(ids, (id) => {
       let avatar = player.getAvatar(id)
-      if (avatar.needRefreshTalent) {
+      if (!avatar.hasTalent || MysAvatar.needRefresh(avatar._talent, force, { 0: 60 * 24, 1: 60, 2: 0 })) {
         ret.push(avatar.id)
       }
     })
@@ -155,13 +166,13 @@ const MysAvatar = {
    * @param force
    * @returns {Promise<boolean>}
    */
-  async refreshTalent (player, ids, force) {
+  async refreshTalent (player, ids, force = 0) {
     let e = player?.e
     let mys = e?._mys
     if (!e || !mys) {
       return false
     }
-    let needReqIds = MysAvatar.getNeedRefreshIds(player, ids)
+    let needReqIds = MysAvatar.getNeedRefreshIds(player, ids, force)
     if (needReqIds.length > 0) {
       if (needReqIds.length > 8) {
         e && e.reply('正在获取角色信息，请稍候...')
@@ -221,6 +232,56 @@ const MysAvatar = {
 
   getDate (time) {
     return time ? moment(new Date(time)).format('MM-DD HH:mm') : ''
+  },
+
+  getInfo (player) {
+    let ret = {
+      ...(player.info || {}),
+      chestMap: [
+        { key: 'commonChest', title: '普通宝箱', max: 2521 },
+        { key: 'exquisiteChest', title: '精致宝箱', max: 1585 },
+        { key: 'preciousChest', title: '珍贵宝箱', max: 482 },
+        { key: 'luxuriousChest', title: '豪华宝箱', max: 184 },
+        { key: 'magicChest', title: '奇馈宝箱', max: 140 }
+      ]
+    }
+    let stats = ret.stats || {}
+    if (stats?.activeDay) {
+      let num = stats?.activeDay
+      let year = Math.floor(num / 365)
+      let month = Math.floor((num % 365) / 30.41)
+      let day = Math.floor((num % 365) % 30.41)
+      let msg = ''
+      if (year > 0) {
+        msg += year + '年'
+      }
+      if (month > 0) {
+        msg += month + '个月'
+      }
+      if (day > 0) {
+        msg += day + '天'
+      }
+      ret.activeDay = msg
+    }
+    let avatarCount = 0
+    let avatar5Count = 0
+    let goldCount = 0
+    player.forEachAvatar((avatar) => {
+      avatarCount++
+      if (avatar.star === 5) {
+        avatar5Count++
+        goldCount += (avatar.cons || 0) + 1
+      }
+      let w = avatar.weapon
+      if (w && w.star === 5) {
+        goldCount += w.affix * 1
+      }
+    })
+    stats.avatar = Math.max(stats.avatar, avatarCount)
+    stats.goldCount = goldCount
+    stats.avatar5 = avatar5Count
+    ret.stats = stats
+    return ret
   }
 }
 export default MysAvatar

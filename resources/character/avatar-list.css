@@ -5,7 +5,7 @@
 .head-box {
   margin-top: 0;
 }
-#banner {
+.user-banner {
   height: 90px;
   background-size: auto 100%;
   background-position: right center;
@@ -18,7 +18,7 @@
   white-space: nowrap;
   position: relative;
 }
-#banner .face {
+.user-banner .face {
   width: 70px;
   height: 70px;
   margin: 10px;
@@ -29,33 +29,33 @@
   background: url('../common/item/bg5.png');
   background-size: cover;
 }
-#banner .face span {
+.user-banner .face span {
   display: block;
   width: 64px;
   height: 64px;
   background-size: auto 100%;
   background-repeat: no-repeat;
 }
-#banner .user-info {
+.user-banner .user-info {
   padding: 15px 5px;
   color: #414e64;
 }
-#banner .user-info .name {
+.user-banner .user-info .name {
   height: 34px;
   line-height: 34px;
 }
-#banner .user-info .name strong {
-  font-size: 26px;
+.user-banner .user-info .name strong {
+  font-size: 24px;
 }
-#banner .user-info .name span {
+.user-banner .user-info .name span {
   padding-left: 5px;
 }
-#banner .user-info .uid {
+.user-banner .user-info .uid {
   height: 22px;
   line-height: 22px;
   font-size: 16px;
 }
-#banner .stat {
+.user-banner .stat {
   position: absolute;
   right: 0;
   top: 0;
@@ -66,42 +66,38 @@
   height: 58px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
 }
-#banner .stat-li {
+.user-banner .stat-li {
   padding: 7px;
   width: 70px;
   height: 58px;
   text-align: center;
   position: relative;
 }
-#banner .stat-li:nth-child(even) {
+.user-banner .stat-li:nth-child(even) {
   background: rgba(225, 225, 225, 0.8);
 }
-#banner .stat-li:first-child {
-  width: 78px;
-  padding-left: 15px;
+.user-banner .stat-li:first-child {
+  width: 80px;
+  padding-left: 17px;
 }
-#banner .stat-li:last-child {
-  width: 78px;
-  padding-right: 15px;
+.user-banner .stat-li:last-child {
+  width: 80px;
+  padding-right: 17px;
 }
-#banner .stat-li strong {
+.user-banner .stat-li strong {
   font-size: 22px;
   display: block;
 }
-#banner .stat-li span {
+.user-banner .stat-li span {
   display: block;
   font-size: 14px;
   color: #414e64;
 }
-#avatar-list {
-  width: calc(100% + 30px);
-  margin: 0 -15px -5px;
-  overflow: hidden;
-}
 .exploration {
   display: flex;
   flex-wrap: wrap;
-  padding: 16px;
+  margin: 10px 0;
+  justify-content: center;
 }
 .exploration .item {
   width: 93px;
@@ -112,6 +108,7 @@
   margin: 3px;
   text-align: center;
   color: #fff;
+  align-items: center;
 }
 .exploration .item strong {
   font-size: 24px;
@@ -128,12 +125,70 @@
   display: block;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
+.chest-list {
+  margin: 10px 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0 15px;
+  display: flex;
+  justify-content: center;
+}
+.chest-list .chest {
+  width: 20%;
+  display: flex;
+  padding: 15px 0;
+}
+.chest-list .chest:nth-child(even) {
+  background: rgba(50, 50, 50, 0.5);
+}
+.chest-list .chest .value {
+  font-size: 24px;
+  line-height: 40px;
+  height: 40px;
+  padding-right: 8px;
+  text-align: right;
+  width: 70px;
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.chest-list .chest .detail {
+  width: 60px;
+  height: 40px;
+  font-size: 13px;
+}
+.chest-list .chest .info {
+  display: flex;
+  height: 20px;
+  line-height: 20px;
+}
+.chest-list .chest .icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: 1px;
+  background: url('./imgs/chest.webp') no-repeat;
+  background-size: auto 100%;
+  vertical-align: center;
+}
+.chest-list .chest .max {
+  font-size: 12px;
+  padding-left: 3px;
+  color: #aaa;
+}
+.chest-list .chest .title {
+  height: 20px;
+  display: flex;
+  color: #d3bc8e;
+}
 .cont-title {
   padding: 8px 15px;
+}
+.avatar-cont-main {
+  overflow: hidden;
 }
 .avatar-cont {
   background: rgba(0, 0, 0, 0.5);
   padding: 0;
+  margin: 10px 0;
 }
 .avatar-list {
   display: flex;

@@ -51,10 +51,20 @@ export async function profileStat (e) {
     level: player.level
   }
 
+  let info = player.getInfo()
+  info.stats = info.stats || {}
+  info.statMap = {
+    achievement: '成就',
+    wayPoint: '锚点',
+    avatar: '角色',
+    avatar5: '五星角色',
+    goldCount: '金卡总数'
+  }
+
   return await Common.render(isAvatarList ? 'character/avatar-list' : 'character/profile-stat', {
     save_id: uid,
     uid,
-    info: player.getInfo(),
+    info,
     updateTime: player.getUpdateTime(),
     isSelfCookie: e.isSelfCookie,
     talentLvMap: '0,1,1,1,2,2,3,3,3,4,5'.split(','),

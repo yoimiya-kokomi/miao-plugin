@@ -34,7 +34,7 @@ const Profile = {
    * @param force
    * @returns {Promise<boolean|number>}
    */
-  async refreshProfile (player, force = true) {
+  async refreshProfile (player, force = 1) {
     player._update = []
     let { uid, e } = player
     if (uid.toString().length !== 9 || !e) {

@@ -210,8 +210,8 @@ async function abyssTeam (e) {
   let data = {}
   let noAvatar = {}
   lodash.forEach(avatarData, (avatar) => {
-    let t = avatar.talent
-    avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon?.level || 1) * 100 + Math.max(t.a?.original, t.e?.original, t.q?.original) * 1000
+    let t = avatar.originalTalent
+    avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon?.level || 1) * 100 + Math.max(t?.a, t?.e, t?.q) * 1000
   })
 
   let getTeamCfg = (str) => {

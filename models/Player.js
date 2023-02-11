@@ -173,48 +173,25 @@ export default class Player extends Base {
   }
 
   getInfo () {
-    let ret = {
-      ...(this.info || {}),
-      statMap: {
-        achievement: '成就数',
-        commonChest: '普通宝箱',
-        exquisiteChest: '精致宝箱',
-        preciousChest: '珍贵宝箱',
-        luxuriousChest: '豪华宝箱'
-      }
-    }
-    if (ret?.stats?.activeDay) {
-      let num = ret?.stats?.activeDay
-      let year = Math.floor(num / 365)
-      let month = Math.floor((num % 365) / 30.41)
-      let day = Math.floor((num % 365) % 30.41)
-      let msg = ''
-      if (year > 0) {
-        msg += year + '年'
-      }
-      if (month > 0) {
-        msg += month + '个月'
-      }
-      if (day > 0) {
-        msg += day + '天'
-      }
-      ret.activeDay = msg
-    }
-    lodash.forEach(ret)
-    return ret
+    return MysAvatar.getInfo(this)
   }
 
   // 更新面板
-  async refreshProfile (force = true) {
+  async refreshProfile (force = 1) {
     return await Profile.refreshProfile(this, force)
   }
 
   // 更新米游社数据
-  async refreshMysDetail (force = false) {
+  /**
+   * 更新米游社数据
+   * @param force: 0:不强制，长超时时间 1：短超时时间 2：无视缓存，强制刷新
+   * @returns {Promise<boolean>}
+   */
+  async refreshMysDetail (force = 0) {
     return MysAvatar.refreshMysDetail(this, force)
   }
 
-  async refreshMysInfo (force = false) {
+  async refreshMysInfo (force = 0) {
     return await MysAvatar.refreshMysInfo(this, force)
   }
 
@@ -224,7 +201,7 @@ export default class Player extends Base {
   }
 
   // 使用MysApi刷新指定角色的天赋信息
-  async refreshTalent (ids = '', force = false) {
+  async refreshTalent (ids = '', force = 0) {
     return await MysAvatar.refreshTalent(this, ids, force)
   }
 
@@ -236,11 +213,11 @@ export default class Player extends Base {
 
   async refreshAndGetAvatarData (cfg) {
     // 更新角色信息
-    await this.refreshMysDetail(cfg.force)
+    await this.refreshMysDetail(cfg.force || 0)
 
     // 更新天赋信息
     if (cfg.refreshTalent !== false) {
-      await this.refreshTalent(cfg.ids, cfg.force)
+      await this.refreshTalent(cfg.ids, cfg.force || 0)
     }
 
     let rank = false
