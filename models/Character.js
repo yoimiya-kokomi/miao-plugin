@@ -20,6 +20,9 @@ let getMeta = function (name) {
 }
 
 class Character extends Base {
+  // 默认获取的数据
+  _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,ver,desc,talentCons'
+
   constructor ({ id, name = '', elem = '' }) {
     super()
     // 检查缓存
@@ -39,9 +42,6 @@ class Character extends Base {
     }
     return this._cache()
   }
-
-  // 默认获取的数据
-  _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,ver,desc,talentCons'
 
   // 是否为官方角色
   get isOfficial () {
@@ -140,6 +140,59 @@ class Character extends Base {
     return this.meta?.talentCons || {}
   }
 
+  // 获取生日
+  get birthday () {
+    let birth = this.birth
+    if (!birth) {
+      return ''
+    }
+    birth = birth.split('-')
+    return `${birth[0]}月${birth[1]}日`
+  }
+
+  // 基于角色名获取Character
+  static get (val) {
+    let id = CharId.getId(val, Character.gsCfg)
+    if (!id) {
+      return false
+    }
+    return new Character(id)
+  }
+
+  static forEach (fn, type = 'all') {
+    lodash.forEach(idMap, (name, id) => {
+      let char = Character.get({ id, name })
+      if (type === 'release' && !char.isRelease) {
+        return true
+      }
+      if (type === 'official' && !char.isOfficial) {
+        return true
+      }
+      return fn(char) !== false
+    })
+  }
+
+  // 当获取角色为旅行者时，会考虑当前uid的账号情况返回对应旅行者
+  static async getAvatar (name, uid) {
+    let char = Character.get(name)
+    return await char.getTraveler(uid)
+  }
+
+  // TODO：待废弃
+  static getAbbr () {
+    return abbrMap
+  }
+
+  // TODO：待废弃
+  static checkWifeType (charid, type) {
+    return !!wifeMap[type][charid]
+  }
+
+  // 获取排序ID
+  static sortIds (arr) {
+    return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))
+  }
+
   // 获取attr列表
   getAttrList () {
     let { meta } = this
@@ -151,16 +204,6 @@ class Character extends Base {
     return CharMeta.getMaterials(this, type)
   }
 
-  // 获取生日
-  get birthday () {
-    let birth = this.birth
-    if (!birth) {
-      return ''
-    }
-    birth = birth.split('-')
-    return `${birth[0]}月${birth[1]}日`
-  }
-
   // 获取角色character-img图片
   getCardImg (se = false, def = true) {
     if (this.name === '旅行者') {
@@ -168,6 +211,8 @@ class Character extends Base {
     }
     return CharImg.getCardImg(this.name, se, def)
   }
+
+  // 设置旅行者数据
 
   getAvatarTalent (talent = {}, cons = 0, mode = 'original') {
     return CharTalent.getAvatarTalent(this.id, talent, cons, mode, this.talentCons)
@@ -192,33 +237,21 @@ class Character extends Base {
 
   // 获取角色插画
   getImgs (costume = '') {
-    if (!lodash.isArray(costume)) {
-      costume = [costume, false]
+    if (lodash.isArray(costume)) {
+      costume = costume[0]
     }
-    let costumeCfg = [this.checkCostume(costume[0]) ? '2' : '', costume[1] || 'normal']
-
-    let cacheId = `costume${costume[0]}`
+    let costumeIdx = this.checkCostume(costume) ? '2' : ''
+    let cacheId = `costume${costumeIdx}`
     if (!this._imgs) {
       this._imgs = {}
     }
     if (!this._imgs[cacheId]) {
-      this._imgs[cacheId] = CharImg.getImgs(this.name, costumeCfg, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
+      this._imgs[cacheId] = CharImg.getImgs(this.name, costumeIdx, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
     }
-    let ret = this._imgs[cacheId]
-    let nPath = `meta/character/${this.name}`
-    if (costumeCfg[1] === 'super') {
-      ret.splash0 = CharImg.getRandomImg(
-        [`profile/super-character/${this.name}`, `profile/normal-character/${this.name}`],
-        [`${nPath}/imgs/splash0.webp`, `${nPath}/imgs/splash${costumeCfg[0]}.webp`, `/${nPath}/imgs/splash.webp`]
-      )
-    } else {
-      ret.splash0 = CharImg.getRandomImg(
-        [`profile/normal-character/${this.name}`],
-        [`${nPath}/imgs/splash${costumeCfg[0]}.webp`, `/${nPath}/imgs/splash.webp`]
-      )
-    }
-    return ret
+    return this._imgs[cacheId]
   }
+
+  // 基于角色名获取Character
 
   // 获取详情数据
   getDetail (elem = '') {
@@ -242,7 +275,8 @@ class Character extends Base {
     return this._detail
   }
 
-  // 设置旅行者数据
+  // 获取别名数据
+
   // TODO：迁移至Avatar
   setTraveler (uid = '') {
     if (this.isTraveler && uid && uid.toString().length === 9) {
@@ -252,6 +286,8 @@ class Character extends Base {
       }, 3600 * 24 * 120)
     }
   }
+
+  // 检查wife类型
 
   // 获取旅行者数据
   async getTraveler (uid) {
@@ -283,52 +319,6 @@ class Character extends Base {
       }
     }
     return await this.getTraveler(uid)
-  }
-
-  // 基于角色名获取Character
-  static get (val) {
-    let id = CharId.getId(val, Character.gsCfg)
-    if (!id) {
-      return false
-    }
-    return new Character(id)
-  }
-
-  static forEach (fn, type = 'all') {
-    lodash.forEach(idMap, (name, id) => {
-      let char = Character.get({ id, name })
-      if (type === 'release' && !char.isRelease) {
-        return true
-      }
-      if (type === 'official' && !char.isOfficial) {
-        return true
-      }
-      return fn(char) !== false
-    })
-  }
-
-  // 基于角色名获取Character
-  // 当获取角色为旅行者时，会考虑当前uid的账号情况返回对应旅行者
-  static async getAvatar (name, uid) {
-    let char = Character.get(name)
-    return await char.getTraveler(uid)
-  }
-
-  // 获取别名数据
-  // TODO：待废弃
-  static getAbbr () {
-    return abbrMap
-  }
-
-  // 检查wife类型
-  // TODO：待废弃
-  static checkWifeType (charid, type) {
-    return !!wifeMap[type][charid]
-  }
-
-  // 获取排序ID
-  static sortIds (arr) {
-    return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))
   }
 
   // 获取伤害计算配置

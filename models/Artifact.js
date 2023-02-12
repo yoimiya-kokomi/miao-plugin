@@ -58,22 +58,24 @@ class Artifact extends Base {
     }
   }
 
-  static getMainById (id, level = 20, star) {
-    let cfg = mainIdMap[id]
-    if (!cfg) {
+  static getMainById (id, level = 20, star = 5) {
+    let key = mainIdMap[id]
+    if (!key) {
       return false
     }
-    let attrCfg = attrMap[Format.isElem(cfg.key) ? 'dmg' : cfg.key]
-    let eff = ['hpPlus', 'atkPlus', 'defPlus'].includes(cfg.key) ? 2 : 1
+    let attrCfg = attrMap[Format.isElem(key) ? 'dmg' : key]
+    let posEff = ['hpPlus', 'atkPlus', 'defPlus'].includes(key) ? 2 : 1
+    let starEff = { 1: 0.21, 2: 0.36, 3: 0.6, 4: 0.9, 5: 1 }
     return {
-      key: cfg.key,
-      value: attrCfg.value * (1.2 + 0.34 * level) * eff
+      key,
+      value: attrCfg.value * (1.2 + 0.34 * level) * posEff * (starEff[star || 5])
     }
   }
 
-  static getAttrsByIds (ids) {
+  static getAttrsByIds (ids, star = 5) {
     let ret = []
     let tmp = {}
+    let starEff = { 1: 0.21, 2: 0.36, 3: 0.6, 4: 0.8, 5: 1 }
     lodash.forEach(ids, (id) => {
       let cfg = attrIdMap[id]
       if (!cfg) {
@@ -93,7 +95,7 @@ class Artifact extends Base {
     })
     lodash.forEach(tmp, (ds, key) => {
       if (attrMap[key]) {
-        ds.value = attrMap[key].value * ds.eff
+        ds.value = attrMap[key].value * ds.eff * starEff[star]
       }
     })
     return ret

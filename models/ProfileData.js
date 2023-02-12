@@ -3,6 +3,7 @@ import AvatarData from './AvatarData.js'
 import { Data } from '../components/index.js'
 import { ProfileArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile-lib/AttrCalc.js'
+import CharImg from './character-lib/CharImg.js'
 
 export default class ProfileData extends AvatarData {
   constructor (ds = {}, calc = true) {
@@ -17,16 +18,27 @@ export default class ProfileData extends AvatarData {
     return this.isProfile
   }
 
-  get splashCostume () {
+  get costumeSplash () {
     let costume = this._costume
-    if (lodash.isArray(costume)) {
-      costume = costume[0]
-    }
+    costume = this.char.checkCostume(costume) ? '2' : ''
+
+    let nPath = `meta/character/${this.name}`
+    let isSuper = false
     let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
     if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass) || talent === '101010') {
-      return [costume, 'super']
+      isSuper = true
     }
-    return [costume, 'normal']
+    if (isSuper) {
+      return CharImg.getRandomImg(
+        [`profile/super-character/${this.name}`, `profile/normal-character/${this.name}`],
+        [`${nPath}/imgs/splash0.webp`, `${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
+      )
+    } else {
+      return CharImg.getRandomImg(
+        [`profile/normal-character/${this.name}`],
+        [`${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
+      )
+    }
   }
 
   get hasDmg () {
@@ -61,7 +73,6 @@ export default class ProfileData extends AvatarData {
   }
 
   setArtis (ds = false) {
-    console.log('ds', ds.artis?.artis[1])
     this.artis?.setProfile(this, ds.artis?.artis || ds.artis || ds)
   }
 

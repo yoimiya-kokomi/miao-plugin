@@ -43,7 +43,7 @@ export async function profileArtis (e) {
   return await Common.render('character/artis-mark', {
     uid,
     elem: char.elem,
-    splash: char.getImgs(profile.costume).splash0,
+    splash: profile.costumeSplash,
     data: profile,
     costume: profile.costume ? '2' : '',
     artisDetail,

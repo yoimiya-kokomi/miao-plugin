@@ -87,7 +87,7 @@ export default class AvatarArtis extends Base {
       arti.mainId = ds.mainId
       arti.attrIds = ds.attrIds
       arti.main = Artifact.getMainById(ds.mainId, arti._level, arti._star)
-      arti.attrs = Artifact.getAttrsByIds(ds.attrIds)
+      arti.attrs = Artifact.getAttrsByIds(ds.attrIds, arti._star)
     } else if (ds.main && ds.attrs) {
       arti.main = ArtisMark.formatAttr(ds.main || {})
       arti.attrs = []

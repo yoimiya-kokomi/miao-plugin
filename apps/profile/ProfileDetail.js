@@ -195,6 +195,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let artisDetail = profile.getArtisMark()
   let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
   let imgs = char.getImgs(profile.costume)
+  let costumeSplash = profile.costumeSplash
   // 渲染图像
   let msgRes = await Common.render('character/profile-detail', {
     save_id: uid,
@@ -210,6 +211,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     artisKeyTitle,
     enemyLv,
     imgs,
+    costumeSplash,
     enemyName: dmgCalc.enemyName || '小宝',
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
     bodyClass: `char-${char.name}`,
@@ -218,7 +220,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   }, { e, scale: 1.6, retMsgId: true })
   if (msgRes && msgRes.message_id) {
     // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
-    await redis.set(`miao:original-picture:${msgRes.message_id}`, imgs.splash0, { EX: 3600 * 3 })
+    await redis.set(`miao:original-picture:${msgRes.message_id}`, costumeSplash, { EX: 3600 * 3 })
   }
   return true
 }
