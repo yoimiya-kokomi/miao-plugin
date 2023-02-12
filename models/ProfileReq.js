@@ -1,10 +1,6 @@
 import Base from './Base.js'
 import fetch from 'node-fetch'
 
-function sleep (ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 export default class ProfileReq extends Base {
   constructor (e) {
     super()
@@ -40,7 +36,7 @@ export default class ProfileReq extends Base {
     let serv = this.serv
     let extra = serv.name ? `当前面板服务${serv.name}，` : ''
     const msgs = {
-      error: `UID${this.uid}更新面板失败，${extra}可能是面板服务维护中，请稍后重试...`,
+      error: `UID${this.uid}更新面板失败，${extra}\n可能是面板服务维护中，请稍后重试...`,
       empty: '请将角色放置在【游戏内】角色展柜，并打开【显示详情】，等待5分钟重新获取面板'
     }
     msg = msgs[msg] || msg
@@ -66,8 +62,6 @@ export default class ProfileReq extends Base {
       return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
-    // this.msg(`开始获取uid:${this.uid}的数据，可能会需要一定时间~`)
-    // await sleep(100)
     // 发起请求
     logger.mark(`面板请求UID:${this.uid}，面板服务：${serv.name}...`)
     let data = {}

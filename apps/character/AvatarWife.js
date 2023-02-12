@@ -168,7 +168,7 @@ async function getAvatarList (player, type, mys) {
   let list = []
   player.forEachAvatar((avatar) => {
     if (type !== false) {
-      if (!Character.checkWifeType(avatar.id, type)) {
+      if (!avatar.char.checkWifeType(avatar.id, type)) {
         return true
       }
     }

@@ -1,4 +1,4 @@
-import { Character, Artifact } from '../index.js'
+import { Character } from '../index.js'
 import lodash from 'lodash'
 
 import { attrMap, artisIdxMap } from './ProfileMeta.js'
@@ -6,7 +6,7 @@ import { attrMap, artisIdxMap } from './ProfileMeta.js'
 let MiaoData = {
   setAvatar (player, ds) {
     let char = Character.get(ds.id)
-    let avatar = player.getAvatar(ds.id)
+    let avatar = player.getAvatar(ds.id, true)
     let talentRet = MiaoData.getTalent(char.id, ds.skill)
     avatar.setAvatar({
       level: ds.level,

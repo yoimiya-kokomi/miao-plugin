@@ -8,7 +8,7 @@ let EnkaData = {
     if (!char) {
       return
     }
-    let avatar = player.getAvatar(char.id)
+    let avatar = player.getAvatar(char.id, true)
     let talentRet = EnkaData.getTalent(char.id, data.skillLevelMap)
     avatar.setAvatar({
       level: data.propMap['4001'].val * 1,

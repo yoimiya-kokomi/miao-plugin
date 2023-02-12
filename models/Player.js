@@ -1,10 +1,13 @@
 /**
  * 用户数据文件
+ * 数据存储在/data/userData/${uid}.json 下
+ * 兼容处理面板户数及Mys数据
+ *
  */
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
-import { AvatarData, ProfileRank } from './index.js'
+import { AvatarData, ProfileRank, Character } from './index.js'
 
 import MysAvatar from './player-lib/MysAvatar.js'
 import Profile from './player-lib/Profile.js'
@@ -36,6 +39,12 @@ export default class Player extends Base {
     } else {
       return new Player(e)
     }
+  }
+
+  // 获取面板更新服务名
+  static getProfileServName (uid) {
+    let Serv = Profile.getServ(uid)
+    return Serv.name
   }
 
   /**
@@ -96,16 +105,22 @@ export default class Player extends Base {
 
   // 设置角色数据
   setAvatar (ds, source = '') {
-    let avatar = this.getAvatar(ds.id)
+    let avatar = this.getAvatar(ds.id, true)
     avatar.setAvatar(ds, source)
   }
 
   // 获取Avatar角色
-  getAvatar (id) {
-    if (!this._avatars[id]) {
-      this._avatars[id] = AvatarData.create({ id })
+  getAvatar (id, create = false) {
+    let char = Character.get(id)
+    let avatars = this._avatars
+    // 兼容处理旅行者的情况
+    if (char.isTraveler && !create) {
+      id = avatars['10000005'] ? 10000005 : 10000007
     }
-    return this._avatars[id]
+    if (!avatars[id] && create) {
+      avatars[id] = AvatarData.create({ id })
+    }
+    return avatars[id] || false
   }
 
   // 异步循环角色
@@ -137,7 +152,10 @@ export default class Player extends Base {
       })
     } else {
       lodash.forEach(ids, (id) => {
-        ret[id] = this.getAvatar(id)
+        let avatar = this.getAvatar(id)
+        if (avatar) {
+          ret[id] = avatar.getDetail()
+        }
       })
     }
     return ret
@@ -146,7 +164,7 @@ export default class Player extends Base {
   // 获取指定角色的面板数据
   getProfile (id) {
     let avatar = this.getAvatar(id)
-    return avatar.getProfile()
+    return avatar ? avatar.getProfile() : false
   }
 
   // 获取所有面板数据
@@ -203,12 +221,6 @@ export default class Player extends Base {
   // 使用MysApi刷新指定角色的天赋信息
   async refreshTalent (ids = '', force = 0) {
     return await MysAvatar.refreshTalent(this, ids, force)
-  }
-
-  // 获取面板更新服务名
-  static getProfileServName (uid) {
-    let Serv = Profile.getServ(uid)
-    return Serv.name
   }
 
   async refreshAndGetAvatarData (cfg) {

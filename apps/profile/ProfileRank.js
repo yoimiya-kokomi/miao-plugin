@@ -159,6 +159,9 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
     let uid = ds.uid || ds.value
     let player = Player.create(uid)
     let avatar = player.getAvatar(ds.charId || char.id)
+    if (!avatar) {
+      continue
+    }
     let profile = avatar.getProfile()
 
     if (profile) {

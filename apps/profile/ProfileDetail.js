@@ -117,8 +117,7 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   }
 
   let player = Player.create(uid)
-  let avatar = player.getAvatar(char.id)
-  let profile = e._profile || avatar.getProfile(char.id)
+  let profile = e._profile || player.getProfile(char.id)
 
   let refresh = async () => {
     let refreshRet = await autoRefresh(e)

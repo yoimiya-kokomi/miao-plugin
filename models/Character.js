@@ -13,7 +13,7 @@ import CharId from './character-lib/CharId.js'
 import CharMeta from './character-lib/CharMeta.js'
 import CharCfg from './character-lib/CharCfg.js'
 
-let { abbrMap, wifeMap, idSort, idMap } = CharId
+let { wifeMap, idSort, idMap } = CharId
 
 let getMeta = function (name) {
   return Data.readJSON(`resources/meta/character/${name}/data.json`)
@@ -172,22 +172,6 @@ class Character extends Base {
     })
   }
 
-  // 当获取角色为旅行者时，会考虑当前uid的账号情况返回对应旅行者
-  static async getAvatar (name, uid) {
-    let char = Character.get(name)
-    return await char.getTraveler(uid)
-  }
-
-  // TODO：待废弃
-  static getAbbr () {
-    return abbrMap
-  }
-
-  // TODO：待废弃
-  static checkWifeType (charid, type) {
-    return !!wifeMap[type][charid]
-  }
-
   // 获取排序ID
   static sortIds (arr) {
     return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))
@@ -273,52 +257,6 @@ class Character extends Base {
       console.log(e)
     }
     return this._detail
-  }
-
-  // 获取别名数据
-
-  // TODO：迁移至Avatar
-  setTraveler (uid = '') {
-    if (this.isTraveler && uid && uid.toString().length === 9) {
-      Data.setCacheJSON(`miao:uid-traveler:${uid}`, {
-        id: CharId.getTravelerId(this.id),
-        elem: this.elem
-      }, 3600 * 24 * 120)
-    }
-  }
-
-  // 检查wife类型
-
-  // 获取旅行者数据
-  async getTraveler (uid) {
-    if (this.isTraveler) {
-      let tData = await Data.getCacheJSON(`miao:uid-traveler:${uid}`)
-      return Character.get({
-        id: CharId.getTravelerId(tData.id || this.id),
-        elem: tData.elem || (this.elem !== 'multi' ? this.elem : 'anemo')
-      })
-    }
-    return this
-  }
-
-  async checkAvatars (avatars, uid = '') {
-    if (!this.isTraveler) {
-      return this
-    }
-    if (lodash.isObject(avatars) && avatars.id) {
-      avatars = [avatars]
-    }
-    for (let avatar of avatars) {
-      if (CharId.isTraveler(avatar.id)) {
-        let char = Character.get({
-          id: avatar.id,
-          elem: (avatar.elem || avatar.element || 'anemo').toLowerCase()
-        })
-        char.setTraveler(uid)
-        return char
-      }
-    }
-    return await this.getTraveler(uid)
   }
 
   // 获取伤害计算配置

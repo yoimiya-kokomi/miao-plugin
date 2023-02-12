@@ -68,6 +68,7 @@ const MysAvatar = {
       level: role.level,
       name: role.nickname
     })
+    let charIds = {}
     lodash.forEach(charData.avatars, (ds) => {
       let avatar = Data.getData(ds, 'id,level,cons:actived_constellation_num,fetter')
       avatar.elem = ds.element.toLowerCase()
@@ -90,7 +91,16 @@ const MysAvatar = {
       })
       avatar.artis = artis
       player.setAvatar(avatar, 'mys')
+      charIds[avatar.id] = true
     })
+    // 若角色数据>8，检查缓存，删除错误缓存的数据
+    if (lodash.keys(charIds).length > 8) {
+      player.forEachAvatar((avatar) => {
+        if (!charIds[avatar.id] && !avatar.isProfile) {
+          delete player._avatars[avatar.id]
+        }
+      })
+    }
     player._mys = new Date() * 1
     player.save()
   },
@@ -152,6 +162,9 @@ const MysAvatar = {
     }
     lodash.forEach(ids, (id) => {
       let avatar = player.getAvatar(id)
+      if (!avatar) {
+        return true
+      }
       if (!avatar.hasTalent || MysAvatar.needRefresh(avatar._talent, force, { 0: 60 * 24, 1: 60, 2: 0 })) {
         ret.push(avatar.id)
       }
@@ -184,7 +197,9 @@ const MysAvatar = {
       for (let val of avatarArr) {
         for (let id of val) {
           let avatar = player.getAvatar(id)
-          skillRet.push(await MysAvatar.refreshAvatarTalent(avatar, mys))
+          if (avatar) {
+            skillRet.push(await MysAvatar.refreshAvatarTalent(avatar, mys))
+          }
         }
         skillRet = await Promise.all(skillRet)
         skillRet = skillRet.filter(item => item.id)

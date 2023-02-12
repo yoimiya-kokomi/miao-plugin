@@ -21,19 +21,6 @@ export default class AvatarData extends Base {
     this.setAvatar(ds, source)
   }
 
-  /**
-   * 当前数据是否需要更新天赋
-   * @returns {boolean}
-   */
-  get needRefreshTalent () {
-    // 不存在天赋数据
-    if (!this.hasTalent) {
-      return true
-    }
-    // 超过2个小时的天赋数据进行请求
-    return (new Date() * 1) - this._talent > 3600 * 2 * 1000
-  }
-
   get hasTalent () {
     return this.talent && !lodash.isEmpty(this.talent) && !!this._talent
   }
