@@ -39,6 +39,7 @@
 .user-banner .user-info {
   padding: 15px 5px;
   color: #414e64;
+  text-shadow: 0 0 2px #f0ece4, 0 0 5px #f0ece4;
 }
 .user-banner .user-info .name {
   height: 34px;
@@ -72,6 +73,7 @@
   height: 58px;
   text-align: center;
   position: relative;
+  text-shadow: 0 0 1px #fff;
 }
 .user-banner .stat-li:nth-child(odd) {
   background: rgba(255, 255, 255, 0.65);

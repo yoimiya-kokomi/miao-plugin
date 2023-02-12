@@ -30,11 +30,11 @@ export async function groupRank (e) {
   }
   let groupCfg = await ProfileRank.getGroupCfg(groupId)
   if (!groupRank) {
-    e.reply('群面板排名功能已禁用，主人可通过【#喵喵设置】启用...')
+    e.reply('群面板排名功能已禁用，Bot主人可通过【#喵喵设置】启用...')
     return true
   }
   if (groupCfg.status === 1) {
-    e.reply('本群已关闭群排名，主人可通过【#启用排名】启用...')
+    e.reply('本群已关闭群排名，群管理员或Bot主人可通过【#启用排名】启用...')
     return true
   }
   if (type === 'detail') {
@@ -105,8 +105,8 @@ export async function refreshRank (e) {
   if (!groupId) {
     return true
   }
-  if (!e.isMaster) {
-    e.reply('只有管理员可刷新排名...')
+  if (!e.isMaster && !this.e.member?.is_admin) {
+    e.reply('只有主人及群管理员可刷新排名...')
     return true
   }
   e.reply('面板数据刷新中，等待时间可能较长，请耐心等待...')
@@ -141,8 +141,8 @@ export async function manageRank (e) {
     return true
   }
   let isClose = /(关闭|禁用)/.test(e.msg)
-  if (!e.isMaster) {
-    e.reply(`只有管理员可${isClose ? '禁用' : '启用'}排名...`)
+  if (!e.isMaster && !this.e.member?.is_admin) {
+    e.reply(`只有主人及群管理员可${isClose ? '禁用' : '启用'}排名...`)
     return true
   }
   await ProfileRank.setGroupStatus(groupId, isClose ? 1 : 0)

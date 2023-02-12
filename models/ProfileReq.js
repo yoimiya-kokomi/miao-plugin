@@ -37,8 +37,10 @@ export default class ProfileReq extends Base {
   }
 
   err (msg = '', cd = 0) {
+    let serv = this.serv
+    let extra = serv.name ? `当前面板服务${serv.name}，` : ''
     const msgs = {
-      error: '请求失败，可能是面板服务升级维护或遇到故障，请稍后重试...',
+      error: `UID${this.uid}更新面板失败，${extra}可能是面板服务维护中，请稍后重试...`,
       empty: '请将角色放置在【游戏内】角色展柜，并打开【显示详情】，等待5分钟重新获取面板'
     }
     msg = msgs[msg] || msg
@@ -57,15 +59,17 @@ export default class ProfileReq extends Base {
   }
 
   async requestProfile (player, serv) {
+    this.serv = serv
     let reqParam = await serv.getReqParam(this.uid)
     let cdTime = await this.inCd()
-    if (cdTime) {
+    if (cdTime && !process.argv.includes('web-debug')) {
       return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
-    this.msg(`开始获取uid:${this.uid}的数据，可能会需要一定时间~`)
-    await sleep(100)
+    // this.msg(`开始获取uid:${this.uid}的数据，可能会需要一定时间~`)
+    // await sleep(100)
     // 发起请求
+    logger.mark(`面板请求UID:${this.uid}，面板服务：${serv.name}...`)
     let data = {}
     try {
       let params = reqParam.params || {}

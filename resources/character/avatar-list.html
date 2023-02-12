@@ -14,7 +14,7 @@
   <div class="user-info">
     <div class="name">
       <strong>{{face.name}}</strong>
-      {{if face.level}} Lv.{{face.level}}{{/if}}
+      {{if face.level && face.level > 1}} Lv.{{face.level}}{{/if}}
 
     </div>
     <div class="uid">

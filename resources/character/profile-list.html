@@ -12,7 +12,9 @@
   <div class="title">#面板列表
     <div class="label">UID:{{uid}}</div>
   </div>
-  <div class="label">{{msg+", "}}更新角色时请不要出场对应角色，以获取准确面板数据</div>
+  {{if msg}}
+  <div class="label">{{msg}}</div>
+  {{/if}}
   <div class="label">你可以使用<span>#{{demo}}面板</span>、<span>#{{demo}}伤害</span>、<span>#{{demo}}圣遗物</span>命令来查看面板信息了</div>
 </div>
 <div class="cont group-rank-tip {{groupRank?'has-rank':'no-rank'}}">
