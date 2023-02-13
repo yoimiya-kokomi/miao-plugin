@@ -81,22 +81,19 @@ class Artifact extends Base {
       if (!cfg) {
         return true
       }
-      let { key, eff } = cfg
+      let { key, value } = cfg
       if (!tmp[key]) {
         tmp[key] = {
           key,
           eff: 0,
-          upNum: 0
+          upNum: 0,
+          value: 0
         }
         ret.push(tmp[key])
       }
-      tmp[key].eff += eff
+      tmp[key].eff += value / attrMap[key].value * starEff[star]
+      tmp[key].value += value * (attrMap[key].format === 'pct' ? 100 : 1) * starEff[star]
       tmp[key].upNum++
-    })
-    lodash.forEach(tmp, (ds, key) => {
-      if (attrMap[key]) {
-        ds.value = attrMap[key].value * ds.eff * starEff[star]
-      }
     })
     return ret
   }

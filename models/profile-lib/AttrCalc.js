@@ -24,6 +24,24 @@ class AttrCalc {
     return new AttrCalc(profile)
   }
 
+  static calcPromote (lv) {
+    if (lv === 20) {
+      return 1
+    }
+    if (lv === 90) {
+      return 6
+    }
+    let lvs = [1, 20, 40, 50, 60, 70, 80, 90]
+    let promote = 0
+    for (let idx = 0; idx < lvs.length - 1; idx++) {
+      if (lv >= lvs[idx] && lv <= lvs[idx + 1]) {
+        return promote
+      }
+      promote++
+    }
+    return promote
+  }
+
   /**
    * 面板属性计算
    * @returns {{}}
@@ -195,23 +213,6 @@ class AttrCalc {
       key = key + 'Pct'
     }
     this.attr.addAttr(key, ds.value * 1)
-  }
-
-  static calcPromote (lv) {
-    if (lv === 20) {
-      return 1
-    }
-    if (lv === 90) {
-      return 6
-    }
-    let lvs = [1, 20, 40, 50, 60, 70, 80, 90]
-    let promote = 0
-    for (let idx = 0; idx < lvs.length - 1; idx++) {
-      if (lv >= lvs[idx] && lv <= lvs[idx + 1]) {
-        return promote
-      }
-      promote++
-    }
   }
 }
 

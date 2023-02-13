@@ -11,6 +11,7 @@ let MiaoData = {
     avatar.setAvatar({
       level: ds.level,
       cons: ds.constellationNum || 0,
+      promote: ds.promoteLevel,
       fetter: ds.fetterLevel,
       costume: char.checkCostume(ds.costumeID) ? ds.costumeID : 0,
       elem: talentRet.elem,

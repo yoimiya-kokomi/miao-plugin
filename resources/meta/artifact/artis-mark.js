@@ -1,3 +1,7 @@
+/**
+ * 角色的默认评分规则
+ * 如character/${name}/artis.js下有角色自定义规则优先使用自定义
+ */
 export const usefulAttr = {
   神里绫人: { hp: 50, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   八重神子: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
@@ -59,6 +63,6 @@ export const usefulAttr = {
   莱依拉: { hp: 100, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 35 },
   流浪者: { hp: 0, atk: 80, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 35, heal: 0 },
   珐露珊: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 75, phy: 0, recharge: 75, heal: 0 },
-  瑶瑶: { hp: 100, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 100 },
+  瑶瑶: { hp: 100, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 75, heal: 100 },
   艾尔海森: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 35, heal: 0 }
 }

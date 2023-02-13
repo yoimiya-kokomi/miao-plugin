@@ -6,7 +6,7 @@ import AvatarArtis from './AvatarArtis.js'
 import { Artifact, ArtifactSet, Character } from './index.js'
 import { Format } from '../components/index.js'
 import ArtisMark from './profile-lib/ArtisMark.js'
-import { attrMap, attrValue } from '../resources/meta/artifact/index.js'
+import { attrMap } from '../resources/meta/artifact/index.js'
 import CharArtis from './profile-lib/CharArtis.js'
 
 export default class ProfileArtis extends AvatarArtis {
@@ -42,13 +42,13 @@ export default class ProfileArtis extends AvatarArtis {
         ...attr,
         weight,
         fixWeight: weight,
-        mark: weight / attrValue[key]
+        mark: weight / attr.value
       }
       if (!k) {
-        ret.mark = weight / attrValue[key]
+        ret.mark = weight / attr.value
       } else {
         let plus = k === 'atk' ? 520 : 0
-        ret.mark = weight / attrValue[k] / (baseAttr[k] + plus) * 100
+        ret.mark = weight / attrMap[k].value / (baseAttr[k] + plus) * 100
         ret.fixWeight = weight * attr.value / attrMap[k].value / (baseAttr[k] + plus) * 100
       }
       attrs[key] = ret

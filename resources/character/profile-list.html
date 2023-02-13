@@ -43,7 +43,7 @@
       <span class="name">{{char.abbr}}<span class="cons cons-{{char.cons}}">{{char.cons}}</span></span>
       {{if char.groupRank}}
       {{set gr = char.groupRank}}
-      {{set rank = gr.rank >= 15 ? 10:(gr.rank <=3 ? gr.rank : 4)}}
+      {{set rank = gr.rank >= (rankCfg.number || 15) ? 10:(gr.rank <=3 ? gr.rank : 4)}}
       <div class="group-rank rank-{{rank}} rank-type-{{gr.rankType}}">
         <span>{{gr.rank}}</span>
       </div>
