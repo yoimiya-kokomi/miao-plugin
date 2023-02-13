@@ -10,21 +10,24 @@
       <div class="img mini" style="background-image:url({{_res_path}}{{avatar.face}})"></div>
       <div class="img wide avatar-{{avatar.name}}" style="background-image:url({{_res_path}}{{avatar.gacha}})"></div>
       <span class="cons cons-{{avatar.cons}} mini">{{avatar.cons}}</span>
-      <div class="avatar-level">Lv{{avatar.level}}</div>
+      <div class="avatar-level"><span>Lv</span>{{avatar.level}} {{avatar.abbr}}</div>
     </div>
     <div class="avatar-info">
       {{set talent = avatar.talent || {} }}
-      {{if talent.a && talent.a.level }}
+
       <div class="avatar-name wide">
         <strong>{{avatar.abbr}}</strong>
-        <span class="cons cons-{{avatar.cons}}">{{avatar.cons}}</span>
-        <span class="avatar-level">Lv{{avatar.level}}</span>
+        <div class="lv-info">
+          <span class="cons cons-{{avatar.cons}}">{{avatar.cons}}</span>
+          <span class="avatar-level">Lv{{avatar.level}}</span>
+        </div>
         <div class="line"></div>
       </div>
+      {{if talent.a && talent.a.level }}
       <div class="avatar-talent">
         {{each talentMap k}}
-        {{set t = talent[k] || {} }}        <span
-            class="talent-item talent-{{k}} talent-{{t.original===10?'crown':'none'}} talent-{{t.level>t.original?'plus':'none'}}">{{t.level}}</span>
+        {{set t = talent[k] || {} }}
+        <span class="talent-item talent-{{k}} talent-{{t.original===10?'crown':'none'}} talent-{{t.level>t.original?'plus':'none'}}">{{t.level}}</span>
         {{/each}}
       </div>
       {{else}}
@@ -35,7 +38,7 @@
         <div class="item avatar-weapon">
           <div class="item-icon star{{weapon.star}}">
             <span class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></span>
-            <span class="cons cons-{{weapon.affix}}">{{weapon.affix}}</span>
+            <span class="cons cons-{{weapon.affix > 4 ? weapon.affix + 1 : weapon.affix}}">{{weapon.affix}}</span>
           </div>
         </div>
         <div class="item avatar-artis artis{{avatar.artisSet?.names?.length}}">

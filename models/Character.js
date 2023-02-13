@@ -7,11 +7,11 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data, Format } from '../components/index.js'
-import CharImg from './character-lib/CharImg.js'
-import CharTalent from './character-lib/CharTalent.js'
-import CharId from './character-lib/CharId.js'
-import CharMeta from './character-lib/CharMeta.js'
-import CharCfg from './character-lib/CharCfg.js'
+import CharImg from './character/CharImg.js'
+import CharTalent from './character/CharTalent.js'
+import CharId from './character/CharId.js'
+import CharMeta from './character/CharMeta.js'
+import CharCfg from './character/CharCfg.js'
 
 let { wifeMap, idSort, idMap } = CharId
 

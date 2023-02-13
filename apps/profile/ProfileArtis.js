@@ -4,7 +4,7 @@
 * */
 import lodash from 'lodash'
 import { Cfg, Common } from '../../components/index.js'
-import { getTargetUid, profileHelp, autoGetProfile } from './ProfileCommon.js'
+import { getTargetUid, profileHelp, getProfileRefresh } from './ProfileCommon.js'
 import { Artifact, Character, ProfileArtis, Player } from '../../models/index.js'
 
 /*
@@ -12,26 +12,15 @@ import { Artifact, Character, ProfileArtis, Player } from '../../models/index.js
 * */
 export async function profileArtis (e) {
   let { uid, avatar } = e
-
-  let profile
-  if (e._profile) {
-    profile = e._profile
-  } else {
-    let autoRet = await autoGetProfile(e, uid, avatar, async () => {
-      await profileArtis(e)
-    })
-    if (autoRet.err) {
-      return false
-    }
-    profile = autoRet.profile
+  let profile = e._profile || await getProfileRefresh(e, avatar)
+  if (!profile) {
+    return true
   }
-  let char = profile.char
-
   if (!profile.hasArtis()) {
     e.reply('未能获得圣遗物详情，请重新获取面板信息后查看')
     return true
   }
-
+  let char = profile.char
   let charCfg = profile.artis.getCharCfg()
 
   let { attrMap } = Artifact.getMeta()

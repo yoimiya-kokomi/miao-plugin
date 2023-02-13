@@ -3,8 +3,8 @@ import Base from './Base.js'
 import moment from 'moment'
 import { Character, AvatarArtis, ProfileData, Weapon } from './index.js'
 import { Data } from '../components/index.js'
-import AttrCalc from './profile-lib/AttrCalc.js'
-import Profile from './player-lib/Profile.js'
+import AttrCalc from './profile/AttrCalc.js'
+import Profile from './player/Profile.js'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
 
@@ -27,6 +27,10 @@ export default class AvatarData extends Base {
 
   get name () {
     return this.char?.name || ''
+  }
+
+  get hasData () {
+    return !!(this.level > 1 || this?.weapon?.name || this?.talent?.a)
   }
 
   // 是否是合法面板数据

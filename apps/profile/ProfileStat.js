@@ -26,6 +26,8 @@ export async function profileStat (e) {
   await player.refreshMysInfo()
 
   let avatarRet = await player.refreshAndGetAvatarData({
+    detail: 1,
+    talent: 0,
     rank: true,
     retType: 'array',
     sort: true

@@ -9,8 +9,8 @@ import Base from './Base.js'
 import { Data } from '../components/index.js'
 import { AvatarData, ProfileRank, Character } from './index.js'
 
-import MysAvatar from './player-lib/MysAvatar.js'
-import Profile from './player-lib/Profile.js'
+import MysAvatar from './player/MysAvatar.js'
+import Profile from './player/Profile.js'
 
 Data.createDir('/data/userData', 'root')
 
@@ -28,6 +28,17 @@ export default class Player extends Base {
     this.uid = uid
     this.reload()
     return this._cache()
+  }
+
+  get hasProfile () {
+    let ret = false
+    lodash.forEach(this._avatars, (avatar) => {
+      if (avatar.isProfile) {
+        ret = true
+        return false
+      }
+    })
+    return ret
   }
 
   static create (e) {
@@ -68,8 +79,8 @@ export default class Player extends Base {
   save () {
     let ret = Data.getData(this, 'uid,name,level,word,face,card,sign,info,_info,_mys,_profile')
     ret.avatars = {}
-    lodash.forEach(this._avatars, (ds) => {
-      ret.avatars[ds.id] = ds.toJSON()
+    this.forEachAvatar((avatar) => {
+      ret.avatars[avatar.id] = avatar.toJSON()
     })
     // 暂时保留旧数据，防止异常情况
     if (this._chars) {
@@ -136,9 +147,12 @@ export default class Player extends Base {
   // 循环Avatar
   forEachAvatar (fn) {
     for (let id in this._avatars) {
-      let ret = fn(this._avatars[id], id)
-      if (ret === false) {
-        return false
+      let avatar = this._avatars[id]
+      if (avatar && avatar.hasData) {
+        let ret = fn(this._avatars[id])
+        if (ret === false) {
+          return false
+        }
       }
     }
   }
@@ -195,7 +209,7 @@ export default class Player extends Base {
   }
 
   // 更新面板
-  async refreshProfile (force = 1) {
+  async refreshProfile (force = 2) {
     return await Profile.refreshProfile(this, force)
   }
 
@@ -223,14 +237,20 @@ export default class Player extends Base {
     return await MysAvatar.refreshTalent(this, ids, force)
   }
 
-  async refreshAndGetAvatarData (cfg) {
-    // 更新角色信息
-    await this.refreshMysDetail(cfg.force || 0)
-
-    // 更新天赋信息
-    if (cfg.refreshTalent !== false) {
-      await this.refreshTalent(cfg.ids, cfg.force || 0)
+  async refresh (cfg) {
+    if (cfg.detail || cfg.detail === 0) {
+      await this.refreshMysDetail(cfg.detail)
     }
+    if (cfg.talent || cfg.talent === 0) {
+      await this.refreshTalent(cfg.ids, cfg.talent)
+    }
+    if (cfg.profile || cfg.profile === 0) {
+      await this.refreshProfile(cfg.profile)
+    }
+  }
+
+  async refreshAndGetAvatarData (cfg) {
+    await this.refresh(cfg)
 
     let rank = false
     let e = this.e

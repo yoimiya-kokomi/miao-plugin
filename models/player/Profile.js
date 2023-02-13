@@ -1,5 +1,6 @@
 import { ProfileReq, ProfileServ } from '../index.js'
 import { Cfg, Data } from '../../components/index.js'
+import MysAvatar from './MysAvatar.js'
 
 import enkaCfg from './EnkaApi.js'
 import MiaoApi from './MiaoApi.js'
@@ -34,7 +35,10 @@ const Profile = {
    * @param force
    * @returns {Promise<boolean|number>}
    */
-  async refreshProfile (player, force = 1) {
+  async refreshProfile (player, force = 2) {
+    if (!MysAvatar.needRefresh(player._profile, force, { 0: 24, 1: 2, 2: 0 })) {
+      return false
+    }
     player._update = []
     let { uid, e } = player
     if (uid.toString().length !== 9 || !e) {

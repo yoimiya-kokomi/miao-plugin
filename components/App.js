@@ -9,9 +9,15 @@ class App {
   }
 
   reg (key, fn, cfg = {}) {
-    this.apps[key] = {
-      fn,
-      ...cfg
+    if (lodash.isPlainObject(key)) {
+      lodash.forEach(key, (cfg, k) => {
+        this.reg(k, cfg.fn, cfg)
+      })
+    } else {
+      this.apps[key] = {
+        fn,
+        ...cfg
+      }
     }
   }
 

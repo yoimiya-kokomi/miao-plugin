@@ -2,8 +2,8 @@ import lodash from 'lodash'
 import AvatarData from './AvatarData.js'
 import { Data } from '../components/index.js'
 import { ProfileArtis, ProfileDmg } from './index.js'
-import AttrCalc from './profile-lib/AttrCalc.js'
-import CharImg from './character-lib/CharImg.js'
+import AttrCalc from './profile/AttrCalc.js'
+import CharImg from './character/CharImg.js'
 
 export default class ProfileData extends AvatarData {
   constructor (ds = {}, calc = true) {

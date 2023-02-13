@@ -5,9 +5,9 @@ import lodash from 'lodash'
 import AvatarArtis from './AvatarArtis.js'
 import { Artifact, ArtifactSet, Character } from './index.js'
 import { Format } from '../components/index.js'
-import ArtisMark from './profile-lib/ArtisMark.js'
+import ArtisMark from './profile/ArtisMark.js'
 import { attrMap } from '../resources/meta/artifact/index.js'
-import CharArtis from './profile-lib/CharArtis.js'
+import CharArtis from './profile/CharArtis.js'
 
 export default class ProfileArtis extends AvatarArtis {
   constructor (charid = 0, elem = '') {

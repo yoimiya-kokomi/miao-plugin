@@ -1,12 +1,16 @@
 import lodash from 'lodash'
 import { Common, Data } from '../../components/index.js'
+import { chestInfo } from '../../resources/meta/info/index.js'
 import moment from 'moment'
 
 const MysAvatar = {
 
   needRefresh (time, force = 0, forceMap = {}) {
-    if (!time) {
+    if (!time || force === 2) {
       return true
+    }
+    if (force === true) {
+      force = 0
     }
     let duration = new Date() * 1 - time * 1
     if (isNaN(duration) || duration < 0) {
@@ -250,15 +254,16 @@ const MysAvatar = {
   },
 
   getInfo (player) {
+    let chestMap = []
+    Data.eachStr('common,exquisite,precious,luxurious,magic', (key) => {
+      chestMap.push({
+        key: `${key}Chest`,
+        ...chestInfo[key]
+      })
+    })
     let ret = {
       ...(player.info || {}),
-      chestMap: [
-        { key: 'commonChest', title: '普通宝箱', max: 2521 },
-        { key: 'exquisiteChest', title: '精致宝箱', max: 1585 },
-        { key: 'preciousChest', title: '珍贵宝箱', max: 482 },
-        { key: 'luxuriousChest', title: '豪华宝箱', max: 184 },
-        { key: 'magicChest', title: '奇馈宝箱', max: 140 }
-      ]
+      chestMap
     }
     let stats = ret.stats || {}
     if (stats?.activeDay) {

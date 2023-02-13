@@ -1,108 +1,107 @@
-import HutaoApi from './HutaoApi.js'
+import { Cfg, Common } from '../../components/index.js'
+import { Character } from '../../models/index.js'
+import { segment } from 'oicq'
+import CharTalent from './CharTalent.js'
 import lodash from 'lodash'
-import { Format } from '../../components/index.js'
-import { ArtifactSet, Weapon } from '../../models/index.js'
+import CharWikiData from './CharWikiData.js'
+import CharMaterial from './CharMaterial.js'
 
-let CharWiki = {
-  /**
-   * 角色命座持有
-   * @param id
-   * @returns {Promise<{}>}
-   */
-  async getHolding (id) {
-    let consData = (await HutaoApi.getCons()).data || {}
-    consData = lodash.find(consData, (ds) => ds.avatar === id)
-    let holding = {}
-    if (consData) {
-      let { holdingRate, rate } = consData
-      rate = lodash.sortBy(rate, 'id')
-      holding.num = Format.percent(holdingRate)
-      holding.cons = []
-      lodash.forEach(rate, (ds) => {
-        holding.cons.push({
-          cons: ds.id,
-          num: Format.percent(ds.value)
-        })
-      })
+const wikiReg = /^(?:#|喵喵)?(.*)(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/
+
+const CharWiki = {
+  check (e) {
+    let msg = e.original_msg || e.msg
+    if (!e.msg) {
+      return false
     }
-    return holding
+    let ret = wikiReg.exec(msg)
+    if (!ret || !ret[1] || !ret[2]) {
+      return false
+    }
+    let mode = 'talent'
+    if (/命/.test(ret[2])) {
+      mode = 'cons'
+    } else if (/(图鉴|资料)/.test(ret[2])) {
+      mode = 'wiki'
+      if (!Common.cfg('charWiki')) {
+        return false
+      }
+    } else if (/图|画|写真|照片/.test(ret[2])) {
+      mode = 'pic'
+      if (!Common.cfg('charPic')) {
+        return false
+      }
+    } else if (/(材料|养成|成长)/.test(ret[2])) {
+      mode = 'material'
+    }
+    if (['cons', 'talent'].includes(mode) && !Common.cfg('charWikiTalent')) {
+      return false
+    }
+    let char = Character.get(ret[1])
+    if (!char) {
+      return false
+    }
+    e.wikiMode = mode
+    e.msg = '#喵喵WIKI'
+    e.char = char
+    return true
   },
 
-  /**
-   * 角色武器、圣遗物使用
-   * @param id
-   * @returns {Promise<{}|{artis: *[], weapons: *[]}>}
-   */
-  async getUsage (id) {
-    let ud = (await HutaoApi.getUsage()).data || {}
-    if (!ud[id]) {
-      return {}
+  async wiki (e) {
+    let mode = e.wikiMode
+    let char = e.char
+
+    if (mode === 'pic') {
+      let img = char.getCardImg(Cfg.get('charPicSe', false), false)
+      if (img && img.img) {
+        e.reply(segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + img.img))
+      } else {
+        e.reply('暂无图片')
+      }
+      return true
     }
-    ud = ud[id]
-    return {
-      weapons: CharWiki.getWeaponsData(ud.weapons),
-      artis: CharWiki.getArtisData(ud.artis)
+    if (char.isCustom) {
+      if (mode === 'wiki') {
+        return false
+      }
+      e.reply('暂不支持自定义角色')
+      return true
     }
+    if (!char.isRelease && Cfg.get('notReleasedData') === false) {
+      e.reply('未实装角色资料已禁用...')
+      return true
+    }
+
+    if (mode === 'wiki') {
+      if (char.source === 'amber') {
+        e.reply('暂不支持该角色图鉴展示')
+        return true
+      }
+      return await CharWiki.render({ e, char })
+    } else if (mode === 'material') {
+      return CharMaterial.render({ e, char })
+    }
+    return await CharTalent.render(e, mode, char)
+
   },
 
-  /**
-   * 武器使用
-   * @param data
-   * @returns {*[]}
-   */
-  getWeaponsData (data = []) {
-    let weapons = []
-
-    lodash.forEach(data, (ds) => {
-      let weapon = Weapon.get(ds.item) || {}
-      weapons.push({
-        ...weapon.getData('name,abbr,img,star'),
-        value: ds.rate
-      })
-    })
-
-    weapons = lodash.sortBy(weapons, 'value')
-    weapons = weapons.reverse()
-    lodash.forEach(weapons, (ds) => {
-      ds.value = Format.percent(ds.value, 1)
-    })
-    return weapons
-  },
-
-  /**
-   * 圣遗物使用
-   * @param data
-   * @returns {*[]}
-   */
-  getArtisData (data = []) {
-    let artis = []
-
-    lodash.forEach(data, (ds) => {
-      let imgs = []
-      let abbrs = []
-      let ss = ds.item.split(',')
-      lodash.forEach(ss, (t) => {
-        t = t.split(':')
-        let artiSet = ArtifactSet.get(t[0])
-        if (artiSet) {
-          imgs.push(artiSet.img)
-          abbrs.push(artiSet.abbr + (ss.length === 1 ? t[1] : ''))
-        }
-      })
-
-      artis.push({
-        imgs,
-        title: abbrs.join('+'),
-        value: ds.rate
-      })
-    })
-
-    artis = lodash.sortBy(artis, 'value')
-    artis = artis.reverse()
-    artis.forEach((ds) => {
-      ds.value = Format.percent(ds.value)
-    })
-    return artis
+  async render ({ e, char }) {
+    let data = char.getData()
+    lodash.extend(data, char.getData('weaponTypeName,elemName'))
+    // 命座持有
+    let holding = await CharWikiData.getHolding(char.id)
+    let usage = await CharWikiData.getUsage(char.id)
+    return await Common.render('wiki/character-wiki', {
+      data,
+      attr: char.getAttrList(),
+      detail: char.getDetail(),
+      imgs: char.getImgs(),
+      holding,
+      usage,
+      materials: char.getMaterials(),
+      elem: char.elem
+    }, { e, scale: 1.4 })
   }
 }
+
 export default CharWiki

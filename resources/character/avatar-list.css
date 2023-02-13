@@ -159,7 +159,7 @@
 .chest-list .chest .detail {
   width: 60px;
   height: 40px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .chest-list .chest .info {
   display: flex;
@@ -176,7 +176,6 @@
   vertical-align: center;
 }
 .chest-list .chest .max {
-  font-size: 12px;
   padding-left: 3px;
   color: #aaa;
 }

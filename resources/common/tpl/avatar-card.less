@@ -37,6 +37,12 @@
       padding: @px*2 @px*5 @px*2 @px*3;
       border-radius: 0 @px*4 0 0;
       color: #fff;
+      font-size: 16px;
+      text-shadow: 0 0 1px #000;
+
+      span {
+        font-size: 12px;
+      }
     }
 
   }
@@ -47,6 +53,12 @@
     position: absolute;
     right: 0;
     top: 0;
+    font-size: 16px;
+    text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .8);
+
+    &.cons-0 {
+      display: none;
+    }
   }
 
   .avatar-talent {
@@ -136,17 +148,27 @@
       height: @px * 126;
       width: @px*76;
       border-radius: @px*7 0 0 @px*7;
-    }
 
-    .img {
-      background-size: 100% auto;
-      background-position: 0 10%;
-      height: 135px;
-      margin-top: @px*-9;
+      .img {
+        background-size: 100% auto;
+        background-position: 0 10%;
+        height: @px*135;
+        margin-top: @px*-9;
+      }
     }
 
     .avatar-info {
       width: @px*70;
+
+      strong {
+        display: block;
+        height: @px * 30;
+        line-height: @px*30;
+      }
+
+      .lv-info {
+        height: @px*20;
+      }
     }
 
     .line {
@@ -211,8 +233,15 @@
   .avatar-artis {
     position: relative;
 
+    &.artis0 {
+      .item-icon {
+        background: url('./item/artifact-icon.webp') rgba(0, 0, 0, .3) center no-repeat;
+        background-size: auto 80%;
+      }
+    }
+
     .artis {
-      background: rgba(0, 0, 0, 0.5)
+      background: rgba(0, 0, 0, 0.4)
     }
 
     &.artis2 {

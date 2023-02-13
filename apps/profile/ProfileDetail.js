@@ -1,5 +1,6 @@
 import lodash from 'lodash'
-import { autoRefresh, getProfile, getTargetUid } from './ProfileCommon.js'
+import { getTargetUid, getProfileRefresh } from './ProfileCommon.js'
+import ProfileList from './ProfileList.js'
 import { Cfg, Common, Format } from '../../components/index.js'
 import { MysApi, ProfileRank, ProfileArtis, Player, Character } from '../../models/index.js'
 import ProfileChange from './ProfileChange.js'
@@ -93,7 +94,7 @@ export async function profileDetail (e) {
   if (mode === 'profile' || mode === 'dmg') {
     return renderProfile(e, char, mode, { dmgIdx })
   } else if (mode === 'refresh') {
-    await getProfile(e)
+    await ProfileList.refresh(e)
     return true
   } else if (mode === 'artis') {
     return profileArtis(e)
@@ -116,23 +117,8 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     return true
   }
 
-  let player = Player.create(uid)
-  let profile = e._profile || player.getProfile(char.id)
-
-  let refresh = async () => {
-    let refreshRet = await autoRefresh(e)
-    if (refreshRet) {
-      await renderProfile(e, char, mode, params)
-    }
-    return refreshRet
-  }
-
-  if (!profile || !profile.hasData) {
-    if (await refresh()) {
-      return true
-    } else {
-      e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`)
-    }
+  let profile = e._profile || await getProfileRefresh(e, char.id)
+  if (!profile) {
     return true
   }
   char = profile.char || char
