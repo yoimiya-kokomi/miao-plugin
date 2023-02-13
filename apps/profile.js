@@ -2,7 +2,7 @@ import { App } from '../components/index.js'
 import { profileHelp } from './profile/ProfileCommon.js'
 import { profileArtisList } from './profile/ProfileArtis.js'
 import { profileDetail } from './profile/ProfileDetail.js'
-import { profileStat } from './profile/ProfileStat.js'
+import ProfileStat from './profile/ProfileStat.js'
 import ProfileList from './profile/ProfileList.js'
 import { uploadCharacterImg, delProfileImg, profileImgList } from './character/ImgUpload.js'
 import { enemyLv } from './profile/ProfileUtils.js'
@@ -71,13 +71,13 @@ app.reg({
 
   profileStat: {
     rule: /^#(面板|喵喵|角色|武器|天赋|技能|圣遗物)?练度统计$/,
-    fn: profileStat,
+    fn: ProfileStat.stat,
     name: '面板练度统计'
   },
 
   avatarList: {
     rule: /^(#(角色|查询|查询角色|角色查询|人物)[ |0-9]*$)|(^(#*uid|#*UID)\+*[1|2|5-9][0-9]{8}$)|(^#[\+|＋]*[1|2|5-9][0-9]{8})/,
-    fn: profileStat,
+    fn: ProfileStat.avatarList,
     name: '角色查询'
   },
 

@@ -1,5 +1,5 @@
 import Cfg from './Cfg.js'
-import render from './common-lib/render.js'
+import render from './common/Render.js'
 import { Version } from './index.js'
 import lodash from 'lodash'
 

@@ -1,4 +1,39 @@
 export const cfgSchema = {
+  apps: {
+    title: 'Yunzai功能（开启使用喵喵版功能）',
+    cfg: {
+      avatarList: {
+        title: '#角色 #UID',
+        key: '角色列表',
+        def: false
+      },
+      avatarCard: {
+        title: '#刻晴 #老婆',
+        key: '角色卡片',
+        def: true
+      },
+      uploadAbyssData: {
+        title: '#深渊',
+        key: '深渊',
+        def: false
+      },
+      profileStat: {
+        title: '#练度统计',
+        key: '练度统计',
+        def: false
+      },
+      help: {
+        title: '#帮助 #菜单',
+        key: '帮助',
+        def: false
+      },
+      avatarPoke: {
+        title: '戳一戳展示角色卡片',
+        key: '戳一戳',
+        def: true
+      }
+    }
+  },
   profile: {
     title: '角色面板相关设置',
     cfg: {
@@ -11,12 +46,6 @@ export const cfgSchema = {
         title: '面板替换',
         key: '面板替换',
         def: true
-      },
-      profileStat: {
-        title: '面板练度统计',
-        key: '练度统计',
-        def: false,
-        desc: '使用【#面板练度统计】功能取代【#练度统计】功能，默认关闭'
       },
       groupRank: {
         title: '群面板排名',
@@ -60,34 +89,6 @@ export const cfgSchema = {
         def: 28,
         input: (n) => Math.min(100, Math.max(4, (n * 1 || 28))),
         desc: '可选值4~100，建议28，最终圣遗物数量取决于面板内圣遗物数量。设置高圣遗物数量会提高图片的长度，图片较大可能会影响渲染与发送速度'
-      }
-    }
-  },
-  char: {
-    title: '玩家&老婆卡片展示',
-    cfg: {
-      avatarCard: {
-        title: '角色查询',
-        key: '角色',
-        def: true,
-        desc: '使用喵喵版角色卡片作为默认角色卡片功能',
-        showDesc: false
-      },
-      uploadAbyssData: {
-        title: '上传深渊',
-        key: '深渊',
-        def: false,
-        desc: '使用【#上传深渊】功能取代【#深渊】功能,默认关闭'
-      },
-      avatarWife: {
-        title: '老婆查询',
-        key: '老婆',
-        def: true
-      },
-      avatarPoke: {
-        title: '戳一戳卡片',
-        key: '戳一戳',
-        def: true
       }
     }
   },
@@ -136,12 +137,6 @@ export const cfgSchema = {
         def: 100,
         input: (n) => Math.min(200, Math.max(50, (n * 1 || 100))),
         desc: '可选值50~200，建议100。设置高精度会提高图片的精细度，但因图片较大可能会影响渲染与发送速度'
-      },
-      help: {
-        title: '喵喵作为默认帮助',
-        key: '帮助',
-        def: false,
-        desc: '开启后将使用喵喵版帮助作为Yunzai的默认帮助，默认关闭'
       },
       commaGroup: {
         title: '数字逗号分组',

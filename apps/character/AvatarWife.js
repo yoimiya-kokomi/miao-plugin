@@ -64,7 +64,7 @@ const Wife = {
       if (!Common.cfg('avatarPoke')) {
         return false
       }
-    } else if (!Common.cfg('avatarWife')) {
+    } else if (!Common.cfg('avatarCard')) {
       return false
     }
 

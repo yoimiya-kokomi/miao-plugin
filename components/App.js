@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import plugin from './common-lib/plugin.js'
+import Plugin from './common/Plugin.js'
 
 class App {
   constructor (cfg) {
@@ -27,7 +27,7 @@ class App {
     let rules = []
     let check = []
     let event = cfg.event
-    let cls = class extends plugin {
+    let cls = class extends Plugin {
       constructor () {
         super({
           name: `喵喵:${cfg.name || cfg.id}`,
