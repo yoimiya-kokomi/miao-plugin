@@ -58,6 +58,13 @@ export default class Player extends Base {
     return Serv.name
   }
 
+  static delByUid (uid) {
+    let player = Player.create(uid)
+    if (player) {
+      player.del()
+    }
+  }
+
   /**
    * 重新加载json文件
    */
@@ -87,6 +94,18 @@ export default class Player extends Base {
       ret.chars = this._chars
     }
     Data.writeJSON(`/data/UserData/${this.uid}.json`, ret, '', 'root')
+  }
+
+  del () {
+    try {
+      Data.delFile(`/data/UserData/${this.uid}.json`, 'root')
+      ProfileRank.delUidInfo(this.uid)
+      this._delCache()
+      Bot.logger.mark(`【面板数据删除】${this.uid}本地文件数据已删除...`)
+    } catch (e) {
+      console.log('del error', e)
+    }
+    return true
   }
 
   /**

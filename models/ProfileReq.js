@@ -40,9 +40,7 @@ export default class ProfileReq extends Base {
       empty: '请将角色放置在【游戏内】角色展柜，并打开【显示详情】，等待5分钟重新获取面板'
     }
     msg = msgs[msg] || msg
-    if (msg) {
-      this.e.reply(msg)
-    }
+    this.msg(msg)
     // 设置CD
     if (cd) {
       this.setCd(cd)
@@ -51,7 +49,11 @@ export default class ProfileReq extends Base {
   }
 
   msg (msg) {
-    this.e.reply(msg)
+    let e = this.e
+    if (msg && !e._isReplyed) {
+      e.reply(msg)
+      e._isReplyed = true
+    }
   }
 
   async requestProfile (player, serv) {

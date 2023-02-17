@@ -3,7 +3,7 @@
  */
 import lodash from 'lodash'
 import { Data } from '../../components/index.js'
-import { Character, ProfileData, Weapon,Player } from '../../models/index.js'
+import { Character, ProfileData, Weapon, Player } from '../../models/index.js'
 
 const keyMap = {
   artis: '圣遗物',

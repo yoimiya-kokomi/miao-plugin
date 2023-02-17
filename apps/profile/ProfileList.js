@@ -4,6 +4,11 @@ import { ProfileRank, Player, Character } from '../../models/index.js'
 import { Common, Data } from '../../components/index.js'
 
 const ProfileList = {
+  /**
+   * 刷新面板
+   * @param e
+   * @returns {Promise<boolean|*>}
+   */
   async refresh (e) {
     let uid = await getTargetUid(e)
     if (!uid) {
@@ -34,6 +39,13 @@ const ProfileList = {
 
     return true
   },
+
+  /**
+   * 渲染面板
+   * @param e
+   * @returns {Promise<boolean|*>}
+   */
+
   async render (e) {
     let uid = await getTargetUid(e)
     if (!uid) {
@@ -113,9 +125,44 @@ const ProfileList = {
       hasNew,
       msg,
       groupRank,
+      updateTime: player.getUpdateTime(),
       allowRank: rank && rank.allowRank,
       rankCfg
     }, { e, scale: 1.6 })
+  },
+  /**
+   * 删除面板数据
+   * @param e
+   * @returns {Promise<boolean>}
+   */
+  async del (e) {
+    let ret = /^#(删除全部面板|删除面板|删除面板数据)\s*(\d{9})?$/.exec(e.msg)
+    let uid = await getTargetUid(e)
+    if (!uid) {
+      return true
+    }
+    let targetUid = ret[2]
+
+    let user = e?.runtime?.user || {}
+    if (!user.hasCk && !e.isMaster) {
+      e.reply('为确保数据安全，目前仅允许绑定CK用户删除自己UID的面板数据，请联系Bot主人删除...')
+      return true
+    }
+
+    if (!targetUid) {
+      e.reply(`你确认要删除面板数据吗？ 请回复 #删除面板${uid} 以删除面板数据`)
+      return true
+    }
+
+    let ckUids = (user?.ckUids || []).join(',').split(',')
+    if (!ckUids.includes(targetUid) && !e.isMaster) {
+      e.reply(`仅允许删除自己的UID数据[${ckUids.join(',')}]`)
+      return true
+    }
+
+    Player.delByUid(targetUid)
+    e.reply(`UID${targetUid}的本地数据已删除，排名数据已清除...`)
+    return true
   }
 }
 export default ProfileList

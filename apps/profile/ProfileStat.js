@@ -76,7 +76,6 @@ const ProfileStat = {
       info,
       updateTime: player.getUpdateTime(),
       isSelfCookie: e.isSelfCookie,
-      talentLvMap: '0,1,1,1,2,2,3,3,3,4,5'.split(','),
       face,
       avatars: avatarRet,
       talentNotice

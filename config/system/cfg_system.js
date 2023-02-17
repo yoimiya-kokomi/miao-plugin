@@ -138,6 +138,14 @@ export const cfgSchema = {
         input: (n) => Math.min(200, Math.max(50, (n * 1 || 100))),
         desc: '可选值50~200，建议100。设置高精度会提高图片的精细度，但因图片较大可能会影响渲染与发送速度'
       },
+      originalPic: {
+        title: '原图',
+        key: '原图',
+        type: 'num',
+        def: 3,
+        input: (n) => Math.min(3, Math.max(n * 1 || 0, 0)),
+        desc: '允许获取原图，0:不允许, 1:仅允许角色图, 2:仅允许面板图, 3:开启'
+      },
       commaGroup: {
         title: '数字逗号分组',
         key: '逗号',

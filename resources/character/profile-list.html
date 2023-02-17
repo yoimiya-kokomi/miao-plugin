@@ -57,9 +57,13 @@
     {{else}}
     <span></span>
     {{/if}}
-    <span class="serv">当前更新服务：{{servName}}</span>
+    <span class="serv">
+      当前更新服务：{{servName}}
+    {{if updateTime.profile }}
+    <span>，更新时间：{{updateTime.profile }}</span>
+    {{/if}}
 
-
+    </span>
   </div>
 </div>
 {{/block}}

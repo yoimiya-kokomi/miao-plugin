@@ -115,6 +115,12 @@ app.reg({
     rule: /^#?\s*(.+)(?:面板图列表)\s*$/,
     fn: profileImgList,
     describe: '【#刻晴面板图列表】 删除指定角色面板图（序号）'
+  },
+
+  profileDel: {
+    rule: /^#(删除全部面板|删除面板|删除面板数据)\s*(\d{9})?$/,
+    fn: ProfileList.del,
+    describe: '【#角色】 删除游戏橱窗详情数据'
   }
 })
 

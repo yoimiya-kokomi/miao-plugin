@@ -73,17 +73,23 @@ export default class Base {
   // 设置超时时间
   _expire (time = 10 * 60) {
     let id = this._uuid
+    let self = this
     reFn[id] && clearTimeout(reFn[id])
     if (time > 0) {
       if (id) {
         reFn[id] = setTimeout(() => {
-          reFn[id] && clearTimeout(reFn[id])
-          delete reFn[id]
-          delete cacheMap[id]
-          delete metaMap[id]
+          self._delCache()
         }, time * 1000)
       }
       return cacheMap[id]
     }
+  }
+
+  _delCache () {
+    let id = this._uuid
+    reFn[id] && clearTimeout(reFn[id])
+    delete reFn[id]
+    delete cacheMap[id]
+    delete metaMap[id]
   }
 }

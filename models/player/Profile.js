@@ -55,7 +55,9 @@ const Profile = {
       player.save()
       return player._update.length
     } catch (err) {
-      e.reply(`UID:${uid}更新面板失败，更新服务：${serv.name}`)
+      if (!e._isReplyed) {
+        e.reply(`UID:${uid}更新面板失败，更新服务：${serv.name}`)
+      }
       return false
     }
   },
