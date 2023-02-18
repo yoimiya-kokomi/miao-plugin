@@ -24,7 +24,7 @@ export const details = [{
 }]
 
 export const defDmgIdx = 3
-export const mainAttr = 'atk,cpct,cdmg'
+export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
   title: '刻晴被动：释放Q获得15%暴击率',

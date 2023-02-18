@@ -58,6 +58,10 @@ export const helpList = [{
     title: '#圣遗物列表 #雷神圣遗物',
     desc: '查看圣遗物列表 / 评分详情'
   }, {
+    icon: 79,
+    title: '#面板帮助',
+    desc: '面板替换及其他帮助信息'
+  }, {
     icon: 64,
     title: '#深渊 #深渊12层',
     desc: '深渊数据，打完请2小时后查询'
