@@ -69,8 +69,6 @@ class App {
         fnc: key
       })
 
-      console.log('rule', rule)
-
       if (app.check) {
         check.push(app.check)
       }
