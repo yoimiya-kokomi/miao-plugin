@@ -11,7 +11,7 @@ export default function ({ attr, weapon, rule, def }) {
     hp = 100
   }
   if (title.length > 0) {
-    return rule(`夜兰-${title.join('')}`, { hp, cpct: 100, cdmg: 100, mastery, dmg: 100, recharge: 55 })
+    return rule(`夜兰-${title.join('')}`, { hp, cpct: 100, cdmg: 100, mastery, dmg: 100, recharge: 75 })
   }
-  return def({ hp: 80, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
+  return def({ hp: 80, cpct: 100, cdmg: 100, dmg: 100, recharge: 75 })
 }
