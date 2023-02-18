@@ -25,6 +25,7 @@ const ProfileStat = {
     let player = Player.create(e)
 
     let avatarRet = await player.refreshAndGetAvatarData({
+      index: 2,
       detail: 1,
       talent: isAvatarList ? 0 : 1,
       rank: true,

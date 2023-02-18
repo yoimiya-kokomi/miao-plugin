@@ -104,11 +104,13 @@ body,
 .cont-footer {
   display: flex;
   background: rgba(0, 0, 0, 0.4);
+  width: 100%;
 }
 .cont-footer span {
-  width: 50%;
+  width: 35%;
 }
 .cont-footer .serv {
+  width: 65%;
   text-align: right;
 }
 .cont-footer .new-tip:before {

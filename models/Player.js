@@ -257,6 +257,9 @@ export default class Player extends Base {
   }
 
   async refresh (cfg) {
+    if (cfg.index || cfg.index === 0) {
+      await this.refreshMysInfo(cfg.index)
+    }
     if (cfg.detail || cfg.detail === 0) {
       await this.refreshMysDetail(cfg.detail)
     }
