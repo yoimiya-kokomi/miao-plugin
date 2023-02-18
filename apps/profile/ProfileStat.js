@@ -1,19 +1,13 @@
-import { Cfg, Common } from '../../components/index.js'
+import { Common } from '../../components/index.js'
 import { MysApi, Player, Character } from '../../models/index.js'
 
 const ProfileStat = {
   async stat (e) {
-    let isMatch = /^#(面板|喵喵|角色|武器|天赋|技能|圣遗物)练度统计?$/.test(e.original_msg || e.msg || '')
-    if (!Cfg.get('profileStat', false) && !isMatch) {
-      return false
-    }
-    return await ProfileStat.render(e)
+    return ProfileStat.render(e, false)
   },
+
   async avatarList (e) {
-    if (!Cfg.get('avatarList', false)) {
-      return false
-    }
-    return await ProfileStat.render(e, true)
+    return ProfileStat.render(e, true)
   },
   async render (e, isAvatarList = false) {
     // 缓存时间，单位小时
@@ -30,11 +24,9 @@ const ProfileStat = {
 
     let player = Player.create(e)
 
-    await player.refreshMysInfo()
-
     let avatarRet = await player.refreshAndGetAvatarData({
       detail: 1,
-      talent: 0,
+      talent: isAvatarList ? 0 : 1,
       rank: true,
       retType: 'array',
       sort: true

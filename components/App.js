@@ -69,6 +69,8 @@ class App {
         fnc: key
       })
 
+      console.log('rule', rule)
+
       if (app.check) {
         check.push(app.check)
       }
@@ -91,6 +93,24 @@ class App {
         }
         e.original_msg = e.original_msg || e.msg
         return await app.fn.call(this, e)
+      }
+
+      if (app.yzRule && app.yzCheck) {
+        let yzKey = `Yz${key}`
+        let yzRule = lodash.trim(app.yzRule.toString(), '/')
+
+        rules.push({
+          reg: yzRule,
+          fnc: yzKey
+        })
+        cls.prototype[yzKey] = async function () {
+          if (!app.yzCheck()) {
+            return false
+          }
+          let e = this.e
+          e.original_msg = e.original_msg || e.msg
+          return await app.fn.call(this, e)
+        }
       }
     }
     return cls
@@ -138,6 +158,14 @@ class App {
             let ret = await app.fn(e, {})
             if (ret === true) {
               return true
+            }
+          } else if (app.yzRule && app.yzCheck()) {
+            rule = new RegExp(app.yzRule)
+            if (rule.test(msg)) {
+              let ret = await app.fn(e, {})
+              if (ret === true) {
+                return true
+              }
             }
           }
         } else if (event === 'poke' && msg === '#poke#') {

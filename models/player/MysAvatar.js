@@ -12,11 +12,12 @@ const MysAvatar = {
     if (force === true) {
       force = 0
     }
-    let duration = new Date() * 1 - time * 1
+    let duration = (new Date() * 1 - time * 1) / 1000
     if (isNaN(duration) || duration < 0) {
       return true
     }
-    return duration > (forceMap[force] || 60) * 60 * 1000
+    let reqTime = forceMap[force] === 0 ? 0 : (forceMap[force] || 60)
+    return duration > reqTime * 60
   },
   /**
    * 更新米游社角色信息
@@ -194,21 +195,18 @@ const MysAvatar = {
       if (needReqIds.length > 8) {
         e && e.reply('正在获取角色信息，请稍候...')
       }
-      let num = 10
-      let ms = 100
-      let skillRet = []
-      let avatarArr = lodash.chunk(needReqIds, num)
-      for (let val of avatarArr) {
-        for (let id of val) {
-          let avatar = player.getAvatar(id)
-          if (avatar) {
-            skillRet.push(await MysAvatar.refreshAvatarTalent(avatar, mys))
-          }
+      let failCount = 0
+      // 并发5，请求天赋数据
+      await Data.asyncPool(5, needReqIds, async (id) => {
+        let avatar = player.getAvatar(id)
+        if (!avatar || failCount > 5) {
+          return false
         }
-        skillRet = await Promise.all(skillRet)
-        skillRet = skillRet.filter(item => item.id)
-        await Common.sleep(ms)
-      }
+        let ret = await MysAvatar.refreshAvatarTalent(avatar, mys)
+        if (ret === false) {
+          failCount++
+        }
+      })
     }
     player.save()
   },
@@ -241,10 +239,8 @@ const MysAvatar = {
         }
       }
       let ret = char.getAvatarTalent(talent, avatar.cons, 'original')
-      if (ret) {
-        avatar.setTalent(ret, 'original', 'mys')
-      }
-      return true
+      avatar.setTalent(ret, 'original', true)
+      return !!ret
     }
     return false
   },

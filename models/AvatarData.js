@@ -155,16 +155,17 @@ export default class AvatarData extends Base {
     }
   }
 
-  setTalent (ds = {}, mode = 'original', source = '') {
+  setTalent (ds = false, mode = 'original', updateTime = '') {
     const now = this._now || (new Date()) * 1
-    let ret = this.char.getAvatarTalent(ds, this.cons, mode)
-    if (!ret) {
-      return false
+    if (ds) {
+      let ret = this.char.getAvatarTalent(ds, this.cons, mode)
+      if (ret) {
+        this.talent = ret || this.talent
+        // 设置天赋更新时间
+        this._talent = ds._talent || this._talent || ds._time || now
+      }
     }
-    this.talent = ret || this.talent
-    // 设置天赋更新时间
-    this._talent = ds._talent || this._talent || ds._time || now
-    if (source && ret) {
+    if (updateTime) {
       this._talent = now
     }
   }
