@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import plugin from './common-lib/plugin.js'
+import Plugin from './common/Plugin.js'
 
 class App {
   constructor (cfg) {
@@ -9,9 +9,15 @@ class App {
   }
 
   reg (key, fn, cfg = {}) {
-    this.apps[key] = {
-      fn,
-      ...cfg
+    if (lodash.isPlainObject(key)) {
+      lodash.forEach(key, (cfg, k) => {
+        this.reg(k, cfg.fn, cfg)
+      })
+    } else {
+      this.apps[key] = {
+        fn,
+        ...cfg
+      }
     }
   }
 
@@ -21,7 +27,7 @@ class App {
     let rules = []
     let check = []
     let event = cfg.event
-    let cls = class extends plugin {
+    let cls = class extends Plugin {
       constructor () {
         super({
           name: `喵喵:${cfg.name || cfg.id}`,
@@ -63,6 +69,8 @@ class App {
         fnc: key
       })
 
+      console.log('rule', rule)
+
       if (app.check) {
         check.push(app.check)
       }
@@ -85,6 +93,24 @@ class App {
         }
         e.original_msg = e.original_msg || e.msg
         return await app.fn.call(this, e)
+      }
+
+      if (app.yzRule && app.yzCheck) {
+        let yzKey = `Yz${key}`
+        let yzRule = lodash.trim(app.yzRule.toString(), '/')
+
+        rules.push({
+          reg: yzRule,
+          fnc: yzKey
+        })
+        cls.prototype[yzKey] = async function () {
+          if (!app.yzCheck()) {
+            return false
+          }
+          let e = this.e
+          e.original_msg = e.original_msg || e.msg
+          return await app.fn.call(this, e)
+        }
       }
     }
     return cls
@@ -132,6 +158,14 @@ class App {
             let ret = await app.fn(e, {})
             if (ret === true) {
               return true
+            }
+          } else if (app.yzRule && app.yzCheck()) {
+            rule = new RegExp(app.yzRule)
+            if (rule.test(msg)) {
+              let ret = await app.fn(e, {})
+              if (ret === true) {
+                return true
+              }
             }
           }
         } else if (event === 'poke' && msg === '#poke#') {

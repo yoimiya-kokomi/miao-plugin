@@ -12,6 +12,26 @@ export default class MysApi {
     e.isSelfCookie = this.isSelfCookie
   }
 
+  get isSelfCookie () {
+    return this.uid * 1 === this.ckUid * 1 || this?.mysInfo?.isSelf
+  }
+
+  get ckUid () {
+    return this.ckInfo.uid
+  }
+
+  get ck () {
+    return this.ckInfo.ck
+  }
+
+  get selfUser () {
+    return new User({ id: this.e.user_id, uid: this.uid })
+  }
+
+  get targetUser () {
+    return new User({ id: this.e.user_id, uid: this.uid })
+  }
+
   static async init (e, auth = 'all') {
     if (!e.runtime) {
       Version.runtime()
@@ -50,29 +70,10 @@ export default class MysApi {
     if (uid) {
       return new User({ id: e.user_id, uid })
     } else {
-      e.reply('请先#绑定uid')
+      e.reply('请先发送【#绑定+你的UID】来绑定查询目标')
+      e._replyNeedUid = true
       return false
     }
-  }
-
-  get isSelfCookie () {
-    return this.uid * 1 === this.ckUid * 1 || this?.mysInfo?.isSelf
-  }
-
-  get ckUid () {
-    return this.ckInfo.uid
-  }
-
-  get ck () {
-    return this.ckInfo.ck
-  }
-
-  get selfUser () {
-    return new User({ id: this.e.user_id, uid: this.uid })
-  }
-
-  get targetUser () {
-    return new User({ id: this.e.user_id, uid: this.uid })
   }
 
   async getMysApi (e, targetType = 'all', option = {}) {

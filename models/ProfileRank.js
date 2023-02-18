@@ -19,99 +19,6 @@ export default class ProfileRank {
     return rank
   }
 
-  key (profile, type) {
-    return `miao:rank:${this.groupId}:${type}:${profile.id}`
-  }
-
-  /**
-   * 获取排行信息
-   * @param profile
-   * @param force
-   * @returns {Promise<{}|boolean>}
-   */
-  async getRank (profile, force = false) {
-    if (!profile || !this.groupId || !this.allowRank || !profile.hasData) {
-      return false
-    }
-    let ret = {}
-    for (let typeKey of ['mark', 'dmg']) {
-      let typeRank = await this.getTypeRank(profile, typeKey, force)
-      ret[typeKey] = typeRank
-      if (!ret.rank || ret.rank >= typeRank.rank) {
-        ret.rank = typeRank.rank
-        ret.rankType = typeKey
-      }
-    }
-    return ret
-  }
-
-  async getTypeRank (profile, type, force) {
-    if (!profile || !profile.hasData || !type) {
-      return false
-    }
-    if (type === 'dmg' && !profile.hasDmg) {
-      return false
-    }
-    const typeKey = this.key(profile, type)
-    let value
-    let rank
-    if (force) {
-      value = await this.getTypeValue(profile, type)
-    } else {
-      rank = await redis.zRevRank(typeKey, this.uid)
-      if (!lodash.isNumber(rank)) {
-        value = await this.getTypeValue(profile, type)
-      }
-    }
-    if (value && !lodash.isUndefined(value.score)) {
-      await redis.zAdd(typeKey, { score: value.score, value: this.uid })
-    }
-    if (!lodash.isNumber(rank)) {
-      rank = await redis.zRevRank(typeKey, this.uid)
-    }
-    if (rank === null) {
-      rank = 99
-    }
-    if (force) {
-      return {
-        rank: rank + 1,
-        value: value.score,
-        data: value.data
-      }
-    }
-    return {
-      rank: rank + 1
-    }
-  }
-
-  async getTypeValue (profile, type) {
-    if (!profile || !profile.hasData) {
-      return false
-    }
-    if (type === 'mark') {
-      if (!profile?.artis?.hasArtis) {
-        return false
-      }
-      let mark = profile.getArtisMark(false)
-      if (mark && mark._mark) {
-        return {
-          score: mark._mark * 1,
-          data: mark
-        }
-      }
-    }
-    if (type === 'dmg' && profile.hasDmg) {
-      let dmg = await profile.calcDmg({ mode: 'single' })
-      if (dmg && dmg.avg) {
-        return {
-          score: dmg.avg,
-          data: dmg
-        }
-      }
-    }
-    return false
-  }
-
   /**
    * 获取群排行UID
    * @param groupId
@@ -258,6 +165,20 @@ export default class ProfileRank {
     await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify(data), { EX: 3600 * 24 * 365 })
   }
 
+  static async delUidInfo (uid) {
+    let keys = await redis.keys('miao:rank:*')
+    uid = uid + ''
+    if (!/\d{9}/.test(uid)) {
+      return false
+    }
+    for (let key of keys) {
+      let charRet = /^miao:rank:\d+:(?:mark|dmg):(\d{8})$/.exec(key)
+      if (charRet) {
+        await redis.zRem(key, uid)
+      }
+    }
+  }
+
   static async getUidInfo (uid) {
     try {
       let data = await redis.get(`miao:rank:uid-info:${uid}`)
@@ -303,5 +224,98 @@ export default class ProfileRank {
     } catch (e) {
       return false
     }
+  }
+
+  key (profile, type) {
+    return `miao:rank:${this.groupId}:${type}:${profile.id}`
+  }
+
+  /**
+   * 获取排行信息
+   * @param profile
+   * @param force
+   * @returns {Promise<{}|boolean>}
+   */
+  async getRank (profile, force = false) {
+    if (!profile || !this.groupId || !this.allowRank || !profile.hasData) {
+      return false
+    }
+    let ret = {}
+    for (let typeKey of ['mark', 'dmg']) {
+      let typeRank = await this.getTypeRank(profile, typeKey, force)
+      ret[typeKey] = typeRank
+      if (!ret.rank || ret.rank >= typeRank.rank) {
+        ret.rank = typeRank.rank
+        ret.rankType = typeKey
+      }
+    }
+    return ret
+  }
+
+  async getTypeRank (profile, type, force) {
+    if (!profile || !profile.hasData || !type) {
+      return false
+    }
+    if (type === 'dmg' && !profile.hasDmg) {
+      return false
+    }
+    const typeKey = this.key(profile, type)
+    let value
+    let rank
+    if (force) {
+      value = await this.getTypeValue(profile, type)
+    } else {
+      rank = await redis.zRevRank(typeKey, this.uid)
+      if (!lodash.isNumber(rank)) {
+        value = await this.getTypeValue(profile, type)
+      }
+    }
+    if (value && !lodash.isUndefined(value.score)) {
+      await redis.zAdd(typeKey, { score: value.score, value: this.uid })
+    }
+    if (!lodash.isNumber(rank)) {
+      rank = await redis.zRevRank(typeKey, this.uid)
+    }
+    if (rank === null) {
+      rank = 99
+    }
+    if (force) {
+      return {
+        rank: rank + 1,
+        value: value.score,
+        data: value.data
+      }
+    }
+    return {
+      rank: rank + 1
+    }
+  }
+
+  async getTypeValue (profile, type) {
+    if (!profile || !profile.hasData) {
+      return false
+    }
+    if (type === 'mark') {
+      if (!profile?.artis?.hasArtis) {
+        return false
+      }
+      let mark = profile.getArtisMark(false)
+      if (mark && mark._mark) {
+        return {
+          score: mark._mark * 1,
+          data: mark
+        }
+      }
+    }
+    if (type === 'dmg' && profile.hasDmg) {
+      let dmg = await profile.calcDmg({ mode: 'single' })
+      if (dmg && dmg.avg) {
+        return {
+          score: dmg.avg,
+          data: dmg
+        }
+      }
+    }
+    return false
   }
 }

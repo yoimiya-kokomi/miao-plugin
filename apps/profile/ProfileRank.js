@@ -1,6 +1,6 @@
-import { Character, ProfileRank, ProfileDmg, Avatar } from '../../models/index.js'
+import { Character, ProfileRank, ProfileDmg, Player } from '../../models/index.js'
 import { renderProfile } from './ProfileDetail.js'
-import { Data, Profile, Common, Format } from '../../components/index.js'
+import { Data, Common, Format } from '../../components/index.js'
 import lodash from 'lodash'
 
 export async function groupRank (e) {
@@ -30,11 +30,11 @@ export async function groupRank (e) {
   }
   let groupCfg = await ProfileRank.getGroupCfg(groupId)
   if (!groupRank) {
-    e.reply('群面板排名功能已禁用，主人可通过【#喵喵设置】启用...')
+    e.reply('群面板排名功能已禁用，Bot主人可通过【#喵喵设置】启用...')
     return true
   }
   if (groupCfg.status === 1) {
-    e.reply('本群已关闭群排名，主人可通过【#启用排名】启用...')
+    e.reply('本群已关闭群排名，群管理员或Bot主人可通过【#启用排名】启用...')
     return true
   }
   if (type === 'detail') {
@@ -105,8 +105,8 @@ export async function refreshRank (e) {
   if (!groupId) {
     return true
   }
-  if (!e.isMaster) {
-    e.reply('只有管理员可刷新排名...')
+  if (!e.isMaster && !this.e.member?.is_admin) {
+    e.reply('只有主人及群管理员可刷新排名...')
     return true
   }
   e.reply('面板数据刷新中，等待时间可能较长，请耐心等待...')
@@ -115,7 +115,8 @@ export async function refreshRank (e) {
   let count = 0
   for (let qq in groupUids) {
     for (let { uid, type } of groupUids[qq]) {
-      let profiles = Profile.getAll(uid)
+      let player = new Player(uid)
+      let profiles = player.getProfiles()
       // 刷新rankLimit
       await ProfileRank.setUidInfo({ uid, profiles, qq, uidType: type })
       let rank = await ProfileRank.create({ groupId, uid, qq })
@@ -140,8 +141,8 @@ export async function manageRank (e) {
     return true
   }
   let isClose = /(关闭|禁用)/.test(e.msg)
-  if (!e.isMaster) {
-    e.reply(`只有管理员可${isClose ? '禁用' : '启用'}排名...`)
+  if (!e.isMaster && !this.e.member?.is_admin) {
+    e.reply(`只有主人及群管理员可${isClose ? '禁用' : '启用'}排名...`)
     return true
   }
   await ProfileRank.setGroupStatus(groupId, isClose ? 1 : 0)
@@ -156,13 +157,17 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   let list = []
   for (let ds of uids) {
     let uid = ds.uid || ds.value
-    let profile = Profile.get(uid, ds.charId || char.id)
+    let player = Player.create(uid)
+    let avatar = player.getAvatar(ds.charId || char.id)
+    if (!avatar) {
+      continue
+    }
+    let profile = avatar.getProfile()
 
     if (profile) {
       let profileRank = await ProfileRank.create({ groupId, uid })
       let data = await profileRank.getRank(profile, true)
       let mark = data?.mark?.data
-      let avatar = new Avatar(profile, uid)
       let tmp = {
         uid,
         isMax: !char,

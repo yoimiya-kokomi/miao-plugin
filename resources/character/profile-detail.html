@@ -11,7 +11,7 @@
 {{block 'main'}}
 <div class="basic">
   <div class="main-pic"
-       style="background-image:url({{_res_path}}{{imgs.splash0}})"></div>
+       style="background-image:url({{_res_path}}{{costumeSplash || imgs?.splash}})"></div>
   <div class="detail">
     <div class="char-name">{{data.name}}</div>
     <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
@@ -56,7 +56,7 @@
 
   <div class="data-info">
     {{if data.dataSource}}
-    <span>数据源：{{ {miao:"喵喵Api",enka:"Enka.Network",change:"面板变换"}[data.dataSource]||data.dataSource }}</span>
+    <span>数据源：{{ {change:"面板变换"}[data.dataSource]||data.dataSource }}</span>
     {{/if}}
     {{if data.updateTime}}
     <span class="time">{{data.updateTime}}</span>

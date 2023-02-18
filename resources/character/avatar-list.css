@@ -1,0 +1,227 @@
+.container {
+  width: 740px;
+  background-size: cover;
+}
+.head-box {
+  margin-top: 0;
+}
+.user-banner {
+  height: 90px;
+  background-size: auto 100%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-color: #f0ece4;
+  border-radius: 50px;
+  padding: 1px;
+  margin: 5px 0;
+  display: flex;
+  white-space: nowrap;
+  position: relative;
+}
+.user-banner .face {
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 1px #000, 0 0 5px rgba(0, 0, 0, 0.5);
+  border: 3px solid #fff;
+  overflow: hidden;
+  background: url('../common/item/bg5.png');
+  background-size: cover;
+}
+.user-banner .face span {
+  display: block;
+  width: 64px;
+  height: 64px;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+.user-banner .user-info {
+  padding: 15px 5px;
+  color: #414e64;
+  text-shadow: 0 0 2px #f0ece4, 0 0 5px #f0ece4;
+}
+.user-banner .user-info .name {
+  height: 34px;
+  line-height: 34px;
+}
+.user-banner .user-info .name strong {
+  font-size: 24px;
+}
+.user-banner .user-info .name span {
+  padding-left: 5px;
+}
+.user-banner .user-info .uid {
+  height: 22px;
+  line-height: 22px;
+  font-size: 16px;
+}
+.user-banner .stat {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  margin: 16px;
+  border-radius: 29px;
+  height: 58px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+.user-banner .stat-li {
+  padding: 7px;
+  width: 70px;
+  height: 58px;
+  text-align: center;
+  position: relative;
+  text-shadow: 0 0 1px #fff;
+}
+.user-banner .stat-li:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.65);
+}
+.user-banner .stat-li:nth-child(even) {
+  background: rgba(220, 220, 220, 0.5);
+}
+.user-banner .stat-li:first-child {
+  width: 80px;
+  padding-left: 17px;
+}
+.user-banner .stat-li:last-child {
+  width: 80px;
+  padding-right: 17px;
+}
+.user-banner .stat-li strong {
+  font-size: 22px;
+  display: block;
+}
+.user-banner .stat-li span {
+  display: block;
+  font-size: 14px;
+  color: #414e64;
+}
+.exploration {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  justify-content: center;
+}
+.exploration .item {
+  width: 93px;
+  height: 116.25px;
+  background: url('./imgs/exploration.webp') no-repeat;
+  background-size: auto 100%;
+  border-radius: 4px;
+  margin: 3px;
+  text-align: center;
+  color: #fff;
+  align-items: center;
+}
+.exploration .item strong {
+  font-size: 22px;
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.5);
+  font-weight: normal;
+}
+.exploration .item span {
+  margin-top: 58px;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  display: block;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.chest-list {
+  margin: 10px 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0 15px;
+  display: flex;
+  justify-content: center;
+}
+.chest-list .chest {
+  width: 20%;
+  display: flex;
+  padding: 15px 0;
+}
+.chest-list .chest:nth-child(even) {
+  background: rgba(50, 50, 50, 0.5);
+}
+.chest-list .chest .value {
+  font-size: 24px;
+  line-height: 40px;
+  height: 40px;
+  padding-right: 8px;
+  text-align: right;
+  width: 70px;
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.chest-list .chest .detail {
+  width: 60px;
+  height: 40px;
+  font-size: 14px;
+}
+.chest-list .chest .info {
+  display: flex;
+  height: 20px;
+  line-height: 20px;
+}
+.chest-list .chest .icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: 1px;
+  background: url('./imgs/chest.webp') no-repeat;
+  background-size: auto 100%;
+  vertical-align: center;
+}
+.chest-list .chest .max {
+  padding-left: 3px;
+  color: #aaa;
+}
+.chest-list .chest .title {
+  height: 20px;
+  display: flex;
+  color: #d3bc8e;
+}
+.cont-title {
+  padding: 8px 15px;
+}
+.avatar-cont-main {
+  overflow: hidden;
+}
+.avatar-cont {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0;
+  margin: 10px 0;
+}
+.avatar-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+  border-radius: 10px;
+}
+.avatar-list .avatar-card {
+  margin: 5px;
+}
+.cont-notice {
+  text-align: right;
+}
+.cont-notice strong {
+  color: #d3bc8e;
+}
+.cont-notice span {
+  padding: 0 3px;
+  color: #aaa;
+}
+.ck-notice {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+}
+.ck-notice strong {
+  color: #d3bc8e;
+  padding: 0 2px;
+  font-weight: normal;
+}
+/*# sourceMappingURL=avatar-list.css.map */

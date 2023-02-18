@@ -1,6 +1,6 @@
 import fs from 'fs'
 import lodash from 'lodash'
-import cfgData from './cfg-lib/cfg-data.js'
+import cfgData from './cfg/CfgData.js'
 
 const _path = process.cwd()
 const _cfgPath = `${_path}/plugins/miao-plugin/components/`

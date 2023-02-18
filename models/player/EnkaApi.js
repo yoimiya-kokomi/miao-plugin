@@ -1,14 +1,13 @@
 import lodash from 'lodash'
-import { Data } from '../index.js'
-import { ProfileServ } from '../../models/index.js'
-import EnkaData from './enka-data.js'
+import { Data } from '../../components/index.js'
+import EnkaData from './EnkaData.js'
+import MiaoData from './MiaoData.js'
 
 let HttpsProxyAgent = ''
 
-export default new ProfileServ({
+export default {
   id: 'enka',
   cfgKey: 'enkaApi',
-
   // 处理请求参数
   async request (api) {
     let params = {
@@ -16,7 +15,6 @@ export default new ProfileServ({
     }
     let proxy = this.getCfg('proxyAgent')
     if (proxy) {
-
       if (HttpsProxyAgent === '') {
         HttpsProxyAgent = await import('https-proxy-agent').catch((err) => {
           logger.error(err)
@@ -45,8 +43,14 @@ export default new ProfileServ({
     return data
   },
 
-  userData (data) {
-    return Data.getData(data, 'name:nickname,avatar:profilePicture.avatarId,level,signature')
+  updatePlayer (player, data) {
+    player.setBasicData(Data.getData(data, 'name:nickname,face:profilePicture.avatarID,card:nameCardID,level,word:worldLevel,sign:signature'))
+    lodash.forEach(data.avatarInfoList, (ds) => {
+      let ret = EnkaData.setAvatar(player, ds)
+      if (ret) {
+        player._update.push(ret.id)
+      }
+    })
   },
 
   profileData (data) {
@@ -64,4 +68,4 @@ export default new ProfileServ({
   cdTime (data) {
     return data.ttl || 60
   }
-})
+}

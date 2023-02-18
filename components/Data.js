@@ -58,9 +58,12 @@ let Data = {
     delete data._res
     return fs.writeFileSync(`${root}/${file}`, JSON.stringify(data, null, space))
   },
-  delfile (file) {
+  delFile (file, root = '') {
+    root = getRoot(root)
     try {
-      fs.unlinkSync(`${_path}/${file}`)
+      if (fs.existsSync(`${root}/${file}`)) {
+        fs.unlinkSync(`${root}/${file}`)
+      }
       return true
     } catch (error) {
       logger.error(`文件删除失败：${error}`)

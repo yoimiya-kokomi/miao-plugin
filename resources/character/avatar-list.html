@@ -1,0 +1,101 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/avatar-list.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+{{/block}}
+
+
+{{block 'main'}}
+<div class="user-banner" style="background-image:url({{_res_path}}{{face?.banner}})">
+  <div class="face">
+    <span style="background-image:url({{_res_path}}{{face?.face}})"></span>
+  </div>
+  <div class="user-info">
+    <div class="name">
+      <strong>{{face.name}}</strong>
+      {{if face.level && face.level > 1}} Lv.{{face.level}}{{/if}}
+
+    </div>
+    <div class="uid">
+      {{if uid}}<span> #{{uid}}</span>{{/if}}
+      {{ if info.activeDay}}{{info.activeDay}} {{/if}}
+    </div>
+  </div>
+  {{if info && info.stats}}
+  <div class="stat">
+    {{each info?.statMap title key}}
+    {{if info.stats[key] }}
+    <div class="stat-li">
+      <strong>{{info.stats[key]}}</strong>
+      <span>{{title}}</span>
+    </div>
+    {{/if}}
+    {{/each}}
+  </div>
+  {{/if}}
+</div>
+
+
+{{if !isSelfCookie}}
+<div class="ck-notice">未绑定CK或CK失效，信息可能不完全。发送<strong>#体力帮助</strong>查看CK绑定方法，发送<strong>#更新面板</strong>更新游戏内角色展柜信息</div>
+{{/if}}
+
+
+{{if info && info.exploration && info.exploration['蒙德']}}
+{{set citys = ['蒙德','龙脊雪山','璃月','层岩巨渊','稻妻','渊下宫','须弥'] }}
+<div class="exploration">
+  {{each citys city idx}}
+  <div class="item city-{{idx+1}}" style="background-position:{{idx}}0% 0">
+    <span>{{city}}</span>
+    <strong>{{ (info.exploration[city]||0)/10 || '0'}}%</strong>
+  </div>
+  {{/each}}
+</div>
+{{/if}}
+
+
+{{if info?.stats?.commonChest}}
+{{set ds = info?.stats}}
+<div class="cont chest-list">
+  {{each info?.chestMap cfg idx}}
+  <div class="chest">
+    <div class="value">{{ds[cfg.key]}}</div>
+    <div class="detail">
+      <div class="info">
+        <div class="icon" style="background-position:{{idx*2}}0% 0"></div>
+        <div class="max">{{cfg.max>ds[cfg.key]?cfg.max:ds[cfg.key]}}</div>
+      </div>
+      <div class="title">{{cfg.title}}</div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{/if}}
+
+
+<div class="cont avatar-cont">
+  <div class="cont-title">角色列表</div>
+  <div class="avatar-list">
+    {{each avatars avatar idx}}
+    <% include(_layout_path+'../tpl/avatar-card.html', [avatar,{_res_path, cardType:'mini'}]) %>
+    {{/each}}
+  </div>
+  <div class="cont-footer cont-notice">
+    {{set ut = updateTime }}
+    {{if ut.profile || ut.mys}}
+    <strong>数据更新时间</strong>
+    {{if ut.profile}}
+    <span>#更新面板：{{ut.profile}}</span>
+    {{/if}}
+    {{if ut.mys}}
+    <span>米游社：{{ut.mys}}</span>
+    {{/if}}
+    {{else}}
+    未绑定CK或CK失效，信息可能不完全。发送<strong>#体力帮助</strong>查看CK绑定方法，发送<strong>#更新面板</strong>更新游戏内角色展柜信息
+    {{/if}}
+  </div>
+</div>
+
+
+{{/block}}

@@ -82,10 +82,8 @@ const CharImg = {
   },
 
   // 获取角色的图像资源数据
-  getImgs (name, costumeCfg = '', travelerElem = '', fileType = 'webp') {
-    if (!lodash.isArray(costumeCfg)) {
-      costumeCfg = [costumeCfg, 'normal']
-    }
+  getImgs (name, costumeIdx = '', travelerElem = '', fileType = 'webp') {
+    costumeIdx = costumeIdx === '2' ? '2' : ''
     let imgs = {}
     if (!['空', '荧', '旅行者'].includes(name)) {
       travelerElem = ''
@@ -102,10 +100,10 @@ const CharImg = {
     let tAdd = (key, path) => {
       imgs[key] = `${travelerElem ? tPath : nPath}${path}.${fileType}`
     }
-    add('face', 'imgs/face', `imgs/face${costumeCfg[0]}`)
-    add('side', 'imgs/side', `imgs/side${costumeCfg[0]}`)
+    add('face', 'imgs/face', `imgs/face${costumeIdx}`)
+    add('side', 'imgs/side', `imgs/side${costumeIdx}`)
     add('gacha', 'imgs/gacha')
-    add('splash', 'imgs/splash', `imgs/splash${costumeCfg[0]}`)
+    add('splash', 'imgs/splash', `imgs/splash${costumeIdx}`)
     // 检查彩蛋自定义
     tAdd('card', 'imgs/card')
     tAdd('banner', 'imgs/banner')

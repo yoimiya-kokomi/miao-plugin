@@ -1,5 +1,6 @@
 import { segment } from 'oicq'
 import { MysApi } from '../../models/index.js'
+import { Cfg } from '../../components/index.js'
 
 /** 获取角色卡片的原图 */
 export async function getOriginalPicture (e) {
@@ -14,6 +15,7 @@ export async function getOriginalPicture (e) {
   if (!/^\[图片]$/.test(e.source.message)) {
     return true
   }
+  let originalPic = Cfg.get('originalPic') * 1
   // 获取原消息
   let source
   if (e.isGroup) {
@@ -24,7 +26,25 @@ export async function getOriginalPicture (e) {
   if (source) {
     let imgPath = await redis.get(`miao:original-picture:${source.message_id}`)
     if (imgPath) {
-      e.reply([segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + decodeURIComponent(imgPath))], false, { recallMsg: 30 })
+      try {
+        if (imgPath[0] === '{') {
+          imgPath = JSON.parse(imgPath)
+        } else {
+          imgPath = { img: imgPath, type: '' }
+        }
+      } catch (e) {
+      }
+      if (imgPath.type === 'character' && [2, 0].includes(originalPic)) {
+        e.reply('已禁止获取角色原图...')
+        return true
+      }
+      if (imgPath.type === 'profile' && [1, 0].includes(originalPic)) {
+        e.reply('已禁止获取面板原图...')
+        return true
+      }
+      if (imgPath && imgPath.img) {
+        e.reply([segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + decodeURIComponent(imgPath.img))], false, { recallMsg: 30 })
+      }
       return true
     }
     if (source.time) {

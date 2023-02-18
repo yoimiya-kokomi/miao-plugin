@@ -12,17 +12,22 @@ let app = App.init({
 
 let sysCfgReg = new RegExp(`^#喵喵设置\\s*(${keys.join('|')})?\\s*(.*)$`)
 
-app.reg('update-res', updateRes, {
-  rule: /^#喵喵(强制)?(更新图像|图像更新)$/,
-  desc: '【#管理】更新素材'
-})
-app.reg('update', updateMiaoPlugin, {
-  rule: /^#喵喵(强制)?更新/,
-  desc: '【#管理】喵喵更新'
-})
-app.reg('sys-cfg', sysCfg, {
-  rule: sysCfgReg,
-  desc: '【#管理】系统设置'
+app.reg({
+  updateRes: {
+    rule: /^#喵喵(强制)?(更新图像|图像更新)$/,
+    fn: updateRes,
+    desc: '【#管理】更新素材'
+  },
+  update: {
+    rule: /^#喵喵(强制)?更新/,
+    fn: updateMiaoPlugin,
+    desc: '【#管理】喵喵更新'
+  },
+  sysCfg: {
+    rule: sysCfgReg,
+    fn: sysCfg,
+    desc: '【#管理】系统设置'
+  }
 })
 
 export default app

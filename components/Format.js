@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import Elem from './common-lib/elem.js'
+import Elem from './common/Elem.js'
 import { Cfg } from '../components/index.js'
 
 let Format = {

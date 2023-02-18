@@ -1,5 +1,5 @@
 import { App } from '../components/index.js'
-import { pokeWife } from './character/AvatarWife.js'
+import Wife from './character/AvatarWife.js'
 
 let app = App.init({
   id: 'poke',
@@ -7,8 +7,11 @@ let app = App.init({
   event: 'poke'
 })
 
-app.reg('pock-wife', pokeWife, {
-  describe: '#老公 #老婆 查询'
+app.reg({
+  pockWife: {
+    fn: Wife.poke,
+    describe: '#老公 #老婆 查询'
+  }
 })
 
 export default app

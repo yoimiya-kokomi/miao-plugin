@@ -1,22 +1,25 @@
+
 .avatar-card {
-  margin: 3px;
+  @px: 1.5px;
+  margin: @px*3;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
-  font-size: 13px;
+  font-size: @px*13;
+  border-radius: @px*7;
 
 
   .card {
-    border-radius: 7px;
-    box-shadow: 0 2px 6px 0 rgb(132 93 90 / 30%);
+    border-radius: @px*7;
+    box-shadow: 0 2px @px*6 0 rgb(132 93 90 / 30%);
     position: relative;
     overflow: hidden;
     background: #e7e5d9;
-    width: 70px;
+    width: @px*70;
   }
 
   .avatar-face {
-    width: 70px;
-    height: 70px;
-    border-radius: 7px 7px 15px 0;
+    width: @px*70;
+    height: @px*70;
+    border-radius: @px*7 @px*7 @px*15 0;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;
@@ -26,49 +29,58 @@
       background-position: center bottom;
     }
 
-
     .avatar-level {
       position: absolute;
       bottom: 0;
       background: rgba(0, 0, 0, 0.6);
       left: 0;
-      padding: 2px 5px 2px 3px;
-      border-radius: 0 4px 0 0;
+      padding: @px*2 @px*5 @px*2 @px*3;
+      border-radius: 0 @px*4 0 0;
       color: #fff;
-    }
+      font-size: 16px;
+      text-shadow: 0 0 1px #000;
 
+      span {
+        font-size: 12px;
+      }
+    }
 
   }
 
-
   .cons {
-    border-radius: 0 0 0 5px;
-    padding: 2px 5px;
+    border-radius: 0 0 0 @px*5;
+    padding: @px*2 @px*5;
     position: absolute;
     right: 0;
     top: 0;
+    font-size: 16px;
+    text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .8);
+
+    &.cons-0 {
+      display: none;
+    }
   }
 
   .avatar-talent {
-    height: 21px;
-    padding: 3px 5px 2px;
-    font-size: 12px;
+    height: @px*20;
+    padding: @px*3 @px*5 @px*2;
+    font-size: @px*12;
     width: 100%;
     color: #222;
     text-align: center;
     display: flex;
 
     .talent-item {
-      width: 20px;
-      height: 16px;
-      line-height: 17px;
-      margin: 0 2px;
+      width: @px*20;
+      height: @px*16;
+      line-height: @px*17;
+      margin: 0 @px*2;
       text-align: center;
       display: block;
       background-size: contain;
       opacity: 0.8;
       position: relative;
-      border-radius: 3px;
+      border-radius: @px*3;
       box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
 
       &.talent-plus {
@@ -79,15 +91,15 @@
       &.talent-crown {
         background: #d3bc8e;
         color: #3a2702;
-        box-shadow: 0 0 2px 0 #000;
+        box-shadow: 0 0 @px*2 0 #000;
       }
     }
 
     &.no-talent {
-      font-size: 12px;
+      font-size: @px*12;
       color: rgba(100, 100, 100, .5);
       text-align: center;
-      padding: 3px 0 2px;
+      padding: @px*3 0 @px*2;
 
       span {
         transform: scale(.75);
@@ -104,20 +116,20 @@
   }
 
   .avatar-name {
-    padding: 8px 0 0 5px;
+    padding: @px*8 0 0 @px*5;
     color: #333;
 
     strong {
-      font-size: 14px;
+      font-size: @px*20px;
       display: block;
-      height: 23px;
-      line-height: 20px;
+      height: @px*23;
+      line-height: @px*20;
     }
 
     .cons {
       position: initial;
       border-radius: 4px;
-      padding: 1px 3px;
+      padding: @px @px*3;
       vertical-align: baseline;
     }
   }
@@ -128,25 +140,35 @@
     }
 
     .card {
-      width: 146px;
+      width: @px*146;
       display: flex;
     }
 
     .avatar-face {
-      height: 126px;
-      width: 76px;
-      border-radius: 7px 0 0 7px;
-    }
+      height: @px * 126;
+      width: @px*76;
+      border-radius: @px*7 0 0 @px*7;
 
-    .img {
-      background-size: 100% auto;
-      background-position: 0 10%;
-      height: 135px;
-      margin-top: -9px;
+      .img {
+        background-size: 100% auto;
+        background-position: 0 10%;
+        height: @px*135;
+        margin-top: @px*-9;
+      }
     }
 
     .avatar-info {
-      width: 70px;
+      width: @px*70;
+
+      strong {
+        display: block;
+        height: @px * 30;
+        line-height: @px*30;
+      }
+
+      .lv-info {
+        height: @px*20;
+      }
     }
 
     .line {
@@ -161,77 +183,83 @@
 
   &.wide2 {
     .card {
-      width: 298px;
+      width: @px*298;
     }
 
     .avatar-face {
-      width: 146px;
+      width: @px*146;
 
       .img {
-        margin-top: -50px;
-        height: 176px;
+        margin-top: @px*-50;
+        height: @px*176;
       }
     }
 
     .avatar-info {
-      width: 146px;
-      padding-left: 5px;
+      width: @px*146;
+      padding-left: @px*5;
     }
 
 
   }
 
-}
 
-.avatar-detail {
-  display: flex;
-  padding: 0 1px 2px;
+  .avatar-detail {
+    display: flex;
+    padding: 0 @px*1 @px*2 @px*2;
 
-  .item {
-    width: 31px;
-    height: 31px;
-    border-radius: 4px;
-    margin: 1px;
-  }
-}
-
-.avatar-weapon {
-  .icon {
-    border-radius: 4px;
-  }
-
-  .cons {
-    top: initial;
-    bottom: 0;
-    padding: 1px 3px;
-    border-radius: 3px 0 0 0;
-  }
-}
-
-.avatar-artis {
-  position: relative;
-
-  .artis {
-    background: rgba(0, 0, 0, 0.5)
-  }
-
-  &.artis2 {
-    .img {
-      position: absolute;
-      transform: scale(.7);
-      width: 92%;
-      height: 92%;
-      margin: 4%;
-
-      &:first-child {
-        transform-origin: left top;
-      }
-
-      &:last-child {
-        transform-origin: right bottom;
-      }
+    .item {
+      width: @px*31;
+      height: @px*31;
+      border-radius: @px*3;
+      margin: @px*1;
+      overflow: hidden;
     }
   }
 
+  .avatar-weapon {
+    .icon {
+      border-radius: 4px;
+    }
 
+    .cons {
+      top: initial;
+      bottom: 0;
+      padding: @px @px*3;
+      border-radius: @px*3 0 0 0;
+    }
+  }
+
+  .avatar-artis {
+    position: relative;
+
+    &.artis0 {
+      .item-icon {
+        background: url('./item/artifact-icon.webp') rgba(0, 0, 0, .3) center no-repeat;
+        background-size: auto 80%;
+      }
+    }
+
+    .artis {
+      background: rgba(0, 0, 0, 0.4)
+    }
+
+    &.artis2 {
+      .img {
+        position: absolute;
+        transform: scale(.7);
+        width: 92%;
+        height: 92%;
+        margin: 4%;
+
+        &:first-child {
+          transform-origin: left top;
+        }
+
+        &:last-child {
+          transform-origin: right bottom;
+        }
+      }
+    }
+  }
 }

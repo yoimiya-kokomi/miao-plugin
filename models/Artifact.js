@@ -2,10 +2,14 @@
 * 圣遗物
 * */
 import Base from './Base.js'
+import { Format } from '../components/index.js'
 import { ArtifactSet } from './index.js'
-import { artiMap, attrMap } from '../resources/meta/artifact/index.js'
+import { artiMap, attrMap, mainIdMap, attrIdMap } from '../resources/meta/artifact/index.js'
+import lodash from 'lodash'
 
 class Artifact extends Base {
+  static getAttrs
+
   constructor (name) {
     super()
     let cache = this._getCache(`arti:${name}`)
@@ -29,15 +33,15 @@ class Artifact extends Base {
     return this.set
   }
 
+  get img () {
+    return `meta/artifact/imgs/${this.setName}/${this.idx}.webp`
+  }
+
   static get (name) {
     if (artiMap[name]) {
       return new Artifact(name)
     }
     return false
-  }
-
-  get img () {
-    return `meta/artifact/imgs/${this.setName}/${this.idx}.webp`
   }
 
   static getSetNameByArti (name) {
@@ -52,6 +56,46 @@ class Artifact extends Base {
     return {
       attrMap
     }
+  }
+
+  static getMainById (id, level = 20, star = 5) {
+    let key = mainIdMap[id]
+    if (!key) {
+      return false
+    }
+    let attrCfg = attrMap[Format.isElem(key) ? 'dmg' : key]
+    let posEff = ['hpPlus', 'atkPlus', 'defPlus'].includes(key) ? 2 : 1
+    let starEff = { 1: 0.21, 2: 0.36, 3: 0.6, 4: 0.9, 5: 1 }
+    return {
+      key,
+      value: attrCfg.value * (1.2 + 0.34 * level) * posEff * (starEff[star || 5])
+    }
+  }
+
+  static getAttrsByIds (ids, star = 5) {
+    let ret = []
+    let tmp = {}
+    let starEff = { 1: 0.21, 2: 0.36, 3: 0.6, 4: 0.8, 5: 1 }
+    lodash.forEach(ids, (id) => {
+      let cfg = attrIdMap[id]
+      if (!cfg) {
+        return true
+      }
+      let { key, value } = cfg
+      if (!tmp[key]) {
+        tmp[key] = {
+          key,
+          eff: 0,
+          upNum: 0,
+          value: 0
+        }
+        ret.push(tmp[key])
+      }
+      tmp[key].eff += value / attrMap[key].value * starEff[star]
+      tmp[key].value += value * (attrMap[key].format === 'pct' ? 100 : 1) * starEff[star]
+      tmp[key].upNum++
+    })
+    return ret
   }
 }
 

@@ -25,7 +25,7 @@ export const details = [{
 }]
 
 export const defDmgIdx = 4
-export const mainAttr = 'hp,cpct,cdmg'
+export const mainAttr = 'hp,cpct,cdmg,mastery'
 
 export const buffs = [{
   title: '夜兰被动：有4个不同元素类型角色时，夜兰生命值上限提高30%',

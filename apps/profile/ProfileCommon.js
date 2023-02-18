@@ -1,16 +1,14 @@
 /*
 * 面板公共方法及处理
 * */
-import lodash from 'lodash'
 import { segment } from 'oicq'
-import { profileList } from './ProfileList.js'
-import { Profile, Version } from '../../components/index.js'
-import { Character, MysApi } from '../../models/index.js'
+import { Version } from '../../components/index.js'
+import { Character, MysApi, Player } from '../../models/index.js'
 
 /*
 * 获取面板查询的 目标uid
 * */
-export async function getTargetUid (e) {
+const _getTargetUid = async function (e) {
   let uidReg = /[1-9][0-9]{8}/
 
   if (e.uid && uidReg.test(e.uid)) {
@@ -57,7 +55,7 @@ export async function getTargetUid (e) {
       return false
     }
     uid = user.uid
-    if (!uid || !uidReg.test(uid)) {
+    if ((!uid || !uidReg.test(uid)) && !e._replyNeedUid) {
       e.reply('请先发送【#绑定+你的UID】来绑定查询目标')
       return false
     }
@@ -67,152 +65,34 @@ export async function getTargetUid (e) {
   return uid || false
 }
 
-/*
-* 自动更新面板数据
-* */
-export async function autoRefresh (e) {
-  let uid = await getTargetUid(e)
-  if (!uid || e.isRefreshed) {
-    return false
+export async function getTargetUid (e) {
+  let uid = await _getTargetUid(e)
+  if (uid) {
+    e.uid = uid
   }
-
-  let refreshMark = await redis.get(`miao:profile-refresh-cd:${uid}`)
-  let inCd = await redis.get(`miao:role-all:${uid}`)
-
-  if (refreshMark || inCd) {
-    return false
-  }
-
-  await redis.set(`miao:profile-refresh-cd:${uid}`, 'TRUE', { EX: 3600 * 12 })
-  e.isRefreshed = true
-
-  // 数据更新
-  let data = await Profile.request(uid, e)
-  if (!data) {
-    return false
-  }
-
-  if (!data.chars) {
-    e.reply('请确认角色已在【游戏内】橱窗展示并开放了查看详情。请在设置完毕5分钟后使用 #面板更新 重新获取')
-    return false
-  } else {
-    let ret = []
-    lodash.forEach(data.chars, (ds) => {
-      let char = Character.get(ds.id)
-      if (char) {
-        ret.push(char.name)
-      }
-    })
-    if (ret.length === 0) {
-      e.reply('请确认角色已在【游戏内】橱窗展示并开放了查看详情。请在设置完毕5分钟后使用 #面板更新 重新获取')
-      return false
-    } else {
-      // e.reply(`本次获取成功角色: ${ret.join(", ")} `)
-      return true
-    }
-  }
+  return uid
 }
 
-export async function autoGetProfile (e, uid, avatar, callback) {
-  let refresh = async () => {
-    let refreshRet = await autoRefresh(e)
-    if (refreshRet) {
-      await callback()
-    }
-    return refreshRet
-  }
-
+export async function getProfileRefresh (e, avatar) {
   let char = Character.get(avatar)
   if (!char) {
-    return { err: true }
+    return false
   }
 
-  let profile = Profile.get(uid, char.id)
+  let player = Player.create(e)
+  let profile = player.getProfile(char.id)
   if (!profile || !profile.hasData) {
-    if (await refresh()) {
-      return { err: true }
-    } else {
+    logger.mark(`本地无UID:${player.uid}的${char.name}面板数据，尝试自动请求...`)
+    await player.refresh({ profile: true })
+    profile = player.getProfile(char.id)
+  }
+  if (!profile || !profile.hasData) {
+    if (!e._isReplyed) {
       e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`)
     }
-    return { err: true }
-  } else if (!['enka', 'miao'].includes(profile.dataSource)) {
-    if (!await refresh()) {
-      e.reply('缓存数据错误，请重新获取面板信息后查看')
-    }
-    return { err: true }
+    return false
   }
-
-  return { profile, char, refresh }
-}
-
-/*
-* 面板数据更新
-* */
-export async function getProfile (e) {
-  let uid = await getTargetUid(e)
-  if (!uid) {
-    return true
-  }
-
-  // 数据更新
-  let data = await Profile.request(uid, e)
-  if (!data) {
-    return true
-  }
-
-  if (!data.chars) {
-    e.reply('获取角色面板数据失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~')
-  } else {
-    let ret = {}
-    lodash.forEach(data.chars, (ds) => {
-      let char = Character.get(ds.id)
-      if (char) {
-        ret[char.name] = true
-      }
-    })
-    if (ret.length === 0) {
-      e.reply('获取角色面板数据失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~')
-    } else {
-      e.newChar = ret
-      return await profileList(e)
-    }
-  }
-  return true
-}
-
-/*
-* 获取面板列表
-* */
-export async function getProfileAll (e) {
-  let uid = await getTargetUid(e)
-  if (!uid) {
-    return true
-  }
-
-  let profiles = Profile.getAll(uid) || {}
-
-  let chars = []
-  lodash.forEach(profiles || [], (ds) => {
-    if (!['enka', 'miao'].includes(ds.dataSource)) {
-      return true
-    }
-    ds.name && chars.push(ds.name)
-  })
-
-  if (chars.length === 0) {
-    if (await autoRefresh(e)) {
-      await getProfileAll(e)
-      return true
-    } else {
-      e.reply('尚未获取任何角色数据')
-      await profileHelp(e)
-    }
-    return true
-  }
-
-  e.reply(`uid${uid} 已获取面板角色： ` + chars.join(', '))
-
-  return true
+  return profile
 }
 
 /*

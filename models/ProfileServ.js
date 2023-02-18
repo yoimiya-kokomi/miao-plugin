@@ -75,22 +75,7 @@ export default class ProfileServ extends Base {
     return Math.max(cdTime, this.execFn('cdTime', [data], 60))
   }
 
-  getUserData (data) {
-    return this.execFn('userData', [data], {})
+  updatePlayer (player, data) {
+    return this.execFn('updatePlayer', [player, data], {})
   }
-
-  getProfileData (data) {
-    return this.execFn('profileData', [data], {})
-  }
-}
-
-ProfileServ.getServ = function ({ uid, serv }) {
-  let { Miao, Enka } = serv
-  let token = diyCfg?.miaoApi?.token
-  let qq = diyCfg?.miaoApi?.qq
-
-  if (qq && token && token.length === 32 && !/^test/.test(token) && Cfg.get('profileServ') === 1) {
-    return Miao
-  }
-  return Enka
 }

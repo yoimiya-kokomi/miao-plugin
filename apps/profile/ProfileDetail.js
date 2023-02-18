@@ -1,7 +1,106 @@
 import lodash from 'lodash'
-import { autoRefresh } from './ProfileCommon.js'
-import { Common, Format, Profile } from '../../components/index.js'
-import { MysApi, Avatar, ProfileRank, ProfileArtis } from '../../models/index.js'
+import { getTargetUid, getProfileRefresh } from './ProfileCommon.js'
+import ProfileList from './ProfileList.js'
+import { Cfg, Common, Format } from '../../components/index.js'
+import { MysApi, ProfileRank, ProfileArtis, Player, Character } from '../../models/index.js'
+import ProfileChange from './ProfileChange.js'
+import { profileArtis } from './ProfileArtis.js'
+
+// 查看当前角色
+export async function profileDetail (e) {
+  let msg = e.original_msg || e.msg
+  if (!msg) {
+    return false
+  }
+  if (!/详细|详情|面板|面版|圣遗物|伤害|换/.test(msg)) {
+    return false
+  }
+  let mode = 'profile'
+  let profileChange = false
+  let changeMsg = msg
+  let pc = ProfileChange.matchMsg(msg)
+  if (pc && pc.char && pc.change) {
+    if (!Cfg.get('profileChange')) {
+      e.reply('面板替换功能已禁用...')
+      return true
+    }
+    e.uid = pc.uid || e.runtime.uid
+    profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change)
+    if (profileChange && profileChange.char) {
+      msg = `#${profileChange.char?.name}${pc.mode || '面板'}`
+      e._profile = profileChange
+      e._profileMsg = changeMsg
+    }
+  }
+  let uidRet = /[0-9]{9}/.exec(msg)
+  if (uidRet) {
+    e.uid = uidRet[0]
+    msg = msg.replace(uidRet[0], '')
+  }
+
+  let name = msg.replace(/#|老婆|老公/g, '').trim()
+  msg = msg.replace('面版', '面板')
+  let dmgRet = /伤害(\d?)$/.exec(name)
+  let dmgIdx = 0
+  if (/(最强|最高|最高分|最牛|第一)/.test(msg)) {
+    mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'rank-mark' : 'rank-dmg'
+    name = name.replace(/(最强|最高分|第一|最高|最牛|圣遗物|评分|群)/g, '')
+  }
+  if (/(详情|详细|面板|面版)\s*$/.test(msg) && !/更新|录入|输入/.test(msg)) {
+    mode = 'profile'
+    name = name.replace(/(详情|详细|面板)/, '').trim()
+  } else if (dmgRet) {
+    mode = 'dmg'
+    name = name.replace(/伤害[0-5]?/, '').trim()
+    if (dmgRet[1]) {
+      dmgIdx = dmgRet[1] * 1
+    }
+  } else if (/(详情|详细|面板)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板)$/.test(msg))) {
+    mode = 'refresh'
+    name = name.replace(/详情|详细|面板|更新/g, '').trim()
+  } else if (/圣遗物/.test(msg)) {
+    mode = 'artis'
+    name = name.replace('圣遗物', '').trim()
+  }
+  if (!Common.cfg('avatarProfile')) {
+    return false // 面板开关关闭
+  }
+  let char = Character.get(name.trim())
+  if (!char) {
+    return false
+  }
+
+  let uid = e.uid || await getTargetUid(e)
+  if (!uid) {
+    return true
+  }
+  e.uid = uid
+  e.avatar = char.id
+
+  if (char.isCustom) {
+    e.reply('自定义角色暂不支持此功能')
+    return true
+  }
+  if (!char.isRelease) {
+    if (!profileChange) {
+      e.reply('角色尚未实装')
+      return true
+    } else if (Cfg.get('notReleasedData') === false) {
+      e.reply('未实装角色面板已禁用...')
+      return true
+    }
+  }
+
+  if (mode === 'profile' || mode === 'dmg') {
+    return renderProfile(e, char, mode, { dmgIdx })
+  } else if (mode === 'refresh') {
+    await ProfileList.refresh(e)
+    return true
+  } else if (mode === 'artis') {
+    return profileArtis(e)
+  }
+  return true
+}
 
 export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let selfUser = await MysApi.initUser(e)
@@ -18,25 +117,10 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     return true
   }
 
-  let profile = e._profile || Profile.get(uid, char.id)
-
-  let refresh = async () => {
-    let refreshRet = await autoRefresh(e)
-    if (refreshRet) {
-      await renderProfile(e, char, mode, params)
-    }
-    return refreshRet
-  }
-
-  if (!profile || !profile.hasData) {
-    if (await refresh()) {
-      return true
-    } else {
-      e.reply(`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`)
-    }
+  let profile = e._profile || await getProfileRefresh(e, char.id)
+  if (!profile) {
     return true
   }
-  let avatar = new Avatar(profile)
   char = profile.char || char
   let a = profile.attr
   let c = Format.comma
@@ -96,11 +180,12 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
   let artisDetail = profile.getArtisMark()
   let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
   let imgs = char.getImgs(profile.costume)
+  let costumeSplash = profile.costumeSplash
   // 渲染图像
   let msgRes = await Common.render('character/profile-detail', {
     save_id: uid,
     uid,
-    data: avatar.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime'),
+    data: profile.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime'),
     attr,
     elem: char.elem,
     dmgData,
@@ -111,15 +196,16 @@ export async function renderProfile (e, char, mode = 'profile', params = {}) {
     artisKeyTitle,
     enemyLv,
     imgs,
+    costumeSplash,
     enemyName: dmgCalc.enemyName || '小宝',
     talentMap: { a: '普攻', e: '战技', q: '爆发' },
     bodyClass: `char-${char.name}`,
     mode,
     changeProfile: e._profileMsg
-  }, { e, scale: 1.6,retMsgId: true })
+  }, { e, scale: 1.6, retMsgId: true })
   if (msgRes && msgRes.message_id) {
     // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
-    await redis.set(`miao:original-picture:${msgRes.message_id}`, imgs.splash0, { EX: 3600 * 3 })
+    await redis.set(`miao:original-picture:${msgRes.message_id}`, JSON.stringify({ type: 'profile', img: costumeSplash }), { EX: 3600 * 3 })
   }
   return true
 }

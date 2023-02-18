@@ -24,6 +24,24 @@ class AttrCalc {
     return new AttrCalc(profile)
   }
 
+  static calcPromote (lv) {
+    if (lv === 20) {
+      return 1
+    }
+    if (lv === 90) {
+      return 6
+    }
+    let lvs = [1, 20, 40, 50, 60, 70, 80, 90]
+    let promote = 0
+    for (let idx = 0; idx < lvs.length - 1; idx++) {
+      if (lv >= lvs[idx] && lv <= lvs[idx + 1]) {
+        return promote
+      }
+      promote++
+    }
+    return promote
+  }
+
   /**
    * 面板属性计算
    * @returns {{}}
@@ -37,9 +55,6 @@ class AttrCalc {
     this.setCharAttr()
     this.setWeaponAttr()
     this.setArtisAttr()
-    if (process.argv.includes('web-debug')) {
-      // console.log(this.attr, this.attr.getAttr())
-    }
     return this.attr.getAttr()
   }
 
@@ -103,7 +118,7 @@ class AttrCalc {
    * 计算武器属性
    */
   setWeaponAttr () {
-    let wData = this.profile?.weapon
+    let wData = this.profile?.weapon || {}
     let weapon = Weapon.get(wData?.name)
     let level = wData.level
     let promote = lodash.isUndefined(wData.promote) ? -1 : wData.promote
@@ -184,6 +199,9 @@ class AttrCalc {
    * @returns {boolean}
    */
   calcArtisAttr (ds, char) {
+    if (!ds) {
+      return false
+    }
     let key = ds.key
     if (Format.isElem(key) && char.elem === key) {
       key = 'dmg'
@@ -195,23 +213,6 @@ class AttrCalc {
       key = key + 'Pct'
     }
     this.attr.addAttr(key, ds.value * 1)
-  }
-
-  static calcPromote (lv) {
-    if (lv === 20) {
-      return 1
-    }
-    if (lv === 90) {
-      return 6
-    }
-    let lvs = [1, 20, 40, 50, 60, 70, 80, 90]
-    let promote = 0
-    for (let idx = 0; idx < lvs.length - 1; idx++) {
-      if (lv >= lvs[idx] && lv <= lvs[idx + 1]) {
-        return promote
-      }
-      promote++
-    }
   }
 }
 

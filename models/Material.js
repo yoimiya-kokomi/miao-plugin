@@ -4,7 +4,7 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '../components/index.js'
-import MaterialMeta from './material-lib/MaterialMeta.js'
+import MaterialMeta from './material/MaterialMeta.js'
 
 let data = Data.readJSON('resources/meta/material/data.json')
 let abbr = await Data.importDefault('resources/meta/material/abbr.js')
