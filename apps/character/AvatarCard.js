@@ -25,8 +25,8 @@ let Avatar = {
         avatar = { id: char.id, name: char.name, detail: false }
       } else {
         let player = Player.create(e)
-        await player.refreshMysDetail()
-        await player.refreshTalent(char.id)
+        await player.refreshMysDetail(1)
+        await player.refreshTalent(char.id, 1)
         avatar = player.getAvatar(char.id)
         if (!avatar) {
           avatar = { id: char.id, name: char.name, detail: false }

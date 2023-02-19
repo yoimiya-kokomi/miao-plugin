@@ -78,6 +78,9 @@ export default class Player extends Base {
       this._chars = data.chars
     }
     this.setAvatars(data.avatars || [])
+    if (!data.avatars) {
+      this.save()
+    }
   }
 
   /**

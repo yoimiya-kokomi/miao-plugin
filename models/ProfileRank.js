@@ -201,6 +201,9 @@ export default class ProfileRank {
     if (!uid) {
       return false
     }
+    if (uid * 1 < 100000005) {
+      return false
+    }
     try {
       let rankLimit = Common.cfg('groupRankLimit') * 1 || 1
       if (rankLimit === 1) {

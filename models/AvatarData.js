@@ -196,7 +196,11 @@ export default class AvatarData extends Base {
   }
 
   getDetail (keys = '') {
-    return this.getData(keys || 'id,name,level,star,cons,fetter,elem,face,side,gacha,abbr,weapon,talent,artisSet') || {}
+    let imgs = this.char.getImgs(this.costume)
+    return {
+      ...(this.getData(keys || 'id,name,level,star,cons,fetter,elem,abbr,weapon,talent,artisSet') || {}),
+      ...Data.getData(imgs, 'face,qFace,side,gacha')
+    }
   }
 
   getArtisDetail () {

@@ -4,10 +4,6 @@ import { Data, Common, Format } from '../../components/index.js'
 import lodash from 'lodash'
 
 export async function groupRank (e) {
-  let groupId = e.group_id
-  if (!groupId) {
-    return false
-  }
   const groupRank = Common.cfg('groupRank')
   let msg = e.original_msg || e.msg
   let type = ''
@@ -15,12 +11,15 @@ export async function groupRank (e) {
     type = 'list'
   } else if (/(最强|最高|最高分|最牛|第一)/.test(msg)) {
     type = 'detail'
+  } else if (/极限/.test(msg)) {
+    type = 'super'
   }
-  if (!type) {
+  let groupId = e.group_id
+  if (!type || (!groupId && type !== 'super')) {
     return false
   }
   let mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
-  let name = msg.replace(/(#|最强|最高分|第一|最高|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
+  let name = msg.replace(/(#|最强|最高分|第一|极限|最高|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
   let char = Character.get(name)
   if (!char) {
     // 名字不存在或不为列表模式，则返回false
@@ -28,6 +27,17 @@ export async function groupRank (e) {
       return false
     }
   }
+  // 对鲸泽佬的极限角色文件增加支持
+  if (type === 'super') {
+    let player = Player.create(100000000)
+    if (player.getProfile(char.id)) {
+      e.uid = 100000000
+      return await renderProfile(e, char)
+    } else {
+      return true
+    }
+  }
+  // 正常群排名
   let groupCfg = await ProfileRank.getGroupCfg(groupId)
   if (!groupRank) {
     e.reply('群面板排名功能已禁用，Bot主人可通过【#喵喵设置】启用...')

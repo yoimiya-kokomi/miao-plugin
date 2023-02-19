@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { Common, Data } from '../../components/index.js'
+import { Data } from '../../components/index.js'
 import { chestInfo } from '../../resources/meta/info/index.js'
 import moment from 'moment'
 
@@ -170,7 +170,8 @@ const MysAvatar = {
       if (!avatar) {
         return true
       }
-      if (!avatar.hasTalent || MysAvatar.needRefresh(avatar._talent, force, { 0: 60 * 24, 1: 60, 2: 0 })) {
+      let needMap = { 0: avatar.hasTalent ? 60 * 48 : 60 * 3, 1: 60, 2: 0 }
+      if (MysAvatar.needRefresh(avatar._talent, force, needMap)) {
         ret.push(avatar.id)
       }
     })
@@ -199,7 +200,11 @@ const MysAvatar = {
       // 并发5，请求天赋数据
       await Data.asyncPool(5, needReqIds, async (id) => {
         let avatar = player.getAvatar(id)
-        if (!avatar || failCount > 5) {
+        if (!avatar) {
+          return false
+        }
+        if (failCount > 5) {
+          avatar.setTalent(false, 'original', true)
           return false
         }
         let ret = await MysAvatar.refreshAvatarTalent(avatar, mys)
@@ -209,6 +214,7 @@ const MysAvatar = {
       })
     }
     player.save()
+    return true
   },
 
   async refreshAvatarTalent (avatar, mys) {
@@ -286,7 +292,9 @@ const MysAvatar = {
       avatarCount++
       if (avatar.star === 5) {
         avatar5Count++
-        goldCount += (avatar.cons || 0) + 1
+        if (!avatar.char?.isTraveler) {
+          goldCount += (avatar.cons || 0) + 1
+        }
       }
       let w = avatar.weapon
       if (w && w.star === 5) {
