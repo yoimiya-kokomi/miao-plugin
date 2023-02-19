@@ -34,14 +34,8 @@ const ProfileStat = {
     })
 
     if (avatarRet.length === 0) {
-      e.reply(`暂未获得#${uid}角色数据，请绑定CK或 #更新面板`)
+      e.reply(player.getErrMsg() || `查询失败，暂未获得#${uid}角色数据，请绑定CK或 #更新面板`)
       return true
-    }
-
-    let talentNotice = []
-
-    if (!mys.isSelfCookie) {
-      talentNotice.push('未绑定CK，信息可能展示不完全')
     }
 
     let faceChar = Character.get(player.face || avatarRet[0]?.id)
@@ -72,8 +66,7 @@ const ProfileStat = {
       updateTime: player.getUpdateTime(),
       isSelfCookie: e.isSelfCookie,
       face,
-      avatars: avatarRet,
-      talentNotice
+      avatars: avatarRet
     }, { e, scale: 1.4 })
   }
 }

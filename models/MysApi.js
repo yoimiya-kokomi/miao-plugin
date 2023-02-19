@@ -76,6 +76,25 @@ export default class MysApi {
     }
   }
 
+  static async checkRetCode (retcode) {
+    switch (retcode) {
+      case -1:
+      case -100:
+      case 1001:
+      case 10001:
+      case 10103:
+        return 'CK失效或报错'
+      case 1008:
+        return '请先去米游社绑定角色'
+      case 10101:
+        return '查询已达今日上限'
+      case 10102:
+        return '请先去米游社绑定角色或公开数据'
+      case 1034:
+        return '米游社查询遇到验证码，请稍后再试'
+    }
+  }
+
   async getMysApi (e, targetType = 'all', option = {}) {
     if (this.mys) {
       return this.mys
@@ -109,6 +128,9 @@ export default class MysApi {
     }
     if (!ret) {
       return false
+    }
+    if (ret.retcode !== 0) {
+      e._retcode = ret.retcode
     }
     return ret.data || ret
   }

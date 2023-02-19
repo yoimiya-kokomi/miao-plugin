@@ -119,6 +119,11 @@ export const cfgSchema = {
         key: '图片',
         def: true
       },
+      qFace: {
+        title: 'Q版角色头像',
+        key: '卡通头像',
+        def: true
+      },
       charPicSe: {
         title: '小清新角色图',
         key: '小清新',

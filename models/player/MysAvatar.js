@@ -4,6 +4,28 @@ import { chestInfo } from '../../resources/meta/info/index.js'
 import moment from 'moment'
 
 const MysAvatar = {
+  getErrMsg (e) {
+    if (!e._retcode) {
+      return false
+    }
+    switch (e._retcode * 1) {
+      case -1:
+      case -100:
+      case 1001:
+      case 10001:
+      case 10103:
+        return 'CK失效或报错'
+      case 1008:
+        return '请先去米游社绑定角色'
+      case 10101:
+        return '查询已达今日上限'
+      case 10102:
+        return '请先去米游社绑定角色或公开数据'
+      case 1034:
+        return '米游社查询遇到验证码，请稍后再试'
+    }
+    return false
+  },
 
   needRefresh (time, force = 0, forceMap = {}) {
     if (!time || force === 2) {
@@ -27,7 +49,8 @@ const MysAvatar = {
    * @returns {Promise<boolean>}
    */
   async refreshMysDetail (player, force = 0) {
-    let mys = player?.e?._mys
+    let e = player.e || {}
+    let mys = e?._mys
     if (!mys) {
       return false
     }

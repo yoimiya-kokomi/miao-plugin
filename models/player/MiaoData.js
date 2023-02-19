@@ -28,7 +28,8 @@ let MiaoData = {
     let talentRet = MiaoData.getTalentNew(char.id, ds.talent)
     avatar.setAvatar({
       ...ds,
-      elem: talentRet.elem
+      elem: talentRet.elem,
+      talent: talentRet.talent
     }, 'miao')
     return avatar
   },

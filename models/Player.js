@@ -325,4 +325,8 @@ export default class Player extends Base {
     }
     return avatarRet
   }
+
+  getErrMsg () {
+    return MysAvatar.getErrMsg(this.e)
+  }
 }

@@ -6,7 +6,7 @@
 * */
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Data, Format } from '../components/index.js'
+import { Data, Format, Cfg } from '../components/index.js'
 import CharImg from './character/CharImg.js'
 import CharTalent from './character/CharTalent.js'
 import CharId from './character/CharId.js'
@@ -232,7 +232,11 @@ class Character extends Base {
     if (!this._imgs[cacheId]) {
       this._imgs[cacheId] = CharImg.getImgs(this.name, costumeIdx, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
     }
-    return this._imgs[cacheId]
+    let imgs = this._imgs[cacheId]
+    return {
+      ...imgs,
+      qFace: Cfg.get('qFace') ? imgs.qFace : imgs.face
+    }
   }
 
   // 基于角色名获取Character
