@@ -9,7 +9,7 @@ export async function AbyssTeam (e) {
     return true
   }
   let player = Player.create(e)
-  await player.refreshMysDetail()
+  await player.refreshMysDetail(2)
   await player.refreshTalent()
 
   let abyssData = await HutaoApi.getAbyssTeam()
@@ -23,8 +23,8 @@ export async function AbyssTeam (e) {
   let data = {}
   let noAvatar = {}
   lodash.forEach(avatarData, (avatar) => {
-    let t = avatar.originalTalent
-    avatarRet[avatar.id] = Math.min(avatar.level, avatar.weapon?.level || 1) * 100 + Math.max(t?.a, t?.e, t?.q) * 1000
+    let t = avatar.originalTalent || {}
+    avatarRet[avatar.id] = Math.min(avatar.level, (avatar.weapon?.level || 1)) * 100 + Math.max(t?.a || 1, t?.e || 1, t?.q || 1) * 1000
   })
 
   let getTeamCfg = (str) => {

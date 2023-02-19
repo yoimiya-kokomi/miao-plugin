@@ -107,10 +107,9 @@ body,
   width: 100%;
 }
 .cont-footer span {
-  width: 35%;
+  width: 50%;
 }
 .cont-footer .serv {
-  width: 65%;
   text-align: right;
 }
 .cont-footer .new-tip:before {

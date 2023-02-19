@@ -58,20 +58,30 @@ export default class ProfileReq extends Base {
 
   async requestProfile (player, serv) {
     this.serv = serv
-    let reqParam = await serv.getReqParam(this.uid)
+    let uid = this.uid
+    let reqParam = await serv.getReqParam(uid)
     let cdTime = await this.inCd()
     if (cdTime && !process.argv.includes('web-debug')) {
       return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
+    let self = this
+    // 若3秒后还未响应则返回提示
+    setTimeout(() => {
+      if (self._isReq) {
+        this.msg(`开始获取uid:${uid}的数据，可能会需要一定时间~`)
+      }
+    }, 3000)
     // 发起请求
-    logger.mark(`面板请求UID:${this.uid}，面板服务：${serv.name}...`)
+    logger.mark(`面板请求UID:${uid}，面板服务：${serv.name}...`)
     let data = {}
     try {
       let params = reqParam.params || {}
       params.timeout = params.timeout || 1000 * 20
+      self._isReq = true
       let req = await fetch(reqParam.url, params)
       data = await req.text()
+      self._isReq = false
       if (data[0] === '<') {
         let titleRet = /<title>(.+)<\/title>/.exec(data)
         if (titleRet && titleRet[1]) {
@@ -84,6 +94,7 @@ export default class ProfileReq extends Base {
       }
     } catch (e) {
       console.log('面板请求错误', e)
+      self._isReq = false
       data = {}
     }
     data = await serv.response(data, this)

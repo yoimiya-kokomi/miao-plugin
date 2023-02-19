@@ -22,12 +22,48 @@ let MiaoData = {
     return avatar
   },
 
+  setAvatarNew (player, ds) {
+    let char = Character.get(ds.id)
+    let avatar = player.getAvatar(ds.id, true)
+    let talentRet = MiaoData.getTalentNew(char.id, ds.talent)
+    avatar.setAvatar({
+      ...ds,
+      elem: talentRet.elem
+    }, 'miao')
+    return avatar
+  },
+
   getWeapon (weapon) {
     return {
       name: weapon.name,
       level: weapon.level,
       promote: weapon.promoteLevel,
       affix: (weapon.affixLevel || 0) + 1
+    }
+  },
+
+  getTalentNew (charid, data = {}) {
+    let char = Character.get(charid)
+    let { talentId = {}, talentElem = {}, talentKey = {} } = char.meta
+    let elem = ''
+    let idx = 0
+    let ret = {}
+    lodash.forEach(data, (level, id) => {
+      let key
+      if (talentId[id]) {
+        let tid = talentId[id]
+        key = talentKey[tid]
+        elem = elem || talentElem[tid]
+        ret[key] = level
+      } else {
+        key = ['a', 'e', 'q'][idx]
+        ret[key] = level
+      }
+      idx++
+    })
+    return {
+      talent: ret,
+      elem
     }
   },
 

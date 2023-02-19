@@ -10,21 +10,40 @@ export default {
     if (data.status !== 0) {
       return req.err(data.msg || 'error', 60)
     }
-    data = data.data || {}
-    if (!data.showAvatarInfoList || data.showAvatarInfoList.length === 0) {
-      return req.err('empty', 5 * 60)
+    if (data.version === 2) {
+      data = data.data || {}
+      if (!data.avatars || data.avatars.length === 0) {
+        return req.err('empty', 5 * 60)
+      }
+      data.version = 2
+      return data
+    } else {
+      data = data.data || {}
+      if (!data.showAvatarInfoList || data.showAvatarInfoList.length === 0) {
+        return req.err('empty', 5 * 60)
+      }
+      return data
     }
-    return data
   },
 
   updatePlayer (player, data) {
-    player.setBasicData(Data.getData(data, 'name:nickname,face:profilePicture.avatarId,card:nameCardID,level,word:worldLevel,sign:signature'))
-    lodash.forEach(data.showAvatarInfoList, (ds) => {
-      let ret = MiaoData.setAvatar(player, ds)
-      if (ret) {
-        player._update.push(ret.id)
-      }
-    })
+    if (data.version === 2) {
+      player.setBasicData(data)
+      lodash.forEach(data.avatars, (avatar) => {
+        let ret = MiaoData.setAvatarNew(player, avatar)
+        if (ret) {
+          player._update.push(ret.id)
+        }
+      })
+    } else {
+      player.setBasicData(Data.getData(data, 'name:nickname,face:profilePicture.avatarId,card:nameCardID,level,word:worldLevel,sign:signature'))
+      lodash.forEach(data.showAvatarInfoList, (ds) => {
+        let ret = MiaoData.setAvatar(player, ds)
+        if (ret) {
+          player._update.push(ret.id)
+        }
+      })
+    }
   },
 
   // 获取冷却时间

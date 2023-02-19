@@ -7,7 +7,7 @@ export const miaoApi = {
   listApi: ({ uid, diyCfg }) => {
     let qq = /\d{5,12}/.test(diyCfg.qq) ? diyCfg.qq : 'none'
     let token = diyCfg.token
-    return `http://miaoapi.cn/profile/data?uid=${uid}&qq=${qq}&token=${token}`
+    return `http://miaoapi.cn/profile/data?uid=${uid}&qq=${qq}&token=${token}&version=2`
   }
 }
 

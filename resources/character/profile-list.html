@@ -55,14 +55,10 @@
     {{if hasNew}}
     <span class="new-tip">本次更新角色</span>
     {{else}}
-    <span></span>
+    <span>{{if updateTime.profile }} 更新时间：{{updateTime.profile }} {{/if}}</span>
     {{/if}}
     <span class="serv">
       当前更新服务：{{servName}}
-    {{if updateTime.profile }}
-    <span>，更新时间：{{updateTime.profile }}</span>
-    {{/if}}
-
     </span>
   </div>
 </div>

@@ -1,6 +1,6 @@
 /**
  * 用户数据文件
- * 数据存储在/data/userData/${uid}.json 下
+ * 数据存储在/data/UserData/${uid}.json 下
  * 兼容处理面板户数及Mys数据
  *
  */
@@ -12,7 +12,7 @@ import { AvatarData, ProfileRank, Character } from './index.js'
 import MysAvatar from './player/MysAvatar.js'
 import Profile from './player/Profile.js'
 
-Data.createDir('/data/userData', 'root')
+Data.createDir('/data/UserData', 'root')
 
 export default class Player extends Base {
   constructor (uid) {

@@ -44,7 +44,7 @@
           <div class="card-list">
             {{each teamData.teamArr id}}
             <div
-                class="card star{{avatars[id].star == 4 ? 4:5}} {{avatars[id].level*1 === 0 ? 'no-character':'has-character'}}">
+                class="card star{{avatars[id].star == 4 ? 4:5}} {{ avatars[id].level*1 === 0 ? 'no-character':'has-character'}}">
               <img class="role" src="{{_res_path}}{{avatars[id].face}}"/>
               <span class="cons cons-{{avatars[id].cons}} for-has">{{avatars[id].cons}}</span>
               <span class="lvl for-has">Lv.{{avatars[id].level}}</span>
