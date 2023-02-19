@@ -18,7 +18,7 @@ export default {
   },
 
   updatePlayer (player, data) {
-    player.setBasicData(Data.getData(data, 'name:nickname,face:profilePicture.avatarID,card:nameCardID,level,word:worldLevel,sign:signature'))
+    player.setBasicData(Data.getData(data, 'name:nickname,face:profilePicture.avatarId,card:nameCardID,level,word:worldLevel,sign:signature'))
     lodash.forEach(data.showAvatarInfoList, (ds) => {
       let ret = MiaoData.setAvatar(player, ds)
       if (ret) {

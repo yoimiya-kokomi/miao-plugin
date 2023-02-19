@@ -419,6 +419,9 @@ ul.cont-msg li strong,
 .item-icon.opacity-bg.star5 {
   background-image: url("../common/item/bg5-o.png");
 }
+.item-icon.star-w {
+  background: #fff;
+}
 .item-list {
   display: flex;
 }

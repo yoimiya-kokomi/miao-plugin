@@ -45,9 +45,11 @@ const ProfileStat = {
     }
 
     let faceChar = Character.get(player.face || avatarRet[0]?.id)
+    let imgs = faceChar.imgs
     let face = {
-      banner: faceChar.imgs?.banner,
-      face: faceChar.imgs?.face,
+      banner: imgs?.banner,
+      face: imgs?.face,
+      qFace: imgs?.qFace,
       name: player.name || `#${uid}`,
       sign: player.sign,
       level: player.level

@@ -82,8 +82,16 @@ export default class Player extends Base {
 
   /**
    * 保存json文件
+   * @param flag false时暂时禁用保存，true时启用保存，并保存数据
+   * @returns {boolean}
    */
-  save () {
+  save (flag = null) {
+    if (flag === true) {
+      this._save = true
+    } else if (flag === false || this._save === false) {
+      this._save = false
+      return false
+    }
     let ret = Data.getData(this, 'uid,name,level,word,face,card,sign,info,_info,_mys,_profile')
     ret.avatars = {}
     this.forEachAvatar((avatar) => {
@@ -257,18 +265,25 @@ export default class Player extends Base {
   }
 
   async refresh (cfg) {
-    if (cfg.index || cfg.index === 0) {
-      await this.refreshMysInfo(cfg.index)
+    this.save(false)
+    try {
+      if (cfg.index || cfg.index === 0) {
+        await this.refreshMysInfo(cfg.index)
+      }
+      if (cfg.detail || cfg.detail === 0) {
+        await this.refreshMysDetail(cfg.detail)
+      }
+      if (cfg.talent || cfg.talent === 0) {
+        await this.refreshTalent(cfg.ids, cfg.talent)
+      }
+      if (cfg.profile || cfg.profile === 0) {
+        await this.refreshProfile(cfg.profile)
+      }
+    } catch (e) {
+      Bot.logger.mark(`刷新uid${this.uid}数据遇到错误...`)
+      console.log(e)
     }
-    if (cfg.detail || cfg.detail === 0) {
-      await this.refreshMysDetail(cfg.detail)
-    }
-    if (cfg.talent || cfg.talent === 0) {
-      await this.refreshTalent(cfg.ids, cfg.talent)
-    }
-    if (cfg.profile || cfg.profile === 0) {
-      await this.refreshProfile(cfg.profile)
-    }
+    this.save(true)
   }
 
   async refreshAndGetAvatarData (cfg) {

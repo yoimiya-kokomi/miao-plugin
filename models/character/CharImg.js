@@ -101,10 +101,10 @@ const CharImg = {
       imgs[key] = `${travelerElem ? tPath : nPath}${path}.${fileType}`
     }
     add('face', 'imgs/face', `imgs/face${costumeIdx}`)
+    add('qFace', 'imgs/face', 'imgs/face-q')
     add('side', 'imgs/side', `imgs/side${costumeIdx}`)
     add('gacha', 'imgs/gacha')
     add('splash', 'imgs/splash', `imgs/splash${costumeIdx}`)
-    // 检查彩蛋自定义
     tAdd('card', 'imgs/card')
     tAdd('banner', 'imgs/banner')
     for (let i = 1; i <= 6; i++) {

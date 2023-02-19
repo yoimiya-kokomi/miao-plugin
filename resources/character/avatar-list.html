@@ -9,13 +9,12 @@
 {{block 'main'}}
 <div class="user-banner" style="background-image:url({{_res_path}}{{face?.banner}})">
   <div class="face">
-    <span style="background-image:url({{_res_path}}{{face?.face}})"></span>
+    <span style="background-image:url({{_res_path}}{{face?.qFace||face?.face}})"></span>
   </div>
   <div class="user-info">
     <div class="name">
       <strong>{{face.name}}</strong>
       {{if face.level && face.level > 1}} Lv.{{face.level}}{{/if}}
-
     </div>
     <div class="uid">
       {{if uid}}<span> #{{uid}}</span>{{/if}}
@@ -35,7 +34,6 @@
   </div>
   {{/if}}
 </div>
-
 
 {{if !isSelfCookie}}
 <div class="ck-notice">未绑定CK或CK失效，信息可能不完全。发送<strong>#体力帮助</strong>查看CK绑定方法，发送<strong>#更新面板</strong>更新游戏内角色展柜信息</div>
