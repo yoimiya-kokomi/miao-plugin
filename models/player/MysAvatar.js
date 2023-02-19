@@ -188,7 +188,7 @@ const MysAvatar = {
   async refreshTalent (player, ids, force = 0) {
     let e = player?.e
     let mys = e?._mys
-    if (!e || !mys) {
+    if (!e || !mys || !mys.isSelfCookie) {
       return false
     }
     let needReqIds = MysAvatar.getNeedRefreshIds(player, ids, force)

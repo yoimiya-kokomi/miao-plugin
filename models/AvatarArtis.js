@@ -76,10 +76,10 @@ export default class AvatarArtis extends Base {
     arti.star = ds.star || 5
 
     if (ds.mainId || ds.main) {
-      arti._name = ds.name || arti.name
-      arti._set = ds.set || Artifact.getSetNameByArti(arti.name) || arti.set || ''
-      arti._level = ds.level || arti.level
-      arti._star = ds.star || arti.star || 5
+      arti._name = ds._name || ds.name || arti._name || arti.name
+      arti._set = ds._set || Artifact.getSetNameByArti(arti._name) || arti._set || ''
+      arti._level = ds._level || ds.level || arti._level || arti.level
+      arti._star = ds._star || ds.star || arti._star || arti.star || 5
     }
 
     // 存在面板数据，更新面板数据
