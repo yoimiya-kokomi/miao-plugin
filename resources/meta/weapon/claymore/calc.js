@@ -149,15 +149,10 @@ export default function (step, staticStep) {
         mastery: step(48)
       }
     },
-    苇海信标: [{
+    苇海信标: [staticStep('hpPct', 32), {
       title: '元素战技命中敌人并受伤害后提升攻击力[atkPct]%',
       refine: {
         atkPct: step(40)
-      }
-    }, {
-      title: '不处于护盾下时，提高[hpPct]%生命值',
-      refine: {
-        hpPct: step(32)
       }
     }]
   }
