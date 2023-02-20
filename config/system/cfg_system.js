@@ -47,6 +47,11 @@ export const cfgSchema = {
         key: '面板替换',
         def: true
       },
+      qFace: {
+        title: '面板Q版角色头像',
+        key: '卡通头像',
+        def: true
+      },
       groupRank: {
         title: '群面板排名',
         key: '排名',
@@ -117,11 +122,6 @@ export const cfgSchema = {
       charPic: {
         title: '角色图片',
         key: '图片',
-        def: true
-      },
-      qFace: {
-        title: 'Q版角色头像',
-        key: '卡通头像',
         def: true
       },
       charPicSe: {
