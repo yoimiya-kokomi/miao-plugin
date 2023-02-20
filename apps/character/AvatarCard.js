@@ -50,7 +50,7 @@ let Avatar = {
     let data = {}
     let custom = char.isCustom
     let isRelease = char.isRelease
-    if (isRelease) {
+    if (isRelease && avatar.hasData) {
       data = avatar.getDetail()
       data.imgs = char.imgs
       data.source = avatar._source
