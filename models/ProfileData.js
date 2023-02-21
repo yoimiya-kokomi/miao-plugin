@@ -23,6 +23,9 @@ export default class ProfileData extends AvatarData {
     costume = this.char.checkCostume(costume) ? '2' : ''
 
     let nPath = `meta/character/${this.name}`
+    if (!Cfg.get('customSplash', true)) {
+      return [`${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
+    }
     let isSuper = false
     let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
     if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass) || talent === '101010') {

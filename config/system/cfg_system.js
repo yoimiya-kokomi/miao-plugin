@@ -89,6 +89,12 @@ export const cfgSchema = {
         def: 28,
         input: (n) => Math.min(100, Math.max(4, (n * 1 || 28))),
         desc: '可选值4~100，建议28，最终圣遗物数量取决于面板内圣遗物数量。设置高圣遗物数量会提高图片的长度，图片较大可能会影响渲染与发送速度'
+      },
+      customSplash: {
+        title: '自定义面板彩蛋立绘',
+        key: '彩蛋图',
+        def: true,
+        desc: '参考 2.2.0 更新说明'
       }
     }
   },
