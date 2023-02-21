@@ -70,7 +70,7 @@ let ArtisMark = {
       let isIdAttr = false
 
       lodash.forEach(ds, (d) => {
-        isIdAttr = !!d.eff
+        isIdAttr = !d.isCalcNum
         let arti = ArtisMark.formatArti(d, charAttrCfg)
         ret.push(arti)
         if (isIdAttr) {
@@ -115,13 +115,15 @@ let ArtisMark = {
     val = Format[arrCfg.format](val, 1)
     let ret = {
       key,
-      value: val
+      value: val,
+      upNum: ds.upNum || 0
     }
-    if (!isMain && !ret.eff) {
+    if (!isMain && !ret.upNum) {
       let incRet = ArtisMark.getIncNum(key, value)
       ret.upNum = incRet.num
       ret.hasGt = incRet.hasGt
       ret.hasLt = incRet.hasLt
+      ret.isCalcNum = true
     }
 
     if (charAttrCfg) {

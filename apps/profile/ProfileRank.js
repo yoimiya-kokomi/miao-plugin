@@ -1,5 +1,5 @@
 import { Character, ProfileRank, ProfileDmg, Player } from '../../models/index.js'
-import { renderProfile } from './ProfileDetail.js'
+import ProfileDetail from './ProfileDetail.js'
 import { Data, Common, Format } from '../../components/index.js'
 import lodash from 'lodash'
 
@@ -32,7 +32,7 @@ export async function groupRank (e) {
     let player = Player.create(100000000)
     if (player.getProfile(char.id)) {
       e.uid = 100000000
-      return await renderProfile(e, char)
+      return await ProfileDetail.render(e, char)
     } else {
       return true
     }
@@ -51,7 +51,7 @@ export async function groupRank (e) {
     let uid = await ProfileRank.getGroupMaxUid(groupId, char.id, mode)
     if (uid) {
       e.uid = uid
-      return await renderProfile(e, char)
+      return await ProfileDetail.render(e, char)
     } else {
       if (mode === 'dmg' && !ProfileDmg.dmgRulePath(char.name)) {
         e.reply(`暂无排名：${char.name}暂不支持伤害计算，无法进行排名..`)

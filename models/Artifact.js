@@ -75,7 +75,6 @@ class Artifact extends Base {
   static getAttrsByIds (ids, star = 5) {
     let ret = []
     let tmp = {}
-    let starEff = { 1: 0.21, 2: 0.36, 3: 0.6, 4: 0.8, 5: 1 }
     lodash.forEach(ids, (id) => {
       let cfg = attrIdMap[id]
       if (!cfg) {
@@ -85,14 +84,12 @@ class Artifact extends Base {
       if (!tmp[key]) {
         tmp[key] = {
           key,
-          eff: 0,
           upNum: 0,
           value: 0
         }
         ret.push(tmp[key])
       }
-      tmp[key].eff += value / attrMap[key].value * starEff[star]
-      tmp[key].value += value * (attrMap[key].format === 'pct' ? 100 : 1) * starEff[star]
+      tmp[key].value += value * (attrMap[key].format === 'pct' ? 100 : 1)
       tmp[key].upNum++
     })
     return ret

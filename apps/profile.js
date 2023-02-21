@@ -1,7 +1,7 @@
 import { App, Cfg } from '../components/index.js'
 import { profileHelp } from './profile/ProfileCommon.js'
 import { profileArtisList } from './profile/ProfileArtis.js'
-import { profileDetail } from './profile/ProfileDetail.js'
+import ProfileDetail from './profile/ProfileDetail.js'
 import ProfileStat from './profile/ProfileStat.js'
 import ProfileList from './profile/ProfileList.js'
 import { uploadCharacterImg, delProfileImg, profileImgList } from './character/ImgUpload.js'
@@ -16,13 +16,13 @@ let app = App.init({
 app.reg({
   profileDetail: {
     name: '角色面板',
-    fn: profileDetail,
-    rule: /^#*([^#]+)\s*(详细|详情|面板|面版|圣遗物|伤害[1-7]?)\s*(\d{9})*(.*[换变改].*)?$/
+    fn: ProfileDetail.detail,
+    rule: /^#*([^#]+)\s*(详细|详情|面板|面版|圣遗物|武器[1-7]?|伤害[1-7]?)\s*(\d{9})*(.*[换变改].*)?$/
   },
 
   profileChange: {
     name: '角色面板计算',
-    fn: profileDetail,
+    fn: ProfileDetail.detail,
     rule: /^#.+换.+$/
   },
 

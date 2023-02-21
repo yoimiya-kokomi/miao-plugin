@@ -18,6 +18,10 @@ export default class ProfileData extends AvatarData {
     return this.isProfile
   }
 
+  get imgs(){
+    return this.char.getImgs(this.costume)
+  }
+
   get costumeSplash () {
     let costume = this._costume
     costume = this.char.checkCostume(costume) ? '2' : ''

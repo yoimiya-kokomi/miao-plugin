@@ -56,7 +56,12 @@ export default class ProfileReq extends Base {
     }
   }
 
+  log (msg) {
+    logger.mark(`${logger.cyan(`【面板】${this.uid}`)} ：${msg}`)
+  }
+
   async requestProfile (player, serv) {
+    let self = this
     this.serv = serv
     let uid = this.uid
     let reqParam = await serv.getReqParam(uid)
@@ -65,7 +70,6 @@ export default class ProfileReq extends Base {
       return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
-    let self = this
     // 若3秒后还未响应则返回提示
     setTimeout(() => {
       if (self._isReq) {
@@ -73,7 +77,8 @@ export default class ProfileReq extends Base {
       }
     }, 3000)
     // 发起请求
-    logger.mark(`面板请求UID:${uid}，面板服务：${serv.name}...`)
+    this.log(`${logger.yellow('开始请求数据')}，面板服务：${serv.name}...`)
+    const startTime = new Date() * 1
     let data = {}
     try {
       let params = reqParam.params || {}
@@ -82,6 +87,8 @@ export default class ProfileReq extends Base {
       let req = await fetch(reqParam.url, params)
       data = await req.text()
       self._isReq = false
+      const reqTime = new Date() * 1 - startTime
+      this.log(`${logger.green(`请求结束，请求用时${reqTime}ms`)}，面板服务：${serv.name}...`)
       if (data[0] === '<') {
         let titleRet = /<title>(.+)<\/title>/.exec(data)
         if (titleRet && titleRet[1]) {

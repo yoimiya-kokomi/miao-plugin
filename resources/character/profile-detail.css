@@ -359,14 +359,16 @@ body {
 .profile-mode .dmg-title {
   width: 33.3333%;
 }
-.dmg-mode .dmg-idx {
+.dmg-mode .dmg-idx,
+.weapon-mode .dmg-idx {
   display: table-cell;
   width: 5%;
   min-width: initial;
   padding-right: 0;
   text-align: center;
 }
-.dmg-mode .dmg-title {
+.dmg-mode .dmg-title,
+.weapon-mode .dmg-title {
   width: 31%;
   min-width: initial;
   text-align: left;

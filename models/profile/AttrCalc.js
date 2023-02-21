@@ -120,34 +120,12 @@ class AttrCalc {
   setWeaponAttr () {
     let wData = this.profile?.weapon || {}
     let weapon = Weapon.get(wData?.name)
-    let level = wData.level
-    let promote = lodash.isUndefined(wData.promote) ? -1 : wData.promote
-    let lvLeft = 1
-    let lvRight = 20
-    let lvStep = [1, 20, 40, 50, 60, 70, 80, 90]
-    let currPromote = 0
-    for (let idx = 0; idx < lvStep.length - 1; idx++) {
-      if (promote === -1 || (currPromote === promote)) {
-        if (level >= lvStep[idx] && level <= lvStep[idx + 1]) {
-          lvLeft = lvStep[idx]
-          lvRight = lvStep[idx + 1]
-          break
-        }
-      }
-      currPromote++
+    let wCalcRet = weapon.calcAttr(wData.level, wData.promote)
+
+    if (wCalcRet) {
+      this.addAttr('atkBase', wCalcRet.atkBase)
+      this.addAttr(wCalcRet.key, wCalcRet.value)
     }
-    let wAttr = weapon?.detail?.attr || {}
-    let wAtk = wAttr.atk || {}
-    let valueLeft = wAtk[lvLeft + '+'] || wAtk[lvLeft] || {}
-    let valueRight = wAtk[lvRight] || {}
-    this.addAttr('atkBase', valueLeft * 1 + ((valueRight - valueLeft) * (level - lvLeft) / (lvRight - lvLeft)))
-    let wBonus = wAttr.bonusData || {}
-    valueLeft = wBonus[lvLeft + '+'] || wBonus[lvLeft]
-    valueRight = wBonus[lvRight]
-    let stepCount = Math.ceil((lvRight - lvLeft) / 5)
-    let valueStep = (valueRight - valueLeft) / stepCount
-    let add = valueLeft + (stepCount - Math.ceil((lvRight - level) / 5)) * valueStep
-    this.addAttr(wAttr.bonusKey, add)
 
     let wBuffs = weaponBuffs[weapon.name] || []
     if (lodash.isPlainObject(wBuffs)) {
