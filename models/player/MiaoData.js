@@ -45,16 +45,15 @@ let MiaoData = {
 
   getTalentNew (charid, data = {}) {
     let char = Character.get(charid)
-    let { talentId = {}, talentElem = {}, talentKey = {} } = char.meta
+    let { talentId = {}, talentElem = {} } = char.meta
     let elem = ''
     let idx = 0
     let ret = {}
     lodash.forEach(data, (level, id) => {
       let key
       if (talentId[id]) {
-        let tid = talentId[id]
-        key = talentKey[tid]
-        elem = elem || talentElem[tid]
+        key = talentId[id]
+        elem = elem || talentElem[id]
         ret[key] = level
       } else {
         key = ['a', 'e', 'q'][idx]
@@ -70,16 +69,15 @@ let MiaoData = {
 
   getTalent (charid, data = {}) {
     let char = Character.get(charid)
-    let { talentId = {}, talentElem = {}, talentKey = {} } = char.meta
+    let { talentId = {}, talentElem = {} } = char.meta
     let elem = ''
     let idx = 0
     let ret = {}
     lodash.forEach(data, (ds) => {
       let key
       if (talentId[ds.id]) {
-        let tid = talentId[ds.id]
-        key = talentKey[tid]
-        elem = elem || talentElem[tid]
+        key = talentId[ds.id]
+        elem = elem || talentElem[ds.id]
         ret[key] = {
           level: ds.level
         }

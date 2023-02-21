@@ -43,16 +43,15 @@ let EnkaData = {
 
   getTalent (charid, ds = {}) {
     let char = Character.get(charid)
-    let { talentId = {}, talentElem = {}, talentKey = {} } = char.meta
+    let { talentId = {}, talentElem = {} } = char.meta
     let elem = ''
     let idx = 0
     let ret = {}
     lodash.forEach(ds, (lv, id) => {
       let key
       if (talentId[id]) {
-        let tid = talentId[id]
-        key = talentKey[tid]
-        elem = elem || talentElem[tid]
+        let key = talentId[id]
+        elem = elem || talentElem[id]
         ret[key] = lv
       } else {
         key = ['a', 'e', 'q'][idx++]

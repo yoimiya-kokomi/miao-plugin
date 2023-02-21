@@ -76,25 +76,6 @@ export default class MysApi {
     }
   }
 
-  static async checkRetCode (retcode) {
-    switch (retcode) {
-      case -1:
-      case -100:
-      case 1001:
-      case 10001:
-      case 10103:
-        return 'CK失效或报错'
-      case 1008:
-        return '请先去米游社绑定角色'
-      case 10101:
-        return '查询已达今日上限'
-      case 10102:
-        return '请先去米游社绑定角色或公开数据'
-      case 1034:
-        return '米游社查询遇到验证码，请稍后再试'
-    }
-  }
-
   async getMysApi (e, targetType = 'all', option = {}) {
     if (this.mys) {
       return this.mys
@@ -109,6 +90,7 @@ export default class MysApi {
     }
     let e = this.e
     let mys = await this.getMysApi(e, api, { log: false })
+    let mysInfo = this.mysInfo || {}
     // 暂时先在plugin侧阻止错误，防止刷屏
     e._original_reply = e._original_reply || e.reply
     e._reqCount = e._reqCount || 0
@@ -122,6 +104,7 @@ export default class MysApi {
     }
     e._reqCount++
     let ret = await mys.getData(api, data)
+    ret = await mysInfo.checkCode(ret, api)
     e._reqCount--
     if (e._reqCount === 0) {
       e.reply = e._original_reply

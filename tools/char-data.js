@@ -1,4 +1,3 @@
-import fs from 'fs'
 import cheerio from 'cheerio'
 import lodash from 'lodash'
 import fetch from 'node-fetch'
@@ -7,14 +6,7 @@ import CharData from './sprider/CharData.js'
 import { Data } from '../components/index.js'
 import tId from './sprider/TalentId.js'
 
-const _path = process.cwd()
-const _root = _path + '/plugins/miao-plugin/'
-const _mRoot = _root + 'resources/meta/material/'
-
-let mData = {}
-if (fs.existsSync(_mRoot + 'data.json')) {
-  mData = JSON.parse(fs.readFileSync(_mRoot + 'data.json', 'utf8'))
-}
+let mData = Data.readJSON('/resources/meta/material/data.json')
 
 const tElems = ['anemo', 'geo', 'electro', 'dendro']
 
@@ -83,12 +75,6 @@ let getCharData = async function (id, key, name = '', _id = id) {
       detail.attr = attr
       detail.elem = tElems[idx]
       details.push(detail)
-      lodash.forEach(detail.talent, (ds, k) => {
-        talentKey[ds.id] = k
-        if (k === 'e' || k === 'q') {
-          talentElem[ds.id] = tElems[idx]
-        }
-      })
       const te = {
         anemo: 4,
         geo: 6,
@@ -99,6 +85,12 @@ let getCharData = async function (id, key, name = '', _id = id) {
       lodash.forEach(tId[cid].ProudMap || {}, (v, k) => {
         talentId[k] = v
       })
+      lodash.forEach(detail.talent, (ds, k) => {
+        talentKey[ds.id] = k
+        if (k === 'e' || k === 'q') {
+          talentElem[ds.id] = tElems[idx]
+        }
+      })
     }
   } else {
     let detail = CharData.getDetail({ $, id, name })
@@ -107,10 +99,18 @@ let getCharData = async function (id, key, name = '', _id = id) {
   }
   let detail = details[0]
   let { talent, cons } = detail
-  data.talentKey = talentKey || lodash.invert(lodash.mapValues(talent, (t) => t.id))
-  data.talentId = talentId
+  talentKey = talentKey || lodash.invert(lodash.mapValues(talent, (t) => t.id))
+  data.talentId = {}
+  let talentKeyId = {}
+  lodash.forEach(talentId, (tid, id) => {
+    data.talentId[id] = talentKey[tid]
+    talentKeyId[tid] = id
+  })
   if (data.elem === 'multi') {
-    data.talentElem = talentElem
+    data.talentElem = {}
+    lodash.forEach(talentElem, (elem, tid) => {
+      data.talentElem[talentKeyId[tid]] = elem
+    })
   }
   data.talentCons = CharData.getConsTalent(talent, cons)
   data.materials = CharData.getMaterials($, mData)
@@ -158,14 +158,17 @@ async function saveCharData (id, key, name = '', force = false, _id = id) {
   if (eta[name]) {
     data.eta = new Date(`${eta[name]} 10:00:00`) * 1
   }
-  let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/`
-  fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, '', 2).replaceAll('\n', '\r\n'))
+  let charPath = `/resources/meta/character/${name}/`
+  // fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, '', 2).replaceAll('\n', '\r\n'))
+  Data.writeJSON({ path: charPath, name: 'data.json', data, rn: true })
   if (details.length === 1) {
-    fs.writeFileSync(`${charPath}detail.json`, JSON.stringify(details[0], '', 2).replaceAll('\n', '\r\n'))
+    // fs.writeFileSync(`${charPath}detail.json`, JSON.stringify(details[0], '', 2).replaceAll('\n', '\r\n'))
+    Data.writeJSON({ path: charPath, name: 'detail.json', data: details[0], rn: true })
   } else if (data.id === 20000000) {
     for (let idx in details) {
       let detail = details[idx]
-      fs.writeFileSync(`${charPath}/${detail.elem}/detail.json`, JSON.stringify(detail, '', 2).replaceAll('\n', '\r\n'))
+      // fs.writeFileSync(`${charPath}/${detail.elem}/detail.json`, JSON.stringify(detail, '', 2).replaceAll('\n', '\r\n'))
+      Data.writeJSON({ path: `${charPath}/${detail.elem}`, name: 'detail.json', data: detail, rn: true })
     }
   }
 
@@ -187,12 +190,13 @@ async function down (name = '', force = false) {
       ds = ds.split(',')
       ds = { key: ds[0], name: ds[1] }
     }
+
     if (!names.includes(id) && !names.includes(ds.key) && !names.includes(ds.name)) {
       continue
     }
     await saveCharData(ds.id || id, ds.key, ds.name, force, id)
   }
-  fs.writeFileSync(`${_mRoot}data.json`, JSON.stringify(mData, '', 2).replaceAll('\n', '\r\n'))
+  Data.writeJSON({ name: '/resources/meta/material/data.json', data: mData, rn: true })
 }
 
 const charData = {
@@ -275,4 +279,4 @@ let eta = {
   迪希雅: '2023-03-01',
   米卡: '2023-03-01'
 }
-await down('迪希雅,米卡', true)
+await down('香菱', true)

@@ -51,12 +51,26 @@ let Data = {
   /*
   * 写JSON
   * */
-  writeJSON (file, data, space = '\t', root = '') {
+  writeJSON (cfg, data, space = '\t', root = '') {
+    if (arguments.length > 1) {
+      return Data.writeJSON({
+        name: cfg,
+        data,
+        space,
+        root
+      })
+    }
     // 检查并创建目录
-    Data.createDir(file, root, true)
-    root = getRoot(root)
+    let name = cfg.path ? (cfg.path + '/' + cfg.name) : cfg.name
+    Data.createDir(name, cfg.root, true)
+    root = getRoot(cfg.root)
+    data = cfg.data
     delete data._res
-    return fs.writeFileSync(`${root}/${file}`, JSON.stringify(data, null, space))
+    data = JSON.stringify(data, null, cfg.space || 2)
+    if (cfg.rn) {
+      data = data.replaceAll('\n', '\r\n')
+    }
+    return fs.writeFileSync(`${root}/${name}`, data)
   },
   delFile (file, root = '') {
     root = getRoot(root)
