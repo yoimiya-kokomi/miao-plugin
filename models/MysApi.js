@@ -90,6 +90,9 @@ export default class MysApi {
     }
     let e = this.e
     let mys = await this.getMysApi(e, api, { log: false })
+    if (!mys) {
+      return false
+    }
     let mysInfo = this.mysInfo || {}
     // 暂时先在plugin侧阻止错误，防止刷屏
     e._original_reply = e._original_reply || e.reply

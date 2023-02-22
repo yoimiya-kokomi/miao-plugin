@@ -160,9 +160,7 @@ let ProfileDetail = {
 
     let artisDetail = profile.getArtisMark()
     let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
-    let costumeSplash = profile.costumeSplash
-    // 渲染图像
-    let msgRes = await Common.render('character/profile-detail', {
+    let renderData = {
       save_id: uid,
       uid,
       data: profile.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime,imgs,costumeSplash'),
@@ -175,12 +173,14 @@ let ProfileDetail = {
       mode,
       wCfg,
       changeProfile: e._profileMsg
-    }, { e, scale: 1.6, retMsgId: true })
+    }
+    // 渲染图像
+    let msgRes = await Common.render('character/profile-detail', renderData, { e, scale: 1.6, retMsgId: true })
     if (msgRes && msgRes.message_id) {
       // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
       await redis.set(`miao:original-picture:${msgRes.message_id}`, JSON.stringify({
         type: 'profile',
-        img: costumeSplash
+        img: renderData?.data?.costumeSplash
       }), { EX: 3600 * 3 })
     }
     return true

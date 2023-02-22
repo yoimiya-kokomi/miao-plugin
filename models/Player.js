@@ -27,7 +27,7 @@ export default class Player extends Base {
     }
     this.uid = uid
     this.reload()
-    return this._cache()
+    return this._cache(100)
   }
 
   get hasProfile () {

@@ -21,6 +21,9 @@ export default async function (path, params, cfg) {
         sys: {
           scale: Cfg.scale(cfg.scale || 1),
           copyright: `Created By Yunzai-Bot<span class="version">${Version.yunzai}</span> & Miao-Plugin<span class="version">${Version.version}</span>`
+        },
+        pageGotoParams: {
+          waitUntil: 'networkidle2'
         }
       }
     }

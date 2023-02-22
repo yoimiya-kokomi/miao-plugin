@@ -8,7 +8,8 @@
 
 {{set dataSource = data.dataSource}}
 {{set talentMap = {a: '普攻', e: '战技', q: '爆发'} }}
-{{set {imgs,costumeSplash} = data }}
+{{set {imgs, costumeSplash} = data }}
+{{set imgs = imgs || {} }}
 
 {{block 'main'}}
 <div class="basic">
@@ -142,7 +143,7 @@
 
 
 <!-- 【 伤害表格 】 -->
-{{ set {dmgRet, dmgCfg, enemyName, dmgMsg, dmgData} = dmgCalc }}
+{{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData} = dmgCalc }}
 <div>
   {{if mode === "profile"}}
   <div class="cont">
@@ -152,7 +153,7 @@
   </div>
   {{/if}}
 
-  {{if dmgData.length > 0}}
+  {{if dmgData?.length > 0}}
   <div class="dmg-cont dmg-list cont">
     <div class="cont-title">
       伤害计算<span>目标为{{enemyLv}}级{{enemyName||'小宝'}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置</span>
@@ -188,7 +189,7 @@
 <!-- 【 伤害变化详情 】 -->
 <div>
   {{if mode === "dmg"}}
-  {{if dmgCfg && dmgCfg.attr && dmgCfg.attr.length>0 && dmgRet && dmgRet.length >3}}
+  {{if dmgCfg && dmgCfg.attr && dmgCfg.attr.length>0 && dmgRet}}
   <div class="dmg-calc dmg-cont cont">
     <div class="cont-title">
       词条伤害计算<span>#{{data.abbr}}伤害{{dmgCfg.userIdx+1}}: 当前计算为[{{dmgCfg.title}}]</span>

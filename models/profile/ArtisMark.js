@@ -241,8 +241,10 @@ let ArtisMark = {
   hasAttr (artis) {
     for (let idx = 1; idx <= 5; idx++) {
       let ds = artis[idx]
-      if (ds && (!ds.name || !ds.main || !ds.attrs || !ds?.main?.key)) {
-        return false
+      if (ds) {
+        if (!ds.name || !ds.main || !ds.attrs || !ds?.main?.key) {
+          return false
+        }
       }
     }
     return true

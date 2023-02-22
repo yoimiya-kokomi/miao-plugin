@@ -76,6 +76,12 @@ export const cfgSchema = {
         input: (n) => n * 1 === 1 ? 1 : 2,
         desc: '面板服务优先选择：1：自动（具备有效Token时优先喵喵Api，否则Enka），2：Enka服务优先'
       },
+      costumeSplash: {
+        title: '使用自定义面板插图',
+        key: '面板图',
+        def: true,
+        desc: '开启彩蛋图（三皇冠/ACE/满命）及自定义面板图，关闭使用官方立绘'
+      },
       teamCalc: {
         title: '组队加成伤害',
         key: '组队',

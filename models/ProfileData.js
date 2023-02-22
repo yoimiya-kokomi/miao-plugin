@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import AvatarData from './AvatarData.js'
-import { Data } from '../components/index.js'
+import { Data, Cfg } from '../components/index.js'
 import { ProfileArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile/AttrCalc.js'
 import CharImg from './character/CharImg.js'
@@ -18,13 +18,17 @@ export default class ProfileData extends AvatarData {
     return this.isProfile
   }
 
-  get imgs(){
-    return this.char.getImgs(this.costume)
+  get imgs () {
+    return this.char.getImgs(this.costume) || {}
   }
 
   get costumeSplash () {
     let costume = this._costume
     costume = this.char.checkCostume(costume) ? '2' : ''
+
+    if (!Cfg.get('costumeSplash', true)) {
+      return this.char.getImgs(this._costume).splash
+    }
 
     let nPath = `meta/character/${this.name}`
     let isSuper = false

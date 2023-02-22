@@ -193,10 +193,15 @@ export default class ProfileDmg extends Base {
         detail = detailMap[0]
       }
 
+      if (lodash.isFunction(detail)) {
+        let { attr } = DmgAttr.calcAttr({ originalAttr, buffs, meta })
+        let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
+        detail = detail({ ...ds, attr, profile })
+      }
       dmgDetail = {
         title: detail.title,
-        userIdx: detail.userIdx,
-        basicRet: lodash.merge({}, ret[detail.userIdx]),
+        userIdx: detail.userIdx || defDmgIdx,
+        basicRet: lodash.merge({}, ret[detail.userIdx] || ret[defDmgIdx]),
         attr: []
       }
 
