@@ -124,7 +124,7 @@ class AttrCalc {
 
     if (wCalcRet) {
       this.addAttr('atkBase', wCalcRet.atkBase)
-      this.addAttr(wCalcRet.key, wCalcRet.value)
+      this.addAttr(wCalcRet.attr?.key, wCalcRet.attr?.value)
     }
 
     let wBuffs = weaponBuffs[weapon.name] || []
