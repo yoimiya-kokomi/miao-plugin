@@ -62,6 +62,7 @@ export default class AvatarData extends Base {
     return {
       enka: 'Enka.Network',
       miao: '喵喵Api',
+      mgg: 'MiniGG-API',
       mys: '米游社'
     }[this._source] || this._source
   }

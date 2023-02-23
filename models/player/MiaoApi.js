@@ -6,6 +6,10 @@ export default {
   key: 'miao',
   name: '喵喵Api',
   cfgKey: 'miaoApi',
+  async request (api) {
+    api = this.getCfg('api') || api
+    return { api }
+  },
   async response (data, req) {
     if (data.status !== 0) {
       return req.err(data.msg || 'error', 60)

@@ -3,7 +3,7 @@ import { attrMap, idsMap, artisIdxMap } from './ProfileMeta.js'
 import { Character, ArtifactSet } from '../index.js'
 
 let EnkaData = {
-  setAvatar (player, data) {
+  setAvatar (player, data, dataSource = 'enka') {
     let char = Character.get(data.avatarId)
     if (!char) {
       return
@@ -20,7 +20,7 @@ let EnkaData = {
       weapon: EnkaData.getWeapon(data.equipList),
       talent: talentRet.talent,
       artis: EnkaData.getArtifact(data.equipList)
-    }, 'enka')
+    }, dataSource)
     return avatar
   },
 

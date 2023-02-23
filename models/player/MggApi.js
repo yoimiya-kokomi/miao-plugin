@@ -2,27 +2,14 @@ import lodash from 'lodash'
 import { Data } from '../../components/index.js'
 import EnkaData from './EnkaData.js'
 
-let HttpsProxyAgent = ''
-
 export default {
-  id: 'enka',
-  cfgKey: 'enkaApi',
+  id: 'mgg',
+  name: 'MiniGG-Api',
+  cfgKey: 'mggApi',
   // 处理请求参数
   async request (api) {
     let params = {
       headers: { 'User-Agent': this.getCfg('userAgent') }
-    }
-    let proxy = this.getCfg('proxyAgent')
-    if (proxy) {
-      if (HttpsProxyAgent === '') {
-        HttpsProxyAgent = await import('https-proxy-agent').catch((err) => {
-          logger.error(err)
-        })
-        HttpsProxyAgent = HttpsProxyAgent ? HttpsProxyAgent.default : undefined
-      }
-      if (HttpsProxyAgent) {
-        params.agent = new HttpsProxyAgent(proxy)
-      }
     }
     return { api, params }
   },
@@ -45,7 +32,7 @@ export default {
   updatePlayer (player, data) {
     player.setBasicData(Data.getData(data, 'name:nickname,face:profilePicture.avatarID,card:nameCardID,level,word:worldLevel,sign:signature'))
     lodash.forEach(data.avatarInfoList, (ds) => {
-      let ret = EnkaData.setAvatar(player, ds)
+      let ret = EnkaData.setAvatar(player, ds, 'mgg')
       if (ret) {
         player._update.push(ret.id)
       }

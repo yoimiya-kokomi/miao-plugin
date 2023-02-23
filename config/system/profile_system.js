@@ -4,16 +4,25 @@
 * */
 
 export const miaoApi = {
-  listApi: ({ uid, diyCfg }) => {
+  listApi: ({ url, uid, diyCfg }) => {
     let qq = /\d{5,12}/.test(diyCfg.qq) ? diyCfg.qq : 'none'
     let token = diyCfg.token
-    return `http://miaoapi.cn/profile/data?uid=${uid}&qq=${qq}&token=${token}&version=2`
+    url = url || 'http://miaoapi.cn/'
+    return `${url}profile/data?uid=${uid}&qq=${qq}&token=${token}&version=2`
   }
 }
 
 export const enkaApi = {
   url: 'https://enka.network/',
-  userAgent: 'Miao-Plugin/3.0',
+  userAgent: 'Miao-Plugin/3.1',
+  listApi: ({ url, uid, diyCfg }) => {
+    return `${url}api/uid/${uid}/`
+  }
+}
+
+export const mggApi = {
+  url: 'https://profile.microgg.cn/',
+  userAgent: 'Miao-Plugin/3.1',
   listApi: ({ url, uid, diyCfg }) => {
     return `${url}api/uid/${uid}/`
   }

@@ -68,13 +68,13 @@ export const cfgSchema = {
         input: (n) => Math.min(30, Math.max(5, (n * 1 || 15))),
         desc: '可选值5~30，建议15。设置高排名人数会提高图片的长度，图片较大可能会影响渲染与发送速度'
       },
-      profileServ: {
+      profileServer: {
         title: '面板服务',
         key: '面板服务',
         type: 'num',
-        def: 1,
-        input: (n) => n * 1 === 1 ? 1 : 2,
-        desc: '面板服务优先选择：1：自动（具备有效Token时优先喵喵Api，否则Enka），2：Enka服务优先'
+        def: 0,
+        input: (n) => /[0-3]{1,3}/.test(n) ? n : 0,
+        desc: '面板服务选择：0:自动，1:喵Api(需具备Token)， 2:Enka-API， 3:MiniGG-Api。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如112代表国服B服Miao,国外Enka'
       },
       costumeSplash: {
         title: '使用自定义面板插图',
