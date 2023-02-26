@@ -36,12 +36,23 @@ let Gacha = {
     }, { e, scale: 1.1, retMsgId: true })
   },
   async stat (e) {
+    let msg = e.msg.replace(/#|统计|分析|池/g, '')
+    let type = 'up'
+    if (/武器/.test(msg)) {
+      type = 'weapon'
+    } else if (/角色/.test(msg)) {
+      type = 'char'
+    } else if (/常驻/.test(msg)) {
+      type = 'normal'
+    } else if (/全部/.test(msg)) {
+      type = 'all'
+    }
     let uid = e.uid || await getTargetUid(e)
     let qq = e.user_id
     if (!uid || !qq) {
       return false
     }
-    let gacha = GachaData.stat(e.user_id, uid)
+    let gacha = GachaData.stat(e.user_id, uid, type)
     await Common.render('gacha/gacha-stat', {
       save_id: uid,
       uid,

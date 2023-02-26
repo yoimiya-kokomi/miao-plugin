@@ -45,6 +45,7 @@
     <div class="cont-title">
       <div class="gacha-pool">
         <div class="version">
+          {{if vData.from}}
           <div class="version-name line">
             {{vData.version}}{{vData.half}}
           </div>
@@ -52,6 +53,9 @@
             <div class="name">{{vData.name}}</div>
             <div class="time">{{vData.from}}~{{vData.to}}</div>
           </div>
+          {{else}}
+          <div class="version-name all-version"> {{vData.version}}</div>
+          {{/if}}
         </div>
         <div class="stat-info">
           {{set keyMap = {totalNum:'总抽卡',star5Num:'金卡',upNum:'UP金卡', c4Num:'紫角色', w4Num:'紫武器'} }}

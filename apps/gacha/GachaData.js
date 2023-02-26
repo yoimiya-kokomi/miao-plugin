@@ -24,6 +24,8 @@ poolVersion.push({
 })
 
 let GachaData = {
+
+  // 获取JSON数据
   readJSON (qq, uid, type) {
     let logJson = []
     // 获取本地数据 进行数据合并
@@ -36,19 +38,43 @@ let GachaData = {
       if (!nameMap[ds.name]) {
         if (ds.item_type === '武器') {
           let weapon = Weapon.get(ds.name)
-          nameMap[ds.name] = weapon.id
-          itemMap[weapon.id] = {
-            type: 'weapon',
-            count: 0,
-            ...weapon.getData('star,name,abbr,img')
+          if (weapon) {
+            nameMap[ds.name] = weapon.id
+            itemMap[weapon.id] = {
+              type: 'weapon',
+              count: 0,
+              ...weapon.getData('star,name,abbr,img')
+            }
+          } else {
+            nameMap[ds.name] = 403
+            itemMap[403] = {
+              type: 'weapon',
+              count: 0,
+              star: 3,
+              name: '未知',
+              abbr: '未知',
+              img: ''
+            }
           }
         } else if (ds.item_type === '角色') {
           let char = Character.get(ds.name)
-          nameMap[ds.name] = char.id
-          itemMap[char.id] = {
-            type: 'char',
-            count: 0,
-            ...char.getData('star,name,abbr,img:face')
+          if (char) {
+            nameMap[ds.name] = char.id
+            itemMap[char.id] = {
+              type: 'char',
+              count: 0,
+              ...char.getData('star,name,abbr,img:face')
+            }
+          } else {
+            nameMap[ds.name] = 404
+            itemMap[404] = {
+              type: 'char',
+              count: 0,
+              star: 4,
+              name: '未知',
+              abbr: '未知',
+              img: ''
+            }
           }
         }
       }
@@ -66,6 +92,7 @@ let GachaData = {
     items = items.sort((a, b) => b.time - a.time)
     return { items, itemMap }
   },
+
   // 卡池分析
   analyse (qq, uid, type) {
     let logData = GachaData.readJSON(qq, uid, type)
@@ -207,12 +234,27 @@ let GachaData = {
 
   // 卡池统计
   stat (qq, uid, type) {
-    let charData = GachaData.readJSON(qq, uid, 301)
-    let weaponData = GachaData.readJSON(qq, uid, 302)
+    let items = []
+    let itemMap = {}
+    let hasVersion = true
+    let loadData = function (poolId) {
+      let gachaData = GachaData.readJSON(qq, uid, poolId)
+      items = items.concat(gachaData.items)
+      lodash.extend(itemMap, gachaData.itemMap || {})
+    }
+    console.log('gacha data', type)
+    if (['up', 'char', 'all'].includes(type)) {
+      loadData(301)
+    }
+    if (['up', 'weapon', 'all'].includes(type)) {
+      loadData(302)
+    }
+    if (['all', 'normal'].includes(type)) {
+      hasVersion = false
+      loadData(200)
+    }
 
-    let items = charData.items.concat(weaponData.items || [])
     items = items.sort((a, b) => b.time - a.time)
-    let itemMap = lodash.extend({}, charData.itemMap, weaponData.itemMap)
 
     let versionData = []
     let currVersion
@@ -223,8 +265,8 @@ let GachaData = {
         let temp = {
           version: cv.version,
           half: cv.half,
-          from: moment(new Date(cv.from)).format('YY-MM-DD'),
-          to: moment(new Date(cv.to)).format('YY-MM-DD'),
+          from: hasVersion ? moment(new Date(cv.from)).format('YY-MM-DD') : '',
+          to: hasVersion ? moment(new Date(cv.to)).format('YY-MM-DD') : '',
           upIds: {}
         }
         let upName = {}
@@ -290,11 +332,14 @@ let GachaData = {
     }
 
     lodash.forEach(items, (ds) => {
-      if (!currVersion || ds.time < currVersion.start) {
+      if (!currVersion || (ds.time < currVersion.start && hasVersion)) {
         if (currVersion) {
           versionData.push(getCurr())
         }
-        let v = GachaData.getVersion(ds.time)
+        let v = GachaData.getVersion(ds.time, hasVersion)
+        if (!hasVersion) {
+          v.version = type === 'all' ? '全部统计' : '常驻池'
+        }
         if (!v) {
           console.log('no v')
           return true
@@ -318,13 +363,22 @@ let GachaData = {
     }
   },
 
-  getVersion (time) {
-    for (let ds of poolVersion) {
-      if (time > ds.start && time < ds.end) {
-        return ds
+  getVersion (time, hasVersion = true) {
+    if (hasVersion) {
+      for (let ds of poolVersion) {
+        if (time > ds.start && time < ds.end) {
+          return ds
+        }
       }
     }
-    return false
+    return {
+      version: hasVersion === false ? '全部' : '未知',
+      half: '',
+      char5: [],
+      char4: [],
+      weapon5: [],
+      weapon4: []
+    }
   },
 
   getItem (ds) {

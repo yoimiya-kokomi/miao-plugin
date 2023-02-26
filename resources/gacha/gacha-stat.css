@@ -38,6 +38,10 @@
   font-weight: bold;
   text-align: right;
 }
+.gacha-pool .version-name.all-version {
+  width: 130px;
+  text-align: center;
+}
 .gacha-pool .pool-name {
   width: 125px;
   text-align: left;
