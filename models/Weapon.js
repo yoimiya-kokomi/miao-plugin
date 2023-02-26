@@ -14,6 +14,7 @@ class Weapon extends Base {
     if (cache) {
       return cache
     }
+    this.id = meta.id
     this.name = meta.name
     this.meta = meta
     this.type = meta.type

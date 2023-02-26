@@ -1,0 +1,117 @@
+.cont-title {
+  padding: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+.gacha-pool {
+  display: flex;
+  text-align: center;
+}
+.gacha-pool > div {
+  padding: 10px;
+  height: 56px;
+}
+.gacha-pool .line {
+  padding-right: 15px;
+  position: relative;
+}
+.gacha-pool .line:after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 15px;
+  position: absolute;
+  top: 12px;
+  right: 7px;
+  background: #d3bc8e;
+}
+.gacha-pool .version {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 0;
+  display: flex;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+.gacha-pool .version-name {
+  width: 100px;
+  line-height: 36px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: right;
+}
+.gacha-pool .pool-name {
+  width: 125px;
+  text-align: left;
+}
+.gacha-pool .pool-name .name {
+  height: 22px;
+  line-height: 22px;
+}
+.gacha-pool .pool-name .time {
+  font-size: 12px;
+  line-height: 14px;
+  height: 14px;
+  color: #888;
+}
+.gacha-pool .stat-info {
+  display: flex;
+  padding: 8px 20px 0;
+}
+.gacha-pool .stat-info .info {
+  min-width: 60px;
+  padding: 0 20px 0 10px;
+}
+.gacha-pool .stat-info .info .num {
+  height: 25px;
+  line-height: 25px;
+  font-size: 20px;
+  text-shadow: 0 0 2px #000;
+}
+.gacha-pool .stat-info .info .title {
+  font-size: 12px;
+  line-height: 14px;
+  height: 14px;
+  color: #888;
+}
+.gacha-pool .stat-info .info:last-child:after {
+  display: none;
+}
+.gacha-stat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 8px;
+}
+.gacha-stat .gacha-item {
+  text-align: center;
+}
+.gacha-stat .gacha-item .item-card {
+  width: 69px;
+}
+.gacha-stat .item-life {
+  top: initial;
+  left: initial;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px 0 0 0;
+  font-size: 16px;
+  padding: 0 6px;
+  min-width: 20px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+}
+.gacha-stat .item-life.life5 {
+  background: #ffeb73;
+  color: #6f4b00;
+  box-shadow: 0 0 3px 0 #6f4b00;
+}
+.gacha-stat .item-life.life1 {
+  background: #333;
+  color: #fff;
+}
+.gacha-stat .item-name {
+  font-size: 15px;
+  line-height: 24px;
+}
+/*# sourceMappingURL=gacha-stat.css.map */

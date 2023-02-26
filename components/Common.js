@@ -10,6 +10,10 @@ const Common = {
     return new Promise((resolve) => setTimeout(resolve, ms))
   },
 
+  async downFile () {
+    console.log('down file')
+  },
+
   async getNoteQQUids (e) {
     let ret = {}
     if (Version.isV3) {

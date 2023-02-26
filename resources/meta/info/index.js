@@ -1,4 +1,6 @@
-// 报箱数统计
+export * from './pool.js'
+
+// 宝箱数统计
 export const chestInfo = {
   common: {
     title: '普通宝箱',
