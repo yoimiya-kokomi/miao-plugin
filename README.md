@@ -73,12 +73,10 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 > 
 > 如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在[Enka官网](http://enka.network/) Discord联系
 > 
-> [issue#63](https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199734496) :
-> 国内网络如Enka服务访问不稳定，可尝试更换 [@MiniGrayGay](https://github.com/MiniGrayGay) 大佬提供的中转服务 复制`config/profile_default.js`
-> 为`config/profile.js`，修改其中enkaApi的url配置，配置完成后重启Bot即可生效
-> 
-> * 【链接1】：https://enka.microgg.cn/
-> * 【链接2】：https://enka.minigg.cn/
+> [issue#63](https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199734496)
+
+> 可尝试使用`MiniGG-Api`面板服务 [@MiniGrayGay](https://github.com/MiniGrayGay)<br>
+> 发送 `#喵喵设置面板服务332` 修改国服&B服的面板查询由 `MiniGG-Api` 处理
 
 #### #雷神伤害
 

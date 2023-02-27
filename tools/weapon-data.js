@@ -14,6 +14,7 @@ for (let type of types) {
 }
 
 let mData = Data.readJSON('resources/meta/material/data.json')
+let weaponIdMap = Data.readJSON('tools/meta/weapon.json')
 
 let getWeaponTypeData = async function (type) {
   let url = `https://genshin.honeyhunterworld.com/fam_${type}/?lang=CHS`
@@ -42,19 +43,23 @@ let getWeaponTypeData = async function (type) {
       let name = a.text()
       let idRet = /i_(.*)\//.exec(a.attr('href'))
       let star = cheerio.load(ds[2])('img').length
-      let id = idRet && idRet[1] ? idRet[1] : ''
+      let wid = idRet && idRet[1] ? idRet[1] : ''
       ret[type] = ret[type] || {}
-      ret[type][name] = {
-        id,
+      let tmp = {
+        id: weaponIdMap[name] || '',
         name,
         star
       }
+      if (wid !== 'n' + tmp.id) {
+        tmp.wid = wid
+      }
+      ret[type][name] = tmp
     })
   }
 }
 let getWeaponData = async function (type, ds) {
   let { id, name } = ds
-  let url = `https://genshin.honeyhunterworld.com/i_${id}/?lang=CHS`
+  let url = `https://genshin.honeyhunterworld.com/i_n${id}/?lang=CHS`
   console.log(`req:[${name}], ${url}`)
   let req = await fetch(url, {
     method: 'GET',
@@ -87,17 +92,17 @@ async function down (t, n) {
     }
     await getWeaponTypeData(type)
     Data.createDir(`resources/meta/weapon/${type}`)
-    Data.writeJSON(`resources/meta/weapon/${type}/data.json`, ret[type])
+    Data.writeJSON({ name: `resources/meta/weapon/${type}/data.json`, data: ret[type], rn: true })
 
     let imgs = []
-    for (let name in ret[type]) {
+    await Data.asyncPool(6, lodash.keys(ret[type]), async (name) => {
       if (n && n !== name) {
-        continue
+        return
       }
       let ds = ret[type][name]
       Data.createDir(`resources/meta/weapon/${type}/${ds.name}`)
       let data = await getWeaponData(type, ds)
-      Data.writeJSON(`resources/meta/weapon/${type}/${ds.name}/data.json`, data)
+      Data.writeJSON({ name: `resources/meta/weapon/${type}/${ds.name}/data.json`, data, rn: true })
       lodash.forEach({
         icon: '',
         awaken: '_awaken_icon',
@@ -108,7 +113,7 @@ async function down (t, n) {
           file: `${type}/${ds.name}/${key}.webp`
         })
       })
-    }
+    })
     const _path = process.cwd()
     const _root = _path + '/plugins/miao-plugin/'
     const _wRoot = _root + 'resources/meta/weapon/'
@@ -136,8 +141,8 @@ async function down (t, n) {
       }
     })
   }
-  Data.writeJSON('resources/meta/material/data.json', mData)
+  Data.writeJSON({ name: 'resources/meta/material/data.json', data: mData, rn: true })
 }
 
 // 'sword', 'claymore', 'polearm', 'bow', 'catalyst'
-await down('claymore', '苇海信标')
+await down('claymore', '')

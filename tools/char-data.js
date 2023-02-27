@@ -4,9 +4,9 @@ import fetch from 'node-fetch'
 import ImgDownloader from './sprider/ImgDown.js'
 import CharData from './sprider/CharData.js'
 import { Data } from '../components/index.js'
-import tId from './sprider/TalentId.js'
 
 let mData = Data.readJSON('/resources/meta/material/data.json')
+let tId = Data.readJSON('/tools/meta/talent.json')
 
 const tElems = ['anemo', 'geo', 'electro', 'dendro']
 
@@ -82,7 +82,7 @@ let getCharData = async function (id, key, name = '', _id = id) {
         dendro: 8
       }
       let cid = `1000000${id}-${id}0${te[tElems[idx]]}`
-      lodash.forEach(tId[cid].ProudMap || {}, (v, k) => {
+      lodash.forEach(tId[cid].talentId || {}, (v, k) => {
         talentId[k] = v
       })
       lodash.forEach(detail.talent, (ds, k) => {
@@ -95,7 +95,7 @@ let getCharData = async function (id, key, name = '', _id = id) {
   } else {
     let detail = CharData.getDetail({ $, id, name })
     details.push(detail)
-    talentId = tId[(10000000 + id * 1)]?.ProudMap || {}
+    talentId = tId[(10000000 + id * 1)]?.talentId || {}
   }
   let detail = details[0]
   let { talent, cons } = detail
@@ -279,4 +279,4 @@ let eta = {
   迪希雅: '2023-03-01',
   米卡: '2023-03-01'
 }
-await down('香菱', true)
+await down('迪希雅,米卡,艾尔海森', true)

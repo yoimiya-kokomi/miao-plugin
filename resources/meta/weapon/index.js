@@ -26,8 +26,6 @@ const attr = function (key, start, _step) {
   }
 }
 
-let ids = {}
-
 for (let type in weaponType) {
   // calc
   let typeCalc = await Data.importDefault(`resources/meta/weapon/${type}/calc.js`)
@@ -37,13 +35,8 @@ for (let type in weaponType) {
   // data
   let typeData = await Data.readJSON(`resources/meta/weapon/${type}/data.json`)
   lodash.forEach(typeData, (ds) => {
-    let id = ds.id.replace('n', '') * 1
-    if (ids[id]) {
-      console.log(ds.id, id)
-    }
-    ids[id] = true
     data[ds.name] = {
-      id,
+      id: ds.id,
       name: ds.name,
       type,
       star: ds.star
@@ -63,6 +56,7 @@ lodash.forEach(abbr, (a, name) => {
 })
 lodash.forEach(data, (ds, name) => {
   aliasMap[name] = name
+  aliasMap[ds.id] = name
 })
 
 export const weaponBuffs = calc

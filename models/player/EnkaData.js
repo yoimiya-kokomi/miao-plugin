@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { attrMap, idsMap, artisIdxMap } from './ProfileMeta.js'
-import { Character, ArtifactSet } from '../index.js'
+import { Character, ArtifactSet, Weapon } from '../index.js'
 
 let EnkaData = {
   setAvatar (player, data, dataSource = 'enka') {
@@ -32,9 +32,10 @@ let EnkaData = {
         return false
       }
     })
-    let { weapon, flat } = ds
+    let { weapon } = ds
+    let w = Weapon.get(ds.itemId)
     return {
-      name: idsMap[flat.nameTextMapHash],
+      name: w ? w.name : '',
       level: weapon.level,
       promote: weapon.promoteLevel,
       affix: (lodash.values(weapon.affixMap)[0] || 0) + 1

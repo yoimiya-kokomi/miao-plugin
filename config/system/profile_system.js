@@ -21,7 +21,7 @@ export const enkaApi = {
 }
 
 export const mggApi = {
-  url: 'https://profile.microgg.cn/',
+  url: 'http://profile.microgg.cn/',
   userAgent: 'Miao-Plugin/3.1',
   listApi: ({ url, uid, diyCfg }) => {
     return `${url}api/uid/${uid}/`
