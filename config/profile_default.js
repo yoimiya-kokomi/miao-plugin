@@ -14,7 +14,6 @@
 *
 * 目前使用Miao-Plugin的默认UA请求国服UID时
 * 会默认重定向 https://enka.network/ 到 https://profile.microgg.cn/
-* 如果没有外服uid查询请求，可直接在配置文件改为 https://profile.microgg.cn/
 *
 * 感谢@MiniGrayGay 大佬提供的服务(Github: https://github.com/MiniGrayGay)
 *
