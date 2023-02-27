@@ -10,8 +10,8 @@
   "birth": "8-11",
   "astro": "林鸽座",
   "desc": "平凡家庭出身的年轻骑士，在小队中担任「前进测绘员」一职。为人低调，谨小慎微。",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "cncv": "邓宥希",
+  "jpcv": "三瓶由布子",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -23,7 +23,11 @@
     "key": "hpPct",
     "value": 24
   },
-  "talentId": {},
+  "talentId": {
+    "10801": "a",
+    "10802": "e",
+    "10805": "q"
+  },
   "talentCons": {
     "e": 5,
     "q": 3

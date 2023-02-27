@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 
 const WeaponData = {
-  getBasic ($, id) {
+  getBasic ($) {
     let ret = {}
     let basic = $('.genshin_table.main_table:first')
     let title = function (title) {
@@ -141,10 +141,10 @@ const WeaponData = {
           let idRet = /i_([n\d]+)\//.exec(a.attr('href')) || []
           let starRet = /rar_bg_(\d)/.exec(a.find('>div').attr('class'))
           let id = idRet[1] || 0
-          id = id[0] === 'n' ? id : id * 1
+          id = (id[0] === 'n' ? id.replace(/^n/, '') : id) * 1
           let star = starRet[1] * 1 || 0
           if (id) {
-            $.imgs.add2(name, key, `img/i_${id}.webp`)
+            $.imgs.add2(name, key, `img/i_n${id}.webp`)
           } else {
             console.log('fail', a.attr('href'))
           }

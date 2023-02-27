@@ -36,6 +36,7 @@ for (let type in weaponType) {
   let typeData = await Data.readJSON(`resources/meta/weapon/${type}/data.json`)
   lodash.forEach(typeData, (ds) => {
     data[ds.name] = {
+      id: ds.id,
       name: ds.name,
       type,
       star: ds.star
@@ -55,6 +56,7 @@ lodash.forEach(abbr, (a, name) => {
 })
 lodash.forEach(data, (ds, name) => {
   aliasMap[name] = name
+  aliasMap[ds.id] = name
 })
 
 export const weaponBuffs = calc
