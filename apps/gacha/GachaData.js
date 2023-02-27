@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { Data } from '../../components/index.js'
 import { Character, Weapon } from '../../models/index.js'
-import { poolName, poolDetail } from '../../resources/meta/info/index.js'
+import { poolDetail } from '../../resources/meta/info/index.js'
 import moment from 'moment'
 
 let poolVersion = []
@@ -111,6 +111,9 @@ let GachaData = {
     let allNum = 0
 
     let itemMap = logData.itemMap
+    if (logData.items.length === 0) {
+      return false
+    }
     lodash.forEach(logData.items, (item) => {
       allNum++
       let ds = itemMap[item.id]
@@ -242,7 +245,6 @@ let GachaData = {
       items = items.concat(gachaData.items)
       lodash.extend(itemMap, gachaData.itemMap || {})
     }
-    console.log('gacha data', type)
     if (['up', 'char', 'all'].includes(type)) {
       loadData(301)
     }
@@ -258,6 +260,10 @@ let GachaData = {
 
     let versionData = []
     let currVersion
+
+    if (lodash.isEmpty(items)) {
+      return false
+    }
 
     let getCurr = function () {
       if (currVersion && !lodash.isEmpty(currVersion)) {
@@ -341,7 +347,6 @@ let GachaData = {
           v.version = type === 'all' ? '全部统计' : '常驻池'
         }
         if (!v) {
-          console.log('no v')
           return true
         }
         currVersion = {

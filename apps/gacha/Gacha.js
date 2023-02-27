@@ -28,6 +28,10 @@ let Gacha = {
     }
 
     let gacha = GachaData.analyse(e.user_id, uid, type)
+    if (!gacha) {
+      e.reply('本地暂无抽卡信息')
+      return true
+    }
     await Common.render('gacha/gacha-detail', {
       save_id: uid,
       uid,
@@ -53,6 +57,10 @@ let Gacha = {
       return false
     }
     let gacha = GachaData.stat(e.user_id, uid, type)
+    if (!gacha) {
+      e.reply('本地暂无抽卡信息')
+      return true
+    }
     await Common.render('gacha/gacha-stat', {
       save_id: uid,
       uid,
@@ -64,7 +72,7 @@ let Gacha = {
   getFace (uid) {
     let player = Player.create(uid)
 
-    let faceChar = Character.get(player.face || '100000003')
+    let faceChar = Character.get(player.face || 10000014)
     let imgs = faceChar.imgs
     return {
       banner: imgs?.banner,
