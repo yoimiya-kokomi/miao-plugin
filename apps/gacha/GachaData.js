@@ -213,6 +213,19 @@ let GachaData = {
       noWaiRate = (noWaiRate * 100).toFixed(1)
     }
 
+    fiveLog.unshift({
+      id: 888,
+      isUp: true,
+      count: noFiveNum,
+      date: moment().format('MM-DD')
+    })
+    itemMap['888'] = {
+      name: '即将获得',
+      star: 5,
+      abbr: '即将获得',
+      img: 'gacha/imgs/no-avatar.webp'
+    }
+
     return {
       stat: {
         allNum,
@@ -362,9 +375,22 @@ let GachaData = {
     })
     versionData.push(getCurr())
 
+    let stat = {}
+    lodash.forEach(versionData, (ds) => {
+      lodash.forEach(ds.stats, (num, key) => {
+        if (!stat[key]) {
+          stat[key] = num
+        } else {
+          stat[key] += num
+        }
+      })
+    })
+    stat.avgUpNum = stat.upNum === 0 ? 0 : ((stat.totalNum / stat.upNum).toFixed(1))
+
     return {
       versionData,
-      itemMap
+      itemMap,
+      totalStat: stat
     }
   },
 

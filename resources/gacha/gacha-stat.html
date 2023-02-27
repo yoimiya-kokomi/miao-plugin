@@ -8,7 +8,7 @@
 
 {{/block}}
 
-{{ set statMap = { allNum:'抽卡总数', fiveNum:'金卡数', fiveAvg:'平均出金' } }}
+{{ set statMap = { totalNum:'抽卡总数', star5Num:'金卡',c5UpNum:'UP角色',w5UpNum:'UP武器', star4Num:'紫卡',avgUpNum:'平均UP抽' } }}
 
 {{block 'main'}}
 <div class="basic">
@@ -19,14 +19,13 @@
     <div class="user-info">
       <div class="name">
         <strong>{{face.name}}</strong>
-        {{if face.level && face.level > 1}} Lv.{{face.level}}{{/if}}
       </div>
       <div class="uid">
         {{if uid}}<span> #{{uid}}</span>{{/if}}
       </div>
     </div>
-    {{if gacha && gacha.stat }}
-    {{set stat = gacha.stat }}
+    {{if gacha && gacha.totalStat }}
+    {{set stat = gacha.totalStat }}
     <div class="stat">
       {{each statMap title key}}
       {{if stat[key] }}
@@ -39,6 +38,14 @@
     </div>
     {{/if}}
   </div>
+
+  <div class="ck-notice">
+    <strong>#角色统计/#武器统计</strong>角色/武器池统计，
+    <strong>#常驻统计</strong>常驻池统计，
+    <strong>#全部统计</strong>全部抽卡统计，
+    <strong>#抽卡帮助</strong> 获取帮助
+  </div>
+
   {{each gacha.versionData vData}}
   {{set stats = vData.stats}}
   <div class="cont avatar-cont">
@@ -75,7 +82,7 @@
       {{set item = gacha.itemMap[ds.id]}}
       {{if item.star === 4 || item.star === 5}}
       <div class="gacha-item">
-        <div class="item-card">
+        <div class="item-card {{ds.isUp ? 'up-card':'normal-card'}}">
           <div class="item-icon  star{{item.star}}">
             <div class="item-bg" style="background-image:url({{_res_path}}{{item.img}})"></div>
             <div class="item-life {{ds.isUp ? 'life5': 'life1'}}">{{ds.num}}</div>

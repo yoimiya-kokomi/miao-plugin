@@ -2,6 +2,14 @@
   background: rgba(0, 0, 0, .1);
 }
 
+.user-banner {
+  .stat-li {
+    width: auto;
+    min-width: 75px;
+  }
+}
+
+
 .gacha-list {
   @size: 32px;
   @padding: 3px;
@@ -10,6 +18,7 @@
   .gacha-item {
     height: @height;
     display: flex;
+    background: rgba(0, 0, 0, .4);
 
     .date {
       width: @size + 65px;
@@ -67,7 +76,6 @@
 
 
     &.wai {
-
       .name {
         color: #aaa;
       }
@@ -75,16 +83,32 @@
       .name, .icon, .process {
         background-color: rgba(85, 85, 85, 0.8);
       }
+
+      .bar {
+        position: relative;
+
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          right: -33px;
+          top: -2px;
+          width: 30px;
+          height: 30px;
+          background: url('./imgs/wai.webp') center no-repeat;
+          background-size: 100% 100%;
+        }
+      }
     }
 
     &.up {
       .name {
-        background: rgba(0, 0, 0, .5);
+        /*background: rgba(0, 0, 0, .5);*/
         color: rgb(255, 212, 132);
       }
 
       .process, .icon {
-        background-color: rgba(0, 0, 0, .5);
+        /*   background-color: rgba(0, 0, 0, .5);*/
       }
     }
   }
@@ -99,11 +123,11 @@
       height: @size;
       margin: @padding 0;
       border-radius: 5px;
+
       &.star5 {
         background: url('../common/item/bg5.png') 100% 100% no-repeat;
       }
     }
-
 
 
     span {
@@ -122,13 +146,14 @@
     @pd: 3px;
 
     .bar {
-      background: green;
       border-radius: 0 5px 5px 0;
       height: @size - @pd * 2;
       line-height: @size - @pd * 2;
       margin: @padding + @pd 0;
       padding-left: 5px;
+    }
 
+    .bar {
       &.gold {
         background: #ffeb73;
         color: #6f4b00;
@@ -136,12 +161,12 @@
       }
 
       &.good {
-        background: #6939b7;
+        background: #168b2c;
         color: #fff;
       }
 
       &.normal {
-        background: #168b2c;
+        background: #6939b7;
         color: #fff;
       }
 
@@ -150,10 +175,7 @@
         color: #fff;
       }
     }
-
-
   }
-
 
 }
 

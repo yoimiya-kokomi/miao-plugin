@@ -68,16 +68,17 @@
 
   .stat-info {
     display: flex;
-    padding: 8px 20px 0;
+    padding: 10px 20px 0;
 
     .info {
       min-width: 60px;
       padding: 0 20px 0 10px;
 
       .num {
+        color: #ffde9d;
         height: 25px;
         line-height: 25px;
-        font-size: 20px;
+        font-size: 22px;
         text-shadow: 0 0 2px #000;
       }
 
@@ -107,7 +108,14 @@
 
     .item-card {
       width: 69px;
+      border-radius: 6px;
+      background: #fff;
     }
+  }
+
+  .item-icon {
+    border-radius: 6px 6px 10px 0;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .6);
   }
 
   .item-life {
@@ -115,29 +123,45 @@
     left: initial;
     right: 0;
     bottom: 0;
-    border-radius: 5px 0 0 0;
+    border-radius: 10px 0 0 0;
     font-size: 16px;
     padding: 0 6px;
     min-width: 20px;
     height: 22px;
     line-height: 22px;
     text-align: center;
+  }
 
-    &.life5 {
-      background: #ffeb73;
+  .item-name {
+    font-size: 14px;
+    line-height: 24px;
+    color: #000;
+  }
+
+  .up-card {
+    box-shadow: 0 0 8px 0 #ffeb73, 0 0 0 1px #fff100;
+    background: #fff;
+
+    .item-life {
       color: #6f4b00;
+      background: #ffeb73;
       box-shadow: 0 0 3px 0 #6f4b00;
     }
 
-    &.life1 {
+    .item-name {
+      color: #6f4b00;
+    }
+  }
+
+  .normal-card {
+    box-shadow: 0 0 0 1px #fff;
+
+    .item-life {
       background: #333;
       color: #fff;
     }
   }
 
-  .item-name {
-    font-size: 15px;
-    line-height: 24px;
-  }
+
 }
 

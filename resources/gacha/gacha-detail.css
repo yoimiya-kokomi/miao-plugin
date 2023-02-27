@@ -1,9 +1,14 @@
 .avatar-cont {
   background: rgba(0, 0, 0, 0.1);
 }
+.user-banner .stat-li {
+  width: auto;
+  min-width: 75px;
+}
 .gacha-list .gacha-item {
   height: 38px;
   display: flex;
+  background: rgba(0, 0, 0, 0.4);
 }
 .gacha-list .gacha-item .date {
   width: 97px;
@@ -53,13 +58,27 @@
 .gacha-list .gacha-item.wai .process {
   background-color: rgba(85, 85, 85, 0.8);
 }
+.gacha-list .gacha-item.wai .bar {
+  position: relative;
+}
+.gacha-list .gacha-item.wai .bar:after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -33px;
+  top: -2px;
+  width: 30px;
+  height: 30px;
+  background: url('./imgs/wai.webp') center no-repeat;
+  background-size: 100% 100%;
+}
 .gacha-list .gacha-item.up .name {
-  background: rgba(0, 0, 0, 0.5);
+  /*background: rgba(0, 0, 0, .5);*/
   color: #ffd484;
 }
 .gacha-list .gacha-item.up .process,
 .gacha-list .gacha-item.up .icon {
-  background-color: rgba(0, 0, 0, 0.5);
+  /*   background-color: rgba(0, 0, 0, .5);*/
 }
 .gacha-list .icon {
   width: 32px;
@@ -87,7 +106,6 @@
   padding-right: 15px;
 }
 .gacha-list .process .bar {
-  background: green;
   border-radius: 0 5px 5px 0;
   height: 26px;
   line-height: 26px;
@@ -100,11 +118,11 @@
   min-width: 18px;
 }
 .gacha-list .process .bar.good {
-  background: #6939b7;
+  background: #168b2c;
   color: #fff;
 }
 .gacha-list .process .bar.normal {
-  background: #168b2c;
+  background: #6939b7;
   color: #fff;
 }
 .gacha-list .process .bar.bad {

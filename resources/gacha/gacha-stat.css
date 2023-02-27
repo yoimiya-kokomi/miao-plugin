@@ -58,16 +58,17 @@
 }
 .gacha-pool .stat-info {
   display: flex;
-  padding: 8px 20px 0;
+  padding: 10px 20px 0;
 }
 .gacha-pool .stat-info .info {
   min-width: 60px;
   padding: 0 20px 0 10px;
 }
 .gacha-pool .stat-info .info .num {
+  color: #ffde9d;
   height: 25px;
   line-height: 25px;
-  font-size: 20px;
+  font-size: 22px;
   text-shadow: 0 0 2px #000;
 }
 .gacha-pool .stat-info .info .title {
@@ -91,13 +92,19 @@
 }
 .gacha-stat .gacha-item .item-card {
   width: 69px;
+  border-radius: 6px;
+  background: #fff;
+}
+.gacha-stat .item-icon {
+  border-radius: 6px 6px 10px 0;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.6);
 }
 .gacha-stat .item-life {
   top: initial;
   left: initial;
   right: 0;
   bottom: 0;
-  border-radius: 5px 0 0 0;
+  border-radius: 10px 0 0 0;
   font-size: 16px;
   padding: 0 6px;
   min-width: 20px;
@@ -105,17 +112,28 @@
   line-height: 22px;
   text-align: center;
 }
-.gacha-stat .item-life.life5 {
-  background: #ffeb73;
+.gacha-stat .item-name {
+  font-size: 14px;
+  line-height: 24px;
+  color: #000;
+}
+.gacha-stat .up-card {
+  box-shadow: 0 0 8px 0 #ffeb73, 0 0 0 1px #fff100;
+  background: #fff;
+}
+.gacha-stat .up-card .item-life {
   color: #6f4b00;
+  background: #ffeb73;
   box-shadow: 0 0 3px 0 #6f4b00;
 }
-.gacha-stat .item-life.life1 {
+.gacha-stat .up-card .item-name {
+  color: #6f4b00;
+}
+.gacha-stat .normal-card {
+  box-shadow: 0 0 0 1px #fff;
+}
+.gacha-stat .normal-card .item-life {
   background: #333;
   color: #fff;
-}
-.gacha-stat .item-name {
-  font-size: 15px;
-  line-height: 24px;
 }
 /*# sourceMappingURL=gacha-stat.css.map */
