@@ -36,8 +36,9 @@ let Gacha = {
       save_id: uid,
       uid,
       gacha,
-      face: Gacha.getFace(uid)
-    }, { e, scale: 1.1, retMsgId: true })
+      face: Gacha.getFace(uid),
+      imgType: 'png'
+    }, { e, scale: 1.2, retMsgId: true })
   },
   async stat (e) {
     let msg = e.msg.replace(/#|统计|分析|池/g, '')
@@ -65,8 +66,9 @@ let Gacha = {
       save_id: uid,
       uid,
       gacha,
-      face: Gacha.getFace(uid)
-    }, { e, scale: 1.1, retMsgId: true })
+      face: Gacha.getFace(uid),
+      quality: 92
+    }, { e, scale: 1.3 })
   },
 
   getFace (uid) {

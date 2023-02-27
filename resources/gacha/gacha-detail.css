@@ -56,10 +56,27 @@
 .gacha-list .gacha-item.wai .name,
 .gacha-list .gacha-item.wai .icon,
 .gacha-list .gacha-item.wai .process {
-  background-color: rgba(85, 85, 85, 0.8);
+  background-color: #47484d;
 }
 .gacha-list .gacha-item.wai .bar {
   position: relative;
+  /*   &:after {
+          display: block;
+          position: absolute;
+          right: -34px;
+          top: -2px;
+          width: 25px;
+          height: 25px;
+          border-radius: 15px;
+          content: "歪";
+          border: 2px solid #f00;
+          color: #f00;
+          text-align: center;
+          line-height: 26px;
+          font-size: 18px;
+          transform: rotate(30deg);
+          background-color: #47484d;
+        }  */
 }
 .gacha-list .gacha-item.wai .bar:after {
   content: "";
