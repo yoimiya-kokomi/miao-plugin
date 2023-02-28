@@ -57,9 +57,9 @@ export const defParams = {
 
 
 export const buffs = [{
-  title: '夜兰被动：有4个不同元素类型角色时，夜兰生命值上限提高30%',
+  title: '夜兰被动：有3个不同元素类型角色时，夜兰生命值上限提高18%',
   data: {
-    hpPct: 30
+    hpPct: 18
   }
 }, {
   title: '夜兰4命：E络命丝爆发提高生命值，满Buff下提高40%',

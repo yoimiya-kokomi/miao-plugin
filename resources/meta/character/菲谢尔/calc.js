@@ -1,4 +1,7 @@
 export const details = [{
+  title: '奥兹攻击激化伤害',
+  dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e', '超激化')
+}, {
   title: '奥兹攻击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e')
 }, {
@@ -10,7 +13,7 @@ export const details = [{
   dmg: ({ talent, cons }, dmg) => dmg(talent.q['落雷伤害'], 'q')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
+export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
   title: '皇女2命：施放夜巡影翼时，能额外造成200%攻击力的伤害',

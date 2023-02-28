@@ -150,6 +150,7 @@ export default function (step, staticStep) {
     }],
     裁叶萃光: [staticStep('cpct', 4), {
       title: '普攻与元素战技造成的伤害值提高[aPlus]',
+      sort: 5,
       data: {
         aPlus: ({ attr, calc, refine }) => calc(attr.mastery) * step(120)[refine] / 100,
         ePlus: ({ attr, calc, refine }) => calc(attr.mastery) * step(120)[refine] / 100

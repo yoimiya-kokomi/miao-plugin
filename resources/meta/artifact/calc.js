@@ -355,7 +355,7 @@ const buffs = {
     2: attr('atkPct', 18),
     4: {
       title: '触发提高普攻[aPlus]伤害',
-      sort: 0,
+      sort: 10,
       data: {
         aPlus: ({ attr }) => (attr.atk.base + attr.atk.plus + attr.atk.pct * attr.atk.base / 100) * 0.35
       }
@@ -376,6 +376,7 @@ const buffs = {
     2: attr('mastery', 80),
     4: {
       title: '队伍存在其他3个不同元素类型角色时，精通提高150',
+      sort: 0,
       data: {
         mastery: 150
       }
