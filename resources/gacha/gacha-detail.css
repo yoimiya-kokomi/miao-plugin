@@ -1,0 +1,143 @@
+.avatar-cont {
+  background: rgba(0, 0, 0, 0.1);
+}
+.user-banner .stat-li {
+  width: auto;
+  min-width: 75px;
+}
+.gacha-list .gacha-item {
+  height: 38px;
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+}
+.gacha-list .gacha-item .date {
+  width: 97px;
+  line-height: 38px;
+  padding-left: 5px;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+}
+.gacha-list .gacha-item .date .dot {
+  width: 23.75px;
+  height: 43px;
+  background: url('./imgs/date-icon.webp') center -38px;
+  background-size: 100% auto;
+}
+.gacha-list .gacha-item .date .dot.first {
+  background-position: center 0;
+}
+.gacha-list .gacha-item .date .dot.last {
+  background-position: center -128px;
+}
+.gacha-list .gacha-item .date .txt {
+  text-align: center;
+}
+.gacha-list .gacha-item.no-date .date .dot {
+  background-position: center -71.25px;
+}
+.gacha-list .gacha-item.no-date .date .dot.last {
+  background-position: center -95px;
+}
+.gacha-list .gacha-item.no-date .date .txt {
+  opacity: 0;
+}
+.gacha-list .gacha-item.has-date {
+  margin-top: 5px;
+}
+.gacha-list .gacha-item .name {
+  width: 90px;
+  text-align: right;
+  line-height: 38px;
+  padding-right: 5px;
+}
+.gacha-list .gacha-item.wai .name {
+  color: #aaa;
+}
+.gacha-list .gacha-item.up .name {
+  /*background: rgba(0, 0, 0, .5);*/
+  color: #ffd484;
+}
+.gacha-list .gacha-item.up .process,
+.gacha-list .gacha-item.up .icon {
+  /*   background-color: rgba(0, 0, 0, .5);*/
+}
+.gacha-list .gacha-item.up .bar {
+  position: relative;
+}
+.gacha-list .gacha-item.up .bar:after {
+  display: block;
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  width: 26px;
+  border-radius: 15px;
+  content: "UP";
+  text-align: center;
+  height: 18px;
+  line-height: 18px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #ffeb73;
+  color: #6f4b00;
+  box-shadow: 0 0 3px 0 #6f4b00;
+}
+.gacha-list .gacha-item.no-avatar .bar:after {
+  display: none;
+}
+.gacha-list .icon {
+  width: 32px;
+  height: 38px;
+}
+.gacha-list .icon .icon-bg {
+  width: 32px;
+  height: 32px;
+  margin: 3px 0;
+  border-radius: 5px;
+}
+.gacha-list .icon .icon-bg.star5 {
+  background: url('../common/item/bg5.png') 100% 100% no-repeat;
+}
+.gacha-list .icon span {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.gacha-list .process {
+  width: 490px;
+  padding-right: 15px;
+}
+.gacha-list .process .bar {
+  border-radius: 0 5px 5px 0;
+  height: 26px;
+  line-height: 26px;
+  margin: 6px 0;
+  padding-left: 5px;
+}
+.gacha-list .process .bar.gold {
+  background: #ffeb73;
+  color: #6f4b00;
+  min-width: 18px;
+}
+.gacha-list .process .bar.gold:after {
+  right: -30px;
+}
+.gacha-list .process .bar.good {
+  background: #168b2c;
+  min-width: 13%;
+  color: #fff;
+}
+.gacha-list .process .bar.normal {
+  background: #6939b7;
+  color: #fff;
+}
+.gacha-list .process .bar.bad {
+  background: #9d3333;
+  color: #fff;
+}
+.avatar-card .name {
+  text-align: center;
+}
+/*# sourceMappingURL=gacha-detail.css.map */

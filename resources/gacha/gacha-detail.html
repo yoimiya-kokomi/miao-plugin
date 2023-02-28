@@ -1,0 +1,74 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/avatar-list.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/gacha/gacha-detail.css?v=1.0"/>
+
+{{/block}}
+
+{{ set statMap = { allNum:'抽卡总数', fiveNum:'金卡数',wai:'歪 T.T',fourNum:'紫卡数', fiveAvg:'平均出金', upYs:'UP原石' } }}
+
+{{block 'main'}}
+<div class="basic">
+  <div class="user-banner" style="background-image:url({{_res_path}}{{face?.banner}})">
+    <div class="face">
+      <span style="background-image:url({{_res_path}}{{face?.qFace||face?.face}})"></span>
+    </div>
+    <div class="user-info">
+      <div class="name">
+        <strong>{{face.name}}</strong>
+
+      </div>
+      <div class="uid">
+        {{if uid}}<span> #{{uid}}</span>{{/if}}
+      </div>
+    </div>
+    {{if gacha && gacha.stat }}
+    {{set stat = gacha.stat }}
+    <div class="stat">
+      {{each statMap title key}}
+      {{if stat[key] }}
+      <div class="stat-li">
+        <strong>{{stat[key]}}</strong>
+        <span>{{title}}</span>
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="ck-notice"><strong>#抽卡帮助</strong>获取抽卡链接，<strong>#更新抽卡记录</strong>更新抽卡信息，<strong>#抽卡统计</strong><strong>#角色统计</strong>可查看按卡池分析结果
+  </div>
+
+  <div class="cont avatar-cont">
+    <div class="gacha-list">
+      {{each gacha.fiveLog ds idx}}
+      {{set item = gacha.items[ds.id]}}
+      {{set max = item.type === 'weapon'?80:90}}
+      {{set hasDate = (idx===0 || idx ===gacha.items.length-1 || (idx>0 && gacha.fiveLog[idx-1].date !== ds.date)) }}
+      <div class="gacha-item {{!hasDate?'no-date':'has-date'
+            }} {{ds.isUp ?'up':'wai'}} {{item.abbr==='已抽'?'no-avatar':''}}">
+        <div class="date ">
+          <div class="dot {{idx===0?'first':''}} {{idx===gacha.items.length-1?'last':''}}"></div>
+          <div class="txt">{{ds.date}}</div>
+        </div>
+        <div class="name">{{item.abbr}}</div>
+        <div class="icon">
+          <div class="icon-bg star{{item.star}}">
+            <span class="img mini" style="background-image:url({{_res_path}}{{item.img}})"></span>
+          </div>
+        </div>
+        <div class="process">
+          {{set count = ds.count}}
+          <div class="bar  {{count<=10?'gold': (count<max*0.5 ? 'good' : (count<max*0.83) ? 'normal': 'bad')}}"
+               style="width:{{count/max*100}}%">{{count}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+{{/block}}

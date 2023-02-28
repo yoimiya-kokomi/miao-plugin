@@ -1,0 +1,204 @@
+.avatar-cont {
+  background: rgba(0, 0, 0, .1);
+}
+
+.user-banner {
+  .stat-li {
+    width: auto;
+    min-width: 75px;
+  }
+}
+
+
+.gacha-list {
+  @size: 32px;
+  @padding: 3px;
+  @height: @size + @padding * 2;
+
+  .gacha-item {
+    height: @height;
+    display: flex;
+    background: rgba(0, 0, 0, .4);
+
+    .date {
+      width: @size + 65px;
+      line-height: @height;
+      padding-left: 5px;
+      background: rgba(0, 0, 0, .8);
+      display: flex;
+
+      .dot {
+        width: @height * 0.625;
+        height: @height + 5px;
+        background: url('./imgs/date-icon.webp')  center -@height;
+        background-size: 100% auto;
+
+        &.first {
+          background-position: center 0;
+        }
+
+        &.last {
+          background-position: center @size * -4
+        }
+      }
+
+      .txt {
+        text-align: center;
+      }
+    }
+
+    &.no-date {
+      .date {
+        .dot {
+          background-position: center @height * 0.625 * -3;
+
+          &.last {
+            background-position: center @height * 0.625 * -4
+          }
+        }
+
+        .txt {
+          opacity: 0;
+        }
+      }
+    }
+
+    &.has-date {
+      margin-top: 5px;
+    }
+
+    .name {
+      width: 90px;
+      text-align: right;
+      line-height: @height;
+      padding-right: 5px;
+    }
+
+
+    &.wai {
+      .name {
+        color: #aaa;
+      }
+
+      .name, .icon, .process {
+
+      }
+    }
+
+    &.up {
+      .name {
+        /*background: rgba(0, 0, 0, .5);*/
+        color: rgb(255, 212, 132);
+      }
+
+      .process, .icon {
+        /*   background-color: rgba(0, 0, 0, .5);*/
+      }
+
+      .bar {
+        position: relative;
+
+        &:after {
+          display: block;
+          position: absolute;
+          right: 5px;
+          top: 3px;
+          width: 26px;
+          border-radius: 15px;
+          content: "UP";
+          text-align: center;
+          height: 18px;
+          line-height: 18px;
+          font-size: 12px;
+          font-weight: bold;
+          background: #ffeb73;
+          color: #6f4b00;
+          box-shadow: 0 0 3px 0 #6f4b00;
+        }
+      }
+    }
+
+    &.no-avatar {
+      .bar:after {
+        display: none;
+      }
+    }
+  }
+
+
+  .icon {
+    width: @size;
+    height: @height;
+
+    .icon-bg {
+      width: @size;
+      height: @size;
+      margin: @padding 0;
+      border-radius: 5px;
+
+      &.star5 {
+        background: url('../common/item/bg5.png') 100% 100% no-repeat;
+      }
+    }
+
+
+    span {
+      display: block;
+      width: @size;
+      height: @size;
+      background-size: auto 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .process {
+    width: 490px;
+    padding-right: 15px;
+    @pd: 3px;
+
+    .bar {
+      border-radius: 0 5px 5px 0;
+      height: @size - @pd * 2;
+      line-height: @size - @pd * 2;
+      margin: @padding + @pd 0;
+      padding-left: 5px;
+    }
+
+    .bar {
+      &.gold {
+        background: #ffeb73;
+        color: #6f4b00;
+        min-width: 18px;
+
+        &:after {
+          right: -30px;
+        }
+      }
+
+      &.good {
+        background: #168b2c;
+        min-width: 13%;
+        color: #fff;
+      }
+
+      &.normal {
+        background: #6939b7;
+        color: #fff;
+      }
+
+      &.bad {
+        background: #9d3333;
+        color: #fff;
+      }
+    }
+  }
+
+}
+
+
+.avatar-card {
+  .name {
+    text-align: center;
+  }
+}

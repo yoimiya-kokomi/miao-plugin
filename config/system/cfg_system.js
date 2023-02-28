@@ -27,6 +27,11 @@ export const cfgSchema = {
         key: '帮助',
         def: false
       },
+      gachaStat: {
+        title: '#抽卡分析 #抽卡统计',
+        key: '抽卡',
+        def: false
+      },
       avatarPoke: {
         title: '戳一戳展示角色卡片',
         key: '戳一戳',

@@ -1,0 +1,167 @@
+.cont-title {
+  padding: 0;
+  background: rgba(0, 0, 0, .6);
+}
+
+.gacha-pool {
+  display: flex;
+  text-align: center;
+
+  & > div {
+    padding: 10px;
+    height: 56px;
+  }
+
+  .line {
+    padding-right: 15px;
+    position: relative;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 15px;
+      position: absolute;
+      top: 12px;
+      right: 7px;
+      background: #d3bc8e;
+    }
+  }
+
+  .version {
+    text-align: center;
+    background: rgba(0, 0, 0, .8);
+    padding: 10px 0;
+    display: flex;
+    border-right: 1px solid rgba(255, 255, 255, .3);
+  }
+
+  .version-name {
+    width: 105px;
+    line-height: 36px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+
+    &.all-version {
+      width: 130px;
+      text-align: center;
+    }
+  }
+
+  .pool-name {
+    width: 125px;
+    text-align: left;
+
+    .name {
+      height: 22px;
+      line-height: 22px;
+    }
+
+    .time {
+      font-size: 12px;
+      line-height: 14px;
+      height: 14px;
+      color: #888;
+    }
+  }
+
+  .stat-info {
+    display: flex;
+    padding: 10px 20px 0;
+
+    .info {
+      min-width: 60px;
+      padding: 0 20px 0 10px;
+
+      .num {
+        color: #ffde9d;
+        height: 25px;
+        line-height: 25px;
+        font-size: 22px;
+        text-shadow: 0 0 2px #000;
+      }
+
+      .title {
+        font-size: 12px;
+        line-height: 14px;
+        height: 14px;
+        color: #888;
+      }
+
+      &:last-child:after {
+        display: none;
+      }
+    }
+  }
+}
+
+.gacha-stat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, .5);
+  padding: 5px 8px;
+
+  .gacha-item {
+    text-align: center;
+
+    .item-card {
+      width: 69px;
+      border-radius: 6px;
+      background: #fff;
+    }
+  }
+
+  .item-icon {
+    border-radius: 6px 6px 10px 0;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .6);
+  }
+
+  .item-life {
+    top: initial;
+    left: initial;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px 0 0 0;
+    font-size: 16px;
+    padding: 0 6px;
+    min-width: 20px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .item-name {
+    font-size: 14px;
+    line-height: 24px;
+    color: #000;
+  }
+
+  .up-card {
+    box-shadow: 0 0 8px 0 #ffeb73, 0 0 0 1px #fff100;
+    background: #fff;
+
+    .item-life {
+      color: #6f4b00;
+      background: #ffeb73;
+      box-shadow: 0 0 3px 0 #6f4b00;
+    }
+
+    .item-name {
+      color: #6f4b00;
+    }
+  }
+
+  .normal-card {
+    box-shadow: 0 0 0 1px #fff;
+
+    .item-life {
+      background: #333;
+      color: #fff;
+    }
+  }
+
+
+}
+

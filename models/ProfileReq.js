@@ -78,7 +78,7 @@ export default class ProfileReq extends Base {
       if (self._isReq) {
         this.msg(`开始获取uid:${uid}的数据，可能会需要一定时间~`)
       }
-    }, 3000)
+    }, 2000)
     // 发起请求
     this.log(`${logger.yellow('开始请求数据')}，面板服务：${serv.name}...`)
     const startTime = new Date() * 1

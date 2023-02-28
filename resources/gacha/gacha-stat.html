@@ -1,0 +1,99 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/avatar-list.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/gacha/gacha-detail.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/gacha/gacha-stat.css?v=1.0"/>
+
+{{/block}}
+
+{{ set statMap = { totalNum:'抽卡总数', star5Num:'金卡',c5UpNum:'UP角色',w5UpNum:'UP武器', star4Num:'紫卡',avgUpNum:'平均UP抽' } }}
+
+{{block 'main'}}
+<div class="basic">
+  <div class="user-banner" style="background-image:url({{_res_path}}{{face?.banner}})">
+    <div class="face">
+      <span style="background-image:url({{_res_path}}{{face?.qFace||face?.face}})"></span>
+    </div>
+    <div class="user-info">
+      <div class="name">
+        <strong>{{face.name}}</strong>
+      </div>
+      <div class="uid">
+        {{if uid}}<span> #{{uid}}</span>{{/if}}
+      </div>
+    </div>
+    {{if gacha && gacha.totalStat }}
+    {{set stat = gacha.totalStat }}
+    <div class="stat">
+      {{each statMap title key}}
+      {{if stat[key] }}
+      <div class="stat-li">
+        <strong>{{stat[key]}}</strong>
+        <span>{{title}}</span>
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="ck-notice">
+    <strong>#角色统计/#武器统计</strong>角色/武器池统计，
+    <strong>#常驻统计</strong>常驻池统计，
+    <strong>#全部统计</strong>全部抽卡统计，
+    <strong>#抽卡帮助</strong> 获取帮助
+  </div>
+
+  {{each gacha.versionData vData}}
+  {{set stats = vData.stats}}
+  <div class="cont avatar-cont">
+    <div class="cont-title">
+      <div class="gacha-pool">
+        <div class="version">
+          {{if vData.from}}
+          <div class="version-name line">
+            {{vData.version}} {{vData.half}}
+          </div>
+          <div class="pool-name">
+            <div class="name">{{vData.name}}</div>
+            <div class="time">{{vData.from}}~{{vData.to}}</div>
+          </div>
+          {{else}}
+          <div class="version-name all-version"> {{vData.version}}</div>
+          {{/if}}
+        </div>
+        <div class="stat-info">
+          {{set keyMap = {totalNum:'总抽卡',star5Num:'金卡',upNum:'UP金卡', c4Num:'紫角色', w4Num:'紫武器'} }}
+          {{each keyMap title key}}
+          {{if stats[key] > 0}}
+          <div class="info line">
+            <div class="num">{{stats[key]}}</div>
+            <div class="title">{{title}}</div>
+          </div>
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="gacha-stat card-list">
+      {{each vData.items ds}}
+      {{set item = gacha.itemMap[ds.id]}}
+      {{if item.star === 4 || item.star === 5}}
+      <div class="gacha-item">
+        <div class="item-card {{ds.isUp ? 'up-card':'normal-card'}}">
+          <div class="item-icon  star{{item.star}}">
+            <div class="item-bg" style="background-image:url({{_res_path}}{{item.img}})"></div>
+            <div class="item-life {{ds.isUp ? 'life5': 'life1'}}">{{ds.num}}</div>
+          </div>
+          <div class="item-name">{{item.name.length >4 ? item.abbr : item.name}}</div>
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{/block}}
