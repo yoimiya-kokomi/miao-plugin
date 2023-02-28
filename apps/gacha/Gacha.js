@@ -29,16 +29,15 @@ let Gacha = {
 
     let gacha = GachaData.analyse(e.user_id, uid, type)
     if (!gacha) {
-      e.reply('本地暂无抽卡信息')
+      e.reply(`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`)
       return true
     }
     await Common.render('gacha/gacha-detail', {
       save_id: uid,
       uid,
       gacha,
-      face: Gacha.getFace(uid),
-      imgType: 'png'
-    }, { e, scale: 1.2, retMsgId: true })
+      face: Gacha.getFace(uid)
+    }, { e, scale: 1.4, retMsgId: true })
   },
   async stat (e) {
     let msg = e.msg.replace(/#|统计|分析|池/g, '')
@@ -59,16 +58,15 @@ let Gacha = {
     }
     let gacha = GachaData.stat(e.user_id, uid, type)
     if (!gacha) {
-      e.reply('本地暂无抽卡信息')
+      e.reply(`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`)
       return true
     }
     await Common.render('gacha/gacha-stat', {
       save_id: uid,
       uid,
       gacha,
-      face: Gacha.getFace(uid),
-      quality: 92
-    }, { e, scale: 1.3 })
+      face: Gacha.getFace(uid)
+    }, { e, scale: 1.4 })
   },
 
   getFace (uid) {
@@ -76,11 +74,14 @@ let Gacha = {
 
     let faceChar = Character.get(player.face || 10000014)
     let imgs = faceChar.imgs
+    if (!imgs.face) {
+      imgs = Character.get(10000079).imgs
+    }
     return {
       banner: imgs?.banner,
       face: imgs?.face,
       qFace: imgs?.qFace,
-      name: player.name || `#${uid}`,
+      name: player.name || '旅行者',
       sign: player.sign,
       level: player.level
     }

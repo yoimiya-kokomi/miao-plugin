@@ -29,8 +29,8 @@
 
       .dot {
         width: @height * 0.625;
-        height: @height;
-        background: url('./imgs/date-icon.webp')  center -100%;
+        height: @height + 5px;
+        background: url('./imgs/date-icon.webp')  center -@height;
         background-size: 100% auto;
 
         &.first {
@@ -81,40 +81,7 @@
       }
 
       .name, .icon, .process {
-        background-color: #47484d;
-      }
 
-      .bar {
-        position: relative;
-        /*   &:after {
-          display: block;
-          position: absolute;
-          right: -34px;
-          top: -2px;
-          width: 25px;
-          height: 25px;
-          border-radius: 15px;
-          content: "歪";
-          border: 2px solid #f00;
-          color: #f00;
-          text-align: center;
-          line-height: 26px;
-          font-size: 18px;
-          transform: rotate(30deg);
-          background-color: #47484d;
-        }  */
-
-        &:after {
-          content: "";
-          display: block;
-          position: absolute;
-          right: -33px;
-          top: -2px;
-          width: 30px;
-          height: 30px;
-          background: url('./imgs/wai.webp') center no-repeat;
-          background-size: 100% 100%;
-        }
       }
     }
 
@@ -126,6 +93,34 @@
 
       .process, .icon {
         /*   background-color: rgba(0, 0, 0, .5);*/
+      }
+
+      .bar {
+        position: relative;
+
+        &:after {
+          display: block;
+          position: absolute;
+          right: 5px;
+          top: 3px;
+          width: 26px;
+          border-radius: 15px;
+          content: "UP";
+          text-align: center;
+          height: 18px;
+          line-height: 18px;
+          font-size: 12px;
+          font-weight: bold;
+          background: #ffeb73;
+          color: #6f4b00;
+          box-shadow: 0 0 3px 0 #6f4b00;
+        }
+      }
+    }
+
+    &.no-avatar {
+      .bar:after {
+        display: none;
       }
     }
   }
@@ -175,10 +170,15 @@
         background: #ffeb73;
         color: #6f4b00;
         min-width: 18px;
+
+        &:after {
+          right: -30px;
+        }
       }
 
       &.good {
         background: #168b2c;
+        min-width: 13%;
         color: #fff;
       }
 

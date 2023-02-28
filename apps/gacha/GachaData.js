@@ -15,7 +15,7 @@ lodash.forEach(poolDetail, (ds) => {
 let last = poolVersion[poolVersion.length - 1]
 // 为未知卡池做兼容
 poolVersion.push({
-  version: '?',
+  version: '新版本',
   half: '?',
   from: last.to,
   to: '2025-12-31 23:59:59',
@@ -29,7 +29,7 @@ let GachaData = {
   readJSON (qq, uid, type) {
     let logJson = []
     // 获取本地数据 进行数据合并
-    logJson = Data.readJSON(`/data/gachaJSON/${qq}/${uid}/${type}.json`, 'root')
+    logJson = Data.readJSON(`/data/gachaJson/${qq}/${uid}/${type}.json`, 'root')
     let itemMap = {}
     let nameMap = {}
     let items = []
@@ -114,7 +114,12 @@ let GachaData = {
     if (logData.items.length === 0) {
       return false
     }
+    let currVersion
     lodash.forEach(logData.items, (item) => {
+      if (!currVersion || (item.time < currVersion.start)) {
+        currVersion = GachaData.getVersion(item.time)
+      }
+
       allNum++
       let ds = itemMap[item.id]
       let { star, type } = ds
@@ -147,13 +152,17 @@ let GachaData = {
         let isUp = false
         // 歪了多少个
         if (type === 'char') {
-          if (GachaData.checkIsUp(item, ds)) {
+          if (currVersion.char5.includes(ds.name)) {
             isUp = true
           } else {
             wai++
           }
         } else {
-          weaponNum++
+          if (currVersion.weapon5.includes(ds.name)) {
+            isUp = true
+          } else {
+            wai++
+          }
         }
 
         fiveLog.push({
@@ -213,17 +222,19 @@ let GachaData = {
       noWaiRate = (noWaiRate * 100).toFixed(1)
     }
 
-    fiveLog.unshift({
-      id: 888,
-      isUp: true,
-      count: noFiveNum,
-      date: moment().format('MM-DD')
-    })
-    itemMap['888'] = {
-      name: '即将获得',
-      star: 5,
-      abbr: '即将获得',
-      img: 'gacha/imgs/no-avatar.webp'
+    if (noFiveNum > 0) {
+      fiveLog.unshift({
+        id: 888,
+        isUp: true,
+        count: noFiveNum,
+        date: moment().format('MM-DD')
+      })
+      itemMap['888'] = {
+        name: '已抽',
+        star: 5,
+        abbr: '已抽',
+        img: 'gacha/imgs/no-avatar.webp'
+      }
     }
 
     return {
@@ -428,29 +439,6 @@ let GachaData = {
         ...char.getData('id,star,name,abbr,face')
       }
     }
-  },
-
-  // 检查角色是否是Up角色
-  checkIsUp (ds, item) {
-    if (['莫娜', '七七', '迪卢克', '琴'].includes(item.name)) {
-      return false
-    }
-
-    let time = ds.time
-
-    if (item.name === '刻晴') {
-      let start = new Date('2021-02-17 18:00:00').getTime()
-      let end = new Date('2021-03-02 15:59:59').getTime()
-      return !(time < start || time > end)
-    }
-
-    if (item.name === '提纳里') {
-      let start = new Date('2022-08-24 06:00:00').getTime()
-      let end = new Date('2022-09-09 17:59:59').getTime()
-      return !(time < start || time > end)
-    }
-    return true
   }
-
 }
 export default GachaData

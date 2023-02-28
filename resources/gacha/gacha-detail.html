@@ -39,7 +39,8 @@
     {{/if}}
   </div>
 
-  <div class="ck-notice"><strong>#抽卡帮助</strong>获取抽卡链接，<strong>#更新抽卡记录</strong>更新抽卡信息，<strong>#抽卡统计</strong><strong>#角色统计</strong>可查看按卡池分析结果</div>
+  <div class="ck-notice"><strong>#抽卡帮助</strong>获取抽卡链接，<strong>#更新抽卡记录</strong>更新抽卡信息，<strong>#抽卡统计</strong><strong>#角色统计</strong>可查看按卡池分析结果
+  </div>
 
   <div class="cont avatar-cont">
     <div class="gacha-list">
@@ -47,7 +48,8 @@
       {{set item = gacha.items[ds.id]}}
       {{set max = item.type === 'weapon'?80:90}}
       {{set hasDate = (idx===0 || idx ===gacha.items.length-1 || (idx>0 && gacha.fiveLog[idx-1].date !== ds.date)) }}
-      <div class="gacha-item {{!hasDate?'no-date':'has-date'}} {{ds.isUp||item.type==='weapon' ?'up':'wai'}}">
+      <div class="gacha-item {{!hasDate?'no-date':'has-date'
+            }} {{ds.isUp ?'up':'wai'}} {{item.abbr==='已抽'?'no-avatar':''}}">
         <div class="date ">
           <div class="dot {{idx===0?'first':''}} {{idx===gacha.items.length-1?'last':''}}"></div>
           <div class="txt">{{ds.date}}</div>
