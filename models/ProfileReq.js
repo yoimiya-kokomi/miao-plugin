@@ -60,7 +60,7 @@ export default class ProfileReq extends Base {
   }
 
   log (msg) {
-    logger.mark(`${logger.cyan(`【面板】${this.uid}`)} ：${msg}`)
+    logger.mark(`【面板】${this.uid} ：${msg}`)
   }
 
   async requestProfile (player, serv) {

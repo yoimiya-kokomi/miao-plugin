@@ -107,7 +107,9 @@ export default class MysApi {
     }
     e._reqCount++
     let ret = await mys.getData(api, data)
-    ret = await mysInfo.checkCode(ret, api, this.mys)
+    if (mysInfo && mysInfo.checkCode) {
+      ret = await mysInfo.checkCode(ret, api, this.mys)
+    }
     e._reqCount--
     if (e._reqCount === 0) {
       e.reply = e._original_reply

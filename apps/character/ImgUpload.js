@@ -5,7 +5,7 @@ import { segment } from 'oicq'
 import MD5 from 'md5'
 import fetch from 'node-fetch'
 import lodash from 'lodash'
-import { Data } from '../../components/index.js'
+import { Cfg, Data } from '../../components/index.js'
 import { Character } from '../../models/index.js'
 
 const resPath = process.cwd() + '/plugins/miao-plugin/resources/'
@@ -199,6 +199,9 @@ export async function profileImgList (e) {
   let char = Character.get(e.msg.replace(/#|面板图列表/g, ''))
   if (!char || !char.name) {
     return false
+  }
+  if ([1, 0].includes(Cfg.get('originalPic') * 1)) {
+    e.reply('已禁止获取面板图列表')
   }
   let nickname = Bot.nickname
   if (e.isGroup) {
