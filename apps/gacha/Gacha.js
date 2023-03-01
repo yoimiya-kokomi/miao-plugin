@@ -73,8 +73,8 @@ let Gacha = {
     let player = Player.create(uid)
 
     let faceChar = Character.get(player.face || 10000014)
-    let imgs = faceChar.imgs
-    if (!imgs.face) {
+    let imgs = faceChar?.imgs
+    if (!imgs?.face) {
       imgs = Character.get(10000079).imgs
     }
     return {

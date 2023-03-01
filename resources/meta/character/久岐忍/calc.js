@@ -1,8 +1,9 @@
-export const details = [, {
+export const details = [{
   title: '超绽放伤害',
-  dmg: ({calc, attr}, { reaction }) => {
-      return reaction('hyperBloom')}
-},{
+  dmg: ({ calc, attr }, { reaction }) => {
+    return reaction('hyperBloom')
+  }
+}, {
   title: 'E释放伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
