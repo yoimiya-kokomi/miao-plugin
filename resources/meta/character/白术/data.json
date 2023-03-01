@@ -1,0 +1,40 @@
+{
+  "id": 10000082,
+  "name": "白术",
+  "abbr": "白术",
+  "title": "遵生合和",
+  "star": 5,
+  "elem": "dendro",
+  "allegiance": "？？？",
+  "weapon": "catalyst",
+  "birth": "1-1",
+  "astro": "悬壶座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 13348,
+    "atk": 192.54,
+    "def": 499.56
+  },
+  "growAttr": {
+    "key": "hpPct",
+    "value": 28.8
+  },
+  "talentId": {},
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  },
+  "materials": {
+    "gem": "生长碧翡",
+    "boss": "常暗圆环",
+    "specialty": "琉璃袋",
+    "normal": "孢囊晶尘",
+    "talent": "「黄金」的哲学",
+    "weekly": "？？？"
+  },
+  "eta": 1681264800000
+}

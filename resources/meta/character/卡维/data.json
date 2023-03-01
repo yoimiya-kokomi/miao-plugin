@@ -1,0 +1,40 @@
+{
+  "id": 10000081,
+  "name": "卡维",
+  "abbr": "卡维",
+  "title": "天穹之境",
+  "star": 4,
+  "elem": "dendro",
+  "allegiance": "？？？",
+  "weapon": "claymore",
+  "birth": "1-1",
+  "astro": "天堂鸟座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 11962,
+    "atk": 233.64,
+    "def": 750.77
+  },
+  "growAttr": {
+    "key": "mastery",
+    "value": 96
+  },
+  "talentId": {},
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  },
+  "materials": {
+    "gem": "生长碧翡",
+    "boss": "灭诤草蔓",
+    "specialty": "悼灵花",
+    "normal": "孢囊晶尘",
+    "talent": "「巧思」的哲学",
+    "weekly": "？？？"
+  },
+  "eta": 1681264800000
+}
