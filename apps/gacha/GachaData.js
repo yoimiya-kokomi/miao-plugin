@@ -79,7 +79,7 @@ let GachaData = {
         }
       }
       let id = nameMap[ds.name]
-      if (!id || !itemMap[id] || ids[ds.id]) {
+      if (!id || !itemMap[id] || (ds.id && ids[ds.id])) {
         return true
       }
       ids[ds.id] = true
