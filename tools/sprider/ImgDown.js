@@ -1,6 +1,12 @@
 import fs from 'fs'
 import request from 'request'
 import { Data } from '../../components/index.js'
+import HttpsProxyAgent from 'https-proxy-agent'
+
+let agent = new HttpsProxyAgent('http://localhost:4780')
+request.defaults({
+  agent
+})
 
 const _path = process.cwd()
 const _root = _path + '/plugins/miao-plugin/'

@@ -74,10 +74,11 @@ export default class Player extends Base {
     this.setBasicData(data)
     if (data.chars) {
       this.setAvatars(data.chars)
-      // 暂时保留旧数据，防止异常情况
-      this._chars = data.chars
     }
     this.setAvatars(data.avatars || [])
+    if (data._ck) {
+      this._ck = data._ck
+    }
     if (!data.avatars) {
       this.save()
     }
@@ -100,9 +101,8 @@ export default class Player extends Base {
     this.forEachAvatar((avatar) => {
       ret.avatars[avatar.id] = avatar.toJSON()
     })
-    // 暂时保留旧数据，防止异常情况
-    if (this._chars) {
-      ret.chars = this._chars
+    if (this._ck) {
+      ret._ck = this._ck
     }
     Data.writeJSON(`/data/UserData/${this.uid}.json`, ret, '', 'root')
   }

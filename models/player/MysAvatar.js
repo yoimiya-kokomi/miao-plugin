@@ -19,6 +19,23 @@ const MysAvatar = {
     let reqTime = forceMap[force] === 0 ? 0 : (forceMap[force] || 60)
     return duration > reqTime * 60
   },
+  checkForce (player, force) {
+    let e = player?.e
+    let mys = e?._mys
+    if (!e || !mys || !mys.isSelfCookie) {
+      return force
+    }
+    let ck = mys?.ckInfo?.ck
+    if (!ck || player._ck === ck) {
+      return force
+    }
+    player._info = 0
+    player._mys = 0
+    lodash.forEach(player._avatars, (ds) => {
+      ds._talent = 0
+    })
+    return 2
+  },
   /**
    * 更新米游社角色信息
    * @param player
@@ -36,9 +53,6 @@ const MysAvatar = {
       return false
     }
     let charData = await mys.getCharacter()
-    if (!charData || !charData.avatars) {
-      return false
-    }
     MysAvatar.setMysCharData(player, charData)
   },
 
@@ -69,46 +83,50 @@ const MysAvatar = {
    * @param charData
    */
   setMysCharData (player, charData) {
-    let role = charData.role
-    player.setBasicData({
-      level: role.level,
-      name: role.nickname
-    })
-    let charIds = {}
-    lodash.forEach(charData.avatars, (ds) => {
-      let avatar = Data.getData(ds, 'id,level,cons:actived_constellation_num,fetter')
-      avatar.elem = ds.element.toLowerCase()
-      // 处理时装数据
-      let costume = (ds?.costumes || [])[0]
-      if (costume && costume.id) {
-        avatar.costume = costume.id
-      }
-      avatar.weapon = Data.getData(ds.weapon, 'name,star:rarity,level,promote:promote_level,affix:affix_level')
-      // 处理圣遗物数据
-      let artis = {}
-      lodash.forEach(ds.reliquaries, (re) => {
-        const posIdx = { 生之花: 1, 死之羽: 2, 时之沙: 3, 空之杯: 4, 理之冠: 5 }
-        if (re && re.name && posIdx[re.pos_name]) {
-          artis[posIdx[re.pos_name]] = {
-            name: re.name,
-            level: re.level
+    if (charData && charData.avatars) {
+      let role = charData.role || {}
+      player.setBasicData({
+        level: role.level,
+        name: role.nickname
+      })
+      let charIds = {}
+      lodash.forEach(charData.avatars, (ds) => {
+        let avatar = Data.getData(ds, 'id,level,cons:actived_constellation_num,fetter')
+        avatar.elem = ds.element.toLowerCase()
+        // 处理时装数据
+        let costume = (ds?.costumes || [])[0]
+        if (costume && costume.id) {
+          avatar.costume = costume.id
+        }
+        avatar.weapon = Data.getData(ds.weapon, 'name,star:rarity,level,promote:promote_level,affix:affix_level')
+        // 处理圣遗物数据
+        let artis = {}
+        lodash.forEach(ds.reliquaries, (re) => {
+          const posIdx = { 生之花: 1, 死之羽: 2, 时之沙: 3, 空之杯: 4, 理之冠: 5 }
+          if (re && re.name && posIdx[re.pos_name]) {
+            artis[posIdx[re.pos_name]] = {
+              name: re.name,
+              level: re.level
+            }
           }
-        }
+        })
+        avatar.artis = artis
+        player.setAvatar(avatar, 'mys')
+        charIds[avatar.id] = true
       })
-      avatar.artis = artis
-      player.setAvatar(avatar, 'mys')
-      charIds[avatar.id] = true
-    })
-    // 若角色数据>8，检查缓存，删除错误缓存的数据
-    if (lodash.keys(charIds).length > 8) {
-      player.forEachAvatar((avatar) => {
-        if (!charIds[avatar.id] && !avatar.isProfile) {
-          delete player._avatars[avatar.id]
-        }
-      })
+      // 若角色数据>8，检查缓存，删除错误缓存的数据
+      if (lodash.keys(charIds).length > 8) {
+        player.forEachAvatar((avatar) => {
+          if (!charIds[avatar.id] && !avatar.isProfile) {
+            delete player._avatars[avatar.id]
+          }
+        })
+      }
     }
-    player._mys = new Date() * 1
-    player.save()
+    if (player._avatars && !lodash.isEmpty(player._avatars)) {
+      player._mys = new Date() * 1
+      player.save()
+    }
   },
 
   setMysInfo (player, infoData) {
@@ -192,6 +210,7 @@ const MysAvatar = {
     if (!e || !mys || !mys.isSelfCookie) {
       return false
     }
+    force = MysAvatar.checkForce(player, force)
     let needReqIds = MysAvatar.getNeedRefreshIds(player, ids, force)
     if (needReqIds.length > 0) {
       if (needReqIds.length > 8) {

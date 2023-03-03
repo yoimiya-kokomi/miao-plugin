@@ -4,6 +4,9 @@ import fetch from 'node-fetch'
 import ImgDownloader from './sprider/ImgDown.js'
 import CharData from './sprider/CharData.js'
 import { Data } from '../components/index.js'
+import HttpsProxyAgent from 'https-proxy-agent'
+
+let agent = new HttpsProxyAgent('http://localhost:4780')
 
 let mData = Data.readJSON('/resources/meta/material/data.json')
 let tId = Data.readJSON('/tools/meta/talent.json')
@@ -27,14 +30,21 @@ let getCharData = async function (id, key, name = '', _id = id) {
       'sec-fetch-site': 'none',
       'sec-fetch-user': '?1',
       'upgrade-insecure-requests': 1
-    }
+    },
+    agent
   })
   let txt = await req.text()
   const $ = cheerio.load(txt)
   let sTxt = /sortable_data.push\((.*)\)/.exec(txt)
   if (sTxt && sTxt[1]) {
     // eslint-disable-next-line no-eval
-    let tmp = eval(sTxt[1])
+
+    let tmp
+    try {
+      tmp = eval(sTxt[1])
+    } catch (e) {
+      tmp = {}
+    }
     for (let idx in tmp) {
       let t = tmp[idx].join('')
       if (/Namecard/.test(t)) {
