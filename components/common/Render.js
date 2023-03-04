@@ -6,6 +6,7 @@ export default async function (path, params, cfg) {
   if (!e.runtime) {
     console.log('未找到e.runtime，请升级至最新版Yunzai')
   }
+  let BotName = Version.isMiao ? 'Miao-Yunzai' : 'Yunzai-Bot'
   return e.runtime.render('miao-plugin', path, params, {
     retType: cfg.retMsgId ? 'msgId' : 'default',
     beforeRender ({ data }) {
@@ -20,7 +21,7 @@ export default async function (path, params, cfg) {
         elemLayout: layoutPath + 'elem.html',
         sys: {
           scale: Cfg.scale(cfg.scale || 1),
-          copyright: `Created By Yunzai-Bot<span class="version">${Version.yunzai}</span> & Miao-Plugin<span class="version">${Version.version}</span>`
+          copyright: `Created By ${BotName}<span class="version">${Version.yunzai}</span> & Miao-Plugin<span class="version">${Version.version}</span>`
         },
         pageGotoParams: {
           waitUntil: 'networkidle2'

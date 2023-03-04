@@ -72,9 +72,11 @@ try {
 
 const yunzaiVersion = packageJson.version
 const isV3 = yunzaiVersion[0] === '3'
+const isMiao = packageJson.name === 'miao-yunzai'
 
 let Version = {
   isV3,
+  isMiao,
   get version () {
     return currentVersion
   },
