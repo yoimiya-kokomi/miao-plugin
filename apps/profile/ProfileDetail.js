@@ -126,29 +126,23 @@ let ProfileDetail = {
     char = profile.char || char
     let a = profile.attr
     let base = profile.base
-    let c = Format.comma
-    let p = Format.pct
     let attr = {}
     lodash.forEach(['hp', 'def', 'atk', 'mastery'], (key) => {
-      attr[key] = c(a[key])
-      attr[`${key}Base`] = c(base[key])
-      attr[`${key}Plus`] = c(a[key] - base[key])
+      let fn = (n) => Format.comma(n, key === 'hp' ? 0 : 1)
+      attr[key] = fn(a[key])
+      attr[`${key}Base`] = fn(base[key])
+      attr[`${key}Plus`] = fn(a[key] - base[key])
     })
-    lodash.forEach(['cpct', 'cdmg', 'recharge'], (key) => {
-      attr[key] = p(a[key])
-      attr[`${key}Base`] = p(base[key])
-      attr[`${key}Plus`] = p(a[key] - base[key])
+    lodash.forEach(['cpct', 'cdmg', 'recharge', 'dmg'], (key) => {
+      let fn = Format.pct
+      let key2 = key
+      if (key === 'dmg' && a.phy > a.dmg) {
+        key2 = 'phy'
+      }
+      attr[key] = fn(a[key2])
+      attr[`${key}Base`] = fn(base[key2])
+      attr[`${key}Plus`] = fn(a[key2] - base[key2])
     })
-    if (a.dmg > a.phy) {
-      attr.dmg = p(a.dmg * 1 || 0)
-      attr.dmgBase = p(base.dmg * 1 || 0)
-      attr.dmgPlus = p((a.dmg * 1 || 0) - (base.dmg * 1 || 0))
-    } else {
-      attr.dmg = p(a.phy * 1 || 0)
-      attr.dmgBase = p(base.phy * 1 || 0)
-      attr.dmgPlus = p((a.phy * 1 || 0) - (base.phy * 1 || 0))
-    }
-
 
     let weapon = Weapon.get(profile.weapon.name)
     let w = profile.weapon
