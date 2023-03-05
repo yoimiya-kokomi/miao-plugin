@@ -78,6 +78,7 @@ export default class ProfileData extends AvatarData {
   calcAttr () {
     this._attr = AttrCalc.create(this)
     this.attr = this._attr.calc()
+    this.base = this._attr.getBase()
   }
 
   setArtis (ds = false) {

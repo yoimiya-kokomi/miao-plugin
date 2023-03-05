@@ -35,15 +35,30 @@
         </div>
         {{/each}}
       </div>
-      <ul class="attr">
-        <li><i class="i-hp"></i>生命值<strong>{{attr.hp}}</strong><span>(+{{attr.hpPlus}})</span></li>
-        <li><i class="i-atk"></i>攻击力<strong>{{attr.atk}}</strong><span>(+{{attr.atkPlus}})</span></li>
-        <li><i class="i-def"></i>防御力<strong>{{attr.def}}</strong><span>(+{{attr.defPlus}})</span></li>
-        <li><i class="i-mastery"></i>元素精通<strong>{{attr.mastery}}</strong></li>
-        <li><i class="i-cr"></i>暴击率<strong>{{attr.cpct}}</strong></li>
-        <li><i class="i-cd"></i>暴击伤害<strong>{{attr.cdmg}}</strong></li>
-        <li><i class="i-re"></i>元素充能<strong>{{attr.recharge}}</strong></li>
-        <li><i class="i-dmg"></i>伤害加成<strong>{{attr.dmg}}</strong></li>
+      <ul class="char-attr">
+        {{set attrMap = {hp:'生命值',atk:'攻击力',def:'防御力',mastery:'元素精通',cpct:'暴击率',cdmg:'暴击伤害',recharge:'元素充能',dmg:'伤害加成'} }}
+        {{set cw = artisDetail?.charWeight || {} }}
+        {{each attrMap title key}}
+        <li>
+
+          <div class="icon"><i class="i-{{key}}"></i></div>
+
+          <div class="title">{{title}}</div>
+          <div class="weight">
+            {{if cw[key]}}
+            <span class="{{cw[key]>=80?'gold':'normal'}}">{{cw[key]}}</span>
+            {{/if}}
+          </div>
+          <div class="value">
+            {{attr[key]}}
+          </div>
+          <div class="value2">
+            <span class="base"><i>+</i>{{attr[key+'Base']}}</span>
+            <span class="plus">+{{attr[key+'Plus']}}</span>
+          </div>
+
+        </li>
+        {{/each}}
       </ul>
       {{else}}
       <div class="char-weapon">

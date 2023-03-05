@@ -24,7 +24,7 @@ app.use(express.static(_path + '/resources'))
 app.use('/plugins', express.static('plugins'))
 
 app.get('/', function (req, res) {
-  let pluginList = fs.readdirSync(_path + '/data/ViewData/') || []
+  let pluginList = fs.readdirSync(_path + '/temp/ViewData/') || []
   let html = [
     '在npm run web-dev模式下触发截图消息后，可在下方选择页面进行调试',
     '如果页面内资源路径不正确请使用{{_res_path}}作为根路径，对应之前的../../../../',
@@ -33,7 +33,7 @@ app.get('/', function (req, res) {
   let li = {}
   for (let pIdx in pluginList) {
     const plugin = pluginList[pIdx]
-    let fileList = fs.readdirSync(_path + `/data/ViewData/${plugin}/`) || []
+    let fileList = fs.readdirSync(_path + `/temp/ViewData/${plugin}/`) || []
     for (let idx in fileList) {
       let ret = /(.+)\.json$/.exec(fileList[idx])
       if (ret && ret[1]) {
@@ -50,7 +50,7 @@ app.get('/:page', function (req, res) {
   if (plugin == 'favicon.ico') {
     return res.send('')
   }
-  let data = JSON.parse(fs.readFileSync(_path + `/data/ViewData/${plugin}/${app}_${page}.json`, 'utf8'))
+  let data = JSON.parse(fs.readFileSync(_path + `/temp/ViewData/${plugin}/${app}_${page}.json`, 'utf8'))
   data = data || {}
   data._res_path = ''
   data._sys_res_path = data._res_path

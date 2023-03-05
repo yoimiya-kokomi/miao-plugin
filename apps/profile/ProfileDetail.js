@@ -125,21 +125,30 @@ let ProfileDetail = {
     }
     char = profile.char || char
     let a = profile.attr
+    let base = profile.base
     let c = Format.comma
     let p = Format.pct
-    let attr = {
-      hp: c(a.hp),
-      hpPlus: c(a.hp - a.hpBase),
-      atk: c(a.atk),
-      atkPlus: c(a.atk - a.atkBase),
-      def: c(a.def),
-      defPlus: c(a.def - a.defBase),
-      cpct: p(a.cpct),
-      cdmg: p(a.cdmg),
-      mastery: c(a.mastery),
-      recharge: p(a.recharge),
-      dmg: p(Math.max(a.dmg * 1 || 0, a.phy * 1 || 0))
+    let attr = {}
+    lodash.forEach(['hp', 'def', 'atk', 'mastery'], (key) => {
+      attr[key] = c(a[key])
+      attr[`${key}Base`] = c(base[key])
+      attr[`${key}Plus`] = c(a[key] - base[key])
+    })
+    lodash.forEach(['cpct', 'cdmg', 'recharge'], (key) => {
+      attr[key] = p(a[key])
+      attr[`${key}Base`] = p(base[key])
+      attr[`${key}Plus`] = p(a[key] - base[key])
+    })
+    if (a.dmg > a.phy) {
+      attr.dmg = p(a.dmg * 1 || 0)
+      attr.dmgBase = p(base.dmg * 1 || 0)
+      attr.dmgPlus = p((a.dmg * 1 || 0) - (base.dmg * 1 || 0))
+    } else {
+      attr.dmg = p(a.phy * 1 || 0)
+      attr.dmgBase = p(base.phy * 1 || 0)
+      attr.dmgPlus = p((a.phy * 1 || 0) - (base.phy * 1 || 0))
     }
+
 
     let weapon = Weapon.get(profile.weapon.name)
     let w = profile.weapon

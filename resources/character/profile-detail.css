@@ -61,68 +61,116 @@ body {
   margin-left: 5px;
   vertical-align: bottom;
 }
-.attr {
-  border-radius: 4px;
+.char-attr {
+  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
   overflow: hidden;
 }
-.detail ul.attr {
-  background: rgba(0, 0, 0, 0.2);
-}
-.detail ul.attr li {
+.char-attr li {
   width: 300px;
   font-size: 17px;
   list-style: none;
-  padding: 0 100px 0 35px;
-  position: relative;
   height: 32px;
   line-height: 32px;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  display: flex;
+  padding-left: 3px;
 }
-.detail ul.attr li i {
+.char-attr li:nth-child(even) {
+  background: rgba(0, 0, 0, 0.4);
+}
+.char-attr li:nth-child(odd) {
+  background: rgba(50, 50, 50, 0.4);
+}
+.char-attr li .weight {
+  width: 36px;
+}
+.char-attr li .weight span {
+  display: block;
+  width: 30px;
+  border-radius: 5px;
+  font-size: 12px;
+  height: 18px;
+  line-height: 18px;
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin: 7px auto 0;
+}
+.char-attr li .weight span.gold {
+  color: #ffe699;
+}
+.char-attr li .icon {
+  width: 26px;
+  padding: 2px 5px;
+}
+.char-attr li .icon i {
   display: inline-block;
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
   background-image: url("./imgs/icon.png");
-  background-size: auto 20px;
-  position: absolute;
-  left: 10px;
-  top: 8px;
-  opacity: 0.9;
-  transform: scale(0.9);
+  background-size: auto 16px;
+}
+.char-attr li .title {
+  width: 75px;
+}
+.char-attr li .value {
+  width: 110px;
+  text-align: right;
+  font-weight: normal;
+  padding-right: 10px;
+}
+.char-attr li .value2 {
+  font-weight: normal;
+  width: 60px;
+  text-align: right;
+  font-size: 12px;
+  padding: 4px 10px 0 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+.char-attr li .value2 span {
+  display: block;
+  height: 13px;
+  line-height: 13px;
+  transform: scale(0.85);
+  transform-origin: right center;
+}
+.char-attr li .value2 .base {
+  color: #eee;
+}
+.char-attr li .value2 .plus {
+  color: #90e800;
 }
 .i-hp {
-  background-position: -20px 0;
+  background-position: -16px 0;
 }
 .i-atk {
-  background-position: -40px 0;
+  background-position: -32px 0;
 }
 .i-def {
-  background-position: -60px 0;
+  background-position: -48px 0;
 }
 .i-mastery {
+  background-position: -64px 0;
+}
+.i-cpct {
   background-position: -80px 0;
 }
-.i-cr {
-  background-position: -100px 0;
+.i-cdmg {
+  background-position: -96px 0;
 }
-.i-cd {
-  background-position: -140px 0;
-}
-.i-re {
-  background-position: -120px 0;
+.i-recharge {
+  background-position: -112px 0;
 }
 .i-dmg {
-  background-position: -160px 0;
+  background-position: -128px 0;
 }
-.detail .attr li:nth-child(even),
 .detail.attr li:nth-child(even) {
   background: rgba(0, 0, 0, 0.4);
 }
-.detail .attr li:nth-child(odd),
 .detail.attr li:nth-child(odd) {
   background: rgba(50, 50, 50, 0.4);
 }
-.detail .attr li strong,
 .detail.attr li strong {
   display: inline-block;
   position: absolute;
@@ -130,7 +178,6 @@ body {
   text-align: right;
   font-weight: normal;
 }
-.detail .attr li span,
 .detail.attr li span {
   position: absolute;
   right: 0;

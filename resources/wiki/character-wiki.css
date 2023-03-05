@@ -45,14 +45,14 @@ body {
   padding-left: 20px;
 }
 .detail ul.char-attr li strong {
-  position: initial;
   color: #d3bc8e;
+  width: 85px;
+  font-weight: normal;
 }
 .detail ul.char-attr li span {
   color: #fff;
-  right: 20px;
   text-align: right;
-  width: 150px;
+  width: 130px;
 }
 .material-list {
   display: flex;

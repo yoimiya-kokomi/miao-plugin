@@ -47,19 +47,23 @@ class AttrCalc {
    * @returns {{}}
    */
   calc () {
-    this.attr = ProfileAttr.create({
-      recharge: 100,
-      cpct: 5,
-      cdmg: 50
-    })
+    this.attr = ProfileAttr.create({})
+    this.addAttr('recharge', 100, true)
+    this.addAttr('cpct', 5, true)
+    this.addAttr('cdmg', 50, true)
     this.setCharAttr()
     this.setWeaponAttr()
     this.setArtisAttr()
     return this.attr.getAttr()
   }
 
-  addAttr (key, val) {
-    this.attr.addAttr(key, val)
+  getBase () {
+    return this.attr.getBase()
+  }
+
+
+  addAttr (key, val, isBase = false) {
+    this.attr.addAttr(key, val, isBase)
   }
 
   /**
@@ -96,10 +100,10 @@ class AttrCalc {
         return valueLeft * 1 + ((valueRight - valueLeft) * Math.floor((level - lvLeft) / 5) / Math.round(((lvRight - lvLeft) / 5)))
       }
     }
-    this.addAttr('hpBase', getLvData(0))
-    this.addAttr('atkBase', getLvData(1))
-    this.addAttr('defBase', getLvData(2))
-    this.addAttr(keys[3], getLvData(3, true))
+    this.addAttr('hpBase', getLvData(0), true)
+    this.addAttr('atkBase', getLvData(1), true)
+    this.addAttr('defBase', getLvData(2), true)
+    this.addAttr(keys[3], getLvData(3, true), true)
 
     let charBuffs = char.getCalcRule()
     lodash.forEach(charBuffs.buffs, (buff) => {

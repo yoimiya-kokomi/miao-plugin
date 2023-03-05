@@ -161,7 +161,7 @@ let ArtisMark = {
   // 获取评分档位
   getMarkClass (mark) {
     let pct = mark
-    let scoreMap = [['D', 10], ['C', 16.5], ['B', 23.1], ['A', 29.7], ['S', 36.3], ['SS', 42.9], ['SSS', 49.5], ['ACE', 56.1], ['ACE²', 66.1]]
+    let scoreMap = [['D', 7], ['C', 14], ['B', 21], ['A', 28], ['S', 35], ['SS', 42], ['SSS', 49], ['ACE', 56], ['ACE²', 66.1]]
     for (let idx = 0; idx < scoreMap.length; idx++) {
       if (pct < scoreMap[idx][1]) {
         return scoreMap[idx][0]

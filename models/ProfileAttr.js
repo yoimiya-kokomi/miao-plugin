@@ -10,24 +10,27 @@ class ProfileAttr extends Base {
     this.init(data)
   }
 
+  static create (data = null) {
+    return new ProfileAttr(data)
+  }
+
   init (data) {
     // 基础属性
     this._attr = {}
+    this._base = {}
     let attr = this._attr
+    let base = this._base
     lodash.forEach(baseAttr, (key) => {
       attr[key] = {
         base: 0,
         plus: 0,
         pct: 0
       }
+      base[key] = 0
     })
     if (data) {
       this.setAttr(data, true)
     }
-  }
-
-  static create (data = null) {
-    return new ProfileAttr(data)
   }
 
   /**
@@ -56,12 +59,17 @@ class ProfileAttr extends Base {
    * 添加或追加Attr数据
    * @param key
    * @param val
+   * @param base
    * @returns {boolean}
    */
-  addAttr (key, val) {
+  addAttr (key, val, isBase = false) {
     let attr = this._attr
+    let base = this._base
     if (baseAttr.includes(key)) {
       attr[key].plus += val * 1
+      if (isBase) {
+        base[key] = (base[key] || 0) + val * 1
+      }
       return true
     }
 
@@ -71,6 +79,9 @@ class ProfileAttr extends Base {
       let key2 = testRet[2].toLowerCase()
       attr[key][key2] = attr[key][key2] || 0
       attr[key][key2] += val * 1
+      if (key2 === 'base' || isBase) {
+        base[key] = (base[key] || 0) + val * 1
+      }
       return true
     }
     return false
@@ -106,6 +117,10 @@ class ProfileAttr extends Base {
     })
     ret._calc = true
     return ret
+  }
+
+  getBase () {
+    return this._base
   }
 }
 
