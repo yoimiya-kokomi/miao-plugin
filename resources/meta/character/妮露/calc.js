@@ -2,6 +2,10 @@ export const details = [{
   title: '水月伤害',
   params: { sy: true },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e')
+},{
+  title: '水月蒸发伤害',
+  params: { sy: true },
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e', '蒸发')
 }, {
   title: '剑舞步三段伤害',
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
@@ -20,13 +24,16 @@ export const details = [{
   title: 'Q两段总伤害',
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q')
 }, {
+  title: 'Q两段总蒸发伤害',
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q', '蒸发')
+}, {
   title: '丰穰之核伤害',
   params: { bloom: true },
   dmg: ({calc, attr}, { reaction }) => {
       return reaction('bloom')}
 }]
 
-export const mainAttr = 'hp,atk,cpct,cdmg'
+export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
 export const buffs = [{
   title: '妮露天赋：丰穰之核增伤[bloom]%,元素精通提升100点',
@@ -59,4 +66,4 @@ export const buffs = [{
     cpct: ({ calc, attr }) => Math.min(30, calc(attr.hp) / 1000 * 0.6),
     cdmg: ({ calc, attr }) => Math.min(60, calc(attr.hp) / 1000 * 1.2)
   }
-}]
+}, 'vaporize']

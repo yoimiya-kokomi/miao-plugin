@@ -1,6 +1,6 @@
 export const details = [{
   title: 'E普攻第一段激化',
-  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', '超激化')
+  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', '蔓激化')
 }, {
   title: 'E突进激化',
   params: { e: true, q: false },
