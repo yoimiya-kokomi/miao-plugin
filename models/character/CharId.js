@@ -2,7 +2,7 @@
  * 角色别名及角色ID相关
  * */
 import lodash from 'lodash'
-import { Data, Format } from '../../components/index.js'
+import { Data, Format } from '#miao'
 import { charPosIdx } from './CharMeta.js'
 
 // 别名表

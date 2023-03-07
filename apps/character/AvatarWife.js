@@ -1,7 +1,7 @@
 // #老婆
 import lodash from 'lodash'
-import { Common } from '../../components/index.js'
-import { Character, MysApi, Player } from '../../models/index.js'
+import { Common } from '#miao'
+import { Character, MysApi, Player } from '#miao.models'
 import Avatar from './AvatarCard.js'
 
 const relationMap = {

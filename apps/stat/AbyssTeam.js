@@ -1,7 +1,7 @@
-import { Character, MysApi, Player } from '../../models/index.js'
-import HutaoApi from './HutaoApi.js'
 import lodash from 'lodash'
-import { Common } from '../../components/index.js'
+import HutaoApi from './HutaoApi.js'
+import { Common } from '#miao'
+import { Character, MysApi, Player } from '#miao.models'
 
 export async function AbyssTeam (e) {
   let mys = await MysApi.init(e, 'cookie')

@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { Format } from '../../components/index.js'
+import { Format } from '#miao'
 import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/index.js'
 
 let ArtisMark = {

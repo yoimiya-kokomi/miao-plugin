@@ -6,7 +6,7 @@
  */
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Data } from '../components/index.js'
+import { Data } from '#miao'
 import { AvatarData, ProfileRank, Character } from './index.js'
 
 import MysAvatar from './player/MysAvatar.js'
@@ -104,7 +104,7 @@ export default class Player extends Base {
     if (this._ck) {
       ret._ck = this._ck
     }
-    Data.writeJSON(`/data/UserData/${this.uid}.json`, ret, '', 'root')
+    Data.writeJSON(`/data/UserData/${this.uid}.json`, ret, 'root')
   }
 
   del () {

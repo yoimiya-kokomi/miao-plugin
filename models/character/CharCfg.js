@@ -1,4 +1,4 @@
-import { Data } from '../../components/index.js'
+import { Data } from '#miao'
 import lodash from 'lodash'
 import fs from 'fs'
 
@@ -28,7 +28,7 @@ let cfgMap = {
     return fs.existsSync(`${charPath}/${char}/${file}.js`)
   },
   async getCfg (char, file, module = '') {
-    let cfg = await Data.importModule(`resources/meta/character/${char}/${file}.js`)
+    let cfg = await Data.importModule(`resources/meta/character/${char}/${file}.js`, 'miao')
     if (module) {
       return cfg[module]
     }

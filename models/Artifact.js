@@ -2,7 +2,7 @@
 * 圣遗物
 * */
 import Base from './Base.js'
-import { Format } from '../components/index.js'
+import { Format } from '#miao'
 import { ArtifactSet } from './index.js'
 import { artiMap, attrMap, mainIdMap, attrIdMap } from '../resources/meta/artifact/index.js'
 import lodash from 'lodash'

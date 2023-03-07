@@ -1,4 +1,4 @@
-import { Common } from '../../components/index.js'
+import { Common } from '#miao'
 
 const CharMaterial = {
   async render ({ e, char }) {

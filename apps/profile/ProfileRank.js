@@ -1,7 +1,7 @@
-import { Character, ProfileRank, ProfileDmg, Player } from '../../models/index.js'
-import ProfileDetail from './ProfileDetail.js'
-import { Data, Common, Format } from '../../components/index.js'
 import lodash from 'lodash'
+import ProfileDetail from './ProfileDetail.js'
+import { Data, Common, Format } from '#miao'
+import { Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
 
 export async function groupRank (e) {
   const groupRank = Common.cfg('groupRank')

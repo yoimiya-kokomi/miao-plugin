@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { Data } from '../../components/index.js'
+import { Data } from '#miao'
 
 const talentMeta = {
   自由: { week: 1, city: '蒙德', cid: 1 },

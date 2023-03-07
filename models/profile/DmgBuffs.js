@@ -2,7 +2,7 @@
 * 伤害计算 - Buff计算
 * */
 import lodash from 'lodash'
-import { Data } from '../../components/index.js'
+import { Data } from '#miao'
 import { ProfileArtis } from '../index.js'
 
 let weaponBuffs = {}
@@ -10,8 +10,8 @@ let artisBuffs = {}
 
 // lazy load
 setTimeout(async function init () {
-  weaponBuffs = (await Data.importModule('resources/meta/weapon/index.js')).weaponBuffs || {}
-  artisBuffs = (await Data.importModule('resources/meta/artifact/index.js')).calc || {}
+  weaponBuffs = (await Data.importModule('resources/meta/weapon/index.js', 'miao')).weaponBuffs || {}
+  artisBuffs = (await Data.importModule('resources/meta/artifact/index.js', 'miao')).calc || {}
 })
 
 let DmgBuffs = {

@@ -4,15 +4,15 @@ export * from './pool.js'
 export const chestInfo = {
   common: {
     title: '普通宝箱',
-    max: 2542
+    max: 2547
   },
   exquisite: {
     title: '精致宝箱',
-    max: 1594
+    max: 1596
   },
   precious: {
     title: '珍贵宝箱',
-    max: 488
+    max: 489
   },
   luxurious: {
     title: '豪华宝箱',

@@ -15,11 +15,11 @@ Miao-Plugin 是一个 Yunzai-Bot 的升级插件，提供包括角色查询等�
 ```
 // 使用gitee
 git clone https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
-pnpm add image-size -w
+pnpm install -P
 
 // 使用github
 git clone https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
-pnpm add image-size -w
+pnpm install -P
 ```
 
 进行安装。安装完毕后，管理员只需发送 `#喵喵更新` 即可自动更新 miao-plugin。
@@ -37,7 +37,7 @@ pnpm add image-size -w
 推荐直接使用 V3-Yunzai 搭配 miao-plugin 使用。（不能做V2钉子户——喵佬）
 
 [issue#13](https://github.com/yoimiya-kokomi/miao-plugin/issues/74) : 如启动时报 Cannot find package 'image-size'
-的错误，直接在yunzai根目录下`pnpm add image-size -w` 或使用cnpm、npm等包管理工具安装image-size库即可
+的错误，直接在yunzai根目录下`pnpm install -P` 或使用cnpm、npm等包管理工具安装image-size库即可
 
 ### V2-Yunzai
 

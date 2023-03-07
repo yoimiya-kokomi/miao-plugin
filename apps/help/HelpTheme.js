@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import fs from 'fs'
-import { Data } from '../../components/index.js'
+import { Data } from '#miao'
 
 let HelpTheme = {
   async getThemeCfg (theme, exclude) {
@@ -29,7 +29,7 @@ let HelpTheme = {
     return {
       main: `${resPath}${name}/main.png`,
       bg: fs.existsSync(`${dirPath}${name}/bg.jpg`) ? `${resPath}${name}/bg.jpg` : `${resPath}default/bg.jpg`,
-      style: (await Data.importModule(`resources/help/theme/${name}/config.js`)).style || {}
+      style: (await Data.importModule(`resources/help/theme/${name}/config.js`, 'miao')).style || {}
     }
   },
   async getThemeData (diyStyle, sysStyle) {

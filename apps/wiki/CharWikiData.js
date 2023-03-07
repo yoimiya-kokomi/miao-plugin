@@ -1,7 +1,7 @@
 import HutaoApi from '../stat/HutaoApi.js'
 import lodash from 'lodash'
-import { Format } from '../../components/index.js'
-import { ArtifactSet, Weapon } from '../../models/index.js'
+import { Format } from '#miao'
+import { ArtifactSet, Weapon } from '#miao.models'
 
 let CharWikiData = {
   /**

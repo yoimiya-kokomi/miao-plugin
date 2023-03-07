@@ -1,5 +1,5 @@
-import { App, Cfg } from '../components/index.js'
 import Gacha from './gacha/Gacha.js'
+import { App, Cfg } from '#miao'
 
 let app = App.init({
   id: 'gacha',

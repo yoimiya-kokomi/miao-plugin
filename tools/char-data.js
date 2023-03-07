@@ -3,13 +3,13 @@ import lodash from 'lodash'
 import fetch from 'node-fetch'
 import ImgDownloader from './sprider/ImgDown.js'
 import CharData from './sprider/CharData.js'
-import { Data } from '../components/index.js'
+import { Data } from '#miao'
 import HttpsProxyAgent from 'https-proxy-agent'
 
 let agent = new HttpsProxyAgent('http://localhost:4780')
 
-let mData = Data.readJSON('/resources/meta/material/data.json')
-let tId = Data.readJSON('/tools/meta/talent.json')
+let mData = Data.readJSON('/resources/meta/material/data.json', 'miao')
+let tId = Data.readJSON('/tools/meta/talent.json', 'miao')
 
 const tElems = ['anemo', 'geo', 'electro', 'dendro']
 
@@ -135,16 +135,16 @@ let getCharData = async function (id, key, name = '', _id = id) {
 
 function checkName (name) {
   let charPath = `resources/meta/character/${name}/`
-  Data.createDir(charPath)
+  Data.createDir(charPath, 'miao')
   if (name === '旅行者') {
     for (let idx in tElems) {
-      Data.createDir(`${charPath}${tElems[idx]}/icons`)
+      Data.createDir(`${charPath}${tElems[idx]}/icons`, 'miao')
     }
   } else {
-    Data.createDir(`${charPath}/icons`)
+    Data.createDir(`${charPath}/icons`, 'miao')
   }
-  Data.createDir(`${charPath}/imgs`)
-  let data = Data.readJSON(`${charPath}/data.json`)
+  Data.createDir(`${charPath}/imgs`, 'miao')
+  let data = Data.readJSON(`${charPath}/data.json`, 'miao')
   return data.ver * 1 > 1
 }
 
@@ -169,16 +169,13 @@ async function saveCharData (id, key, name = '', force = false, _id = id) {
     data.eta = new Date(`${eta[name]} 10:00:00`) * 1
   }
   let charPath = `/resources/meta/character/${name}/`
-  // fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, '', 2).replaceAll('\n', '\r\n'))
-  Data.writeJSON({ path: charPath, name: 'data.json', data, rn: true })
+  Data.writeJSON({ path: charPath, name: 'data.json', data, rn: true, root: 'miao' })
   if (details.length === 1) {
-    // fs.writeFileSync(`${charPath}detail.json`, JSON.stringify(details[0], '', 2).replaceAll('\n', '\r\n'))
-    Data.writeJSON({ path: charPath, name: 'detail.json', data: details[0], rn: true })
+    Data.writeJSON({ path: charPath, name: 'detail.json', data: details[0], rn: true, root: 'miao' })
   } else if (data.id === 20000000) {
     for (let idx in details) {
       let detail = details[idx]
-      // fs.writeFileSync(`${charPath}/${detail.elem}/detail.json`, JSON.stringify(detail, '', 2).replaceAll('\n', '\r\n'))
-      Data.writeJSON({ path: `${charPath}/${detail.elem}`, name: 'detail.json', data: detail, rn: true })
+      Data.writeJSON({ path: `${charPath}/${detail.elem}`, name: 'detail.json', data: detail, rn: true, root: 'miao' })
     }
   }
 
@@ -206,7 +203,7 @@ async function down (name = '', force = false) {
     }
     await saveCharData(ds.id || id, ds.key, ds.name, force, id)
   }
-  Data.writeJSON({ name: '/resources/meta/material/data.json', data: mData, rn: true })
+  Data.writeJSON({ name: '/resources/meta/material/data.json', data: mData, rn: true, root: 'miao' })
 }
 
 const charData = {
@@ -289,8 +286,8 @@ let eta = {
   瑶瑶: '2023-01-18',
   艾尔海森: '2023-01-18',
   迪希雅: '2023-03-01',
-  米卡: '2023-03-01',
+  米卡: '2023-03-21',
   卡维: '2023-04-12',
   白术: '2023-04-12'
 }
-await down('卡维,白术', true)
+await down('米卡,卡维,白术', true)

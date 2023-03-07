@@ -3,11 +3,11 @@
 * */
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Data } from '../components/index.js'
+import { Data } from '#miao'
 import MaterialMeta from './material/MaterialMeta.js'
 
-let data = Data.readJSON('resources/meta/material/data.json')
-let abbr = await Data.importDefault('resources/meta/material/abbr.js')
+let data = Data.readJSON('resources/meta/material/data.json','miao')
+let abbr = await Data.importDefault('resources/meta/material/abbr.js', 'miao')
 let mMap = {}
 let getItem = (ds) => {
   mMap[ds.name] = {

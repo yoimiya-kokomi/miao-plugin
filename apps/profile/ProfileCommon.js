@@ -2,8 +2,8 @@
 * 面板公共方法及处理
 * */
 import { segment } from 'oicq'
-import { Version } from '../../components/index.js'
-import { Character, MysApi, Player } from '../../models/index.js'
+import { Version } from '#miao'
+import { Character, MysApi, Player } from '#miao.models'
 
 /*
 * 获取面板查询的 目标uid

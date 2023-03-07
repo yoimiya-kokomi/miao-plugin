@@ -2,7 +2,7 @@ import lodash from 'lodash'
 import Base from './Base.js'
 import moment from 'moment'
 import { Character, AvatarArtis, ProfileData, Weapon } from './index.js'
-import { Data } from '../components/index.js'
+import { Data } from '#miao'
 import AttrCalc from './profile/AttrCalc.js'
 import Profile from './player/Profile.js'
 

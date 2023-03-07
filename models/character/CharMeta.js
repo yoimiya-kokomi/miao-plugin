@@ -3,7 +3,7 @@
 * */
 import lodash from 'lodash'
 import { Material } from '../index.js'
-import { Format } from '../../components/index.js'
+import { Format } from '#miao'
 
 // 角色排序
 export const charPosIdx = {

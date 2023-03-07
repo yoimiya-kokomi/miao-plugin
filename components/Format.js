@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import Elem from './common/Elem.js'
-import { Cfg } from '../components/index.js'
+import { Cfg } from '#miao'
 
 let Format = {
   ...Elem,

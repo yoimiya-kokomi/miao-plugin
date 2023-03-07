@@ -2,10 +2,10 @@
 * 胡桃数据库的统计
 *
 * */
-import { App } from '../components/index.js'
 import { ConsStat, AbyssPct } from './stat/AbyssStat.js'
 import { AbyssTeam } from './stat/AbyssTeam.js'
 import { AbyssSummary } from './stat/AbyssSummary.js'
+import { App } from '#miao'
 
 let app = App.init({
   id: 'stat',

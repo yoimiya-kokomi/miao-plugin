@@ -5,7 +5,7 @@
 * */
 
 import fetch from 'node-fetch'
-import { Data } from '../../components/index.js'
+import { Data } from '#miao'
 
 const host = 'http://miaoapi.cn/api/hutao'
 

@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { Format } from '../../../components/index.js'
+import { Format } from '#miao'
 
 export const abbr = {
   炽烈的炎之魔女: '魔女',

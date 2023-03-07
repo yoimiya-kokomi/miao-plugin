@@ -1,7 +1,7 @@
-import { Common } from '../../components/index.js'
+import { Common } from '#miao'
 import { getTargetUid } from '../profile/ProfileCommon.js'
 import GachaData from './GachaData.js'
-import { Character, Player } from '../../models/index.js'
+import { Character, Player } from '#miao.models'
 
 let Gacha = {
   async detail (e) {

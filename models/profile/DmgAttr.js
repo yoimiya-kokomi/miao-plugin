@@ -4,7 +4,7 @@
 import { attrMap } from '../../resources/meta/artifact/index.js'
 import lodash from 'lodash'
 import DmgMastery from './DmgMastery.js'
-import { Format } from '../../components/index.js'
+import { Format } from '#miao'
 
 let DmgAttr = {
   // 计算并返回指定属性值

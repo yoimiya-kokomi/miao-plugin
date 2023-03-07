@@ -1,5 +1,5 @@
-import { App } from '../components/index.js'
 import Wife from './character/AvatarWife.js'
+import { App } from '#miao'
 
 let app = App.init({
   id: 'poke',

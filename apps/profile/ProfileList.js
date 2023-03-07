@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { getTargetUid } from './ProfileCommon.js'
-import { ProfileRank, Player, Character } from '../../models/index.js'
-import { Common, Data } from '../../components/index.js'
+import { Common, Data } from '#miao'
+import { ProfileRank, Player, Character } from '#miao.models'
 
 const ProfileList = {
   /**

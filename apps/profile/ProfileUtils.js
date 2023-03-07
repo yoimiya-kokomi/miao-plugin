@@ -1,6 +1,6 @@
 import { segment } from 'oicq'
-import { MysApi } from '../../models/index.js'
-import { Cfg } from '../../components/index.js'
+import { Cfg } from '#miao'
+import { MysApi } from '#miao.models'
 
 /** 获取角色卡片的原图 */
 export async function getOriginalPicture (e) {

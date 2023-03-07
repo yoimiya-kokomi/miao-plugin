@@ -1,5 +1,5 @@
-import { App } from '../components/index.js'
 import Help from './help/Help.js'
+import { App } from '#miao'
 
 let app = App.init({
   id: 'help',

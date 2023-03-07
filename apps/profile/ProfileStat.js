@@ -1,5 +1,5 @@
-import { Common } from '../../components/index.js'
-import { MysApi, Player, Character } from '../../models/index.js'
+import { Common } from '#miao'
+import { MysApi, Player, Character } from '#miao.models'
 
 const ProfileStat = {
   async stat (e) {

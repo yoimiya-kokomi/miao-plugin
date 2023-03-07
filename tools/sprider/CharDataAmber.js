@@ -1,6 +1,6 @@
 import abbr from './abbr.js'
 import lodash from 'lodash'
-import { Data } from '../../components/index.js'
+import { Data } from '#miao'
 
 let costumes = {
   琴: [200301], // 琴

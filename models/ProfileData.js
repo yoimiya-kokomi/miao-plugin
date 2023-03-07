@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import AvatarData from './AvatarData.js'
-import { Data, Cfg } from '../components/index.js'
+import { Data, Cfg } from '#miao'
 import { ProfileArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile/AttrCalc.js'
 import CharImg from './character/CharImg.js'

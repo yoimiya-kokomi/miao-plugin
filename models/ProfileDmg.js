@@ -6,7 +6,7 @@ import { attrMap } from '../resources/meta/artifact/index.js'
 import DmgBuffs from './profile/DmgBuffs.js'
 import DmgAttr from './profile/DmgAttr.js'
 import DmgCalc from './profile/DmgCalc.js'
-import { Common } from '../components/index.js'
+import { Common } from '#miao'
 
 export default class ProfileDmg extends Base {
   constructor (profile = {}) {

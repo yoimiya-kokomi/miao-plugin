@@ -1,7 +1,8 @@
 import lodash from 'lodash'
-import { Data } from '../../components/index.js'
-import { chestInfo } from '../../resources/meta/info/index.js'
 import moment from 'moment'
+import { Data } from '#miao'
+import { chestInfo } from '../../resources/meta/info/index.js'
+
 
 const MysAvatar = {
 

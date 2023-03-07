@@ -1,6 +1,6 @@
 import lodash from 'lodash'
-import { Data } from '../../components/index.js'
 import EnkaData from './EnkaData.js'
+import { Data } from '#miao'
 
 let HttpsProxyAgent = ''
 

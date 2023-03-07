@@ -1,5 +1,5 @@
 import { ProfileReq, ProfileServ } from '../index.js'
-import { Cfg, Data } from '../../components/index.js'
+import { Cfg, Data } from '#miao'
 import MysAvatar from './MysAvatar.js'
 
 import enkaApi from './EnkaApi.js'

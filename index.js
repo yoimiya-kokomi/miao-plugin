@@ -1,4 +1,4 @@
-import { Data, Version } from './components/index.js'
+import { Data, Version } from '#miao'
 import fs from 'fs'
 
 export * from './apps/index.js'

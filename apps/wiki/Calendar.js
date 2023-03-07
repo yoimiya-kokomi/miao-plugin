@@ -1,8 +1,9 @@
+import lodash from 'lodash'
 import fetch from 'node-fetch'
 import moment from 'moment'
-import { Character, Material } from '../../models/index.js'
-import { Common, Data, Cfg } from '../../components/index.js'
-import lodash from 'lodash'
+import { Common, Data, Cfg } from '#miao'
+import { Character, Material } from '#miao.models'
+
 
 const ignoreIds = [495, // 有奖问卷调查开启！
   1263, // 米游社《原神》专属工具一览

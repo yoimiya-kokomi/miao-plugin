@@ -1,5 +1,5 @@
 import { User } from './index.js'
-import { Version } from '../components/index.js'
+import { Version } from '#miao'
 
 export default class MysApi {
   constructor (e, uid, mysInfo) {

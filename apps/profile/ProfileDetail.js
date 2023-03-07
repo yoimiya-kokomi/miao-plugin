@@ -1,8 +1,8 @@
 import lodash from 'lodash'
 import { getTargetUid, getProfileRefresh } from './ProfileCommon.js'
 import ProfileList from './ProfileList.js'
-import { Cfg, Common, Format } from '../../components/index.js'
-import { MysApi, ProfileRank, ProfileArtis, Character, Weapon } from '../../models/index.js'
+import { Cfg, Common, Format } from '#miao'
+import { MysApi, ProfileRank, ProfileArtis, Character, Weapon } from '#miao.models'
 import ProfileChange from './ProfileChange.js'
 import { profileArtis } from './ProfileArtis.js'
 

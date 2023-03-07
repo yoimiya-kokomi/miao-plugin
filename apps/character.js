@@ -1,8 +1,8 @@
-import { App } from '../components/index.js'
 import { uploadCharacterImg } from './character/ImgUpload.js'
 import { getOriginalPicture } from './profile/ProfileUtils.js'
 import Avatar from './character/AvatarCard.js'
 import Wife from './character/AvatarWife.js'
+import { App } from '#miao'
 
 let app = App.init({
   id: 'character',

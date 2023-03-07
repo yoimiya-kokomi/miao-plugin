@@ -1,11 +1,11 @@
-import { Data } from '../../../components/index.js'
+import { Data } from '#miao'
 import lodash from 'lodash'
 import calc from './calc.js'
 
 let artiSetMap = {}
 let artiMap = {}
 
-let artis = Data.readJSON('resources/meta/artifact/data.json')
+let artis = Data.readJSON('resources/meta/artifact/data.json', 'miao')
 
 lodash.forEach(artis, (ds) => {
   let artiSet = {

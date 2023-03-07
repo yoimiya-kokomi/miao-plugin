@@ -1,6 +1,6 @@
 import lodash from 'lodash'
-import { Data } from '../../components/index.js'
-import { Character, Weapon } from '../../models/index.js'
+import { Data } from '#miao'
+import { Character, Weapon } from '#miao.models'
 import { poolDetail } from '../../resources/meta/info/index.js'
 import moment from 'moment'
 

@@ -4,7 +4,7 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Artifact, ArtifactSet } from './index.js'
-import { Format, Data } from '../components/index.js'
+import { Format, Data } from '#miao'
 import ArtisMark from './profile/ArtisMark.js'
 
 export default class AvatarArtis extends Base {

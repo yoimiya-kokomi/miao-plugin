@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import { Data } from '../components/index.js'
-import { ProfileDmg } from '../models/index.js'
+import { Data } from '#miao'
+import { ProfileDmg } from '#miao.models'
 
 export async function calcDmg (inputData, enemyLv = 86) {
   let dmg = new ProfileDmg(inputData)

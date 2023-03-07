@@ -1,7 +1,7 @@
 import HutaoApi from './HutaoApi.js'
 import lodash from 'lodash'
-import { Character } from '../../models/index.js'
-import { Common } from '../../components/index.js'
+import { Common } from '#miao'
+import { Character } from '#miao.models'
 
 export async function ConsStat (e) {
   let consData = await HutaoApi.getCons()

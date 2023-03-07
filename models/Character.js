@@ -6,7 +6,7 @@
 * */
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Data, Format, Cfg } from '../components/index.js'
+import { Data, Format, Cfg } from '#miao'
 import CharImg from './character/CharImg.js'
 import CharTalent from './character/CharTalent.js'
 import CharId from './character/CharId.js'
@@ -16,7 +16,7 @@ import CharCfg from './character/CharCfg.js'
 let { wifeMap, idSort, idMap } = CharId
 
 let getMeta = function (name) {
-  return Data.readJSON(`resources/meta/character/${name}/data.json`)
+  return Data.readJSON(`resources/meta/character/${name}/data.json`,'miao')
 }
 
 class Character extends Base {
@@ -253,9 +253,9 @@ class Character extends Base {
 
     try {
       if (this.isTraveler) {
-        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/detail.json`)
+        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/detail.json`,'miao')
       } else {
-        this._detail = Data.readJSON(`${path}/${this.name}/detail.json`)
+        this._detail = Data.readJSON(`${path}/${this.name}/detail.json`,'miao')
       }
     } catch (e) {
       console.log(e)

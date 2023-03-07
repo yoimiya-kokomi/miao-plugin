@@ -4,7 +4,7 @@ import lodash from 'lodash'
 import fetch from 'node-fetch'
 import ImgDownloader from './sprider/ImgDown.js'
 import CharData from './sprider/CharDataAmber.js'
-import { Data } from '../components/index.js'
+import { Data } from '#miao'
 import tId from './sprider/TalentId.js'
 
 import testData from './test.js'
@@ -49,16 +49,16 @@ let getCharData = async function (id, key, name = '', _id = id) {
 
 function checkName (name) {
   let charPath = `resources/meta/character/${name}/`
-  Data.createDir(charPath)
+  Data.createDir(charPath, 'miao')
   if (name === '旅行者') {
     for (let idx in tElems) {
-      Data.createDir(`${charPath}${tElems[idx]}/icons`)
+      Data.createDir(`${charPath}${tElems[idx]}/icons`, 'miao')
     }
   } else {
-    Data.createDir(`${charPath}/icons`)
+    Data.createDir(`${charPath}/icons`, 'miao')
   }
-  Data.createDir(`${charPath}/imgs`)
-  let data = Data.readJSON(`${charPath}/data.json`)
+  Data.createDir(`${charPath}/imgs`, 'miao')
+  let data = Data.readJSON(`${charPath}/data.json`, 'miao')
   return data.ver * 1 > 1
 }
 
@@ -72,7 +72,7 @@ async function saveCharData (id) {
     return
   }
 
-  Data.createDir(`resources/meta/character/${name}/`)
+  Data.createDir(`resources/meta/character/${name}/`, 'miao')
 
   let charPath = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/`
   fs.writeFileSync(`${charPath}data.json`, JSON.stringify(data, '', 2))

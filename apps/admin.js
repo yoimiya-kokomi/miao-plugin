@@ -1,7 +1,7 @@
 import fs from 'fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
-import { Cfg, Common, Data, App } from '../components/index.js'
+import { Cfg, Common, Data, App } from '#miao'
 
 let keys = lodash.map(Cfg.getCfgSchemaMap(), (i) => i.key)
 let app = App.init({

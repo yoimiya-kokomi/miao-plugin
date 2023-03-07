@@ -1,7 +1,7 @@
-import { Cfg, Common, Data } from '../../components/index.js'
-import { Abyss, Character, MysApi, Player } from '../../models/index.js'
-import HutaoApi from './HutaoApi.js'
 import lodash from 'lodash'
+import HutaoApi from './HutaoApi.js'
+import { Cfg, Common, Data } from '#miao'
+import { Abyss, Character, MysApi, Player } from '#miao.models'
 
 export async function AbyssSummary (e) {
   let isMatch = /^#(喵喵|上传)深渊(数据)?$/.test(e.original_msg || e.msg || '')

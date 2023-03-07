@@ -1,4 +1,4 @@
-import { Cfg, Common, Data, Version } from '../../components/index.js'
+import { Cfg, Common, Data, Version } from '#miao'
 import fs from 'fs'
 import lodash from 'lodash'
 import HelpTheme from './HelpTheme.js'

@@ -4,7 +4,7 @@
  */
 
 import { Weapon, ProfileAttr } from '../index.js'
-import { Format } from '../../components/index.js'
+import { Format } from '#miao'
 import { calc as artisBuffs } from '../../resources/meta/artifact/index.js'
 import { weaponBuffs } from '../../resources/meta/weapon/index.js'
 import lodash from 'lodash'

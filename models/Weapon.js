@@ -1,5 +1,5 @@
 import Base from './Base.js'
-import { Data } from '../components/index.js'
+import { Data } from '#miao'
 import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet } from '../resources/meta/weapon/index.js'
 import lodash from 'lodash'
 
@@ -83,7 +83,7 @@ class Weapon extends Base {
     }
     const path = 'resources/meta/weapon'
     try {
-      this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`)
+      this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`,'miao')
     } catch (e) {
       console.log(e)
     }

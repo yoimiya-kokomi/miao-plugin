@@ -1,4 +1,3 @@
-import { App, Cfg } from '../components/index.js'
 import { profileHelp } from './profile/ProfileCommon.js'
 import { profileArtisList } from './profile/ProfileArtis.js'
 import ProfileDetail from './profile/ProfileDetail.js'
@@ -7,6 +6,7 @@ import ProfileList from './profile/ProfileList.js'
 import { uploadCharacterImg, delProfileImg, profileImgList } from './character/ImgUpload.js'
 import { enemyLv } from './profile/ProfileUtils.js'
 import { groupRank, resetRank, refreshRank, manageRank } from './profile/ProfileRank.js'
+import { App, Cfg } from '#miao'
 
 let app = App.init({
   id: 'profile',

@@ -1,10 +1,10 @@
-import { Cfg, Common } from '../../components/index.js'
-import { Character } from '../../models/index.js'
+import lodash from 'lodash'
 import { segment } from 'oicq'
 import CharTalent from './CharTalent.js'
-import lodash from 'lodash'
 import CharWikiData from './CharWikiData.js'
 import CharMaterial from './CharMaterial.js'
+import { Cfg, Common } from '#miao'
+import { Character } from '#miao.models'
 
 const wikiReg = /^(?:#|喵喵)?(.*)(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/
 

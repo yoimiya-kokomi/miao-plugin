@@ -1,4 +1,4 @@
-import { Data } from '../../../components/index.js'
+import { Data } from '#miao'
 import lodash from 'lodash'
 import { weaponType, abbr, alias, weaponSet } from './meta.js'
 
@@ -28,12 +28,12 @@ const attr = function (key, start, _step) {
 
 for (let type in weaponType) {
   // calc
-  let typeCalc = await Data.importDefault(`resources/meta/weapon/${type}/calc.js`)
+  let typeCalc = await Data.importDefault(`resources/meta/weapon/${type}/calc.js`, 'miao')
   let typeRet = typeCalc(step, attr)
   calc = lodash.extend(calc, typeRet)
 
   // data
-  let typeData = await Data.readJSON(`resources/meta/weapon/${type}/data.json`)
+  let typeData = await Data.readJSON(`resources/meta/weapon/${type}/data.json`,'miao')
   lodash.forEach(typeData, (ds) => {
     data[ds.name] = {
       id: ds.id,
