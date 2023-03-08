@@ -58,7 +58,7 @@
         <div class="abyss-team">
           {{set ds=floor?.display?.up?.avatars||[] }}
           {{each ds id idx}}
-          <% include(_layout_path+'../tpl/avatar-card.html', [avatars[id],{_res_path, cardType:cardTypes[ds.length][idx]}]) %>
+          <% include(_tpl_path+'/avatar-card.html', [avatars[id],{_res_path, cardType:cardTypes[ds.length][idx]}]) %>
           {{/each}}
         </div>
         <div class="line"></div>

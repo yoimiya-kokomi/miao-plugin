@@ -14,11 +14,11 @@ Miao-Plugin 是一个 Yunzai-Bot 的升级插件，提供包括角色查询等�
 
 ```
 // 使用gitee
-git clone https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+git clone --depth=1 https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
 pnpm install -P
 
 // 使用github
-git clone https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+git clone --depth=1 https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
 pnpm install -P
 ```
 

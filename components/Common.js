@@ -1,10 +1,10 @@
 import Cfg from './Cfg.js'
-import render from './common/Render.js'
+import Render from './common/Render.js'
 import { Version } from './index.js'
 import lodash from 'lodash'
 
 const Common = {
-  render,
+  render: Render.render,
   cfg: Cfg.get,
   sleep (ms) {
     return new Promise((resolve) => setTimeout(resolve, ms))

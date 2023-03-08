@@ -4,18 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="#"/>
-    <link rel="preload" href="{{_res_path}}common/font/HYWH-65W.woff" as="font" type="font/woff">
-    <link rel="preload" href="{{_res_path}}common/font/NZBZ.woff" as="font" type="font/woff">
-    <link rel="preload" href="{{_res_path}}common/font/tttgbnumber.woff" as="font" type="font/woff">
-    <link rel="stylesheet" type="text/css" href="{{_res_path}}common/common.css"/>
+    <link rel="preload" href="{{_miao_path}}common/font/HYWH-65W.woff" as="font" type="font/woff">
+    <link rel="preload" href="{{_miao_path}}common/font/NZBZ.woff" as="font" type="font/woff">
+    <link rel="preload" href="{{_miao_path}}common/font/tttgbnumber.woff" as="font" type="font/woff">
+    <link rel="stylesheet" type="text/css" href="{{_miao_path}}common/common.css"/>
     <title>miao-plugin</title>
     {{block 'css'}}
     {{/block}}
   </head>
-  <body class="elem-{{element||elem||`hydro`}} {{displayMode || mode || `default`}}-mode  {{bodyClass}}" {{sys.scale}}>
+  <body class="elem-{{element||elem||`hydro`}} {{displayMode || mode || `default`}}-mode {{bodyClass}}" {{sys.scale}}>
     <div class="container" id="container">
       {{block 'main'}}{{/block}}
-      <div class="copyright">{{@sys.copyright}}</div>
+      <div class="copyright">{{@copyright || sys?.copyright}}</div>
     </div>
   </body>
 </html>

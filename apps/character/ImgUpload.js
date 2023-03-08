@@ -208,6 +208,7 @@ export async function profileImgList (e) {
   }
   if ([1, 0].includes(Cfg.get('originalPic') * 1)) {
     e.reply('已禁止获取面板图列表')
+    return true
   }
   let nickname = Bot.nickname
   if (e.isGroup) {

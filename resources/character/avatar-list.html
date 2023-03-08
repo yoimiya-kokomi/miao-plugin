@@ -76,7 +76,7 @@
   <div class="cont-title">角色列表</div>
   <div class="avatar-list">
     {{each avatars avatar idx}}
-    <% include(_layout_path+'../tpl/avatar-card.html', [avatar,{_res_path, cardType:'mini'}]) %>
+    <% include(_tpl_path+'/avatar-card.html', [avatar,{_res_path, cardType:'mini'}]) %>
     {{/each}}
   </div>
   <div class="cont-footer cont-notice">
