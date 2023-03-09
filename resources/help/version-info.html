@@ -16,14 +16,14 @@
     <div class="dev-info cont-body">
       <div class="strong">【Dev测试分支，开发中】</div>
       <ul class="log-ul">
-        <li>如需体验可切换至<span class="cmd">miao-plugin</span>仓库<span class="cmd">dev</span>分支</li>
+        <li>如需体验可切换至<span class="cmd">{{name||'miao-plugin'}}</span>仓库<span class="cmd">dev</span>分支</li>
         <li>Dev功能可能不稳定，建议具备一定排错能力的勇士体验</li>
       </ul>
     </div>
     {{else}}
     {{/if}}
     {{else}}
-    <div class="cont-title">喵喵版本 {{v}}</div>
+    <div class="cont-title">{{name || '喵喵'}}版本 {{v}}</div>
     {{/if}}
     <div class="cont-body">
       <ul class="log-ul">

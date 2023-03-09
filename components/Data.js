@@ -17,6 +17,8 @@ const getRoot = (root = '') => {
 
 let Data = {
 
+  getRoot,
+
   /*
   * 根据指定的path依次检查与创建目录
   * */

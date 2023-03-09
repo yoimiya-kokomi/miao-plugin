@@ -1,6 +1,6 @@
 # Miao-Plugin 说明
 
-Miao-Plugin 是一个 Yunzai-Bot 的升级插件，提供包括角色查询等升级功能。
+`miao-plugin`是一个`Yunzai-Bot`的升级插件，提供包括角色面板、角色查询等角色相关功能。
 
 具体功能可在安装插件后 通过 `#喵喵帮助` 进行查看。如需进行设置则可通过 `#喵喵设置` 命令进行管理。
 
@@ -8,9 +8,11 @@ Miao-Plugin 是一个 Yunzai-Bot 的升级插件，提供包括角色查询等�
 
 ## 安装与更新
 
+### 使用Git安装（推荐）
+
 请将 miao-plugin 放置在 Yunzai-Bot 的 plugins 目录下，重启 Yunzai-Bot 后即可使用。
 
-推荐使用 git 进行安装，以方便后续升级。在 Yunzai-Bot 根目录夹打开终端，运行下述指令之一
+请使用 git 进行安装，以方便后续升级。在 Yunzai-Bot 根目录夹打开终端，运行下述指令之一
 
 ```
 // 使用gitee
@@ -24,38 +26,22 @@ pnpm install -P
 
 进行安装。安装完毕后，管理员只需发送 `#喵喵更新` 即可自动更新 miao-plugin。
 
-如果是手工下载的 zip 压缩包，请将解压后的 miao-plugin 文件夹（请删除压缩自带的-master后缀）放置在 Yunzai-Bot 目录下的 plugins 文件夹内。
+### 手工下载安装（不推荐）
+
+手工下载安装包，解压后将`miao-plugin-master`更名为`miao-plugin`，然后放置在Yunzai的plugins目录内
+
+虽然此方式能够使用，但无法使用`#喵喵更新`进行更新，不利于后续升级，故不推荐使用
 
 ---
 
 ## Yunzai版本与支持
 
-### V3-Yunzai
+`miao-plugin` 支持V3 / V2 版本的Yunzai-Bot
 
-目前 V3-Yunzai 已基本重构完毕，具体可参见 [Yunzai-V3](https://github.com/Le-niao/Yunzai-Bot) ，miao-plugin 已经支持V3版本 Yunzai，可直接使用。
-
-推荐直接使用 V3-Yunzai 搭配 miao-plugin 使用。（不能做V2钉子户——喵佬）
-
-[issue#13](https://github.com/yoimiya-kokomi/miao-plugin/issues/74) : 如启动时报 Cannot find package 'image-size'
-的错误，直接在yunzai根目录下`pnpm install -P` 或使用cnpm、npm等包管理工具安装image-size库即可
-
-### V2-Yunzai
-
-miao-plugin仍支持使用V2版Yunzai安装miao-plugin。 由于官方Yunzai已经停止更新，可使用喵喵版V2-Yunzai
-
-在Yunzai根目录夹打开终端，运行
-
-```
-// 使用gitee
-git remote set-url origin https://gitee.com/yoimiya-kokomi/Yunzai-Bot
-
-// 使用github
-git remote set-url origin https://github.com/yoimiya-kokomi/Yunzai-Bot
-```
-
-即可切换Yunzai远程仓库地址，运行git pull拉取更新即可使用喵喵版V2-Yunzai（版本>2.2.0)
-
-V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新卡池等信息
+* [Miao-Yunzai](https://github.com/yoimiya-kokomi/Miao-Yunzai) : 喵版Yunzai [Gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
+  / [Github](https://github.com/yoimiya-kokomi/Miao-Yunzai) ，本体不含签到功能，功能迭代较多，与miao-plugin打通，只建议新部署/迁移
+* [Yunzai-V3](https://github.com/yoimiya-kokomi/Yunzai-Bot) ：Yunzai V3 - 喵喵维护版，icqq版本，与原版Yunza功能基本一致，会保持卡池更新，功能相对稳定，可从原版Yunzai换源直接升级
+* [Yunzai-V3](https://gitee.com/Le-niao/Yunzai-Bot) ：Yunzai V3 - 乐神原版，oicq版本，可能会遇到登录问题
 
 ---
 
@@ -70,9 +56,9 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 `#更新面板` 依赖于面板查询API，面板服务由 http://enka.network/ 提供。
 
 > 查询功能经Enka官方授权([issue#63](https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199348789))，感谢Enka提供的面板查询服务
-> 
+>
 > 如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在[Enka官网](http://enka.network/) Discord联系
-> 
+>
 > [issue#63](https://github.com/yoimiya-kokomi/miao-plugin/issues/63#issuecomment-1199734496)
 
 > 可尝试使用`MiniGG-Api`面板服务 [@MiniGrayGay](https://github.com/MiniGrayGay)<br>
@@ -96,22 +82,25 @@ V2-Yunzai在较长一段时间内会维持更新，进行一些Bugfix及更新�
 
 # 免责声明
 
-1. 功能仅限内部交流与小范围使用，请勿将Yunzai-Bot及Miao-Plugin用于以盈利为目的的场景
-2. 图片与其他素材均来自于网络，仅供交流学习使用，如有侵权请联系，会立即删除
+1. `miao-plugin`自身的UI与代码均开放，无需征得特殊同意，可任意使用。能备注来源最好，但不强求
+2. 以上声明但仅代表`miao-plugin`自身的范畴，请尊重Yunzai本体及其他插件作者的努力，勿将Yunzai及其他插件用于以盈利为目的的场景
+3. miao-plugin的图片与其他素材均来自于网络，仅供交流学习使用，如有侵权请联系，会立即删除
 
-# 其他
+# 资源
 
-* [官方Yunzai-Bot-V3](https://github.com/Le-niao/Yunzai-Bot) : [Gitee](https://gitee.com/Le-niao/Yunzai-Bot)
-  / [Github](https://github.com/Le-niao/Yunzai-Bot)
-* [喵喵Yunzai-Bot-V2](https://github.com/Le-niao/Yunzai-Bot) : [Gitee](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
-  / [Github](https://github.com/yoimiya-kokomi/Yunzai-Bot)
-* [喵喵插件 Miao-Plugin](https://github.com/yoimiya-kokomi/miao-plugin) : [Gitee](https://gitee.com/yoimiya-kokomi/miao-plugin)
+* [Miao-Yunzai](https://github.com/yoimiya-kokomi/Miao-Yunzai) : 喵版Yunzai [Gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
+  / [Github](https://github.com/yoimiya-kokomi/Miao-Yunzai)
+* [Yunzai-V3](https://github.com/yoimiya-kokomi/Yunzai-Bot) ：Yunzai V3 - 喵喵维护版（使用 icqq）
+* [Yunzai-V3](https://gitee.com/Le-niao/Yunzai-Bot) ：Yunzai V3 - 乐神原版（使用 oicq）
+* [miao-plugin](https://github.com/yoimiya-kokomi/miao-plugin) : 喵喵插件 [Gitee](https://gitee.com/yoimiya-kokomi/miao-plugin)
   / [Github](https://github.com/yoimiya-kokomi/miao-plugin)
-* [Enka](https://enka.network/): 感谢Enka提供的面板服务
-* [Snap.Genshin](https://www.snapgenshin.com/home/) : 感谢 DGP Studio
-  开发的 [胡桃API](https://github.com/DGP-Studio/Snap.HutaoAPI)
+
+# 其他&感谢
+
+* [Enka.Network](https://enka.network/): 感谢Enka提供的面板服务
+* [Snap.Genshin](https://www.snapgenshin.com/home/) : 感谢 DGP Studio 开发的 [胡桃API](https://github.com/DGP-Studio/Snap.HutaoAPI)
 * QQ群（暂时停止新加入，请见谅）
     * Yunzai-Bot 官方QQ群：213938015
     * 喵喵Miao-Plugin QQ群：607710456
-* [爱发电](https://afdian.net/@kokomi) 欢迎老板打赏，喵~
+* [爱发电](https://afdian.net/@kokomi) :欢迎老板打赏，喵~
 

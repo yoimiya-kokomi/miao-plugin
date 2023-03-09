@@ -10,6 +10,13 @@ const Render = {
     return e.runtime.render('miao-plugin', path, params, {
       retType: cfg.retMsgId ? 'msgId' : 'default',
       beforeRender ({ data }) {
+        let pluginName = ''
+        if (data.pluginName !== false) {
+          pluginName = ` & ${data.pluginName || 'Miao-Plugin'}`
+          if (data.pluginVersion !== false) {
+            pluginName += `<span class="version">${data.pluginVersion || Version.version}`
+          }
+        }
         let resPath = data.pluResPath
         const layoutPath = process.cwd() + '/plugins/miao-plugin/resources/common/layout/'
         return {
@@ -23,7 +30,7 @@ const Render = {
           sys: {
             scale: Cfg.scale(cfg.scale || 1)
           },
-          copyright: `Created By ${BotName}<span class="version">${Version.yunzai}</span> & Miao-Plugin<span class="version">${Version.version}</span>`,
+          copyright: `Created By ${BotName}<span class="version">${Version.yunzai}</span>${pluginName}</span>`,
           pageGotoParams: {
             waitUntil: 'networkidle2'
           }
