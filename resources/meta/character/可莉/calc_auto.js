@@ -18,10 +18,25 @@ export const details = [{
     title: '可莉三火轰轰火花伤害',
     params: { team: true },
     dmg: ({ talent }, dmg) => dmg(talent.q['轰轰火花伤害'], 'q')
+  },{
+    title: '可莉三火可莉一轮总伤',
+    params: { q: 1, team: true },
+    dmg: ({ talent }, dmg) => {
+      let ta = dmg(talent.a['一段伤害'] , 'a')
+      let tz = dmg(talent.a['重击伤害'] , 'a')
+      let tz2 = dmg(talent.a['重击伤害'] , 'a2')
+      let tejump = dmg(talent.e['技能伤害'] , 'e')
+      let tebomb = dmg(talent.e['技能伤害'] , 'e')
+      let tq = dmg(talent.q['轰轰火花伤害'] , 'q')
+      return {
+        dmg:  ta.dmg * 8 +  tz.dmg * 4 +  tz2.dmg * 2 +  tejump.dmg * 3 +  tebomb.dmg * 8 +  tq.dmg * 16,
+        avg:  ta.avg * 8 +  tz.avg * 4 +  tz2.avg * 2 +  tejump.avg * 3 +  tebomb.avg * 8 +  tq.avg * 16
+      }
+    }
   }
   ]
   
-  export const defDmgIdx = 1
+  export const defDmgIdx = 5
   export const mainAttr = 'atk,cpct,cdmg,mastery'
   
   export const defParams = {
