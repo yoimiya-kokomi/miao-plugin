@@ -98,7 +98,7 @@ pnpm install -P
 # 其他&感谢
 
 * [Enka.Network](https://enka.network/): 感谢Enka提供的面板服务
-* [Snap.Genshin](https://www.snapgenshin.com/home/) : 感谢 DGP Studio 开发的 [胡桃API](https://github.com/DGP-Studio/Snap.HutaoAPI)
+* [Snap.Hutao](https://hut.ao/) : 感谢 DGP Studio 开发的 [胡桃 API](https://github.com/DGP-Studio/Snap.Hutao.Server)
 * QQ群（暂时停止新加入，请见谅）
     * Yunzai-Bot 官方QQ群：213938015
     * 喵喵Miao-Plugin QQ群：607710456
