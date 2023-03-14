@@ -1,5 +1,6 @@
 import lodash from 'lodash'
 import Plugin from './common/Plugin.js'
+import { Version } from '#miao'
 
 class App {
   constructor (cfg) {
@@ -33,7 +34,7 @@ class App {
           name: `喵喵:${cfg.name || cfg.id}`,
           dsc: cfg.desc || cfg.name || '喵喵插件',
           event: event === 'poke' ? 'notice.*.poke' : 'message',
-          priority: 50,
+          priority: cfg.priority || 50,
           rule: rules
         })
       }
@@ -96,13 +97,12 @@ class App {
       if (app.yzRule && app.yzCheck) {
         let yzKey = `Yz${key}`
         let yzRule = lodash.trim(app.yzRule.toString(), '/')
-
         rules.push({
           reg: yzRule,
           fnc: yzKey
         })
         cls.prototype[yzKey] = async function () {
-          if (!app.yzCheck()) {
+          if (Version.isMiao || !app.yzCheck()) {
             return false
           }
           let e = this.e
@@ -120,7 +120,7 @@ class App {
     return {
       reg: 'noCheck',
       describe: cfg.desc || '',
-      priority: 50,
+      priority: cfg.priority || 50,
       hashMark: true
     }
   }
