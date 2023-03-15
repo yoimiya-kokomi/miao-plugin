@@ -9,6 +9,8 @@ const getRoot = (root = '') => {
     root = `${_path}/`
   } else if (root === 'miao') {
     root = `${_path}/plugins/miao-plugin/`
+  } else {
+    root = `${_path}/plugins/${root}/`
   }
   return root
 }
