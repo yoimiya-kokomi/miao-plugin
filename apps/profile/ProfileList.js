@@ -83,7 +83,7 @@ const ProfileList = {
     let profiles = player.getProfiles()
 
     // 检测标志位
-    let qq = (e.at && !e.atBot) ? e.at : e.qq
+    let qq = (e.at && !e.atBot) ? e.at : e.user_id
     await ProfileRank.setUidInfo({ uid, profiles, qq, uidType: isSelfUid ? 'ck' : 'bind' })
 
     let groupId = e.group_id
