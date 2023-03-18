@@ -102,7 +102,7 @@ class App {
           fnc: yzKey
         })
         cls.prototype[yzKey] = async function () {
-          if (Version.isMiao || !app.yzCheck()) {
+          if (!Version.isMiao && !app.yzCheck()) {
             return false
           }
           let e = this.e
