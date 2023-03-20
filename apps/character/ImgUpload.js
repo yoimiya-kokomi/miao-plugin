@@ -89,7 +89,7 @@ async function saveImages (e, name, imageMessages) {
   let path = resPath + pathSuffix
 
   if (!fs.existsSync(path)) {
-    Data.createDir(pathSuffix, 'miao')
+    Data.createDir("resources/" + pathSuffix, 'miao')
   }
   let senderName = lodash.truncate(e.sender.card, { length: 8 })
   let imgCount = 0
