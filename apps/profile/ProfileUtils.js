@@ -1,4 +1,3 @@
-import { segment } from 'oicq'
 import { Cfg } from '#miao'
 import { MysApi } from '#miao.models'
 

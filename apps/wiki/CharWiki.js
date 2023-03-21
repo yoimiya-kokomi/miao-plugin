@@ -1,5 +1,4 @@
 import lodash from 'lodash'
-import { segment } from 'oicq'
 import CharTalent from './CharTalent.js'
 import CharWikiData from './CharWikiData.js'
 import CharMaterial from './CharMaterial.js'

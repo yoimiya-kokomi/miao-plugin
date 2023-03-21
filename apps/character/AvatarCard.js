@@ -1,7 +1,6 @@
 import { Character, MysApi, Player } from '#miao.models'
 import { Cfg, Common } from '#miao'
 import lodash from 'lodash'
-import { segment } from 'oicq'
 import moment from 'moment'
 
 let Avatar = {
