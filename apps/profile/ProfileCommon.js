@@ -1,7 +1,6 @@
 /*
 * 面板公共方法及处理
 * */
-import { segment } from 'oicq'
 import { Version } from '#miao'
 import { Character, MysApi, Player } from '#miao.models'
 
