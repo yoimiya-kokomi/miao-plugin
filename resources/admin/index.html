@@ -18,14 +18,16 @@
     <li class="cfg-li">
       <div class="cfg-line">
         {{cfgItem.title}}
+        {{if !cfgItem.miao}}
         <span class="cfg-hint"> #喵喵设置{{cfgItem.key}}
           {{if cfgItem.type==='num'}} {{cfgItem.def}}{{else}} 开启/关闭{{/if}}
         </span>
+        {{/if}}
         {{if cfgItem.type === 'num'}}
         <div class="cfg-status">{{cfg[cfgKey]}}</div>
         {{else}}
-        {{if cfg[cfgKey]}}
-        <div class="cfg-status">已开启</div>
+        {{if cfg[cfgKey] || (cfgItem.miao && isMiao)}}
+        <div class="cfg-status">{{cfgItem.miao && isMiao ? '默认开启' : '已开启'}}</div>
         {{else}}
         <div class="cfg-status status-off">已关闭</div>
         {{/if}}

@@ -34,13 +34,15 @@ export async function getOriginalPicture (e) {
         }
       } catch (e) {
       }
-      if (imgPath.type === 'character' && [2, 0].includes(originalPic)) {
-        e.reply('已禁止获取角色原图...')
-        return true
-      }
-      if (imgPath.type === 'profile' && [1, 0].includes(originalPic)) {
-        e.reply('已禁止获取面板原图...')
-        return true
+      if (!e.isMaster) {
+        if (imgPath.type === 'character' && [2, 0].includes(originalPic)) {
+          e.reply('已禁止获取角色原图...')
+          return true
+        }
+        if (imgPath.type === 'profile' && [1, 0].includes(originalPic)) {
+          e.reply('已禁止获取面板原图...')
+          return true
+        }
       }
       if (imgPath && imgPath.img) {
         e.reply([segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + decodeURIComponent(imgPath.img))], false, { recallMsg: 30 })

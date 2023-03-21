@@ -12,6 +12,7 @@ const ProfileList = {
   async refresh (e) {
     let uid = await getTargetUid(e)
     if (!uid) {
+      e._replyNeedUid || e.reply('请先发送【#绑定+你的UID】来绑定查询目标')
       return true
     }
 
@@ -30,7 +31,7 @@ const ProfileList = {
           ret[char.name] = true
         }
       })
-      if (ret.length === 0) {
+      if (lodash.isEmpty(ret)) {
         e._isReplyed || e.reply('获取角色面板数据失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~')
         e._isReplyed = true
       } else {
@@ -38,7 +39,6 @@ const ProfileList = {
         return await ProfileList.render(e)
       }
     }
-
     return true
   },
 
