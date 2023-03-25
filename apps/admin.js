@@ -1,7 +1,7 @@
 import fs from 'fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
-import { Cfg, Common, Data, App } from '#miao'
+import { Cfg, Common, Data, Version, App } from '#miao'
 
 let keys = lodash.map(Cfg.getCfgSchemaMap(), (i) => i.key)
 let app = App.init({
@@ -79,7 +79,8 @@ async function sysCfg (e) {
   return await Common.render('admin/index', {
     schema,
     cfg,
-    imgPlus
+    imgPlus,
+    isMiao: Version.isMiao
   }, { e, scale: 1.4 })
 }
 

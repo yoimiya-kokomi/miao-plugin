@@ -1,7 +1,6 @@
 import fs from 'fs'
 import { promisify } from 'util'
 import { pipeline } from 'stream'
-import { segment } from 'oicq'
 import MD5 from 'md5'
 import fetch from 'node-fetch'
 import lodash from 'lodash'

@@ -1,7 +1,6 @@
 /*
 * 面板公共方法及处理
 * */
-import { segment } from 'oicq'
 import { Version } from '#miao'
 import { Character, MysApi, Player } from '#miao.models'
 
@@ -57,6 +56,7 @@ const _getTargetUid = async function (e) {
     uid = user.uid
     if ((!uid || !uidReg.test(uid)) && !e._replyNeedUid) {
       e.reply('请先发送【#绑定+你的UID】来绑定查询目标')
+      e._replyNeedUid = true
       return false
     }
   } catch (err) {

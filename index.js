@@ -1,6 +1,10 @@
 import { Data, Version } from '#miao'
 import fs from 'fs'
 
+if (!global.segment) {
+  global.segment = (await import("oicq")).segment
+}
+
 export * from './apps/index.js'
 
 if (Bot?.logger?.info) {
