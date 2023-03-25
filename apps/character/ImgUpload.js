@@ -132,7 +132,7 @@ async function saveImages (e, name, imageMessages) {
     imgCount++
     Bot.logger.mark(`添加成功: ${path}/${fileName}`)
   }
-  e.reply([segment.at(e.user_id, senderName), `\n成功添加${imgCount}张${name}图片。`])
+  e.reply([segment.at(e.user_id, senderName), `\n成功添加${imgCount}张${name}${isProfile ? '面板图' : '图片'}。`])
   return true
 }
 
