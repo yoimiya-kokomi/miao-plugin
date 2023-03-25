@@ -103,7 +103,7 @@ class AttrCalc {
     this.addAttr('hpBase', getLvData(0), true)
     this.addAttr('atkBase', getLvData(1), true)
     this.addAttr('defBase', getLvData(2), true)
-    this.addAttr(keys[3], getLvData(3, true), true)
+    this.addAttr(keys[3], getLvData(3, true), !/(hp|atk|def)/.test(keys[3]))
 
     let charBuffs = char.getCalcRule()
     lodash.forEach(charBuffs.buffs, (buff) => {
