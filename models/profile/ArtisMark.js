@@ -218,7 +218,7 @@ let ArtisMark = {
 
     lodash.forEach(subAttr, (ds) => {
       if (ds.key === 'cpct' || ds.key === 'cdmg' ){
-          let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0)/85 * fixPct
+          let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0)/85
           ret += temp_s
       }
     })
@@ -244,7 +244,7 @@ let ArtisMark = {
       fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
     }
     lodash.forEach(subAttr, (ds) => {
-      let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0)/85 * fixPct
+      let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0)/85
       ret += temp_s
     })
     return ret
