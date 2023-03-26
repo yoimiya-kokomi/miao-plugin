@@ -1,7 +1,7 @@
-import lodash from 'lodash'
+import { Character, ProfileRank, ProfileDmg, Player } from '../../models/index.js'
 import ProfileDetail from './ProfileDetail.js'
-import { Data, Common, Format } from '#miao'
-import { Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
+import { Data, Common, Format } from '../../components/index.js'
+import lodash from 'lodash'
 
 export async function groupRank (e) {
   const groupRank = Common.cfg('groupRank')
@@ -9,7 +9,7 @@ export async function groupRank (e) {
   let type = ''
   if (/(排名|排行|列表)/.test(msg)) {
     type = 'list'
-  } else if (/(最强|最高|最高分|最牛|第一)/.test(msg)) {
+  } else if (/(最强|最高|最多|最高分|最牛|第一)/.test(msg)) {
     type = 'detail'
   } else if (/极限/.test(msg)) {
     type = 'super'
@@ -19,7 +19,9 @@ export async function groupRank (e) {
     return false
   }
   let mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
-  let name = msg.replace(/(#|最强|最高分|第一|极限|最高|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
+  mode = /(词条)/.test(msg) ? 'valid':mode
+  mode = /(双爆)/.test(msg) ? 'crit':mode
+  let name = msg.replace(/(#|最强|最高分|第一|词条|双爆|极限|最高|最多词条|最多双爆|最高词条|最高双爆|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
   let char = Character.get(name)
   if (!char) {
     // 名字不存在或不为列表模式，则返回false
@@ -182,7 +184,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
         uid,
         isMax: !char,
         ...avatar.getData('id,star,name,sName,level,fetter,cons,weapon,elem,talent,artisSet,imgs'),
-        artisMark: Data.getData(mark, 'mark,markClass')
+        artisMark: Data.getData(mark, 'mark,markClass,valid,crit')
       }
       let dmg = data?.dmg?.data
       if (dmg && dmg.avg) {
@@ -207,7 +209,17 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
           }
         }
       }
-      tmp._mark = mark?._mark || 0
+        
+      if (mode === 'crit'){
+        tmp._mark = mark?._crit*6.6044 || 0
+      }
+      else if (mode === 'valid'){
+        tmp._mark = mark?._valid || 0
+      }
+      else{
+        tmp._mark = mark?._mark || 0
+      }
+      tmp._formatmark = Format.comma(tmp._mark, 1)
       tmp._dmg = dmg?.avg || 0
       tmp._star = 5 - tmp.star
       list.push(tmp)
@@ -215,8 +227,16 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   }
   let title
   if (char) {
-    title = `#${char.name}${mode === 'mark' ? '圣遗物' : ''}排行`
-    list = lodash.sortBy(list, mode === 'mark' ? '_mark' : '_dmg').reverse()
+    if (mode === 'mark'){
+        title = `#${char.name}${'圣遗物评分'}排行`
+    }
+    if (mode === 'crit'){
+        title = `#${char.name}${'双爆副词条'}排行`
+    }
+    if (mode === 'valid'){
+        title = `#${char.name}${'加权有效词条'}排行`
+    }
+    list = lodash.sortBy(list, mode === 'dmg' ? '_dmg' : '_mark').reverse()
   } else {
     title = `#${mode === 'mark' ? '最高分' : '最强'}排行`
     list = lodash.sortBy(list, ['uid', '_star', 'id'])

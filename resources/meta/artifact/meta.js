@@ -77,8 +77,8 @@ export const attrMap = {
 }
 
 // const basicNum = 23.312 / 6
-const basicNum = 3.885
-const attrPct = {
+export const basicNum = 3.885
+export const attrPct = {
   atk: 1.5,
   atkPlus: 5,
   def: 1.875,
