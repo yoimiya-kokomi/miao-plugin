@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import moment from 'moment'
-import { Cfg, Common, Data } from '#miao'
+import { Cfg, Common, Data } from '../components/index.js'
 
 export default class ProfileRank {
   constructor (data) {
@@ -35,7 +35,7 @@ export default class ProfileRank {
     let keys = await redis.keys(`miao:rank:${groupId}:${type}:*`)
     let ret = []
     for (let key of keys) {
-      let keyRet = /^miao:rank:\d+:(?:mark|dmg):(\d{8})$/.exec(key)
+      let keyRet = /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key)
       if (keyRet && keyRet[1]) {
         let charId = keyRet[1]
         let uid = await ProfileRank.getGroupMaxUid(groupId, charId, type)
@@ -72,7 +72,7 @@ export default class ProfileRank {
   static async resetRank (groupId, groupMemList, charId = '') {
     let keys = await redis.keys(`miao:rank:${groupId}:*`)
     for (let key of keys) {
-      let charRet = /^miao:rank:\d+:(?:mark|dmg):(\d{8})$/.exec(key)
+      let charRet = /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key)
       if (charRet) {
         if (charId === '' || charId * 1 === charRet[1] * 1) {
           await redis.del(key)
@@ -172,7 +172,7 @@ export default class ProfileRank {
       return false
     }
     for (let key of keys) {
-      let charRet = /^miao:rank:\d+:(?:mark|dmg):(\d{8})$/.exec(key)
+      let charRet = /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key)
       if (charRet) {
         await redis.zRem(key, uid)
       }
@@ -244,7 +244,7 @@ export default class ProfileRank {
       return false
     }
     let ret = {}
-    for (let typeKey of ['mark', 'dmg']) {
+    for (let typeKey of ['mark', 'dmg','crit','valid']) {
       let typeRank = await this.getTypeRank(profile, typeKey, force)
       ret[typeKey] = typeRank
       if (!ret.rank || ret.rank >= typeRank.rank) {
@@ -305,7 +305,31 @@ export default class ProfileRank {
       let mark = profile.getArtisMark(false)
       if (mark && mark._mark) {
         return {
-          score: mark._mark * 1,
+          score: mark.mark * 1,
+          data: mark
+        }
+      }
+    }
+    if (type === 'crit') {
+      if (!profile?.artis?.hasArtis) {
+        return false
+      }
+      let mark = profile.getArtisMark(false)
+      if (mark && mark._crit) {
+        return {
+          score: mark._crit * 1,
+          data: mark
+        }
+      }
+    }
+    if (type === 'valid') {
+      if (!profile?.artis?.hasArtis) {
+        return false
+      }
+      let mark = profile.getArtisMark(false)
+      if (mark && mark._valid) {
+        return {
+          score: mark._valid * 1,
           data: mark
         }
       }

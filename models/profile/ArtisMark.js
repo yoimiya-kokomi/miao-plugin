@@ -1,6 +1,6 @@
 import lodash from 'lodash'
-import { Format } from '#miao'
-import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/index.js'
+import { Format } from '../../components/index.js'
+import { attrNameMap, mainAttr, subAttr, attrMap ,basicNum,attrPct} from '../../resources/meta/artifact/index.js'
 
 let ArtisMark = {
   // 根据Key获取标题
@@ -194,6 +194,60 @@ let ArtisMark = {
       ret += (attrs[ds.key]?.mark || 0) * (ds.value || 0)
     })
     return ret * (1 + fixPct) / 2 / posMaxMark[posIdx] * 66
+  },
+    
+  getCritMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
+    let ret = 0
+    let { attrs, posMaxMark } = charCfg
+    let key = mainAttr?.key
+    if (!key) {
+      return 0
+    }
+    let fixPct = 1
+    posIdx = posIdx * 1
+    if (posIdx >= 4) {
+      let mainKey = key
+      if (posIdx === 4 && Format.isElem(key) && key === elem) {
+           mainKey = 'dmg'
+      }
+      fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
+    }
+    if(key === 'cpct'|| key === 'cdmg' ){
+          ret += 9.41
+      }
+
+    lodash.forEach(subAttr, (ds) => {
+      if (ds.key === 'cpct' || ds.key === 'cdmg' ){
+          let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0)/85
+          ret += temp_s
+      }
+    })
+    return ret
+  },
+    
+  getValidMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
+    let ret = 0
+    let { attrs, posMaxMark } = charCfg
+    let key = mainAttr?.key
+    if (!key) {
+      return 0
+    }
+    let fixPct = 1
+    posIdx = posIdx * 1
+    if (posIdx >= 4) {
+      let mainKey = key
+      if (posIdx === 4 && Format.isElem(key) && key === elem) {
+           mainKey = 'dmg'
+      }
+      
+      
+      fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
+    }
+    lodash.forEach(subAttr, (ds) => {
+      let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0)/85
+      ret += temp_s
+    })
+    return ret
   },
 
   // 获取位置最高分

@@ -26,6 +26,14 @@
           基于角色评分规则进行圣遗物评分。评分规则为线性规则，无法体现词条平衡等实际因素，评分仅供娱乐
         </li>
         <li>
+          <i class="group-rank-icon mark-icon"></i><strong>双爆排名：</strong>
+          以圣遗物的双爆（包括头）为排序的群内排名
+        </li>
+        <li>
+          <i class="group-rank-icon mark-icon"></i><strong>加权有效词条排名：</strong>
+          以圣遗物的加权有效词条（按照喵喵权重加权）为排序的群内排名
+        </li>
+        <li>
           <strong>排名范围：</strong>
           本群内 / 时间点：{{rankCfg.time}} 后 / 在群内主动通过 #面板 命令查看过的面板数据
         </li>
@@ -103,6 +111,7 @@
 
 
     {{set mark = ds.artisMark || false }}
+    {{set marks = ds._formatmark || false }}
     {{set aImgs = ds?.artisSet?.imgs || []}}
     <div class="char-item char-artis class-{{mark?.markClass||'D'}}">
       <div
@@ -121,7 +130,7 @@
         </div>
         <div class="artis-mark">
           <span class="cons artis-mark-class class-{{mark?.markClass||'D'}}">{{mark.markClass}}</span>
-          {{mark.mark}}
+          {{marks}}
         </div>
       </div>
     </div>
