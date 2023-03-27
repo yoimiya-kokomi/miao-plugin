@@ -37,7 +37,7 @@ const CharWiki = {
       return false
     }
     let char = Character.get(ret[1])
-    if (!char) {
+    if (!char || (char.isCustom && mode !== 'pic')) {
       return false
     }
     e.wikiMode = mode

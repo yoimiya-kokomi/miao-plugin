@@ -1,6 +1,6 @@
 import { Character, ProfileRank, ProfileDmg, Player } from '../../models/index.js'
 import ProfileDetail from './ProfileDetail.js'
-import { Data, Common, Format } from '../../components/index.js'
+import { Data, Common, Format } from '#miao'
 import lodash from 'lodash'
 
 export async function groupRank (e) {
@@ -19,9 +19,9 @@ export async function groupRank (e) {
     return false
   }
   let mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
-  mode = /(词条)/.test(msg) ? 'valid':mode
-  mode = /(双爆)/.test(msg) ? 'crit':mode
-  let name = msg.replace(/(#|最强|最高分|第一|词条|双爆|极限|最高|最多词条|最多双爆|最高词条|最高双爆|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
+  mode = /(词条)/.test(msg) ? 'valid' : mode
+  mode = /(双爆)/.test(msg) ? 'crit' : mode
+  let name = msg.replace(/(#|最强|最高分|第一|词条|双爆|极限|最高|最多|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
   let char = Character.get(name)
   if (!char) {
     // 名字不存在或不为列表模式，则返回false
@@ -209,14 +209,12 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
           }
         }
       }
-        
-      if (mode === 'crit'){
-        tmp._mark = mark?._crit*6.6044 || 0
-      }
-      else if (mode === 'valid'){
+
+      if (mode === 'crit') {
+        tmp._mark = mark?._crit * 6.6044 || 0
+      } else if (mode === 'valid') {
         tmp._mark = mark?._valid || 0
-      }
-      else{
+      } else {
         tmp._mark = mark?._mark || 0
       }
       tmp._formatmark = Format.comma(tmp._mark, 1)
@@ -227,14 +225,14 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   }
   let title
   if (char) {
-    if (mode === 'mark'){
-        title = `#${char.name}${'圣遗物评分'}排行`
+    if (mode === 'mark') {
+      title = `#${char.name}${'圣遗物评分'}排行`
     }
-    if (mode === 'crit'){
-        title = `#${char.name}${'双爆副词条'}排行`
+    if (mode === 'crit') {
+      title = `#${char.name}${'双爆副词条'}排行`
     }
-    if (mode === 'valid'){
-        title = `#${char.name}${'加权有效词条'}排行`
+    if (mode === 'valid') {
+      title = `#${char.name}${'加权有效词条'}排行`
     }
     list = lodash.sortBy(list, mode === 'dmg' ? '_dmg' : '_mark').reverse()
   } else {

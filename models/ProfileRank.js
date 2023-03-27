@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import moment from 'moment'
-import { Cfg, Common, Data } from '../components/index.js'
+import { Cfg, Common, Data } from '#miao'
 
 export default class ProfileRank {
   constructor (data) {

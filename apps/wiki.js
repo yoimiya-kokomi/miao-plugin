@@ -1,4 +1,4 @@
-import { App } from '../components/index.js'
+import { App } from '#miao'
 import Calendar from './wiki/Calendar.js'
 import CharWiki from './wiki/CharWiki.js'
 
