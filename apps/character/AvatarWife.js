@@ -6,27 +6,27 @@ import Avatar from './AvatarCard.js'
 
 const relationMap = {
   wife: {
-    keyword: '老婆,媳妇,妻子,娘子'.split(','),
+    keyword: '老婆,媳妇,妻子,娘子,宝贝'.split(','),
     type: 0
   },
   husband: {
-    keyword: '老公,丈夫,夫君,郎君'.split(','),
+    keyword: '老公,丈夫,夫君,郎君,死鬼'.split(','),
     type: 1
   },
   gf: {
-    keyword: '女朋友,女友,女神'.split(','),
+    keyword: '女朋友,女友,女神,女王,女票'.split(','),
     type: 0
   },
   bf: {
-    keyword: '男朋友,男友,男神'.split(','),
+    keyword: '男朋友,男友,男神,男票'.split(','),
     type: 1
   },
   daughter: {
-    keyword: '女儿'.split(','),
+    keyword: '女儿,闺女,小宝贝'.split(','),
     type: 2
   },
   son: {
-    keyword: '儿子'.split(','),
+    keyword: '儿子,犬子'.split(','),
     type: 3
   }
 }
