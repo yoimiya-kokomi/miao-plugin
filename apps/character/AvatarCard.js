@@ -42,7 +42,7 @@ let Avatar = {
     }
     let bg = char.getCardImg(Cfg.get('charPicSe', false))
     if (renderType === 'photo') {
-      e.reply(segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + bg.img))
+      e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/${bg.img}`))
       return true
     }
     let uid = e.uid || (e.targetUser && e.targetUser.uid)
