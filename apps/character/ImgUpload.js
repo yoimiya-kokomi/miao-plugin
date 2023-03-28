@@ -234,7 +234,7 @@ export async function profileImgList (e) {
       // 合并转发最多99？ 但是我感觉不会有这么多先不做处理
       console.log(`${path}${imgs[i]}`)
       msglist.push({
-        message: [`${i + 1}.`, segment.image(`${path}/${imgs[i]}`)],
+        message: [`${i + 1}.`, segment.image(`file://${path}/${imgs[i]}`)],
         nickname: nickname,
         user_id: Bot.uin
       })

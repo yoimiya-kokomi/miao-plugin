@@ -44,7 +44,7 @@ export async function getOriginalPicture (e) {
         }
       }
       if (imgPath && imgPath.img) {
-        e.reply([segment.image(process.cwd() + '/plugins/miao-plugin/resources/' + decodeURIComponent(imgPath.img))], false, { recallMsg: 30 })
+        e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/${decodeURIComponent(imgPath.img)}`), false, { recallMsg: 30 })
       }
       return true
     }
@@ -52,7 +52,7 @@ export async function getOriginalPicture (e) {
       let time = new Date()
       // 对at错图像的增加嘲讽...
       if (time / 1000 - source.time < 3600) {
-        e.reply([segment.image(process.cwd() + '/plugins/miao-plugin/resources/common/face/what.jpg')])
+        e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/common/face/what.jpg`))
         return true
       }
     }
