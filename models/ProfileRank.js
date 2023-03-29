@@ -244,12 +244,14 @@ export default class ProfileRank {
       return false
     }
     let ret = {}
-    for (let typeKey of ['mark', 'dmg','crit','valid']) {
+    for (let typeKey of ['mark', 'dmg', 'crit', 'valid']) {
       let typeRank = await this.getTypeRank(profile, typeKey, force)
-      ret[typeKey] = typeRank
-      if (!ret.rank || ret.rank >= typeRank.rank) {
-        ret.rank = typeRank.rank
-        ret.rankType = typeKey
+      if (['mark', 'dmg'].includes(typeKey)) {
+        ret[typeKey] = typeRank
+        if (!ret.rank || ret.rank >= typeRank.rank) {
+          ret.rank = typeRank.rank
+          ret.rankType = typeKey
+        }
       }
     }
     return ret

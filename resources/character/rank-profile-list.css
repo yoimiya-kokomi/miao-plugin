@@ -62,14 +62,17 @@ body {
   line-height: 24px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
-.char-idx .idx-icon.idx-1 {
+.char-idx .idx-icon.mode-mark.idx-1,
+.char-idx .idx-icon.mode-dmg.idx-1 {
   width: 48px;
   margin: 13px 0;
   background-image: url('./imgs/mark-icon2.png');
   color: rgba(0, 0, 0, 0);
   text-shadow: none;
 }
-.char-idx .idx-icon.mode-mark {
+.char-idx .idx-icon.mode-mark,
+.char-idx .idx-icon.mode-crit,
+.char-idx .idx-icon.mode-valid {
   background-position: 100% 0;
 }
 .char-idx .char-icon {

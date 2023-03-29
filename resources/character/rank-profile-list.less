@@ -66,15 +66,17 @@ body {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
 
 
-    &.idx-1 {
-      width: 48px;
-      margin: 13px 0;
-      background-image: url('./imgs/mark-icon2.png');
-      color: rgba(0, 0, 0, 0);
-      text-shadow: none;
+    &.mode-mark, &.mode-dmg {
+      &.idx-1 {
+        width: 48px;
+        margin: 13px 0;
+        background-image: url('./imgs/mark-icon2.png');
+        color: rgba(0, 0, 0, 0);
+        text-shadow: none;
+      }
     }
 
-    &.mode-mark {
+    &.mode-mark, &.mode-crit, &.mode-valid {
       background-position: 100% 0;
     }
   }
