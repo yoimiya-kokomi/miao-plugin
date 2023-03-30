@@ -24,6 +24,8 @@ export async function uploadCharacterImg (e) {
   if (msg.includes('面板')) {
     isProfile = true
     regRet = profileRegex.exec(msg)
+  } else {
+    isProfile = false
   }
 
   // 通过解析正则获取消息中的角色名
