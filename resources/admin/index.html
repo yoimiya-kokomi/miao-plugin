@@ -18,7 +18,7 @@
     <li class="cfg-li">
       <div class="cfg-line">
         {{cfgItem.title}}
-        {{if !cfgItem.miao}}
+        {{if !(cfgItem.miao && isMiao) }}
         <span class="cfg-hint"> #喵喵设置{{cfgItem.key}}
           {{if cfgItem.type==='num'}} {{cfgItem.def}}{{else}} 开启/关闭{{/if}}
         </span>

@@ -1,4 +1,4 @@
-import { Character, ProfileRank, ProfileDmg, Player } from '../../models/index.js'
+import { Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
 import ProfileDetail from './ProfileDetail.js'
 import { Data, Common, Format } from '#miao'
 import lodash from 'lodash'
@@ -202,7 +202,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
       if (uid) {
         let userInfo = await ProfileRank.getUidInfo(uid)
         if (userInfo && userInfo.qq) {
-          let member = e.group?.pickMember(userInfo.qq * 1)
+          let member = e.group?.pickMember(userInfo.qq)
           let img = member?.getAvatarUrl(140)
           if (img) {
             tmp.qqFace = img
@@ -225,15 +225,13 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   }
   let title
   if (char) {
-    if (mode === 'mark') {
-      title = `#${char.name}${'圣遗物评分'}排行`
+    let modeTitleMap = {
+      dmg: '',
+      mark: '圣遗物评分',
+      crit: '双爆副词条',
+      valid: '加权有效词条'
     }
-    if (mode === 'crit') {
-      title = `#${char.name}${'双爆副词条'}排行`
-    }
-    if (mode === 'valid') {
-      title = `#${char.name}${'加权有效词条'}排行`
-    }
+    title = `#${char.name}${modeTitleMap[mode]}排行`
     list = lodash.sortBy(list, mode === 'dmg' ? '_dmg' : '_mark').reverse()
   } else {
     title = `#${mode === 'mark' ? '最高分' : '最强'}排行`

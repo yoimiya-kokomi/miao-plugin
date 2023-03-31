@@ -1,20 +1,31 @@
 import fs from 'fs'
 import lodash from 'lodash'
 import cfgData from './cfg/CfgData.js'
+import { Version } from '#miao'
 
 const _path = process.cwd()
 const _cfgPath = `${_path}/plugins/miao-plugin/components/`
 let cfg = {}
+let miaoCfg = {}
+
 
 try {
   cfg = await cfgData.getCfg()
   cfgData.saveCfg(cfg)
+  lodash.forEach(cfgData.getCfgSchemaMap(), (cm) => {
+    if (cm.miao) {
+      miaoCfg[cm.cfgKey] = true
+    }
+  })
 } catch (e) {
   // do nth
 }
 
 let Cfg = {
   get (rote) {
+    if (Version.isMiao && miaoCfg[rote]) {
+      return true
+    }
     return lodash.get(cfg, rote)
   },
   set (rote, val) {

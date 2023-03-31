@@ -366,6 +366,7 @@ const buffs = {
     2: attr('dmg', 15, '草'),
     4: {
       title: '元素战技或元素爆发命中敌人后，使命中目标的草元素抗性降低30%',
+      check: ({ element }) => element === '草',
       data: {
         kx: 30
       }
