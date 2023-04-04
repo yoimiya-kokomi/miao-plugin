@@ -76,7 +76,7 @@ export default class ProfileReq extends Base {
     // 若3秒后还未响应则返回提示
     setTimeout(() => {
       if (self._isReq) {
-        this.e.msg(`开始获取uid:${uid}的数据，可能会需要一定时间~`)
+        this.e.reply(`开始获取uid:${uid}的数据，可能会需要一定时间~`)
       }
     }, 2000)
     // 发起请求
