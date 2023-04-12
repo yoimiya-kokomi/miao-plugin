@@ -20,7 +20,7 @@ async function getSets (id) {
   const url = `https://genshin.honeyhunterworld.com/i_${id}/?lang=CHS`
   let req = await fetch(url, { agent })
   let txt = await req.text()
-  let sTxt = /sortable_data.push\((.*)\)/.exec(txt)
+  let sTxt = /sortable_data.push\((\[\[.*?\]\])[\n\s]*\)/.exec(txt)
   let ret = {}
 
   if (sTxt && sTxt[1]) {
@@ -50,9 +50,9 @@ async function down (sets = '') {
     sets = sets.split(',')
   }
 
-  let ret = {}
+  let ret = Data.readJSON('resources/meta/artifact/data.json', 'miao')
 
-  let sTxt = /sortable_data.push\((.*)\)/.exec(txt)
+  let sTxt = /sortable_data.push\((\[\[.*?\]\])\)/.exec(txt)
   if (sTxt && sTxt[1]) {
     // eslint-disable-next-line no-eval
     let txt = sTxt[1]
@@ -76,13 +76,15 @@ async function down (sets = '') {
             effect[setRet[1]] = setRet[2]
           }
         })
-        tmp = {
-          id: idRet[1],
-          name: na.find('img').attr('alt'),
-          sets: {},
-          effect
+        if (idRet[1]) {
+          let id = idRet[1]
+          ret[id] = ret[id] || {
+            id,
+            name: na.find('img').attr('alt'),
+            sets: {},
+            effect
+          }
         }
-        ret[tmp.id] = tmp
       }
     })
   }
@@ -136,4 +138,4 @@ async function down (sets = '') {
   })
 }
 
-await down()
+await down('水仙之梦,花海甘露之光')

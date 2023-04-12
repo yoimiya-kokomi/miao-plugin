@@ -54,6 +54,10 @@ class Weapon extends Base {
     return this.star <= 2 ? 70 : 90
   }
 
+  get maxPromote () {
+    return this.star <= 2 ? 4 : 6
+  }
+
   get maxAffix () {
     let datas = this.detail?.affixData?.datas || {}
     return (datas['0'] && datas['0'][4]) ? 5 : 1
@@ -77,13 +81,24 @@ class Weapon extends Base {
     return false
   }
 
+  static async forEach (fn, type = '') {
+    for (let name in weaponData) {
+      let ds = weaponData[name]
+      let w = Weapon.get(ds.name)
+      if (!w || (type && type !== w.type)) {
+        continue
+      }
+      await fn(w)
+    }
+  }
+
   getDetail () {
     if (this._detail) {
       return this._detail
     }
     const path = 'resources/meta/weapon'
     try {
-      this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`,'miao')
+      this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`, 'miao')
     } catch (e) {
       console.log(e)
     }

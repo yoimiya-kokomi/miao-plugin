@@ -406,6 +406,28 @@ const buffs = {
         hyperBloom: 80
       }
     }
+  },
+
+  水仙之梦: {
+    2: attr('dmg', 15, '水'),
+    4: {
+      title: '3层Buff下提高攻击力25%，水伤15%',
+      data: {
+        atkPct: 25,
+        dmg: 15
+      }
+    }
+  },
+
+  花海甘露之光: {
+    2: attr('hpPct', 20),
+    4: {
+      title: '5层Buff下提高元素战技与元素爆发伤害50%',
+      data: {
+        eDmg: 50,
+        qDmg: 50
+      }
+    }
   }
 }
 export default buffs

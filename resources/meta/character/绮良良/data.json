@@ -1,0 +1,41 @@
+{
+  "id": 10000061,
+  "name": "绮良良",
+  "abbr": "绮良良",
+  "title": "",
+  "star": 4,
+  "elem": "dendro",
+  "allegiance": "狛荷屋",
+  "weapon": "sword",
+  "birth": "1-22",
+  "astro": "",
+  "desc": "稻妻快递公司「狛荷屋」的送货员，一只热爱自己工作、向往人类社会的「猫又」。",
+  "cncv": "",
+  "jpcv": "",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 12180,
+    "atk": 223,
+    "def": 546
+  },
+  "growAttr": {
+    "key": "hpPct",
+    "value": 24.0
+  },
+  "talentId": {
+  },
+  "talentCons": {
+    "e": 3,
+    "q": 5
+  },
+  "materials": {
+    "gem": "生长碧翡",
+    "boss": "常暗圆环",
+    "specialty": "天云草实",
+    "normal": "浮游晶化核",
+    "talent": "「浮世」的哲学",
+    "weekly": "亘古树海之一瞬"
+  },
+  "eta": 1684893600000
+}

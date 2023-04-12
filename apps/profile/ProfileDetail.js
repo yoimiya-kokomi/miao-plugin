@@ -5,6 +5,7 @@ import { Cfg, Common, Format } from '#miao'
 import { MysApi, ProfileRank, ProfileArtis, Character, Weapon } from '#miao.models'
 import ProfileChange from './ProfileChange.js'
 import { profileArtis } from './ProfileArtis.js'
+import { ProfileWeapon } from './ProfileWeapon.js'
 
 // 查看当前角色
 let ProfileDetail = {
@@ -150,6 +151,7 @@ let ProfileDetail = {
     if (mode === 'weapon') {
       wCfg = weapon.calcAttr(w.level, w.promote)
       wCfg.info = weapon.getAffixInfo(weapon.affix)
+      wCfg.weapons = await ProfileWeapon.calc(profile)
     }
 
     let enemyLv = await selfUser.getCfg('char.enemyLv', 91)
