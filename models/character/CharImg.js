@@ -82,7 +82,8 @@ const CharImg = {
   },
 
   // 获取角色的图像资源数据
-  getImgs (name, costumeIdx = '', travelerElem = '', fileType = 'webp') {
+  getImgs (name, costumeIdx = '', travelerElem = '', weaponType = 'sword', talentCons) {
+    let fileType = 'webp'
     costumeIdx = costumeIdx === '2' ? '2' : ''
     let imgs = {}
     if (!['空', '荧', '旅行者'].includes(name)) {
@@ -113,9 +114,9 @@ const CharImg = {
     for (let i = 0; i <= 3; i++) {
       tAdd(`passive${i}`, `icons/passive-${i}`)
     }
-    for (let k of ['a', 'e', 'q']) {
-      tAdd(k, `icons/talent-${k}`)
-    }
+    imgs.a = `/common/item/atk-${weaponType}.webp`
+    imgs.e = talentCons.e === 3 ? imgs['cons3'] : imgs['cons5']
+    imgs.q = talentCons.q === 5 ? imgs['cons5'] : imgs['cons3']
     return imgs
   }
 }

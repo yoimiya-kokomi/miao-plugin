@@ -5,6 +5,7 @@ import MysAvatar from './MysAvatar.js'
 import enkaApi from './EnkaApi.js'
 import miaoApi from './MiaoApi.js'
 import mggApi from './MggApi.js'
+import hutaoApi from './HutaoApi.js'
 
 let { diyCfg } = await Data.importCfg('profile')
 
@@ -15,7 +16,8 @@ const Profile = {
       Profile.servs[key] = new ProfileServ({
         miao: miaoApi,
         mgg: mggApi,
-        enka: enkaApi
+        enka: enkaApi,
+        hutao: hutaoApi
       }[key])
     }
     return Profile.servs[key]
@@ -34,7 +36,7 @@ const Profile = {
     // 判断国服、B服、外服，获取在配置中的idx
     let servIdx = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 9: 2 }[uid[0]]
 
-    // 获取对应服务选择的配置数字，0自动，1喵，2Enka，3Mgg
+    // 获取对应服务选择的配置数字，0自动，1喵，2Enka，3Mgg, 4:Hutao
     let servCfg = Cfg.get('profileServer', '0').toString() || '0'
     servCfg = servCfg[servIdx] || servCfg[0] || '0'
 
@@ -45,6 +47,8 @@ const Profile = {
       return Profile.serv('enka')
     } else if (servCfg === '3') {
       return Profile.serv('mgg')
+    } else if (servCfg === '4') {
+      return Profile.serv('hutao')
     }
     return Profile.serv(servIdx === 2 ? 'enka' : 'mgg')
   },
@@ -84,7 +88,7 @@ const Profile = {
 
   isProfile (avatar) {
     // 检查数据源
-    if (!avatar._source || !['enka', 'change', 'miao', 'mgg'].includes(avatar._source)) {
+    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao'].includes(avatar._source)) {
       return false
     }
     // 检查武器及天赋

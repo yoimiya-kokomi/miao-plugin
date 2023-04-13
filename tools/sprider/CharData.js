@@ -155,8 +155,9 @@ const CharData = {
     if (idRet && idRet[1]) {
       id = idRet[1] * 1
     }
-    $.imgs.add(imgKey, icon)
-
+    if (onlyLv1) {
+      $.imgs.add(imgKey, icon)
+    }
     // 说明
     let desc = CharData.getDesc(info.find('tr:eq(1) td').html())
 

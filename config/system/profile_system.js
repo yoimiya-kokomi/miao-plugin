@@ -28,6 +28,14 @@ export const mggApi = {
   }
 }
 
-export const requestInterval = 5
+export const hutaoApi = {
+  url: 'http://enka-api.hut.ao/',
+  userAgent: 'Snap Hutao/miao',
+  listApi: ({ url, uid, diyCfg }) => {
+    return `${url}/${uid}/`
+  }
+}
+
+export const requestInterval = 3
 
 export const isSys = true

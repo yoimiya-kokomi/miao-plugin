@@ -16,7 +16,7 @@ import CharCfg from './character/CharCfg.js'
 let { wifeMap, idSort, idMap } = CharId
 
 let getMeta = function (name) {
-  return Data.readJSON(`resources/meta/character/${name}/data.json`,'miao')
+  return Data.readJSON(`resources/meta/character/${name}/data.json`, 'miao')
 }
 
 class Character extends Base {
@@ -230,7 +230,7 @@ class Character extends Base {
       this._imgs = {}
     }
     if (!this._imgs[cacheId]) {
-      this._imgs[cacheId] = CharImg.getImgs(this.name, costumeIdx, this.isTraveler ? this.elem : '', this.source === 'amber' ? 'png' : 'webp')
+      this._imgs[cacheId] = CharImg.getImgs(this.name, costumeIdx, this.isTraveler ? this.elem : '', this.weaponType, this.talentCons)
     }
     let imgs = this._imgs[cacheId]
     return {
@@ -253,9 +253,9 @@ class Character extends Base {
 
     try {
       if (this.isTraveler) {
-        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/detail.json`,'miao')
+        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/detail.json`, 'miao')
       } else {
-        this._detail = Data.readJSON(`${path}/${this.name}/detail.json`,'miao')
+        this._detail = Data.readJSON(`${path}/${this.name}/detail.json`, 'miao')
       }
     } catch (e) {
       console.log(e)
