@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { Format } from '#miao'
-import { attrNameMap, mainAttr, subAttr, attrMap ,basicNum,attrPct} from '../../resources/meta/artifact/index.js'
+import { attrNameMap, mainAttr, subAttr, attrMap, basicNum, attrPct } from '../../resources/meta/artifact/index.js'
 
 let ArtisMark = {
   // 根据Key获取标题
@@ -116,11 +116,13 @@ let ArtisMark = {
     let ret = {
       key,
       value: val,
-      upNum: ds.upNum || 0
+      upNum: ds.upNum || 0,
+      eff: ds.eff || 0
     }
     if (!isMain && !ret.upNum) {
       let incRet = ArtisMark.getIncNum(key, value)
       ret.upNum = incRet.num
+      ret.eff = incRet.eff
       ret.hasGt = incRet.hasGt
       ret.hasLt = incRet.hasLt
       ret.isCalcNum = true
@@ -135,6 +137,7 @@ let ArtisMark = {
       ret.mark = Format.comma(mark || 0)
       ret._mark = mark || 0
     }
+    ret.eff = ret.eff ? Format.comma(ret.eff, 1) : '-'
     return ret
   },
 
@@ -148,11 +151,12 @@ let ArtisMark = {
     let minNum = Math.max(1, Math.ceil((value / cfg.value).toFixed(1) * 1))
     // 相等时直接返回
     if (maxNum === minNum) {
-      return { num: minNum }
+      return { num: minNum, eff: value / cfg.value }
     }
     let avg = Math.round(value / (cfg.value + cfg.valueMin) * 2)
     return {
       num: avg,
+      eff: value / cfg.value,
       hasGt: maxNum > avg,
       hasLt: minNum < avg
     }
@@ -195,7 +199,7 @@ let ArtisMark = {
     })
     return ret * (1 + fixPct) / 2 / posMaxMark[posIdx] * 66
   },
-    
+
   getCritMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
     let ret = 0
     let { attrs, posMaxMark } = charCfg
@@ -208,23 +212,23 @@ let ArtisMark = {
     if (posIdx >= 4) {
       let mainKey = key
       if (posIdx === 4 && Format.isElem(key) && key === elem) {
-           mainKey = 'dmg'
+        mainKey = 'dmg'
       }
       fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
     }
-    if(key === 'cpct'|| key === 'cdmg' ){
-          ret += 9.41
-      }
+    if (key === 'cpct' || key === 'cdmg') {
+      ret += 9.41
+    }
 
     lodash.forEach(subAttr, (ds) => {
-      if (ds.key === 'cpct' || ds.key === 'cdmg' ){
-          let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0)/85
-          ret += temp_s
+      if (ds.key === 'cpct' || ds.key === 'cdmg') {
+        let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0) / 85
+        ret += temp_s
       }
     })
     return ret
   },
-    
+
   getValidMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
     let ret = 0
     let { attrs, posMaxMark } = charCfg
@@ -237,14 +241,14 @@ let ArtisMark = {
     if (posIdx >= 4) {
       let mainKey = key
       if (posIdx === 4 && Format.isElem(key) && key === elem) {
-           mainKey = 'dmg'
+        mainKey = 'dmg'
       }
-      
-      
+
+
       fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
     }
     lodash.forEach(subAttr, (ds) => {
-      let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0)/85
+      let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0) / 85
       ret += temp_s
     })
     return ret

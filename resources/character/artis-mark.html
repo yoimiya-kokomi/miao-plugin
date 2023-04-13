@@ -62,7 +62,7 @@
       {{each ds.attrs attr}}
       {{if attr.key}}
       <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}"><span
-          class="title">{{artisKeyTitle[attr.key]}} </span><span
+          class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{artisKeyTitle[attr.key]}} </span><span
           class="val">+{{attr.value}}</span>
         <span class="mark">{{ ( 46.6 / 6 / 100 * attr._mark ).toFixed(1) }}</span>
       </li>

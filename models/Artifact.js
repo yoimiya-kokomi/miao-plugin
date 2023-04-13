@@ -85,12 +85,14 @@ class Artifact extends Base {
         tmp[key] = {
           key,
           upNum: 0,
+          eff: 0,
           value: 0
         }
         ret.push(tmp[key])
       }
       tmp[key].value += value * (attrMap[key].format === 'pct' ? 100 : 1)
       tmp[key].upNum++
+      tmp[key].eff += value / attrMap[key].value * (attrMap[key].format === 'pct' ? 100 : 1)
     })
     return ret
   }

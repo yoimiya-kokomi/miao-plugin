@@ -29,7 +29,7 @@
       {{each ds.attrs attr}}
       {{if attr && attr.key}}
       <li class="{{ds.charWeight[attr.key]*1 > 79.9 ?`great`:(ds.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
-        <span class="title"> {{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key]}}</span>
+        <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key]}}</span>
         <span class="val">+{{attr.value}}</span></li>
       {{/if}}
       {{/each}}
