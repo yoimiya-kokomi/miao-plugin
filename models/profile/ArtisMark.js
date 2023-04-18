@@ -137,7 +137,7 @@ let ArtisMark = {
       ret.mark = Format.comma(mark || 0)
       ret._mark = mark || 0
     }
-    ret.eff = ret.eff ? Format.comma(ret.eff, 1) : '-'
+    ret.eff = ret.eff ? Format.comma(ret.eff / 0.85, 1) : '-'
     return ret
   },
 

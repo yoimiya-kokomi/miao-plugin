@@ -1,5 +1,4 @@
 import { ProfileData, Weapon } from '#miao.models'
-import { Data } from '#miao'
 
 export const ProfileWeapon = {
   async calc (profile) {

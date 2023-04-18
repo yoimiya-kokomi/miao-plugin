@@ -12,7 +12,7 @@ export const chestInfo = {
   },
   precious: {
     title: '珍贵宝箱',
-    max: 508
+    max: 510
   },
   luxurious: {
     title: '豪华宝箱',
