@@ -35,12 +35,15 @@ let getWeaponTypeData = async function (type) {
     }
   })
   let txt = await req.text()
-  let sTxt = /sortable_data.push\((.*)\)/.exec(txt)
+  let sTxt = /sortable_data.push\((\[.*?\])[\n\s]*\)/.exec(txt)
+  console.log('1', sTxt[1])
   if (sTxt && sTxt[1]) {
-    let tmp = eval(sTxt[1])
+     let tmp = eval(sTxt[1])
+
     lodash.forEach(tmp, (ds) => {
       let a = cheerio.load(ds[1])('a')
       let name = a.text()
+      console.log(a.attr('href'))
       let idRet = /i_(.*)\//.exec(a.attr('href'))
       let star = cheerio.load(ds[2])('img').length
       let wid = idRet && idRet[1] ? idRet[1] : ''
@@ -53,6 +56,7 @@ let getWeaponTypeData = async function (type) {
       if (wid !== 'n' + tmp.id) {
         tmp.wid = wid
       }
+      console.log(tmp)
       ret[type][name] = tmp
     })
   }
@@ -145,4 +149,4 @@ async function down (t, n) {
 }
 
 // 'sword', 'claymore', 'polearm', 'bow', 'catalyst'
-await down('claymore', '')
+await down('catalyst', '')
