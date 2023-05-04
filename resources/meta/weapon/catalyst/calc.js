@@ -151,7 +151,7 @@ export default function (step, staticStep) {
     碧落之珑: {
       title: '释放元素爆发后基于生命值提高元素伤害[dmg]%',
       data: {
-        dmg: (attr, calc, refine) => Math.min(Math.floor(calc(attr.hp) / 1000) * step(0.3, 0.2), step(12, 8))
+        dmg: ({attr, calc, refine}) => Math.min(Math.floor(calc(attr.hp) / 1000) * step(0.3, 0.2)[refine], step(12, 8)[refine])
       }
     }
   }
