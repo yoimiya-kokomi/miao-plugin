@@ -2,7 +2,7 @@ export const details = [{
   title: 'E每跳治疗量',
   dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * talent.e['治疗量2'][0] / 100 + talent.e['治疗量2'][1])
 }, {
-  title: '2命·E每跳治疗量',
+  title: '2命·E+额外治疗量',
   cons: 2,
   dmg: ({ talent, calc, attr }, { heal }) => heal((calc(attr.hp) * talent.e['治疗量2'][0] / 100 + talent.e['治疗量2'][1]) * 1.2)
 }, {
