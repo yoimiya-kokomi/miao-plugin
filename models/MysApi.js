@@ -6,6 +6,7 @@ export default class MysApi {
     this.e = e
     this.mysInfo = mysInfo
     this.ckInfo = mysInfo.ckInfo
+    this.ckUser = mysInfo.ckUser
     this.uid = uid
     e.targetUser = this.targetUser
     e.selfUser = this.selfUser

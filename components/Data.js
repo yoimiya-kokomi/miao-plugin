@@ -239,6 +239,30 @@ let Data = {
     }
   },
 
+  async forEach (data, fn) {
+    if (lodash.isArray(data)) {
+      for (let idx = 0; idx < data.length; idx++) {
+        let ret = fn(data[idx], idx)
+        if (ret instanceof Promise) {
+          ret = await ret
+        }
+        if (ret === false) {
+          break
+        }
+      }
+    } else if (lodash.isPlainObject(data)) {
+      for (const idx in data) {
+        let ret = fn(data[idx], idx)
+        if (ret instanceof Promise) {
+          ret = await ret
+        }
+        if (ret === false) {
+          break
+        }
+      }
+    }
+  },
+
   // 循环字符串回调
   eachStr: (arr, fn) => {
     if (lodash.isString(arr)) {
