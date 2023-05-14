@@ -31,6 +31,12 @@ export const buffs = [{
     kx: 15
   }
 }, {
+  title: '香菱6命：旋火轮持续期间获得15%火伤加成',
+  cons: 6,
+  data: {
+    qDmg: 15
+  }
+}, {
   check: ({ params }) => params.team === true,
   title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
   sort: 9,
