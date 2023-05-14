@@ -3,6 +3,7 @@ export const details = [{
     dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
     title: 'Q后绽放伤害',
+    params: { bloom: true },
     dmg: ({calc, attr}, { reaction }) => {
         return reaction('bloom')}
 }]
