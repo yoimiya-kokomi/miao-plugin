@@ -9,7 +9,7 @@ import Profile from './player/Profile.js'
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
 
 export default class AvatarData extends Base {
-  constructor (ds = {}, source) {
+  constructor (ds = {}, source, game = 'gs') {
     super()
     let char = Character.get({ id: ds.id, elem: ds.elem })
     if (!char) {
@@ -17,6 +17,7 @@ export default class AvatarData extends Base {
     }
     this.id = char.id
     this.char = char
+    this.game = char.game || game
     this.initArtis()
     this.setAvatar(ds, source)
   }
@@ -82,8 +83,8 @@ export default class AvatarData extends Base {
     return ''
   }
 
-  static create (ds, source) {
-    let avatar = new AvatarData(ds)
+  static create (ds, source = '', game = 'gs') {
+    let avatar = new AvatarData(ds, source, game)
     if (!avatar) {
       return false
     }
@@ -141,6 +142,7 @@ export default class AvatarData extends Base {
   }
 
   setWeapon (ds = {}) {
+
     let w = Weapon.get(ds.name)
     if (!w) {
       return false
@@ -199,9 +201,16 @@ export default class AvatarData extends Base {
 
   getDetail (keys = '') {
     let imgs = this.char.getImgs(this.costume)
-    return {
-      ...(this.getData(keys || 'id,name,level,star,cons,fetter,elem,abbr,weapon,talent,artisSet') || {}),
-      ...Data.getData(imgs, 'face,qFace,side,gacha')
+    if (this.isGs) {
+      return {
+        ...(this.getData(keys || 'id,name,level,star,cons,fetter,elem,abbr,weapon,talent,artisSet') || {}),
+        ...Data.getData(imgs, 'face,qFace,side,gacha')
+      }
+    } else {
+      return {
+        ...(this.getData(keys || 'id,name,level,star,cons,fetter,elem,abbr,weapon,talent,artisSet') || {}),
+        ...Data.getData(imgs, 'face,qFace,gacha,preview')
+      }
     }
   }
 

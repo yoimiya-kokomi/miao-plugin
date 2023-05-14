@@ -14,6 +14,14 @@ let app = App.init({
 })
 
 app.reg({
+
+  profileList: {
+    name: '面板角色列表',
+    desc: '查看当前已获取面板数据的角色列表',
+    fn: ProfileList.render,
+    rule: /^#(星铁|原神)?(面板角色|角色面板|面板)(列表)?\s*(\d{9})?$/
+  },
+
   profileDetail: {
     name: '角色面板',
     fn: ProfileDetail.detail,
@@ -62,13 +70,6 @@ app.reg({
     rule: /^#圣遗物列表\s*(\d{9})?$/
   },
 
-  profileList: {
-    name: '面板角色列表',
-    desc: '查看当前已获取面板数据的角色列表',
-    fn: ProfileList.render,
-    rule: /^#(面板角色|角色面板|面板)(列表)?\s*(\d{9})?$/
-  },
-
   profileStat: {
     name: '面板练度统计',
     fn: ProfileStat.stat,
@@ -102,7 +103,7 @@ app.reg({
     name: '面板更新',
     describe: '【#角色】 获取游戏橱窗详情数据',
     fn: ProfileList.refresh,
-    rule: /^#(全部面板更新|更新全部面板|获取游戏角色详情|更新面板|面板更新)\s*(\d{9})?$/
+    rule: /^#(星铁|原神)?(全部面板更新|更新全部面板|获取游戏角色详情|更新面板|面板更新)\s*(\d{9})?$/
   },
 
   uploadImg: {

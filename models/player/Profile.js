@@ -6,6 +6,7 @@ import enkaApi from './EnkaApi.js'
 import miaoApi from './MiaoApi.js'
 import mggApi from './MggApi.js'
 import hutaoApi from './HutaoApi.js'
+import luluApi from './LuluApi.js'
 
 let { diyCfg } = await Data.importCfg('profile')
 
@@ -17,7 +18,8 @@ const Profile = {
         miao: miaoApi,
         mgg: mggApi,
         enka: enkaApi,
-        hutao: hutaoApi
+        hutao: hutaoApi,
+        lulu: luluApi
       }[key])
     }
     return Profile.servs[key]
@@ -26,9 +28,13 @@ const Profile = {
   /**
    * 根据UID分配请求服务器
    * @param uid
+   * @param game
    * @returns {ProfileServ}
    */
-  getServ (uid) {
+  getServ (uid, game = 'gs') {
+    if (game === 'sr') {
+      return Profile.serv('lulu')
+    }
     let token = diyCfg?.miaoApi?.token
     let qq = diyCfg?.miaoApi?.qq
     let hasToken = !!(qq && token && token.length === 32 && !/^test/.test(token))
@@ -72,7 +78,8 @@ const Profile = {
     if (!req) {
       return false
     }
-    let serv = Profile.getServ(uid)
+    console.log('game', player.game)
+    let serv = Profile.getServ(uid, player.game)
     try {
       await req.requestProfile(player, serv)
       player._profile = new Date() * 1
@@ -82,15 +89,22 @@ const Profile = {
       if (!e._isReplyed) {
         e.reply(`UID:${uid}更新面板失败，更新服务：${serv.name}`)
       }
+      console.log(err)
       return false
     }
   },
 
   isProfile (avatar) {
+    console.log('is Sr', avatar.isSr, avatar._source)
+    if (avatar.isSr) {
+
+      return true
+    }
     // 检查数据源
-    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao'].includes(avatar._source)) {
+    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'lulu'].includes(avatar._source)) {
       return false
     }
+
     // 检查武器及天赋
     if (!avatar.weapon || !avatar.talent) {
       return false

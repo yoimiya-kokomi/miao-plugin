@@ -27,6 +27,9 @@ export default class AvatarArtis extends Base {
   }
 
   get hasAttr () {
+    if (this.isSr) {
+      return true
+    }
     return ArtisMark.hasAttr(this.artis)
   }
 

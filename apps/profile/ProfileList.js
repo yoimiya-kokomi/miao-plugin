@@ -79,6 +79,7 @@ const ProfileList = {
       await player.refresh({ profile: true })
     }
     if (!player.hasProfile) {
+      console.log(player.game)
       e.reply(`本地暂无uid${uid}的面板数据...`)
       return true
     }

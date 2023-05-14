@@ -15,15 +15,19 @@ import CharCfg from './character/CharCfg.js'
 
 let { wifeMap, idSort, idMap } = CharId
 
-let getMeta = function (name) {
-  return Data.readJSON(`resources/meta/character/${name}/data.json`, 'miao')
+let getMeta = function (name, game = 'gs') {
+  if (game === 'gs') {
+    return Data.readJSON(`resources/meta/character/${name}/data.json`, 'miao')
+  } else {
+    return CharId.getSrMeta(name)
+  }
 }
 
 class Character extends Base {
   // 默认获取的数据
   _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,ver,desc,talentCons'
 
-  constructor ({ id, name = '', elem = '' }) {
+  constructor ({ id, name = '', elem = '', game = 'gs' }) {
     super()
     // 检查缓存
     let cacheObj = this._getCache(CharId.isTraveler(id) ? `character:${id}:${elem || 'anemo'}` : `character:${id}`)
@@ -33,10 +37,13 @@ class Character extends Base {
     // 设置数据
     this._id = id
     this.name = name
+    this.game = game
     if (!this.isCustom) {
-      let meta = getMeta(name)
+      let meta = getMeta(name, game)
       this.meta = meta
-      this.elem = Format.elem(elem || meta.elem, 'anemo')
+      if (this.isGs) {
+        this.elem = Format.elem(elem || meta.elem, 'anemo')
+      }
     } else {
       this.meta = {}
     }
@@ -45,7 +52,7 @@ class Character extends Base {
 
   // 是否为官方角色
   get isOfficial () {
-    return /[12]0\d{6}/.test(this._id)
+    return this.game === 'sr' || /[12]0\d{6}/.test(this._id)
   }
 
   // 是否为实装官方角色
@@ -61,11 +68,19 @@ class Character extends Base {
 
   // 是否为自定义角色
   get isCustom () {
-    return !/[12]0\d{6}/.test(this._id)
+    return !this.isOfficial
   }
 
   get id () {
     return this.isCustom ? this._id : this._id * 1
+  }
+
+  get isGs () {
+    return this.game === 'gs'
+  }
+
+  get isSr () {
+    return this.game === 'sr'
   }
 
   // 获取短名字
@@ -77,7 +92,7 @@ class Character extends Base {
 
   // 是否是旅行者
   get isTraveler () {
-    return CharId.isTraveler(this.id)
+    return this.isGs && CharId.isTraveler(this.id)
   }
 
   get weaponType () {
@@ -86,6 +101,9 @@ class Character extends Base {
 
   // 获取武器类型
   get weaponTypeName () {
+    if (this.isSr) {
+      return this.weapon
+    }
     const map = {
       sword: '单手剑',
       catalyst: '法器',
@@ -99,6 +117,9 @@ class Character extends Base {
 
   // 获取元素名称
   get elemName () {
+    if (this.isSr) {
+      return this.elem
+    }
     return Format.elemName(this.elem)
   }
 
@@ -114,6 +135,9 @@ class Character extends Base {
 
   // 获取侧脸图像
   get side () {
+    if (this.isSr) {
+      return this.getImgs().face
+    }
     return this.getImgs().side
   }
 
@@ -134,6 +158,9 @@ class Character extends Base {
 
   // 获取命座天赋等级
   get talentCons () {
+    if (this.isSr) {
+      return this.meta?.talentCons || {}
+    }
     if (this.isTraveler) {
       return this.elem === 'dendro' ? { e: 3, q: 5 } : { e: 5, q: 3 }
     }
@@ -151,17 +178,20 @@ class Character extends Base {
   }
 
   // 基于角色名获取Character
-  static get (val) {
-    let id = CharId.getId(val, Character.gsCfg)
+  static get (val, game = 'gs') {
+    let id = CharId.getId(val, Character.gsCfg, game)
     if (!id) {
       return false
     }
     return new Character(id)
   }
 
-  static forEach (fn, type = 'all') {
+  static forEach (fn, type = 'all', game = 'gs') {
     lodash.forEach(idMap, (name, id) => {
       let char = Character.get({ id, name })
+      if (char.game !== 'game') {
+        return true
+      }
       if (type === 'release' && !char.isRelease) {
         return true
       }
@@ -197,7 +227,6 @@ class Character extends Base {
   }
 
   // 设置旅行者数据
-
   getAvatarTalent (talent = {}, cons = 0, mode = 'original') {
     return CharTalent.getAvatarTalent(this.id, talent, cons, mode, this.talentCons)
   }
@@ -230,12 +259,16 @@ class Character extends Base {
       this._imgs = {}
     }
     if (!this._imgs[cacheId]) {
-      this._imgs[cacheId] = CharImg.getImgs(this.name, costumeIdx, this.isTraveler ? this.elem : '', this.weaponType, this.talentCons)
+      if (this.isSr) {
+        this._imgs[cacheId] = CharImg.getImgsSr(this.name, this.talentCons)
+      } else {
+        this._imgs[cacheId] = CharImg.getImgs(this.name, costumeIdx, this.isTraveler ? this.elem : '', this.weaponType, this.talentCons)
+      }
     }
     let imgs = this._imgs[cacheId]
     return {
       ...imgs,
-      qFace: Cfg.get('qFace') ? imgs.qFace : imgs.face
+      qFace: Cfg.get('qFace') ? (imgs.qFace || imgs.face) : imgs.face
     }
   }
 
@@ -249,7 +282,7 @@ class Character extends Base {
     if (this.isCustom) {
       return {}
     }
-    const path = 'resources/meta/character'
+    const path = this.isSr ? 'resources/meta-sr/character' : 'resources/meta/character'
 
     try {
       if (this.isTraveler) {

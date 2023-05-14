@@ -36,6 +36,13 @@ export const hutaoApi = {
   }
 }
 
+export const luluApi = {
+  url: 'https://mhy.fuckmys.tk/sr_info',
+  listApi: ({ url, uid, diyCfg }) => {
+    return `${url}/${uid}`
+  }
+}
+
 export const requestInterval = 3
 
 export const isSys = true

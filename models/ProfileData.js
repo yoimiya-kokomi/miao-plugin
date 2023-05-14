@@ -8,7 +8,7 @@ import CharImg from './character/CharImg.js'
 export default class ProfileData extends AvatarData {
   constructor (ds = {}, calc = true) {
     super(ds)
-    if (calc) {
+    if (calc && !this.isSr) {
       this.calcAttr()
     }
   }

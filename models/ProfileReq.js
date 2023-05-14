@@ -70,7 +70,7 @@ export default class ProfileReq extends Base {
     let reqParam = await serv.getReqParam(uid)
     let cdTime = await this.inCd()
     if (cdTime && !process.argv.includes('web-debug')) {
-      return this.err(`请求过快，请${cdTime}秒后重试..`)
+      // return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
     // 若3秒后还未响应则返回提示

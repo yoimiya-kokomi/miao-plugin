@@ -5,6 +5,7 @@ import lodash from 'lodash'
 import { Data, Format } from '#miao'
 import { charPosIdx } from './CharMeta.js'
 
+
 // 别名表
 let aliasMap = {}
 // ID表
@@ -16,8 +17,23 @@ let wifeMap = {}
 // id排序
 let idSort = {}
 
+let gameMap = {}
+
+let srData = Data.readJSON('/resources/meta-sr/character/data.json', 'miao')
+
 async function init () {
   let { sysCfg, diyCfg } = await Data.importCfg('character')
+
+
+  lodash.forEach(srData, (ds) => {
+    let { id, name } = ds
+    aliasMap[id] = id
+    aliasMap[name] = id
+    idMap[id] = name
+    gameMap[id] = 'sr'
+  })
+
+
   lodash.forEach([diyCfg.customCharacters, sysCfg.characters], (roleIds) => {
     lodash.forEach(roleIds || {}, (aliases, id) => {
       aliases = aliases || []
@@ -31,6 +47,7 @@ async function init () {
       })
       aliasMap[id] = id
       idMap[id] = aliases[0]
+      gameMap[id] = 'gs'
     })
   })
 
@@ -66,15 +83,26 @@ lodash.forEach(charPosIdx, (chars, pos) => {
 const CharId = {
   aliasMap,
   idMap,
+  gameMap,
   abbrMap,
   wifeMap,
   idSort,
-  getId (ds = '', gsCfg = null) {
+  isGs (id) {
+    return gameMap[id] === 'gs'
+  },
+  isSr (id) {
+    return gameMap[id] === 'sr'
+  },
+  getId (ds = '', gsCfg = null, game = 'gs') {
     if (!ds) {
       return false
     }
     const ret = (id, elem = '') => {
-      return { id, elem, name: idMap[id] }
+      if (CharId.isSr(id)) {
+        return { id, name: idMap[id], game: 'sr' }
+      } else {
+        return { id, elem, name: idMap[id], game: 'gs' }
+      }
     }
     if (!lodash.isObject(ds)) {
       let original = lodash.trim(ds || '')
@@ -114,15 +142,19 @@ const CharId = {
     return false
   },
 
-  isTraveler (id) {
+  isTraveler (id, game = 'gs') {
     if (id) {
       return [10000007, 10000005, 20000000].includes(id * 1)
     }
     return false
   },
 
-  getTravelerId (id) {
+  getTravelerId (id, game = 'gs') {
     return id * 1 === 10000005 ? 10000005 : 10000007
+  },
+
+  getSrMeta (name) {
+    return srData?.[aliasMap[name]] || {}
   }
 }
 export default CharId
