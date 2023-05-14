@@ -21,4 +21,10 @@ export const buffs = [{
   data: {
     kx: 15
   }
-}, 'vaporize']
+}, {
+  title: '香菱6命：旋火轮持续期间获得15%火伤加成',
+  cons: 6,
+  data: {
+    qDmg: 15
+  }
+},'vaporize']
