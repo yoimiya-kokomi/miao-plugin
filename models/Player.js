@@ -16,7 +16,6 @@ Data.createDir('/data/UserData', 'root')
 Data.createDir('/data/PlayerData/gs', 'root')
 Data.createDir('/data/PlayerData/sr', 'root')
 
-
 export default class Player extends Base {
   constructor (uid, game = 'gs') {
     super()

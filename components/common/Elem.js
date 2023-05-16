@@ -11,6 +11,10 @@ const elemAlias = {
   cryo: '冰,至冬'
 }
 
+const elemAliasSR = {
+
+}
+
 // 元素属性映射, 名称=>elem
 let elemMap = {}
 

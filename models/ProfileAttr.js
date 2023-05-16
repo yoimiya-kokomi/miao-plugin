@@ -1,17 +1,24 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 
-const baseAttr = 'atk,def,hp,mastery,recharge,cpct,cdmg,dmg,phy,heal,shield'.split(',')
-let attrReg = new RegExp(`^(${baseAttr.join('|')})(Base|Plus|Pct|Inc)$`)
+const baseAttr = {
+  gs: 'atk,def,hp,mastery,recharge,cpct,cdmg,dmg,phy,heal,shield'.split(','),
+  sr: 'atk,def,hp,speed,recharge,cpct,cdmg,dmg,heal,stance,effPct,effDmg'.split(',')
+}
+let attrReg = {
+  gs: new RegExp(`^(${baseAttr.gs.join('|')})(Base|Plus|Pct|Inc)$`),
+  sr: new RegExp(`^(${baseAttr.sr.join('|')})(Base|Plus|Pct|Inc)$`)
+}
 
 class ProfileAttr extends Base {
-  constructor (data = null) {
+  constructor (data = null, game = 'gs') {
     super()
+    this.game = game
     this.init(data)
   }
 
-  static create (data = null) {
-    return new ProfileAttr(data)
+  static create (data = null, game = 'gs') {
+    return new ProfileAttr(data, game)
   }
 
   init (data) {
@@ -20,7 +27,7 @@ class ProfileAttr extends Base {
     this._base = {}
     let attr = this._attr
     let base = this._base
-    lodash.forEach(baseAttr, (key) => {
+    lodash.forEach(baseAttr[this.game], (key) => {
       attr[key] = {
         base: 0,
         plus: 0,
@@ -42,12 +49,12 @@ class ProfileAttr extends Base {
    */
   _get (key) {
     let attr = this._attr
-    if (baseAttr.includes(key)) {
+    if (baseAttr[this.game].includes(key)) {
       let a = attr[key]
       return a.base * (1 + a.pct / 100) + a.plus
     }
 
-    let testRet = attrReg.exec(key)
+    let testRet = attrReg[this.game].exec(key)
     if (testRet && testRet[1] && testRet[2]) {
       let key = testRet[1]
       let key2 = testRet[2].toLowerCase()
@@ -59,13 +66,13 @@ class ProfileAttr extends Base {
    * 添加或追加Attr数据
    * @param key
    * @param val
-   * @param base
+   * @param isBase
    * @returns {boolean}
    */
   addAttr (key, val, isBase = false) {
     let attr = this._attr
     let base = this._base
-    if (baseAttr.includes(key)) {
+    if (baseAttr[this.game].includes(key)) {
       attr[key].plus += val * 1
       if (isBase) {
         base[key] = (base[key] || 0) + val * 1
@@ -73,7 +80,7 @@ class ProfileAttr extends Base {
       return true
     }
 
-    let testRet = attrReg.exec(key)
+    let testRet = attrReg[this.game].exec(key)
     if (testRet && testRet[1] && testRet[2]) {
       let key = testRet[1]
       let key2 = testRet[2].toLowerCase()
@@ -109,7 +116,7 @@ class ProfileAttr extends Base {
 
   getAttr () {
     let ret = {}
-    lodash.forEach(baseAttr, (key) => {
+    lodash.forEach(baseAttr[this.game], (key) => {
       ret[key] = this[key]
       if (['hp', 'atk', 'def'].includes(key)) {
         ret[`${key}Base`] = this[`${key}Base`]

@@ -1,37 +1,30 @@
 import lodash from 'lodash'
 import { Format } from '#miao'
-import { attrNameMap, mainAttr, subAttr, attrMap, basicNum, attrPct } from '../../resources/meta/artifact/index.js'
+import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/index.js'
+import {
+  attrMap as attrMapSR
+} from '../../resources/meta-sr/artifact/meta.js'
 
 let ArtisMark = {
   // 根据Key获取标题
-  getKeyByTitle (title, dmg = false) {
+  getKeyByTitle (title, dmg = false, game = 'gs') {
     if (/元素伤害加成/.test(title) || Format.isElem(title)) {
       let elem = Format.matchElem(title)
       return dmg ? 'dmg' : elem
     } else if (title === '物理伤害加成') {
       return 'phy'
     }
-    return attrNameMap[title]
+    return (game === 'gs' ? attrNameMap : attrNameMapSR)[title]
   },
 
-  // 根据标题获取Key
-  getTitleByKey (key) {
-    // 检查是否是伤害字段
-    let dmg = Format.elemName(key, '')
-    if (dmg) {
-      return `${dmg}伤加成`
-    }
-    return attrMap[key].title
-  },
-
-  getKeyTitleMap () {
+  getKeyTitleMap (game = 'gs') {
     let ret = {}
     lodash.forEach(attrMap, (ds, key) => {
       ret[key] = ds.title
     })
     Format.eachElem((key, name) => {
       ret[key] = `${name}伤加成`
-    })
+    }, game)
     return ret
   },
 
@@ -57,11 +50,11 @@ let ArtisMark = {
   /**
    * 格式化圣遗物词条
    * @param ds
-   * @param markCfg
+   * @param charAttrCfg
    * @param isMain
    * @returns {{title: *, value: string}|*[]}
    */
-  formatArti (ds, charAttrCfg = false, isMain = false, elem = '') {
+  formatArti (ds, charAttrCfg = false, isMain = false, game = 'gs') {
     // 若为attr数组
     if (ds[0] && (ds[0].title || ds[0].key)) {
       let ret = []
@@ -71,7 +64,7 @@ let ArtisMark = {
 
       lodash.forEach(ds, (d) => {
         isIdAttr = !d.isCalcNum
-        let arti = ArtisMark.formatArti(d, charAttrCfg)
+        let arti = ArtisMark.formatArti(d, charAttrCfg, isMain, game)
         ret.push(arti)
         if (isIdAttr) {
           return true
@@ -101,8 +94,6 @@ let ArtisMark = {
     let title = ds.title || ds[0]
     if (!key) {
       key = ArtisMark.getKeyByTitle(title)
-    } else if (!title) {
-      title = ArtisMark.getTitleByKey(key)
     }
     let isDmg = Format.isElem(key)
     let val = ds.value || ds[1]
@@ -111,22 +102,23 @@ let ArtisMark = {
     if (!key || key === 'undefined') {
       return {}
     }
-    let arrCfg = attrMap[isDmg ? 'dmg' : key]
-    val = Format[arrCfg.format](val, 1)
+    let arrCfg = (game === 'gs' ? attrMap : attrMapSR)[isDmg ? 'dmg' : key]
+    console.log(key, arrCfg)
+    val = Format[arrCfg?.format || 'comma'](val, 1)
     let ret = {
       key,
       value: val,
       upNum: ds.upNum || 0,
       eff: ds.eff || 0
     }
-    if (!isMain && !ret.upNum) {
+    /* if (!isMain && !ret.upNum) {
       let incRet = ArtisMark.getIncNum(key, value)
       ret.upNum = incRet.num
       ret.eff = incRet.eff
       ret.hasGt = incRet.hasGt
       ret.hasLt = incRet.hasLt
       ret.isCalcNum = true
-    }
+    }*/
 
     if (charAttrCfg) {
       let mark = charAttrCfg[key]?.mark * num || 0

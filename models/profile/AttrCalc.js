@@ -16,6 +16,14 @@ class AttrCalc {
     this.game = profile.game
   }
 
+  get isGs () {
+    return this.game === 'gs'
+  }
+
+  get isSr () {
+    return this.game === 'sr'
+  }
+
   /**
    * 静态调用入口
    * @param profile
@@ -25,6 +33,7 @@ class AttrCalc {
     return new AttrCalc(profile)
   }
 
+  // 只有原神才需要
   static calcPromote (lv) {
     if (lv === 20) {
       return 1
@@ -48,11 +57,13 @@ class AttrCalc {
    * @returns {{}}
    */
   calc () {
-    this.attr = ProfileAttr.create({})
-    if (this.profile.isGs) {
+    this.attr = ProfileAttr.create({}, this.game)
+    if (this.isGs) {
       this.addAttr('recharge', 100, true)
       this.addAttr('cpct', 5, true)
       this.addAttr('cdmg', 50, true)
+    } else {
+
     }
     this.setCharAttr()
     this.setWeaponAttr()
@@ -74,6 +85,9 @@ class AttrCalc {
    * @param affix
    */
   setCharAttr (affix = '') {
+    if (this.isGs) {
+      return
+    }
     let { char, level, promote } = this.profile
     let metaAttr = char.detail?.attr || {}
     let { keys = {}, details = {} } = metaAttr
@@ -125,6 +139,9 @@ class AttrCalc {
    * 计算武器属性
    */
   setWeaponAttr () {
+    if (this.isGs) {
+      return
+    }
     let wData = this.profile?.weapon || {}
     let weapon = Weapon.get(wData?.name || wData?.id, this.game)
     let wCalcRet = weapon.calcAttr(wData.level, wData.promote)
@@ -155,6 +172,9 @@ class AttrCalc {
    * 计算圣遗物属性
    */
   setArtisAttr () {
+    if (this.isGs) {
+      return
+    }
     let artis = this.profile?.artis
     // 计算圣遗物词条
     artis.forEach((arti) => {

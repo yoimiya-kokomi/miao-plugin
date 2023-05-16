@@ -94,8 +94,8 @@ export default class ProfileArtis extends AvatarArtis {
           _mark: mark,
           mark: Format.comma(mark, 1),
           markClass: ArtisMark.getMarkClass(mark),
-          main: ArtisMark.formatArti(arti.main, charCfg.attrs, true, this.elem || ''),
-          attrs: ArtisMark.formatArti(arti.attrs, charCfg.attrs)
+          main: ArtisMark.formatArti(arti.main, charCfg.attrs, true, this.game),
+          attrs: ArtisMark.formatArti(arti.attrs, charCfg.attrs, false, this.game)
         }
       }
     })

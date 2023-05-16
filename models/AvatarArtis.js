@@ -158,7 +158,7 @@ export default class AvatarArtis extends Base {
         level: ds.level || 1,
         star: ds.star || 5
       }
-      console.log('tojson', 'isSr')
+
       if (this.isSr) {
         tmp.id = ds.id
         tmp.mainId = ds.main?.id
