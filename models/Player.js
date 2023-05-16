@@ -169,7 +169,6 @@ export default class Player extends Base {
   // 获取Avatar角色
   getAvatar (id, create = false) {
     let char = Character.get(id)
-    console.log('getAvatar', char.id)
     let avatars = this._avatars
     if (this.isGs) {
       // 兼容处理旅行者的情况
@@ -178,7 +177,7 @@ export default class Player extends Base {
       }
     }
     if (!avatars[id] && create) {
-      avatars[id] = AvatarData.create({ id })
+      avatars[id] = AvatarData.create({ id }, '', this.game)
     }
     return avatars[id] || false
   }

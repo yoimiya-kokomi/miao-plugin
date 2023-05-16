@@ -226,9 +226,26 @@ class Character extends Base {
     return CharImg.getCardImg(this.name, se, def)
   }
 
-  // 设置旅行者数据
+  // 设置天赋数据
   getAvatarTalent (talent = {}, cons = 0, mode = 'original') {
-    return CharTalent.getAvatarTalent(this.id, talent, cons, mode, this.talentCons)
+    return CharTalent.getAvatarTalent(this, talent, cons, mode)
+  }
+
+  getTalentKey (id) {
+    if (this.talentId[id]) {
+      return this.talentId[id]
+    }
+    if (this.isSr) {
+      id = (id + '').replace(this.id, '')
+      return {
+        '001': 'a',
+        '002': 'e',
+        '003': 'q',
+        '004': 't',
+        '007': 'z'
+      }[id]
+    }
+    return false
   }
 
   // 检查老婆类型

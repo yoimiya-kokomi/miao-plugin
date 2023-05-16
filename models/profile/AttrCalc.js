@@ -13,6 +13,7 @@ class AttrCalc {
   constructor (profile) {
     this.profile = profile
     this.char = profile.char
+    this.game = profile.game
   }
 
   /**
@@ -48,9 +49,11 @@ class AttrCalc {
    */
   calc () {
     this.attr = ProfileAttr.create({})
-    this.addAttr('recharge', 100, true)
-    this.addAttr('cpct', 5, true)
-    this.addAttr('cdmg', 50, true)
+    if (this.profile.isGs) {
+      this.addAttr('recharge', 100, true)
+      this.addAttr('cpct', 5, true)
+      this.addAttr('cdmg', 50, true)
+    }
     this.setCharAttr()
     this.setWeaponAttr()
     this.setArtisAttr()
@@ -123,7 +126,7 @@ class AttrCalc {
    */
   setWeaponAttr () {
     let wData = this.profile?.weapon || {}
-    let weapon = Weapon.get(wData?.name)
+    let weapon = Weapon.get(wData?.name || wData?.id, this.game)
     let wCalcRet = weapon.calcAttr(wData.level, wData.promote)
 
     if (wCalcRet) {

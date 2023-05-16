@@ -6,9 +6,9 @@ import AttrCalc from './profile/AttrCalc.js'
 import CharImg from './character/CharImg.js'
 
 export default class ProfileData extends AvatarData {
-  constructor (ds = {}, calc = true) {
-    super(ds)
-    if (calc && !this.isSr) {
+  constructor (ds = {}, game = 'gs', calc = true) {
+    super(ds, game)
+    if (calc) {
       this.calcAttr()
     }
   }
@@ -53,8 +53,8 @@ export default class ProfileData extends AvatarData {
     return this.hasData && !!ProfileDmg.dmgRulePath(this.name)
   }
 
-  static create (ds) {
-    let profile = new ProfileData(ds)
+  static create (ds, game = 'gs') {
+    let profile = new ProfileData(ds, game)
     if (!profile) {
       return false
     }
@@ -62,7 +62,7 @@ export default class ProfileData extends AvatarData {
   }
 
   initArtis () {
-    this.artis = new ProfileArtis(this.id, this.elem)
+    this.artis = new ProfileArtis(this.id, this.elem, this.game)
   }
 
   setAttr (ds) {
@@ -76,7 +76,7 @@ export default class ProfileData extends AvatarData {
   }
 
   calcAttr () {
-    this._attr = AttrCalc.create(this)
+    this._attr = AttrCalc.create(this, this.game)
     this.attr = this._attr.calc()
     this.base = this._attr.getBase()
   }
@@ -88,6 +88,7 @@ export default class ProfileData extends AvatarData {
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
   getArtisMark (withDetail = true) {
     if (this.hasData) {
+      console.log(this.game)
       return this.artis.getMarkDetail(withDetail)
     }
     return {}

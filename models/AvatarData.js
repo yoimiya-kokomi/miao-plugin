@@ -63,9 +63,10 @@ export default class AvatarData extends Base {
     return {
       enka: 'Enka.Network',
       miao: '喵喵Api',
-      mgg: 'MiniGG-API',
+      mgg: 'MiniGG-Api',
       hutao: 'Hutao-Enka',
-      mys: '米游社'
+      mys: '米游社',
+      lulu: '路路Api'
     }[this._source] || this._source
   }
 
@@ -92,7 +93,7 @@ export default class AvatarData extends Base {
   }
 
   initArtis () {
-    this.artis = new AvatarArtis(this.id)
+    this.artis = new AvatarArtis(this.id, this.game)
   }
 
   _get (key) {
@@ -123,11 +124,12 @@ export default class AvatarData extends Base {
     this._costume = ds.costume || this._costume || 0
     this.elem = ds.elem || this.elem || this.char.elem || ''
     this.promote = lodash.isUndefined(ds.promote) ? (this.promote || AttrCalc.calcPromote(this.level)) : (ds.promote || 0)
-
+    this.trees = ds.trees || this.trees || []
     this._source = ds._source || ds.dataSource || this._source || ''
     this._time = ds._time || this._time || now
     this._update = ds._update || this._update || ds._time || now
     this._talent = ds._talent || this._talent || ds._time || now
+
     // 存在数据源时更新时间
     if (source) {
       this._update = now
@@ -142,13 +144,13 @@ export default class AvatarData extends Base {
   }
 
   setWeapon (ds = {}) {
-
-    let w = Weapon.get(ds.name)
+    let w = Weapon.get(ds.name || ds.id, this.game)
     if (!w) {
       return false
     }
     this.weapon = {
-      name: ds.name,
+      id: ds.id || w.id,
+      name: ds.name || w.name,
       level: ds.level || ds.lv || 1,
       promote: lodash.isUndefined(ds.promote) ? AttrCalc.calcPromote(ds.level || ds.lv || 1) : (ds.promote || 0),
       affix: ds.affix,
@@ -182,7 +184,7 @@ export default class AvatarData extends Base {
     if (!this.isProfile) {
       return false
     }
-    return ProfileData.create(this)
+    return ProfileData.create(this, this.game)
   }
 
   // 判断当前profileData是否具备有效圣遗物信息
@@ -192,9 +194,12 @@ export default class AvatarData extends Base {
 
   // toJSON 供保存使用
   toJSON () {
+    let keys = this.isGs ?
+      'name,id,elem,level,promote,fetter,costume,cons,talent:originalTalent' :
+      'name,id,elem,level,promote,cons,talent:originalTalent,trees'
     return {
-      ...this.getData('name,id,elem,level,promote,fetter,costume,cons,talent:originalTalent'),
-      weapon: Data.getData(this.weapon, 'name,level,promote,affix'),
+      ...this.getData(keys),
+      weapon: Data.getData(this.weapon, this.isGs ? 'name,level,promote,affix' : 'id,level,promote,affix'),
       ...this.getData('artis,_source,_time,_update,_talent')
     }
   }
@@ -208,7 +213,7 @@ export default class AvatarData extends Base {
       }
     } else {
       return {
-        ...(this.getData(keys || 'id,name,level,star,cons,fetter,elem,abbr,weapon,talent,artisSet') || {}),
+        ...(this.getData(keys || 'id,name,level,star,cons,elem,abbr,weapon,talent,artisSet,trees') || {}),
         ...Data.getData(imgs, 'face,qFace,gacha,preview')
       }
     }

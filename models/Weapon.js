@@ -1,16 +1,18 @@
 import Base from './Base.js'
 import { Data } from '#miao'
 import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet } from '../resources/meta/weapon/index.js'
+import { weaponData as weaponDataSR, weaponAlias as weaponAliasSR } from '../resources/meta-sr/weapon/index.js'
+
 import lodash from 'lodash'
 
 class Weapon extends Base {
-  constructor (name) {
+  constructor (name, game = 'gs') {
     super(name)
-    let meta = weaponData[name]
+    let meta = game === 'gs' ? weaponData[name] : weaponDataSR[name]
     if (!meta) {
       return false
     }
-    let cache = this._getCache(`weapon:${name}`)
+    let cache = this._getCache(`weapon:${game}:${name}`)
     if (cache) {
       return cache
     }
@@ -19,6 +21,7 @@ class Weapon extends Base {
     this.meta = meta
     this.type = meta.type
     this.star = meta.star
+    this.game = game
     return this._cache()
   }
 
@@ -31,14 +34,22 @@ class Weapon extends Base {
   }
 
   get img () {
-    return `meta/weapon/${this.type}/${this.name}/icon.webp`
+    return `meta/${this.isGs ? 'meta' : 'meta-sr'}/${this.type}/${this.name}/icon.webp`
   }
 
   get imgs () {
-    return {
-      icon: `meta/weapon/${this.type}/${this.name}/icon.webp`,
-      icon2: `meta/weapon/${this.type}/${this.name}/awaken.webp`,
-      gacha: `meta/weapon/${this.type}/${this.name}/gacha.webp`
+    if (this.isGs) {
+      return {
+        icon: `meta/weapon/${this.type}/${this.name}/icon.webp`,
+        icon2: `meta/weapon/${this.type}/${this.name}/awaken.webp`,
+        gacha: `meta/weapon/${this.type}/${this.name}/gacha.webp`
+      }
+    } else {
+      return {
+        icon: `meta/weapon-sr/${this.type}/${this.name}/icon.webp`,
+        icon2: `meta/weapon-sr/${this.type}/${this.name}/icon-s.webp`,
+        gacha: `meta/weapon-sr/${this.type}/${this.name}/splash.webp`
+      }
     }
   }
 
@@ -67,12 +78,13 @@ class Weapon extends Base {
     return weaponSet.includes(name)
   }
 
-  static get (name, type = '') {
+  static get (name, game = 'gs', type = '') {
     name = lodash.trim(name)
-    if (weaponAlias[name]) {
-      return new Weapon(weaponAlias[name])
+    let alias = game === 'gs' ? weaponAlias : weaponAliasSR
+    if (alias[name]) {
+      return new Weapon(alias[name], game)
     }
-    if (type) {
+    if (type && game === 'gs') {
       let name2 = name + (weaponType[type] || type)
       if (weaponAlias[name2]) {
         return new Weapon(weaponAlias[name2])
@@ -96,7 +108,7 @@ class Weapon extends Base {
     if (this._detail) {
       return this._detail
     }
-    const path = 'resources/meta/weapon'
+    const path = this.isGs ? 'resources/meta/weapon' : 'resources/meta/weapon-sr'
     try {
       this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`, 'miao')
     } catch (e) {

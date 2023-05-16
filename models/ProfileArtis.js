@@ -10,8 +10,8 @@ import { attrMap } from '../resources/meta/artifact/index.js'
 import CharArtis from './profile/CharArtis.js'
 
 export default class ProfileArtis extends AvatarArtis {
-  constructor (charid = 0, elem = '') {
-    super(charid)
+  constructor (charid = 0, elem = '', game = 'gs') {
+    super(charid, game)
     this.elem = elem
   }
 
@@ -85,6 +85,7 @@ export default class ProfileArtis extends AvatarArtis {
         }
       } else {
         let artifact = Artifact.get(arti.name)
+        console.log(arti.main, arti.mainId, arti)
         artis[idx] = {
           name: artifact.name,
           set: artifact.setName,

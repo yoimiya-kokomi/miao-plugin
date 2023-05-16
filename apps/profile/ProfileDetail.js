@@ -40,7 +40,10 @@ let ProfileDetail = {
       msg = msg.replace(uidRet[0], '')
     }
 
-    let name = msg.replace(/#|老婆|老公/g, '').trim()
+    if (/星铁/.test(msg)) {
+      e.isSr = true
+    }
+    let name = msg.replace(/#|老婆|老公|星铁|原神/g, '').trim()
     msg = msg.replace('面版', '面板')
     let dmgRet = /(?:伤害|武器)(\d?)$/.exec(name)
     let dmgIdx = 0
@@ -145,7 +148,7 @@ let ProfileDetail = {
       attr[`${key}Plus`] = fn(a[key2] - base[key2])
     })
 
-    let weapon = Weapon.get(profile.weapon.name)
+    let weapon = Weapon.get(profile.weapon.name, char.game)
     let w = profile.weapon
     let wCfg = {}
     if (mode === 'weapon') {

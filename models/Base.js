@@ -94,11 +94,11 @@ export default class Base {
     delete metaMap[id]
   }
 
-  isSr () {
+  get isSr () {
     return this.game === 'sr'
   }
 
-  isGs () {
+  get isGs () {
     return !this.isSr
   }
 }

@@ -61,7 +61,7 @@ const ProfileList = {
       isSelfUid = uids.join(',').split(',').includes(uid + '')
     }
     let rank = false
-    let servName = Player.getProfileServName(uid)
+
     let hasNew = false
     let newCount = 0
 
@@ -75,6 +75,7 @@ const ProfileList = {
     const cfg = await Data.importCfg('cfg')
     // 获取面板数据
     let player = Player.create(e)
+    let servName = Player.getProfileServName(uid, player.game)
     if (!player.hasProfile) {
       await player.refresh({ profile: true })
     }

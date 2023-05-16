@@ -38,17 +38,17 @@ export default {
   },
 
   updatePlayer (player, data) {
-    player.setBasicData(Data.getData(data, 'name:NickName,face:HeadIconID,level:Level,word:WorldLevel,sign:Signature'))
-    console.log('avatars', data.avatars)
-    lodash.forEach(data.avatars, (ds, id) => {
-      console.log('ret1', ds)
-      let ret = LuluData.setAvatar(player, ds)
-      console.log('ret2', ret, ds)
-      if (ret) {
-        console.log('done', id)
-        player._update.push(id)
-      }
-    })
+    try {
+      player.setBasicData(Data.getData(data, 'name:NickName,face:HeadIconID,level:Level,word:WorldLevel,sign:Signature'))
+      lodash.forEach(data.avatars, (ds, id) => {
+        let ret = LuluData.setAvatar(player, ds)
+        if (ret) {
+          player._update.push(ds.AvatarID)
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
   },
 
   // 获取冷却时间
@@ -59,51 +59,58 @@ export default {
 
 const LuluData = {
   setAvatar (player, data) {
-    console.log('data', data.AvatarID, data)
-    console.log('data.ID', data.AvatarID)
     let char = Character.get(data.AvatarID)
-    console.log('char.id', char.id, char.name)
     if (!char) {
       return false
     }
     let avatar = player.getAvatar(char.id, true)
-    console.log('setAvatar', avatar)
-
     let setData = {
       level: data.Level,
       promote: data.Promotion,
       cons: data.Rank || 0,
-      weapon: Data.getData(data.EquipmentID, 'id:ID,promote:Promotion,level:Level'),
-      ...LuluData.getTalent(data.BehaviorList, char.talentId),
+      weapon: Data.getData(data.EquipmentID, 'id:ID,promote:Promotion,level:Level,affix:Rank'),
+      ...LuluData.getTalent(data.BehaviorList, char),
       artis: LuluData.getArtis(data.RelicList)
     }
-    console.log('char.setData', setData)
     avatar.setAvatar(setData, 'lulu')
     return avatar
   },
-  getTalent (ds, talentId = {}) {
+  getTalent (ds, char) {
     let talent = {}
-    let behaviors = []
+    let trees = []
+    let talentId = char.talentId
     lodash.forEach(ds, (d) => {
-      let key = talentId[d.BehaviorID]
+      let key = char.getTalentKey(d.BehaviorID)
       if (key || d.Level > 1) {
         talent[key || d.BehaviorID] = d.Level
       } else {
-        behaviors.push(d.BehaviorID)
+        trees.push(d.BehaviorID)
       }
     })
-    return { talent, behaviors }
+    return { talent, trees }
   },
   getArtis (artis) {
     let ret = {}
     lodash.forEach(artis, (ds) => {
-      let tmp = Data.getData('id:ID,main:MainAffixID,level:Level')
-      tmp.attrs = []
+      let tmp = {
+        id: ds.ID,
+        level: ds.Level || 1,
+        mainId: ds.MainAffixID,
+        attrs: []
+      }
       lodash.forEach(ds.RelicSubAffix, (s) => {
-        tmp.attrs.push(Data.getData(s, 'id:SubAffixID,count:Cnt,step:Step'))
+        if (!s.SubAffixID) {
+          return true
+        }
+        tmp.attrs.push({
+          id: s.SubAffixID,
+          count: s.Cnt,
+          step: s.Step || 0
+        })
       })
       ret[ds.Type] = tmp
     })
+    console.log(lodash.keys(ret))
     return ret
   }
 }

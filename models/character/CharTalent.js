@@ -5,9 +5,10 @@ import lodash from 'lodash'
 
 const CharTalent = {
   // 处理获取天赋数据
-  getAvatarTalent (id, talent, cons, mode, consTalent = {}) {
+  getAvatarTalent (char, talent, cons, mode) {
+    let { id, talentCons, game } = char
     let ret = {}
-    lodash.forEach(['a', 'e', 'q'], (key) => {
+    lodash.forEach(game === 'gs' ? ['a', 'e', 'q'] : ['a', 'e', 'q', 't'], (key) => {
       let ds = talent[key]
       if (!ds) {
         return false
@@ -26,10 +27,10 @@ const CharTalent = {
           mode = 'level'
         } else {
           original = value
-          if (key === 'a') {
+          if (key === 'a' && char.isGs) {
             level = aPlus ? value + 1 : value
           } else {
-            level = cons >= consTalent[key] ? (value + 3) : value
+            level = cons >= talentCons[key] ? (value + 3) : value
           }
         }
       }
@@ -37,10 +38,10 @@ const CharTalent = {
         // 基于level计算original
         value = value || ds.level || ds.level_current || ds.original || ds.level_original
         level = value
-        if (key === 'a') {
+        if (key === 'a' && char.isGs) {
           original = aPlus ? value - 1 : value
         } else {
-          original = cons >= consTalent[key] ? (value - 3) : value
+          original = cons >= talentCons[key] ? (value - 3) : value
         }
       }
       ret[key] = { level, original }
