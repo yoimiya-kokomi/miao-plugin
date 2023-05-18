@@ -8,6 +8,8 @@ import mggApi from './MggApi.js'
 import hutaoApi from './HutaoApi.js'
 import luluApi from './LuluApi.js'
 
+import lodash from 'lodash'
+
 let { diyCfg } = await Data.importCfg('profile')
 
 const Profile = {
@@ -95,9 +97,7 @@ const Profile = {
   },
 
   isProfile (avatar) {
-    console.log('is Sr', avatar.isSr, avatar._source)
     if (avatar.isSr) {
-
       return true
     }
     // 检查数据源
@@ -106,7 +106,7 @@ const Profile = {
     }
 
     // 检查武器及天赋
-    if (!avatar.weapon || !avatar.talent) {
+    if (!avatar.weapon || lodash.isUndefined(avatar.weapon.promote) || !avatar.talent) {
       return false
     }
     // 检查圣遗物词条是否完备

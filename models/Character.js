@@ -300,12 +300,13 @@ class Character extends Base {
       return {}
     }
     const path = this.isSr ? 'resources/meta-sr/character' : 'resources/meta/character'
+    const file = this.isSr ? 'data' : 'detail'
 
     try {
       if (this.isTraveler) {
-        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/detail.json`, 'miao')
+        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/${file}.json`, 'miao')
       } else {
-        this._detail = Data.readJSON(`${path}/${this.name}/detail.json`, 'miao')
+        this._detail = Data.readJSON(`${path}/${this.name}/${file}.json`, 'miao')
       }
     } catch (e) {
       console.log(e)
@@ -326,6 +327,31 @@ class Character extends Base {
       this._artisRule = CharCfg.getArtisCfg(this)
     }
     return this._artisRule
+  }
+
+  /**
+   * 获取等级属性
+   * @param level
+   * @param promote
+   * @returns {{}|boolean}
+   */
+  getLvAttr (level, promote) {
+    let metaAttr = this.detail?.attr
+    if (!metaAttr) {
+      return false
+    }
+    if (this.isSr) {
+      let lvAttr = metaAttr[promote]
+      let ret = {}
+      lodash.forEach(lvAttr.attrs, (v, k) => {
+        ret[k] = v * 1
+      })
+      lodash.forEach(lvAttr.grow, (v, k) => {
+        ret[k] = ret[k] * 1 + v * (level - 1)
+      })
+      return ret
+    }
+
   }
 }
 

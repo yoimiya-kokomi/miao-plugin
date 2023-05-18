@@ -46,8 +46,8 @@ export default class AvatarArtis extends Base {
     })
   }
 
-  static getArtisKeyTitle () {
-    return ArtisMark.getKeyTitleMap()
+  static getArtisKeyTitle (game = 'gs') {
+    return ArtisMark.getKeyTitleMap(game)
   }
 
   setArtisData (ds = {}, isProfile = false) {
@@ -77,7 +77,7 @@ export default class AvatarArtis extends Base {
       arti.star = artiObj.getStarById(ds.id) || arti.star || 5
 
       if (ds.mainId && ds.attrs) {
-        let attr = artiObj.getAttrData(ds.mainId, ds.attrs, arti.level, arti.star)
+        let attr = artiObj.getAttrData(ds.mainId, ds.attrs, arti.level, arti.star, idx)
         if (attr) {
           arti.mainId = ds.mainId
           arti.main = attr.main || arti.main || {}
@@ -129,7 +129,6 @@ export default class AvatarArtis extends Base {
 
   forEach (fn) {
     lodash.forEach(this.artis, (ds, idx) => {
-      console.log(ds, this.game, ds.mainId, ds.main)
       if (ds.name) {
         fn(ds, idx)
       }

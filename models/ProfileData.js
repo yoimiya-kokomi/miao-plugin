@@ -88,7 +88,6 @@ export default class ProfileData extends AvatarData {
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
   getArtisMark (withDetail = true) {
     if (this.hasData) {
-      console.log(this.game)
       return this.artis.getMarkDetail(withDetail)
     }
     return {}

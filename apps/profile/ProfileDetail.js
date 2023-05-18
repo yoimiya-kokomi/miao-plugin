@@ -131,13 +131,15 @@ let ProfileDetail = {
     let a = profile.attr
     let base = profile.base
     let attr = {}
-    lodash.forEach(['hp', 'def', 'atk', 'mastery'], (key) => {
+    let game = char.game
+
+    lodash.forEach((game === 'gs' ? 'hp,def,atk,mastery' : 'hp,def,atk,speed').split(','), (key) => {
       let fn = (n) => Format.comma(n, key === 'hp' ? 0 : 1)
       attr[key] = fn(a[key])
       attr[`${key}Base`] = fn(base[key])
       attr[`${key}Plus`] = fn(a[key] - base[key])
     })
-    lodash.forEach(['cpct', 'cdmg', 'recharge', 'dmg'], (key) => {
+    lodash.forEach((game === 'gs' ? 'cpct,cdmg,recharge,dmg' : 'cpct,cdmg,recharge,dmg,effPct,stance').split(','), (key) => {
       let fn = Format.pct
       let key2 = key
       if (key === 'dmg' && a.phy > a.dmg) {
@@ -148,7 +150,7 @@ let ProfileDetail = {
       attr[`${key}Plus`] = fn(a[key2] - base[key2])
     })
 
-    let weapon = Weapon.get(profile.weapon.name, char.game)
+    let weapon = Weapon.get(profile.weapon.name, game)
     let w = profile.weapon
     let wCfg = {}
     if (mode === 'weapon') {
@@ -167,10 +169,11 @@ let ProfileDetail = {
     }
 
     let artisDetail = profile.getArtisMark()
-    let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
+    let artisKeyTitle = ProfileArtis.getArtisKeyTitle(game)
     let renderData = {
       save_id: uid,
       uid,
+      game,
       data: profile.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime,imgs,costumeSplash'),
       attr,
       elem: char.elem,

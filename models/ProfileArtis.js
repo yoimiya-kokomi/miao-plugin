@@ -71,11 +71,11 @@ export default class ProfileArtis extends AvatarArtis {
     let totalVaild = 0
     this.forEach((arti, idx) => {
       let mark = ArtisMark.getMark(charCfg, idx, arti.main, arti.attrs, this.elem)
-      let crit = ArtisMark.getCritMark(charCfg, idx, arti.main, arti.attrs, this.elem)
-      let vaild = ArtisMark.getValidMark(charCfg, idx, arti.main, arti.attrs, this.elem)
+      // let crit = ArtisMark.getCritMark(charCfg, idx, arti.main, arti.attrs, this.elem)
+      // let vaild = ArtisMark.getValidMark(charCfg, idx, arti.main, arti.attrs, this.elem)
       totalMark += mark
-      totalCrit += crit
-      totalVaild += vaild
+      // totalCrit += crit
+      // totalVaild += vaild
       setCount[arti.set] = (setCount[arti.set] || 0) + 1
       if (!withDetail) {
         artis[idx] = {
@@ -84,8 +84,9 @@ export default class ProfileArtis extends AvatarArtis {
           markClass: ArtisMark.getMarkClass(mark)
         }
       } else {
-        let artifact = Artifact.get(arti.name)
-        console.log(arti.main, arti.mainId, arti)
+        let artifact = Artifact.get(arti.name, this.game)
+        // console.log('artifact', artifact, arti)
+        // console.log(`arti idx ${idx} ${artifact.name}\n\n\n`)
         artis[idx] = {
           name: artifact.name,
           set: artifact.setName,
@@ -115,10 +116,10 @@ export default class ProfileArtis extends AvatarArtis {
     let ret = {
       mark: Format.comma(totalMark, 1),
       _mark: totalMark,
-      crit: Format.comma(totalCrit, 1),
+      /* crit: Format.comma(totalCrit, 1),
       _crit: totalCrit,
       valid: Format.comma(totalVaild, 1),
-      _valid: totalVaild,
+      _valid: totalVaild, */
       markClass: ArtisMark.getMarkClass(totalMark / 5),
       artis,
       sets,

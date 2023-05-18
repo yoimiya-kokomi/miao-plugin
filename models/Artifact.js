@@ -37,7 +37,7 @@ class Artifact extends Base {
   }
 
   get img () {
-    return this.isGs ? `meta/artifact/imgs/${this.setName}/${this.idx}.webp` : `meta-sr/artifact/imgs/${this.setName}/arti-${this.idx}.webp`
+    return this.isGs ? `meta/artifact/imgs/${this.setName}/${this.idx}.webp` : `meta-sr/artifact/${this.setName}/arti-${this.idx}.webp`
   }
 
   static get (name, game = 'gs') {
@@ -110,15 +110,17 @@ class Artifact extends Base {
     return this.meta.ids[id] || ''
   }
 
-  getAttrData (mainId, attrData, level = 1, star = 5) {
+  getAttrData (mainId, attrData, level = 1, star = 5, idx = 1) {
+
+    let mainKey = metaDataSR.mainIdx[idx][mainId]
     let starCfg = metaDataSR.starData[star]
-    let mainCfg = starCfg.main[mainId]
+    let mainCfg = starCfg.main[mainKey]
     if (!mainId || !mainCfg) {
       return false
     }
     let main = {
       id: mainId,
-      key: mainCfg.key,
+      key: mainKey,
       value: mainCfg.base + mainCfg.step * level
     }
     let attrs = []

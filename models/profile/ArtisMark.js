@@ -7,19 +7,19 @@ import {
 
 let ArtisMark = {
   // 根据Key获取标题
-  getKeyByTitle (title, dmg = false, game = 'gs') {
+  getKeyByTitle (title, game = 'gs') {
     if (/元素伤害加成/.test(title) || Format.isElem(title)) {
       let elem = Format.matchElem(title)
-      return dmg ? 'dmg' : elem
+      return elem
     } else if (title === '物理伤害加成') {
       return 'phy'
     }
-    return (game === 'gs' ? attrNameMap : attrNameMapSR)[title]
+    return (game === 'gs' ? attrNameMap : attrMap)[title]
   },
 
   getKeyTitleMap (game = 'gs') {
     let ret = {}
-    lodash.forEach(attrMap, (ds, key) => {
+    lodash.forEach(game === 'gs' ? attrMap : attrMapSR, (ds, key) => {
       ret[key] = ds.title
     })
     Format.eachElem((key, name) => {
@@ -28,13 +28,13 @@ let ArtisMark = {
     return ret
   },
 
-  formatAttr (ds) {
+  formatAttr (ds, game = 'gs') {
     if (!ds) {
       return {}
     }
     if (lodash.isArray(ds) && ds[0] && ds[1]) {
       return {
-        key: ArtisMark.getKeyByTitle(ds[0]),
+        key: ArtisMark.getKeyByTitle(ds[0], game),
         value: ds[1]
       }
     }
@@ -42,7 +42,7 @@ let ArtisMark = {
       return {}
     }
     return {
-      key: ds.key || ArtisMark.getKeyByTitle(ds.title || ds.name || ds.key || ds.id || ''),
+      key: ds.key || ArtisMark.getKeyByTitle(ds.title || ds.name || ds.key || ds.id || '', game),
       value: ds.value || ''
     }
   },
@@ -52,58 +52,32 @@ let ArtisMark = {
    * @param ds
    * @param charAttrCfg
    * @param isMain
+   * @param game
    * @returns {{title: *, value: string}|*[]}
    */
   formatArti (ds, charAttrCfg = false, isMain = false, game = 'gs') {
     // 若为attr数组
     if (ds[0] && (ds[0].title || ds[0].key)) {
       let ret = []
-      let totalUpNum = 0
-      let ltArr = []
-      let isIdAttr = false
-
       lodash.forEach(ds, (d) => {
-        isIdAttr = !d.isCalcNum
         let arti = ArtisMark.formatArti(d, charAttrCfg, isMain, game)
         ret.push(arti)
-        if (isIdAttr) {
-          return true
-        }
-        totalUpNum += arti.upNum
-        if (arti.hasLt) {
-          ltArr.push(arti)
-        }
-        delete arti.hasLt
-        delete arti.hasGt
       })
-      if (!isIdAttr) {
-        ltArr = lodash.sortBy(ltArr, 'upNum').reverse()
-        for (let arti of ltArr) {
-          if (totalUpNum > 9) {
-            arti.upNum = arti.upNum - 1
-            totalUpNum--
-          } else {
-            break
-          }
-        }
-      }
       return ret
     }
 
     let key = ds.key
     let title = ds.title || ds[0]
     if (!key) {
-      key = ArtisMark.getKeyByTitle(title)
+      key = ArtisMark.getKeyByTitle(title, game)
     }
     let isDmg = Format.isElem(key)
     let val = ds.value || ds[1]
-    let value = val
     let num = ds.value || ds[1]
     if (!key || key === 'undefined') {
       return {}
     }
     let arrCfg = (game === 'gs' ? attrMap : attrMapSR)[isDmg ? 'dmg' : key]
-    console.log(key, arrCfg)
     val = Format[arrCfg?.format || 'comma'](val, 1)
     let ret = {
       key,
@@ -111,14 +85,6 @@ let ArtisMark = {
       upNum: ds.upNum || 0,
       eff: ds.eff || 0
     }
-    /* if (!isMain && !ret.upNum) {
-      let incRet = ArtisMark.getIncNum(key, value)
-      ret.upNum = incRet.num
-      ret.eff = incRet.eff
-      ret.hasGt = incRet.hasGt
-      ret.hasLt = incRet.hasLt
-      ret.isCalcNum = true
-    }*/
 
     if (charAttrCfg) {
       let mark = charAttrCfg[key]?.mark * num || 0
@@ -131,27 +97,6 @@ let ArtisMark = {
     }
     ret.eff = ret.eff ? Format.comma(ret.eff / 0.85, 1) : '-'
     return ret
-  },
-
-  // 获取升级次数
-  getIncNum (key, value) {
-    let cfg = attrMap[key]
-    if (!value || !cfg || !cfg.value || !cfg.valueMin) {
-      return { num: 0 }
-    }
-    let maxNum = Math.min(5, Math.floor((value / cfg.valueMin).toFixed(1) * 1))
-    let minNum = Math.max(1, Math.ceil((value / cfg.value).toFixed(1) * 1))
-    // 相等时直接返回
-    if (maxNum === minNum) {
-      return { num: minNum, eff: value / cfg.value }
-    }
-    let avg = Math.round(value / (cfg.value + cfg.valueMin) * 2)
-    return {
-      num: avg,
-      eff: value / cfg.value,
-      hasGt: maxNum > avg,
-      hasLt: minNum < avg
-    }
   },
 
   // 获取评分档位
@@ -292,7 +237,8 @@ let ArtisMark = {
     for (let idx = 1; idx <= 5; idx++) {
       let ds = artis[idx]
       if (ds) {
-        if (!ds.name || !ds.main || !ds.attrs || !ds?.main?.key) {
+        // 不再支持非id格式的面板
+        if (!ds.name || !ds.main || !ds.attrs || !ds?.main?.key || !ds.mainId) {
           return false
         }
       }

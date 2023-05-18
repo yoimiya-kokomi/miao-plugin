@@ -13,7 +13,7 @@ class AttrCalc {
   constructor (profile) {
     this.profile = profile
     this.char = profile.char
-    this.game = profile.game
+    this.game = this.char.game
   }
 
   get isGs () {
@@ -57,18 +57,18 @@ class AttrCalc {
    * @returns {{}}
    */
   calc () {
+    console.log('calc,hahahaha')
     this.attr = ProfileAttr.create({}, this.game)
     if (this.isGs) {
       this.addAttr('recharge', 100, true)
       this.addAttr('cpct', 5, true)
       this.addAttr('cdmg', 50, true)
-    } else {
-
     }
     this.setCharAttr()
     this.setWeaponAttr()
     this.setArtisAttr()
     return this.attr.getAttr()
+
   }
 
   getBase () {
@@ -77,6 +77,9 @@ class AttrCalc {
 
 
   addAttr (key, val, isBase = false) {
+    if (key === 'cpct') {
+      console.log('isCpct', val, isBase)
+    }
     this.attr.addAttr(key, val, isBase)
   }
 
@@ -85,11 +88,19 @@ class AttrCalc {
    * @param affix
    */
   setCharAttr (affix = '') {
-    if (this.isGs) {
-      return
-    }
     let { char, level, promote } = this.profile
     let metaAttr = char.detail?.attr || {}
+    let self = this
+    if (this.isSr) {
+      // 星铁面板属性
+      let attr = char.getLvAttr(level, promote)
+      lodash.forEach(attr, (v, k) => {
+        k = k + (['hp', 'atk', 'def'].includes(k) ? 'Base' : '')
+        self.addAttr(k, v, true)
+      })
+      return
+    }
+
     let { keys = {}, details = {} } = metaAttr
     let lvLeft = 0
     let lvRight = 0
@@ -139,12 +150,19 @@ class AttrCalc {
    * 计算武器属性
    */
   setWeaponAttr () {
-    if (this.isGs) {
-      return
-    }
     let wData = this.profile?.weapon || {}
     let weapon = Weapon.get(wData?.name || wData?.id, this.game)
     let wCalcRet = weapon.calcAttr(wData.level, wData.promote)
+    let self = this
+
+    if (this.isSr) {
+      // 星铁面板属性
+      lodash.forEach(wCalcRet, (v, k) => {
+        k = k + (['hp', 'atk', 'def'].includes(k) ? 'Base' : '')
+        self.addAttr(k, v, true)
+      })
+      return
+    }
 
     if (wCalcRet) {
       this.addAttr('atkBase', wCalcRet.atkBase)
@@ -172,15 +190,12 @@ class AttrCalc {
    * 计算圣遗物属性
    */
   setArtisAttr () {
-    if (this.isGs) {
-      return
-    }
     let artis = this.profile?.artis
     // 计算圣遗物词条
     artis.forEach((arti) => {
       this.calcArtisAttr(arti.main, this.char)
       lodash.forEach(arti.attrs, (ds) => {
-        this.calcArtisAttr(ds)
+        this.calcArtisAttr(ds, this.char)
       })
     })
     // 计算圣遗物静态加成
@@ -201,6 +216,8 @@ class AttrCalc {
   /**
    * 计算单条圣遗物词缀
    * @param ds
+   * @param char
+   * @param autoPct
    * @returns {boolean}
    */
   calcArtisAttr (ds, char) {
@@ -214,6 +231,7 @@ class AttrCalc {
     if (!key) {
       return false
     }
+    console.log(key, ds.value)
     if (['atk', 'hp', 'def'].includes(key)) {
       key = key + 'Pct'
     }

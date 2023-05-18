@@ -821,4 +821,15 @@ body {
   line-height: 20px;
   color: #bbb;
 }
+.game-sr .char-talents {
+  transform: scale(0.8);
+  transform-origin: top left;
+  margin: -8px 0 -14px;
+}
+.game-sr .char-talents .talent-item {
+  margin: 0 -3px;
+}
+.game-sr .artis-weapon {
+  display: none;
+}
 /*# sourceMappingURL=profile-detail.css.map */

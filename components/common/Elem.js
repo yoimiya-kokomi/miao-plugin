@@ -12,19 +12,31 @@ const elemAlias = {
 }
 
 const elemAliasSR = {
-
+  fire: '火',
+  ice: '冰',
+  wind: '风',
+  elec: '雷',
+  phy: '物理',
+  quantum: '量子',
+  imaginary: '虚数'
 }
 
 // 元素属性映射, 名称=>elem
 let elemMap = {}
+let elemMapSR = {}
 
 // 标准元素名
 let elemTitleMap = {}
+let elemTitleMapSR = elemAliasSR
 
 lodash.forEach(elemAlias, (txt, key) => {
   elemMap[key] = key
   elemTitleMap[key] = txt[0]
   Data.eachStr(txt, (t) => (elemMap[t] = key))
+})
+lodash.forEach(elemAliasSR, (txt, key) => {
+  elemMapSR[key] = key
+  elemMapSR[txt] = key
 })
 
 const Elem = {
@@ -56,8 +68,8 @@ const Elem = {
     return ''
   },
 
-  eachElem (fn) {
-    lodash.forEach(elemTitleMap, (title, key) => {
+  eachElem (fn, game = 'gs') {
+    lodash.forEach(game === 'gs' ? elemTitleMap : elemTitleMapSR, (title, key) => {
       fn(key, title)
     })
   },

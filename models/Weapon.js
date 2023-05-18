@@ -34,7 +34,7 @@ class Weapon extends Base {
   }
 
   get img () {
-    return `meta/${this.isGs ? 'meta' : 'meta-sr'}/${this.type}/${this.name}/icon.webp`
+    return `${this.isGs ? 'meta' : 'meta-sr'}/weapon/${this.type}/${this.name}/icon.webp`
   }
 
   get imgs () {
@@ -46,9 +46,9 @@ class Weapon extends Base {
       }
     } else {
       return {
-        icon: `meta/weapon-sr/${this.type}/${this.name}/icon.webp`,
-        icon2: `meta/weapon-sr/${this.type}/${this.name}/icon-s.webp`,
-        gacha: `meta/weapon-sr/${this.type}/${this.name}/splash.webp`
+        icon: `meta-sr/weapon/${this.type}/${this.name}/icon.webp`,
+        icon2: `meta-sr/weapon/${this.type}/${this.name}/icon-s.webp`,
+        gacha: `meta-sr/weapon/${this.type}/${this.name}/splash.webp`
       }
     }
   }
@@ -108,9 +108,10 @@ class Weapon extends Base {
     if (this._detail) {
       return this._detail
     }
-    const path = this.isGs ? 'resources/meta/weapon' : 'resources/meta/weapon-sr'
+    const path = this.isGs ? 'resources/meta/weapon' : 'resources/meta-sr/weapon'
     try {
       this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`, 'miao')
+      console.log(`${path}/${this.type}/${this.name}/data.json`)
     } catch (e) {
       console.log(e)
     }
@@ -118,6 +119,22 @@ class Weapon extends Base {
   }
 
   calcAttr (level, promote = -1) {
+    let metaAttr = this.detail?.attr
+    if (!metaAttr) {
+      return false
+    }
+    if (this.isSr) {
+      let lvAttr = metaAttr[promote]
+      let ret = {}
+      lodash.forEach(lvAttr.attrs, (v, k) => {
+        ret[k] = v * 1
+      })
+      lodash.forEach(this.detail?.growAttr, (v, k) => {
+        ret[k] = ret[k] * 1 + v * (level - 1)
+      })
+      return ret
+    }
+
     let lvLeft = 1
     let lvRight = 20
     let lvStep = [1, 20, 40, 50, 60, 70, 80, 90]
