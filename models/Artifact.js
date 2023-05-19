@@ -111,7 +111,6 @@ class Artifact extends Base {
   }
 
   getAttrData (mainId, attrData, level = 1, star = 5, idx = 1) {
-
     let mainKey = metaDataSR.mainIdx[idx][mainId]
     let starCfg = metaDataSR.starData[star]
     let mainCfg = starCfg.main[mainKey]
@@ -125,11 +124,21 @@ class Artifact extends Base {
     }
     let attrs = []
     lodash.forEach(attrData, (ds) => {
+      let _ds = ds
+      if (lodash.isString(ds)) {
+        console.log('str subids', ds)
+        let [id, count, step] = ds.split(',')
+        ds = { id, count, step }
+      }
       let attrCfg = starCfg.sub[ds.id]
+      if (!attrCfg) {
+        console.log('not found attr', ds, _ds)
+        return true
+      }
       attrs.push({
         ...ds,
-        key: attrCfg.key,
-        value: attrCfg.base * ds.count + attrCfg.step * ds.step
+        key: attrCfg?.key,
+        value: attrCfg?.base * ds.count + attrCfg.step * ds.step
       })
     })
     return {

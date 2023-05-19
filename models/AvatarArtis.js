@@ -83,7 +83,7 @@ export default class AvatarArtis extends Base {
           arti.main = attr.main || arti.main || {}
           arti.attrs = attr.attrs || arti.attrs || {}
         } else {
-          console.log('attr id error', ds.main, arti.level, arti.star)
+          console.log('attr id error', ds.main, ds.mainId, idx, arti.level, arti.star)
         }
       }
       return
@@ -163,11 +163,11 @@ export default class AvatarArtis extends Base {
         tmp.mainId = ds.main?.id
         tmp.attrs = []
         lodash.forEach(ds.attrs, (as) => {
-          tmp.attrs.push({
-            id: as?.id,
-            count: as?.count,
-            step: as?.step
-          })
+          tmp.attrs.push([
+            as?.id || '',
+            as?.count || 1,
+            as?.step || 0
+          ].join(','))
         })
       } else {
         tmp.name = ds.name || ''

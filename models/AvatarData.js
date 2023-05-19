@@ -2,7 +2,7 @@ import lodash from 'lodash'
 import Base from './Base.js'
 import moment from 'moment'
 import { Character, AvatarArtis, ProfileData, Weapon } from './index.js'
-import { Data } from '#miao'
+import { Data, Format } from '#miao'
 import AttrCalc from './profile/AttrCalc.js'
 import Profile from './player/Profile.js'
 
@@ -66,7 +66,7 @@ export default class AvatarData extends Base {
       mgg: 'MiniGG-Api',
       hutao: 'Hutao-Enka',
       mys: '米游社',
-      lulu: '路路Api'
+      homo: 'Mihomo'
     }[this._source] || this._source
   }
 
@@ -159,6 +159,24 @@ export default class AvatarData extends Base {
     if (this.weapon.level < 20) {
       this.weapon.promote = 0
     }
+  }
+
+  getWeaponDetail () {
+    if (this.isGs) {
+      return this.weapon
+    }
+    let ret = {
+      ...this.weapon
+    }
+    let wData = Weapon.get(ret.id, this.game)
+    ret.splash = wData.imgs.gacha
+    let attrs = wData.calcAttr(ret.level, ret.promote)
+    lodash.forEach(attrs, (val, key) => {
+      attrs[key] = Format.comma(val, 1)
+    })
+    ret.attrs = attrs
+    ret.desc = wData.getAffixDesc(ret.affix)
+    return ret
   }
 
   setTalent (ds = false, mode = 'original', updateTime = '') {

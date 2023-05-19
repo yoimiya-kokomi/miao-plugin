@@ -142,8 +142,14 @@ let ProfileDetail = {
     lodash.forEach((game === 'gs' ? 'cpct,cdmg,recharge,dmg' : 'cpct,cdmg,recharge,dmg,effPct,stance').split(','), (key) => {
       let fn = Format.pct
       let key2 = key
-      if (key === 'dmg' && a.phy > a.dmg) {
-        key2 = 'phy'
+      if (key === 'dmg') {
+        if (game === 'gs') {
+          if (a.phy > a.dmg) {
+            key2 = 'phy'
+          }
+        } else {
+          key2 = Format.elem(char.elem, '', 'sr')
+        }
       }
       attr[key] = fn(a[key2])
       attr[`${key}Base`] = fn(base[key2])
@@ -170,11 +176,13 @@ let ProfileDetail = {
 
     let artisDetail = profile.getArtisMark()
     let artisKeyTitle = ProfileArtis.getArtisKeyTitle(game)
+    let data = profile.getData('name,abbr,cons,level,talent,dataSource,updateTime,imgs,costumeSplash')
+    data.weapon = profile.getWeaponDetail()
     let renderData = {
       save_id: uid,
       uid,
       game,
-      data: profile.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime,imgs,costumeSplash'),
+      data,
       attr,
       elem: char.elem,
       dmgCalc,

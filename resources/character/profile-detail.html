@@ -102,7 +102,7 @@
 
   {{if changeProfile}}
   <div class="cont">
-    <div class="cont-footer  dmg-desc">
+    <div class="cont-footer dmg-desc">
       <strong>该面板为非实际数据。当前替换命令：</strong> {{changeProfile}}
     </div>
   </div>
@@ -110,9 +110,35 @@
 
   <!-- 【 武器+圣遗物列表】 -->
   <div>
+    {{if game === 'sr'}}
+    <div class="cont">
+      <div class="cont-footer dmg-desc">
+        <strong>面板数据尚未完全计算全部Buff，面板不准确</strong>
+      </div>
+    </div>
+
+    <div class="sr-weapon">
+      <div class="weapon-img" style="background-image:url({{_res_path}}{{weapon.splash}})"></div>
+      <div class="weapon-info">
+        <div class="weapon-title">
+          <strong>{{weapon.name}}</strong>
+          <span>Lv.{{weapon.level}}</span>
+          <span>叠影{{weapon.affix}}阶</span>
+        </div>
+        <div class="weapon-attr">
+          {{set a = weapon.attrs}}
+          <div class="attr i-hp"><span>生命</span>{{a.hp}}</div>
+          <div class="attr i-atk"><span>攻击</span>{{a.atk}}</div>
+          <div class="attr i-def"><span>防御</span>{{a.def}}</div>
+        </div>
+        <div class="weapon-desc">{{@weapon.desc?.desc}}</div>
+      </div>
+    </div>
+    {{/if}}
     {{if mode === "profile"}}
     {{set ad = artisDetail}}
     <div class="artis">
+      {{ if game === 'gs' }}
       <div class="artis-weapon">
         <div class="item weapon">
           <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
@@ -131,6 +157,7 @@
           </div>
         </div>
       </div>
+      {{/if}}
       {{each ad.artis ds idx}}
       <div class="item arti">
         {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}

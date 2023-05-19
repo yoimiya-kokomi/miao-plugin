@@ -6,7 +6,7 @@ import enkaApi from './EnkaApi.js'
 import miaoApi from './MiaoApi.js'
 import mggApi from './MggApi.js'
 import hutaoApi from './HutaoApi.js'
-import luluApi from './LuluApi.js'
+import homoApi from './HomoApi.js'
 
 import lodash from 'lodash'
 
@@ -21,7 +21,7 @@ const Profile = {
         mgg: mggApi,
         enka: enkaApi,
         hutao: hutaoApi,
-        lulu: luluApi
+        homo: homoApi
       }[key])
     }
     return Profile.servs[key]
@@ -34,9 +34,6 @@ const Profile = {
    * @returns {ProfileServ}
    */
   getServ (uid, game = 'gs') {
-    if (game === 'sr') {
-      return Profile.serv('lulu')
-    }
     let token = diyCfg?.miaoApi?.token
     let qq = diyCfg?.miaoApi?.qq
     let hasToken = !!(qq && token && token.length === 32 && !/^test/.test(token))
@@ -47,6 +44,14 @@ const Profile = {
     // 获取对应服务选择的配置数字，0自动，1喵，2Enka，3Mgg, 4:Hutao
     let servCfg = Cfg.get('profileServer', '0').toString() || '0'
     servCfg = servCfg[servIdx] || servCfg[0] || '0'
+
+    if (game === 'sr') {
+      console.log(servCfg, hasToken)
+      if ((servCfg === '0' || servCfg === '1') && hasToken) {
+        return Profile.serv('miao')
+      }
+      return Profile.serv('homo')
+    }
 
     if ((servCfg === '0' || servCfg === '1') && hasToken) {
       return Profile.serv('miao')
@@ -72,18 +77,18 @@ const Profile = {
       return false
     }
     player._update = []
+    console.log('player game', player.game)
     let { uid, e } = player
     if (uid.toString().length !== 9 || !e) {
       return false
     }
-    let req = ProfileReq.create(e)
+    let req = ProfileReq.create(e, player.game)
     if (!req) {
       return false
     }
-    console.log('game', player.game)
     let serv = Profile.getServ(uid, player.game)
     try {
-      await req.requestProfile(player, serv)
+      await req.requestProfile(player, serv, player.game)
       player._profile = new Date() * 1
       player.save()
       return player._update.length
@@ -101,7 +106,7 @@ const Profile = {
       return true
     }
     // 检查数据源
-    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'lulu'].includes(avatar._source)) {
+    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'homo'].includes(avatar._source)) {
       return false
     }
 

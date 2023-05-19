@@ -1,5 +1,5 @@
 import Base from './Base.js'
-import { Data } from '#miao'
+import { Data, Format } from '#miao'
 import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet } from '../resources/meta/weapon/index.js'
 import { weaponData as weaponDataSR, weaponAlias as weaponAliasSR } from '../resources/meta-sr/weapon/index.js'
 
@@ -111,7 +111,6 @@ class Weapon extends Base {
     const path = this.isGs ? 'resources/meta/weapon' : 'resources/meta-sr/weapon'
     try {
       this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`, 'miao')
-      console.log(`${path}/${this.type}/${this.name}/data.json`)
     } catch (e) {
       console.log(e)
     }
@@ -184,6 +183,26 @@ class Weapon extends Base {
       affix,
       affixTitle: d.affixTitle,
       affixDetail: txt
+    }
+  }
+
+  getAffixDesc (affix = 1) {
+    let skill = this.detail.skill
+    let { name, desc, tables } = skill
+    let reg = /\$(\d)\[[i|f1]\](\%?)/g
+    let ret
+    while ((ret = reg.exec(desc)) !== null) {
+      let idx = ret[1]
+      let pct = ret[2]
+      let value = tables[idx - 1][affix - 1]
+      if (pct === '%') {
+        value = Format.percent(value)
+      }
+      desc = desc.replaceAll(ret[0], value)
+    }
+    return {
+      name: skill.name,
+      desc
     }
   }
 }

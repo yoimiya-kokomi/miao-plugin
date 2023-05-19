@@ -832,4 +832,102 @@ body {
 .game-sr .artis-weapon {
   display: none;
 }
+.sr-weapon {
+  margin: 0 15px 5px 10px;
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 150%;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  display: table;
+  color: #fff;
+  min-height: 120px;
+  width: calc(100% - 25px);
+}
+.sr-weapon .weapon-img {
+  display: table-cell;
+  width: 185px;
+  height: 100%;
+  min-height: 120px;
+  background-size: 100% auto;
+  background-position: 0 5%;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+}
+.sr-weapon .weapon-info {
+  display: table-cell;
+  padding: 10px 10px 5px 15px;
+}
+.sr-weapon .weapon-title span {
+  font-size: 14px;
+}
+.sr-weapon .weapon-title strong {
+  color: #d3bc8e;
+  font-weight: normal;
+}
+.sr-weapon .weapon-attr {
+  font-size: 12px;
+  height: 25px;
+  line-height: 25px;
+  display: flex;
+}
+.sr-weapon .weapon-attr .attr {
+  padding-left: 22px;
+  padding-right: 7px;
+  margin-right: 10px;
+  position: relative;
+  line-height: 22px;
+  height: 22px;
+  font-size: 12px;
+  color: #ffe699;
+  display: inline-block;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.sr-weapon .weapon-attr .attr span {
+  font-size: 12px;
+  display: none;
+}
+.sr-weapon .weapon-attr .attr:before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-size: auto 100%;
+  background-position: top center;
+  vertical-align: middle;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.sr-weapon .weapon-attr .i-hp:before {
+  background-image: url('../meta-sr/public/icons/attr-hp.webp');
+}
+.sr-weapon .weapon-attr .i-atk:before {
+  background-image: url('../meta-sr/public/icons/attr-atk.webp');
+}
+.sr-weapon .weapon-attr .i-def:before {
+  background-image: url('../meta-sr/public/icons/attr-def.webp');
+}
+.sr-weapon .weapon-desc {
+  margin-top: 7px;
+  font-size: 12px;
+  font-weight: normal;
+  color: #fff;
+  white-space: break-spaces;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+.sr-weapon .weapon-desc nobr {
+  color: #ffe699;
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 12px;
+  height: 16px;
+  line-height: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding: 0 3px;
+  margin: 0 2px;
+}
 /*# sourceMappingURL=profile-detail.css.map */

@@ -41,9 +41,9 @@ lodash.forEach(elemAliasSR, (txt, key) => {
 
 const Elem = {
   // 根据名称获取元素key
-  elem (elem = '', defElem = '') {
+  elem (elem = '', defElem = '', game = 'gs') {
     elem = elem.toLowerCase()
-    return elemMap[elem] || defElem
+    return (game === 'gs' ? elemMap : elemMapSR)[elem] || defElem
   },
 
   // 根据key获取元素名

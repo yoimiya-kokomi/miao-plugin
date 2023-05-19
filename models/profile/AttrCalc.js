@@ -57,7 +57,6 @@ class AttrCalc {
    * @returns {{}}
    */
   calc () {
-    console.log('calc,hahahaha')
     this.attr = ProfileAttr.create({}, this.game)
     if (this.isGs) {
       this.addAttr('recharge', 100, true)
@@ -77,9 +76,6 @@ class AttrCalc {
 
 
   addAttr (key, val, isBase = false) {
-    if (key === 'cpct') {
-      console.log('isCpct', val, isBase)
-    }
     this.attr.addAttr(key, val, isBase)
   }
 
@@ -88,7 +84,7 @@ class AttrCalc {
    * @param affix
    */
   setCharAttr (affix = '') {
-    let { char, level, promote } = this.profile
+    let { char, level, promote, trees } = this.profile
     let metaAttr = char.detail?.attr || {}
     let self = this
     if (this.isSr) {
@@ -97,6 +93,14 @@ class AttrCalc {
       lodash.forEach(attr, (v, k) => {
         k = k + (['hp', 'atk', 'def'].includes(k) ? 'Base' : '')
         self.addAttr(k, v, true)
+      })
+
+      let tree = char.detail?.tree || {}
+      lodash.forEach(trees || [], (tid) => {
+        let tCfg = tree[tid]
+        if (tCfg) {
+          self.addAttr(tCfg.key, tCfg.value)
+        }
       })
       return
     }
@@ -231,7 +235,6 @@ class AttrCalc {
     if (!key) {
       return false
     }
-    console.log(key, ds.value)
     if (['atk', 'hp', 'def'].includes(key)) {
       key = key + 'Pct'
     }

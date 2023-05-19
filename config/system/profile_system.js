@@ -4,11 +4,11 @@
 * */
 
 export const miaoApi = {
-  listApi: ({ url, uid, diyCfg }) => {
+  listApi: ({ url, uid, diyCfg, game = 'gs' }) => {
     let qq = /\d{5,12}/.test(diyCfg.qq) ? diyCfg.qq : 'none'
     let token = diyCfg.token
     url = url || 'http://miaoapi.cn/'
-    return `${url}profile/data?uid=${uid}&qq=${qq}&token=${token}&version=2`
+    return `${url}profile/data?uid=${uid}&qq=${qq}&token=${token}&version=2&game=${game}`
   }
 }
 
@@ -36,8 +36,8 @@ export const hutaoApi = {
   }
 }
 
-export const luluApi = {
-  url: 'https://mhy.fuckmys.tk/sr_info',
+export const homoApi = {
+  url: 'https://api.mihomo.me/sr_info',
   listApi: ({ url, uid, diyCfg }) => {
     return `${url}/${uid}`
   }

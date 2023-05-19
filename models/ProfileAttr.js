@@ -1,5 +1,6 @@
 import lodash from 'lodash'
 import Base from './Base.js'
+import { Format } from '#miao'
 
 const baseAttr = {
   gs: 'atk,def,hp,mastery,recharge,cpct,cdmg,dmg,phy,heal,shield'.split(','),
@@ -14,14 +15,14 @@ class ProfileAttr extends Base {
   constructor (data = null, game = 'gs') {
     super()
     this.game = game
-    this.init(data)
+    this.init(data, this.game)
   }
 
   static create (data = null, game = 'gs') {
     return new ProfileAttr(data, game)
   }
 
-  init (data) {
+  init (data, game = 'gs') {
     // 基础属性
     this._attr = {}
     this._base = {}
@@ -35,6 +36,16 @@ class ProfileAttr extends Base {
       }
       base[key] = 0
     })
+    if (game === 'sr') {
+      Format.eachElem((key) => {
+        attr[key] = {
+          base: 0,
+          plus: 0,
+          pct: 0
+        }
+        base[key] = 0
+      }, game)
+    }
     if (data) {
       this.setAttr(data, true)
     }
