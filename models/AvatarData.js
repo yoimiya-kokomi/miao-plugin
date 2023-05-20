@@ -9,7 +9,7 @@ import Profile from './player/Profile.js'
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
 
 export default class AvatarData extends Base {
-  constructor (ds = {}, source, game = 'gs') {
+  constructor (ds = {}, game = 'gs') {
     super()
     let char = Character.get({ id: ds.id, elem: ds.elem })
     if (!char) {
@@ -19,7 +19,7 @@ export default class AvatarData extends Base {
     this.char = char
     this.game = char.game || game
     this.initArtis()
-    this.setAvatar(ds, source)
+    this.setAvatar(ds)
   }
 
   get hasTalent () {
@@ -84,8 +84,8 @@ export default class AvatarData extends Base {
     return ''
   }
 
-  static create (ds, source = '', game = 'gs') {
-    let avatar = new AvatarData(ds, source, game)
+  static create (ds, game = 'gs') {
+    let avatar = new AvatarData(ds, game)
     if (!avatar) {
       return false
     }
@@ -125,7 +125,7 @@ export default class AvatarData extends Base {
     this.elem = ds.elem || this.elem || this.char.elem || ''
     this.promote = lodash.isUndefined(ds.promote) ? (this.promote || AttrCalc.calcPromote(this.level)) : (ds.promote || 0)
     this.trees = ds.trees || this.trees || []
-    this._source = ds._source || ds.dataSource || this._source || ''
+    this._source = ds._source || this._source || ''
     this._time = ds._time || this._time || now
     this._update = ds._update || this._update || ds._time || now
     this._talent = ds._talent || this._talent || ds._time || now

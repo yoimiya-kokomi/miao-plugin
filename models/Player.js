@@ -176,7 +176,7 @@ export default class Player extends Base {
       }
     }
     if (!avatars[id] && create) {
-      avatars[id] = AvatarData.create({ id }, '', this.game)
+      avatars[id] = AvatarData.create({ id }, this.game)
     }
     return avatars[id] || false
   }

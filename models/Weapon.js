@@ -183,7 +183,9 @@ class Weapon extends Base {
       let pct = ret[2]
       let value = tables?.[idx]?.[affix - 1]
       if (pct === '%') {
-        value = Format.percent(value)
+        value = Format.pct(value)
+      } else {
+        value = Format.comma(value)
       }
       desc = desc.replaceAll(ret[0], value)
     }

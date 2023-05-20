@@ -4,6 +4,7 @@
 import lodash from 'lodash'
 import { Data, Format } from '#miao'
 import { charPosIdx } from './CharMeta.js'
+import { aliasMap as aliasMapSR } from '../../resources/meta-sr/character/meta.js'
 
 
 // 别名表
@@ -33,6 +34,10 @@ async function init () {
     gameMap[id] = 'sr'
   })
 
+  // 添加别名
+  lodash.forEach(aliasMapSR, (v, k) => {
+    aliasMap[v] = aliasMap[k]
+  })
 
   lodash.forEach([diyCfg.customCharacters, sysCfg.characters], (roleIds) => {
     lodash.forEach(roleIds || {}, (aliases, id) => {
