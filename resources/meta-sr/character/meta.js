@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 
 let alias = {
-  三月七: '三月,相遇之缘',
+  三月七: '三月,相遇之缘,37,3月7',
   丹恒: '冷面,小青龙,冷面小青龙,单恒',
   佩拉: '佩菈',
   停云: '',
@@ -34,7 +34,7 @@ lodash.forEach(alias, (txt, char) => {
     return true
   }
   lodash.forEach(txt.split(','), (t) => {
-    aliasMap[char] = t
+    aliasMap[t] = char
   })
 
 })

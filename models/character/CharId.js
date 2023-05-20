@@ -25,7 +25,6 @@ let srData = Data.readJSON('/resources/meta-sr/character/data.json', 'miao')
 async function init () {
   let { sysCfg, diyCfg } = await Data.importCfg('character')
 
-
   lodash.forEach(srData, (ds) => {
     let { id, name } = ds
     aliasMap[id] = id
@@ -36,7 +35,7 @@ async function init () {
 
   // 添加别名
   lodash.forEach(aliasMapSR, (v, k) => {
-    aliasMap[v] = aliasMap[k]
+    aliasMap[k] = aliasMap[v]
   })
 
   lodash.forEach([diyCfg.customCharacters, sysCfg.characters], (roleIds) => {
