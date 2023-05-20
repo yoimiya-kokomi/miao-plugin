@@ -14,7 +14,6 @@ let app = App.init({
 })
 
 app.reg({
-
   profileList: {
     name: '面板角色列表',
     desc: '查看当前已获取面板数据的角色列表',

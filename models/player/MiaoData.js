@@ -7,7 +7,9 @@ let MiaoData = {
   setAvatar (player, ds) {
     let char = Character.get(ds.id)
     let avatar = player.getAvatar(ds.id, true)
-
+    if (!char) {
+      return false
+    }
     if (player.isSr) {
       avatar.setAvatar({
         ...ds,

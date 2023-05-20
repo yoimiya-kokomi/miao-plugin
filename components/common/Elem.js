@@ -74,8 +74,13 @@ const Elem = {
     })
   },
 
-  isElem (elem = '') {
-    return !!elemMap[elem]
+  isElem (elem = '', game = 'gs') {
+    return !!(game === 'gs' ? elemMap : elemMapSR)[elem]
+  },
+
+  sameElem (key1, key2, game = 'gs') {
+    let map = (game === 'gs' ? elemMap : elemMapSR)
+    return map[key1] === map[key2]
   }
 }
 export default Elem

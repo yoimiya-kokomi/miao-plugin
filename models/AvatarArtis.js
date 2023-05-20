@@ -34,9 +34,9 @@ export default class AvatarArtis extends Base {
     return ArtisMark.hasAttr(this.artis)
   }
 
-  static _eachArtisSet (sets, fn) {
+  static _eachArtisSet (sets, fn, game = 'gs') {
     lodash.forEach(sets || [], (v, k) => {
-      let artisSet = ArtifactSet.get(k)
+      let artisSet = ArtifactSet.get(k, game)
       if (artisSet) {
         if (v >= 4) {
           fn(artisSet, 2)
@@ -306,6 +306,6 @@ export default class AvatarArtis extends Base {
   }
 
   eachArtisSet (fn) {
-    AvatarArtis._eachArtisSet(this.sets, fn)
+    AvatarArtis._eachArtisSet(this.sets, fn, this.game)
   }
 }

@@ -1,7 +1,11 @@
 import Base from './Base.js'
 import { Data, Format } from '#miao'
-import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet } from '../resources/meta/weapon/index.js'
-import { weaponData as weaponDataSR, weaponAlias as weaponAliasSR } from '../resources/meta-sr/weapon/index.js'
+import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet, weaponBuffs } from '../resources/meta/weapon/index.js'
+import {
+  weaponData as weaponDataSR,
+  weaponAlias as weaponAliasSR,
+  weaponBuffs as weaponBuffsSR
+} from '../resources/meta-sr/weapon/index.js'
 
 import lodash from 'lodash'
 
@@ -168,24 +172,7 @@ class Weapon extends Base {
     }
   }
 
-  getAffixInfo (affix) {
-    let d = this.getDetail()
-    let ad = this.detail.affixData
-    let txt = ad.text
-    lodash.forEach(ad.datas, (ds, idx) => {
-      txt = txt.replace(`$[${idx}]`, ds[affix - 1])
-    })
-    return {
-      name: d.name,
-      star: d.star,
-      desc: d.desc,
-      imgs: this.imgs,
-      affix,
-      affixTitle: d.affixTitle,
-      affixDetail: txt
-    }
-  }
-
+  // 获取精炼描述
   getAffixDesc (affix = 1) {
     let skill = this.detail.skill
     let { name, desc, tables } = skill
@@ -194,7 +181,7 @@ class Weapon extends Base {
     while ((ret = reg.exec(desc)) !== null) {
       let idx = ret[1]
       let pct = ret[2]
-      let value = tables[idx - 1][affix - 1]
+      let value = tables?.[idx]?.[affix - 1]
       if (pct === '%') {
         value = Format.percent(value)
       }
@@ -204,6 +191,38 @@ class Weapon extends Base {
       name: skill.name,
       desc
     }
+  }
+
+  getWeaponBuffs (affix, isStatic = true) {
+    let { isSr, detail } = this
+    let wBuffs = (isSr ? weaponBuffsSR : weaponBuffs)
+    let buffs = wBuffs[this.id] || wBuffs[this.name]
+    if (!buffs) {
+      return false
+    }
+    let ret = []
+    if (lodash.isPlainObject(buffs)) {
+      buffs = [buffs]
+    }
+    lodash.forEach(buffs, (ds) => {
+      if (!!ds.isStatic !== !!isStatic) {
+        return true
+      }
+      if (isSr) {
+        if (!ds.idx || !ds.key) return true
+        let value = detail?.skill?.tables?.[ds.idx]
+        if (!value) return true
+
+        if (!value[affix - 1]) return true
+        let tmp = {}
+        tmp[ds.key] = value[affix - 1]
+        ret.push({
+          isStatic: true,
+          data: tmp
+        })
+      }
+    })
+    return ret
   }
 }
 

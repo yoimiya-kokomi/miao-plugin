@@ -6,6 +6,7 @@
 import { Weapon, ProfileAttr } from '../index.js'
 import { Format } from '#miao'
 import { calc as artisBuffs } from '../../resources/meta/artifact/index.js'
+import { artisBuffs as artisBuffsSR } from '../../resources/meta-sr/artifact/index.js'
 import { weaponBuffs } from '../../resources/meta/weapon/index.js'
 import lodash from 'lodash'
 
@@ -57,7 +58,7 @@ class AttrCalc {
    * @returns {{}}
    */
   calc () {
-    this.attr = ProfileAttr.create({}, this.game)
+    this.attr = ProfileAttr.create(this.char, {})
     if (this.isGs) {
       this.addAttr('recharge', 100, true)
       this.addAttr('cpct', 5, true)
@@ -99,7 +100,11 @@ class AttrCalc {
       lodash.forEach(trees || [], (tid) => {
         let tCfg = tree[tid]
         if (tCfg) {
-          self.addAttr(tCfg.key, tCfg.value)
+          let key = tCfg.key
+          if (['atk', 'hp', 'def'].includes(key)) {
+            key = key + 'Pct'
+          }
+          self.addAttr(key, tCfg.value)
         }
       })
       return
@@ -159,15 +164,27 @@ class AttrCalc {
     let wCalcRet = weapon.calcAttr(wData.level, wData.promote)
     let self = this
 
+    let buffs = weapon.getWeaponBuffs(wData.affix, true)
     if (this.isSr) {
       // 星铁面板属性
       lodash.forEach(wCalcRet, (v, k) => {
         k = k + (['hp', 'atk', 'def'].includes(k) ? 'Base' : '')
         self.addAttr(k, v, true)
       })
+      // 检查武器类型
+      if (weapon.type === this.char.weapon) {
+        // todo sr&gs 统一
+        let wBuffs = weapon.getWeaponBuffs(wData.affix, true)
+        lodash.forEach(wBuffs, (buff) => {
+          lodash.forEach(buff.data || [], (v, k) => {
+            self.addAttr(k, v)
+          })
+        })
+      }
       return
     }
 
+    // 原神属性
     if (wCalcRet) {
       this.addAttr('atkBase', wCalcRet.atkBase)
       this.addAttr(wCalcRet.attr?.key, wCalcRet.attr?.value)
@@ -202,9 +219,10 @@ class AttrCalc {
         this.calcArtisAttr(ds, this.char)
       })
     })
+    let artiBuffsMap = this.isSr ? artisBuffsSR : artisBuffs
     // 计算圣遗物静态加成
     artis.eachArtisSet((set, num) => {
-      let buff = artisBuffs[set.name] && artisBuffs[set.name][num]
+      let buff = (artiBuffsMap[set.name] && artiBuffsMap[set.name][num]) || artiBuffsMap[set.name + num]
       if (!buff || !buff.isStatic) {
         return true
       }

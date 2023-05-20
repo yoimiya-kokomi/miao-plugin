@@ -40,9 +40,6 @@ let ProfileDetail = {
       msg = msg.replace(uidRet[0], '')
     }
 
-    if (/星铁/.test(msg)) {
-      e.isSr = true
-    }
     let name = msg.replace(/#|老婆|老公|星铁|原神/g, '').trim()
     msg = msg.replace('面版', '面板')
     let dmgRet = /(?:伤害|武器)(\d?)$/.exec(name)
@@ -74,6 +71,9 @@ let ProfileDetail = {
     let char = Character.get(name.trim())
     if (!char) {
       return false
+    }
+    if (/星铁/.test(msg) || char.isSr) {
+      e.isSr = true
     }
 
     let uid = e.uid || await getTargetUid(e)
@@ -147,8 +147,6 @@ let ProfileDetail = {
           if (a.phy > a.dmg) {
             key2 = 'phy'
           }
-        } else {
-          key2 = Format.elem(char.elem, '', 'sr')
         }
       }
       attr[key] = fn(a[key2])
@@ -161,7 +159,6 @@ let ProfileDetail = {
     let wCfg = {}
     if (mode === 'weapon') {
       wCfg = weapon.calcAttr(w.level, w.promote)
-      wCfg.info = weapon.getAffixInfo(weapon.affix)
       wCfg.weapons = await ProfileWeapon.calc(profile)
     }
 

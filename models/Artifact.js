@@ -126,7 +126,6 @@ class Artifact extends Base {
     lodash.forEach(attrData, (ds) => {
       let _ds = ds
       if (lodash.isString(ds)) {
-        console.log('str subids', ds)
         let [id, count, step] = ds.split(',')
         ds = { id, count, step }
       }
