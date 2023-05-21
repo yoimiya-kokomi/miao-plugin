@@ -67,15 +67,16 @@ export default class ProfileArtis extends AvatarArtis {
     let artis = {}
     let setCount = {}
     let totalMark = 0
-    let totalCrit = 0
-    let totalVaild = 0
+    let self = this
     this.forEach((arti, idx) => {
-      let mark = ArtisMark.getMark(charCfg, idx, arti.main, arti.attrs, this.elem)
-      // let crit = ArtisMark.getCritMark(charCfg, idx, arti.main, arti.attrs, this.elem)
-      // let vaild = ArtisMark.getValidMark(charCfg, idx, arti.main, arti.attrs, this.elem)
+      let mark = ArtisMark.getMark({
+        charCfg,
+        idx,
+        arti,
+        elem: this.elem,
+        game: self.game
+      })
       totalMark += mark
-      // totalCrit += crit
-      // totalVaild += vaild
       setCount[arti.set] = (setCount[arti.set] || 0) + 1
       if (!withDetail) {
         artis[idx] = {
@@ -85,8 +86,6 @@ export default class ProfileArtis extends AvatarArtis {
         }
       } else {
         let artifact = Artifact.get(arti.name, this.game)
-        // console.log('artifact', artifact, arti)
-        // console.log(`arti idx ${idx} ${artifact.name}\n\n\n`)
         artis[idx] = {
           name: artifact.name,
           set: artifact.setName,

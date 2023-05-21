@@ -111,22 +111,27 @@ let ArtisMark = {
   },
 
   // 获取位置分数
-  getMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
+  getMark ({ charCfg, idx, arti, elem = '', game = 'gs' }) {
+    if (game === 'sr') {
+      return 0
+    }
     let ret = 0
+    let mainAttr = arti.main
+    let subAttr = arti.attrs
     let { attrs, posMaxMark } = charCfg
     let key = mainAttr?.key
     if (!key) {
       return 0
     }
     let fixPct = 1
-    posIdx = posIdx * 1
-    if (posIdx >= 3) {
+    idx = idx * 1
+    if (idx >= 3) {
       let mainKey = key
       if (key !== 'recharge') {
-        if (posIdx === 4 && Format.isElem(key) && key === elem) {
+        if (idx === 4 && Format.isElem(key) && key === elem) {
           mainKey = 'dmg'
         }
-        fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
+        fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + idx])))
       }
       ret += (attrs[mainKey]?.mark || 0) * (mainAttr.value || 0) / 4
     }
@@ -134,61 +139,7 @@ let ArtisMark = {
     lodash.forEach(subAttr, (ds) => {
       ret += (attrs[ds.key]?.mark || 0) * (ds.value || 0)
     })
-    return ret * (1 + fixPct) / 2 / posMaxMark[posIdx] * 66
-  },
-
-  getCritMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
-    let ret = 0
-    let { attrs, posMaxMark } = charCfg
-    let key = mainAttr?.key
-    if (!key) {
-      return 0
-    }
-    let fixPct = 1
-    posIdx = posIdx * 1
-    if (posIdx >= 4) {
-      let mainKey = key
-      if (posIdx === 4 && Format.isElem(key) && key === elem) {
-        mainKey = 'dmg'
-      }
-      fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
-    }
-    if (key === 'cpct' || key === 'cdmg') {
-      ret += 9.41
-    }
-
-    lodash.forEach(subAttr, (ds) => {
-      if (ds.key === 'cpct' || ds.key === 'cdmg') {
-        let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0) / 85
-        ret += temp_s
-      }
-    })
-    return ret
-  },
-
-  getValidMark (charCfg, posIdx, mainAttr, subAttr, elem = '') {
-    let ret = 0
-    let { attrs, posMaxMark } = charCfg
-    let key = mainAttr?.key
-    if (!key) {
-      return 0
-    }
-    let fixPct = 1
-    posIdx = posIdx * 1
-    if (posIdx >= 4) {
-      let mainKey = key
-      if (posIdx === 4 && Format.isElem(key) && key === elem) {
-        mainKey = 'dmg'
-      }
-
-
-      fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + posIdx])))
-    }
-    lodash.forEach(subAttr, (ds) => {
-      let temp_s = (attrs[ds.key]?.mark || 0) * (ds.value || 0) / 85
-      ret += temp_s
-    })
-    return ret
+    return ret * (1 + fixPct) / 2 / posMaxMark[idx] * 66
   },
 
   // 获取位置最高分

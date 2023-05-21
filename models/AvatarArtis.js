@@ -95,13 +95,12 @@ export default class AvatarArtis extends Base {
         arti.star = ds._star || ds.star || 5
         arti.main = ds.main
         arti.attrs = ds.attrs
-        return true
+      } else {
+        arti.name = ds.name || arti.name || ''
+        arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
+        arti.level = ds.level || 1
+        arti.star = ds.star || 5
       }
-      arti.name = ds.name || arti.name || ''
-      arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
-      arti.level = ds.level || 1
-      arti.star = ds.star || 5
-
       if (ds.mainId || ds.main) {
         arti._name = ds._name || ds.name || arti._name || arti.name
         arti._set = ds._set || Artifact.getSetNameByArti(arti._name) || arti._set || ''
