@@ -30,5 +30,7 @@ lodash.forEach(data, (setData) => {
     artiSet.sets[idx] = ds.name
   })
 })
+
 export const metaData = meta
 export { artiMap, idMap, artisBuffs, artiSetMap }
+export * from './meta.js'

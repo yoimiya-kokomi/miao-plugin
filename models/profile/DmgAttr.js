@@ -1,7 +1,8 @@
 /*
 * 伤害计算 - 属性计算
 * */
-import { attrMap } from '../../resources/meta/artifact/index.js'
+import { attrMap as attrMapGS } from '../../resources/meta/artifact/index.js'
+import { attrMap as attrMapSR } from '../../resources/meta-sr/artifact/index.js'
 import lodash from 'lodash'
 import DmgMastery from './DmgMastery.js'
 import { Format } from '#miao'
@@ -13,7 +14,7 @@ let DmgAttr = {
   },
 
   // 获取profile对应attr属性值
-  getAttr ({ id, attr, weapon, char }) {
+  getAttr ({ id, attr, weapon, char, game = 'gs' }) {
     let ret = {}
 
     // 基础属性
@@ -25,7 +26,7 @@ let DmgAttr = {
       }
     })
 
-    lodash.forEach('mastery,recharge,cpct,cdmg,heal,dmg,phy'.split(','), (key) => {
+    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'speed,recharge,cpct,cdmg,heal,dmg').split(','), (key) => {
       ret[key] = {
         base: attr[key] * 1 || 0, // 基础值
         plus: 0, // 加成值
@@ -35,7 +36,7 @@ let DmgAttr = {
     })
 
     // 技能属性记录
-    lodash.forEach('a,a2,a3,e,q'.split(','), (key) => {
+    lodash.forEach((game === 'gs' ? 'a,a2,a3,e,q' : 'a,a2,a3,e,q,t').split(','), (key) => {
       ret[key] = {
         pct: 0, // 倍率加成
         multi: 0, // 独立倍率乘区加成，宵宫E等
@@ -67,21 +68,23 @@ let DmgAttr = {
     ret.element = Format.elemName(char.elem) // 元素类型
     ret.refine = ((weapon.affix || ret.refine || 1) * 1 - 1) || 0 // 武器精炼
     ret.multi = 0 // 倍率独立乘区
-    ret.vaporize = 0 // 蒸发
-    ret.melt = 0 // 融化
-    ret.burning = 0 // 燃烧
-    ret.superConduct = 0 // 超导
-    ret.swirl = 0 // 扩散
-    ret.electroCharged = 0 // 感电
-    ret.shatter = 0 // 碎冰
-    ret.overloaded = 0 // 超载
-    ret.bloom = 0 // 绽放
-    ret.burgeon = 0 // 烈绽放
-    ret.hyperBloom = 0 // 超绽放
-    ret.aggravate = 0 // 超激化
-    ret.spread = 0 // 蔓激化
     ret.kx = 0 // 敌人抗性降低
-    ret.fykx = 0 // 敌人反应抗性降低
+    if (game === 'gs') {
+      ret.vaporize = 0 // 蒸发
+      ret.melt = 0 // 融化
+      ret.burning = 0 // 燃烧
+      ret.superConduct = 0 // 超导
+      ret.swirl = 0 // 扩散
+      ret.electroCharged = 0 // 感电
+      ret.shatter = 0 // 碎冰
+      ret.overloaded = 0 // 超载
+      ret.bloom = 0 // 绽放
+      ret.burgeon = 0 // 烈绽放
+      ret.hyperBloom = 0 // 超绽放
+      ret.aggravate = 0 // 超激化
+      ret.spread = 0 // 蔓激化
+      ret.fykx = 0 // 敌人反应抗性降低
+    }
     return ret
   },
 
@@ -101,9 +104,11 @@ let DmgAttr = {
   },
 
   // 计算属性
-  calcAttr ({ originalAttr, buffs, meta, params = {}, incAttr = '', reduceAttr = '', talent = '' }) {
+  calcAttr ({ originalAttr, buffs, meta, params = {}, incAttr = '', reduceAttr = '', talent = '', game = 'gs' }) {
     let attr = lodash.merge({}, originalAttr)
     let msg = []
+
+    let attrMap = game === 'gs' ? attrMapGS : attrMapSR
 
     if (incAttr && attrMap[incAttr]) {
       let aCfg = attrMap[incAttr]
@@ -144,6 +149,11 @@ let DmgAttr = {
           return
         }
       }
+      if (!lodash.isUndefined(buff.maxCons)) {
+        if (ds.cons * 1 > buff.maxCons * 1) {
+          return
+        }
+      }
 
       let title = buff.title
 
@@ -163,18 +173,22 @@ let DmgAttr = {
 
         title = title.replace(`[${key}]`, Format.comma(val, 1))
         // 技能提高
-        let tRet = /^(a|a2|a3|e|q)(Def|Ignore|Dmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key)
+        let tRet = /^(a|a2|a3|e|q|t)(Def|Ignore|Dmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key)
         if (tRet) {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0
           return
         }
-        let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|phy|shield)(Plus|Pct|Inc)?$/.exec(key)
+        let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|phy|shield|speed)(Plus|Pct|Inc)?$/.exec(key)
         if (aRet) {
           attr[aRet[1]][aRet[2] ? aRet[2].toLowerCase() : 'plus'] += val * 1 || 0
           return
         }
         if (key === 'enemyDef') {
           attr.enemy.def += val * 1 || 0
+          return
+        }
+        if (key === 'ignore' || key === 'enemyIgnore') {
+          attr.enemy.ignore += val * 1 || 0
           return
         }
 

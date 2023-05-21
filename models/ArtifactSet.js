@@ -1,9 +1,10 @@
 /*
 * 圣遗物套装
 * */
+import lodash from 'lodash'
 import Base from './Base.js'
-import { abbr, artiMap, artiSetMap } from '../resources/meta/artifact/index.js'
-import { artiMap as artiMapSR, artiSetMap as artiSetMapSR } from '../resources/meta-sr/artifact/index.js'
+import { abbr, artiMap, artiSetMap, calc as artisBuffs } from '../resources/meta/artifact/index.js'
+import { artiMap as artiMapSR, artisBuffs as artisBuffsSR, artiSetMap as artiSetMapSR } from '../resources/meta-sr/artifact/index.js'
 
 import { Artifact } from './index.js'
 
@@ -63,6 +64,14 @@ class ArtifactSet extends Base {
       return artiSet.getArtiName(idx)
     }
     return ''
+  }
+
+  static getArtisSetBuff (name, num, game = 'gs') {
+    let artiBuffsMap = game === 'sr' ? artisBuffsSR : artisBuffs
+    let ret = (artiBuffsMap[name] && artiBuffsMap[name][num]) || artiBuffsMap[name + num]
+    if (!ret) return false
+    if (lodash.isPlainObject(ret)) return [ret]
+    return ret
   }
 
   getArtiName (idx = 1) {

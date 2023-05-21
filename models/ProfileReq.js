@@ -66,7 +66,6 @@ export default class ProfileReq extends Base {
 
   async requestProfile (player, serv) {
     let self = this
-    console.log('self.game', self.game)
     this.serv = serv
     let uid = this.uid
     let reqParam = await serv.getReqParam(uid, self.game)

@@ -88,6 +88,7 @@ export default class ProfileArtis extends AvatarArtis {
         let artifact = Artifact.get(arti.name, this.game)
         artis[idx] = {
           name: artifact.name,
+          abbr: artifact.abbr,
           set: artifact.setName,
           img: artifact.img,
           level: arti.level,

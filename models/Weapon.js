@@ -195,35 +195,81 @@ class Weapon extends Base {
     }
   }
 
-  getWeaponBuffs (affix, isStatic = true) {
-    let { isSr, detail } = this
+  getWeaponBuffs () {
+    let { isSr } = this
     let wBuffs = (isSr ? weaponBuffsSR : weaponBuffs)
     let buffs = wBuffs[this.id] || wBuffs[this.name]
     if (!buffs) {
       return false
     }
-    let ret = []
-    if (lodash.isPlainObject(buffs)) {
+    if (lodash.isPlainObject(buffs) || lodash.isFunction(buffs)) {
       buffs = [buffs]
     }
+    return buffs
+  }
+
+  getWeaponAffixBuffs (affix, isStatic = true) {
+    let buffs = this.getWeaponBuffs()
+    let ret = []
+    let self = this
+    let { detail } = this
+
+    let tables = {}
+    lodash.forEach(detail?.skill?.tables || {}, (ds, idx) => {
+      tables[idx] = ds[affix - 1]
+    })
+
     lodash.forEach(buffs, (ds) => {
+      if (lodash.isFunction(ds)) {
+        ds = ds(tables)
+      }
       if (!!ds.isStatic !== !!isStatic) {
         return true
       }
-      if (isSr) {
-        if (!ds.idx || !ds.key) return true
-        let value = detail?.skill?.tables?.[ds.idx]
-        if (!value) return true
 
-        if (!value[affix - 1]) return true
+      // 静态属性
+      if (ds.isStatic) {
         let tmp = {}
-        tmp[ds.key] = value[affix - 1]
-        ret.push({
-          isStatic: true,
-          data: tmp
+        // 星铁武器格式
+        if (ds.idx && ds.key) {
+          if (!ds.idx || !ds.key) return true
+          if (!tables[ds.idx]) return true
+          tmp[ds.key] = tables[ds.idx]
+        }
+        if (ds.refine) {
+          lodash.forEach(ds.refine, (r, key) => {
+            tmp[key] = r[affix - 1] * (ds.buffCount || 1)
+          })
+        }
+        if (!lodash.isEmpty(tmp)) {
+          ret.push({
+            isStatic: true,
+            data: tmp
+          })
+        }
+        return true
+      }
+
+      // 自动拼接标题
+      if (!/：/.test(ds.title)) {
+        ds.title = `${self.name}：${ds.title}`
+      }
+      ds.data = ds.data || {}
+      // refine
+      if (ds.idx && ds.key) {
+        if (!ds.idx || !ds.key) return true
+        if (!tables[ds.idx]) return true
+        ds.data[ds.key] = tables[ds.idx]
+      } else if (ds.refine) {
+
+        lodash.forEach(ds.refine, (r, key) => {
+          ds.data[key] = ({ refine }) => r[refine] * (ds.buffCount || 1)
         })
       }
+
+      ret.push(ds)
     })
+
     return ret
   }
 }

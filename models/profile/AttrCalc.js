@@ -3,10 +3,8 @@
  * @type {{}}
  */
 
-import { Weapon, ProfileAttr } from '../index.js'
+import { Weapon, ProfileAttr, ArtifactSet } from '../index.js'
 import { Format } from '#miao'
-import { calc as artisBuffs } from '../../resources/meta/artifact/index.js'
-import { artisBuffs as artisBuffsSR } from '../../resources/meta-sr/artifact/index.js'
 import { weaponBuffs } from '../../resources/meta/weapon/index.js'
 import lodash from 'lodash'
 
@@ -164,7 +162,6 @@ class AttrCalc {
     let wCalcRet = weapon.calcAttr(wData.level, wData.promote)
     let self = this
 
-    let buffs = weapon.getWeaponBuffs(wData.affix, true)
     if (this.isSr) {
       // 星铁面板属性
       lodash.forEach(wCalcRet, (v, k) => {
@@ -174,7 +171,7 @@ class AttrCalc {
       // 检查武器类型
       if (weapon.type === this.char.weapon) {
         // todo sr&gs 统一
-        let wBuffs = weapon.getWeaponBuffs(wData.affix, true)
+        let wBuffs = weapon.getWeaponAffixBuffs(wData.affix, true)
         lodash.forEach(wBuffs, (buff) => {
           lodash.forEach(buff.data || [], (v, k) => {
             self.addAttr(k, v)
@@ -219,18 +216,21 @@ class AttrCalc {
         this.calcArtisAttr(ds, this.char)
       })
     })
-    let artiBuffsMap = this.isSr ? artisBuffsSR : artisBuffs
     // 计算圣遗物静态加成
     artis.eachArtisSet((set, num) => {
-      let buff = (artiBuffsMap[set.name] && artiBuffsMap[set.name][num]) || artiBuffsMap[set.name + num]
-      if (!buff || !buff.isStatic) {
-        return true
-      }
-      if (buff.elem && !this.char.isElem(buff.elem)) {
-        return true
-      }
-      lodash.forEach(buff.data, (val, key) => {
-        this.addAttr(key, val)
+      let buffs = ArtifactSet.getArtisSetBuff(set.name, num, this.game)
+      if (!buffs) return true
+
+      lodash.forEach(buffs, (buff) => {
+        if (!buff.isStatic) {
+          return true
+        }
+        if (buff.elem && !this.char.isElem(buff.elem)) {
+          return true
+        }
+        lodash.forEach(buff.data, (val, key) => {
+          this.addAttr(key, val)
+        })
       })
     })
   }

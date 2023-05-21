@@ -27,6 +27,12 @@ let loadBuffs = async function () {
           idx,
           key
         }
+      }, (idx, key, title) => {
+        return {
+          title,
+          idx,
+          key
+        }
       })
     }
     lodash.forEach(calc, (ds, key) => {

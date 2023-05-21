@@ -5,7 +5,7 @@ import Base from './Base.js'
 import { Format } from '#miao'
 import { ArtifactSet } from './index.js'
 import { artiMap, attrMap, mainIdMap, attrIdMap } from '../resources/meta/artifact/index.js'
-import { idMap as idMapSR, artiMap as artiMapSR, metaData as metaDataSR } from '../resources/meta-sr/artifact/index.js'
+import { idMap as idMapSR, artiMap as artiMapSR, metaData as metaDataSR, abbr as abbrSR } from '../resources/meta-sr/artifact/index.js'
 import lodash from 'lodash'
 
 class Artifact extends Base {
@@ -34,6 +34,10 @@ class Artifact extends Base {
 
   get setName () {
     return this.set
+  }
+
+  get abbr () {
+    return (abbrSR && abbrSR[this.name]) || this.name
   }
 
   get img () {

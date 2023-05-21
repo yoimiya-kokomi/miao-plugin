@@ -46,7 +46,6 @@ const Profile = {
     servCfg = servCfg[servIdx] || servCfg[0] || '0'
 
     if (game === 'sr') {
-      console.log(servCfg, hasToken)
       if ((servCfg === '0' || servCfg === '1') && hasToken) {
         return Profile.serv('miao')
       }
@@ -77,7 +76,6 @@ const Profile = {
       return false
     }
     player._update = []
-    console.log('player game', player.game)
     let { uid, e } = player
     if (uid.toString().length !== 9 || !e) {
       return false
@@ -109,7 +107,6 @@ const Profile = {
     if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'homo'].includes(avatar._source)) {
       return false
     }
-
     // 检查武器及天赋
     if (!avatar.weapon || lodash.isUndefined(avatar.weapon.promote) || !avatar.talent) {
       return false

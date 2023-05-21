@@ -132,18 +132,19 @@ let ProfileDetail = {
     let base = profile.base
     let attr = {}
     let game = char.game
+    let isGs = game === 'gs'
 
-    lodash.forEach((game === 'gs' ? 'hp,def,atk,mastery' : 'hp,def,atk,speed').split(','), (key) => {
+    lodash.forEach((isGs ? 'hp,def,atk,mastery' : 'hp,def,atk,speed').split(','), (key) => {
       let fn = (n) => Format.comma(n, key === 'hp' ? 0 : 1)
       attr[key] = fn(a[key])
       attr[`${key}Base`] = fn(base[key])
       attr[`${key}Plus`] = fn(a[key] - base[key])
     })
-    lodash.forEach((game === 'gs' ? 'cpct,cdmg,recharge,dmg' : 'cpct,cdmg,recharge,dmg,effPct,stance').split(','), (key) => {
+    lodash.forEach((isGs ? 'cpct,cdmg,recharge,dmg' : 'cpct,cdmg,recharge,dmg,effPct,stance').split(','), (key) => {
       let fn = Format.pct
       let key2 = key
       if (key === 'dmg') {
-        if (game === 'gs') {
+        if (isGs) {
           if (a.phy > a.dmg) {
             key2 = 'phy'
           }
@@ -162,7 +163,7 @@ let ProfileDetail = {
       wCfg.weapons = await ProfileWeapon.calc(profile)
     }
 
-    let enemyLv = await selfUser.getCfg('char.enemyLv', 91)
+    let enemyLv = isGs ? (await selfUser.getCfg('char.enemyLv', 91)) : profile.level
     let dmgCalc = await ProfileDetail.getProfileDmgCalc({ profile, enemyLv, mode, params })
 
     let rank = false

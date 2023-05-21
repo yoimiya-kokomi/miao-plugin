@@ -166,7 +166,7 @@
           <span>+{{ds.level}}</span>
         </div>
         <div class="head">
-          <strong>{{ds.name}}</strong>
+          <strong>{{ds.abbr || ds.name}}</strong>
           <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
         </div>
         <ul class="detail attr">
@@ -248,8 +248,8 @@
           <div class="td">词条变化</div>
           {{each dmgCfg.attr attr}}
           <div class="td">
-            <strong>{{attr.title}}</strong>
-            <span>+{{attr.text}}</span>
+            <strong>{{attr?.title}}</strong>
+            <span>+{{attr?.text}}</span>
           </div>
           {{/each}}
         </div>

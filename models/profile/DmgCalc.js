@@ -144,12 +144,16 @@ let DmgCalc = {
     return ret
   },
   getDmgFn (data) {
-    let { showDetail, attr, ds } = data
+    let { showDetail, attr, ds, game } = data
     let { calc } = ds
 
     let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = 'talent') {
       if (ele) {
         ele = erTitle[ele] || ele
+      }
+      if (game === 'sr') {
+        // 星铁meta数据天赋为百分比前数字
+        pctNum = pctNum * 100
       }
       return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode }, data)
     }
