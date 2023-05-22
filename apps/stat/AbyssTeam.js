@@ -4,9 +4,10 @@ import { Common } from '#miao'
 import { Character, MysApi, Player } from '#miao.models'
 
 export async function AbyssTeam (e) {
-  let mys = await MysApi.init(e, 'cookie')
-  if (!mys || !mys.uid || !mys.isSelfCookie) {
-    return true
+  let mys = await MysApi.init(e, 'all')
+  if (!mys || !mys.uid) {
+    e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
+    return false
   }
   let player = Player.create(e)
   await player.refreshMysDetail(2)
