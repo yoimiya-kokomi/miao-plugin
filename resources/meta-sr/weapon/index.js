@@ -27,11 +27,24 @@ let loadBuffs = async function () {
           idx,
           key
         }
-      }, (idx, key, title) => {
-        return {
-          title,
-          idx,
-          key
+      }, (title, key, idx) => {
+        if (arguments.length === 2) {
+          return (tables) => {
+            let data = {}
+            lodash.forEach(key, (idx, k) => {
+              data[k] = tables[idx]
+            })
+            return {
+              title,
+              data
+            }
+          }
+        } else {
+          return {
+            title,
+            idx,
+            key
+          }
         }
       })
     }

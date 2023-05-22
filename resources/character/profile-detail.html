@@ -212,13 +212,13 @@
           <div class="title dmg-idx">#</div>
           <div class="title dmg-title">伤害类型</div>
           <div>暴击伤害</div>
-          <div>平均伤害(计算暴击率)</div>
+          <div>期望伤害</div>
         </div>
         {{each dmgData dmg idx}}
         <div class="dmg tr">
           <div class="title dmg-idx">{{idx+1}}</div>
           <div class="title dmg-title">{{dmg.title}}</div>
-          {{if dmg.dmg === "NaN"}}
+          {{if !dmg.dmg || dmg.dmg === "NaN"}}
           <div class="value value-full">{{dmg.avg}}{{dmg.unit}}</div>
           <div class="value value-none"></div>
           {{else}}
@@ -263,7 +263,7 @@
           {{if cell.type === "na"}}
           <div class="td na">
             <strong>-</strong>
-            <span>{{dmgCfg.basicRet.avg}}{{dmgCfg.basicRet.dmg!="NaN"?`/${dmgCfg.basicRet.dmg}`:''}}</span>
+            <span>{{dmgCfg.basicRet.avg}}{{(dmgCfg.basicRet.dmg&&dmgCfg.basicRet.dmg!="NaN")?`/${dmgCfg.basicRet.dmg}`:''}}</span>
           </div>
           {{else}}
           <div class="td {{cell.type}}">

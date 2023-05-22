@@ -15,25 +15,18 @@ export default function (staticIdx, keyIdx) {
       }],
     唯有沉默: [
       staticIdx(1, 'atkPct'),
-      keyIdx(2, 'cpct', '场上目标小于等于2时，暴击率提高[cpct]%')
+      keyIdx('场上目标小于等于2时，暴击率提高[cpct]%', 'cpct', 2)
     ],
     如泥酣眠: [
       staticIdx(1, 'cdmg')
     ],
     星海巡航: [
       staticIdx(1, 'cpct'),
-      keyIdx(2, 'cpct', '对生命值小于50%的敌人暴击率提高[cpct]%'),
-      keyIdx(3, 'atkPct', '消灭敌方目标后，攻击力提高[atkPct]%')
+      keyIdx('对生命值小于50%的敌人暴击率提高[cpct]%，消灭敌方目标后，攻击力提高[atkPct]%', { cpct: 2, atkPct: 3 })
     ],
-    春水初生: [(tables) => {
-      return {
-        title: '进入战斗提高速度[speedPct]%，伤害[dmg]%',
-        data: {
-          speedPct: tables[1],
-          dmg: tables[2]
-        }
-      }
-    }],
+    春水初生: [
+      keyIdx('进入战斗提高速度[speedPct]%，伤害[dmg]%', { speedPct: 1, dmg: 2 })
+    ],
     '点个关注吧！': [(tables) => {
       return {
         title: '满能量提高普攻和战技伤害[aDmg]%',
@@ -44,10 +37,10 @@ export default function (staticIdx, keyIdx) {
       }
     }],
     相抗: [
-      keyIdx(1, 'speedPct', '消灭敌方目标后，速度提高[speedPct]%')
+      keyIdx('消灭敌方目标后，速度提高[speedPct]%', 'speedPct', 1)
     ],
     离弦: [
-      keyIdx(1, 'atkPct', '消灭敌方目标后，攻击力[atkPct]%')
+      keyIdx('消灭敌方目标后，攻击力[atkPct]%', 'atkPct', 1)
     ],
     论剑: [(tables) => {
       return {
@@ -57,9 +50,11 @@ export default function (staticIdx, keyIdx) {
         }
       }
     }],
-    重返幽冥: [staticIdx(1, 'cpct')],
+    重返幽冥: [
+      staticIdx(1, 'cpct')
+    ],
     锋镝: [
-      keyIdx(1, 'cpct', '战斗开始时暴击率提高[cpct]%')
+      keyIdx('战斗开始时暴击率提高[cpct]%', 'cpct', 1)
     ]
   }
 }

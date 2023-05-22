@@ -1,11 +1,11 @@
 export const details = [{
-  title: '普攻伤害',
+  title: 'A普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
-  title: '战技伤害',
+  title: 'E战技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
-  title: '终结技伤害',
+  title: 'Q终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }]
 
@@ -35,8 +35,8 @@ export const buffs = [{
     speedPct: 50
   }
 }, {
-  title: '夜行：抗性穿透提高20',
-  check: ({ trees }) => trees[101],
+  title: '行迹-夜行：抗性穿透提高20',
+  tree: 2,
   data: {
     kx: 20
   }

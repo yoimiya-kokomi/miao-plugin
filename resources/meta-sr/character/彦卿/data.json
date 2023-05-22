@@ -197,7 +197,7 @@
           ]
         },
         {
-          "name": "技能伤害",
+          "name": "追加攻击概率",
           "isSame": false,
           "values": [
             0.5,

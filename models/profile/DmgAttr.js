@@ -154,6 +154,11 @@ let DmgAttr = {
           return
         }
       }
+      if (buff.tree) {
+        if (!ds.trees[`10${buff.tree}`]) {
+          return
+        }
+      }
 
       let title = buff.title
 

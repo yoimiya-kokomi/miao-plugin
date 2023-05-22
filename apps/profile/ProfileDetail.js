@@ -1,11 +1,13 @@
 import lodash from 'lodash'
 import { getTargetUid, getProfileRefresh } from './ProfileCommon.js'
 import ProfileList from './ProfileList.js'
-import { Cfg, Common, Format } from '#miao'
+import { Cfg, Common, Data, Format } from '#miao'
 import { MysApi, ProfileRank, ProfileArtis, Character, Weapon } from '#miao.models'
 import ProfileChange from './ProfileChange.js'
 import { profileArtis } from './ProfileArtis.js'
 import { ProfileWeapon } from './ProfileWeapon.js'
+
+let { diyCfg } = await Data.importCfg('profile')
 
 // 查看当前角色
 let ProfileDetail = {
@@ -204,6 +206,9 @@ let ProfileDetail = {
   },
 
   async getProfileDmgCalc ({ profile, enemyLv, mode, params }) {
+    if (profile.isSr && !diyCfg.srDmg) {
+      return false
+    }
     let dmgMsg = []
     let dmgData = []
     let dmgCalc = await profile.calcDmg({
@@ -213,8 +218,10 @@ let ProfileDetail = {
     })
     if (dmgCalc && dmgCalc.ret) {
       lodash.forEach(dmgCalc.ret, (ds) => {
-        ds.dmg = Format.comma(ds.dmg, 0)
-        ds.avg = Format.comma(ds.avg, 0)
+        if (ds.type !== 'text') {
+          ds.dmg = Format.comma(ds.dmg, 0)
+          ds.avg = Format.comma(ds.avg, 0)
+        }
         dmgData.push(ds)
       })
       lodash.forEach(dmgCalc.msg, (msg) => {
