@@ -9,7 +9,7 @@ import { Format } from '#miao'
 
 let DmgAttr = {
   // 计算并返回指定属性值
-  getAttrValue (ds) {
+  getAttrValue (ds = {}) {
     return (ds.base || 0) + (ds.plus || 0) + ((ds.base || 0) * (ds.pct || 0) / 100)
   },
 

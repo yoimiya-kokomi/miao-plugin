@@ -104,6 +104,7 @@ export default class ProfileDmg extends Base {
     }
     let { profile } = this
     let { game } = this.char
+    let sp = this.detail?.sp
     let charCalcData = await this.getCalcRule()
 
     if (!charCalcData) {
@@ -123,7 +124,7 @@ export default class ProfileDmg extends Base {
 
     defParams = defParams || {}
 
-    let originalAttr = DmgAttr.getAttr({ id, weapon, attr, char: this.char, game })
+    let originalAttr = DmgAttr.getAttr({ id, weapon, attr, char: this.char, game, sp })
 
     buffs = this.getBuffs(buffs)
 

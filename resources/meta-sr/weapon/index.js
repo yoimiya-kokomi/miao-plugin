@@ -28,12 +28,13 @@ let loadBuffs = async function () {
           key
         }
       }, (title, key, idx) => {
-        if (arguments.length === 2) {
+        if (lodash.isPlainObject(key)) {
           return (tables) => {
             let data = {}
             lodash.forEach(key, (idx, k) => {
               data[k] = tables[idx]
             })
+            console.log(data)
             return {
               title,
               data
