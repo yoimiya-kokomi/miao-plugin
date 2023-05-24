@@ -33,7 +33,7 @@ export const usefulAttr = {
   凝光: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   北斗: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   刻晴: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 100, recharge: 0, heal: 0 },
-  托马: { hp: 90, atk: 55, def: 0, cpct: 90, cdmg: 90, mastery: 0, dmg: 90, phy: 0, recharge: 55, heal: 0 },
+  托马: { hp: 90, atk: 55, def: 0, cpct: 90, cdmg: 90, mastery: 75, dmg: 90, phy: 0, recharge: 55, heal: 0 },
   迪卢克: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
   诺艾尔: { hp: 0, atk: 50, def: 90, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 70, heal: 0 },
   旅行者: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
