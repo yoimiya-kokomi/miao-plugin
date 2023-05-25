@@ -160,11 +160,23 @@ body {
 .i-cdmg {
   background-position: -96px 0;
 }
+.i-stance {
+  background-position: -64px 0;
+}
 .i-recharge {
   background-position: -112px 0;
 }
 .i-dmg {
   background-position: -128px 0;
+}
+.i-heal {
+  background-position: -144px 0;
+}
+.i-speed {
+  background-position: -160px 0;
+}
+.i-effPct {
+  background-position: -176px 0;
 }
 .detail.attr li:nth-child(even) {
   background: rgba(0, 0, 0, 0.4);
@@ -831,6 +843,9 @@ body {
 }
 .game-sr .artis-weapon {
   display: none;
+}
+.game-sr .char-attr .icon i {
+  background-image: url('./imgs/icon-sr.png');
 }
 .sr-weapon {
   margin: 0 15px 5px 10px;

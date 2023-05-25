@@ -12,11 +12,21 @@ export default {
   },
   野穗伴行的快枪手: {
     2: attr('atkPct', 12),
-    4: [attr('speed', 6), attr('aDmg', 10)]
+    4: [attr('speed', 6), {
+      title: '普攻伤害提高10%',
+      data: {
+        aDmg: 10
+      }
+    }]
   },
   净庭教宗的圣骑士: {
     2: attr('defPct', 15),
-    4: attr('shield', 20)
+    4: {
+      title: '护盾强效提高20%',
+      data: {
+        shield: 20
+      }
+    }
   },
   密林卧雪的猎人: {
     2: attr('ice', 10),

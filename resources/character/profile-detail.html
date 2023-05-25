@@ -10,6 +10,7 @@
 {{set talentMap = game === 'sr' ? {a: '普攻', e: '战技', t:'天赋', q: '爆发'} : {a: '普攻', e: '战技', q: '爆发'} }}
 {{set {imgs, costumeSplash} = data }}
 {{set imgs = imgs || {} }}
+{{set gameHash = game === 'gs' ? '#':'*' }}
 
 {{block 'main'}}
 <div class="game-{{game}}">
@@ -111,12 +112,6 @@
   <!-- 【 武器+圣遗物列表】 -->
   <div>
     {{if game === 'sr'}}
-    <div class="cont">
-      <div class="cont-footer dmg-desc">
-        <strong>伤害计算、圣遗物评分及词条数功能尚未完成...</strong>
-      </div>
-    </div>
-
     <div class="sr-weapon">
       <div class="weapon-img" style="background-image:url({{_res_path}}{{weapon.splash}})"></div>
       <div class="weapon-info">
@@ -194,10 +189,18 @@
   <!-- 【 伤害表格 】 -->
   {{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData} = dmgCalc }}
   <div>
+    {{if game === 'gs'}}
     {{if mode === "profile"}}
     <div class="cont">
       <div class="cont-footer dmg-desc">
-        当前评分为<strong>喵喵版评分规则</strong>，分值仅供参考与娱乐。可使用<strong>#{{data.abbr}}圣遗物</strong>来查看评分详情
+        当前评分为<strong>喵喵版评分规则</strong>，分值仅供参考与娱乐。可使用<strong>{{gameHash}}{{data.abbr}}圣遗物</strong>来查看评分详情
+      </div>
+    </div>
+    {{/if}}
+    {{else}}
+    <div class="cont">
+      <div class="cont-footer dmg-desc">
+        <strong>伤害计算、圣遗物评分及词条数功能尚未完成...</strong>
       </div>
     </div>
     {{/if}}
@@ -205,7 +208,7 @@
     {{if dmgData?.length > 0}}
     <div class="dmg-cont dmg-list cont">
       <div class="cont-title">
-        伤害计算<span>目标为{{enemyLv}}级{{enemyName||'小宝'}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置</span>
+        伤害计算<span>目标为{{enemyLv}}级{{enemyName||'小宝'}}{{if game==='gs'}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置{{/if}}</span>
       </div>
       <div class="cont-table">
         <div class="tr thead">
@@ -229,7 +232,7 @@
         {{/each}}
       </div>
       <div class="cont-footer dmg-desc">
-        使用命令<strong>#{{data.abbr}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
+        使用命令<strong>{{gameHash}}{{data.abbr}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
       </div>
     </div>
     {{/if}}
@@ -241,7 +244,7 @@
     {{if dmgCfg && dmgCfg.attr && dmgCfg.attr.length>0 && dmgRet}}
     <div class="dmg-calc dmg-cont cont">
       <div class="cont-title">
-        词条伤害计算<span>#{{data.abbr}}伤害{{dmgCfg.userIdx+1}}: 当前计算为[{{dmgCfg.title}}]</span>
+        词条伤害计算<span>{{gameHash}}{{data.abbr}}伤害{{dmgCfg.userIdx+1}}: 当前计算为[{{dmgCfg.title}}]</span>
       </div>
       <div class="cont-table">
         <div class="tr thead ">
@@ -281,7 +284,7 @@
           <li>大数字的含义为圣遗物副词条置换后<strong>平均伤害</strong>的变化，下方的详情数字为<strong>平均伤害</strong>/<strong>暴击伤害</strong>。</li>
           <li>关于<strong>平均伤害</strong>：是将暴击率计算在内的伤害期望，能反映综合的输出能力，不等于实际伤害数字。</li>
           <li>可用于评估当前面板下圣遗物副词条的侧重方向。实际游戏情况更加复杂，结果供参考~</li>
-          <li>如需更换计算的伤害类型，可使用命令 <strong>#{{data.abbr}}伤害+序号</strong>来切换，序号参见伤害计算板块</li>
+          <li>如需更换计算的伤害类型，可使用命令 <strong>{{gameHash}}{{data.abbr}}伤害+序号</strong>来切换，序号参见伤害计算板块</li>
         </ul>
       </div>
     </div>
