@@ -3,6 +3,10 @@ export const details = [{
   params: { sy: true ,team:false},
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e')
 }, {
+  title: '水月蒸发伤害',
+  params: { sy: true ,team:false},
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e', '蒸发')
+}, {
   title: '剑舞步三段伤害',
   params: {team:false },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
@@ -17,24 +21,27 @@ export const details = [{
       avg: ret2.avg + ret2.avg
     }
   }
+},  {
+  title: 'Q两段总伤害',
+  params: { team:false },
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q')
 }, {
   title: 'Q两段蒸发总伤害',
-  params: {team:false },
+  params: { team:false },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q', '蒸发')
 }, {
   title: '夜万妮香Q总蒸发伤害',
-  params: {team:true },
+  params: { team:true },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q', '蒸发')
 }, {
   title: '丰穰之核伤害',
-  params: {team:false },
-  params: { bloom: true },
+  params: { bloom:true ,team:false },
   dmg: ({calc, attr}, { reaction }) => {
       return reaction('bloom')}
 }]
 
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
-export const defDmgIdx = 3
+export const defDmgIdx = 6
 
 
 export const defParams = {
