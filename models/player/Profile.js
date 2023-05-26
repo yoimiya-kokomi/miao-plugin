@@ -6,6 +6,9 @@ import enkaApi from './EnkaApi.js'
 import miaoApi from './MiaoApi.js'
 import mggApi from './MggApi.js'
 import hutaoApi from './HutaoApi.js'
+import homoApi from './HomoApi.js'
+
+import lodash from 'lodash'
 
 let { diyCfg } = await Data.importCfg('profile')
 
@@ -17,7 +20,8 @@ const Profile = {
         miao: miaoApi,
         mgg: mggApi,
         enka: enkaApi,
-        hutao: hutaoApi
+        hutao: hutaoApi,
+        homo: homoApi
       }[key])
     }
     return Profile.servs[key]
@@ -26,9 +30,10 @@ const Profile = {
   /**
    * 根据UID分配请求服务器
    * @param uid
+   * @param game
    * @returns {ProfileServ}
    */
-  getServ (uid) {
+  getServ (uid, game = 'gs') {
     let token = diyCfg?.miaoApi?.token
     let qq = diyCfg?.miaoApi?.qq
     let hasToken = !!(qq && token && token.length === 32 && !/^test/.test(token))
@@ -39,6 +44,13 @@ const Profile = {
     // 获取对应服务选择的配置数字，0自动，1喵，2Enka，3Mgg, 4:Hutao
     let servCfg = Cfg.get('profileServer', '0').toString() || '0'
     servCfg = servCfg[servIdx] || servCfg[0] || '0'
+
+    if (game === 'sr') {
+      if ((servCfg === '0' || servCfg === '1') && hasToken) {
+        return Profile.serv('miao')
+      }
+      return Profile.serv('homo')
+    }
 
     if ((servCfg === '0' || servCfg === '1') && hasToken) {
       return Profile.serv('miao')
@@ -68,13 +80,13 @@ const Profile = {
     if (uid.toString().length !== 9 || !e) {
       return false
     }
-    let req = ProfileReq.create(e)
+    let req = ProfileReq.create(e, player.game)
     if (!req) {
       return false
     }
-    let serv = Profile.getServ(uid)
+    let serv = Profile.getServ(uid, player.game)
     try {
-      await req.requestProfile(player, serv)
+      await req.requestProfile(player, serv, player.game)
       player._profile = new Date() * 1
       player.save()
       return player._update.length
@@ -82,17 +94,21 @@ const Profile = {
       if (!e._isReplyed) {
         e.reply(`UID:${uid}更新面板失败，更新服务：${serv.name}`)
       }
+      console.log(err)
       return false
     }
   },
 
   isProfile (avatar) {
+    if (avatar.isSr) {
+      return true
+    }
     // 检查数据源
-    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao'].includes(avatar._source)) {
+    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'homo'].includes(avatar._source)) {
       return false
     }
     // 检查武器及天赋
-    if (!avatar.weapon || !avatar.talent) {
+    if (!avatar.weapon || lodash.isUndefined(avatar.weapon.promote) || !avatar.talent) {
       return false
     }
     // 检查圣遗物词条是否完备

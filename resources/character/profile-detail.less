@@ -183,12 +183,17 @@ body {
   background-position: @i*-4 0;
 }
 
+
+
 .i-cpct {
   background-position: @i*-5 0;
 }
 
 .i-cdmg {
   background-position: @i*-6 0;
+}
+.i-stance {
+  background-position: @i*-4 0;
 }
 
 .i-recharge {
@@ -197,6 +202,18 @@ body {
 
 .i-dmg {
   background-position: @i*-8 0;
+}
+
+.i-heal {
+  background-position: @i*-9 0;
+}
+
+.i-speed {
+  background-position: @i*-10 0;
+}
+
+.i-effPct {
+  background-position: @i*-11 0;
 }
 
 .detail.attr {
@@ -1029,4 +1046,145 @@ body {
   font-size: 13px;
   line-height: 20px;
   color: #bbb;
+}
+
+.game-sr {
+  .char-talents {
+    transform: scale(.8);
+    transform-origin: top left;
+    margin: -8px 0 -14px;
+
+
+    .talent-item {
+      margin: 0 -3px;
+    }
+  }
+
+  .artis-weapon {
+    display: none;
+  }
+
+  .char-attr {
+    .icon i {
+      background-image: url('./imgs/icon-sr.png');
+    }
+  }
+}
+
+.sr-weapon {
+  margin: 0 15px 5px 10px;
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 150%;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
+  overflow: hidden;
+  display: table;
+  color: #fff;
+  min-height: 120px;
+  width: calc(100% - 25px);
+
+  .weapon-img {
+    display: table-cell;
+    width: 185px;
+    height: 100%;
+    min-height: 120px;
+    background-size: 100% auto;
+    background-position: 0 5%;
+    box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
+  }
+
+  .weapon-info {
+    display: table-cell;
+    padding: 10px 10px 5px 15px;
+  }
+
+  .weapon-title {
+
+    span {
+      font-size: 14px;
+    }
+
+    strong {
+      color: #d3bc8e;
+      font-weight: normal;
+    }
+  }
+
+  .weapon-attr {
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    display: flex;
+
+    .attr {
+      padding-left: 22px;
+      padding-right: 7px;
+      margin-right: 10px;
+      position: relative;
+      line-height: 22px;
+      height: 22px;
+      font-size: 12px;
+
+      color: #ffe699;
+      display: inline-block;
+      border-radius: 4px;
+
+
+      background: rgba(0, 0, 0, 0.5);
+      text-align: center;
+
+      span {
+        font-size: 12px;
+        display: none;
+      }
+
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        background-size: auto 100%;
+        background-position: top center;
+        vertical-align: middle;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+
+    .i-hp:before {
+      background-image: url('../meta-sr/public/icons/attr-hp.webp')
+    }
+
+    .i-atk:before {
+      background-image: url('../meta-sr/public/icons/attr-atk.webp')
+    }
+
+    .i-def:before {
+      background-image: url('../meta-sr/public/icons/attr-def.webp')
+    }
+  }
+
+  .weapon-desc {
+    margin-top: 7px;
+    font-size: 12px;
+    font-weight: normal;
+    color: #fff;
+    white-space: break-spaces;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 1px 1px 3px rgba(0, 0, 0, 0.4);
+
+    nobr {
+      color: #ffe699;
+      display: inline-block;
+      border-radius: 4px;
+      font-size: 12px;
+      height: 16px;
+      line-height: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      text-align: center;
+      padding: 0 3px;
+      margin: 0 2px;
+    }
+  }
 }

@@ -55,14 +55,14 @@ export async function groupRank (e) {
       e.uid = uid
       return await ProfileDetail.render(e, char)
     } else {
-      if (mode === 'dmg' && !ProfileDmg.dmgRulePath(char.name)) {
+      if (mode === 'dmg' && !ProfileDmg.dmgRulePath(char.name, char.game)) {
         e.reply(`暂无排名：${char.name}暂不支持伤害计算，无法进行排名..`)
       } else {
         e.reply('暂无排名：请通过【#面板】查看角色面板以更新排名信息...')
       }
     }
   } else if (type === 'list') {
-    if (mode === 'dmg' && char && !ProfileDmg.dmgRulePath(char.name)) {
+    if (mode === 'dmg' && char && !ProfileDmg.dmgRulePath(char.name, char.game)) {
       e.reply(`暂无排名：${char.name}暂不支持伤害计算，无法进行排名..`)
     } else {
       let uids = []

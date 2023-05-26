@@ -1,7 +1,7 @@
 import { ProfileData, Weapon } from '#miao.models'
 
 export const ProfileWeapon = {
-  async calc (profile) {
+  async calc (profile, game = 'gs') {
     let ret = []
     await Weapon.forEach(async (w) => {
       let weaponRet = w.getData('name,star,abbr,icon')
@@ -13,7 +13,7 @@ export const ProfileWeapon = {
         let tempProfile = new ProfileData({
           ...profile.getData('uid,id,level,cons,fetter,elem,promote,talent,artis'),
           dataSource: 'change'
-        }, false)
+        }, game, false)
 
         tempProfile.setWeapon({
           name: w.name,

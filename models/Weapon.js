@@ -1,16 +1,22 @@
 import Base from './Base.js'
-import { Data } from '#miao'
-import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet } from '../resources/meta/weapon/index.js'
+import { Data, Format } from '#miao'
+import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet, weaponBuffs } from '../resources/meta/weapon/index.js'
+import {
+  weaponData as weaponDataSR,
+  weaponAlias as weaponAliasSR,
+  weaponBuffs as weaponBuffsSR
+} from '../resources/meta-sr/weapon/index.js'
+
 import lodash from 'lodash'
 
 class Weapon extends Base {
-  constructor (name) {
+  constructor (name, game = 'gs') {
     super(name)
-    let meta = weaponData[name]
+    let meta = game === 'gs' ? weaponData[name] : weaponDataSR[name]
     if (!meta) {
       return false
     }
-    let cache = this._getCache(`weapon:${name}`)
+    let cache = this._getCache(`weapon:${game}:${name}`)
     if (cache) {
       return cache
     }
@@ -19,6 +25,7 @@ class Weapon extends Base {
     this.meta = meta
     this.type = meta.type
     this.star = meta.star
+    this.game = game
     return this._cache()
   }
 
@@ -31,14 +38,22 @@ class Weapon extends Base {
   }
 
   get img () {
-    return `meta/weapon/${this.type}/${this.name}/icon.webp`
+    return `${this.isGs ? 'meta' : 'meta-sr'}/weapon/${this.type}/${this.name}/icon.webp`
   }
 
   get imgs () {
-    return {
-      icon: `meta/weapon/${this.type}/${this.name}/icon.webp`,
-      icon2: `meta/weapon/${this.type}/${this.name}/awaken.webp`,
-      gacha: `meta/weapon/${this.type}/${this.name}/gacha.webp`
+    if (this.isGs) {
+      return {
+        icon: `meta/weapon/${this.type}/${this.name}/icon.webp`,
+        icon2: `meta/weapon/${this.type}/${this.name}/awaken.webp`,
+        gacha: `meta/weapon/${this.type}/${this.name}/gacha.webp`
+      }
+    } else {
+      return {
+        icon: `meta-sr/weapon/${this.type}/${this.name}/icon.webp`,
+        icon2: `meta-sr/weapon/${this.type}/${this.name}/icon-s.webp`,
+        gacha: `meta-sr/weapon/${this.type}/${this.name}/splash.webp`
+      }
     }
   }
 
@@ -67,12 +82,13 @@ class Weapon extends Base {
     return weaponSet.includes(name)
   }
 
-  static get (name, type = '') {
+  static get (name, game = 'gs', type = '') {
     name = lodash.trim(name)
-    if (weaponAlias[name]) {
-      return new Weapon(weaponAlias[name])
+    let alias = game === 'gs' ? weaponAlias : weaponAliasSR
+    if (alias[name]) {
+      return new Weapon(alias[name], game)
     }
-    if (type) {
+    if (type && game === 'gs') {
       let name2 = name + (weaponType[type] || type)
       if (weaponAlias[name2]) {
         return new Weapon(weaponAlias[name2])
@@ -96,7 +112,7 @@ class Weapon extends Base {
     if (this._detail) {
       return this._detail
     }
-    const path = 'resources/meta/weapon'
+    const path = this.isGs ? 'resources/meta/weapon' : 'resources/meta-sr/weapon'
     try {
       this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`, 'miao')
     } catch (e) {
@@ -106,6 +122,22 @@ class Weapon extends Base {
   }
 
   calcAttr (level, promote = -1) {
+    let metaAttr = this.detail?.attr
+    if (!metaAttr) {
+      return false
+    }
+    if (this.isSr) {
+      let lvAttr = metaAttr[promote]
+      let ret = {}
+      lodash.forEach(lvAttr.attrs, (v, k) => {
+        ret[k] = v * 1
+      })
+      lodash.forEach(this.detail?.growAttr, (v, k) => {
+        ret[k] = ret[k] * 1 + v * (level - 1)
+      })
+      return ret
+    }
+
     let lvLeft = 1
     let lvRight = 20
     let lvStep = [1, 20, 40, 50, 60, 70, 80, 90]
@@ -140,22 +172,105 @@ class Weapon extends Base {
     }
   }
 
-  getAffixInfo (affix) {
-    let d = this.getDetail()
-    let ad = this.detail.affixData
-    let txt = ad.text
-    lodash.forEach(ad.datas, (ds, idx) => {
-      txt = txt.replace(`$[${idx}]`, ds[affix - 1])
-    })
-    return {
-      name: d.name,
-      star: d.star,
-      desc: d.desc,
-      imgs: this.imgs,
-      affix,
-      affixTitle: d.affixTitle,
-      affixDetail: txt
+  // 获取精炼描述
+  getAffixDesc (affix = 1) {
+    let skill = this.detail.skill
+    let { name, desc, tables } = skill
+    let reg = /\$(\d)\[[i|f1]\](\%?)/g
+    let ret
+    while ((ret = reg.exec(desc)) !== null) {
+      let idx = ret[1]
+      let pct = ret[2]
+      let value = tables?.[idx]?.[affix - 1]
+      if (pct === '%') {
+        value = Format.pct(value)
+      } else {
+        value = Format.comma(value)
+      }
+      desc = desc.replaceAll(ret[0], value)
     }
+    return {
+      name: skill.name,
+      desc
+    }
+  }
+
+  getWeaponBuffs () {
+    let { isSr } = this
+    let wBuffs = (isSr ? weaponBuffsSR : weaponBuffs)
+    let buffs = wBuffs[this.id] || wBuffs[this.name]
+    if (!buffs) {
+      return false
+    }
+    if (lodash.isPlainObject(buffs) || lodash.isFunction(buffs)) {
+      buffs = [buffs]
+    }
+    return buffs
+  }
+
+  getWeaponAffixBuffs (affix, isStatic = true) {
+    let buffs = this.getWeaponBuffs()
+    let ret = []
+    let self = this
+    let { detail } = this
+
+    let tables = {}
+    lodash.forEach(detail?.skill?.tables || {}, (ds, idx) => {
+      tables[idx] = ds[affix - 1]
+    })
+
+    lodash.forEach(buffs, (ds) => {
+      if (lodash.isFunction(ds)) {
+        ds = ds(tables)
+      }
+      if (!!ds.isStatic !== !!isStatic) {
+        return true
+      }
+
+      // 静态属性
+      if (ds.isStatic) {
+        let tmp = {}
+        // 星铁武器格式
+        if (ds.idx && ds.key) {
+          if (!ds.idx || !ds.key) return true
+          if (!tables[ds.idx]) return true
+          tmp[ds.key] = tables[ds.idx]
+        }
+        if (ds.refine) {
+          lodash.forEach(ds.refine, (r, key) => {
+            tmp[key] = r[affix - 1] * (ds.buffCount || 1)
+          })
+        }
+        if (!lodash.isEmpty(tmp)) {
+          ret.push({
+            isStatic: true,
+            data: tmp
+          })
+        }
+        return true
+      }
+
+      // 自动拼接标题
+      if (!/：/.test(ds.title)) {
+        ds.title = `${self.name}：${ds.title}`
+      }
+      ds.data = ds.data || {}
+      // refine
+      if (ds.idx && ds.key) {
+        if (!ds.idx || !ds.key) return true
+        if (!tables[ds.idx]) return true
+        ds.data[ds.key] = tables[ds.idx]
+      } else if (ds.refine) {
+
+        lodash.forEach(ds.refine, (r, key) => {
+          ds.data[key] = ({ refine }) => r[refine] * (ds.buffCount || 1)
+        })
+      }
+
+      ret.push(ds)
+    })
+
+    return ret
   }
 }
 

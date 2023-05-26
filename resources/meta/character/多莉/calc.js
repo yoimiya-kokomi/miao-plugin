@@ -8,6 +8,7 @@ export const details = [{
   }) => heal(talent.q['持续治疗量2'][0] * calc(attr.hp) / 100 + talent.q['持续治疗量2'][1] * 1)
 }]
 
+export const defDmgIdx = 1
 export const mainAttr = 'atk,hp,cpct,cdmg'
 
 export const buffs = [{

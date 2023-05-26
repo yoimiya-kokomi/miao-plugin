@@ -7,265 +7,301 @@
 {{set weapon = data.weapon}}
 
 {{set dataSource = data.dataSource}}
-{{set talentMap = {a: '普攻', e: '战技', q: '爆发'} }}
+{{set talentMap = game === 'sr' ? {a: '普攻', e: '战技', t:'天赋', q: '爆发'} : {a: '普攻', e: '战技', q: '爆发'} }}
 {{set {imgs, costumeSplash} = data }}
 {{set imgs = imgs || {} }}
+{{set gameHash = game === 'gs' ? '#':'*' }}
 
 {{block 'main'}}
-<div class="basic">
-  <div class="main-pic"
-       style="background-image:url({{_res_path}}{{costumeSplash||imgs?.splash}})"></div>
-  <div class="detail">
-    <div class="char-name">{{data.name}}</div>
-    <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
-      <span class="cons cons-{{data.cons}}">{{data.cons}}命</span></div>
-    <div>
-      {{if mode !== 'weapon'}}
-      <div class="char-talents">
-        {{each talentMap tName key}}
-        {{set talent = data.talent[key] || {} }}
-        <div class="talent-item">
-          <div class="talent-icon
+<div class="game-{{game}}">
+  <div class="basic">
+    <div class="main-pic"
+         style="background-image:url({{_res_path}}{{costumeSplash||imgs?.splash}})"></div>
+    <div class="detail">
+      <div class="char-name">{{data.name}}</div>
+      <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
+        <span class="cons cons-{{data.cons}}">{{data.cons}}命</span></div>
+      <div>
+        {{if mode !== 'weapon'}}
+        <div class="char-talents">
+          {{each talentMap tName key}}
+          {{set talent = data.talent[key] || {} }}
+          <div class="talent-item">
+            <div class="talent-icon
                {{talent.level > talent.original ? `talent-plus`:``}}
                 {{talent.original >= 10 ? `talent-crown`:``}}">
-            <div class="talent-icon-img"
-                 style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
-            <span>{{talent.level}}</span>
+              <div class="talent-icon-img"
+                   style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
+              <span>{{talent.level}}</span>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+        <ul class="char-attr">
+          {{set attrMap = game === 'sr' ? {
+          hp:'生命值',atk:'攻击力',def:'防御力',speed:'速度',cpct:'暴击率',cdmg:'暴击伤害',dmg:'伤害加成',stance:'击破特效',effPct:'效果命中'
+          }:{
+          hp:'生命值',atk:'攻击力',def:'防御力',mastery:'元素精通',cpct:'暴击率',cdmg:'暴击伤害',recharge:'元素充能',dmg:'伤害加成'
+          } }}
+          {{set cw = artisDetail?.charWeight || {} }}
+          {{each attrMap title key}}
+          <li>
+
+            <div class="icon"><i class="i-{{key}}"></i></div>
+
+            <div class="title">{{title}}</div>
+            <div class="weight">
+              {{if cw[key]}}
+              <span class="{{cw[key]>=80?'gold':'normal'}}">{{cw[key]}}</span>
+              {{/if}}
+            </div>
+            <div class="value">
+              {{attr[key]}}
+            </div>
+            <div class="value2">
+              <span class="base">{{attr[key+'Base']}}</span>
+              <span class="plus">+{{attr[key+'Plus']}}</span>
+            </div>
+
+          </li>
+          {{/each}}
+        </ul>
+        {{else}}
+        <div class="char-weapon">
+          <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
+          <div class="head">
+            <strong>{{weapon.name}}</strong>
+            <div class="star star-{{weapon.star}}"></div>
+            <span>Lv.{{weapon.leve || weapon.level}} <span
+                class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
           </div>
         </div>
-        {{/each}}
-      </div>
-      <ul class="char-attr">
-        {{set attrMap = {hp:'生命值',atk:'攻击力',def:'防御力',mastery:'元素精通',cpct:'暴击率',cdmg:'暴击伤害',recharge:'元素充能',dmg:'伤害加成'} }}
-        {{set cw = artisDetail?.charWeight || {} }}
-        {{each attrMap title key}}
-        <li>
-
-          <div class="icon"><i class="i-{{key}}"></i></div>
-
-          <div class="title">{{title}}</div>
-          <div class="weight">
-            {{if cw[key]}}
-            <span class="{{cw[key]>=80?'gold':'normal'}}">{{cw[key]}}</span>
-            {{/if}}
-          </div>
-          <div class="value">
-            {{attr[key]}}
-          </div>
-          <div class="value2">
-            <span class="base">{{attr[key+'Base']}}</span>
-            <span class="plus">+{{attr[key+'Plus']}}</span>
-          </div>
-
-        </li>
-        {{/each}}
-      </ul>
-      {{else}}
-      <div class="char-weapon">
-        <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
-        <div class="head">
-          <strong>{{weapon.name}}</strong>
-          <div class="star star-{{weapon.star}}"></div>
-          <span>Lv.{{weapon.leve || weapon.level}} <span
-              class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
-        </div>
-      </div>
-      {{/if}}
-    </div>
-  </div>
-  <div class="char-cons">
-    {{set cons = [1,2,3,4,5,6]}}
-    {{each cons idx}}
-    <div class="cons-item">
-      <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
-        <div class="talent-icon-img"
-             style="background-image:url({{_res_path}}{{imgs[`cons${idx}`]}})"></div>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-
-  <div class="data-info">
-    {{if data.dataSource}}
-    <span>数据源：{{ {change:"面板变换"}[data.dataSource]||data.dataSource }}</span>
-    {{/if}}
-    {{if data.updateTime}}
-    <span class="time">{{data.updateTime}}</span>
-    {{/if}}
-  </div>
-</div>
-
-{{if changeProfile}}
-<div class="cont">
-  <div class="cont-footer  dmg-desc">
-    <strong>该面板为非实际数据。当前替换命令：</strong> {{changeProfile}}
-  </div>
-</div>
-{{/if}}
-
-<!-- 【 武器+圣遗物列表】 -->
-<div>
-  {{if mode === "profile"}}
-  {{set ad = artisDetail}}
-  <div class="artis">
-    <div>
-      <div class="item weapon">
-        <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
-        <div class="head">
-          <strong>{{weapon.name}}</strong>
-          <div class="star star-{{weapon.star}}"></div>
-          <span>Lv.{{weapon.leve || weapon.level}} <span
-              class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
-        </div>
-      </div>
-      <div class="item arti-stat">
-        <div class="arti-class-title">评分规则：{{ad.classTitle}}</div>
-        <div class="arti-stat-ret">
-          <div><strong class="mark-{{ad.markClass}}">{{ad.markClass}}</strong><span>圣遗物评级</span></div>
-          <div><strong>{{ad.mark}}</strong><span>圣遗物总分</span></div>
-        </div>
-      </div>
-    </div>
-    {{each ad.artis ds idx}}
-    <div class="item arti">
-      {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
-      <div class="arti-icon">
-        <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
-        <span>+{{ds.level}}</span>
-      </div>
-      <div class="head">
-        <strong>{{ds.name}}</strong>
-        <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
-      </div>
-      <ul class="detail attr">
-        <li class="arti-main"><span class="title">{{artisKeyTitle[ds.main?.key]}}</span><span class="val">+{{ds.main.value}}</span>
-        </li>
-        {{each ds.attrs attr}}
-        {{if attr && attr.key}}
-        <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
-          <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key]}}</span>
-          <span class="val">+{{attr.value}}</span>
-
-        </li>
         {{/if}}
-        {{/each}}
-      </ul>
+      </div>
+    </div>
+    <div class="char-cons">
+      {{set cons = [1,2,3,4,5,6]}}
+      {{each cons idx}}
+      <div class="cons-item">
+        <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
+          <div class="talent-icon-img"
+               style="background-image:url({{_res_path}}{{imgs[`cons${idx}`]}})"></div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <div class="data-info">
+      {{if data.dataSource}}
+      <span>数据源：{{ {change:"面板变换"}[data.dataSource]||data.dataSource }}</span>
+      {{/if}}
+      {{if data.updateTime}}
+      <span class="time">{{data.updateTime}}</span>
       {{/if}}
     </div>
-    {{/each}}
   </div>
-  {{/if}}
-</div>
 
-
-<!-- 【 伤害表格 】 -->
-{{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData} = dmgCalc }}
-<div>
-  {{if mode === "profile"}}
+  {{if changeProfile}}
   <div class="cont">
     <div class="cont-footer dmg-desc">
-      当前评分为<strong>喵喵版评分规则</strong>，分值仅供参考与娱乐。可使用<strong>#{{data.abbr}}圣遗物</strong>来查看评分详情
+      <strong>该面板为非实际数据。当前替换命令：</strong> {{changeProfile}}
     </div>
   </div>
   {{/if}}
 
-  {{if dmgData?.length > 0}}
-  <div class="dmg-cont dmg-list cont">
-    <div class="cont-title">
-      伤害计算<span>目标为{{enemyLv}}级{{enemyName||'小宝'}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置</span>
-    </div>
-    <div class="cont-table">
-      <div class="tr thead">
-        <div class="title dmg-idx">#</div>
-        <div class="title dmg-title">伤害类型</div>
-        <div>暴击伤害</div>
-        <div>平均伤害(计算暴击率)</div>
+  <!-- 【 武器+圣遗物列表】 -->
+  <div>
+    {{if game === 'sr'}}
+    <div class="sr-weapon">
+      <div class="weapon-img" style="background-image:url({{_res_path}}{{weapon.splash}})"></div>
+      <div class="weapon-info">
+        <div class="weapon-title">
+          <strong>{{weapon.name}}</strong>
+          <span>Lv.{{weapon.level}}</span>
+          <span>叠影{{weapon.affix}}阶</span>
+        </div>
+        <div class="weapon-attr">
+          {{set a = weapon.attrs}}
+          <div class="attr i-hp"><span>生命</span>{{a.hp}}</div>
+          <div class="attr i-atk"><span>攻击</span>{{a.atk}}</div>
+          <div class="attr i-def"><span>防御</span>{{a.def}}</div>
+        </div>
+        <div class="weapon-desc">{{@weapon.desc?.desc}}</div>
       </div>
-      {{each dmgData dmg idx}}
-      <div class="dmg tr">
-        <div class="title dmg-idx">{{idx+1}}</div>
-        <div class="title dmg-title">{{dmg.title}}</div>
-        {{if dmg.dmg === "NaN"}}
-        <div class="value value-full">{{dmg.avg}}{{dmg.unit}}</div>
-        <div class="value value-none"></div>
-        {{else}}
-        <div class="value">{{dmg.dmg}}{{dmg.unit}}</div>
-        <div class="value">{{dmg.avg}}{{dmg.unit}}</div>
+    </div>
+    {{/if}}
+    {{if mode === "profile"}}
+    {{set ad = artisDetail}}
+    <div class="artis">
+      {{ if game === 'gs' }}
+      <div class="artis-weapon">
+        <div class="item weapon">
+          <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
+          <div class="head">
+            <strong>{{weapon.name}}</strong>
+            <div class="star star-{{weapon.star}}"></div>
+            <span>Lv.{{weapon.leve || weapon.level}} <span
+                class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
+          </div>
+        </div>
+        <div class="item arti-stat">
+          <div class="arti-class-title">评分规则：{{ad.classTitle}}</div>
+          <div class="arti-stat-ret">
+            <div><strong class="mark-{{ad.markClass}}">{{ad.markClass}}</strong><span>圣遗物评级</span></div>
+            <div><strong>{{ad.mark}}</strong><span>圣遗物总分</span></div>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+      {{each ad.artis ds idx}}
+      <div class="item arti">
+        {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
+        <div class="arti-icon">
+          <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
+          <span>+{{ds.level}}</span>
+        </div>
+        <div class="head">
+          <strong>{{ds.abbr || ds.name}}</strong>
+          <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
+        </div>
+        <ul class="detail attr">
+          <li class="arti-main"><span class="title">{{artisKeyTitle[ds.main?.key]}}</span><span class="val">+{{ds.main.value}}</span>
+          </li>
+          {{each ds.attrs attr}}
+          {{if attr && attr.key}}
+          <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
+          <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{if attr.upNum}}<i
+              class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key] || attr.key}}</span>
+            <span class="val">+{{attr.value}}</span>
+
+          </li>
+          {{/if}}
+          {{/each}}
+        </ul>
         {{/if}}
       </div>
       {{/each}}
     </div>
-    <div class="cont-footer dmg-desc">
-      使用命令<strong>#{{data.abbr}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
-    </div>
+    {{/if}}
   </div>
-  {{/if}}
-</div>
 
-<!-- 【 伤害变化详情 】 -->
-<div>
-  {{if mode === "dmg"}}
-  {{if dmgCfg && dmgCfg.attr && dmgCfg.attr.length>0 && dmgRet}}
-  <div class="dmg-calc dmg-cont cont">
-    <div class="cont-title">
-      词条伤害计算<span>#{{data.abbr}}伤害{{dmgCfg.userIdx+1}}: 当前计算为[{{dmgCfg.title}}]</span>
+
+  <!-- 【 伤害表格 】 -->
+  {{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData} = dmgCalc }}
+  <div>
+    {{if game === 'gs'}}
+    {{if mode === "profile"}}
+    <div class="cont">
+      <div class="cont-footer dmg-desc">
+        当前评分为<strong>喵喵版评分规则</strong>，分值仅供参考与娱乐。可使用<strong>{{gameHash}}{{data.abbr}}圣遗物</strong>来查看评分详情
+      </div>
     </div>
-    <div class="cont-table">
-      <div class="tr thead ">
-        <div class="td">词条变化</div>
-        {{each dmgCfg.attr attr}}
-        <div class="td">
-          <strong>{{attr.title}}</strong>
-          <span>+{{attr.text}}</span>
+    {{/if}}
+    {{else}}
+    <div class="cont">
+      <div class="cont-footer dmg-desc">
+        <strong>伤害计算、圣遗物评分及词条数功能尚未完成...</strong>
+      </div>
+    </div>
+    {{/if}}
+
+    {{if dmgData?.length > 0}}
+    <div class="dmg-cont dmg-list cont">
+      <div class="cont-title">
+        伤害计算<span>目标为{{enemyLv}}级{{enemyName||'小宝'}}{{if game==='gs'}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置{{/if}}</span>
+      </div>
+      <div class="cont-table">
+        <div class="tr thead">
+          <div class="title dmg-idx">#</div>
+          <div class="title dmg-title">伤害类型</div>
+          <div>暴击伤害</div>
+          <div>期望伤害</div>
+        </div>
+        {{each dmgData dmg idx}}
+        <div class="dmg tr">
+          <div class="title dmg-idx">{{idx+1}}</div>
+          <div class="title dmg-title">{{dmg.title}}</div>
+          {{if !dmg.dmg || dmg.dmg === "NaN"}}
+          <div class="value value-full">{{dmg.avg}}{{dmg.unit}}</div>
+          <div class="value value-none"></div>
+          {{else}}
+          <div class="value">{{dmg.dmg}}{{dmg.unit}}</div>
+          <div class="value">{{dmg.avg}}{{dmg.unit}}</div>
+          {{/if}}
         </div>
         {{/each}}
       </div>
-      {{each dmgRet row rowIdx}}
-      <div class="tr">
-        <div class="title">
-          <strong>{{dmgCfg.attr[rowIdx].title}}</strong>
-          <span>-{{dmgCfg.attr[rowIdx].text}}</span>
-        </div>
-        {{each row cell colIdx}}
-        {{if cell.type === "na"}}
-        <div class="td na">
-          <strong>-</strong>
-          <span>{{dmgCfg.basicRet.avg}}{{dmgCfg.basicRet.dmg!="NaN"?`/${dmgCfg.basicRet.dmg}`:''}}</span>
-        </div>
-        {{else}}
-        <div class="td {{cell.type}}">
-          <strong>{{cell.val}}</strong>
+      <div class="cont-footer dmg-desc">
+        使用命令<strong>{{gameHash}}{{data.abbr}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
+      </div>
+    </div>
+    {{/if}}
+  </div>
 
-          <span>{{cell.avg}}{{cell.dmg!="NaN"?`/${cell.dmg}`:''}}</span>
+  <!-- 【 伤害变化详情 】 -->
+  <div>
+    {{if mode === "dmg"}}
+    {{if dmgCfg && dmgCfg.attr && dmgCfg.attr.length>0 && dmgRet}}
+    <div class="dmg-calc dmg-cont cont">
+      <div class="cont-title">
+        词条伤害计算<span>{{gameHash}}{{data.abbr}}伤害{{dmgCfg.userIdx+1}}: 当前计算为[{{dmgCfg.title}}]</span>
+      </div>
+      <div class="cont-table">
+        <div class="tr thead ">
+          <div class="td">词条变化</div>
+          {{each dmgCfg.attr attr}}
+          <div class="td">
+            <strong>{{attr?.title}}</strong>
+            <span>+{{attr?.text}}</span>
+          </div>
+          {{/each}}
         </div>
-        {{/if}}
+        {{each dmgRet row rowIdx}}
+        <div class="tr">
+          <div class="title">
+            <strong>{{dmgCfg.attr[rowIdx].title}}</strong>
+            <span>-{{dmgCfg.attr[rowIdx].text}}</span>
+          </div>
+          {{each row cell colIdx}}
+          {{if cell.type === "na"}}
+          <div class="td na">
+            <strong>-</strong>
+            <span>{{dmgCfg.basicRet.avg}}{{(dmgCfg.basicRet.dmg&&dmgCfg.basicRet.dmg!="NaN")?`/${dmgCfg.basicRet.dmg}`:''}}</span>
+          </div>
+          {{else}}
+          <div class="td {{cell.type}}">
+            <strong>{{cell.val}}</strong>
+
+            <span>{{cell.avg}}{{cell.dmg!="NaN"?`/${cell.dmg}`:''}}</span>
+          </div>
+          {{/if}}
+          {{/each}}
+        </div>
         {{/each}}
       </div>
-      {{/each}}
-    </div>
-    <div class="cont-footer dmg-desc">
-      <ul>
-        <li>大数字的含义为圣遗物副词条置换后<strong>平均伤害</strong>的变化，下方的详情数字为<strong>平均伤害</strong>/<strong>暴击伤害</strong>。</li>
-        <li>关于<strong>平均伤害</strong>：是将暴击率计算在内的伤害期望，能反映综合的输出能力，不等于实际伤害数字。</li>
-        <li>可用于评估当前面板下圣遗物副词条的侧重方向。实际游戏情况更加复杂，结果供参考~</li>
-        <li>如需更换计算的伤害类型，可使用命令 <strong>#{{data.abbr}}伤害+序号</strong>来切换，序号参见伤害计算板块</li>
-      </ul>
-    </div>
-  </div>
-  {{/if}}
-
-  <div class="dmg-cont dmg-msg cont">
-    <div class="cont-title">Buff列表<span>部分Buff的触发条件以及层数可能影响实际伤害结果</span></div>
-    <div class="cont-table">
-      {{each dmgMsg msg}}
-      <div class="tr">
-        <div class="th">{{msg[0]}}</div>
-        <div class="td">{{msg[1]}}</div>
+      <div class="cont-footer dmg-desc">
+        <ul>
+          <li>大数字的含义为圣遗物副词条置换后<strong>平均伤害</strong>的变化，下方的详情数字为<strong>平均伤害</strong>/<strong>暴击伤害</strong>。</li>
+          <li>关于<strong>平均伤害</strong>：是将暴击率计算在内的伤害期望，能反映综合的输出能力，不等于实际伤害数字。</li>
+          <li>可用于评估当前面板下圣遗物副词条的侧重方向。实际游戏情况更加复杂，结果供参考~</li>
+          <li>如需更换计算的伤害类型，可使用命令 <strong>{{gameHash}}{{data.abbr}}伤害+序号</strong>来切换，序号参见伤害计算板块</li>
+        </ul>
       </div>
-      {{/each}}
     </div>
-  </div>
-  {{/if}}
-</div>
+    {{/if}}
 
+    <div class="dmg-cont dmg-msg cont">
+      <div class="cont-title">Buff列表<span>部分Buff的触发条件以及层数可能影响实际伤害结果</span></div>
+      <div class="cont-table">
+        {{each dmgMsg msg}}
+        <div class="tr">
+          <div class="th">{{msg[0]}}</div>
+          <div class="td">{{msg[1]}}</div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</div>
 {{/block}}
