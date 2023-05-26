@@ -28,8 +28,12 @@ let ProfileDetail = {
         e.reply('面板替换功能已禁用...')
         return true
       }
+      if (pc.game === 'sr') {
+        e.reply('星铁面板暂不支持面板替换，请等待后续升级...')
+        return true
+      }
       e.uid = pc.uid || e.runtime.uid
-      profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change)
+      profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change, pc.game)
       if (profileChange && profileChange.char) {
         msg = `#${profileChange.char?.name}${pc.mode || '面板'}`
         e._profile = profileChange

@@ -55,6 +55,7 @@ const ProfileChange = {
     ret.char = char.id
     ret.mode = regRet[3] === '换' ? '面板' : regRet[3]
     ret.uid = regRet[1] || regRet[4] || ''
+    ret.game = char.game
     msg = regRet[5]
 
     // 更换匹配
@@ -147,13 +148,15 @@ const ProfileChange = {
    * @param uid
    * @param charid
    * @param ds
+   * @param game
    * @returns {ProfileData|boolean}
    */
-  getProfile (uid, charid, ds) {
+  getProfile (uid, charid, ds, game = 'gs') {
     if (!charid) {
       return false
     }
-    let player = Player.create(uid)
+
+    let player = Player.create(uid, game)
 
     let source = player.getProfile(charid)
     let dc = ds.char || {}
@@ -180,7 +183,7 @@ const ProfileChange = {
       let id = cfg.char || source.id
       let key = cuid + ':' + id
       if (!profiles[key]) {
-        let cPlayer = Player.create(cuid)
+        let cPlayer = Player.create(cuid, game)
         profiles[key] = cPlayer.getProfile(id) || {}
       }
       return profiles[key]?.id ? profiles[key] : source
@@ -194,6 +197,7 @@ const ProfileChange = {
       fetter: source.fetter || 10,
       elem: char.elem,
       dataSource: 'change',
+      _source: 'change',
       promote
     }, char.game, false)
 
@@ -201,9 +205,12 @@ const ProfileChange = {
     let wCfg = ds.weapon || {}
     let wSource = getSource(wCfg).weapon || {}
     let weapon = Weapon.get(wCfg?.weapon || wSource?.name || defWeapon[char.weaponType], char.game, char.weaponType)
-    if (!weapon || weapon.type !== char.weaponType) {
-      weapon = Weapon.get(defWeapon[char.weaponType], char.game)
+    if (char.isGs) {
+      if (!weapon || weapon.type !== char.weaponType) {
+        weapon = Weapon.get(defWeapon[char.weaponType], char.game)
+      }
     }
+
     let wDs = {
       name: weapon.name,
       star: weapon.star,

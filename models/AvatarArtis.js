@@ -75,9 +75,9 @@ export default class AvatarArtis extends Base {
       arti.set = artiObj.setName || arti.set || ''
       arti.level = ds.level || arti.level || 1
       arti.star = artiObj.getStarById(ds.id) || arti.star || 5
-
-      if (ds.mainId && ds.attrs) {
-        let attr = artiObj.getAttrData(ds.mainId, ds.attrs, arti.level, arti.star, idx)
+      let attrIds = ds.attrIds || ds.attrs
+      if (ds.mainId && attrIds) {
+        let attr = artiObj.getAttrData(ds.mainId, attrIds, arti.level, arti.star, idx)
         if (attr) {
           arti.mainId = ds.mainId
           arti.main = attr.main || arti.main || {}
@@ -85,6 +85,8 @@ export default class AvatarArtis extends Base {
         } else {
           console.log('attr id error', ds.main, ds.mainId, idx, arti.level, arti.star)
         }
+      } else {
+        arti.attrs = []
       }
       return
     } else {
@@ -160,9 +162,9 @@ export default class AvatarArtis extends Base {
       if (this.isSr) {
         tmp.id = ds.id
         tmp.mainId = ds.main?.id
-        tmp.attrs = []
+        tmp.attrIds = []
         lodash.forEach(ds.attrs, (as) => {
-          tmp.attrs.push([
+          tmp.attrIds.push([
             as?.id || '',
             as?.count || 1,
             as?.step || 0

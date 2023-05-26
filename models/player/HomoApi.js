@@ -94,13 +94,13 @@ const HomoData = {
         id: ds.ID,
         level: ds.Level || 1,
         mainId: ds.MainAffixID,
-        attrs: []
+        attrIds: []
       }
       lodash.forEach(ds.RelicSubAffix, (s) => {
         if (!s.SubAffixID) {
           return true
         }
-        tmp.attrs.push([s.SubAffixID, s.Cnt, s.Step || 0].join(','))
+        tmp.attrIds.push([s.SubAffixID, s.Cnt, s.Step || 0].join(','))
       })
       ret[ds.Type] = tmp
     })

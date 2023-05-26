@@ -189,7 +189,7 @@ let ArtisMark = {
       let ds = artis[idx]
       if (ds) {
         // 不再支持非id格式的面板
-        if (!ds.attrs || !ds.mainId) {
+        if ((!ds.attrIds && !ds.attr) || !ds.mainId) {
           return false
         }
       }
