@@ -210,9 +210,6 @@ let ProfileDetail = {
   },
 
   async getProfileDmgCalc ({ profile, enemyLv, mode, params }) {
-    if (profile.isSr && !diyCfg.srDmg) {
-      return false
-    }
     let dmgMsg = []
     let dmgData = []
     let dmgCalc = await profile.calcDmg({
