@@ -1,5 +1,6 @@
 import lodash from 'lodash'
 import Base from './Base.js'
+import { Format } from '#miao'
 
 const baseAttr = {
   gs: 'atk,def,hp,mastery,recharge,cpct,cdmg,dmg,phy,heal,shield'.split(','),
@@ -11,14 +12,15 @@ let attrReg = {
 }
 
 class ProfileAttr extends Base {
-  constructor (data = null, game = 'gs') {
+  constructor (char, data = null) {
     super()
-    this.game = game
-    this.init(data)
+    this.char = char
+    this.game = char.game
+    this.init(data, this.game)
   }
 
-  static create (data = null, game = 'gs') {
-    return new ProfileAttr(data, game)
+  static create (char, data = null) {
+    return new ProfileAttr(char, data)
   }
 
   init (data) {
@@ -35,6 +37,7 @@ class ProfileAttr extends Base {
       }
       base[key] = 0
     })
+
     if (data) {
       this.setAttr(data, true)
     }
@@ -72,6 +75,13 @@ class ProfileAttr extends Base {
   addAttr (key, val, isBase = false) {
     let attr = this._attr
     let base = this._base
+
+    if (this.isSr && Format.isElem(key, this.game)) {
+      if (Format.sameElem(this.char.elem, key, this.game)) {
+        key = 'dmg'
+      }
+    }
+
     if (baseAttr[this.game].includes(key)) {
       attr[key].plus += val * 1
       if (isBase) {
@@ -110,7 +120,13 @@ class ProfileAttr extends Base {
       })
     }
     lodash.forEach(data, (val, key) => {
-      this.addAttr(key, val)
+      if (this.isSr && Format.isElem(key, this.game)) {
+        if (this.char.elem === Format.elem(key, '', this.game)) {
+          this.addAttr('dmg', val)
+        }
+      } else {
+        this.addAttr(key, val)
+      }
     })
   }
 

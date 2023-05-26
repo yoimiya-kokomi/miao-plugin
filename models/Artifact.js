@@ -5,7 +5,7 @@ import Base from './Base.js'
 import { Format } from '#miao'
 import { ArtifactSet } from './index.js'
 import { artiMap, attrMap, mainIdMap, attrIdMap } from '../resources/meta/artifact/index.js'
-import { idMap as idMapSR, artiMap as artiMapSR, metaData as metaDataSR } from '../resources/meta-sr/artifact/index.js'
+import { idMap as idMapSR, artiMap as artiMapSR, metaData as metaDataSR, abbr as abbrSR } from '../resources/meta-sr/artifact/index.js'
 import lodash from 'lodash'
 
 class Artifact extends Base {
@@ -34,6 +34,10 @@ class Artifact extends Base {
 
   get setName () {
     return this.set
+  }
+
+  get abbr () {
+    return (abbrSR && abbrSR[this.name]) || this.name
   }
 
   get img () {
@@ -111,7 +115,6 @@ class Artifact extends Base {
   }
 
   getAttrData (mainId, attrData, level = 1, star = 5, idx = 1) {
-
     let mainKey = metaDataSR.mainIdx[idx][mainId]
     let starCfg = metaDataSR.starData[star]
     let mainCfg = starCfg.main[mainKey]
@@ -125,11 +128,20 @@ class Artifact extends Base {
     }
     let attrs = []
     lodash.forEach(attrData, (ds) => {
+      let _ds = ds
+      if (lodash.isString(ds)) {
+        let [id, count, step] = ds.split(',')
+        ds = { id, count, step }
+      }
       let attrCfg = starCfg.sub[ds.id]
+      if (!attrCfg) {
+        console.log('not found attr', ds, _ds)
+        return true
+      }
       attrs.push({
         ...ds,
-        key: attrCfg.key,
-        value: attrCfg.base * ds.count + attrCfg.step * ds.step
+        key: attrCfg?.key,
+        value: attrCfg?.base * ds.count + attrCfg.step * ds.step
       })
     })
     return {

@@ -2,14 +2,14 @@ import lodash from 'lodash'
 import Base from './Base.js'
 import moment from 'moment'
 import { Character, AvatarArtis, ProfileData, Weapon } from './index.js'
-import { Data } from '#miao'
+import { Data, Format } from '#miao'
 import AttrCalc from './profile/AttrCalc.js'
 import Profile from './player/Profile.js'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
 
 export default class AvatarData extends Base {
-  constructor (ds = {}, source, game = 'gs') {
+  constructor (ds = {}, game = 'gs') {
     super()
     let char = Character.get({ id: ds.id, elem: ds.elem })
     if (!char) {
@@ -19,7 +19,7 @@ export default class AvatarData extends Base {
     this.char = char
     this.game = char.game || game
     this.initArtis()
-    this.setAvatar(ds, source)
+    this.setAvatar(ds)
   }
 
   get hasTalent () {
@@ -66,7 +66,7 @@ export default class AvatarData extends Base {
       mgg: 'MiniGG-Api',
       hutao: 'Hutao-Enka',
       mys: '米游社',
-      lulu: '路路Api'
+      homo: 'Mihomo'
     }[this._source] || this._source
   }
 
@@ -84,8 +84,8 @@ export default class AvatarData extends Base {
     return ''
   }
 
-  static create (ds, source = '', game = 'gs') {
-    let avatar = new AvatarData(ds, source, game)
+  static create (ds, game = 'gs') {
+    let avatar = new AvatarData(ds, game)
     if (!avatar) {
       return false
     }
@@ -125,7 +125,7 @@ export default class AvatarData extends Base {
     this.elem = ds.elem || this.elem || this.char.elem || ''
     this.promote = lodash.isUndefined(ds.promote) ? (this.promote || AttrCalc.calcPromote(this.level)) : (ds.promote || 0)
     this.trees = ds.trees || this.trees || []
-    this._source = ds._source || ds.dataSource || this._source || ''
+    this._source = ds._source || this._source || ''
     this._time = ds._time || this._time || now
     this._update = ds._update || this._update || ds._time || now
     this._talent = ds._talent || this._talent || ds._time || now
@@ -159,6 +159,24 @@ export default class AvatarData extends Base {
     if (this.weapon.level < 20) {
       this.weapon.promote = 0
     }
+  }
+
+  getWeaponDetail () {
+    if (this.isGs) {
+      return this.weapon
+    }
+    let ret = {
+      ...this.weapon
+    }
+    let wData = Weapon.get(ret.id, this.game)
+    ret.splash = wData.imgs.gacha
+    let attrs = wData.calcAttr(ret.level, ret.promote)
+    lodash.forEach(attrs, (val, key) => {
+      attrs[key] = Format.comma(val, 1)
+    })
+    ret.attrs = attrs
+    ret.desc = wData.getAffixDesc(ret.affix)
+    return ret
   }
 
   setTalent (ds = false, mode = 'original', updateTime = '') {

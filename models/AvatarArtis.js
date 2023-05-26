@@ -34,9 +34,9 @@ export default class AvatarArtis extends Base {
     return ArtisMark.hasAttr(this.artis)
   }
 
-  static _eachArtisSet (sets, fn) {
+  static _eachArtisSet (sets, fn, game = 'gs') {
     lodash.forEach(sets || [], (v, k) => {
-      let artisSet = ArtifactSet.get(k)
+      let artisSet = ArtifactSet.get(k, game)
       if (artisSet) {
         if (v >= 4) {
           fn(artisSet, 2)
@@ -83,7 +83,7 @@ export default class AvatarArtis extends Base {
           arti.main = attr.main || arti.main || {}
           arti.attrs = attr.attrs || arti.attrs || {}
         } else {
-          console.log('attr id error', ds.main, arti.level, arti.star)
+          console.log('attr id error', ds.main, ds.mainId, idx, arti.level, arti.star)
         }
       }
       return
@@ -95,13 +95,12 @@ export default class AvatarArtis extends Base {
         arti.star = ds._star || ds.star || 5
         arti.main = ds.main
         arti.attrs = ds.attrs
-        return true
+      } else {
+        arti.name = ds.name || arti.name || ''
+        arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
+        arti.level = ds.level || 1
+        arti.star = ds.star || 5
       }
-      arti.name = ds.name || arti.name || ''
-      arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
-      arti.level = ds.level || 1
-      arti.star = ds.star || 5
-
       if (ds.mainId || ds.main) {
         arti._name = ds._name || ds.name || arti._name || arti.name
         arti._set = ds._set || Artifact.getSetNameByArti(arti._name) || arti._set || ''
@@ -163,11 +162,11 @@ export default class AvatarArtis extends Base {
         tmp.mainId = ds.main?.id
         tmp.attrs = []
         lodash.forEach(ds.attrs, (as) => {
-          tmp.attrs.push({
-            id: as?.id,
-            count: as?.count,
-            step: as?.step
-          })
+          tmp.attrs.push([
+            as?.id || '',
+            as?.count || 1,
+            as?.step || 0
+          ].join(','))
         })
       } else {
         tmp.name = ds.name || ''
@@ -306,6 +305,6 @@ export default class AvatarArtis extends Base {
   }
 
   eachArtisSet (fn) {
-    AvatarArtis._eachArtisSet(this.sets, fn)
+    AvatarArtis._eachArtisSet(this.sets, fn, this.game)
   }
 }

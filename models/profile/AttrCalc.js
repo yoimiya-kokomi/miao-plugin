@@ -3,9 +3,8 @@
  * @type {{}}
  */
 
-import { Weapon, ProfileAttr } from '../index.js'
+import { Weapon, ProfileAttr, ArtifactSet } from '../index.js'
 import { Format } from '#miao'
-import { calc as artisBuffs } from '../../resources/meta/artifact/index.js'
 import { weaponBuffs } from '../../resources/meta/weapon/index.js'
 import lodash from 'lodash'
 
@@ -57,8 +56,7 @@ class AttrCalc {
    * @returns {{}}
    */
   calc () {
-    console.log('calc,hahahaha')
-    this.attr = ProfileAttr.create({}, this.game)
+    this.attr = ProfileAttr.create(this.char, {})
     if (this.isGs) {
       this.addAttr('recharge', 100, true)
       this.addAttr('cpct', 5, true)
@@ -77,9 +75,6 @@ class AttrCalc {
 
 
   addAttr (key, val, isBase = false) {
-    if (key === 'cpct') {
-      console.log('isCpct', val, isBase)
-    }
     this.attr.addAttr(key, val, isBase)
   }
 
@@ -88,7 +83,7 @@ class AttrCalc {
    * @param affix
    */
   setCharAttr (affix = '') {
-    let { char, level, promote } = this.profile
+    let { char, level, promote, trees } = this.profile
     let metaAttr = char.detail?.attr || {}
     let self = this
     if (this.isSr) {
@@ -97,6 +92,18 @@ class AttrCalc {
       lodash.forEach(attr, (v, k) => {
         k = k + (['hp', 'atk', 'def'].includes(k) ? 'Base' : '')
         self.addAttr(k, v, true)
+      })
+
+      let tree = char.detail?.tree || {}
+      lodash.forEach(trees || [], (tid) => {
+        let tCfg = tree[tid]
+        if (tCfg) {
+          let key = tCfg.key
+          if (['atk', 'hp', 'def'].includes(key)) {
+            key = key + 'Pct'
+          }
+          self.addAttr(key, tCfg.value)
+        }
       })
       return
     }
@@ -161,9 +168,20 @@ class AttrCalc {
         k = k + (['hp', 'atk', 'def'].includes(k) ? 'Base' : '')
         self.addAttr(k, v, true)
       })
+      // 检查武器类型
+      if (weapon.type === this.char.weapon) {
+        // todo sr&gs 统一
+        let wBuffs = weapon.getWeaponAffixBuffs(wData.affix, true)
+        lodash.forEach(wBuffs, (buff) => {
+          lodash.forEach(buff.data || [], (v, k) => {
+            self.addAttr(k, v)
+          })
+        })
+      }
       return
     }
 
+    // 原神属性
     if (wCalcRet) {
       this.addAttr('atkBase', wCalcRet.atkBase)
       this.addAttr(wCalcRet.attr?.key, wCalcRet.attr?.value)
@@ -200,15 +218,19 @@ class AttrCalc {
     })
     // 计算圣遗物静态加成
     artis.eachArtisSet((set, num) => {
-      let buff = artisBuffs[set.name] && artisBuffs[set.name][num]
-      if (!buff || !buff.isStatic) {
-        return true
-      }
-      if (buff.elem && !this.char.isElem(buff.elem)) {
-        return true
-      }
-      lodash.forEach(buff.data, (val, key) => {
-        this.addAttr(key, val)
+      let buffs = ArtifactSet.getArtisSetBuff(set.name, num, this.game)
+      if (!buffs) return true
+
+      lodash.forEach(buffs, (buff) => {
+        if (!buff.isStatic) {
+          return true
+        }
+        if (buff.elem && !this.char.isElem(buff.elem)) {
+          return true
+        }
+        lodash.forEach(buff.data, (val, key) => {
+          this.addAttr(key, val)
+        })
       })
     })
   }
@@ -231,7 +253,6 @@ class AttrCalc {
     if (!key) {
       return false
     }
-    console.log(key, ds.value)
     if (['atk', 'hp', 'def'].includes(key)) {
       key = key + 'Pct'
     }

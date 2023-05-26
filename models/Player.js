@@ -23,7 +23,7 @@ export default class Player extends Base {
     if (!uid) {
       return false
     }
-    let cacheObj = this._getCache(`player:${uid}`)
+    let cacheObj = this._getCache(`player:${game}:${uid}`)
     if (cacheObj) {
       return cacheObj
     }
@@ -176,7 +176,7 @@ export default class Player extends Base {
       }
     }
     if (!avatars[id] && create) {
-      avatars[id] = AvatarData.create({ id }, '', this.game)
+      avatars[id] = AvatarData.create({ id }, this.game)
     }
     return avatars[id] || false
   }

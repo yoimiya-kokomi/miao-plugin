@@ -1,12 +1,11 @@
 import lodash from 'lodash'
-import EnkaData from './EnkaData.js'
 import { Data } from '#miao'
 import { Character } from '#miao.models'
 
 export default {
-  id: 'lulu',
-  name: '路路Api',
-  cfgKey: 'luluApi',
+  id: 'homo',
+  name: 'Mihomo',
+  cfgKey: 'homoApi',
   // 处理请求参数
   async request (api) {
     let params = {
@@ -41,7 +40,7 @@ export default {
     try {
       player.setBasicData(Data.getData(data, 'name:NickName,face:HeadIconID,level:Level,word:WorldLevel,sign:Signature'))
       lodash.forEach(data.avatars, (ds, id) => {
-        let ret = LuluData.setAvatar(player, ds)
+        let ret = HomoData.setAvatar(player, ds)
         if (ret) {
           player._update.push(ds.AvatarID)
         }
@@ -57,7 +56,7 @@ export default {
   }
 }
 
-const LuluData = {
+const HomoData = {
   setAvatar (player, data) {
     let char = Character.get(data.AvatarID)
     if (!char) {
@@ -69,16 +68,15 @@ const LuluData = {
       promote: data.Promotion,
       cons: data.Rank || 0,
       weapon: Data.getData(data.EquipmentID, 'id:ID,promote:Promotion,level:Level,affix:Rank'),
-      ...LuluData.getTalent(data.BehaviorList, char),
-      artis: LuluData.getArtis(data.RelicList)
+      ...HomoData.getTalent(data.BehaviorList, char),
+      artis: HomoData.getArtis(data.RelicList)
     }
-    avatar.setAvatar(setData, 'lulu')
+    avatar.setAvatar(setData, 'homo')
     return avatar
   },
   getTalent (ds, char) {
     let talent = {}
     let trees = []
-    let talentId = char.talentId
     lodash.forEach(ds, (d) => {
       let key = char.getTalentKey(d.BehaviorID)
       if (key || d.Level > 1) {
@@ -102,15 +100,10 @@ const LuluData = {
         if (!s.SubAffixID) {
           return true
         }
-        tmp.attrs.push({
-          id: s.SubAffixID,
-          count: s.Cnt,
-          step: s.Step || 0
-        })
+        tmp.attrs.push([s.SubAffixID, s.Cnt, s.Step || 0].join(','))
       })
       ret[ds.Type] = tmp
     })
-    console.log(lodash.keys(ret))
     return ret
   }
 }

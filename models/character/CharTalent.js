@@ -6,9 +6,13 @@ import lodash from 'lodash'
 const CharTalent = {
   // 处理获取天赋数据
   getAvatarTalent (char, talent, cons, mode) {
-    let { id, talentCons, game } = char
+    let { id, talentCons, game, isGs } = char
     let ret = {}
-    lodash.forEach(game === 'gs' ? ['a', 'e', 'q'] : ['a', 'e', 'q', 't'], (key) => {
+    let addTalent = {
+      gs: { a: 0, e: 3, q: 3 },
+      sr: { a: 1, e: 2, q: 2, t: 2 }
+    }
+    lodash.forEach(addTalent[game], (addNum, key) => {
       let ds = talent[key]
       if (!ds) {
         return false
@@ -23,14 +27,14 @@ const CharTalent = {
       if (mode !== 'level') {
         // 基于original计算level
         value = value || ds.original || ds.level_original || ds.level || ds.level_current
-        if (value > 10) {
+        if (value > 10 && isGs) {
           mode = 'level'
         } else {
           original = value
-          if (key === 'a' && char.isGs) {
+          if (key === 'a' && isGs) {
             level = aPlus ? value + 1 : value
           } else {
-            level = cons >= talentCons[key] ? (value + 3) : value
+            level = cons >= talentCons[key] ? (value + addNum) : value
           }
         }
       }
@@ -38,10 +42,10 @@ const CharTalent = {
         // 基于level计算original
         value = value || ds.level || ds.level_current || ds.original || ds.level_original
         level = value
-        if (key === 'a' && char.isGs) {
+        if (key === 'a' && isGs) {
           original = aPlus ? value - 1 : value
         } else {
-          original = cons >= talentCons[key] ? (value - 3) : value
+          original = cons >= talentCons[key] ? (value - addNum) : value
         }
       }
       ret[key] = { level, original }

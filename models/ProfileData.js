@@ -50,7 +50,7 @@ export default class ProfileData extends AvatarData {
   }
 
   get hasDmg () {
-    return this.hasData && !!ProfileDmg.dmgRulePath(this.name)
+    return this.hasData && !!ProfileDmg.dmgRulePath(this.name, this.game)
   }
 
   static create (ds, game = 'gs') {
@@ -96,10 +96,10 @@ export default class ProfileData extends AvatarData {
   // 计算当前profileData的伤害信息
   async calcDmg ({ enemyLv = 91, mode = 'profile', dmgIdx = 0 }) {
     if (!this.dmg) {
-      let ds = this.getData('id,level,attr,cons,artis:artis.sets')
+      let ds = this.getData('id,level,attr,cons,artis:artis.sets,trees')
       ds.talent = lodash.mapValues(this.talent, 'level')
       ds.weapon = Data.getData(this.weapon, 'name,affix')
-      this.dmg = new ProfileDmg(ds)
+      this.dmg = new ProfileDmg(ds, this.game)
     }
     return await this.dmg.calcData({ enemyLv, mode, dmgIdx })
   }
