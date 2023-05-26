@@ -80,8 +80,7 @@ const ProfileList = {
       await player.refresh({ profile: true })
     }
     if (!player.hasProfile) {
-      console.log(player.game)
-      e.reply(`本地暂无uid${uid}的面板数据...`)
+      e.reply(`本地暂无uid${uid}[${player.game}]的面板数据...`)
       return true
     }
     let profiles = player.getProfiles()

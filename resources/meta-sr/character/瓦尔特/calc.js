@@ -2,10 +2,10 @@ export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
-  title: 'E战技主目标伤害',
+  title: '战技主目标伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
-  title: 'Q终结技伤害',
+  title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: '天赋附加伤害',

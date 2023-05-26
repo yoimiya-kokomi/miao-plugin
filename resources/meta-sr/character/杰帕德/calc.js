@@ -5,7 +5,7 @@ export const details = [{
   title: '战技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
-  title: 'Q护盾量',
+  title: '终结技护盾量',
   dmg: ({ attr, calc, talent }, { shield }) => shield(calc(attr.def) * talent.q['百分比防御力'] + talent.q['固定数值'])
 }, {
   title: '秘技护盾量',

@@ -80,6 +80,7 @@ export default class AvatarArtis extends Base {
         let attr = artiObj.getAttrData(ds.mainId, attrIds, arti.level, arti.star, idx)
         if (attr) {
           arti.mainId = ds.mainId
+          arti.attrIds = attrIds
           arti.main = attr.main || arti.main || {}
           arti.attrs = attr.attrs || arti.attrs || {}
         } else {

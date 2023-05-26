@@ -38,6 +38,7 @@ export const hutaoApi = {
 
 export const homoApi = {
   url: 'https://api.mihomo.me/sr_info',
+  userAgent: 'Miao-Plugin/3.1',
   listApi: ({ url, uid, diyCfg }) => {
     return `${url}/${uid}`
   }

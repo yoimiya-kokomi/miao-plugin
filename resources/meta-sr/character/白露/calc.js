@@ -2,10 +2,10 @@ export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
-  title: 'E主目标生命恢复',
+  title: '战技主目标生命恢复',
   dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['百分比生命'] + talent.e['固定值'])
 }, {
-  title: 'Q生命恢复',
+  title: '终结技生命恢复',
   dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.q['百分比生命'] + talent.q['固定值'])
 }, {
   title: '天赋生息恢复',

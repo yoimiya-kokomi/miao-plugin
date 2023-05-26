@@ -34,7 +34,6 @@ let loadBuffs = async function () {
             lodash.forEach(key, (idx, k) => {
               data[k] = tables[idx]
             })
-            console.log(data)
             return {
               title,
               data
