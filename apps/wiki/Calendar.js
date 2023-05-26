@@ -96,7 +96,7 @@ let Cal = {
           }
         })
       }
-      let miaoApi = 'http://miaoapi.cn/api/calendar'
+      let miaoApi = 'http://49.232.91.210/api/calendar'
       try {
         request2 = await fetch(miaoApi)
         let data = await request2.json()

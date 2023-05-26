@@ -86,7 +86,7 @@ const ProfileChange = {
       let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?精炼?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
       if (wRet && wRet[5]) {
         let weaponName = lodash.trim(wRet[5])
-        let weapon = Weapon.get(weaponName)
+        let weapon = Weapon.get(weaponName, ret.char.game)
         if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {
           let affix = wRet[2] || wRet[3]
           affix = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 满: 5 }[affix] || affix * 1
@@ -195,14 +195,14 @@ const ProfileChange = {
       elem: char.elem,
       dataSource: 'change',
       promote
-    }, false)
+    }, char.game, false)
 
     // 设置武器
     let wCfg = ds.weapon || {}
     let wSource = getSource(wCfg).weapon || {}
-    let weapon = Weapon.get(wCfg?.weapon || wSource?.name || defWeapon[char.weaponType], char.weaponType)
+    let weapon = Weapon.get(wCfg?.weapon || wSource?.name || defWeapon[char.weaponType], char.game, char.weaponType)
     if (!weapon || weapon.type !== char.weaponType) {
-      weapon = Weapon.get(defWeapon[char.weaponType])
+      weapon = Weapon.get(defWeapon[char.weaponType], char.game)
     }
     let wDs = {
       name: weapon.name,
