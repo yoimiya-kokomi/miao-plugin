@@ -12,6 +12,7 @@ let metaMap = {}
 
 export default class Base {
   constructor () {
+    this.game = 'gs'
     let proxy = new Proxy(this, {
       get (self, key, receiver) {
         if (self._uuid && key === 'meta') {
@@ -91,5 +92,13 @@ export default class Base {
     delete reFn[id]
     delete cacheMap[id]
     delete metaMap[id]
+  }
+
+  get isSr () {
+    return this.game === 'sr'
+  }
+
+  get isGs () {
+    return !this.isSr
   }
 }

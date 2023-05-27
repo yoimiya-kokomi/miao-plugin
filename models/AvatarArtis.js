@@ -8,8 +8,9 @@ import { Format, Data } from '#miao'
 import ArtisMark from './profile/ArtisMark.js'
 
 export default class AvatarArtis extends Base {
-  constructor (charid = 0) {
+  constructor (charid = 0, game = 'gs') {
     super()
+    this.game = game
     this.charid = charid
     this.artis = {}
   }
@@ -27,12 +28,15 @@ export default class AvatarArtis extends Base {
   }
 
   get hasAttr () {
+    if (this.isSr) {
+      return true
+    }
     return ArtisMark.hasAttr(this.artis)
   }
 
-  static _eachArtisSet (sets, fn) {
+  static _eachArtisSet (sets, fn, game = 'gs') {
     lodash.forEach(sets || [], (v, k) => {
-      let artisSet = ArtifactSet.get(k)
+      let artisSet = ArtifactSet.get(k, game)
       if (artisSet) {
         if (v >= 4) {
           fn(artisSet, 2)
@@ -42,44 +46,70 @@ export default class AvatarArtis extends Base {
     })
   }
 
-  static getArtisKeyTitle () {
-    return ArtisMark.getKeyTitleMap()
+  static getArtisKeyTitle (game = 'gs') {
+    return ArtisMark.getKeyTitleMap(game)
   }
 
-  setArtisData (ds = {}, profile = false) {
-    // let force = !this.hasArtis || ArtisMark.hasAttr(ds) || !ArtisMark.hasAttr(this.artis)
-    if (!profile || (profile && ArtisMark.hasAttr(ds))) {
-      for (let idx = 1; idx <= 5; idx++) {
+  setArtisData (ds = {}, isProfile = false) {
+    if (!isProfile || (isProfile && ArtisMark.hasAttr(ds))) {
+      for (let idx = 1; idx <= (this.isGs ? 5 : 6); idx++) {
         if (ds[idx] || ds[`arti${idx}`]) {
-          this.setArtis(idx, ds[idx] || ds[`arti${idx}`], profile)
+          this.setArtis(idx, ds[idx] || ds[`arti${idx}`], isProfile)
         }
       }
     }
   }
 
-  setArtis (idx = 1, ds = {}, profile = false) {
+  setArtis (idx = 1, ds = {}, isProfile = false) {
     idx = idx.toString().replace('arti', '')
     this.artis[idx] = this.artis[idx] || {}
     let arti = this.artis[idx]
-    if (profile) {
-      arti.name = ds._name || ds.name || arti.name || ''
-      arti.set = ds._set || Artifact.getSetNameByArti(arti._name) || ds.set || ''
-      arti.level = ds._level || ds.level || 1
-      arti.star = ds._star || ds.star || 5
-      arti.main = ds.main
-      arti.attrs = ds.attrs
-      return true
-    }
-    arti.name = ds.name || arti.name || ''
-    arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
-    arti.level = ds.level || 1
-    arti.star = ds.star || 5
-
-    if (ds.mainId || ds.main) {
-      arti._name = ds._name || ds.name || arti._name || arti.name
-      arti._set = ds._set || Artifact.getSetNameByArti(arti._name) || arti._set || ''
-      arti._level = ds._level || ds.level || arti._level || arti.level
-      arti._star = ds._star || ds.star || arti._star || arti.star || 5
+    let artiObj
+    if (this.isSr) {
+      artiObj = Artifact.get(ds.id, this.game)
+      if (!artiObj) {
+        return false
+      }
+      arti.id = artiObj.id || ds.id || arti.id || ''
+      arti.name = artiObj.name || arti.name || ''
+      arti.set = artiObj.setName || arti.set || ''
+      arti.level = ds.level || arti.level || 1
+      arti.star = artiObj.getStarById(ds.id) || arti.star || 5
+      let attrIds = ds.attrIds || ds.attrs
+      if (ds.mainId && attrIds) {
+        let attr = artiObj.getAttrData(ds.mainId, attrIds, arti.level, arti.star, idx)
+        if (attr) {
+          arti.mainId = ds.mainId
+          arti.attrIds = attrIds
+          arti.main = attr.main || arti.main || {}
+          arti.attrs = attr.attrs || arti.attrs || {}
+        } else {
+          console.log('attr id error', ds.main, ds.mainId, idx, arti.level, arti.star)
+        }
+      } else {
+        arti.attrs = []
+      }
+      return
+    } else {
+      if (isProfile) {
+        arti.name = ds._name || ds.name || arti.name || ''
+        arti.set = ds._set || Artifact.getSetNameByArti(arti._name) || ds.set || ''
+        arti.level = ds._level || ds.level || 1
+        arti.star = ds._star || ds.star || 5
+        arti.main = ds.main
+        arti.attrs = ds.attrs
+      } else {
+        arti.name = ds.name || arti.name || ''
+        arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
+        arti.level = ds.level || 1
+        arti.star = ds.star || 5
+      }
+      if (ds.mainId || ds.main) {
+        arti._name = ds._name || ds.name || arti._name || arti.name
+        arti._set = ds._set || Artifact.getSetNameByArti(arti._name) || arti._set || ''
+        arti._level = ds._level || ds.level || arti._level || arti.level
+        arti._star = ds._star || ds.star || arti._star || arti.star || 5
+      }
     }
 
     // 存在面板数据，更新面板数据
@@ -120,14 +150,29 @@ export default class AvatarArtis extends Base {
 
   toJSON () {
     let ret = {}
-    for (let idx = 1; idx <= 5; idx++) {
+    for (let idx = 1; idx <= (this.isGs ? 5 : 6); idx++) {
       let ds = this.artis[idx]
-      if (ds) {
-        let tmp = {
-          name: ds.name || '',
-          level: ds.level || 1,
-          star: ds.star || 5
-        }
+      if (!ds) {
+        continue
+      }
+      let tmp = {
+        level: ds.level || 1,
+        star: ds.star || 5
+      }
+
+      if (this.isSr) {
+        tmp.id = ds.id
+        tmp.mainId = ds.main?.id
+        tmp.attrIds = []
+        lodash.forEach(ds.attrs, (as) => {
+          tmp.attrIds.push([
+            as?.id || '',
+            as?.count || 1,
+            as?.step || 0
+          ].join(','))
+        })
+      } else {
+        tmp.name = ds.name || ''
         if ((ds.mainId && ds.attrIds) || (ds.main && ds.attrs)) {
           if ((ds._name && ds._name !== ds.name) || (ds._level && ds._level !== ds.level) || (ds._star && ds._star !== ds.star)) {
             tmp._name = ds._name || null
@@ -147,8 +192,8 @@ export default class AvatarArtis extends Base {
             }
           }
         }
-        ret[idx] = tmp
       }
+      ret[idx] = tmp
     }
     return ret
   }
@@ -263,6 +308,6 @@ export default class AvatarArtis extends Base {
   }
 
   eachArtisSet (fn) {
-    AvatarArtis._eachArtisSet(this.sets, fn)
+    AvatarArtis._eachArtisSet(this.sets, fn, this.game)
   }
 }

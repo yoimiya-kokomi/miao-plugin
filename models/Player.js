@@ -13,19 +13,22 @@ import MysAvatar from './player/MysAvatar.js'
 import Profile from './player/Profile.js'
 
 Data.createDir('/data/UserData', 'root')
+Data.createDir('/data/PlayerData/gs', 'root')
+Data.createDir('/data/PlayerData/sr', 'root')
 
 export default class Player extends Base {
-  constructor (uid) {
+  constructor (uid, game = 'gs') {
     super()
     uid = uid?._mys?.uid || uid?.uid || uid
     if (!uid) {
       return false
     }
-    let cacheObj = this._getCache(`player:${uid}`)
+    let cacheObj = this._getCache(`player:${game}:${uid}`)
     if (cacheObj) {
       return cacheObj
     }
     this.uid = uid
+    this.game = game
     this.reload()
     return this._cache(100)
   }
@@ -41,25 +44,33 @@ export default class Player extends Base {
     return ret
   }
 
-  static create (e) {
+  get _file () {
+    if (this.isSr) {
+      return `/data/PlayerData/sr/${this.uid}.json`
+    } else {
+      return `/data/UserData/${this.uid}.json`
+    }
+  }
+
+  static create (e, game = 'gs') {
     if (e?._mys?.uid || e.uid) {
       // 传入为e
-      let player = new Player(e?._mys?.uid || e.uid)
+      let player = new Player(e?._mys?.uid || e.uid, (game === 'sr' || e.isSr) ? 'sr' : 'gs')
       player.e = e
       return player
     } else {
-      return new Player(e)
+      return new Player(e, game)
     }
   }
 
   // 获取面板更新服务名
-  static getProfileServName (uid) {
-    let Serv = Profile.getServ(uid)
+  static getProfileServName (uid, game = 'gs') {
+    let Serv = Profile.getServ(uid, game)
     return Serv.name
   }
 
-  static delByUid (uid) {
-    let player = Player.create(uid)
+  static delByUid (uid, game = 'gs') {
+    let player = Player.create(uid, game)
     if (player) {
       player.del()
     }
@@ -70,7 +81,7 @@ export default class Player extends Base {
    */
   reload () {
     let data
-    data = Data.readJSON(`/data/UserData/${this.uid}.json`, 'root')
+    data = Data.readJSON(this._file, 'root')
     this.setBasicData(data)
     if (data.chars) {
       this.setAvatars(data.chars)
@@ -104,13 +115,17 @@ export default class Player extends Base {
     if (this._ck) {
       ret._ck = this._ck
     }
-    Data.writeJSON(`/data/UserData/${this.uid}.json`, ret, 'root')
+    if (this.isSr) {
+      Data.writeJSON(`/data/PlayerData/sr/${this.uid}.json`, ret, 'root')
+    } else {
+      Data.writeJSON(`/data/UserData/${this.uid}.json`, ret, 'root')
+    }
   }
 
   del () {
     try {
-      Data.delFile(`/data/UserData/${this.uid}.json`, 'root')
-      ProfileRank.delUidInfo(this.uid)
+      Data.delFile(this._file, 'root')
+      ProfileRank.delUidInfo(this.uid, this.game)
       this._delCache()
       Bot.logger.mark(`【面板数据删除】${this.uid}本地文件数据已删除...`)
     } catch (e) {
@@ -154,12 +169,14 @@ export default class Player extends Base {
   getAvatar (id, create = false) {
     let char = Character.get(id)
     let avatars = this._avatars
-    // 兼容处理旅行者的情况
-    if (char.isTraveler && !create) {
-      id = avatars['10000005'] ? 10000005 : 10000007
+    if (this.isGs) {
+      // 兼容处理旅行者的情况
+      if (char.isTraveler && !create) {
+        id = avatars['10000005'] ? 10000005 : 10000007
+      }
     }
     if (!avatars[id] && create) {
-      avatars[id] = AvatarData.create({ id })
+      avatars[id] = AvatarData.create({ id }, this.game)
     }
     return avatars[id] || false
   }

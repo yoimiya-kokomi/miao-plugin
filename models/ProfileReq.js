@@ -2,20 +2,21 @@ import Base from './Base.js'
 import fetch from 'node-fetch'
 
 export default class ProfileReq extends Base {
-  constructor (e) {
+  constructor (e, game = 'gs') {
     super()
     this.e = e
+    this.game = game
     this.uid = e.uid
   }
 
-  static create (e) {
+  static create (e, game = 'gs') {
     if (!e || !e.uid) {
       return false
     }
     if (e.uid * 1 < 100000005) {
       return false
     }
-    return new ProfileReq(e)
+    return new ProfileReq(e, game)
   }
 
   async setCd (seconds = 60) {
@@ -67,10 +68,10 @@ export default class ProfileReq extends Base {
     let self = this
     this.serv = serv
     let uid = this.uid
-    let reqParam = await serv.getReqParam(uid)
+    let reqParam = await serv.getReqParam(uid, self.game)
     let cdTime = await this.inCd()
     if (cdTime && !process.argv.includes('web-debug')) {
-      return this.err(`请求过快，请${cdTime}秒后重试..`)
+      // return this.err(`请求过快，请${cdTime}秒后重试..`)
     }
     await this.setCd(20)
     // 若3秒后还未响应则返回提示
@@ -107,7 +108,7 @@ export default class ProfileReq extends Base {
       self._isReq = false
       data = {}
     }
-    data = await serv.response(data, this)
+    data = await serv.response(data, this, self.game)
     // 设置CD
     cdTime = serv.getCdTime(data)
     if (cdTime) {

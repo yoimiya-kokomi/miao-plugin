@@ -18,7 +18,8 @@ let DmgCalc = {
       attr, // 属性
       level, // 面板数据
       enemyLv, // 敌人等级
-      showDetail = false // 是否展示详情
+      showDetail = false, // 是否展示详情
+      game
     } = data
     let calc = ds.calc
 
@@ -64,20 +65,27 @@ let DmgCalc = {
 
     // 防御区
     let defNum = (level + 100) / ((level + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore))
+    if (game === 'sr') {
+      defNum = (200 + level * 10) / ((200 + level * 10) + (200 + enemyLv * 10) * (1 - enemyDef) * (1 - enemyIgnore))
+    }
 
     // 抗性区
     let kx = attr.kx
-    if (ele === 'swirl') {
-      kx = attr.fykx
-    }
-    kx = 10 - (kx || 0)
     let kNum = 0.9
-    if (kx >= 75) {
-      kNum = 1 / (1 + 3 * kx / 100)
-    } else if (kx >= 0) {
-      kNum = (100 - kx) / 100
+    if (game === 'sr') {
+      kNum = (1 + (kx / 100)) * 0.9
     } else {
-      kNum = 1 - kx / 200
+      if (ele === 'swirl') {
+        kx = attr.fykx
+      }
+      kx = 10 - (kx || 0)
+      if (kx >= 75) {
+        kNum = 1 / (1 + 3 * kx / 100)
+      } else if (kx >= 0) {
+        kNum = (100 - kx) / 100
+      } else {
+        kNum = 1 - kx / 200
+      }
     }
 
     cpctNum = Math.max(0, Math.min(1, cpctNum))
@@ -144,12 +152,16 @@ let DmgCalc = {
     return ret
   },
   getDmgFn (data) {
-    let { showDetail, attr, ds } = data
+    let { showDetail, attr, ds, game } = data
     let { calc } = ds
 
     let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = 'talent') {
       if (ele) {
         ele = erTitle[ele] || ele
+      }
+      if (game === 'sr') {
+        // 星铁meta数据天赋为百分比前数字
+        pctNum = pctNum * 100
       }
       return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode }, data)
     }
