@@ -40,7 +40,6 @@ const MysAvatar = {
   /**
    * 更新米游社角色信息
    * @param player
-   * @param mys
    * @param force
    * @returns {Promise<boolean>}
    */

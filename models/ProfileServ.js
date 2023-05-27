@@ -31,14 +31,15 @@ export default class ProfileServ extends Base {
   }
 
   // 请求当前面板服务
-  async getReqParam (uid) {
+  async getReqParam (uid, game = 'gs') {
     let url = this.getCfg('url')
     let profileApi = this.getCfg('listApi')
     let cfg = this._cfg
     let api = profileApi({
       url,
       uid: uid,
-      diyCfg: this.diyCfg
+      diyCfg: this.diyCfg,
+      game
     })
     let param = {}
 
@@ -53,11 +54,11 @@ export default class ProfileServ extends Base {
     }
   }
 
-  async response (data, req) {
+  async response (data, req, game = 'gs') {
     // 处理返回
     let cfg = this._cfg
     if (cfg.response) {
-      return await cfg.response.call(this, data, req)
+      return await cfg.response.call(this, data, req, game)
     }
   }
 

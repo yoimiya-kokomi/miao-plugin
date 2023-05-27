@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="#"/>
-    <link rel="preload" href="{{_miao_path}}common/font/HYWH-65W.woff" as="font" type="font/woff">
-    <link rel="preload" href="{{_miao_path}}common/font/NZBZ.woff" as="font" type="font/woff">
-    <link rel="preload" href="{{_miao_path}}common/font/tttgbnumber.woff" as="font" type="font/woff">
-    <link rel="stylesheet" type="text/css" href="{{_miao_path}}common/common.css"/>
-    <title>miao-plugin</title>
-    {{block 'css'}}
-    {{/block}}
-  </head>
-  <body class="elem-{{element||elem||`hydro`}} {{displayMode || mode || `default`}}-mode {{bodyClass}}" {{sys.scale}}>
-    <div class="container elem-bg" id="container">
-      {{block 'main'}}{{/block}}
-      <div class="copyright">{{@copyright || sys?.copyright}}</div>
-    </div>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" href="#"/>
+  <link rel="preload" href="{{_miao_path}}common/font/HYWH-65W.woff" as="font" type="font/woff">
+  <link rel="preload" href="{{_miao_path}}common/font/NZBZ.woff" as="font" type="font/woff">
+  <link rel="preload" href="{{_miao_path}}common/font/tttgbnumber.woff" as="font" type="font/woff">
+  <link rel="stylesheet" type="text/css" href="{{_miao_path}}common/common.css"/>
+  <title>miao-plugin</title>
+  {{block 'css'}}
+  {{/block}}
+</head>
+{{set elemCls = {火:'pyro',冰:'cryo',风:'anemo',雷:'electro',量子:'electro',虚数:'geo',物理:'hydro', }[element||elem] || element || elem || 'hydro' }}
+<body class="elem-{{elemCls}} {{displayMode || mode || `default`}}-mode {{bodyClass}}" {{sys.scale}}>
+<div class="container elem-bg" id="container">
+  {{block 'main'}}{{/block}}
+  <div class="copyright">{{@copyright || sys?.copyright}}</div>
+</div>
+</body>
 </html>

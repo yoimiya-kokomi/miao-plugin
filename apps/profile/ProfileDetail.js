@@ -1,11 +1,13 @@
 import lodash from 'lodash'
 import { getTargetUid, getProfileRefresh } from './ProfileCommon.js'
 import ProfileList from './ProfileList.js'
-import { Cfg, Common, Format } from '#miao'
+import { Cfg, Common, Data, Format } from '#miao'
 import { MysApi, ProfileRank, ProfileArtis, Character, Weapon } from '#miao.models'
 import ProfileChange from './ProfileChange.js'
 import { profileArtis } from './ProfileArtis.js'
 import { ProfileWeapon } from './ProfileWeapon.js'
+
+let { diyCfg } = await Data.importCfg('profile')
 
 // 查看当前角色
 let ProfileDetail = {
@@ -26,8 +28,12 @@ let ProfileDetail = {
         e.reply('面板替换功能已禁用...')
         return true
       }
+      if (pc.game === 'sr') {
+        e.reply('星铁面板暂不支持面板替换，请等待后续升级...')
+        return true
+      }
       e.uid = pc.uid || e.runtime.uid
-      profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change)
+      profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change, pc.game)
       if (profileChange && profileChange.char) {
         msg = `#${profileChange.char?.name}${pc.mode || '面板'}`
         e._profile = profileChange
@@ -40,7 +46,7 @@ let ProfileDetail = {
       msg = msg.replace(uidRet[0], '')
     }
 
-    let name = msg.replace(/#|老婆|老公/g, '').trim()
+    let name = msg.replace(/#|老婆|老公|星铁|原神/g, '').trim()
     msg = msg.replace('面版', '面板')
     let dmgRet = /(?:伤害|武器)(\d?)$/.exec(name)
     let dmgIdx = 0
@@ -71,6 +77,9 @@ let ProfileDetail = {
     let char = Character.get(name.trim())
     if (!char) {
       return false
+    }
+    if (/星铁/.test(msg) || char.isSr) {
+      e.isSr = true
     }
 
     let uid = e.uid || await getTargetUid(e)
@@ -128,33 +137,39 @@ let ProfileDetail = {
     let a = profile.attr
     let base = profile.base
     let attr = {}
-    lodash.forEach(['hp', 'def', 'atk', 'mastery'], (key) => {
+    let game = char.game
+    let isGs = game === 'gs'
+
+    lodash.forEach((isGs ? 'hp,def,atk,mastery' : 'hp,def,atk,speed').split(','), (key) => {
       let fn = (n) => Format.comma(n, key === 'hp' ? 0 : 1)
       attr[key] = fn(a[key])
       attr[`${key}Base`] = fn(base[key])
       attr[`${key}Plus`] = fn(a[key] - base[key])
     })
-    lodash.forEach(['cpct', 'cdmg', 'recharge', 'dmg'], (key) => {
+    lodash.forEach((isGs ? 'cpct,cdmg,recharge,dmg' : 'cpct,cdmg,recharge,dmg,effPct,stance').split(','), (key) => {
       let fn = Format.pct
       let key2 = key
-      if (key === 'dmg' && a.phy > a.dmg) {
-        key2 = 'phy'
+      if (key === 'dmg') {
+        if (isGs) {
+          if (a.phy > a.dmg) {
+            key2 = 'phy'
+          }
+        }
       }
       attr[key] = fn(a[key2])
       attr[`${key}Base`] = fn(base[key2])
       attr[`${key}Plus`] = fn(a[key2] - base[key2])
     })
 
-    let weapon = Weapon.get(profile.weapon.name)
+    let weapon = Weapon.get(profile.weapon.name, game)
     let w = profile.weapon
     let wCfg = {}
     if (mode === 'weapon') {
       wCfg = weapon.calcAttr(w.level, w.promote)
-      wCfg.info = weapon.getAffixInfo(weapon.affix)
       wCfg.weapons = await ProfileWeapon.calc(profile)
     }
 
-    let enemyLv = await selfUser.getCfg('char.enemyLv', 91)
+    let enemyLv = isGs ? (await selfUser.getCfg('char.enemyLv', 91)) : profile.level
     let dmgCalc = await ProfileDetail.getProfileDmgCalc({ profile, enemyLv, mode, params })
 
     let rank = false
@@ -164,11 +179,14 @@ let ProfileDetail = {
     }
 
     let artisDetail = profile.getArtisMark()
-    let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
+    let artisKeyTitle = ProfileArtis.getArtisKeyTitle(game)
+    let data = profile.getData('name,abbr,cons,level,talent,dataSource,updateTime,imgs,costumeSplash')
+    data.weapon = profile.getWeaponDetail()
     let renderData = {
       save_id: uid,
       uid,
-      data: profile.getData('name,abbr,cons,level,weapon,talent,dataSource,updateTime,imgs,costumeSplash'),
+      game,
+      data,
       attr,
       elem: char.elem,
       dmgCalc,
@@ -201,8 +219,10 @@ let ProfileDetail = {
     })
     if (dmgCalc && dmgCalc.ret) {
       lodash.forEach(dmgCalc.ret, (ds) => {
-        ds.dmg = Format.comma(ds.dmg, 0)
-        ds.avg = Format.comma(ds.avg, 0)
+        if (ds.type !== 'text') {
+          ds.dmg = Format.comma(ds.dmg, 0)
+          ds.avg = Format.comma(ds.avg, 0)
+        }
         dmgData.push(ds)
       })
       lodash.forEach(dmgCalc.msg, (msg) => {

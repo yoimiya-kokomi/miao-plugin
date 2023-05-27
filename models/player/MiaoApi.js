@@ -10,9 +10,12 @@ export default {
     api = this.getCfg('api') || api
     return { api }
   },
-  async response (data, req) {
+  async response (data, req, game = 'gs') {
     if (data.status !== 0) {
       return req.err(data.msg || 'error', 60)
+    }
+    if (game === 'sr') {
+      return data.data
     }
     if (data.version === 2) {
       data = data.data || {}
@@ -22,32 +25,18 @@ export default {
       data.version = 2
       return data
     } else {
-      data = data.data || {}
-      if (!data.showAvatarInfoList || data.showAvatarInfoList.length === 0) {
-        return req.err('empty', 5 * 60)
-      }
-      return data
+      return req.err('empty', 5 * 60)
     }
   },
 
   updatePlayer (player, data) {
-    if (data.version === 2) {
-      player.setBasicData(data)
-      lodash.forEach(data.avatars, (avatar) => {
-        let ret = MiaoData.setAvatarNew(player, avatar)
-        if (ret) {
-          player._update.push(ret.id)
-        }
-      })
-    } else {
-      player.setBasicData(Data.getData(data, 'name:nickname,face:profilePicture.avatarId,card:nameCardID,level,word:worldLevel,sign:signature'))
-      lodash.forEach(data.showAvatarInfoList, (ds) => {
-        let ret = MiaoData.setAvatar(player, ds)
-        if (ret) {
-          player._update.push(ret.id)
-        }
-      })
-    }
+    player.setBasicData(data)
+    lodash.forEach(data.avatars, (avatar) => {
+      let ret = MiaoData.setAvatar(player, avatar)
+      if (ret) {
+        player._update.push(ret.id)
+      }
+    })
   },
 
   // 获取冷却时间
