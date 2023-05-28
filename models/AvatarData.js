@@ -168,6 +168,9 @@ export default class AvatarData extends Base {
     let ret = {
       ...this.weapon
     }
+    if (!ret.id) {
+      return {}
+    }
     let wData = Weapon.get(ret.id, this.game)
     ret.splash = wData.imgs.gacha
     let attrs = wData.calcAttr(ret.level, ret.promote)

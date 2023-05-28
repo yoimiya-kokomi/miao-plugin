@@ -158,7 +158,13 @@ class AttrCalc {
    */
   setWeaponAttr () {
     let wData = this.profile?.weapon || {}
+    if (!wData || !wData.name) {
+      return false
+    }
     let weapon = Weapon.get(wData?.name || wData?.id, this.game)
+    if (!weapon) {
+      return false
+    }
     let wCalcRet = weapon.calcAttr(wData.level, wData.promote)
     let self = this
 
