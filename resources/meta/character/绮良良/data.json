@@ -10,8 +10,8 @@
   "birth": "1-22",
   "astro": "箱筥座",
   "desc": "稻妻快递公司「狛荷屋」的送货员，一只热爱自己工作、向往人类社会的「猫又」。",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "cncv": "孙艳琦",
+  "jpcv": "铃代纱弓",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -23,7 +23,11 @@
     "key": "hpPct",
     "value": 24
   },
-  "talentId": {},
+  "talentId": {
+    "10611": "a",
+    "10612": "e",
+    "10615": "q"
+  },
   "talentCons": {
     "e": 3,
     "q": 5
