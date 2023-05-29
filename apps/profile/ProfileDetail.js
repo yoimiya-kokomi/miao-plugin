@@ -161,7 +161,7 @@ let ProfileDetail = {
       attr[`${key}Plus`] = fn(a[key2] - base[key2])
     })
 
-    let weapon = Weapon.get(profile.weapon.name, game)
+    let weapon = Weapon.get(profile?.weapon?.name, game)
     let w = profile.weapon
     let wCfg = {}
     if (mode === 'weapon') {

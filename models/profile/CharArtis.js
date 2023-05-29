@@ -24,7 +24,7 @@ const CharArtis = {
         }
         return false
       }
-      let wn = weapon.name
+      let wn = weapon?.name || ''
 
       // 增加攻击力或直接伤害类武器判定
       const weaponCfg = {

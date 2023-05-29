@@ -112,6 +112,7 @@
   <!-- 【 武器+圣遗物列表】 -->
   <div>
     {{if game === 'sr'}}
+    {{if weapon && weapon.name}}
     <div class="sr-weapon">
       <div class="weapon-img" style="background-image:url({{_res_path}}{{weapon.splash}})"></div>
       <div class="weapon-info">
@@ -129,6 +130,7 @@
         <div class="weapon-desc">{{@weapon.desc?.desc}}</div>
       </div>
     </div>
+    {{/if}}
     {{/if}}
     {{if mode === "profile"}}
     {{set ad = artisDetail}}
