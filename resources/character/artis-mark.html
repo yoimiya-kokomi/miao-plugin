@@ -33,10 +33,10 @@
 
 
 <div class="artis">
-  <% for(let idx = 1; idx<=5; idx++) {
+  <% for(let idx = 1; idx<=(game==='gs'?5:6); idx++) {
   let ds = ad?.artis[idx]
   %>
-  {{if idx === 1 }}
+  {{if idx === 1 && game === 'gs'}}
   <div class="item no-bg"></div>
   {{/if}}
   <div class="item arti {{idx}}">
@@ -77,16 +77,17 @@
            *{{( 66 / (46.6/6/100 * charCfg.posMaxMark[idx]) * 100).toFixed(1)}}%
         </span>
       </li>
-      {{if idx>2}}
+      {{if idx>2 || game==='sr' }}
       <li>
         <span class="title">最优主词缀</span>
         <span class="val">
+          {{if game==='sr' && idx<=2 }} - {{else}}
           {{if ds.main.title === '充能效率'}}
           *100%
           {{else}}
           {{set mainWeight = charCfg?.attrs[ds.main?.key===data.elem?'dmg':ds.main?.key]?.weight || 0}}
          *{{(50  +  50 * mainWeight / charCfg.posMaxMark["m"+idx] ).toFixed(0)}}%
-          {{/if}}
+          {{/if}}{{/if}}
         </span>
       </li>
       {{/if}}
@@ -158,12 +159,22 @@
   </div>
   <div class="cont-table mark-table">
     <div class="tr thead">
+
       <div class="th">位置</div>
+      {{if game === 'sr'}}
       <div>生之花</div>
       <div>死之羽</div>
       <div>时之沙</div>
       <div>空之杯</div>
       <div>理之冠</div>
+      {{else}}
+      <div>帽子</div>
+      <div>手套</div>
+      <div>衣服</div>
+      <div>靴子</div>
+      <div>球</div>
+      <div>绳</div>
+      {{/if}}
     </div>
     <div class="tr">
       <div class="th">最高分(对齐前)</div>

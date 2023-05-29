@@ -17,6 +17,7 @@ let DmgBuffs = {
     let mKey2 = {
       aggravate: '超激化'
     }
+    buffs = lodash.filter(buffs, (b) => !!b)
     lodash.forEach(buffs, (buff, idx) => {
       if (lodash.isString(buff)) {
         if (mKey[buff]) {

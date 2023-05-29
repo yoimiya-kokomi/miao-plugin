@@ -138,10 +138,13 @@ class Artifact extends Base {
         console.log('not found attr', ds, _ds)
         return true
       }
+      let value = attrCfg?.base * ds.count + attrCfg.step * ds.step
       attrs.push({
         ...ds,
         key: attrCfg?.key,
-        value: attrCfg?.base * ds.count + attrCfg.step * ds.step
+        upNum: ds.count,
+        eff: value / (attrCfg.base + attrCfg.step * 2),
+        value
       })
     })
     return {
