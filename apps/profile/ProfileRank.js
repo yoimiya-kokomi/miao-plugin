@@ -122,12 +122,13 @@ export async function refreshRank (e) {
     return true
   }
   e.reply('面板数据刷新中，等待时间可能较长，请耐心等待...')
+  let game = e.isSr ? 'sr' : 'gs'
   await ProfileRank.resetRank(groupId)
-  let groupUids = await Common.getGroupUids(e)
+  let groupUids = await Common.getGroupUids(e, game)
   let count = 0
   for (let qq in groupUids) {
     for (let { uid, type } of groupUids[qq]) {
-      let player = new Player(uid)
+      let player = new Player(uid, game)
       let profiles = player.getProfiles()
       // 刷新rankLimit
       await ProfileRank.setUidInfo({ uid, profiles, qq, uidType: type })
