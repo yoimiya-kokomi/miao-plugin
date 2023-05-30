@@ -1,8 +1,15 @@
 import lodash from 'lodash'
 import { Format } from '#miao'
-import { attrNameMap, mainAttr, subAttr, attrMap } from '../../resources/meta/artifact/index.js'
 import {
-  attrMap as attrMapSR
+  attrNameMap,
+  mainAttr as mainAttrGS,
+  subAttr as subAttrGS,
+  attrMap as attrMapGS
+} from '../../resources/meta/artifact/index.js'
+import {
+  attrMap as attrMapSR,
+  mainAttr as mainAttrSR,
+  subAttr as subAttrSR
 } from '../../resources/meta-sr/artifact/meta.js'
 
 let ArtisMark = {
@@ -14,12 +21,13 @@ let ArtisMark = {
     } else if (title === '物理伤害加成') {
       return 'phy'
     }
-    return (game === 'gs' ? attrNameMap : attrMap)[title]
+    return attrNameMap[title] || attrMapGS[title]
   },
 
   getKeyTitleMap (game = 'gs') {
     let ret = {}
-    lodash.forEach(game === 'gs' ? attrMap : attrMapSR, (ds, key) => {
+    let attrMap = game === 'gs' ? attrMapGS : attrMapSR
+    lodash.forEach(attrMap, (ds, key) => {
       ret[key] = ds.title
     })
     Format.eachElem((key, name) => {
@@ -77,7 +85,7 @@ let ArtisMark = {
     if (!key || key === 'undefined') {
       return {}
     }
-    let arrCfg = (game === 'gs' ? attrMap : attrMapSR)[isDmg ? 'dmg' : key]
+    let arrCfg = (game === 'gs' ? attrMapGS : attrMapSR)[isDmg ? 'dmg' : key]
     val = Format[arrCfg?.format || 'comma'](val, 1)
     let ret = {
       key,
@@ -95,7 +103,7 @@ let ArtisMark = {
       ret.mark = Format.comma(mark || 0)
       ret._mark = mark || 0
     }
-    ret.eff = ret.eff ? Format.comma(ret.eff / 0.85, 1) : '-'
+    ret.eff = ret.eff ? Format.comma(ret.eff / (game === 'gs' ? 0.85 : 0.9), 1) : '-'
     return ret
   },
 
@@ -112,14 +120,11 @@ let ArtisMark = {
 
   // 获取位置分数
   getMark ({ charCfg, idx, arti, elem = '', game = 'gs' }) {
-    if (game === 'sr') {
-      return 0
-    }
     let ret = 0
-    let mainAttr = arti.main
-    let subAttr = arti.attrs
+    let mAttr = arti.main
+    let sAttr = arti.attrs
     let { attrs, posMaxMark } = charCfg
-    let key = mainAttr?.key
+    let key = mAttr?.key
     if (!key) {
       return 0
     }
@@ -128,24 +133,27 @@ let ArtisMark = {
     if (idx >= 3) {
       let mainKey = key
       if (key !== 'recharge') {
-        if (idx === 4 && Format.isElem(key) && key === elem) {
+        let dmgIdx = { gs: 4, sr: 5 }
+        if (idx === dmgIdx[game] && Format.sameElem(elem, key, game)) {
           mainKey = 'dmg'
         }
         fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + idx])))
       }
-      ret += (attrs[mainKey]?.mark || 0) * (mainAttr.value || 0) / 4
+      ret += (attrs[mainKey]?.mark || 0) * (mAttr.value || 0) / 4
     }
 
-    lodash.forEach(subAttr, (ds) => {
+    lodash.forEach(sAttr, (ds) => {
       ret += (attrs[ds.key]?.mark || 0) * (ds.value || 0)
     })
     return ret * (1 + fixPct) / 2 / posMaxMark[idx] * 66
   },
 
   // 获取位置最高分
-  getMaxMark (attrs) {
+  getMaxMark (attrs, game = 'gs') {
     let ret = {}
-    for (let idx = 1; idx <= 5; idx++) {
+    let mainAttr = game === 'gs' ? mainAttrGS : mainAttrSR
+    let subAttr = game === 'gs' ? subAttrGS : subAttrSR
+    for (let idx = 1; idx <= (game === 'gs' ? 5 : 6); idx++) {
       let totalMark = 0
       let mMark = 0
       let mAttr = ''
@@ -184,7 +192,7 @@ let ArtisMark = {
     return ret.slice(0, maxLen)
   },
 
-  hasAttr (artis) {
+  hasAttr (artis, game = 'gs') {
     for (let idx = 1; idx <= 5; idx++) {
       let ds = artis[idx]
       if (ds) {

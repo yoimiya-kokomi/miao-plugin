@@ -6,7 +6,8 @@ import AvatarArtis from './AvatarArtis.js'
 import { Artifact, ArtifactSet, Character } from './index.js'
 import { Format } from '../components/index.js'
 import ArtisMark from './profile/ArtisMark.js'
-import { attrMap } from '../resources/meta/artifact/index.js'
+import { attrMap as attrMapGS } from '../resources/meta/artifact/index.js'
+import { attrMap as attrMapSR } from '../resources/meta-sr/artifact/index.js'
 import CharArtis from './profile/CharArtis.js'
 
 export default class ProfileArtis extends AvatarArtis {
@@ -29,9 +30,11 @@ export default class ProfileArtis extends AvatarArtis {
    */
   getCharCfg () {
     let char = Character.get(this.charid)
+    let { game, isGs } = char
     let { attrWeight, title } = CharArtis.getCharArtisCfg(char, this.profile, this)
     let attrs = {}
     let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
+    let attrMap = isGs ? attrMapGS : attrMapSR
     lodash.forEach(attrMap, (attr, key) => {
       let k = attr.base || ''
       let weight = attrWeight[k || key]
@@ -53,7 +56,7 @@ export default class ProfileArtis extends AvatarArtis {
       }
       attrs[key] = ret
     })
-    let posMaxMark = ArtisMark.getMaxMark(attrs)
+    let posMaxMark = ArtisMark.getMaxMark(attrs, game)
     // 返回内容待梳理简化
     return {
       attrs,
@@ -116,10 +119,6 @@ export default class ProfileArtis extends AvatarArtis {
     let ret = {
       mark: Format.comma(totalMark, 1),
       _mark: totalMark,
-      /* crit: Format.comma(totalCrit, 1),
-      _crit: totalCrit,
-      valid: Format.comma(totalVaild, 1),
-      _valid: totalVaild, */
       markClass: ArtisMark.getMarkClass(totalMark / 5),
       artis,
       sets,

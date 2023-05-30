@@ -21,6 +21,7 @@ export async function profileArtis (e) {
     return true
   }
   let char = profile.char
+  let { game } = char
   let charCfg = profile.artis.getCharCfg()
 
   let { attrMap } = Artifact.getMeta()
@@ -39,6 +40,7 @@ export async function profileArtis (e) {
     artisKeyTitle,
     attrMap,
     charCfg,
+    game,
     changeProfile: e._profileMsg
   }, { e, scale: 1.3 })
 }
