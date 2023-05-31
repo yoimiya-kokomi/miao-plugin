@@ -5,18 +5,11 @@
 {{/block}}
 
 {{block 'main'}}
+
 <div class="head-box" style="background-image:url('{{_res_path}}{{imgs.card}}')">
   <div class="head">
     <img src="{{_res_path}}{{imgs.qFace||imgs.face}}"/>
   </div>
-  <!-- <div class="head-astro">{{astro}}</div>
-   <div class="head-icon">
-     <img src="{{City}}" />
-     <img src="{{Weapon}}" />
-     <img src="{{Element}}" />
-</div>
--->
-
   <div class="head-detail">
     <div class="name">{{title}}·{{name}}</div>
     <div class="desc">{{@desc}}</div>
@@ -43,12 +36,15 @@
   {{/if}}
 </div>
 
+
 {{if mode == "talent"}}
 
 {{each detail.talent talent type}}
 <div class="talent-box elem-bg">
   <div class="talent-detail cont">
-    <% include(_tpl_path+'/talent-detail.html', [talent, {_res_path,lvs,type,icon:imgs[type]}]) %>
+    {{set minLv = game === 'gs' ? 4 : (type==='a'?1:4) }}
+    {{set maxLv = game === 'gs' ? (type==='a'?11:13) : (type==='a'?9:12)}}
+    <% include(_tpl_path+'/talent-detail.html', [talent, {_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
   </div>
 </div>
 {{/each}}
@@ -56,7 +52,7 @@
 <div class="talent-box elem-bg">
   <div class="talent-detail passive-talent">
     {{each detail.passive pass idx}}
-    <% include(_tpl_path+'/talent-detail.html', [pass, {_res_path,icon:imgs['passive'+idx]}]) %>
+    <% include(_tpl_path+'/talent-detail.html', [pass, {_res_path,icon:imgs['passive'+idx],game}]) %>
     {{/each}}
   </div>
 </div>
@@ -66,7 +62,7 @@
 <div class="talent-box elem-bg">
   <div class="talent-detail">
     {{each detail.cons con idx}}
-    <% include(_tpl_path+'/talent-detail.html', [con, {_res_path,lvs,type,icon:imgs['cons'+idx]}]) %>
+    <% include(_tpl_path+'/talent-detail.html', [con, {_res_path,lvs,type,icon:imgs['cons'+idx],game}]) %>
     {{/each}}
   </div>
 </div>

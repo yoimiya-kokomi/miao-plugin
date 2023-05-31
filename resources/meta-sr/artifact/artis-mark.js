@@ -5,7 +5,7 @@
 export const usefulAttr = {
   景元: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   希儿: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
-  布洛妮娅: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
+  布洛妮娅: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 75, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
   杰帕德: { hp: 50, atk: 0, def: 100, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 100, effPct: 50, effDef: 50, dmg: 0 },
   姬子: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 50, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   瓦尔特: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
@@ -15,7 +15,7 @@ export const usefulAttr = {
   三月七: { hp: 50, atk: 0, def: 100, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 100, effPct: 50, effDef: 50, dmg: 0 },
   丹恒: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   阿兰: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
-  艾丝妲: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 75, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
+  艾丝妲: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 75, cdmg: 75, stance: 100, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
   黑塔: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   希露瓦: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   娜塔莎: { hp: 100, atk: 0, def: 50, speed: 75, cpct: 0, cdmg: 0, stance: 0, heal: 100, recharge: 75, effPct: 0, effDef: 50, dmg: 0 },

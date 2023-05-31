@@ -14,21 +14,20 @@ const Common = {
     console.log('down file')
   },
 
-  async getNoteQQUids (e) {
+  async getNoteQQUids (e, game='gs') {
     let ret = {}
     if (Version.isV3) {
       if (e.runtime) {
-        let noteCks = await e.runtime?.gsCfg?.getBingCk() || {}
-        lodash.forEach(noteCks, (cks, qq) => {
-          lodash.forEach(cks, (ck) => {
-            let { qq, uid } = ck
-            if (qq && uid) {
-              ret[qq] = ret[qq] || []
-              if (!ret[qq].includes(uid)) {
-                ret[qq].push(uid)
-              }
+        let noteCks = await e.runtime?.gsCfg?.getBingCk(game) || {}
+        lodash.forEach(noteCks.ck, (ck, _qq) => {
+          let qq = ck.qq || _qq
+          let uid = ck.uid
+          if (qq && uid) {
+            ret[qq] = ret[qq] || []
+            if (!ret[qq].includes(uid)) {
+              ret[qq].push(uid)
             }
-          })
+          }
         })
       }
     } else {
@@ -43,7 +42,11 @@ const Common = {
     return ret
   },
 
-  async getBindUid (qq) {
+  async getBindUid (qq, runtime, game = 'gs') {
+    if (Version.isMiao && runtime.NoteUser) {
+      let user = await runtime.NoteUser.create(qq)
+      return user ? user.getUid(game) : false
+    }
     if (Version.isV3) {
       return await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
     } else {
@@ -51,9 +54,9 @@ const Common = {
     }
   },
 
-  async getGroupUids (e) {
+  async getGroupUids (e, game = 'gs') {
     // 获取ck用户列表
-    let noteUids = await Common.getNoteQQUids(e)
+    let noteUids = await Common.getNoteQQUids(e, game)
     let ret = {}
     let uidMap = {}
 
@@ -78,7 +81,7 @@ const Common = {
       if (ret[qq]) {
         continue
       }
-      let uid = await Common.getBindUid(qq)
+      let uid = await Common.getBindUid(qq, e.runtime, game)
       if (uid && !uidMap[uid]) {
         ret[qq] = [{
           uid,
