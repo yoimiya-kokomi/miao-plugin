@@ -218,6 +218,13 @@ export default function (step, staticStep) {
         dmg: ({ refine }) => step(12)[refine],
         a2Plus: ({ attr, calc, refine }) => calc(attr.mastery) * step(160)[refine] / 100
       }
+    },
+
+    鹮穿之喙: {
+      title: '重击命中敌人2层提高元素精通[mastery]点',
+      data: {
+        mastery: step(80)
+      }
     }
 
   }

@@ -24,7 +24,7 @@ app.reg({
     desc: '【#统计】 #深渊出场率 #深渊12层出场率'
   },
   abyssTeam: {
-    rule: /#深渊(组队|配队)/,
+    rule: /^#深渊(组队|配队)/,
     fn: AbyssTeam,
     describe: '【#角色】 #深渊组队'
   },
