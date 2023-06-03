@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import moment from 'moment'
-import { Cfg, Common, Data } from '#miao'
+import { Cfg, Common, Data, Version } from '#miao'
 
 export default class ProfileRank {
   constructor (data) {
@@ -69,7 +69,7 @@ export default class ProfileRank {
    * @param charId
    * @returns {Promise<void>}
    */
-  static async resetRank (groupId, groupMemList, charId = '') {
+  static async resetRank (groupId, charId = '') {
     let keys = await redis.keys(`miao:rank:${groupId}:*`)
     for (let key of keys) {
       let charRet = /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key)
@@ -186,6 +186,77 @@ export default class ProfileRank {
     } catch (e) {
     }
     return false
+  }
+
+  static async getUserUidMap (e, game = 'gs') {
+    let rn = e.runtime
+    let groupMemMap = await e.group?.getMemberMap() || []
+    let users = {}
+    for (let [qq] of groupMemMap) {
+      users[qq] = true
+    }
+
+    let uidMap = {}
+    let qqMap = {}
+    let add = (qq, uid, type) => {
+      if (!uidMap || type === 'ck') {
+        uidMap[uid] = { uid, qq, type: type === 'ck' ? 'ck' : 'bind' }
+      }
+      qqMap[qq] = true
+    }
+
+    let keys = await redis.keys('miao:rank:uid-info:*')
+    for (let key of keys) {
+      let data = await Data.redisGet(key)
+      let { qq, uidType } = data
+      if (!users[qq]) continue
+      let uidRet = /miao:rank:uid-info:(\d{9})/.exec(key)
+      if (qq && uidType && uidRet?.[1]) {
+        add(qq, uidRet[1], uidType === 'ck' ? 'ck' : 'bind')
+      }
+    }
+
+    if (rn.NoteUser) {
+      // Miao-Yunzai
+      await rn.NoteUser.forEach(async (user) => {
+        if (!users[user.qq]) return true
+        let uids = user.getUidList(game)
+        lodash.forEach(uids, (ds) => {
+          let { uid, type } = ds
+          add(user.qq, uid, type)
+        })
+      })
+    } else if (Version.isV3) {
+      if (rn?.gsCfg?.getBingCk) {
+        // Yunzai-V3
+        let noteCks = await rn.gsCfg.getBingCk(game) || {}
+        lodash.forEach(noteCks.ck, (ck, _qq) => {
+          let qq = ck.qq || _qq
+          let uid = ck.uid
+          if (!users[qq]) return true
+          add(qq, uid, 'ck')
+        })
+      }
+    } else {
+      // V2
+      lodash.forEach(global.NoteCookie || {}, (ck) => {
+        const { qq, uid } = ck
+        if (!users[qq]) return true
+        if (qq && uid) {
+          add(qq, uid, 'ck')
+        }
+      })
+    }
+
+    for (let qq in users) {
+      if (qqMap[qq]) continue
+      let uid = await redis.get(Version.isV3 ? `Yz:genshin:mys:qq-uid:${qq}` : `genshin:id-uid:${qq}`)
+      if (uid) {
+        add(qq, uid, 'bind')
+      }
+    }
+
+    return uidMap
   }
 
   /**
@@ -347,4 +418,6 @@ export default class ProfileRank {
     }
     return false
   }
+
+
 }
