@@ -7,7 +7,7 @@
 import fetch from 'node-fetch'
 import { Data } from '#miao'
 
-const host = 'http://49.232.91.210/api/hutao'
+const host = 'http://miao.games/api/hutao'
 
 function getApi (api) {
   return `${host}?api=${api}`

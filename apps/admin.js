@@ -2,6 +2,7 @@ import fs from 'fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
 import { Cfg, Common, Data, Version, App } from '#miao'
+import fetch from 'node-fetch'
 
 let keys = lodash.map(Cfg.getCfgSchemaMap(), (i) => i.key)
 let app = App.init({
@@ -27,6 +28,11 @@ app.reg({
     rule: sysCfgReg,
     fn: sysCfg,
     desc: '【#管理】系统设置'
+  },
+  miaoApiInfo: {
+    rune: /^#喵喵api/i,
+    fn: miaoApiInfo,
+    desc: '【#管理】喵喵Api'
   }
 })
 
@@ -175,4 +181,24 @@ async function updateMiaoPlugin (e) {
     }, 1000)
   })
   return true
+}
+
+async function miaoApiInfo (e) {
+  if (!await checkAuth(e)) {
+    return true
+  }
+  let { diyCfg } = await Data.importCfg('profile')
+  let { qq, token } = (diyCfg?.miaoApi || {})
+  if (!qq || !token) {
+    return e.reply('未正确填写miaoApi token，请检查miao-plugin/config/profile.js文件')
+  }
+  if (token.length !== 32) {
+    return e.reply('miaoApi token格式错误')
+  }
+  let req = await fetch(`http://miao.games/api/info?qq=${qq}&token=${token}`)
+  let data = await req.json()
+  if (data.status !== 0) {
+    return e.reply('token检查错误，请求失败')
+  }
+  e.reply(data.msg)
 }
