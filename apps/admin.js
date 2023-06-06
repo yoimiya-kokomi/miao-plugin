@@ -30,7 +30,7 @@ app.reg({
     desc: '【#管理】系统设置'
   },
   miaoApiInfo: {
-    rune: /^#喵喵api/i,
+    rule: /^#喵喵api/,
     fn: miaoApiInfo,
     desc: '【#管理】喵喵Api'
   }
