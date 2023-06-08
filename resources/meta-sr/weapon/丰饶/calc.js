@@ -30,6 +30,10 @@ export default function (staticIdx, keyIdx) {
       keyIdx('释放战技与终结技时，治疗量提高[eHeal]%', { eHeal: 1, qHeal: 1 })
     ],
     等价交换: [],
-    蕃息: []
+    蕃息: [],
+    棺的回响: [
+      staticIdx(1, 'atkPct'),
+      keyIdx('释放终结技后，速度提升[speed]', 'speed', 3)
+    ]
   }
 }

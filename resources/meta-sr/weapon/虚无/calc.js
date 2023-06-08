@@ -30,6 +30,14 @@ export default function (staticIdx, keyIdx) {
     ],
     猎物的视线: [
       staticIdx(1, 'effPct')
+    ],
+    新手任务开始前: [
+      staticIdx(1, 'effPct')
+    ],
+    雨一直下: [
+      staticIdx(1, 'effPct'),
+      keyIdx('对大于3个负面效果的敌人提升暴击率[cpct]%', 'cpct', 2),
+      keyIdx('以太编码提升伤害[dmg]%', 'dmg', 3)
     ]
   }
 }

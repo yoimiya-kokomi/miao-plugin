@@ -113,7 +113,7 @@
   "skill": {
     "id": 20019,
     "name": "家族",
-    "desc": "进入战斗时，我方全体速度提高<nobr>$1[i]</nobr>，持续<nobr>1</nobr>回合。",
+    "desc": "进入战斗时，我方全体速度提高<nobr>$1[i]</nobr>点，持续<nobr>1</nobr>回合。",
     "tables": {
       "1": [
         12,
