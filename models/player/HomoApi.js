@@ -42,7 +42,7 @@ export default {
       lodash.forEach(data.avatars, (ds, id) => {
         let ret = HomoData.setAvatar(player, ds)
         if (ret) {
-          player._update.push(ds.AvatarID)
+          player._update.push(ds.avatarId)
         }
       })
     } catch (e) {
