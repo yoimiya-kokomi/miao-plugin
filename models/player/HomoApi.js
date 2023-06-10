@@ -102,7 +102,7 @@ const HomoData = {
         }
         tmp.attrIds.push([s.affixId, s.cnt, s.step || 0].join(','))
       })
-      ret[ds.Type] = tmp
+      ret[ds.type] = tmp
     })
     return ret
   }
