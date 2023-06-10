@@ -64,7 +64,7 @@ const HomoData = {
     }
     let avatar = player.getAvatar(char.id, true)
     let setData = {
-      level: data.Level,
+      level: data.level,
       promote: data.promotion,
       cons: data.rank || 0,
       weapon: Data.getData(data.equipment, 'id:tid,promote:promotion,level,affix:rank'),
