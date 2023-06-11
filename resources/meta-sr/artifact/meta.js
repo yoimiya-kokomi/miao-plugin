@@ -32,10 +32,10 @@ const attrMap = {
   cdmg: { title: '暴击伤害', format: 'pct', calc: 'plus', value: 6.48 },
   recharge: { title: '充能效率', format: 'pct', calc: 'plus', value: 3.11 },
   dmg: { title: '伤害加成', format: 'pct', value: 6.22 },
-  heal: { title: '治疗加成', format: 'pct' },
-  stance: { title: '击破特攻', format: 'pct', value: 6.48 },
-  effPct: { title: '效果命中', format: 'pct', value: 4.32 },
-  effDef: { title: '效果抵抗', format: 'pct', value: 4.32 }
+  heal: { title: '治疗加成', format: 'pct', calc: 'pct' },
+  stance: { title: '击破特攻', format: 'pct', value: 6.48, calc: 'pct' },
+  effPct: { title: '效果命中', format: 'pct', value: 4.32, calc: 'pct' },
+  effDef: { title: '效果抵抗', format: 'pct', value: 4.32, calc: 'pct' }
 }
 
 lodash.forEach(attrMap, (attr, key) => {

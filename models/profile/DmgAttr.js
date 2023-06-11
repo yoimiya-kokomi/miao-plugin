@@ -26,7 +26,7 @@ let DmgAttr = {
       }
     })
 
-    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'speed,recharge,cpct,cdmg,heal,dmg').split(','), (key) => {
+    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'speed,recharge,cpct,cdmg,heal,dmg,effPct,effDef,stance').split(','), (key) => {
       ret[key] = {
         base: attr[key] * 1 || 0, // 基础值
         plus: 0, // 加成值

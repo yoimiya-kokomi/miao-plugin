@@ -7,7 +7,7 @@ import { attrMap as attrMapSR } from '../resources/meta-sr/artifact/index.js'
 import DmgBuffs from './profile/DmgBuffs.js'
 import DmgAttr from './profile/DmgAttr.js'
 import DmgCalc from './profile/DmgCalc.js'
-import {Common, MiaoError} from '#miao'
+import { Common, MiaoError } from '#miao'
 
 export default class ProfileDmg extends Base {
   constructor (profile = {}, game = 'gs') {
