@@ -1,3 +1,6 @@
+// 纳西妲、妮露、艾尔海森、心海
+const team2 = createTeam('海妮心妲', ['纳西妲', '艾尔海森', '心海'])
+
 export const details = [{
   title: '水月伤害',
   params: { sy: true ,team:false},
@@ -30,25 +33,40 @@ export const details = [{
   params: { team:false },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q', '蒸发')
 }, {
-  title: '夜万妮香Q总蒸发伤害',
-  params: { team:true },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q', '蒸发')
-}, {
   title: '丰穰之核伤害',
   params: { bloom:true ,team:false },
   dmg: ({calc, attr}, { reaction }) => {
-      return reaction('bloom')}
+    return reaction('bloom')}
+}, {
+  title: '海妮心二妲·丰穰之核',
+  params: {team: false, bloom: true, ...team2.params},
+  dmg: ({}, {reaction}) => {
+    // 草神二命固定暴击率20%、暴击伤害100%
+    const cpctNum = 20 / 100, cdmgNum = 100 / 100
+    // 计算丰穰之核非暴击伤害
+    const {avg} = reaction('bloom')
+    return {
+      // 暴击伤害
+      dmg: avg * (1 + cdmgNum),
+      // 平均伤害
+      avg: avg * (1 + cpctNum * cdmgNum)
+    }
+  }
+}, {
+  title: '夜万妮香Q总蒸发伤害',
+  params: { team:true },
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q', '蒸发')
 }]
 
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 export const defDmgIdx = 6
 
-
 export const defParams = {
     team:true,
 }
 
-export const buffs = [{check: ({ params }) => params.team === false,
+export const buffs = [{
+  check: ({ params }) => params.team === false || team2.is(params),
   title: '妮露天赋：丰穰之核增伤[bloom]%,元素精通提升100点',
   data: {
     bloom: ({ calc, attr }) => Math.min(400,(calc(attr.hp)-30000)/1000*9),
@@ -61,14 +79,14 @@ export const buffs = [{check: ({ params }) => params.team === false,
     eDmg: ({ params }) => params.sy ? 65 : 0
   }
 }, {
-  check: ({params }) => params.team === false,
+  check: ({params }) => params.team === false || team2.is(params),
   title: '妮露2命：金杯的丰馈下降低敌人35%水抗与草抗',
   cons: 2,
   data: {
     kx: 35
   }
 }, {
-    check: ({ cons,params }) => cons <= 1 && params.team === true,
+    check: ({ cons,params }) => cons <= 1 && params.team === true && team2.not(params),
     title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
     data: {
       aDmg:16,
@@ -79,7 +97,7 @@ export const buffs = [{check: ({ params }) => params.team === false,
       kx:40,
    }
   }, {
-    check: ({ cons,params }) => ((cons < 6 && cons >1) && params.team === true),
+    check: ({ cons,params }) => ((cons < 6 && cons >1) && params.team === true && team2.not(params)),
     title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
     data: {
       aDmg:16,
@@ -91,7 +109,7 @@ export const buffs = [{check: ({ params }) => params.team === false,
       mastery:200
    }
   }, {
-    check: ({ cons,params }) =>  (cons >= 6 && params.team === true),
+    check: ({ cons,params }) =>  (cons >= 6 && params.team === true && team2.not(params)),
     title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
     data: {
       aDmg:32,
@@ -103,14 +121,14 @@ export const buffs = [{check: ({ params }) => params.team === false,
       mastery:200
    }
   }, {
-    check: ({ cons,params }) =>  (cons >= 4 && params.team === true),
+    check: ({ cons,params }) =>  (cons >= 4 && params.team === true && team2.not(params)),
     title: '双水夜兰2层4命：双水,夜兰4命[hpPct]%生命值,[dmg]增伤',
     data: {
       hpPct: 45,
       dmg:30
    }
   }, {
-    check: ({ cons,params }) =>  (cons < 4 && params.team === true),
+    check: ({ cons,params }) =>  (cons < 4 && params.team === true && team2.not(params)),
     title: '双水夜兰：双水[hpPct]%生命值,[dmg]增伤',
     data: {
       hpPct: 25,
@@ -129,4 +147,49 @@ export const buffs = [{check: ({ params }) => params.team === false,
     cpct: ({ calc, attr }) => Math.min(30, calc(attr.hp) / 1000 * 0.6),
     cdmg: ({ calc, attr }) => Math.min(60, calc(attr.hp) / 1000 * 1.2)
   }
+}, {
+  check: ({params}) => team2.is(params),
+  title: '双草共鸣：精通提升50点，触发绽放再提升30点。共提升[mastery]点',
+  data: {
+    mastery: 50 + 30,
+  }
+}, {
+  check: ({params}) => team2.is(params),
+  title: '千精草套纳西妲开Q：增加[mastery]点精通，减[kx]%草抗',
+  data: {
+    mastery: 1000 * 0.25,
+    kx: 30
+  }
+}, {
+  check: ({params}) => team2.is(params),
+  title: '精1千夜浮梦：队伍中装备者以外的角色元素精通提升[mastery]点',
+  data: {
+    mastery: 40,
+  }
+}, {
+  check: ({params}) => team2.is(params),
+  title: '2命纳西妲：提供绽放反应固定20%暴击率和100%的暴击伤害',
+  data: {}
 }, 'vaporize']
+
+/**
+ * 创建队伍
+ * @param name 队伍名
+ * @param members 队员
+ * @return {{name, members, params, go, is, not}}
+ */
+function createTeam(name, members) {
+  const team = {name, members}
+  // 队伍出战
+  team.go = () => {
+    const params = {}
+    team.members.forEach(k => params[name + '_' + k] = true);
+    return params
+  }
+  team.params = team.go()
+  // 是否是当前配队
+  team.is = (params) => members.filter(k => params[name + '_' + k] === true).length === members.length
+  // 是否不是当前配队
+  team.not = (params) => !team.is(params)
+  return team
+}
