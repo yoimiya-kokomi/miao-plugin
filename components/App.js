@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import Plugin from './common/Plugin.js'
-import { Version } from '#miao'
+import { Version, MiaoError } from '#miao'
 
 class App {
   constructor (cfg) {
@@ -91,7 +91,17 @@ class App {
           e.msg = '#poke#'
         }
         e.original_msg = e.original_msg || e.msg
-        return await app.fn.call(this, e)
+        try {
+          return await app.fn.call(this, e)
+        } catch (err) {
+          if (err?.message && (err instanceof MiaoError)) {
+            // 处理 MiaoError
+            return e.reply(err.message)
+          } else {
+            // 其他错误抛出
+            throw err
+          }
+        }
       }
 
       if (app.yzRule && app.yzCheck) {

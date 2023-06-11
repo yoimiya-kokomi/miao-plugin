@@ -48,8 +48,8 @@ let ProfileDetail = {
 
     let name = msg.replace(/#|老婆|老公|星铁|原神/g, '').trim()
     msg = msg.replace('面版', '面板')
-    let dmgRet = /(?:伤害|武器)(\d?)$/.exec(name)
-    let dmgIdx = 0
+    let dmgRet = /(?:伤害|武器)(\d*)$/.exec(name)
+    let dmgIdx = 0, idxIsInput = false
     if (/(最强|最高|最高分|最牛|第一)/.test(msg)) {
       mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'rank-mark' : 'rank-dmg'
       name = name.replace(/(最强|最高分|第一|最高|最牛|圣遗物|评分|群)/g, '')
@@ -60,9 +60,11 @@ let ProfileDetail = {
     } else if (dmgRet) {
       // mode = /武器/.test(msg) ? 'weapon' : 'dmg'
       mode = 'dmg'
-      name = name.replace(/(伤害|武器)+[0-7]?/, '').trim()
+      name = name.replace(/(伤害|武器)+\d*/, '').trim()
       if (dmgRet[1]) {
         dmgIdx = dmgRet[1] * 1
+        // 标识是用户指定的序号
+        idxIsInput = true
       }
     } else if (/(详情|详细|面板)更新$/.test(msg) || (/更新/.test(msg) && /(详情|详细|面板)$/.test(msg))) {
       mode = 'refresh'
@@ -104,7 +106,7 @@ let ProfileDetail = {
     }
 
     if (mode === 'profile' || mode === 'dmg' || mode === 'weapon') {
-      return ProfileDetail.render(e, char, mode, { dmgIdx })
+      return ProfileDetail.render(e, char, mode, { dmgIdx, idxIsInput })
     } else if (mode === 'refresh') {
       await ProfileList.refresh(e)
       return true
