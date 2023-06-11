@@ -168,7 +168,7 @@ export const buffs = [{
   }
 }, {
   check: ({params}) => team2.is(params),
-  title: '2命纳西妲：提供绽放反应固定20%暴击率和100%的暴击伤害',
+  title: '纳西妲2命：提供绽放反应固定20%暴击率和100%的暴击伤害',
   data: {}
 }, 'vaporize']
 
