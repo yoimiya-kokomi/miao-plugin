@@ -149,8 +149,9 @@ export const buffs = [{
   }
 }, {
   check: ({params}) => team2.is(params),
-  title: '双草共鸣：精通提升50点，触发绽放再提升30点。共提升[mastery]点',
+  title: '双水双草共鸣：双水提升[hpPct]%生命值上限；双草提升精通50点，触发绽放再提升30点，共提升[mastery]点',
   data: {
+    hpPct: 25,
     mastery: 50 + 30,
   }
 }, {
