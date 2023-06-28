@@ -49,7 +49,7 @@ export const usefulAttr = {
   砂糖: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 75, phy: 0, recharge: 55, heal: 0 },
   雷泽: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 100, recharge: 0, heal: 0 },
   夜兰: { hp: 80, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
-  久岐忍: { hp: 100, atk: 50, def: 0, cpct: 50, cdmg: 50, mastery: 100, dmg: 75, phy: 0, recharge: 55, heal: 100 },
+  久岐忍: { hp: 100, atk: 50, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 55, heal: 100 },
   鹿野院平藏: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   提纳里: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 90, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   柯莱: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },

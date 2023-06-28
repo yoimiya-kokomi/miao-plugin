@@ -52,6 +52,24 @@ export default class Player extends Base {
     }
   }
 
+  get faceImgs () {
+    let char
+    if (this.isGs && this.face) {
+      char = Character.get(this.face)
+    }
+    if (!char) {
+      let charId = lodash.keys(this._avatars)[0]
+      if (charId) {
+        char = Character.get(charId)
+      }
+    }
+    let imgs = char?.imgs || {}
+    return {
+      face: imgs.face || '',
+      banner: imgs.banner || ''
+    }
+  }
+
   static create (e, game = 'gs') {
     if (e?._mys?.uid || e.uid) {
       // 传入为e
