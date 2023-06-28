@@ -189,7 +189,7 @@ class Character extends Base {
   static forEach (fn, type = 'all', game = 'gs') {
     lodash.forEach(idMap, (name, id) => {
       let char = Character.get({ id, name })
-      if (char.game !== 'game') {
+      if (char.game !== 'gs') {
         return true
       }
       if (type === 'release' && !char.isRelease) {
