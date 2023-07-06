@@ -201,14 +201,18 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
       }
       if (uid) {
         let userInfo = await ProfileRank.getUidInfo(uid)
-        if (userInfo?.qq && e?.group?.pickMember) {
-          let member = e.group.pickMember(userInfo.qq)
-          if (member?.getAvatarUrl) {
-            let img = await member.getAvatarUrl()
-            if (img) {
-              tmp.qqFace = img
+        try {
+          if (userInfo?.qq && e?.group?.pickMember) {
+            let member = e.group.pickMember(userInfo.qq)
+            if (member?.getAvatarUrl) {
+              let img = await member.getAvatarUrl()
+              if (img) {
+                tmp.qqFace = img
+              }
             }
           }
+        } catch (e) {
+          // console.log(e)
         }
       }
 
