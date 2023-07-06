@@ -1,0 +1,34 @@
+{
+  "id": 10000083,
+  "name": "琳妮特",
+  "abbr": "琳妮特",
+  "title": "丽影绮行",
+  "star": 4,
+  "elem": "Wind",
+  "allegiance": "？？？",
+  "weapon": "sword",
+  "birth": "1-1",
+  "astro": "",
+  "desc": "测试角色",
+  "cncv": "",
+  "jpcv": "",
+  "costume": false,
+  "source": "amber",
+  "ver": 1,
+  "baseAttr": {
+    "hp": 12397,
+    "atk": 232,
+    "def": 712
+  },
+  "growAttr": {
+    "key": "dmg",
+    "value": 24.0
+  },
+  "talentKey": {
+    "undefined": "q"
+  },
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  }
+}

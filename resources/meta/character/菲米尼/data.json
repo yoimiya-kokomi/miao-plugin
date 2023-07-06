@@ -1,0 +1,34 @@
+{
+  "id": 10000085,
+  "name": "菲米尼",
+  "abbr": "菲米尼",
+  "title": "潜怀遐梦",
+  "star": 4,
+  "elem": "cryo",
+  "allegiance": "布法蒂公馆",
+  "weapon": "claymore",
+  "birth": "9-24",
+  "astro": "",
+  "desc": "潜怀遐梦",
+  "cncv": "",
+  "jpcv": "",
+  "costume": false,
+  "source": "amber",
+  "ver": 1,
+  "baseAttr": {
+    "hp": 12071,
+    "atk": 255,
+    "def": 708
+  },
+  "growAttr": {
+    "key": "atkPct",
+    "value": 24.0
+  },
+  "talentKey": {
+    "undefined": "q"
+  },
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  }
+}

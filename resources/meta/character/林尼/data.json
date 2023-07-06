@@ -1,0 +1,34 @@
+{
+  "id": 10000084,
+  "name": "林尼",
+  "abbr": "林尼",
+  "title": "惑光幻戏",
+  "star": 5,
+  "elem": "pyro",
+  "allegiance": "？？？",
+  "weapon": "bow",
+  "birth": "1-1",
+  "astro": "",
+  "desc": "测试角色",
+  "cncv": "",
+  "jpcv": "",
+  "costume": false,
+  "source": "amber",
+  "ver": 1,
+  "baseAttr": {
+    "hp": 11021,
+    "atk": 318,
+    "def": 538
+  },
+  "growAttr": {
+    "key": "cpct",
+    "value": 24.2
+  },
+  "talentKey": {
+    "undefined": "q"
+  },
+  "talentCons": {
+    "e": 5,
+    "q": 5
+  }
+}
