@@ -8,27 +8,33 @@
   "allegiance": "？？？",
   "weapon": "bow",
   "birth": "1-1",
-  "astro": "",
+  "astro": "黑斑猫座",
   "desc": "测试角色",
-  "cncv": "",
-  "jpcv": "",
+  "cncv": "？？？",
+  "jpcv": "？？？",
   "costume": false,
-  "source": "amber",
   "ver": 1,
   "baseAttr": {
     "hp": 11021,
-    "atk": 318,
-    "def": 538
+    "atk": 318.11,
+    "def": 537.99
   },
   "growAttr": {
     "key": "cpct",
-    "value": 24.2
+    "value": 19.2
   },
-  "talentKey": {
-    "undefined": "q"
-  },
+  "talentId": {},
   "talentCons": {
     "e": 5,
     "q": 5
-  }
+  },
+  "materials": {
+    "gem": "燃愿玛瑙",
+    "boss": "帝皇的决断",
+    "specialty": "虹彩蔷薇",
+    "normal": "尉官的徽记",
+    "talent": "「公平」的哲学",
+    "weekly": "原初绿洲之初绽"
+  },
+  "eta": 1692151200000
 }

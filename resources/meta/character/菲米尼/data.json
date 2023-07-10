@@ -8,27 +8,33 @@
   "allegiance": "布法蒂公馆",
   "weapon": "claymore",
   "birth": "9-24",
-  "astro": "",
-  "desc": "潜怀遐梦",
-  "cncv": "",
-  "jpcv": "",
+  "astro": "机巧座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
   "costume": false,
-  "source": "amber",
   "ver": 1,
   "baseAttr": {
     "hp": 12071,
-    "atk": 255,
-    "def": 708
+    "atk": 254.88,
+    "def": 708.46
   },
   "growAttr": {
     "key": "atkPct",
-    "value": 24.0
+    "value": 24
   },
-  "talentKey": {
-    "undefined": "q"
-  },
+  "talentId": {},
   "talentCons": {
     "e": 5,
     "q": 3
-  }
+  },
+  "materials": {
+    "gem": "哀叙冰玉",
+    "boss": "奇械发条备件·科培琉司",
+    "specialty": "海露花",
+    "normal": "异色结晶石",
+    "talent": "「正义」的哲学",
+    "weekly": "生长天地之蕨草"
+  },
+  "eta": 1692151200000
 }

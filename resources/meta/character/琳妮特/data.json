@@ -4,31 +4,37 @@
   "abbr": "琳妮特",
   "title": "丽影绮行",
   "star": 4,
-  "elem": "Wind",
+  "elem": "anemo",
   "allegiance": "？？？",
   "weapon": "sword",
   "birth": "1-1",
-  "astro": "",
+  "astro": "白尾猫座",
   "desc": "测试角色",
-  "cncv": "",
-  "jpcv": "",
+  "cncv": "？？？",
+  "jpcv": "？？？",
   "costume": false,
-  "source": "amber",
   "ver": 1,
   "baseAttr": {
     "hp": 12397,
-    "atk": 232,
-    "def": 712
+    "atk": 231.51,
+    "def": 711.87
   },
   "growAttr": {
     "key": "dmg",
-    "value": 24.0
+    "value": 24
   },
-  "talentKey": {
-    "undefined": "q"
-  },
+  "talentId": {},
   "talentCons": {
     "e": 5,
     "q": 3
-  }
+  },
+  "materials": {
+    "gem": "自在松石",
+    "boss": "奇械发条备件·歌裴莉娅",
+    "specialty": "柔灯铃",
+    "normal": "奇械机芯齿轮",
+    "talent": "「秩序」的哲学",
+    "weekly": "亘古树海之一瞬"
+  },
+  "eta": 1692151200000
 }
