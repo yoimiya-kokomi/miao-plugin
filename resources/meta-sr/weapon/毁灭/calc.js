@@ -44,6 +44,11 @@ export default function (staticIdx, keyIdx) {
           atkPct: tables[1] * 3
         }
       }
-    }]
+    }],
+    到不了的彼岸:[
+      staticIdx(1, 'cpct'),
+      staticIdx(2, 'hpPct'),
+      keyIdx('受到攻击或装备者消耗自身生命值，伤害提高[dmg]%', 'dmg', 3)
+    ]
   }
 }

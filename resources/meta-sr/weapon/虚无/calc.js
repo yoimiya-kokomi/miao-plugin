@@ -38,6 +38,17 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'effPct'),
       keyIdx('对大于3个负面效果的敌人提升暴击率[cpct]%', 'cpct', 2),
       keyIdx('以太编码提升伤害[dmg]%', 'dmg', 3)
+    ],
+    只需等待:[
+      staticIdx(1, 'dmg'),
+      (tables) => {
+        return {
+          title: '释放攻击3层Buff提高速度[speedPct]%',
+          data: {
+            speedPct: tables[2] * 3
+          }
+        }
+      }
     ]
   }
 }

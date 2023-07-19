@@ -90,6 +90,24 @@ export default {
       }
     }
   },
+  宝命长存的莳者: {
+    2: attr('hpPct', 12),
+    4: {
+      title: '消耗生命2层提高暴击率12%',
+      data: {
+        cpct: 12
+      }
+    }
+  },
+  骇域漫游的信使: {
+    2: attr('speedPct', 6),
+    4: {
+      title: '对我方释放终结技时速度提高12%',
+      data: {
+        speedPct: 12
+      }
+    }
+  },
   太空封印站: {
     2: [attr('atkPct', 12), {
       title: '速度大于等于120提高攻击力12%',
@@ -151,5 +169,20 @@ export default {
   },
   生命的翁瓦克: {
     2: attr('recharge', 5)
-  }
+  },
+  繁星竞技场: [attr('cpct', 8), {
+    title: '暴击率大于等于70%时，普攻和战技造成的伤害提高20%',
+    check: ({ calc, attr }) => calc(attr.cpct) >= 70,
+    data: {
+      aDmg: 20,
+      eDmg: 20
+    }
+  }],
+  折断的龙骨: [attr('effDef', 10), {
+    title: '效果抵抗大于等于30%时，暴击伤害提高10%',
+    check: ({ calc, attr }) => calc(attr.effDef) >= 30,
+    data: {
+      cdmg: 10
+    }
+  }]
 }
