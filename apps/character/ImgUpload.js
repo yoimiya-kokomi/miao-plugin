@@ -42,13 +42,17 @@ export async function uploadCharacterImg (e) {
       imageMessages.push(val)
     }
   }
-  if (imageMessages.length === 0 && e.source) {
+  if (imageMessages.length === 0) {
     let source
-    if (e.isGroup) {
-      // 支持at图片添加，以及支持后发送
-      source = (await e.group.getChatHistory(e.source?.seq, 1)).pop()
-    } else {
-      source = (await e.friend.getChatHistory((e.source?.time + 1), 1)).pop()
+    if (e.getReply) {
+      source = await e.getReply()
+    } else if (e.source) {
+      if (e.group?.getChatHistory) {
+        // 支持at图片添加，以及支持后发送
+        source = (await e.group.getChatHistory(e.source?.seq, 1)).pop()
+      } else if (e.friend?.getChatHistory) {
+        source = (await e.friend.getChatHistory((e.source?.time + 1), 1)).pop()
+      }
     }
     if (source) {
       for (let val of source.message) {
@@ -63,7 +67,7 @@ export async function uploadCharacterImg (e) {
               resid = val.id
             }
           if (!resid) break
-          let message = await Bot.getForwardMsg(resid)
+          let message = await e.bot.getForwardMsg(resid)
           for (const item of message) {
             for (const i of item.message) {
               if (i.type === 'image') {
@@ -109,8 +113,12 @@ async function saveImages (e, name, imageMessages) {
       e.reply([segment.at(e.user_id, senderName), '添加失败：图片太大了。'])
       return true
     }
-    let fileName = val.file.substring(0, val.file.lastIndexOf('.'))
-    let fileType = val.file.substring(val.file.lastIndexOf('.') + 1)
+    let fileName = ""
+    let fileType = "png"
+    if (val.file) {
+      fileName = val.file.substring(0, val.file.lastIndexOf('.'))
+      fileType = val.file.substring(val.file.lastIndexOf('.') + 1)
+    }
     if (response.headers.get('content-type') === 'image/gif') {
       fileType = 'gif'
     }
@@ -132,7 +140,7 @@ async function saveImages (e, name, imageMessages) {
     fs.rename(imgPath, newImgPath, () => {
     })
     imgCount++
-    Bot.logger.mark(`添加成功: ${path}/${fileName}`)
+    Bot.logger.mark(`添加成功: ${newImgPath}`)
   }
   e.reply([segment.at(e.user_id, senderName), `\n成功添加${imgCount}张${name}${isProfile ? '面板图' : '图片'}。`])
   return true
@@ -211,11 +219,6 @@ export async function profileImgList (e) {
     e.reply('已禁止获取面板图列表')
     return true
   }
-  let nickname = Bot.nickname
-  if (e.isGroup) {
-    let info = await Bot.getGroupMemberInfo(e.group_id, Bot.uin)
-    nickname = info.card || info.nickname
-  }
   let name = char.name
   let pathSuffix = `profile/normal-character/${name}`
   let path = resPath + pathSuffix
@@ -229,19 +232,23 @@ export async function profileImgList (e) {
     })
     msglist.push({
       message: [`当前查看的是${name}面板图,共${imgs.length}张，可输入【#删除${name}面板图(序列号)】进行删除`],
-      nickname: nickname,
-      user_id: Bot.uin
     })
     for (let i = 0; i < imgs.length; i++) {
       // 合并转发最多99？ 但是我感觉不会有这么多先不做处理
       console.log(`${path}${imgs[i]}`)
       msglist.push({
         message: [`${i + 1}.`, segment.image(`file://${path}/${imgs[i]}`)],
-        nickname: nickname,
-        user_id: Bot.uin
       })
     }
-    let msgRsg = await e.reply(await Bot.makeForwardMsg(msglist))
+    let msg
+    if (e.group?.makeForwardMsg) {
+      msg = await e.group.makeForwardMsg(msglist)
+    } else if (e.friend?.makeForwardMsg) {
+      msg = await e.friend.makeForwardMsg(msglist)
+    } else {
+      msg = await Bot.makeForwardMsg(msglist)
+    }
+    let msgRsg = await e.reply(msg)
     if (!msgRsg) e.reply('风控了，可私聊查看', true)
   } catch (err) {
     logger.error(err)
