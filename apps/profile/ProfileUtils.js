@@ -3,25 +3,29 @@ import { MysApi } from '#miao.models'
 
 /** 获取角色卡片的原图 */
 export async function getOriginalPicture (e) {
-  if (!e.hasReply && !e.source) {
-    return true
-  }
-  // 引用的消息不是自己的消息
-  if (e.source.user_id !== e.self_id) {
-    return true
-  }
-  // 引用的消息不是纯图片
-  if (!/^\[图片]$/.test(e.source.message)) {
-    return true
+  let source
+  if (e.reply_id) {
+    source = { message_id: e.reply_id }
+  } else {
+    if (!e.hasReply && !e.source) {
+      return false
+    }
+    // 引用的消息不是自己的消息
+    if (e.source.user_id !== e.self_id) {
+      return false
+    }
+    // 引用的消息不是纯图片
+    if (!/^\[图片]$/.test(e.source.message)) {
+      return false
+    }
+    // 获取原消息
+    if (e.group?.getChatHistory) {
+      source = (await e.group.getChatHistory(e.source.seq, 1)).pop()
+    } else if (e.friend?.getChatHistory) {
+      source = (await e.friend.getChatHistory(e.source.time, 1)).pop()
+    }
   }
   let originalPic = Cfg.get('originalPic') * 1
-  // 获取原消息
-  let source
-  if (e.isGroup) {
-    source = (await e.group.getChatHistory(e.source.seq, 1)).pop()
-  } else {
-    source = (await e.friend.getChatHistory(e.source.time, 1)).pop()
-  }
   if (source) {
     let imgPath = await redis.get(`miao:original-picture:${source.message_id}`)
     if (imgPath) {
@@ -48,17 +52,12 @@ export async function getOriginalPicture (e) {
       }
       return true
     }
-    if (source.time) {
-      let time = new Date()
-      // 对at错图像的增加嘲讽...
-      if (time / 1000 - source.time < 3600) {
-        e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/common/face/what.jpg`))
-        return true
-      }
-    }
+    // 对at错图像的增加嘲讽...
+    e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/common/face/what.jpg`))
+    return false
   }
   e.reply('消息太过久远了，俺也忘了原图是啥了，下次早点来吧~')
-  return true
+  return false
 }
 
 /* #敌人等级 */

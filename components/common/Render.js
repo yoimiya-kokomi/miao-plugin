@@ -6,7 +6,6 @@ const Render = {
     if (!e.runtime) {
       console.log('未找到e.runtime，请升级至最新版Yunzai')
     }
-    let BotName = Version.isMiao ? 'Miao-Yunzai' : 'Yunzai-Bot'
     return e.runtime.render('miao-plugin', path, params, {
       retType: cfg.retMsgId ? 'msgId' : 'default',
       beforeRender ({ data }) {
@@ -30,7 +29,7 @@ const Render = {
           sys: {
             scale: Cfg.scale(cfg.scale || 1)
           },
-          copyright: `Created By ${BotName}<span class="version">${Version.yunzai}</span>${pluginName}</span>`,
+          copyright: `Created By ${Version.name}<span class="version">${Version.yunzai}</span>${pluginName}</span>`,
           pageGotoParams: {
             waitUntil: 'networkidle2'
           }

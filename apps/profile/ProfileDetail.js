@@ -201,12 +201,20 @@ let ProfileDetail = {
     }
     // 渲染图像
     let msgRes = await Common.render('character/profile-detail', renderData, { e, scale: 1.6, retMsgId: true })
-    if (msgRes && msgRes.message_id) {
+    if (msgRes) {
       // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
-      await redis.set(`miao:original-picture:${msgRes.message_id}`, JSON.stringify({
-        type: 'profile',
-        img: renderData?.data?.costumeSplash
-      }), { EX: 3600 * 3 })
+      const message_id = [e.message_id]
+      if (Array.isArray(msgRes.message_id)) {
+        message_id.push(...msgRes.message_id)
+      } else {
+        message_id.push(msgRes.message_id)
+      }
+      for (const i of message_id) {
+        await redis.set(`miao:original-picture:${i}`, JSON.stringify({
+          type: 'profile',
+          img: renderData?.data?.costumeSplash
+        }), { EX: 3600 * 3 })
+      }
     }
     return true
   },
