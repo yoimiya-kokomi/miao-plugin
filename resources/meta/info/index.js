@@ -4,7 +4,7 @@ export * from './pool.js'
 export const chestInfo = {
   common: {
     title: '普通宝箱',
-    max: 2705
+    max: 2701
   },
   exquisite: {
     title: '精致宝箱',
