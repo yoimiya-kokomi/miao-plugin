@@ -46,14 +46,14 @@ export default class ProfileDmg extends Base {
     let talentData = profile.talent || {}
     let detail = char.detail
     let { isSr, isGs } = this
-    lodash.forEach((isSr ? 'a,e,q,t' : 'a,e,q').split(','), (key) => {
+    lodash.forEach((isSr ? 'a,a2,e,q,t' : 'a,e,q').split(','), (key) => {
       let level = lodash.isNumber(talentData[key]) ? talentData[key] : (talentData[key]?.level || 1)
       let map = {}
       if (isGs && detail.talentData) {
         lodash.forEach(detail.talentData[key], (ds, key) => {
           map[key] = ds[level - 1]
         })
-      } else if (isSr && detail.talent) {
+      } else if (isSr && detail.talent && detail.talent[key]) {
         lodash.forEach(detail.talent[key].tables, (ds) => {
           map[ds.name] = ds.values[level - 1]
         })

@@ -132,6 +132,7 @@ export const buffs = [{
       dmg: 48,
       atkPct:20,
       kx:40,
+      mastery:200,
    }
   }, {check: ({ cons,params }) =>  (cons >= 6 && params.team2 === true),
     title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
@@ -142,6 +143,7 @@ export const buffs = [{
       dmg: 48,
       atkPct:40,
       kx:40,
+      mastery:200,
    }
   },{
   title: '被动天赋：基于元素精通提高杀生樱伤害[eDmg]%',
