@@ -8,6 +8,13 @@ export const details = [{
 }, {
   title: 'E减抗后Q伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
+}, {
+  check: ({ cons }) => cons >= 6,
+  title: '开Q后E后台伤害',
+  dmg: ({ talent }, dmg) => dmg(talent.e['风压坍陷风涡伤害'], 'e')
+}, {
+  title: '开Q后飓烈箭伤害',
+  dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
 }]
 
 export const defDmgIdx = 1
@@ -22,7 +29,7 @@ export const buffs = [{
 }, {
   title: '诡风之祸：降低敌人风抗[kx]%',
   data: {
-    kx: ({ talent }) => talent.q['风元素抗性降低']
+    kx: 30
   }
 }, {
   title: '祈风之赐：获得风伤加成[dmg]%',
