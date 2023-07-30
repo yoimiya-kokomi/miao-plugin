@@ -20,7 +20,7 @@ export const buffs = [{
     shieldPlus: ({ params }) => params.e ? 25 : 0
   }
 }, {
-  title: '托马被动：Q每段伤害提高[ePlus]',
+  title: '托马被动：Q每段伤害提高[qPlus]',
   data: {
     qPlus: ({ calc, attr }) => calc(attr.hp) * 0.022
   }
