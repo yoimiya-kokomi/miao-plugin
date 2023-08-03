@@ -51,6 +51,10 @@ const CharArtis = {
           薙草之稻光: {
             attr: 'recharge',
             abbr: '薙刀'
+          },
+          护摩之杖: {
+            attr: 'hp',
+            abbr: '护摩'
           }
         }
 
