@@ -170,19 +170,23 @@ export default {
   生命的翁瓦克: {
     2: attr('recharge', 5)
   },
-  繁星竞技场: [attr('cpct', 8), {
-    title: '暴击率大于等于70%时，普攻和战技造成的伤害提高20%',
-    check: ({ calc, attr }) => calc(attr.cpct) >= 70,
-    data: {
-      aDmg: 20,
-      eDmg: 20
-    }
-  }],
-  折断的龙骨: [attr('effDef', 10), {
-    title: '效果抵抗大于等于30%时，暴击伤害提高10%',
-    check: ({ calc, attr }) => calc(attr.effDef) >= 30,
-    data: {
-      cdmg: 10
-    }
-  }]
+  繁星竞技场: {
+    2: [attr('cpct', 8), {
+      title: '暴击率大于等于70%时，普攻和战技造成的伤害提高20%',
+      check: ({ calc, attr }) => calc(attr.cpct) >= 70,
+      data: {
+        aDmg: 20,
+        eDmg: 20
+      }
+    }]
+  },
+  折断的龙骨: {
+    2: [attr('effDef', 10), {
+      title: '效果抵抗大于等于30%时，暴击伤害提高10%',
+      check: ({ calc, attr }) => calc(attr.effDef) >= 30,
+      data: {
+        cdmg: 10
+      }
+    }]
+  }
 }
