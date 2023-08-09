@@ -6,7 +6,7 @@ let alias = {
   佩拉: '佩菈',
   停云: '',
   克拉拉: '',
-  卡夫卡: '亲妈,卡芙卡',
+  卡芙卡: '亲妈,卡夫卡',
   姬子: '',
   娜塔莎: '纳塔莎,纳塔沙,纳塔沙',
   布洛妮娅: '大鸭鸭,鸭鸭,板鸭,布洛尼亚,布洛妮亚,布洛尼娅',
@@ -36,7 +36,6 @@ lodash.forEach(alias, (txt, char) => {
   lodash.forEach(txt.split(','), (t) => {
     aliasMap[t] = char
   })
-
 })
 
 export { aliasMap }

@@ -6,7 +6,6 @@ import { Data, Format } from '#miao'
 import { charPosIdx } from './CharMeta.js'
 import { aliasMap as aliasMapSR } from '../../resources/meta-sr/character/meta.js'
 
-
 // 别名表
 let aliasMap = {}
 // ID表
