@@ -187,7 +187,7 @@ const buffs = {
     2: attr('mastery', 80),
     4: {
       check: ({ weaponTypeName }) => ['法器', '弓'].includes(weaponTypeName),
-      title: '乐团4：角色重击造成的伤害提高35%',
+      title: '角色重击造成的伤害提高35%',
       data: {
         a2Dmg: 35
       }
