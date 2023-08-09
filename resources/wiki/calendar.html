@@ -25,6 +25,7 @@
       <tr class="tr">
         {{each dateList d}}{{each d.date dn}}
         <td class="line {{dn === nowDate ? 'current-date':''}}">
+          {{if game === 'gs'}}
           {{each charBirth[`${d.month}-${dn}`] char}}
           <div class="card">
             <div class="item-icon star{{char.star}}">
@@ -33,6 +34,7 @@
             </div>
           </div>
           {{/each}}
+          {{/if}}
         </td>
         {{/each}} {{/each}}
       </tr>
@@ -75,8 +77,10 @@
       <div class="info">
         {{if li.type === "character"}}
         <img src="{{_res_path}}{{li.face}}" class="character-img"/>
-        {{else}}
+        {{else if li.icon}}
         <img src="{{li.icon}}" class="cal-icon"/>
+        {{else}}
+        <img src="{{_res_path}}/wiki/imgs/calendar-icon.png" class="cal-icon" />
         {{/if}}
         <strong>{{li.title}}</strong>
         <span>{{li.label}}</span>
@@ -91,9 +95,9 @@
 <div class="now-time">
   <span>当前时间：{{nowTime}}</span>
 </div>
+{{if game === 'gs'}}
 <div class="daily-talent">
   {{each charTalent talent}}
-
   {{each talent.chars char idx}}
   <div class="card">
     <div class="banner city-{{talent.cid}}">
@@ -115,4 +119,5 @@
   {{/each}}
   {{/each}}
 </div>
+{{/if}}
 {{/block}}

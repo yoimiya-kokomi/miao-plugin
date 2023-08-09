@@ -351,7 +351,6 @@ class Character extends Base {
       })
       return ret
     }
-
   }
 }
 

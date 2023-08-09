@@ -1,6 +1,7 @@
 import { App } from '#miao'
 import Calendar from './wiki/Calendar.js'
 import CharWiki from './wiki/CharWiki.js'
+import CalendarSr from './wiki/CalendarSr.js'
 
 let app = App.init({
   id: 'wiki',
@@ -16,7 +17,12 @@ app.reg({
   calendar: {
     rule: /^(#|喵喵)+(日历|日历列表)$/,
     fn: Calendar.render,
-    desc: '【#日历】 活动日历'
+    desc: '【#日历】 原神活动日历'
+  },
+  calendarSr: {
+    rule: /^#(星铁)+(日历|日历列表)$/,
+    fn: CalendarSr.render,
+    desc: '【#星铁日历】 星铁活动日历'
   }
 })
 

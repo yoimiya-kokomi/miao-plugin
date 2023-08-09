@@ -4,12 +4,10 @@ import moment from 'moment'
 import { Common, Data, Cfg } from '#miao'
 import { Character, Material } from '#miao.models'
 
-
 const ignoreIds = [495, // 有奖问卷调查开启！
   1263, // 米游社《原神》专属工具一览
   423, // 《原神》玩家社区一览
   422, // 《原神》防沉迷系统说明
-  762, // 《原神》公平运营声明
   762 // 《原神》公平运营声明
 ]
 
@@ -282,8 +280,6 @@ let Cal = {
       }
     } else if (/纪行/.test(title)) {
       type = 'pass'
-    } else if (title === '深渊') {
-      type = 'abyss'
     }
 
     let getDate = (d1, d2) => moment(d1 && d1.length > 6 ? d1 : d2)
@@ -390,6 +386,7 @@ let Cal = {
     })
 
     return {
+      game: 'gs',
       ...dl,
       ...Cal.getCharData(dl.dateList),
       list: ret,
