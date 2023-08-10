@@ -35,10 +35,16 @@ const CharTalent = {
     }, { e, scale: 1.1 })
   },
   getLineData (char) {
-    if (char.isSr) {
-      return []
-    }
     let ret = []
+    if (char.isSr) {
+      lodash.forEach({ hp: '基础生命', atk: '基础攻击', def: '基础防御', speed: '速度' }, (label, key) => {
+        ret.push({
+          num: Format.comma(char.getDetail().baseAttr[key], 1),
+          label
+        })
+      })
+      return ret
+    }
     const attrMap = {
       atkPct: '大攻击',
       hpPct: '大生命',
@@ -73,13 +79,13 @@ const CharTalent = {
     while ((ret = reg.exec(desc)) !== null) {
       let idx = ret[1]
       let pct = ret[2]
-      let value = tables?.[idx - 1]?.values[lv - 1]
+      let value = tables?.[idx]?.values[lv - 1]
       if (value) {
         if (pct === '%') {
-          idxFormat[idx - 1] = 'percent'
+          idxFormat[idx] = 'percent'
           value = Format.percent(value)
         } else {
-          idxFormat[idx - 1] = 'comma'
+          idxFormat[idx] = 'comma'
           value = Format.comma(value)
         }
         value = value + ` (lv${lv})`

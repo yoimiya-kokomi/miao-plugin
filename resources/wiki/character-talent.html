@@ -11,8 +11,20 @@
     <img src="{{_res_path}}{{imgs.qFace||imgs.face}}"/>
   </div>
   <div class="head-detail">
-    <div class="name">{{title}}·{{name}}</div>
-    <div class="desc">{{@desc}}</div>
+    <div class="name">
+      {{if game === 'gs'}} 
+        {{title}}·{{name}} 
+      {{else}}
+        {{name}}
+      {{/if}}
+    </div>
+    <div class="desc">
+      {{if game === 'gs'}} 
+        {{@desc}}
+      {{else}} 
+        {{detail.desc}}
+      {{/if}}
+    </div>
   </div>
   {{ if line[0]?.num !== 'NaN'}}
   <div class="data-box">
@@ -42,8 +54,8 @@
 {{each detail.talent talent type}}
 <div class="talent-box elem-bg">
   <div class="talent-detail cont">
-    {{set minLv = game === 'gs' ? 4 : (type==='a'?1:4) }}
-    {{set maxLv = game === 'gs' ? (type==='a'?11:13) : (type==='a'?9:12)}}
+    {{set minLv = game === 'gs' ? 4 : (type==='a' || type ==='a2'?1:4) }}
+    {{set maxLv = game === 'gs' ? (type==='a'?11:13) : (type==='a' || type ==='a2'?7:12)}}
     <% include(_tpl_path+'/talent-detail.html', [talent, {_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
   </div>
 </div>
@@ -51,9 +63,17 @@
 
 <div class="talent-box elem-bg">
   <div class="talent-detail passive-talent">
-    {{each detail.passive pass idx}}
-    <% include(_tpl_path+'/talent-detail.html', [pass, {_res_path,icon:imgs['passive'+idx],game}]) %>
-    {{/each}}
+    {{if game === 'gs'}}
+      {{each detail.passive pass idx}}
+        <% include(_tpl_path+'/talent-detail.html', [pass, {_res_path,icon:imgs['passive'+idx],game}]) %>
+      {{/each}}
+    {{else}}
+      {{each detail.treeData treeData idx}}
+        {{if treeData.type === 'skill'}}
+          <% include(_tpl_path+'/talent-detail.html', [treeData, {_res_path,icon:imgs['tree'+treeData.idx],game}]) %>
+        {{/if}}
+      {{/each}}
+    {{/if}}
   </div>
 </div>
 {{/if}}

@@ -256,6 +256,14 @@ body {
   line-height: 26px;
   padding-right: 10px;
 }
+.talent-desc nobr {
+  color: #ffe699;
+  display: inline-block;
+  border-radius: 4px;
+  text-align: center;
+  padding: 0 3px;
+  margin: 0 2px;
+}
 .talent-desc h3 {
   margin-top: 15px;
   margin-bottom: 5px;
