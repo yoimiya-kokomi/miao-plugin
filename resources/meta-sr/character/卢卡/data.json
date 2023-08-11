@@ -123,7 +123,7 @@
       "name": "制胜一击",
       "type": "终结技",
       "tag": "单攻",
-      "desc": "获得<nobr>2</nobr>层【斗志】，并有<nobr>100.0%</nobr>的<u>基础概率</u>使指定敌方单体受到的伤害提高<nobr>$1[f1]%</nobr>，持续<nobr>3</nobr>回合，随后对该目标造成等同于卢卡<nobr>$2[i]%</nobr>攻击力的<span>物理</span>属性伤害。",
+      "desc": "获得<nobr>2</nobr>层【斗志】，并有<nobr>100.0%</nobr>的<u>基础概率</u>使指定敌方单体受到的伤害提高<nobr>$1[i]%</nobr>，持续<nobr>3</nobr>回合，随后对该目标造成等同于卢卡<nobr>$2[i]%</nobr>攻击力的<span>物理</span>属性伤害。",
       "tables": {
         "1": {
           "name": "伤害提高",
