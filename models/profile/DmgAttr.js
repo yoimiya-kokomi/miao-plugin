@@ -26,7 +26,7 @@ let DmgAttr = {
       }
     })
 
-    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'speed,recharge,cpct,cdmg,heal,dmg,effPct,effDef,stance').split(','), (key) => {
+    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'speed,recharge,cpct,cdmg,heal,dmg,enemyDmg,effPct,effDef,stance').split(','), (key) => {
       ret[key] = {
         base: attr[key] * 1 || 0, // 基础值
         plus: 0, // 加成值
@@ -36,13 +36,14 @@ let DmgAttr = {
     })
 
     // 技能属性记录
-    lodash.forEach((game === 'gs' ? 'a,a2,a3,e,q' : 'a,a2,a3,e,q,t').split(','), (key) => {
+    lodash.forEach((game === 'gs' ? 'a,a2,a3,e,q' : 'a,a2,a3,e,e2,q,t').split(','), (key) => {
       ret[key] = {
         pct: 0, // 倍率加成
         multi: 0, // 独立倍率乘区加成，宵宫E等
 
         plus: 0, // 伤害值提高
         dmg: 0, // 伤害提高
+        enemydmg: 0, // 承受伤害提高
         cpct: 0, // 暴击提高
         cdmg: 0, // 爆伤提高
 
@@ -84,6 +85,12 @@ let DmgAttr = {
       ret.aggravate = 0 // 超激化
       ret.spread = 0 // 蔓激化
       ret.fykx = 0 // 敌人反应抗性降低
+    } else if (game === 'sr') {
+      // 技能持续伤害与弱点击破持续伤害
+      ret.dot = {
+        dmg: 0, // 伤害提高
+        enemydmg: 0 // 承受伤害提高
+      }
     }
     return ret
   },
@@ -199,6 +206,12 @@ let DmgAttr = {
 
         if (['vaporize', 'melt', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx'].includes(key)) {
           attr[key] += val * 1 || 0
+          return
+        }
+
+        let dRet = /^(dot)(Dmg|EnemyDmg)$/.exec(key)
+        if (dRet) {
+          attr[dRet[1]][dRet[2].toLowerCase()] += val * 1 || 0
         }
       })
       msg.push(title)

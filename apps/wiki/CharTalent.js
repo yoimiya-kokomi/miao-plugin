@@ -12,7 +12,7 @@ const CharTalent = {
       lodash.forEach(['cons', 'talent', 'treeData'], (key) => {
         lodash.forEach(detail[key], (ds, idx) => {
           if (ds.desc) {
-            if (key === 'talent') {
+            if (key === 'talent' && ds.desc.split) {
               let desc = CharTalent.getDesc(ds.desc, ds.tables, idx === 'a' ? 5 : 8)
               ds.desc = desc.desc
               ds.tables = desc.tables
