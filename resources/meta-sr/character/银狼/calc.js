@@ -10,6 +10,13 @@ export const details = [{
     let addDmg = (cons * 1 >= 4) ? 1 : 0
     return dmg(talent.q['技能伤害'] + addDmg, 'q')
   }
+}, {
+  title: '对10韧性敌人量子击破纠缠伤害',
+  dmg: ({ calc, attr }, { reaction }) => {
+    return {
+      avg: reaction('entanglement').avg * 5 * (10 + 2) / 4
+    }
+  }
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,effPct'

@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 计算伤害
 * */
-import { eleBaseDmg, erTitle } from './DmgCalcMeta.js'
+import { eleBaseDmg, erTitle, breakBaseDmg } from './DmgCalcMeta.js'
 import DmgMastery from './DmgMastery.js'
 
 let DmgCalc = {
@@ -23,7 +23,7 @@ let DmgCalc = {
     } = data
     let calc = ds.calc
 
-    let { atk, dmg, phy, cdmg, cpct } = attr
+    let { atk, dmg, phy, cdmg, cpct, enemyDmg } = attr
 
     // 攻击区
     let atkNum = calc(atk)
@@ -36,6 +36,12 @@ let DmgCalc = {
 
     if (ele === 'phy') {
       dmgNum = (1 + phy.base / 100 + phy.plus / 100)
+    }
+
+    // 易伤区
+    let enemyDmgNum = 1
+    if (game === 'sr') {
+      enemyDmgNum = 1 + enemyDmg.base / 100 + enemyDmg.plus / 100
     }
 
     let cpctNum = cpct.base / 100 + cpct.plus / 100
@@ -55,6 +61,7 @@ let DmgCalc = {
 
       pctNum += ds.pct / 100
       dmgNum += ds.dmg / 100
+      enemyDmgNum += game === 'gs' ? 0 : ds.enemydmg / 100
       cpctNum += ds.cpct / 100
       cdmgNum += ds.cdmg / 100
       enemyDef += ds.def / 100
@@ -66,7 +73,8 @@ let DmgCalc = {
     // 防御区
     let defNum = (level + 100) / ((level + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore))
     if (game === 'sr') {
-      defNum = (200 + level * 10) / ((200 + level * 10) + (200 + enemyLv * 10) * (1 - enemyDef) * (1 - enemyIgnore))
+      let enemyDefdown = enemyDef + enemyIgnore <= 1 ? enemyDef + enemyIgnore : 1
+      defNum = (200 + level * 10) / ((200 + level * 10) + (200 + enemyLv * 10) * (1 - enemyDefdown))
     }
 
     // 抗性区
@@ -95,8 +103,44 @@ let DmgCalc = {
 
     const isEle = ele !== false && ele !== 'phy'
     // 反应区
-    let eleNum = isEle ? DmgMastery.getBasePct(ele, attr.element) : 1
-    let eleBase = isEle ? 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, calc(attr.mastery)) : 1
+    let eleNum = 1
+    let eleBase = 1
+    if (game === 'gs') {
+      eleNum = isEle ? DmgMastery.getBasePct(ele, attr.element) : 1
+      eleBase = isEle ? 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, calc(attr.mastery)) : 1
+    }
+
+    let breakDotBase = 1
+    let stanceNum = 1
+    if (game === 'sr') {
+      switch (ele) {
+        case 'skillDot': {
+          pctNum = pctNum / 100
+          dmgNum += attr.dot.dmg / 100
+          enemyDmgNum += attr.dot.enemydmg / 100
+          break
+        }
+        case 'shock':
+        case 'burn':
+        case 'windShear':
+        case 'bleed':
+        case 'entanglement':
+        case 'lightningBreak':
+        case 'fireBreak':
+        case 'windBreak':
+        case 'physicalBreak':
+        case 'quantumBreak':
+        case 'imaginaryBreak': {
+          eleNum = DmgMastery.getBasePct(ele, attr.element)
+          stanceNum = 1 + calc(attr.stance) / 100
+          enemyDmgNum += attr.dot.enemydmg / 100
+          break
+        }
+        default:
+          break
+      }
+    }
+
     let dmgBase = (mode === 'basic') ? basicNum + plusNum : atkNum * pctNum * (1 + multiNum) + plusNum
     let ret = {}
 
@@ -135,17 +179,43 @@ let DmgCalc = {
         break
       }
 
+      case 'skillDot': {
+        ret = {
+          avg: dmgBase * dmgNum * enemyDmgNum * defNum * kNum
+        }
+        break
+      }
+
+      // 未计算层数(风化、纠缠)和韧性条系数(击破、纠缠)
+      case 'shock':
+      case 'burn':
+      case 'windShear':
+      case 'bleed':
+      case 'entanglement':
+      case 'lightningBreak':
+      case 'fireBreak':
+      case 'windBreak':
+      case 'physicalBreak':
+      case 'quantumBreak' :
+      case 'imaginaryBreak':{
+        breakDotBase *= breakBaseDmg[level]
+        ret = {
+          avg: breakDotBase * eleNum * stanceNum * enemyDmgNum * defNum * kNum
+        }
+        break
+      }
+
       default: {
         ret = {
-          dmg: dmgBase * dmgNum * (1 + cdmgNum) * defNum * kNum,
-          avg: dmgBase * dmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
+          dmg: dmgBase * dmgNum * enemyDmgNum * (1 + cdmgNum) * defNum * kNum,
+          avg: dmgBase * dmgNum * enemyDmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
         }
       }
     }
 
     if (showDetail) {
       console.log('Attr', attr)
-      console.log({ mode, dmgBase, atkNum, pctNum, multiNum, plusNum, dmgNum, cpctNum, cdmgNum, defNum, eleNum, kNum })
+      console.log({ mode, dmgBase, atkNum, pctNum, multiNum, plusNum, dmgNum, enemyDmgNum, stanceNum, cpctNum, cdmgNum, defNum, eleNum, kNum })
       console.log('Ret', ret)
     }
 
