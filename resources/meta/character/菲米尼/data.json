@@ -9,9 +9,9 @@
   "weapon": "claymore",
   "birth": "9-24",
   "astro": "机巧座",
-  "desc": "测试角色",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "desc": "精于潜水的寡言少年，在如寒冰般拒人千里的外表下，藏有一颗无瑕的纯真之心。",
+  "cncv": "锦鲤",
+  "jpcv": "土岐隼一",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -23,10 +23,15 @@
     "key": "atkPct",
     "value": 24
   },
-  "talentId": {},
+  "talentId": {
+    "10851": "a",
+    "10852": "e",
+    "10855": "q"
+  },
   "talentCons": {
+    "a": 3,
     "e": 5,
-    "q": 3
+    "q": 0
   },
   "materials": {
     "gem": "哀叙冰玉",

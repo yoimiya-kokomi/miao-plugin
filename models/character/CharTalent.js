@@ -9,7 +9,7 @@ const CharTalent = {
     let { id, talentCons, game, isGs } = char
     let ret = {}
     let addTalent = {
-      gs: { a: 0, e: 3, q: 3 },
+      gs: { a: 3, e: 3, q: 3 },
       sr: { a: 1, e: 2, q: 2, t: 2 }
     }
     lodash.forEach(addTalent[game], (addNum, key) => {
@@ -33,9 +33,8 @@ const CharTalent = {
           original = value
           if (key === 'a' && isGs) {
             level = aPlus ? value + 1 : value
-          } else {
-            level = cons >= talentCons[key] ? (value + addNum) : value
           }
+          level = (talentCons[key] > 0 && cons >= talentCons[key]) ? (value + addNum) : value
         }
       }
       if (mode === 'level') {
@@ -44,9 +43,8 @@ const CharTalent = {
         level = value
         if (key === 'a' && isGs) {
           original = aPlus ? value - 1 : value
-        } else {
-          original = cons >= talentCons[key] ? (value - addNum) : value
         }
+        original = (talentCons[key] > 0 && cons >= talentCons[key]) ? (value - addNum) : value
       }
       ret[key] = { level, original }
     })

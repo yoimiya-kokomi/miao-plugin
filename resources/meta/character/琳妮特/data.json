@@ -5,13 +5,13 @@
   "title": "丽影绮行",
   "star": 4,
   "elem": "anemo",
-  "allegiance": "？？？",
+  "allegiance": "布法蒂公馆",
   "weapon": "sword",
-  "birth": "1-1",
+  "birth": "2-2",
   "astro": "白尾猫座",
-  "desc": "测试角色",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "desc": "寡言少语，罕有表情的魔术助手，性情像猫一样难以猜测。",
+  "cncv": "可可味",
+  "jpcv": "篠原侑",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -23,8 +23,13 @@
     "key": "dmg",
     "value": 24
   },
-  "talentId": {},
+  "talentId": {
+    "10831": "a",
+    "10832": "e",
+    "10835": "q"
+  },
   "talentCons": {
+    "a": 0,
     "e": 5,
     "q": 3
   },

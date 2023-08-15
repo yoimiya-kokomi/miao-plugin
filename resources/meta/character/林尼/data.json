@@ -5,13 +5,13 @@
   "title": "惑光幻戏",
   "star": 5,
   "elem": "pyro",
-  "allegiance": "？？？",
+  "allegiance": "布法蒂公馆",
   "weapon": "bow",
-  "birth": "1-1",
+  "birth": "2-2",
   "astro": "黑斑猫座",
-  "desc": "测试角色",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "desc": "伶牙俐齿，演技精湛的著名枫丹魔术师，以精妙的手法和言语牵动着观众的心。",
+  "cncv": "锦鲤",
+  "jpcv": "下野纮",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -23,9 +23,14 @@
     "key": "cpct",
     "value": 19.2
   },
-  "talentId": {},
+  "talentId": {
+    "10841": "a",
+    "10842": "e",
+    "10845": "q"
+  },
   "talentCons": {
-    "e": 5,
+    "a": 3,
+    "e": 0,
     "q": 5
   },
   "materials": {

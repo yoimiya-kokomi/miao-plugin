@@ -115,8 +115,9 @@ const CharImg = {
       tAdd(`passive${i}`, `icons/passive-${i}`)
     }
     imgs.a = `/common/item/atk-${weaponType}.webp`
-    imgs.e = talentCons.e === 3 ? imgs.cons3 : imgs.cons5
-    imgs.q = talentCons.q === 5 ? imgs.cons5 : imgs.cons3
+    for (let t of ['e', 'q']) {
+      imgs[t] = talentCons[t] > 0 ? imgs[`cons${talentCons[t]}`] : `${nPath}icons/talent-${t}.webp`
+    }
     return imgs
   },
   getImgsSr (name, talentCons) {
