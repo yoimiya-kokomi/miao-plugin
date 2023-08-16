@@ -1,15 +1,18 @@
 export const details = [{
   title: '满蓄力重击伤害',
   dmgKey: 'a2',
-  dmg: ({ talent }, dmg) => dmg(talent.a['隐具魔术箭伤害'] + talent.a['礼花术弹伤害'], 'a2')
+  dmg: ({ talent }, dmg) => dmg(talent.a['隐具魔术箭伤害'], 'a2')
+}, {
+  title: '礼花术弹伤害',
+  dmg: ({ talent }, dmg) => dmg(talent.a['礼花术弹伤害'], 'a2')
 }, {
   title: '满层E伤害',
   dmg: ({ talent }, dmg) => {
     let eDmg = dmg(talent.e['技能伤害'], 'e')
-    let a2Dmg = dmg(talent.e['技能伤害加成'] * 5, 'a2')
+    let ePlusDmg = dmg(talent.e['技能伤害加成'] * 5, 'e')
     return {
-      dmg: eDmg.dmg + a2Dmg.dmg,
-      avg: eDmg.avg + a2Dmg.avg
+      dmg: eDmg.dmg + ePlusDmg.dmg,
+      avg: eDmg.avg + ePlusDmg.avg
     }
   }
 }, {
