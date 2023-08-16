@@ -428,6 +428,37 @@ const buffs = {
         qDmg: 50
       }
     }
+  },
+
+  逐影猎人: {
+    2: {
+      title: '普通攻击与重击造成的伤害提高15%',
+      data: {
+        aDmg: 15,
+        a2Dmg: 15
+      }
+    },
+    4: {
+      title: '3层Buff下提高暴击率36%',
+      data: {
+        cpct: 36
+      }
+    }
+  },
+
+  黄金剧团: {
+    2: {
+      title: '元素战技造成的伤害提升20%',
+      data: {
+        eDmg: 20
+      }
+    },
+    4: {
+      title: '满层时元素战技造成的伤害提升50%',
+      data: {
+        eDmg: 50
+      }
+    }
   }
 }
 export default buffs

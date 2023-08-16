@@ -47,6 +47,7 @@ export const details = [{
   }
 }, {
   check: ({ cons }) => cons < 6,
+  dmgKey: 'team_q',
   title: 'Q状态·一轮普攻5A+QTE超激化总伤害',
   params: { showEBuff: true },
   dmg: ({ talent }, dmg) => {
@@ -63,6 +64,7 @@ export const details = [{
   }
 }, {
   check: ({ cons }) => cons >= 6,
+  dmgKey: 'team_q',
   title: 'Q状态·一轮普攻5A+QTE超激化总伤害（消耗4层豺祭）',
   params: { showEBuff: true },
   dmg: ({ talent }, dmg) => {
@@ -79,7 +81,7 @@ export const details = [{
   }
 }]
 
-export const defDmgIdx = 5
+export const defDmgKey = 'team_q'
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
