@@ -225,7 +225,19 @@ export default function (step, staticStep) {
       data: {
         mastery: step(80)
       }
-    }
+    },
+
+    最初的大魔术: [{
+      title: '重击造成的伤害提升[a2Dmg]%',
+      refine: {
+        a2Dmg: step(16)
+      }
+    }, {
+      title: '满Buff下提高攻击力[atkPct]%',
+      refine: {
+        atkPct: step(48)
+      }
+    }]
 
   }
 }
