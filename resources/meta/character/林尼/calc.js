@@ -1,6 +1,6 @@
 export const details = [{
   title: '满蓄力重击伤害',
-  dmgKey: 'a2',
+  params: { a2: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['隐具魔术箭伤害'], 'a2')
 }, {
   title: '礼花术弹伤害',
@@ -46,6 +46,7 @@ export const buffs = [{
     kx: 20
   }
 }, {
+  check: ({ params }) => params.a2 === true,
   title: '林尼6命：发射隐具魔术箭时，额外发射一枚礼花术弹·重奏，造成礼花术弹80%的伤害',
   cons: 6,
   data: {
