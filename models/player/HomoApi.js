@@ -32,13 +32,13 @@ export default {
     if (lodash.isEmpty(avatars)) {
       return req.err('empty', 5 * 60)
     }
-    data.avatars = avatars
-    return data
+    ds.avatars = avatars
+    return ds
   },
 
   updatePlayer (player, data) {
     try {
-      player.setBasicData(Data.getData(data, 'name:NickName,face:HeadIconID,level:Level,word:WorldLevel,sign:Signature'))
+      player.setBasicData(Data.getData(data, 'name:nickname,face:headIcon,level:level,word:level,sign:signature'))
       lodash.forEach(data.avatars, (ds, id) => {
         let ret = HomoData.setAvatar(player, ds)
         if (ret) {
