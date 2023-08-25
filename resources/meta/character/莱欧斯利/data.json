@@ -1,0 +1,41 @@
+{
+  "id": 10000086,
+  "name": "莱欧斯利",
+  "abbr": "莱欧斯利",
+  "title": "寂罪的密使",
+  "star": 5,
+  "elem": "cryo",
+  "allegiance": "？？？",
+  "weapon": "catalyst",
+  "birth": "1-1",
+  "astro": "守狱犬座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 13593,
+    "atk": 310.93,
+    "def": 763.17
+  },
+  "growAttr": {
+    "key": "cdmg",
+    "value": 38.4
+  },
+  "talentId": {},
+  "talentCons": {
+    "a": 3,
+    "e": 0,
+    "q": 5
+  },
+  "materials": {
+    "gem": "哀叙冰玉",
+    "boss": "「图比昂装置」",
+    "specialty": "子探测单元",
+    "normal": "奇械机芯齿轮",
+    "talent": "「秩序」的哲学",
+    "weekly": "原初绿洲之初绽"
+  },
+  "eta": 1695780000000
+}

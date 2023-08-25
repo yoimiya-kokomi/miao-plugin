@@ -1,0 +1,41 @@
+{
+  "id": 10000087,
+  "name": "那维莱特",
+  "abbr": "那维莱特",
+  "title": "谕告的潮音",
+  "star": 5,
+  "elem": "hydro",
+  "allegiance": "？？？",
+  "weapon": "catalyst",
+  "birth": "1-1",
+  "astro": "？？？",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 14695,
+    "atk": 208.32,
+    "def": 576.42
+  },
+  "growAttr": {
+    "key": "cdmg",
+    "value": 38.4
+  },
+  "talentId": {},
+  "talentCons": {
+    "a": 3,
+    "e": 0,
+    "q": 5
+  },
+  "materials": {
+    "gem": "涤净青金",
+    "boss": "原海麟角",
+    "specialty": "幽光星星",
+    "normal": "异色结晶石",
+    "talent": "「公平」的哲学",
+    "weekly": "亘古树海之一瞬"
+  },
+  "eta": 1695780000000
+}
