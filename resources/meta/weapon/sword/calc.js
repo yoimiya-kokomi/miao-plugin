@@ -210,9 +210,9 @@ export default function (step, staticStep) {
       }
     }],
     船坞长剑: {
-      title: '满层提高120点元素精通',
+      title: '满层提高[mastery]点元素精通',
       refine: {
-        mastery: 120
+        mastery: step(40 * 3)
       }
     },
     '「狼牙」': [{
