@@ -144,6 +144,14 @@ export default function (step, staticStep) {
       refine: {
         mastery: step(120)
       }
-    }
+    },
+    勘探钻机: {
+      title: '满层下，提高[atkPct]%攻击力与[dmg]%所有元素伤害加成',
+      refine: {
+        atkPct: step(3 * 3),
+        dmg: step(7 * 3)
+      }
+    },
+    公义的酬报: false,
   }
 }
