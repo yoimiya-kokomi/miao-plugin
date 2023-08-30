@@ -138,6 +138,20 @@ export default function (step, staticStep) {
         atkPct: step(12),
         mastery: step(48)
       }
-    }
+    },
+    峡湾长歌: {
+      title: '队伍中存在至少三种不同元素类型的角色时，元素精通提升[mastery]点',
+      refine: {
+        mastery: step(120)
+      }
+    },
+    勘探钻机: {
+      title: '满层下，提高[atkPct]%攻击力与[dmg]%所有元素伤害加成',
+      refine: {
+        atkPct: step(3 * 3),
+        dmg: step(7 * 3)
+      }
+    },
+    公义的酬报: false,
   }
 }

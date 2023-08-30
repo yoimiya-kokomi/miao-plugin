@@ -192,6 +192,41 @@ export default function (step, staticStep) {
       data: {
         mastery: ({ attr, calc, refine }) => step(0.36 + 0.2)[refine] * calc(attr.hp) / 100
       }
+    }],
+    灰河渡手: {
+      title: '元素战技暴击率提升[eCpct]%；此外，施放元素战技后的5秒内，元素充能效率提升[rechargePlus]%',
+      refine: {
+        eCpct: step(8),
+        rechargePlus: [16, 20, 24, 28, 32]
+      }
+    },
+    海渊终曲: [staticStep('hpPct', 20), {
+      title: '释放元素战技攻击力提升[atkPct]%，生命之契提升[atkPlus]点攻击力',
+      data: {
+        atkPlus: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) * 0.25 * step(0.24)[refine] / 10, step(150)))
+      },
+      refine: {
+        atkPct: step(12),
+      }
+    }],
+    船坞长剑: {
+      title: '满层提高[mastery]点元素精通',
+      refine: {
+        mastery: step(40 * 3)
+      }
+    },
+    '「狼牙」': [{
+      title: '元素战技与元素爆发造成的伤害提升[eDmg]%',
+      refine: {
+        eDmg: step(16),
+        qDmg: step(16)
+      }
+    }, {
+      title: '满层下，元素战技与元素爆发命中敌人，其暴击率提升[eCpct]%',
+      refine: {
+        eCpct: step(2),
+        qCpct: step(2)
+      }
     }]
   }
 }
