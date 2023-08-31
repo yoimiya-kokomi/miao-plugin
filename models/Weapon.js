@@ -176,7 +176,7 @@ class Weapon extends Base {
   getAffixDesc (affix = 1) {
     let skill = this.detail.skill
     let { name, desc, tables } = skill
-    let reg = /\$(\d)\[[i|f1]\](\%?)/g
+    let reg = /\$(\d)\[(?:i|f1)\](\%?)/g
     let ret
     while ((ret = reg.exec(desc)) !== null) {
       let idx = ret[1]
