@@ -215,7 +215,7 @@ export default function (step, staticStep) {
         mastery: step(40 * 3)
       }
     },
-    '「狼牙」': [{
+    狼牙: [{
       title: '元素战技与元素爆发造成的伤害提升[eDmg]%',
       refine: {
         eDmg: step(16),
