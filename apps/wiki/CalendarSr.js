@@ -15,7 +15,7 @@ const ignoreIds = [
   171 // 《崩坏：星穹铁道》社区专属工具一览
 ]
 
-const ignoreReg = /(更新概览|游戏优化|内容专题页|版本更新说明|循星归程|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时|周边上新|角色演示|角色PV|bilibili)/
+const ignoreReg = /(更新概览|游戏优化|优化说明|内容专题页|版本更新说明|循星归程|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时|周边上新|角色演示|角色PV|版本PV|动画短片|bilibili|激励计划|调整说明|攻略征集)/
 
 let CalSr = {
   async reqCalData () {
@@ -38,7 +38,7 @@ let CalSr = {
           1.1: '2022-06-07 11:00:00'
         }
         lodash.forEach(detailData.data.list, (ds) => {
-          let vRet = /(\d\.\d)版本\S*更新概览/.exec(ds.title)
+          let vRet = /(\d\.\d)版本\S*更新(概览|说明)/.exec(ds.title)
           if (vRet && vRet[1]) {
             let content = /■(?:更新时间)\s*([^■]+)(?:■|$)/.exec(ds.content)
             if (content && content[1]) {
@@ -229,7 +229,7 @@ let CalSr = {
 
     let versionStartTime
     lodash.forEach(listData.data.list[0].list, (ds) => {
-      if (/版本更新概览/.test(ds.title)) {
+      if (/版本更新(概览|说明)/.test(ds.title)) {
         versionStartTime = ds.start_time
       }
     })
