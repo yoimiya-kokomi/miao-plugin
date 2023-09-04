@@ -76,14 +76,14 @@ export default function (step, staticStep) {
         shield: step(20)
       }
     }],
-    和璞鸢: [staticStep(), {
+    和璞鸢: {
       title: '满层攻击力提高[atkPct]%，伤害提升[dmg]%',
       refine: {
         atkPct: [3.2 * 7, 3.9 * 7, 4.6 * 7, 5.3 * 7, 6 * 7],
         dmg: step(12),
         phy: step(12)
       }
-    }],
+    },
     护摩之杖: [staticStep('hpPct', 20), {
       title: '角色生命低于50%时额外获得[atkPlus]攻击力',
       data: {
@@ -152,6 +152,6 @@ export default function (step, staticStep) {
         dmg: step(7 * 3)
       }
     },
-    公义的酬报: false,
+    公义的酬报: false
   }
 }

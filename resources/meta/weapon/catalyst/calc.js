@@ -154,15 +154,15 @@ export default function (step, staticStep) {
         dmg: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) / 1000) * step(0.3, 0.2)[refine], step(12, 8)[refine])
       }
     },
-    纯水流华: [staticStep('hpPct', 20), {
+    纯水流华: [{
       title: '生命之契提升[dmg]%全部元素伤害加成',
       data: {
         dmg: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) / 1000) * 2 * step(0.24)[refine], step(12)[refine])
-      },
+      }
     }, {
       title: '释放元素战技全部元素伤害加成提升[dmg]%',
       refine: {
-        dmg: step(8),
+        dmg: step(8)
       }
     }],
     金流监督: [{
