@@ -103,6 +103,7 @@ export const buffs = [{
   }
 }, {
   title: '赛诺被动：基于元素精通提升普攻[aPlus]点伤害值，渡荒之雷提升[_ePlus]伤害值',
+  sort: 5,
   data: {
     aPlus: ({ attr, calc }) => calc(attr.mastery) * 1.5,
     _ePlus: ({ attr, calc }) => calc(attr.mastery) * 2.5

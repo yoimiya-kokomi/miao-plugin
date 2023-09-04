@@ -45,10 +45,22 @@ export default function (staticIdx, keyIdx) {
         }
       }
     }],
-    到不了的彼岸:[
+    到不了的彼岸: [
       staticIdx(1, 'cpct'),
       staticIdx(2, 'hpPct'),
       keyIdx('受到攻击或装备者消耗自身生命值，伤害提高[dmg]%', 'dmg', 3)
+    ],
+    比阳光更明亮的: [
+      staticIdx(1, 'cpct'),
+      (tables) => {
+        return {
+          title: '2层Buff提高攻击力[atkPct]%，能量恢复效率提高[recharge]%',
+          data: {
+            atkPct: tables[2] * 2,
+            recharge: tables[3] * 2
+          }
+        }
+      }
     ]
   }
 }

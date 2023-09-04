@@ -106,9 +106,8 @@ export const buffs = [{
   cons: 6
 }, {
   check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击',
+  title: '精1苍古0命万叶：苍古普攻16增伤，增加[atkPct]%攻击',
   data: {
-    dmg: 40,
     aDmg: 16,
     a2Dmg: 16,
     a3Dmg: 16,
@@ -116,9 +115,8 @@ export const buffs = [{
   }
 }, {
   check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,精通[mastery]',
+  title: '精1苍古2命万叶：苍古普攻16增伤，增加[atkPct]%攻击,精通[mastery]',
   data: {
-    dmg: 40,
     aDmg: 16,
     a2Dmg: 16,
     a3Dmg: 16,
@@ -127,9 +125,8 @@ export const buffs = [{
   }
 }, {
   check: ({ cons, params }) => (cons >= 6 && params.team === true),
-  title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,精通[mastery]',
+  title: '精5苍古6命万叶：苍古普攻32增伤，增加[atkPct]%攻击,精通[mastery]',
   data: {
-    dmg: 40,
     aDmg: 32,
     a2Dmg: 32,
     a3Dmg: 32,

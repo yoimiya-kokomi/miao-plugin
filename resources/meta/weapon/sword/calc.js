@@ -200,15 +200,15 @@ export default function (step, staticStep) {
         rechargePlus: [16, 20, 24, 28, 32]
       }
     },
-    海渊终曲: [staticStep('hpPct', 20), {
+    海渊终曲: {
       title: '释放元素战技攻击力提升[atkPct]%，生命之契提升[atkPlus]点攻击力',
       data: {
         atkPlus: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) * 0.25 * step(0.24)[refine] / 10, step(150)))
       },
       refine: {
-        atkPct: step(12),
+        atkPct: step(12)
       }
-    }],
+    },
     船坞长剑: {
       title: '满层提高[mastery]点元素精通',
       refine: {
@@ -224,8 +224,8 @@ export default function (step, staticStep) {
     }, {
       title: '满层下，元素战技与元素爆发命中敌人，其暴击率提升[eCpct]%',
       refine: {
-        eCpct: step(2),
-        qCpct: step(2)
+        eCpct: step(8),
+        qCpct: step(8)
       }
     }]
   }

@@ -4,7 +4,12 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['隐具魔术箭伤害'], 'a2')
 }, {
   title: '礼花术弹伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['礼花术弹伤害'], 'a2')
+  params: { catcathat: true },
+  dmg: ({ talent, attr, calc }, { basic }) => {
+    const atk = calc(attr.atk)
+    const a2dmg = atk * 0.8 + atk * talent.a['礼花术弹伤害'] / 100
+    return basic(a2dmg, 'a2')
+  }
 }, {
   title: '满层E伤害',
   dmg: ({ talent }, dmg) => {
@@ -24,14 +29,17 @@ export const defDmgIdx = 0
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
-  title: '天赋-惊险演出：基于攻击力的80%，满蓄力重击伤害提高[a2Plus]',
-  data: {
-    a2Plus: ({ attr, calc }) => calc(attr.atk) * 0.8
-  }
+  check: ({ params }) => params.catcathat === true,
+  title: '天赋-惊险演出：基于攻击力的80%，提高怪笑猫猫帽造成的伤害'
 }, {
   title: '天赋-完场喝彩：队伍有三名火元素角色时，对处于火元素影响下的敌人造成的伤害提升[dmg]%',
   data: {
     dmg: 100
+  }
+}, {
+  title: '双火共鸣：攻击力提高[atkPct]%',
+  data: {
+    atkPct: 25
   }
 }, {
   title: '林尼2命：在场6秒后，暴击伤害提高60%',
