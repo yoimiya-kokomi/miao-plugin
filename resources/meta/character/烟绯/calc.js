@@ -9,6 +9,10 @@ export const details = [{
 }, {
   title: 'E伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
+}, {
+  title: '4命护盾量',
+  check: ({ cons }) => cons >= 4,
+  dmg: ({ attr, calc }, { shield }) => shield(calc(attr.hp) * 0.45)
 }]
 export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg,mastery'
