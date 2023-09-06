@@ -42,4 +42,9 @@ export const buffs = [{
 }, {
   title: '桑博6命：天赋施加的风化状态伤害倍率提高15%',
   cons: 6
+}, {
+  title: '惊喜礼盒：Q后使敌方目标受到的持续伤害提高[dotEnemyDmg]%',
+  data: {
+    dotEnemyDmg: 30
+  }
 }]

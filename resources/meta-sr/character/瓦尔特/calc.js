@@ -20,11 +20,10 @@ export const buffs = [{
   data: {
     dmg: 12
   }
-},
-  {
-    title: '行迹-裁决：弱点击破的敌方目标造成的伤害提高20%',
-    tree: 3,
-    data: {
-      dmg: 20
-    }
-  }]
+}, {
+  title: '行迹-裁决：弱点击破的敌方目标造成的伤害提高20%',
+  tree: 3,
+  data: {
+    dmg: 20
+  }
+}]

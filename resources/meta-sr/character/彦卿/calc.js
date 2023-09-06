@@ -5,10 +5,17 @@ export const details = [{
   title: '战技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
+  title: '天赋追加攻击',
+  dmg: ({ talent }, dmg) => dmg(talent.t['追加攻击'], 't')
+}, {
+  title: '天赋附加伤害',
+  dmg: ({ talent }, dmg) => dmg(talent.t['回合附加伤害'], 't')
+}, {
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }]
 
+export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
@@ -34,5 +41,14 @@ export const buffs = [{
   tree: 3,
   data: {
     speedPct: 10
+  }
+}, {
+  title: '行迹-颂冰：攻击对冰属性弱点敌人额外造成等同于彦卿30%攻击力的冰属性附加伤害',
+  tree: 1,
+  data: {
+    aPlus: ({ calc, attr }) => calc(attr.atk) * 0.3,
+    ePlus: ({ calc, attr }) => calc(attr.atk) * 0.3,
+    qPlus: ({ calc, attr }) => calc(attr.atk) * 0.3,
+    tPlus: ({ calc, attr }) => calc(attr.atk) * 0.3
   }
 }]

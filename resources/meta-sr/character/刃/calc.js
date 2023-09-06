@@ -2,7 +2,7 @@ export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
-  title: '强化普攻（单目标）',
+  title: '强化普攻（单体）',
   params: { ebuff: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
     const td1 = talent.a2['攻击倍率']
@@ -12,7 +12,7 @@ export const details = [{
     return basic(td1 * atk + td2 * hp, 'a')
   }
 }, {
-  title: '强化普攻（三目标）',
+  title: '强化普攻（扩散）',
   params: { ebuff: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
     const td1 = talent.a2['攻击倍率'] + talent.a2['攻击倍率·相邻目标'] * 2
@@ -32,7 +32,7 @@ export const details = [{
     return basic(td1 * atk + td2 * hp, 't')
   }
 }, {
-  title: '终结技伤害(单目标）',
+  title: '终结技伤害(单体）',
   params: { ebuff: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
     const td1 = talent.q['攻击倍率']
@@ -43,7 +43,7 @@ export const details = [{
     return basic(td1 * atk + td2 * hp + td3 * hp * 0.9, 'q')
   }
 }, {
-  title: '终结技伤害(三目标）',
+  title: '终结技伤害(扩散）',
   params: { ebuff: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
     const td1 = talent.q['攻击倍率'] + talent.q['攻击倍率·相邻目标'] * 2
@@ -55,7 +55,7 @@ export const details = [{
   }
 }]
 
-export const defDmgIdx = 1
+export const defDmgIdx = 2
 export const mainAttr = 'hp,atk,cpct,cdmg,speed'
 
 export const buffs = [{
