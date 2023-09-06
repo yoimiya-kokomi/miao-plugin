@@ -11,7 +11,9 @@ let DmgCalc = {
       talent, // 天赋类型
       ele, // 元素反应
       basicNum, // 基础数值
-      mode // 模式
+      mode, // 模式
+      dynamicDmg = 0, // 动态增伤
+      dynamicCdmg = 0 // 动态暴击伤害
     } = fnArgs
     let {
       ds, // 数据集
@@ -32,7 +34,7 @@ let DmgCalc = {
     let multiNum = attr.multi / 100
 
     // 增伤区
-    let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100)
+    let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100 + dynamicDmg / 100)
 
     if (ele === 'phy') {
       dmgNum = (1 + phy.base / 100 + phy.plus / 100)
@@ -47,7 +49,7 @@ let DmgCalc = {
     let cpctNum = cpct.base / 100 + cpct.plus / 100
 
     // 爆伤区
-    let cdmgNum = cdmg.base / 100 + cdmg.plus / 100
+    let cdmgNum = cdmg.base / 100 + cdmg.plus / 100 + dynamicCdmg / 100
 
     let enemyDef = attr.enemy.def / 100
     let enemyIgnore = attr.enemy.ignore / 100
@@ -225,7 +227,7 @@ let DmgCalc = {
     let { showDetail, attr, ds, game } = data
     let { calc } = ds
 
-    let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = 'talent') {
+    let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = 'talent', dynamicData = false) {
       if (ele) {
         ele = erTitle[ele] || ele
       }
@@ -233,15 +235,19 @@ let DmgCalc = {
         // 星铁meta数据天赋为百分比前数字
         pctNum = pctNum * 100
       }
-      return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode }, data)
+      return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode, ...dynamicData }, data)
     }
 
-    dmgFn.basic = function (basicNum = 0, talent = false, ele = false) {
-      return dmgFn(0, talent, ele, basicNum, 'basic')
+    dmgFn.basic = function (basicNum = 0, talent = false, ele = false, dynamicData = false) {
+      return dmgFn(0, talent, ele, basicNum, 'basic', dynamicData)
     }
 
     dmgFn.reaction = function (ele = false) {
       return dmgFn(0, 'fy', ele, 0, 'basic')
+    }
+
+    dmgFn.dynamic = function (pctNum = 0, talent = false, dynamicData = false, ele = false) {
+      return dmgFn(pctNum, talent, ele, 0, 'talent', dynamicData)
     }
 
     // 计算治疗

@@ -20,16 +20,4 @@ export const buffs = [{
   data: {
     heal: 15
   }
-}, {
-  title: '希儿2命：释放战技后，2层Buff速度提高50%',
-  cons: 2,
-  data: {
-    speedPct: 50
-  }
-}, {
-  title: '行迹-夜行：抗性穿透提高20',
-  tree: 2,
-  data: {
-    kx: 20
-  }
 }]
