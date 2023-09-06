@@ -26,12 +26,6 @@ export const buffs = [{
     dmg: 15
   }
 }, {
-  title: '希儿2命：释放战技后，2层Buff速度提高50%',
-  cons: 2,
-  data: {
-    speedPct: 50
-  }
-}, {
   title: '行迹-灼热：战技对灼烧状态下的敌方目标造成的伤害提高20%',
   tree: 2,
   data: {

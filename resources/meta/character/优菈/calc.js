@@ -27,7 +27,7 @@ export const details = [{
   let buffCount = 12
   if (weapon.name === '松籁响起之时') {
     buffCount = 13
-    if (weapon.affix_level >= 4) {
+    if (weapon.affix >= 4) {
       buffCount = 14
     }
   }
