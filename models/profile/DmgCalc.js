@@ -238,16 +238,16 @@ let DmgCalc = {
       return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode, ...dynamicData }, data)
     }
 
-    dmgFn.basic = function (basicNum = 0, talent = false, ele = false, dynamicDmg = 0) {
-      return dmgFn(0, talent, ele, basicNum, 'basic', dynamicDmg)
+    dmgFn.basic = function (basicNum = 0, talent = false, ele = false, dynamicData = false) {
+      return dmgFn(0, talent, ele, basicNum, 'basic', dynamicData)
     }
 
     dmgFn.reaction = function (ele = false) {
       return dmgFn(0, 'fy', ele, 0, 'basic')
     }
 
-    dmgFn.dynamic = function (pctNum = 0, talent = false, dynamicDmg = false, ele = false) {
-      return dmgFn(pctNum, talent, ele, 0, 'talent', dynamicDmg)
+    dmgFn.dynamic = function (pctNum = 0, talent = false, dynamicData = false, ele = false) {
+      return dmgFn(pctNum, talent, ele, 0, 'talent', dynamicData)
     }
 
     // 计算治疗
