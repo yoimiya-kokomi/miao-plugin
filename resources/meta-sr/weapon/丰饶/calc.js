@@ -19,7 +19,7 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'effDef'),
       (tables) => {
         return {
-          title: '基于效果抵抗，提高质量量[heal]%',
+          title: '基于效果抵抗，提高治疗量[heal]%',
           data: {
             heal: ({ attr, calc }) => Math.min(tables[3], calc(attr.effDef) * tables[2] / 100)
           }
