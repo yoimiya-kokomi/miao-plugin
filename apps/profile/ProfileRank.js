@@ -21,13 +21,16 @@ export async function groupRank (e) {
   let mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
   mode = /(词条)/.test(msg) ? 'valid' : mode
   mode = /(双爆)/.test(msg) ? 'crit' : mode
-  let name = msg.replace(/(#|最强|最高分|第一|词条|双爆|极限|最高|最多|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
+  let name = msg.replace(/(#|星铁|最强|最高分|第一|词条|双爆|极限|最高|最多|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
   let char = Character.get(name)
   if (!char) {
     // 名字不存在或不为列表模式，则返回false
     if (name || type !== 'list') {
       return false
     }
+  }
+  if (/星铁/.test(msg) || char.isSr) {
+    e.isSr = true
   }
   // 对鲸泽佬的极限角色文件增加支持
   if (type === 'super') {
@@ -74,7 +77,11 @@ export async function groupRank (e) {
       if (uids.length > 0) {
         return renderCharRankList({ e, uids, char, mode, groupId })
       } else {
-        e.reply('暂无排名：请通过【#面板】查看角色面板以更新排名信息...')
+        if (e.isSr){
+          e.reply('暂无排名：请通过【*面板】查看角色面板以更新排名信息...')
+        } else {
+          e.reply('暂无排名：请通过【#面板】查看角色面板以更新排名信息...')
+        }
       }
     }
     return true
@@ -169,7 +176,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   let list = []
   for (let ds of uids) {
     let uid = ds.uid || ds.value
-    let player = Player.create(uid)
+    let player = Player.create(uid, e.isSr ? 'sr' : 'gs')
     let avatar = player.getAvatar(ds.charId || char.id)
     if (!avatar) {
       continue
@@ -231,16 +238,26 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   }
   let title
   if (char) {
-    let modeTitleMap = {
-      dmg: '',
-      mark: '圣遗物评分',
-      crit: '双爆副词条',
-      valid: '加权有效词条'
+    let modeTitleMap = {}
+    if (e.isSr) {
+      modeTitleMap = {
+        dmg: '',
+        mark: '遗器评分',
+        crit: '双爆副词条',
+        valid: '加权有效词条'
+      }
+    } else {
+      modeTitleMap = {
+        dmg: '',
+        mark: '圣遗物评分',
+        crit: '双爆副词条',
+        valid: '加权有效词条'
+      }
     }
-    title = `#${char.name}${modeTitleMap[mode]}排行`
+    title = `${e.isSr ? '*' : '#'}${char.name}${modeTitleMap[mode]}排行`
     list = lodash.sortBy(list, mode === 'dmg' ? '_dmg' : '_mark').reverse()
   } else {
-    title = `#${mode === 'mark' ? '最高分' : '最强'}排行`
+    title = `${e.isSr ? '*' : '#'}${mode === 'mark' ? '最高分' : '最强'}排行`
     list = lodash.sortBy(list, ['uid', '_star', 'id'])
   }
 
@@ -248,6 +265,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   // 渲染图像
   return await Common.render('character/rank-profile-list', {
     save_id: char.id,
+    game: e.isSr ? 'sr' : 'gs',
     list,
     title,
     elem: char.elem,
