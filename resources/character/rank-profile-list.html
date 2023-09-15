@@ -4,6 +4,8 @@
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/character/rank-profile-list.css"/>
 {{/block}}
 
+{{set talentMap = game === 'sr' ? {a: '普攻', e: '战技', t:'天赋', q: '爆发'} : {a: '普攻', e: '战技', q: '爆发'} }}
+{{set gameHash = game === 'gs' ? '#':'*' }}
 
 {{block 'main'}}
 <div class="head-box">
@@ -35,7 +37,7 @@
         </li>
         <li>
           <strong>排名范围：</strong>
-          本群内 / 时间点：{{rankCfg.time}} 后 / 在群内主动通过 #面板 命令查看过的面板数据
+          本群内 / 时间点：{{rankCfg.time}} 后 / 在群内主动通过 {{gameHash}}面板 命令查看过的面板数据
         </li>
         {{if rankCfg?.limitTxt !== '无限制'}}
         <li>
@@ -79,16 +81,15 @@
     </div>
 
     <div class="char-talent elem-{{ds.elem}}">
-      {{set talent = ds.talent }}
-      {{set keys = ['a','e','q'] }}
-      {{each keys key}}
+      {{each talentMap tName key}}
+      {{set talent = ds.talent[key] || {} }}
       <div class="talent-item">
         <div class="talent-icon
-               {{talent[key]?.level > talent[key]?.original ? `talent-plus`:``}}
-                {{talent[key]?.original >= 10 ? `talent-crown`:``}}">
+           {{talent.level > talent.original ? `talent-plus`:``}}
+            {{talent.original >= 10 ? `talent-crown`:``}}">
           <div class="talent-icon-img"
                style="background-image:url({{_res_path}}{{ds.imgs[key]}})"></div>
-          <span>{{talent[key]?.level}}</span>
+          <span>{{talent.level}}</span>
         </div>
       </div>
       {{/each}}
