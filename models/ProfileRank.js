@@ -272,7 +272,8 @@ export default class ProfileRank {
     if (!uid) {
       return false
     }
-    if (uid * 1 < 100000005) {
+    // 预设面板不参与排名
+    if (uid * 1 < 100000006) {
       return false
     }
     try {

@@ -18,7 +18,7 @@ export default {
         HttpsProxyAgent = await import('https-proxy-agent').catch((err) => {
           logger.error(err)
         })
-        HttpsProxyAgent = HttpsProxyAgent ? HttpsProxyAgent.default : undefined
+        HttpsProxyAgent = HttpsProxyAgent ? HttpsProxyAgent.HttpsProxyAgent : undefined
       }
       if (HttpsProxyAgent) {
         params.agent = new HttpsProxyAgent(proxy)
