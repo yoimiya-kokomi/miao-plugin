@@ -13,7 +13,8 @@ export default class ProfileReq extends Base {
     if (!e || !e.uid) {
       return false
     }
-    if (e.uid * 1 < 100000005) {
+    // 预设面板不更新数据
+    if (e.uid * 1 < 100000006) {
       return false
     }
     return new ProfileReq(e, game)
