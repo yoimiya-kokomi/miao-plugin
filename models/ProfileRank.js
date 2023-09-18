@@ -199,9 +199,7 @@ export default class ProfileRank {
     let uidMap = {}
     let qqMap = {}
     let add = (qq, uid, type) => {
-      if (!uidMap || type === 'ck') {
-        uidMap[uid] = { uid, qq, type: type === 'ck' ? 'ck' : 'bind' }
-      }
+      uidMap[uid] = { uid, qq, type: type === 'ck' ? 'ck' : 'bind' }
       qqMap[qq] = true
     }
 
