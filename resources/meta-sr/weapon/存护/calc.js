@@ -32,6 +32,11 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    她已闭上双眼: [
+      staticIdx(1, 'hpPct'),
+      staticIdx(2, 'recharge'),
+      keyIdx('装备者生命降低时，使我方全体造成的伤害提高[dmg]%', 'dmg', 3)
     ]
   }
 }

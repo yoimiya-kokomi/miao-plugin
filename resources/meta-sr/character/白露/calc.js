@@ -13,6 +13,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,hp'
+export const defDmgIdx = 2
 
 export const buffs = [{
   title: '白露2命：释放终结技后治疗提高15%',
