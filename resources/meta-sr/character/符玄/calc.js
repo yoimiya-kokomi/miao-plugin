@@ -41,7 +41,7 @@ export const buffs = [{
   sort: 0,
   data: {
     hpPlus: ({ talent, attr, calc }) => calc(attr.hp) * talent.e['生命上限提高'],
-    cpct: ({ talent }) => talent.e['暴击率提高']
+    cpct: ({ talent }) => talent.e['暴击率提高'] * 100
   }
 }, {
   title: '符玄1命：暴击伤害提高[cdmg]%',
