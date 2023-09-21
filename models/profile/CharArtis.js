@@ -5,7 +5,7 @@ import lodash from 'lodash'
 const CharArtis = {
 
   getCharArtisCfg (char, profile, artis) {
-    let { attr, weapon } = profile
+    let { attr, weapon, elem } = profile
     let { isGs } = char
     let usefulAttr = isGs ? usefulAttrGS : usefulAttrSR
 
@@ -89,7 +89,7 @@ const CharArtis = {
     }
 
     if (charRule) {
-      return charRule({ attr, artis, rule, def, weapon, cons: profile.cons })
+      return charRule({ attr, elem, artis, rule, def, weapon, cons: profile.cons })
     }
   }
 }

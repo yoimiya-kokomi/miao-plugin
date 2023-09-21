@@ -131,6 +131,12 @@ app.reg({
     describe: '【#角色】 删除游戏橱窗详情数据',
     fn: ProfileList.del,
     rule: /^#(删除全部面板|删除面板|删除面板数据)\s*(\d{9})?$/
+  },
+
+  profileReload:{
+    name: '重新加载面板',
+    fn:ProfileList.reload,
+    rule: /^#(星铁|原神)?(加载|重新加载|重载)面板\s*(\d{9})?$/
   }
 })
 
