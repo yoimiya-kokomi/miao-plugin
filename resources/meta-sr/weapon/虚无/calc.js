@@ -49,6 +49,10 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    孤独的疗愈: [
+      staticIdx(1, 'stance'),
+      keyIdx('装备者造成的持续伤害提高[dotDmg]%', 'dotDmg', 2)
     ]
   }
 }

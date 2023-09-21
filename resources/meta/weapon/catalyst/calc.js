@@ -93,10 +93,10 @@ export default function (step, staticStep) {
         dmg: step(12)
       }
     },
-    尘世之锁: [{
-      title: '护盾强效提升[shield]%',
+    尘世之锁: [staticStep('shield', 20), {
+      title: '护盾强效提升[_shield]%',
       refine: {
-        shield: step(20)
+        _shield: step(20)
       }
     }, {
       title: '护盾+满层情况下攻击力提高[atkPct]%',
@@ -165,16 +165,16 @@ export default function (step, staticStep) {
         dmg: step(8)
       }
     }],
-    金流监督: [{
-      title: '攻击力提升[atkPlus]%',
+    金流监督: [staticStep('atkPlus', 16), {
+      title: '攻击力提升[_atkPlus]%',
       refine: {
-        atkPlus: step(12)
+        _atkPlus: step(16)
       }
     }, {
       title: '满层下，普通攻击造成的伤害提升[aDmg]%，重击造成的伤害提升[a2Dmg]%',
       refine: {
-        aDmg: step(14 * 3),
-        a2Dmg: step(12 * 3)
+        aDmg: step(16 * 3),
+        a2Dmg: step(14 * 3)
       }
     }],
     遗祀玉珑: [staticStep('hpPct', 16), {
@@ -182,6 +182,24 @@ export default function (step, staticStep) {
       refine: {
         _hpPct: step(32),
         mastery: step(40)
+      }
+    }],
+    万世流涌大典: [staticStep('hpPct', 16), {
+      title: '生命值提升[_hpPct]%',
+      refile: {
+        _hpPct: step(16)
+      }
+    }, {
+      title: '满层下，重击造成的伤害提升[a2Dmg]%',
+      refine: {
+        a2Dmg: [14 * 3, 18 * 3, 22 * 3, 26 * 3, 30 * 3]
+      }
+    }],
+    无垠蔚蓝之歌: [{
+      title: '满层下，普通攻击造成的伤害提升[aDmg]%，重击造成的伤害提升[a2Dmg]%',
+      data: {
+        aDmg: step(8 * 3),
+        a2Dmg: step(6 * 3)
       }
     }]
   }

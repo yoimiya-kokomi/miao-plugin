@@ -171,6 +171,12 @@ export default function (step, staticStep) {
       refine: {
         dmg: step(12)
       }
+    }],
+    便携动力锯: [{
+      title: '满层时，元素精通提升[mastery]点',
+      data: {
+        mastery: step(40 * 3)
+      }
     }]
   }
 }
