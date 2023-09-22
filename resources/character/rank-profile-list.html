@@ -86,7 +86,8 @@
       <div class="talent-item">
         <div class="talent-icon
            {{talent.level > talent.original ? `talent-plus`:``}}
-            {{talent.original >= 10 ? `talent-crown`:``}}">
+            {{talent.original >= 10 && game === 'gs' ? `talent-crown`:``}}
+            {{talent.original >= 10 && game === 'sr' ? `talent-destiny`:``}}">
           <div class="talent-icon-img"
                style="background-image:url({{_res_path}}{{ds.imgs[key]}})"></div>
           <span>{{talent.level}}</span>
@@ -116,9 +117,11 @@
     {{set aImgs = ds?.artisSet?.imgs || []}}
     <div class="char-item char-artis class-{{mark?.markClass||'D'}}">
       <div
-          class="item artis item-icon avatar-artis  {{aImgs.length>0?'star5':'no-artis'}} artis{{aImgs.length}}">
-        {{each aImgs img}}
-        <div class="img" style="background-image:url({{_res_path}}{{img}})"></div>
+          class="item artis item-icon avatar-artis  {{aImgs.length>0?'star5':'no-artis'}} artis{{aImgs.length>2 ? 2 : aImgs.length}}">
+        {{each aImgs img idx}}
+          {{if idx < 2}}
+          <div class="img" style="background-image:url({{_res_path}}{{img}})"></div>
+          {{/if}}
         {{/each}}
         {{if aImgs.length === 0}}
         <span class="img no-artis"></span>

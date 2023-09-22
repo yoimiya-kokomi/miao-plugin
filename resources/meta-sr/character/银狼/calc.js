@@ -19,7 +19,8 @@ export const details = [{
   }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,effPct'
+export const defDmgIdx = 2
+export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
   title: '银狼天赋：防御力缺陷降低敌方防御力[enemyDef]%',
