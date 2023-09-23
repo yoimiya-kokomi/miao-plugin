@@ -4,7 +4,7 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { abbr, artiMap, artiSetMap, calc as artisBuffs } from '../resources/meta/artifact/index.js'
-import { artiMap as artiMapSR, artisBuffs as artisBuffsSR, artiSetMap as artiSetMapSR } from '../resources/meta-sr/artifact/index.js'
+import { abbr as abbrSR, artiMap as artiMapSR, artisBuffs as artisBuffsSR, artiSetMap as artiSetMapSR } from '../resources/meta-sr/artifact/index.js'
 
 import { Artifact } from './index.js'
 
@@ -30,12 +30,12 @@ class ArtifactSet extends Base {
   }
 
   get img () {
-    let arti = Artifact.get(this.sets[1])
+    let arti = Artifact.get(this.sets[1] || this.sets[5], this.game)
     return arti ? arti.img : ''
   }
 
   get abbr () {
-    return abbr[this.name] || this.name
+    return this.game === 'gs' ? (abbr[this.name] || this.name) : (abbrSR[this.name] || this.name)
   }
 
   static getByArti (name) {

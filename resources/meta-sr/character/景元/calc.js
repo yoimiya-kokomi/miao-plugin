@@ -12,6 +12,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'] * 10, 'a3')
 }]
 
+export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg,speed'
 
 export const buffs = [{

@@ -240,15 +240,15 @@ export default function (step, staticStep) {
     }],
     烈阳之嗣: {
       title: '对于灼心状态下的敌人造成的伤害提升[dmg]%',
-      refine:{
+      refine: {
         dmg: step(28)
       }
     },
     测距规: {
       title: '满层下，提高[atkPct]%攻击力与[dmg]%所有元素伤害加成',
       refine: {
-        atkPct: step(3 * 3),
-        dmg: step(7 * 3)
+        atkPct: [3 * 3, 4 * 3, 5 * 3, 6 * 3, 7 * 3],
+        dmg: [7 * 3, 8.5 * 3, 10 * 3, 11.5 * 3, 13 * 3]
       }
     },
     静谧之曲: {

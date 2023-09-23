@@ -260,6 +260,18 @@ body {
   top: 0;
   margin-left: -14px;
 }
+.talent-icon.talent-destiny:after {
+  content: "";
+  display: block;
+  width: 37px;
+  height: 37px;
+  background: url("../character/imgs/destiny.webp") no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -14px;
+}
 .char-talents {
   display: flex;
   width: 300px;

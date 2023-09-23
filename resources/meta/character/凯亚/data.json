@@ -12,7 +12,9 @@
   "desc": "异国面容的剑斗士，西风骑士团的头脑派人物。",
   "cncv": "孙晔",
   "jpcv": "鸟海浩辅",
-  "costume": false,
+  "costume": [
+    201501
+  ],
   "ver": 1,
   "baseAttr": {
     "hp": 11636,

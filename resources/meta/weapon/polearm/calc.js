@@ -148,8 +148,8 @@ export default function (step, staticStep) {
     勘探钻机: {
       title: '满层下，提高[atkPct]%攻击力与[dmg]%所有元素伤害加成',
       refine: {
-        atkPct: step(3 * 3),
-        dmg: step(7 * 3)
+        atkPct: [3 * 3, 4 * 3, 5 * 3, 6 * 3, 7 * 3],
+        dmg: [7 * 3, 8.5 * 3, 10 * 3, 11.5 * 3, 13 * 3]
       }
     },
     公义的酬报: false
