@@ -216,6 +216,10 @@ body {
   background-position: @i*-11 0;
 }
 
+.i-effDef {
+  background-position: @i*-12 0;
+}
+
 .detail.attr {
   li {
     &:nth-child(even) {
@@ -271,7 +275,7 @@ body {
     background-position: center;
   }
 
-  span {
+  strong {
     background: #fff;
     width: 34px;
     height: 26px;
@@ -287,7 +291,7 @@ body {
     box-shadow: 0 0 5px 0 #000;
   }
 
-  &.talent-plus span {
+  &.talent-plus strong {
     background: #2e353e;
     color: #ffdfa0;
     font-weight: bold;
@@ -1049,19 +1053,13 @@ body {
 }
 
 .game-sr {
-  .char-talents {
-    transform: scale(.8);
-    transform-origin: top left;
-    margin: -8px 0 -14px;
-
-
-    .talent-item {
-      margin: 0 -3px;
-    }
-  }
 
   .artis-weapon {
     display: none;
+  }
+
+  .char-lv {
+    margin-bottom: 25px;
   }
 
   .char-attr {
@@ -1187,6 +1185,119 @@ body {
       margin: 0 2px;
     }
   }
+}
+
+.sr-talent {
+  margin: 0 15px 10px 10px;
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 150%;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
+  overflow: hidden;
+  display: flex;
+  color: #fff;
+  height: 72px;
+  width: calc(100% - 25px);
+  padding: 8px 10px;
+
+
+  .char-talents {
+    transform-origin: center left;
+    margin: 0;
+    width: 260px;
+
+
+    .talent-item {
+      margin: 0 -3px;
+    }
+
+    .talent-icon {
+      width: 60px;
+      height: 60px;
+
+      strong {
+        font-size: 13px;
+        width: 22px;
+        height: 20px;
+        line-height: 20px;
+        margin-left: -11px;
+        border-radius: 4px;
+      }
+
+      span {
+        position: absolute;
+        top: -3px;
+        font-size: 12px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #fff;
+        text-shadow: 0 0 3px #000, 1px 1px 1px #000;
+      }
+
+      &.talent-crown:after {
+        width: 22px;
+        height: 22px;
+        margin: 2px 0 0 5px;
+        background-image: url('../character/imgs/crown-sr.webp');
+        display: none;
+      }
+    }
+  }
+
+  .char-trees {
+    width: 290px;
+    padding-left: 10px;
+    position: relative;
+
+    .talent-icon {
+      margin: 0 -5px;
+
+      &.off {
+        filter: grayscale(100%);
+        opacity: .4;
+      }
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 30px;
+      background: rgba(255, 255, 255, .8);
+      position: absolute;
+      left: 0;
+      top: 15px;
+    }
+
+    .talent-item {
+      width: 40px;
+
+      .talent-icon {
+        margin: 0;
+      }
+    }
+
+    .tree-item {
+      width: 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .talent-icon {
+        width: 30px;
+        height: 30px;
+        margin: 0 -5px;
+      }
+
+      .talent-icon-img {
+
+      }
+    }
+  }
+
 }
 
 .copyright.ad {

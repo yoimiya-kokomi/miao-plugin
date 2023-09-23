@@ -23,6 +23,7 @@
         <span class="cons cons-{{data.cons}}">{{data.cons}}命</span></div>
       <div>
         {{if mode !== 'weapon'}}
+        {{if game === 'gs'}}
         <div class="char-talents">
           {{each talentMap tName key}}
           {{set talent = data.talent[key] || {} }}
@@ -32,14 +33,16 @@
                 {{talent.original >= 10 ? `talent-crown`:``}}">
               <div class="talent-icon-img"
                    style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
-              <span>{{talent.level}}</span>
+              <strong>{{talent.level}}</strong>
             </div>
           </div>
           {{/each}}
         </div>
+        {{/if}}
         <ul class="char-attr">
           {{set attrMap = game === 'sr' ? {
-          hp:'生命值',atk:'攻击力',def:'防御力',speed:'速度',cpct:'暴击率',cdmg:'暴击伤害',dmg:'伤害加成',stance:'击破特攻',effPct:'效果命中'
+          hp:'生命值',atk:'攻击力',def:'防御力',speed:'速度',cpct:'暴击率',cdmg:'暴击伤害',dmg:'伤害加成',stance:'击破特攻',effPct:'效果命中',effDef:'效果抵抗',
+          heal:'治疗加成'
           }:{
           hp:'生命值',atk:'攻击力',def:'防御力',mastery:'元素精通',cpct:'暴击率',cdmg:'暴击伤害',recharge:'元素充能',dmg:'伤害加成'
           } }}
@@ -73,7 +76,7 @@
             <strong>{{weapon.name}}</strong>
             <div class="star star-{{weapon.star}}"></div>
             <span>Lv.{{weapon.leve || weapon.level}} <span
-                class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
+              class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
           </div>
         </div>
         {{/if}}
@@ -84,8 +87,7 @@
       {{each cons idx}}
       <div class="cons-item">
         <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
-          <div class="talent-icon-img"
-               style="background-image:url({{_res_path}}{{imgs[`cons${idx}`]}})"></div>
+          <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs[`cons${idx}`]}})"></div>
         </div>
       </div>
       {{/each}}
@@ -112,6 +114,46 @@
   <!-- 【 武器+圣遗物列表】 -->
   <div>
     {{if game === 'sr'}}
+    <div class="sr-talent">
+      <div class="char-talents">
+        {{each talentMap tName key}}
+        {{set talent = data.talent[key] || {} }}
+        <div class="talent-item">
+          <div class="talent-icon
+               {{talent.level > talent.original ? `talent-plus`:``}}
+                {{talent.original >= 10 ? `talent-crown`:``}}">
+            <div class="talent-icon-img"
+                 style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
+            <strong>{{talent.level}}</strong>
+            <span>{{tName}}</span>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+
+      <div class="char-talents char-trees">
+
+        {{each data.treeData tCfg}}
+        {{if tCfg?.type === 'talent' }}
+        <div class="talent-item">
+          <div class="talent-icon {{tCfg.value ? '':'off'}}">
+            <div class="talent-icon-img" style="background-image:url({{_res_path}}{{tCfg.img}})"></div>
+          </div>
+        </div>
+        {{else}}
+        <div class="tree-item">
+          {{each tCfg tIdx}}
+          <div class="talent-icon  {{tIdx.value ? '':'off'}}">
+            <div class="talent-icon-img" style="background-image:url({{_res_path}}{{tIdx.img}})"></div>
+          </div>
+          {{/each}}
+        </div>
+        {{/if}}
+        {{/each}}
+
+      </div>
+    </div>
+
     {{if weapon && weapon.name}}
     <div class="sr-weapon">
       <div class="weapon-img" style="background-image:url({{_res_path}}{{weapon.splash}})"></div>
@@ -143,7 +185,7 @@
             <strong>{{weapon.name}}</strong>
             <div class="star star-{{weapon.star}}"></div>
             <span>Lv.{{weapon.leve || weapon.level}} <span
-                class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
+              class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
           </div>
         </div>
         <div class="item arti-stat">
@@ -173,9 +215,8 @@
           {{if attr && attr.key}}
           <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
           <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{if attr.upNum}}<i
-              class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key] || attr.key}}</span>
+            class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key] || attr.key}}</span>
             <span class="val">+{{attr.value}}</span>
-
           </li>
           {{/if}}
           {{/each}}
@@ -283,7 +324,9 @@
       </div>
       <div class="cont-footer dmg-desc">
         <ul>
-          <li>大数字的含义为圣遗物副词条置换后<strong>平均伤害</strong>的变化，下方的详情数字为<strong>平均伤害</strong>/<strong>暴击伤害</strong>。</li>
+          <li>
+            大数字的含义为圣遗物副词条置换后<strong>平均伤害</strong>的变化，下方的详情数字为<strong>平均伤害</strong>/<strong>暴击伤害</strong>。
+          </li>
           <li>关于<strong>平均伤害</strong>：是将暴击率计算在内的伤害期望，能反映综合的输出能力，不等于实际伤害数字。</li>
           <li>可用于评估当前面板下圣遗物副词条的侧重方向。实际游戏情况更加复杂，结果供参考~</li>
           <li>如需更换计算的伤害类型，可使用命令 <strong>{{gameHash}}{{data.abbr}}伤害+序号</strong>来切换，序号参见伤害计算板块</li>

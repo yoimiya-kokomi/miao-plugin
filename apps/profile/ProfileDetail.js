@@ -141,6 +141,7 @@ let ProfileDetail = {
     let attr = {}
     let game = char.game
     let isGs = game === 'gs'
+    let isSr = !isGs
 
     lodash.forEach((isGs ? 'hp,def,atk,mastery' : 'hp,def,atk,speed').split(','), (key) => {
       let fn = (n) => Format.comma(n, key === 'hp' ? 0 : 1)
@@ -183,6 +184,36 @@ let ProfileDetail = {
     let artisDetail = profile.getArtisMark()
     let artisKeyTitle = ProfileArtis.getArtisKeyTitle(game)
     let data = profile.getData('name,abbr,cons,level,talent,dataSource,updateTime,imgs,costumeSplash')
+    if (isSr) {
+      let treeData = []
+      let treeMap = {}
+      // 属性
+      lodash.forEach('0113355778'.split(''), (pos, idx) => {
+        treeData[pos] = treeData[pos] || []
+        let tmp = { type: 'tree', img: `/meta-sr/public/icons/tree-cpct.webp` }
+        treeData[pos].push(tmp)
+        treeMap[idx + 201 + ''] = tmp
+      })
+      // 能力
+      lodash.forEach([2, 4, 6], (pos, idx) => {
+        let tmp = { type: 'talent', img: data.imgs[`tree${idx + 1}`] }
+        treeData[pos] = tmp
+        treeMap[idx + 101 + ''] = tmp
+      })
+      lodash.forEach(profile.trees, (id) => {
+        let ret = /([12][01][0-9])$/.exec(id + '')
+        if (ret && ret[1]) {
+          let treeId = ret[1]
+          if (treeMap?.[treeId]) {
+            treeMap[treeId].value = 1
+          }
+          if (treeId[0] === '2') {
+            treeMap[treeId].img = `/meta-sr/public/icons/tree-${char.detail?.tree?.[id]?.key}.webp`
+          }
+        }
+      })
+      data.treeData = treeData
+    }
     data.weapon = profile.getWeaponDetail()
     let renderData = {
       save_id: uid,
