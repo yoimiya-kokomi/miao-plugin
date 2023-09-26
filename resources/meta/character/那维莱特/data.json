@@ -5,13 +5,13 @@
   "title": "谕告的潮音",
   "star": 5,
   "elem": "hydro",
-  "allegiance": "？？？",
+  "allegiance": "枫丹廷",
   "weapon": "catalyst",
-  "birth": "1-1",
-  "astro": "？？？",
-  "desc": "测试角色",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "birth": "12-18",
+  "astro": "原海巨灵座",
+  "desc": "枫丹的最高审判官，因其无懈可击的「秉公无私」而闻名。",
+  "cncv": "桑毓泽",
+  "jpcv": "神谷浩史",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -23,7 +23,11 @@
     "key": "cdmg",
     "value": 38.4
   },
-  "talentId": {},
+  "talentId": {
+    "10871": "a",
+    "10872": "e",
+    "10875": "q"
+  },
   "talentCons": {
     "a": 3,
     "e": 0,

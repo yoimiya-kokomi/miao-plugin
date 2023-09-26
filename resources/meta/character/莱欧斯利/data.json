@@ -5,13 +5,13 @@
   "title": "寂罪的密使",
   "star": 5,
   "elem": "cryo",
-  "allegiance": "？？？",
+  "allegiance": "梅洛彼得堡",
   "weapon": "catalyst",
-  "birth": "1-1",
+  "birth": "11-23",
   "astro": "守狱犬座",
-  "desc": "测试角色",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "desc": "梅洛彼得堡的公爵，隐于漆黑海底的领主。",
+  "cncv": "刘北辰",
+  "jpcv": "小野大辅",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -23,7 +23,11 @@
     "key": "cdmg",
     "value": 38.4
   },
-  "talentId": {},
+  "talentId": {
+    "10861": "a",
+    "10862": "e",
+    "10865": "q"
+  },
   "talentCons": {
     "a": 3,
     "e": 0,
@@ -37,5 +41,5 @@
     "talent": "「秩序」的哲学",
     "weekly": "原初绿洲之初绽"
   },
-  "eta": 1695780000000
+  "eta": 1697508000000
 }

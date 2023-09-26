@@ -1,0 +1,41 @@
+{
+  "id": 10000089,
+  "name": "芙宁娜",
+  "abbr": "芙宁娜",
+  "title": "不休独舞",
+  "star": 5,
+  "elem": "hydro",
+  "allegiance": "？？？",
+  "weapon": "sword",
+  "birth": "1-1",
+  "astro": "司颂座",
+  "desc": "测试角色",
+  "cncv": "？？？",
+  "jpcv": "？？？",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 15307,
+    "atk": 243.96,
+    "def": 695.54
+  },
+  "growAttr": {
+    "key": "cpct",
+    "value": 19.2
+  },
+  "talentId": {},
+  "talentCons": {
+    "a": 0,
+    "e": 3,
+    "q": 5
+  },
+  "materials": {
+    "gem": "涤净青金",
+    "boss": "未能达成超越之水",
+    "specialty": "湖光铃兰",
+    "normal": "原素花蜜",
+    "talent": "「正义」的哲学",
+    "weekly": "？？？"
+  },
+  "eta": 1699408800000
+}
