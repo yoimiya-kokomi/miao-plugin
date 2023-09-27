@@ -33,8 +33,14 @@ export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
   title: '行迹-军势：布洛妮娅在场时，我方全体造成的伤害提高10%',
-  check: ({ trees }) => trees[103],
+  tree: 3,
   data: {
     dmg: 10
+  }
+}, {
+  title: '行迹-号令：普攻的暴击率提高至[aCpct]%',
+  tree: 1,
+  data: {
+    aCpct: 100
   }
 }]
