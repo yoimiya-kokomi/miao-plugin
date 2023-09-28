@@ -186,7 +186,7 @@ export default function (step, staticStep) {
     }],
     万世流涌大典: [staticStep('hpPct', 16), {
       title: '生命值提升[_hpPct]%',
-      refile: {
+      refine: {
         _hpPct: step(16)
       }
     }, {

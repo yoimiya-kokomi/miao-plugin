@@ -87,7 +87,7 @@
         <div class="talent-icon
            {{talent.level > talent.original ? `talent-plus`:``}}
             {{talent.original >= 10 && game === 'gs' ? `talent-crown`:``}}
-            {{talent.original >= 10 && game === 'sr' ? `talent-destiny`:``}}">
+            {{talent.original >= 10 && game === 'sr' ? `talent-crown-sr`:``}}">
           <div class="talent-icon-img"
                style="background-image:url({{_res_path}}{{ds.imgs[key]}})"></div>
           <span>{{talent.level}}</span>
@@ -98,15 +98,17 @@
 
     <div class="char-item char-weapon line">
       {{set w = ds.weapon }}
-      <div class="item item-icon star{{w.star}}">
-        <div class="img" style="background-image:url({{_res_path}}{{w.img}})"></div>
+      <div class="item item-icon star{{w?.star}}">
+        <div class="img" style="background-image:url({{_res_path}}{{w?.img}})"></div>
       </div>
       <div class="char-info weapon-info">
         <div class="name">
-          <strong> {{w.name?.length > 4 ? (w.abbr||w.name) : w.name}}</strong>
+          <strong> {{w?.name?.length > 4 ? (w?.abbr||w?.name) : w?.name}}</strong>
         </div>
         <div class="info">
+          {{if w}}
           <span class="cons cons-{{w.affix+1}}">精{{w.affix}}</span> Lv.{{w.leve || w.level}}
+          {{/if}}
         </div>
       </div>
     </div>

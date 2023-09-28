@@ -30,8 +30,7 @@
           <div class="talent-item">
             <div class="talent-icon
                {{talent.level > talent.original ? `talent-plus`:``}}
-                {{talent.original >= 10 && game === 'gs' ? `talent-crown`:``}}
-                {{talent.original >= 10 && game === 'sr' ? `talent-destiny`:``}}">
+                {{talent.original >= 10 ? `talent-crown`:``}}">
               <div class="talent-icon-img"
                    style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
               <strong>{{talent.level}}</strong>

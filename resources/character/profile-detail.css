@@ -108,7 +108,7 @@ body {
   display: inline-block;
   height: 16px;
   width: 16px;
-  background-image: url("./imgs/icon.png");
+  background-image: url("imgs/icon.png");
   background-size: auto 16px;
 }
 .char-attr li .title {
@@ -254,18 +254,6 @@ body {
   width: 28px;
   height: 28px;
   background: url("../character/imgs/crown.png") no-repeat;
-  background-size: contain;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  margin-left: -14px;
-}
-.talent-icon.talent-destiny:after {
-  content: "";
-  display: block;
-  width: 37px;
-  height: 37px;
-  background: url("../character/imgs/destiny.webp") no-repeat;
   background-size: contain;
   position: absolute;
   left: 50%;
@@ -613,7 +601,7 @@ body {
   top: 9px;
   height: 8px;
   width: 50px;
-  background-image: url('./imgs/up-num-icon1.png');
+  background-image: url('imgs/up-num-icon1.png');
   background-position: 0 0;
   background-repeat: no-repeat;
   background-size: auto 500%;
@@ -642,14 +630,14 @@ body {
   color: #ffe699;
 }
 .artis ul.detail li.great span.title i.up-num {
-  background-image: url("./imgs/up-num-icon2.png");
+  background-image: url("imgs/up-num-icon2.png");
   background-size: auto 500%;
 }
 .artis ul.detail li.nouse span {
   color: #888;
 }
 .artis ul.detail li.nouse span i.up-num {
-  background-image: url("./imgs/up-num-icon0.png");
+  background-image: url("imgs/up-num-icon0.png");
   background-size: auto 500%;
 }
 .artis ul.detail li.arti-main {
@@ -855,7 +843,7 @@ body {
   margin-bottom: 25px;
 }
 .game-sr .char-attr .icon i {
-  background-image: url('./imgs/icon-sr.png');
+  background-image: url('imgs/icon-sr.png');
 }
 .sr-weapon {
   margin: 0 15px 5px 10px;
@@ -1049,4 +1037,3 @@ body {
 .copyright.ad {
   font-size: 12px;
 }
-/*# sourceMappingURL=profile-detail.css.map */
