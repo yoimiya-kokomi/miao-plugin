@@ -177,10 +177,10 @@ export default function (step, staticStep) {
         a2Dmg: step(14 * 3)
       }
     }],
-    遗祀玉珑: [staticStep('hpPct', 16), {
-      title: '处于队伍后台超过6秒后，生命值上限提升[_hpPct]%，元素精通提升[mastery]点',
+    遗祀玉珑: [{
+      title: '处于队伍后台超过6秒后，生命值上限提升[hpPct]%，元素精通提升[mastery]点',
       refine: {
-        _hpPct: step(32),
+        hpPct: step(32),
         mastery: step(40)
       }
     }],

@@ -42,7 +42,7 @@ export const buffs = [{
     dmg: 30
   }
 }, {
-  title: '那维2命：重击·衡平推裁的暴击伤害提升[cdmg]%',
+  title: '那维2命：重击·衡平推裁的暴击伤害提升[a2Cdmg]%',
   cons: 2,
   data: {
     a2Cdmg: 42
