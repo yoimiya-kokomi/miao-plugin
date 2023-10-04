@@ -96,7 +96,8 @@ let ProfileDetail = {
       return true
     }
     if (!char.isRelease) {
-      if (!profileChange) {
+      // 预设面板支持未实装角色
+      if (!profileChange && Number(e.uid) > 100000006) {
         e.reply('角色尚未实装')
         return true
       } else if (Cfg.get('notReleasedData') === false) {
