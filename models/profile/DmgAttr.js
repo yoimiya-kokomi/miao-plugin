@@ -3,6 +3,7 @@
 * */
 import { attrMap as attrMapGS } from '../../resources/meta/artifact/index.js'
 import { attrMap as attrMapSR } from '../../resources/meta-sr/artifact/index.js'
+import { eleBaseDmg } from './DmgCalcMeta.js'
 import lodash from 'lodash'
 import DmgMastery from './DmgMastery.js'
 import { Format } from '#miao'
@@ -131,19 +132,6 @@ let DmgAttr = {
 
       ds.currentTalent = talent
 
-      let mKey = {
-        vaporize: '蒸发',
-        melt: '融化',
-        swirl: '扩散'
-      }
-      if (lodash.isString(buff) && mKey[buff]) {
-        buff = {
-          vaporize: {
-            title: `元素精通：${mKey[buff]}伤害提高[${buff}]%`,
-            mastery: buff
-          }
-        }
-      }
       if (buff.isStatic) {
         return
       }
@@ -170,12 +158,29 @@ let DmgAttr = {
       let title = buff.title
 
       if (buff.mastery) {
+        let mKey = {
+          vaporize: '蒸发',
+          melt: '融化',
+          swirl: '扩散'
+        }
+        let mKey2 = {
+          aggravate: '超激化',
+          spread: '蔓激化'
+        }
+
         let mastery = Math.max(0, attr.mastery.base + attr.mastery.plus)
-        // let masteryNum = 2.78 * mastery / (mastery + 1400) * 100;
         buff.data = buff.data || {}
-        lodash.forEach(buff.mastery.split(','), (key) => {
+
+        let key = buff.mastery
+        if (mKey[key]) {
           buff.data['_' + key] = DmgMastery.getMultiple(key, mastery) * 100
-        })
+        } else if (mKey2[key]) {
+          let eleNum = DmgMastery.getBasePct(key, attr.element)
+          let eleBase = 1 + attr[key] / 100 + DmgMastery.getMultiple(key, mastery)
+          eleBase *= eleBaseDmg[ds.level]
+          buff.data['_' + key] = DmgMastery.getMultiple(key, mastery) * 100
+          buff.data['_' + key + 'num'] = eleNum * eleBase
+        }
       }
 
       lodash.forEach(buff.data, (val, key) => {

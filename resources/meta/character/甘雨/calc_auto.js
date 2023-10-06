@@ -70,7 +70,6 @@ export const buffs = [{
 }, {
   check: ({ cons, params }) => cons <= 1 && params.team === true,
   title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
-  sort: 9,
   data: {
     aDmg: 16,
     a2Dmg: 16,
@@ -82,7 +81,6 @@ export const buffs = [{
 }, {
   check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
   title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-  sort: 9,
   data: {
     aDmg: 16,
     a2Dmg: 16,
@@ -95,7 +93,6 @@ export const buffs = [{
 }, {
   check: ({ cons, params }) => (cons >= 6 && params.team === true),
   title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-  sort: 9,
   data: {
     aDmg: 32,
     a2Dmg: 32,
@@ -108,7 +105,6 @@ export const buffs = [{
 }, {
   check: ({ cons, params }) => (cons >= 6 && params.team === true && params.alter === false),
   title: '精5息灾申鹤：获得[dmg]%增伤,减抗[kx]%,爆伤15%,提升冰伤害5700',
-  sort: 9,
   data: {
     dmg: 30,
     kx: 15,
@@ -120,7 +116,6 @@ export const buffs = [{
 }, {
   check: ({ cons, params }) => (cons < 6 && params.team === true && params.alter === false),
   title: '精1息灾申鹤：获得[dmg]%增伤,减抗[kx]%,提升冰伤害4300',
-  sort: 9,
   data: {
     dmg: 30,
     kx: 15,
@@ -130,15 +125,20 @@ export const buffs = [{
   }
 }, {
   check: ({ params }) => (params.team === true && params.alter === true),
-  title: '千夜命纳西妲：增加精通[mastery]',
-  sort: 9,
+  title: '0命纳西妲：Q范围内在场角色增加精通[mastery]',
+  sort: 7,
   data: {
-    mastery: 290
+    mastery: 250
+  }
+}, {
+  check: ({ params }) => (params.team === true && params.alter === true),
+  title: '千夜浮梦(纳西妲)：精通增加[mastery]',
+  data: {
+    mastery: 40
   }
 }, {
   check: ({ params }) => params.team === true,
   title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
-  sort: 9,
   data: {
     atkPct: 20,
     atkPlus: 1202.35

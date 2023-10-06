@@ -14,10 +14,10 @@ export const details = [{
   title: 'Q总伤害·超激化',
   params: { q: 1, team: false },
   dmg: ({ talent }, dmg) => {
-    let t1j = dmg(talent.q['技能伤害'], 'q', '超激化')
-    let t2j = dmg(talent.q['连斩伤害'] / 8, 'q', '超激化')
+    let t1j = dmg(talent.q['技能伤害'], 'q', 'aggravate')
+    let t2j = dmg(talent.q['连斩伤害'] / 8, 'q', 'aggravate')
     let t2 = dmg(talent.q['连斩伤害'] / 8, 'q')
-    let t3j = dmg(talent.q['最后一击伤害'], 'q', '超激化')
+    let t3j = dmg(talent.q['最后一击伤害'], 'q', 'aggravate')
     return {
       dmg: t1j.dmg + t2j.dmg * 2 + t2.dmg * 6 + t3j.dmg,
       avg: t1j.avg + t2j.avg * 2 + t2.avg * 6 + t3j.avg
@@ -27,10 +27,10 @@ export const details = [{
   title: '刻九万妲Q激化总伤',
   params: { q: 1, team: true },
   dmg: ({ talent }, dmg) => {
-    let t1j = dmg(talent.q['技能伤害'], 'q', '超激化')
-    let t2j = dmg(talent.q['连斩伤害'] / 8, 'q', '超激化')
+    let t1j = dmg(talent.q['技能伤害'], 'q', 'aggravate')
+    let t2j = dmg(talent.q['连斩伤害'] / 8, 'q', 'aggravate')
     let t2 = dmg(talent.q['连斩伤害'] / 8, 'q')
-    let t3j = dmg(talent.q['最后一击伤害'], 'q', '超激化')
+    let t3j = dmg(talent.q['最后一击伤害'], 'q', 'aggravate')
     return {
       dmg: t1j.dmg + t2j.dmg * 2 + t2.dmg * 6 + t3j.dmg,
       avg: t1j.avg + t2j.avg * 2 + t2.avg * 6 + t3j.avg
@@ -110,13 +110,19 @@ export const buffs = [{
   check: ({ cons, params }) => (cons >= 2 && params.team === true),
   title: '千夜2命纳西妲：增加精通[mastery],减防[enemyDef]%',
   data: {
-    mastery: 290,
+    mastery: 40,
     enemyDef: 30
   }
 }, {
   check: ({ cons, params }) => (cons < 2 && params.team === true),
   title: '千夜0命纳西妲：增加精通[mastery]',
   data: {
-    mastery: 290
+    mastery: 40
   }
-}]
+}, {
+  check: ({ params }) => params.team === true,
+  title: '纳西妲-净善摄受明论：Q范围内在场角色增加精通[mastery]',
+  data: {
+    mastery: 250
+  }
+}, 'aggravate']

@@ -39,6 +39,7 @@ export const buffs = [{
 }, {
   title: '辛焱6命：进行重击时，基于防御力的50%获得[atkPlus]攻击力加成',
   cons: 6,
+  sort: 9,
   check: ({ params }) => params.a2 === true,
   data: {
     atkPlus: ({ attr, calc }) => calc(attr.def) * 0.5

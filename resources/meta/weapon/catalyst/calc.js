@@ -108,6 +108,7 @@ export default function (step, staticStep) {
     }],
     不灭月华: [staticStep('heal', 10, 2.5), {
       title: '治疗加成提高[_heal]%，普攻伤害增加[aPlus]',
+      sort: 9,
       refine: {
         _heal: step(10, 2.5)
       },
@@ -131,6 +132,7 @@ export default function (step, staticStep) {
     },
     流浪的晚星: {
       title: '基于元素精通提升攻击力[atkPlus]',
+      sort: 6,
       data: {
         atkPlus: ({ attr, calc, refine }) => step(24)[refine] * calc(attr.mastery) / 100
       }
@@ -150,12 +152,14 @@ export default function (step, staticStep) {
     },
     碧落之珑: {
       title: '释放元素爆发后基于生命值提高元素伤害[dmg]%',
+      sort: 9,
       data: {
         dmg: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) / 1000) * step(0.3, 0.2)[refine], step(12, 8)[refine])
       }
     },
     纯水流华: [{
       title: '生命之契提升[dmg]%全部元素伤害加成',
+      sort: 9,
       data: {
         dmg: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) / 1000) * 2 * step(0.24)[refine], step(12)[refine])
       }

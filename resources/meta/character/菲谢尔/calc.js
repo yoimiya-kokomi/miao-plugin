@@ -1,6 +1,6 @@
 export const details = [{
   title: '奥兹攻击激化伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e', '超激化')
+  dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e', 'aggravate')
 }, {
   title: '奥兹攻击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e')
@@ -25,4 +25,4 @@ export const buffs = [{
   data: {
     qPct: ({ params }) => params.q ? 222 : 0
   }
-}]
+}, 'aggravate']

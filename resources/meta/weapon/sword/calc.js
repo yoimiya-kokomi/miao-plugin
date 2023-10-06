@@ -2,6 +2,7 @@ export default function (step, staticStep) {
   return {
     辰砂之纺锤: {
       title: '元素战技造成的伤害值提高[ePlus]',
+      sort: 9,
       data: {
         ePlus: ({ attr, calc, refine }) => calc(attr.def) * step(40)[refine] / 100
       }
@@ -104,6 +105,13 @@ export default function (step, staticStep) {
         atkPct: step(15)
       }
     },
+    西福斯的月光: {
+      title: '基于元素精通，提升[recharge]%元素充能效率',
+      sort: 6,
+      data: {
+        recharge: ({ attr, calc, refine }) => calc(attr.mastery) * step(0.036)[refine]
+      }
+    },
     波乱月白经津: [{
       title: '元素伤害加成[dmg]%',
       refine: {
@@ -143,14 +151,14 @@ export default function (step, staticStep) {
     }],
     磐岩结绿: [staticStep('hpPct', 20), {
       title: '基于生命值上限提高攻击力[atkPlus]',
+      sort: 9,
       data: {
         atkPlus: ({ attr, calc, refine }) => calc(attr.hp) * step(1.2)[refine] / 100
-
       }
     }],
     裁叶萃光: [staticStep('cpct', 4), {
       title: '普攻与元素战技造成的伤害值提高[aPlus]',
-      sort: 5,
+      sort: 9,
       data: {
         aPlus: ({ attr, calc, refine }) => calc(attr.mastery) * step(120)[refine] / 100,
         ePlus: ({ attr, calc, refine }) => calc(attr.mastery) * step(120)[refine] / 100
@@ -169,10 +177,9 @@ export default function (step, staticStep) {
       }
     }],
     天空之刃: [staticStep('cpct', 4), {
-      title: '普攻与重击的伤害值提高[aPlus]',
-      data: {
-        aPlus: ({ attr, calc, refine }) => calc(attr.atk) * step(20)[refine] / 100,
-        a2Plus: ({ attr, calc, refine }) => calc(attr.atk) * step(20)[refine] / 100
+      title: '暴击提高[_cpct]%',
+      refine: {
+        _cpct: step(4)
       }
     }],
     风鹰剑: [staticStep('atkPct', 20), {
@@ -189,6 +196,7 @@ export default function (step, staticStep) {
     },
     圣显之钥: [staticStep('hpPct', 20), {
       title: '基于生命提升元素精通，满层提升[mastery]',
+      sort: 5,
       data: {
         mastery: ({ attr, calc, refine }) => step(0.36 + 0.2)[refine] * calc(attr.hp) / 100
       }
@@ -202,6 +210,7 @@ export default function (step, staticStep) {
     },
     海渊终曲: {
       title: '释放元素战技攻击力提升[atkPct]%，生命之契提升[atkPlus]点攻击力',
+      sort: 9,
       data: {
         atkPlus: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) * 0.25 * step(0.24)[refine] / 10, step(150)))
       },

@@ -18,11 +18,4 @@ export const details = [{
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [{
-  title: '砂糖被动：触发扩散反应时，队伍提升50精通'
-}, {
-  title: '砂糖被动：释放QE命中敌人时，基于自身精通提升队伍[mastery]精通',
-  data: {
-    mastery: ({ attr, calc }) => calc(attr.mastery) * 0.2
-  }
-}]
+export const buffs = ['swirl']

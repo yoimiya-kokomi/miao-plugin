@@ -17,6 +17,7 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const buffs = [{
   title: '早柚6命：基于精通提升Q [qPct]伤害，[_heal]治疗量',
   cons: 6,
+  sort: 9,
   data: {
     qPct: ({ attr, calc }) => Math.min(calc(attr.mastery) * 0.002, 400),
     _heal: ({ attr, calc }) => Math.min(calc(attr.mastery) * 3, 6000)

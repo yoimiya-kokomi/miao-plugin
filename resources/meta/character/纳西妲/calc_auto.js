@@ -1,10 +1,10 @@
 export const details = [{
   title: 'E长按伤害',
-  params: { e: true, q: false ,team : false},
+  params: { e: true, q: false, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['长按伤害'], 'e')
 }, {
   title: '灭净三业伤害',
-  params: { e2: true, q: false ,team : false},
+  params: { e2: true, q: false, team: false },
   dmg: ({ talent, calc, attr }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
     const em = calc(attr.mastery)
@@ -13,7 +13,7 @@ export const details = [{
   }
 }, {
   title: '开Q灭净三业伤害',
-  params: { e2: true ,team : false},
+  params: { e2: true, team: false },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
     const em = calc(attr.mastery)
@@ -22,7 +22,7 @@ export const details = [{
   }
 }, {
   title: '灭净三业·蔓激化',
-  params: { e2: true, q: false ,team : false},
+  params: { e2: true, q: false, team: false },
   dmg: ({ talent, calc, attr }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
     const em = calc(attr.mastery)
@@ -31,7 +31,7 @@ export const details = [{
   }
 }, {
   title: '开Q灭净三业·蔓激化',
-  params: { e2: true ,team : false},
+  params: { e2: true, team: false },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
     const em = calc(attr.mastery)
@@ -40,7 +40,7 @@ export const details = [{
   }
 }, {
   title: '提八纳皇开Q灭净三业·蔓激化',
-  params: { e2: true ,team : true},
+  params: { e2: true, team: true },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
     const em = calc(attr.mastery)
@@ -49,9 +49,8 @@ export const details = [{
   }
 }]
 
-
 export const defParams = {
-    q: true,team:true
+  q: true, team: true
 }
 
 export const defDmgIdx = 5
@@ -73,26 +72,28 @@ export const buffs = [{
     mastery: 160
   }
 }, {
-  check: ({ cons,params }) =>  (cons <=4 && params.team === true),
+  check: ({ cons, params }) => (cons <= 4 && params.team === true),
   title: '提八皇组队buff：双草教官精1终末皇女[mastery],[atkPct]%攻击力',
   data: {
-    mastery:320,
-    atkPct:20
+    mastery: 320,
+    atkPct: 20
   }
-},{
-  check: ({ cons,params }) =>  (cons >4 && params.team === true),
+}, {
+  check: ({ cons, params }) => (cons > 4 && params.team === true),
   title: '提八皇组队buff：双草教官精5终末皇女4命提纳里[mastery],[atkPct]%攻击力',
   data: {
-    mastery:540,
-    atkPct:40
+    mastery: 540,
+    atkPct: 40
   }
 }, {
   title: '草神被动：开Q元素精通提升[mastery]',
+  sort: 7,
   data: {
     mastery: ({ calc, attr, params }) => (params.q === false ? 0 : 1) * Math.min(250, calc(attr.mastery) * 0.25)
   }
 }, {
   title: '草神被动：基于元素精通提升灭净三业伤害[eDmg]%，暴击率[eCpct]%',
+  sort: 9,
   data: {
     eDmg: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min(80, (calc(attr.mastery) - 200) * 0.1),
     eCpct: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min(24, (calc(attr.mastery) - 200) * 0.03)
@@ -103,4 +104,4 @@ export const buffs = [{
     eDmg: ({ cons, talent, params }) => (params.q === false ? 0 : 1) *
       (cons >= 1 ? talent.q['火2伤害提升'] : talent.q['火1伤害提升'])
   }
-}]
+}, 'spread']

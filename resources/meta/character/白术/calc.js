@@ -41,7 +41,8 @@ export const buffs = [{
 }, {
   cons: 6,
   title: '白术6命：基于生命值上限的8%，灵气脉造成的伤害提高[qPlus]',
+  sort: 9,
   data: {
     qPlus: ({ attr, calc }) => calc(attr.hp) * 0.08
   }
-}]
+}, 'spread']

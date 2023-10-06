@@ -22,8 +22,8 @@ export const details = [{
 }, {
   title: '四段Q总激化伤害',
   dmg: ({ talent }, dmg) => {
-    let q1j = dmg(talent.q['技能伤害'], 'q', '超激化')
-    let q2j = dmg(talent.q['天狐霆雷伤害'], 'q', '超激化')
+    let q1j = dmg(talent.q['技能伤害'], 'q', 'aggravate')
+    let q2j = dmg(talent.q['天狐霆雷伤害'], 'q', 'aggravate')
     return {
       dmg: q1j.dmg + q2j.dmg * 3,
       avg: q1j.avg + q2j.avg * 3
@@ -31,12 +31,12 @@ export const details = [{
   }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,mastery'
+export const mainAttr = 'atk,cpct,cdmg,mastery,dmg'
 export const defDmgKey = 'e'
 
 export const buffs = [{
   title: '被动天赋：基于元素精通提高杀生樱伤害[eDmg]%',
-  sort: 5,
+  sort: 9,
   data: {
     eDmg: ({ attr, calc }) => calc(attr.mastery) * 0.15
   }
@@ -52,4 +52,4 @@ export const buffs = [{
   data: {
     eDef: 60
   }
-}]
+}, 'aggravate']

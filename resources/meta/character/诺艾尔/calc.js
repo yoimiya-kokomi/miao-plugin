@@ -20,11 +20,13 @@ export const mainAttr = 'atk,def,cpct,cdmg'
 
 export const buffs = [{
   title: '元素爆发：诺艾尔开Q基于防御力提高攻击力[atkPlus]',
+  sort: 9,
   data: {
     atkPlus: ({ attr, calc, talent }) => talent.q['攻击力提高'] * calc(attr.def) / 100
   }
 }, {
   title: '诺艾尔6命：诺艾尔开Q基于防御力提高攻击力[atkPlus]',
+  sort: 9,
   cons: 6,
   data: {
     atkPlus: ({ attr, calc, talent }) => calc(attr.def) * 0.5

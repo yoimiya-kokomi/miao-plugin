@@ -1,12 +1,12 @@
 export const details = [{
   title: '先QA后E两段伤害',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['技能伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '雨帘剑伤害',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['剑雨伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['剑雨伤害'], 'q')
 }, {
   title: '雨帘剑蒸发',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['剑雨伤害'], 'q', 'vaporize')
+  dmg: ({ talent }, dmg) => dmg(talent.q['剑雨伤害'], 'q', 'vaporize')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'

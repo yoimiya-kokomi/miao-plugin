@@ -39,6 +39,7 @@ export const buffs = [{
 }, {
   title: '阿贝多2命：4每层Buff提高Q [qPlus]伤害',
   cons: 2,
+  sort: 9,
   data: {
     qPlus: ({ params, attr, calc }) => params.buff === 0 ? 0 : calc(attr.def) * 1.2
   }

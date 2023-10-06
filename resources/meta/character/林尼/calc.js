@@ -56,6 +56,7 @@ export const buffs = [{
 }, {
   check: ({ params }) => params.a2 === true,
   title: '林尼6命：发射隐具魔术箭时，额外发射一枚礼花术弹·重奏，造成礼花术弹80%的伤害',
+  sort: 9,
   cons: 6,
   data: {
     a2Plus: ({ talent, attr, calc }) => talent.a['礼花术弹伤害'] / 100 * calc(attr.atk) * 0.8

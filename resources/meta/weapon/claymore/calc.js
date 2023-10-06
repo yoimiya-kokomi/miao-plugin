@@ -125,6 +125,7 @@ export default function (step, staticStep) {
     }],
     赤角石溃杵: [staticStep('defPct', 28), {
       title: '普通攻击与重击造成的伤害值提高[aPlus]',
+      sort: 9,
       data: {
         aPlus: ({ attr, calc, refine }) => calc(attr.def) * step(40)[refine] / 100,
         a2Plus: ({ attr, calc, refine }) => calc(attr.def) * step(40)[refine] / 100
@@ -138,6 +139,7 @@ export default function (step, staticStep) {
     },
     玛海菈的水色: {
       title: '基于元素精通提升攻击力[atkPlus]',
+      sort: 6,
       data: {
         atkPlus: ({ attr, calc, refine }) => step(24)[refine] * calc(attr.mastery) / 100
       }

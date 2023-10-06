@@ -17,6 +17,7 @@ export const mainAttr = 'atk,def,cpct,cdmg'
 
 export const buffs = [{
   title: '云堇被动：队伍存在4元素类型角色时，Q提供的普攻伤害提高[_q]',
+  sort: 9,
   data: {
     _q: ({ attr, calc }) => {
       return calc(attr.def) * 0.115

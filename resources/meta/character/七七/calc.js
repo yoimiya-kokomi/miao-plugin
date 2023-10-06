@@ -10,7 +10,7 @@ export const details = [{
   dmg: ({ talent, attr, calc }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'phy')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
+export const mainAttr = 'atk,cpct,cdmg,heal'
 
 export const buffs = [{
   title: '七七二命：对受冰元素影响的敌人普攻及重击伤害提升15%',

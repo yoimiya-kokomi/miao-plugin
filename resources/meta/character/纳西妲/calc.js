@@ -60,11 +60,13 @@ export const buffs = [{
   }
 }, {
   title: '草神被动：开Q元素精通提升[mastery]',
+  sort: 7,
   data: {
     mastery: ({ calc, attr, params }) => (params.q === false ? 0 : 1) * Math.min(250, calc(attr.mastery) * 0.25)
   }
 }, {
   title: '草神被动：基于元素精通提升灭净三业伤害[eDmg]%，暴击率[eCpct]%',
+  sort: 9,
   data: {
     eDmg: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min(80, (calc(attr.mastery) - 200) * 0.1),
     eCpct: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min(24, (calc(attr.mastery) - 200) * 0.03)
@@ -75,4 +77,4 @@ export const buffs = [{
     eDmg: ({ cons, talent, params }) => (params.q === false ? 0 : 1) *
       (cons >= 1 ? talent.q['火2伤害提升'] : talent.q['火1伤害提升'])
   }
-}]
+}, 'spread']

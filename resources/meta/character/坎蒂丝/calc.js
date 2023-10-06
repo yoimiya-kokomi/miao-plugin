@@ -25,6 +25,7 @@ export const buffs = [{
   }
 }, {
   title: '坎蒂丝被动：Q伤害加成基于生命值上限提升[_a]%',
+  sort: 9,
   data: {
     _a: ({ attr, calc }) => Math.floor(calc(attr.hp) / 1000) * 0.5
   }

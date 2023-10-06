@@ -27,4 +27,4 @@ export const buffs = [{
   data: {
     qDmg: 15
   }
-},'vaporize']
+}, 'vaporize']

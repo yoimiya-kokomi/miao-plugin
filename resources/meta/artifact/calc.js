@@ -175,7 +175,6 @@ const buffs = {
     2: attr('dmg', 15, '风'),
     4: {
       title: '扩散反应造成的伤害提升60%，降低对应元素抗性40%',
-      sort: 5,
       data: {
         swirl: 60,
         fykx: 40
@@ -319,6 +318,7 @@ const buffs = {
     2: attr('recharge', 20),
     4: {
       title: '基于元素充能效率提高元素爆发[qDmg]%伤害',
+      sort: 4,
       data: {
         qDmg: ({ attr }) => Math.min(75, (attr.recharge.base + attr.recharge.plus) * 0.25)
       }
@@ -329,7 +329,6 @@ const buffs = {
     2: attr('defPct', 30),
     4: {
       title: '满层获得24%防御及24%岩伤加成',
-      sort: 0,
       data: {
         defPct: 24,
         dmg: 24
@@ -355,7 +354,7 @@ const buffs = {
     2: attr('atkPct', 18),
     4: {
       title: '触发提高普攻[aPlus]伤害',
-      sort: 10,
+      sort: 9,
       data: {
         aPlus: ({ attr }) => (attr.atk.base + attr.atk.plus + attr.atk.pct * attr.atk.base / 100) * 0.35
       }
@@ -377,7 +376,6 @@ const buffs = {
     2: attr('mastery', 80),
     4: {
       title: '队伍存在其他3个不同元素类型角色时，精通提高150',
-      sort: 0,
       data: {
         mastery: 150
       }

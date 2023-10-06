@@ -75,9 +75,9 @@ export const attrMap = {
   cdmg: { title: '暴击伤害', format: 'pct', calc: 'plus' },
   mastery: { title: '元素精通', format: 'comma', calc: 'plus' },
   recharge: { title: '充能效率', format: 'pct', calc: 'plus' },
-  dmg: { title: '元素伤害', format: 'pct' },
-  phy: { title: '物伤加成', format: 'pct' },
-  heal: { title: '治疗加成', format: 'pct' }
+  dmg: { title: '元素伤害', format: 'pct', calc: 'plus' },
+  phy: { title: '物伤加成', format: 'pct', calc: 'plus' },
+  heal: { title: '治疗加成', format: 'pct', calc: 'plus' }
 }
 
 // const basicNum = 23.312 / 6

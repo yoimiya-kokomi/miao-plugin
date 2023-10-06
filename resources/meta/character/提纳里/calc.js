@@ -1,6 +1,6 @@
 export const details = [{
   title: '花筥箭激化伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['花筥箭伤害'], 'a2', '蔓激化')
+  dmg: ({ talent }, dmg) => dmg(talent.a['花筥箭伤害'], 'a2', 'spread')
 }, {
   title: '满蓄力重击总伤害',
   dmg: ({ talent, cons }, dmg) => {
@@ -18,11 +18,11 @@ export const details = [{
   title: '满蓄力重击激化总伤害',
   dmgKey: 'a2_j',
   dmg: ({ talent, cons }, dmg) => {
-    let d1j = dmg(talent.a['花筥箭伤害'], 'a2', '蔓激化')
+    let d1j = dmg(talent.a['花筥箭伤害'], 'a2', 'spread')
     let d2 = dmg(talent.a['藏蕴花矢伤害'], 'a2')
-    let d2j = dmg(talent.a['藏蕴花矢伤害'], 'a2', '蔓激化')
+    let d2j = dmg(talent.a['藏蕴花矢伤害'], 'a2', 'spread')
     let talentc6a2 = 150.0
-    let d2jc6 = dmg(talentc6a2, 'a2', '蔓激化')
+    let d2jc6 = dmg(talentc6a2, 'a2', 'spread')
     let count = cons >= 6 ? 1 : 0
     return {
       dmg: d1j.dmg + d2.dmg * 3 + d2j.dmg + d2jc6.dmg * count,
@@ -40,9 +40,9 @@ export const details = [{
   params: { q: true },
   dmg: ({ talent }, dmg) => {
     let q1 = dmg(talent.q['缠藤箭伤害'], 'q')
-    let q1j = dmg(talent.q['缠藤箭伤害'], 'q', '蔓激化')
+    let q1j = dmg(talent.q['缠藤箭伤害'], 'q', 'spread')
     let q2 = dmg(talent.q['次级缠藤箭伤害'], 'q')
-    let q2j = dmg(talent.q['次级缠藤箭伤害'], 'q', '蔓激化')
+    let q2j = dmg(talent.q['次级缠藤箭伤害'], 'q', 'spread')
     return {
       dmg: q1.dmg * 4 + q1j.dmg * 2 + q2.dmg * 4 + q2j.dmg * 2,
       avg: q1.avg * 4 + q1j.avg * 2 + q2.avg * 4 + q2j.avg * 2
@@ -60,7 +60,7 @@ export const buffs = [{
   }
 }, {
   title: '提纳里被动：基于元素精通提升重击及Q伤害[a2Dmg]%',
-  sort: 5,
+  sort: 9,
   data: {
     a2Dmg: ({ calc, attr }) => Math.min(60, calc(attr.mastery) * 0.06),
     qDmg: ({ calc, attr }) => Math.min(60, calc(attr.mastery) * 0.06)
@@ -86,4 +86,4 @@ export const buffs = [{
 }, {
   title: '提纳里6命：花筥箭在命中后能产生1枚额外的藏蕴花矢',
   cons: 6
-}]
+}, 'spread']

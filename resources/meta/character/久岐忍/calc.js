@@ -27,6 +27,7 @@ export const buffs = [{
   }
 }, {
   title: '久岐忍被动：基于元素精通提高治疗量[healNum]，伤害[ePlus]',
+  sort: 9,
   data: {
     healNum: ({ attr, calc }) => calc(attr.mastery) * 0.75,
     ePlus: ({ attr, calc }) => calc(attr.mastery) * 0.25

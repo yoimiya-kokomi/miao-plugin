@@ -66,6 +66,7 @@ export const defParams = {
 
 export const buffs = [{
   title: '艾尔海森被动：基于元素精通提升EQ伤害[eDmg]%',
+  sort: 9,
   data: {
     eDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery)) * 0.1),
     qDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery)) * 0.1)
@@ -91,4 +92,4 @@ export const buffs = [{
     cpct: 10,
     cdmg: 70
   }
-}]
+}, 'spread']

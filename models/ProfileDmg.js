@@ -119,6 +119,7 @@ export default class ProfileDmg extends Base {
     let talent = this.talent()
 
     let meta = {
+      level: profile.level,
       cons: profile.cons * 1,
       talent,
       trees: this.trees()

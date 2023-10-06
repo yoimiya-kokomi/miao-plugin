@@ -27,12 +27,14 @@ export const buffs = [{
   }
 }, {
   check: ({ cons }) => cons < 2,
+  sort: 9,
   title: '4层浪闪：提高瞬水剑伤害[aPlus]',
   data: {
     aPlus: ({ attr, calc, talent }) => calc(attr.hp) * talent.e['浪闪伤害值提高'] / 100 * 4
   }
 }, {
   cons: 2,
+  sort: 9,
   title: '绫人2命：5层浪闪提高瞬水剑伤害[aPlus]',
   data: {
     aPlus: ({ attr, calc, talent }) => calc(attr.hp) * talent.e['浪闪伤害值提高'] / 100 * 5

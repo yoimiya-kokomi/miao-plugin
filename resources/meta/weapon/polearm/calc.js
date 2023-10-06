@@ -86,6 +86,7 @@ export default function (step, staticStep) {
     },
     护摩之杖: [staticStep('hpPct', 20), {
       title: '角色生命低于50%时额外获得[atkPlus]攻击力',
+      sort: 9,
       data: {
         atkPlus: ({ attr, refine, calc }) => {
           let totalHp = calc(attr.hp)
@@ -96,13 +97,12 @@ export default function (step, staticStep) {
     天空之脊: staticStep('cpct', 8),
     薙草之稻光: [{
       title: '元素爆发12秒内元素充能提高[rechargePlus]%',
-      sort: 0,
       refine: {
         rechargePlus: [30, 35, 40, 45, 50]
       }
     }, {
-      title: '攻击力基于元素充能提升[atkPct]%',
-      sort: 10,
+      title: '基于元素充能提升攻击力[atkPct]%',
+      sort: 4,
       data: {
         atkPct: ({ attr, refine }) => {
           let recharge = attr.recharge.base + attr.recharge.plus - 100
@@ -125,7 +125,7 @@ export default function (step, staticStep) {
     },
     赤沙之杖: {
       title: '赤沙之杖被动：基于元素精通获得攻击力[_atk1]，3层Buff提高攻击力[_atk2]',
-      sort: 7,
+      sort: 6,
       data: {
         _atk1: ({ attr, calc, refine }) => step(52)[refine] * calc(attr.mastery) / 100,
         _atk2: ({ attr, calc, refine }) => step(28 * 3)[refine] * calc(attr.mastery) / 100,

@@ -21,6 +21,7 @@ export const buffs = [{
   }
 }, {
   title: '托马被动：Q每段伤害提高[qPlus]',
+  sort: 9,
   data: {
     qPlus: ({ calc, attr }) => calc(attr.hp) * 0.022
   }

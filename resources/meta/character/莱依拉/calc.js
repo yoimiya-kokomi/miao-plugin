@@ -34,6 +34,7 @@ export const buffs = [{
   }
 }, {
   title: '莱依拉被动：飞星造成的伤害值基于生命值提高[ePlus]',
+  sort: 9,
   data: {
     ePlus: ({ attr, calc }) => calc(attr.hp) * 0.015
   }

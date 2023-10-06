@@ -25,8 +25,3 @@ export const buffs = [{
     dmg: 15
   }
 }, 'vaporize']
-
-export const artisSect = function ({ attr, calc }) {
-  let test = calc(attr.cpct) * 2 + calc(attr.cdmg) + calc(attr.dmg)
-  return test > 150 ? '暴力' : false
-}

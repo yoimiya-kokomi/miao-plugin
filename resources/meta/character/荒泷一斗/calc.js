@@ -15,6 +15,7 @@ export const enemyName = '魔偶/女士/雷神'
 
 export const buffs = [{
   title: '一斗被动：荒泷逆袈裟造成的伤害基于防御值提高[a2Plus]',
+  sort: 9,
   data: {
     a2Plus: ({ attr, calc }) => calc(attr.def) * 0.35
   }
@@ -26,6 +27,7 @@ export const buffs = [{
   }
 }, {
   title: '一斗大招：怒目鬼王状态提高攻击力[atkPlus]',
+  sort: 9,
   data: {
     atkPlus: ({ attr, calc, talent }) => talent.q['攻击力提高'] * calc(attr.def) / 100
   }

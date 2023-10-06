@@ -26,6 +26,7 @@ export const buffs = [{
   }
 }, {
   title: '钟离被动：基于生命值上限，共鸣伤害提高[ePlus]，天星伤害提高[qPlus]',
+  sort: 9,
   data: {
     ePlus: ({ attr, calc }) => calc(attr.hp) * 0.019,
     qPlus: ({ attr, calc }) => calc(attr.hp) * 0.33

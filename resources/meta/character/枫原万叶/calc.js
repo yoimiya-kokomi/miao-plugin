@@ -20,10 +20,4 @@ export const buffs = [{
   data: {
     mastery: 200
   }
-}, {
-  title: '元素精通：扩散伤害提高[swirlPlus]%',
-  sort: 2,
-  data: {
-    swirlPlus: ({ calc, attr }) => 1600 * calc(attr.mastery) / (calc(attr.mastery) + 2000)
-  }
-}]
+}, 'swirl']

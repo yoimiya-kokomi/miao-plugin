@@ -43,4 +43,4 @@ export const buffs = [{
   data: {
     dmg: 24
   }
-}]
+}, 'aggravate']
