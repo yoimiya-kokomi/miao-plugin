@@ -2,6 +2,9 @@ import lodash from 'lodash'
 import { Data } from '#miao'
 import { Character } from '#miao.models'
 
+/**
+ * 鳄梨
+ */
 export default {
   id: 'avocado',
   name: 'avocado.wiki',
