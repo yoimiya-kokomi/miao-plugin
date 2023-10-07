@@ -44,6 +44,21 @@ export const homoApi = {
   }
 }
 
+export const avocadoApi = {
+  url: 'https://avocado.wiki/v1/raw/info',
+  userAgent: 'Miao-Plugin/3.1',
+  listApi: ({ url, uid, diyCfg }) => {
+    return `${url}/${uid}`
+  }
+}
+
+export const enkaHSRApi = {
+  url: 'https://enka.network/',
+  userAgent: 'Miao-Plugin/3.1',
+  listApi: ({ url, uid, diyCfg }) => {
+    return `${url}api/hsr/uid/${uid}/`
+  }
+}
 export const requestInterval = 3
 
 export const isSys = true

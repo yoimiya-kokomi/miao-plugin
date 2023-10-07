@@ -9,6 +9,8 @@ import hutaoApi from './HutaoApi.js'
 import homoApi from './HomoApi.js'
 
 import lodash from 'lodash'
+import avocadoApi from './AvocadoApi.js'
+import enkaHSRApi from './EnkaHSRApi.js'
 
 let { diyCfg } = await Data.importCfg('profile')
 
@@ -21,7 +23,9 @@ const Profile = {
         mgg: mggApi,
         enka: enkaApi,
         hutao: hutaoApi,
-        homo: homoApi
+        homo: homoApi,
+        avocado: avocadoApi,
+        enkaHSR: enkaHSRApi
       }[key])
     }
     return Profile.servs[key]
@@ -41,15 +45,23 @@ const Profile = {
     // 判断国服、B服、外服，获取在配置中的idx
     let servIdx = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 9: 2 }[uid[0]]
 
-    // 获取对应服务选择的配置数字，0自动，1喵，2Enka，3Mgg, 4:Hutao
+    // 获取原神对应服务选择的配置数字，0自动，1喵，2Enka，3Mgg, 4:Hutao
     let servCfg = Cfg.get('profileServer', '0').toString() || '0'
+    // 获取星穹铁道对应服务选择的配置数字，0自动，1喵，2Mihomo，3Avocado, 4EnkaHSR
+    let srServCfg = Cfg.get('srProfileServer', '0').toString() || '0'
     servCfg = servCfg[servIdx] || servCfg[0] || '0'
 
     if (game === 'sr') {
-      if ((servCfg === '0' || servCfg === '1') && hasToken) {
+      if ((srServCfg === '0' || srServCfg === '1') && hasToken) {
         return Profile.serv('miao')
       }
-      return Profile.serv('homo')
+      if (srServCfg === '4') {
+        return Profile.serv('enkaHSR')
+      } else if (srServCfg === '3') {
+        return Profile.serv('avocado')
+      } else {
+        return Profile.serv('homo')
+      }
     }
 
     if ((servCfg === '0' || servCfg === '1') && hasToken) {
