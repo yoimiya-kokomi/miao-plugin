@@ -121,6 +121,7 @@ export const buffs = [{
   }
 }, {
   check: ({ params }) => params.team === true,
+  sort: 7,
   title: '纳西妲-净善摄受明论：Q范围内在场角色增加精通[mastery]',
   data: {
     mastery: 250
