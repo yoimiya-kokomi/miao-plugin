@@ -100,7 +100,9 @@ let ProfileDetail = {
       if (!profileChange && Number(e.uid) > 100000006) {
         e.reply('角色尚未实装')
         return true
-      } else if (Cfg.get('notReleasedData') === false) {
+      }
+      // 但仅在未实装开启时展示
+      if (Cfg.get('notReleasedData') === false) {
         e.reply('未实装角色面板已禁用...')
         return true
       }

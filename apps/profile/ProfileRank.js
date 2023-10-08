@@ -1,5 +1,5 @@
 import ProfileDetail from './ProfileDetail.js'
-import { Data, Common, Format } from '#miao'
+import { Data, Common, Format, Cfg } from '#miao'
 import { Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
 import lodash from 'lodash'
 
@@ -37,6 +37,10 @@ export async function groupRank (e) {
     let player = Player.create(100000000)
     if (player.getProfile(char.id)) {
       e.uid = 100000000
+      if (Cfg.get('notReleasedData') === false) {
+        e.reply('未实装角色面板已禁用...')
+        return true
+      }
       return await ProfileDetail.render(e, char)
     } else {
       return true
