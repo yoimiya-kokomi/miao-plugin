@@ -277,7 +277,7 @@ class Character extends Base {
     }
     if (!this._imgs[cacheId]) {
       if (this.isSr) {
-        this._imgs[cacheId] = CharImg.getImgsSr(this.name2 || this.name, this.talentCons)
+        this._imgs[cacheId] = CharImg.getImgsSr(this.name, this.talentCons)
       } else {
         this._imgs[cacheId] = CharImg.getImgs(this.name, costumeIdx, this.isTraveler ? this.elem : '', this.weaponType, this.talentCons)
       }
