@@ -124,69 +124,6 @@ class App {
     }
     return cls
   }
-
-  // 获取v2版rule
-  v2Rule () {
-    let cfg = this.cfg
-    return {
-      reg: 'noCheck',
-      describe: cfg.desc || '',
-      priority: cfg.priority || 50,
-      hashMark: true
-    }
-  }
-
-  // v2执行方法
-  v2App (e) {
-    let cfg = this.cfg || {}
-    let event = cfg.event
-    let apps = this.apps
-    return async function (e) {
-      e.original_msg = e.original_msg || e.msg
-      let msg = e.original_msg || e.msg || ''
-      for (let key in apps) {
-        let app = apps[key]
-        if (app.check && app.check(e, msg) === true) {
-          break
-        }
-      }
-      msg = e.msg
-      for (let key in apps) {
-        let app = apps[key]
-        let rule = app.rule || app.reg || 'noCheck'
-        if (app.rule) {
-          if (typeof (rule) === 'string') {
-            if (rule === '#poke#') {
-              continue
-            } else if (rule === 'noCheck') {
-              rule = /.*/
-            }
-            rule = new RegExp(rule)
-          }
-          if (rule.test(msg)) {
-            let ret = await app.fn(e, {})
-            if (ret === true) {
-              return true
-            }
-          } else if (app.yzRule && app.yzCheck()) {
-            rule = new RegExp(app.yzRule)
-            if (rule.test(msg)) {
-              let ret = await app.fn(e, {})
-              if (ret === true) {
-                return true
-              }
-            }
-          }
-        } else if (event === 'poke' && msg === '#poke#') {
-          let ret = await app.fn(e, {})
-          if (ret === true) {
-            return true
-          }
-        }
-      }
-      return false
-    }
-  }
 }
 
 App.init = function (cfg) {

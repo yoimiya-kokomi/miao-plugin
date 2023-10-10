@@ -224,7 +224,7 @@ export default class ProfileRank {
           add(user.qq, uid, type)
         })
       })
-    } else if (Version.isV3) {
+    } else {
       if (rn?.gsCfg?.getBingCk) {
         // Yunzai-V3
         let noteCks = await rn.gsCfg.getBingCk(game) || {}
@@ -235,15 +235,6 @@ export default class ProfileRank {
           add(qq, uid, 'ck')
         })
       }
-    } else {
-      // V2
-      lodash.forEach(global.NoteCookie || {}, (ck) => {
-        const { qq, uid } = ck
-        if (!users[qq]) return true
-        if (qq && uid) {
-          add(qq, uid, 'ck')
-        }
-      })
     }
 
     for (let qq in users) {

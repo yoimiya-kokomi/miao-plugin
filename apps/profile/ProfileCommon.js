@@ -20,29 +20,8 @@ const _getTargetUid = async function (e) {
   }
   let uid = false
   let getUid = async function (qq) {
-    let nCookie = global.NoteCookie || false
-    if (nCookie && nCookie[qq]) {
-      let nc = nCookie[qq]
-      if (nc.uid && uidReg.test(nc.uid)) {
-        return nc.uid
-      }
-    }
     uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
     if (uid && uidReg.test(uid)) {
-      return uid
-    }
-  }
-  if (!Version.isV3) {
-    let botQQ = global?.Bot?.uin || global?.BotConfig?.account?.qq
-    if (e.at && e.at !== botQQ) {
-      uid = await getUid(e.at)
-      if (uid) {
-        return uid
-      }
-    }
-
-    uid = await getUid(e.user_id)
-    if (uid) {
       return uid
     }
   }
