@@ -4,7 +4,7 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'cpct'),
       (tables) => {
         return {
-          title: `[_count]层Buff提高普攻与战技伤害[aDmg]%，终结技的暴击伤害[qCdmg]%`,
+          title: '[_count]层Buff提高普攻与战技伤害[aDmg]%，终结技的暴击伤害[qCdmg]%',
           data: {
             _count: ({ attr, calc }) => Math.min(6, Math.floor((calc(attr.speed) - 100) / 10)) + '',
             aDmg: ({ attr, calc }) => Math.min(6, Math.floor((calc(attr.speed) - 100) / 10)) * tables[2],
@@ -55,6 +55,18 @@ export default function (staticIdx, keyIdx) {
     ],
     锋镝: [
       keyIdx('战斗开始时暴击率提高[cpct]%', 'cpct', 1)
+    ],
+    '烦恼着，幸福着': [
+      staticIdx(1, 'cpct'),
+      keyIdx('追加攻击造成的伤害提高[tDmg]%', 'tDmg', 2),
+      (tables) => {
+        return {
+          title: '2层Buff时，造成的暴击伤害提高[cdmg]%',
+          data: {
+            cdmg: tables[3] * 2
+          }
+        }
+      }
     ]
   }
 }

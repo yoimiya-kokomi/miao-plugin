@@ -3,9 +3,9 @@ export default function (staticIdx, keyIdx) {
     '「我」的诞生': [
       (tables) => {
         return {
-          title: '敌方目标当前生命值百分比小于等于50%追加伤害提高[a3Dmg]%',
+          title: '敌方目标当前生命值百分比小于等于50%追加伤害提高[tDmg]%',
           data: {
-            a3Dmg: tables[1] + tables[2]
+            tDmg: tables[1] + tables[2]
           }
         }
       }
@@ -28,7 +28,7 @@ export default function (staticIdx, keyIdx) {
     ],
     拂晓之前: [
       staticIdx(1, 'cdmg'),
-      keyIdx('战技和终结技造成的伤害提高[eDmg]%，追加攻击造成的伤害提高[a3Dmg]%', { eDmg: 2, qDmg: 2, a3Dmg: 3 })
+      keyIdx('战技和终结技造成的伤害提高[eDmg]%，追加攻击造成的伤害提高[tDmg]%', { eDmg: 2, qDmg: 2, tDmg: 3 })
     ],
     早餐的仪式感: [
       staticIdx(1, 'dmg'),

@@ -9,22 +9,42 @@ export const details = [{
 }, {
   title: '靖妖傩舞·首插',
   params: {
-    layer: 1, team: false
+    layer: 1,
+    team: false
   },
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
 }, {
   title: '靖妖傩舞·尾插',
   params: {
-    layer: 5, team: false
+    layer: 5,
+    team: false
   },
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
 }, {
-  title: '魈珐班 开Q满被动E',
-  params: { e: 1, layer: 5, team: true },
+  title: '魈珐班开Q满被动E',
+  params: {
+    e: 1,
+    layer: 5,
+    team: true
+  },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
+}, {
+  title: '魈珐班开Q首插',
+  params: {
+    layer: 1,
+    team: true
+  },
+  dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
+}, {
+  title: '魈珐班开Q尾插',
+  params: {
+    layer: 5,
+    team: true
+  },
+  dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
 }]
 
-export const defDmgIdx = 4
+export const defDmgIdx = 6
 export const mainAttr = 'atk,cpct,cdmg,dmg'
 
 export const defParams = {

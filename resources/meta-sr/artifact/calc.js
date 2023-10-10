@@ -154,7 +154,7 @@ export default {
       },
       data: {
         qDmg: 15,
-        a3Dmg: 15
+        tDmg: 15
       }
     }]
   },

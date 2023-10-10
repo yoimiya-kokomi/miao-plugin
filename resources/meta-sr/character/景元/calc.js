@@ -9,10 +9,27 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: '10层神君单体伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'] * 10, 'a3')
+  check: ({ cons }) => cons < 6,
+  dmgKey: 't',
+  dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'] * 10, 't')
+}, {
+  title: '10层神君单体伤害',
+  check: ({ cons }) => cons >= 6,
+  dmgKey: 't',
+  dmg: ({ talent }, dmg) => {
+    const dynamicEnemyDmg = 12
+    let t1dmg = dmg(talent.t['技能伤害'], 't')
+    let t2dmg = dmg(talent.t['技能伤害'], 't', { dynamicEnemyDmg })
+    let t3dmg = dmg(talent.t['技能伤害'], 't', { dynamicEnemyDmg: dynamicEnemyDmg * 2 })
+    let t4dmg = dmg(talent.t['技能伤害'], 't', { dynamicEnemyDmg: dynamicEnemyDmg * 3 })
+    return {
+      dmg: t1dmg.dmg + t2dmg.dmg + t3dmg.dmg + t4dmg.dmg * 7,
+      avg: t1dmg.avg + t2dmg.avg + t3dmg.avg + t4dmg.avg * 7
+    }
+  }
 }]
 
-export const defDmgIdx = 3
+export const defDmgKey = 't'
 export const mainAttr = 'atk,cpct,cdmg,speed'
 
 export const buffs = [{
@@ -25,15 +42,12 @@ export const buffs = [{
   }
 }, {
   title: '景元6命：神君会使目标陷入易伤状态，使伤害提高12%，最多3层',
-  cons: 6,
-  data: {
-    a3Dmg: (12 + 12 * 2 + 12 * 3 * 7) / 10
-  }
+  cons: 6
 }, {
   title: '行迹-破阵：攻击段数大于等于6段，则其下回合的暴击伤害提高25%',
   tree: 1,
   data: {
-    a3Cdmg: 25
+    tCdmg: 25
   }
 }, {
   title: '行迹-遣将：施放战技后，暴击率提升10%',

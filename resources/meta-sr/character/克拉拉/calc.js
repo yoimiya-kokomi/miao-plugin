@@ -9,14 +9,14 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'] * 2, 'e')
 }, {
   title: '反击伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['反击伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.t['反击伤害'], 't')
 }, {
   title: '强化反击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['伤害倍率提高'] + talent.t['反击伤害'], 't')
 }]
 
 export const defDmgIdx = 4
-export const mainAttr = 'atk,cpct,cdmg,speed'
+export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
   title: '克拉拉2命：施放终结技后攻击力提高30%',

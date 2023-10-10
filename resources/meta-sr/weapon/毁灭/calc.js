@@ -61,6 +61,18 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    此身为剑: [
+      staticIdx(1, 'cdmg'),
+      (tables) => {
+        return {
+          title: '3层Buff使装备者下一次攻击造成的伤害提高[dmg]%，使该次攻击无视目标[ignore]%的防御力',
+          data: {
+            dmg: tables[2] * 3,
+            ignore: tables[3]
+          }
+        }
+      }
     ]
   }
 }

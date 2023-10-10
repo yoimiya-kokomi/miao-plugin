@@ -13,7 +13,8 @@ let DmgCalc = {
       basicNum, // 基础数值
       mode, // 模式
       dynamicDmg = 0, // 动态增伤
-      dynamicCdmg = 0 // 动态暴击伤害
+      dynamicCdmg = 0, // 动态暴击伤害
+      dynamicEnemyDmg = 0 // 动态易伤
     } = fnArgs
     let {
       ds, // 数据集
@@ -43,7 +44,7 @@ let DmgCalc = {
     // 易伤区
     let enemyDmgNum = 1
     if (game === 'sr') {
-      enemyDmgNum = 1 + enemyDmg.base / 100 + enemyDmg.plus / 100
+      enemyDmgNum = 1 + enemyDmg.base / 100 + enemyDmg.plus / 100 + dynamicEnemyDmg / 100
     }
 
     let cpctNum = cpct.base / 100 + cpct.plus / 100
