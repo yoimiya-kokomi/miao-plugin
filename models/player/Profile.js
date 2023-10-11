@@ -41,40 +41,39 @@ const Profile = {
     let token = diyCfg?.miaoApi?.token
     let qq = diyCfg?.miaoApi?.qq
     let hasToken = !!(qq && token && token.length === 32 && !/^test/.test(token))
+    let isGs = game === 'gs'
 
-    // 判断国服、B服、外服，获取在配置中的idx
-    let servIdx = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 9: 2 }[uid[0]]
+    // 根据uid判断当前服务器类型。官服0 B服1 国际2
+    let servType = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 9: 2 }[uid[0]]
 
-    // 获取原神对应服务选择的配置数字，0自动，1喵，2Enka，3Mgg, 4:Hutao
-    let servCfg = Cfg.get('profileServer', '0').toString() || '0'
-    // 获取星穹铁道对应服务选择的配置数字，0自动，1喵，2Mihomo，3Avocado, 4EnkaHSR
-    let srServCfg = Cfg.get('srProfileServer', '0').toString() || '0'
-    servCfg = servCfg[servIdx] || servCfg[0] || '0'
+    // 获取原神、星铁对应服务选择的配置
+    let servCfg = Cfg.get(isGs ? 'profileServer' : 'srProfileServer', '0').toString() || '0'
+    let servIdx = servCfg[servType] || servCfg[0] || '0'
 
-    if (game === 'sr') {
-      if ((srServCfg === '0' || srServCfg === '1') && hasToken) {
-        return Profile.serv('miao')
-      }
-      if (srServCfg === '4') {
-        return Profile.serv('enkaHSR')
-      } else if (srServCfg === '3') {
-        return Profile.serv('avocado')
-      } else {
-        return Profile.serv('homo')
-      }
-    }
-
-    if ((servCfg === '0' || servCfg === '1') && hasToken) {
+    // 设置为自动或1时，如果具备token则使用miao
+    if ((servIdx === '0' || servIdx === '1') && hasToken) {
       return Profile.serv('miao')
     }
-    if (servCfg === '2') {
-      return Profile.serv('enka')
-    } else if (servCfg === '3') {
-      return Profile.serv('mgg')
-    } else if (servCfg === '4') {
-      return Profile.serv('hutao')
+
+    // 如果指定了序号，则返回对应服务。0和1已前置判断
+    // 原神：0自动，1喵，2Enka，3Mgg, 4:Hutao
+    // 星铁：0自动，1喵，2Mihomo，3Avocado, 4EnkaHSR
+    let servKey = isGs ? {
+      2: 'enka',
+      3: 'mgg',
+      4: 'hutao'
+    } : {
+      2: 'homo',
+      3: 'avocado',
+      4: 'enkaHSR'
     }
-    return Profile.serv(servIdx === 2 ? 'enka' : 'mgg')
+    if (servKey[servIdx]) {
+      return Profile.serv(servKey[servIdx])
+    }
+
+    // 设置为0或无token，使用返回默认的serv。官服0 B服1 国际2
+    let defServKey = isGs ? ['mgg', 'mgg', 'enka'] : ['homo', 'homo', 'homo']
+    return Profile.serv(defServKey[servType])
   },
 
   /**
