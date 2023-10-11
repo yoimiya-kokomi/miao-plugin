@@ -152,7 +152,7 @@ let GachaData = {
         let isUp = false
         // 歪了多少个
         if (type === 'char') {
-          if (currVersion.char5.includes(ds.name)) {
+          if (!currVersion.hasOwnProperty("char5") || currVersion.char5.includes(ds.name)) {
             isUp = true
           } else {
             wai++
