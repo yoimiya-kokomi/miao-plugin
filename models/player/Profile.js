@@ -50,6 +50,7 @@ const Profile = {
     // 获取星穹铁道对应服务选择的配置数字，0自动，1喵，2Mihomo，3Avocado, 4EnkaHSR
     let srServCfg = Cfg.get('srProfileServer', '0').toString() || '0'
     servCfg = servCfg[servIdx] || servCfg[0] || '0'
+    srServCfg = srServCfg[servIdx] || srServCfg[0] || '0'
 
     if (game === 'sr') {
       if ((srServCfg === '0' || srServCfg === '1') && hasToken) {
