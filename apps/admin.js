@@ -20,7 +20,7 @@ app.reg({
     desc: '【#管理】更新素材'
   },
   update: {
-    rule: /^#喵喵(强制)?更新/,
+    rule: /^#喵喵(强制)?更新$/,
     fn: updateMiaoPlugin,
     desc: '【#管理】喵喵更新'
   },
@@ -30,7 +30,7 @@ app.reg({
     desc: '【#管理】系统设置'
   },
   miaoApiInfo: {
-    rule: /^#喵喵api/,
+    rule: /^#喵喵api$/,
     fn: miaoApiInfo,
     desc: '【#管理】喵喵Api'
   }
