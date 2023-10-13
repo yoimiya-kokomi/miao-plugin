@@ -3,7 +3,7 @@
  */
 import lodash from 'lodash'
 import { Data } from '#miao'
-import { Character, ProfileData, Weapon, Player } from '#miao.models'
+import { Character, ArtifactSet, ProfileData, Weapon, Player } from '#miao.models'
 
 const keyMap = {
   artis: '圣遗物',
@@ -83,6 +83,20 @@ const ProfileChange = {
           return true
         }
       }
+
+      // 匹配圣遗物套装
+      let asMap = ArtifactSet.getAliasMap()
+      let asKey = lodash.keys(asMap).join('|')
+      let asReg = new RegExp(`(${asKey})套?[2,4]?\\+?(${asKey})?套?[2,4]?`)
+      let asRet = asReg.exec(txt)
+      if (asRet && asRet[1] && asMap[asRet[1]]) {
+        change.artisSet = [asMap[asRet[1]]]
+        if (asRet[2] && asMap[asRet[2]]) {
+          change.artisSet.push(asMap[asRet[2]])
+        }
+        return true
+      }
+
       // 匹配武器
       let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?精炼?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
       if (wRet && wRet[5]) {
@@ -237,6 +251,13 @@ const ProfileChange = {
         let source = getSource(ds['arti' + idx])
         if (source && source.artis && source.artis[idx]) {
           artis[idx] = source.artis[idx]
+        }
+      }
+      if (ds.artisSet) {
+        let as = ArtifactSet.get(idx >= 3 && ds.artisSet[1] ? ds.artisSet[1] : ds.artisSet[0])
+        if (as) {
+          artis[idx]._name = artis[idx].name = as.getArtiName(idx)
+          artis[idx]._set = artis[idx].set = as.name
         }
       }
     }
