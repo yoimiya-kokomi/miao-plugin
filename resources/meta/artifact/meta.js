@@ -98,6 +98,7 @@ lodash.forEach(aliasCfg, (txt, name) => {
   lodash.forEach(txt.split(','), (t) => {
     alias[t] = name
   })
+  alias[name] = name
 })
 export const aliasMap = alias
 

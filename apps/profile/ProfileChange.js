@@ -86,7 +86,7 @@ const ProfileChange = {
 
       // 匹配圣遗物套装
       let asMap = ArtifactSet.getAliasMap()
-      let asKey = lodash.keys(asMap).join('|')
+      let asKey = lodash.keys(asMap).sort((a,b)=>b.length-a.length).join('|')
       let asReg = new RegExp(`(${asKey})套?[2,4]?\\+?(${asKey})?套?[2,4]?`)
       let asRet = asReg.exec(txt)
       if (asRet && asRet[1] && asMap[asRet[1]]) {
