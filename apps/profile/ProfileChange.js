@@ -20,15 +20,22 @@ const ProfileChange = {
    * @param msg
    * @returns {{}}
    */
-  matchMsg (msg, game = 'gs') {
+  matchMsg (msg) {
     if (!/(变|改|换)/.test(msg)) {
       return false
     }
-    msg = msg.toLowerCase().replace(/uid ?:? ?/, '')
-    let regRet = /^#*(?:原神|星铁)?(\d{9})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9})?[变换改](.+)/.exec(msg)
+    msg = msg.toLowerCase().replace(/uid ?:? ?/, '').replace('', '')
+    let regRet = /^#*(\d{9})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9})?[变换改](.+)/.exec(msg)
     if (!regRet || !regRet[2]) {
       return false
     }
+    let ret = {}
+    let change = {}
+    let char = Character.get(lodash.trim(regRet[2]).replace('星铁', ''))
+    if (!char) {
+      return false
+    }
+    const game = char.game
     const isGs = game === 'gs'
     const keyMap = isGs ? {
       artis: '圣遗物',
@@ -56,12 +63,6 @@ const ProfileChange = {
     })
     const keyReg = new RegExp(`^(\\d{9})?\\s*(.+?)\\s*(\\d{9})?\\s*((?:${lodash.keys(keyTitleMap).join('|')}|\\+)+)$`)
 
-    let ret = {}
-    let change = {}
-    let char = Character.get(lodash.trim(regRet[2]))
-    if (!char || char.game !== game) {
-      return false
-    }
     ret.char = char.id
     ret.mode = regRet[3] === '换' ? '面板' : regRet[3]
     ret.uid = regRet[1] || regRet[4] || ''
@@ -79,7 +80,7 @@ const ProfileChange = {
       let keyRet = keyReg.exec(txt)
       if (keyRet && keyRet[4]) {
         let char = Character.get(lodash.trim(keyRet[2]))
-        if (char && char.game === game) {
+        if (char && (char.game === game)) {
           lodash.forEach(keyRet[4].split('+'), (key) => {
             key = lodash.trim(key)
             let type = keyTitleMap[key]
@@ -89,7 +90,7 @@ const ProfileChange = {
               type
             }
           })
-        } else if (!['武器', '光锥', '花'].includes(keyRet[4])) {
+        } else if (!['武器', '光锥', '花', '手'].includes(keyRet[4])) {
           return true
         }
       }
@@ -148,7 +149,6 @@ const ProfileChange = {
       }
 
       // 天赋匹配
-
       let talentRet = (isGs ? /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/ :
         /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/).exec(txt)
       if (talentRet) {
@@ -167,7 +167,7 @@ const ProfileChange = {
       txt = lodash.trim(txt)
       if (txt) {
         let chars = Character.get(txt)
-        if (chars && char.game === game) {
+        if (chars && (chars.game === game)) {
           char.char = chars.id
         }
       }
@@ -201,6 +201,7 @@ const ProfileChange = {
     if (!source || !source.hasData) {
       source = {}
     }
+
     let char = Character.get(dc?.char || source.id || charid)
     if (!char) {
       return false
@@ -236,7 +237,8 @@ const ProfileChange = {
       elem: char.elem,
       dataSource: 'change',
       _source: 'change',
-      promote
+      promote,
+      trees: lodash.extend([], source.trees)
     }, char.game, false)
 
     // 设置武器
@@ -280,6 +282,7 @@ const ProfileChange = {
       if (artis[idx] && ds.artisSet && ds.artisSet[artisIdx]) {
         let as = ArtifactSet.get(ds.artisSet[artisIdx], game)
         if (as) {
+          artis[idx].id = as.getArti(idx)?.getIdByStar(artis[idx].star || 5)
           artis[idx]._name = artis[idx].name = as.getArtiName(idx)
           artis[idx]._set = artis[idx].set = as.name
         }

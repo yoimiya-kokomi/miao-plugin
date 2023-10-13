@@ -114,6 +114,15 @@ class Artifact extends Base {
     return this.meta.ids[id] || ''
   }
 
+  getIdByStar (star = 5) {
+    let ids = this.meta.ids || {}
+    for (let key in ids) {
+      if (ids[key] * 1 === star) {
+        return key
+      }
+    }
+  }
+
   getAttrData (mainId, attrData, level = 1, star = 5, idx = 1) {
     let mainKey = metaDataSR.mainIdx[idx][mainId]
     let starCfg = metaDataSR.starData[star]

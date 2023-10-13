@@ -4,7 +4,13 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { abbr, aliasMap, artiMap, artiSetMap, calc as artisBuffs } from '../resources/meta/artifact/index.js'
-import { abbr as abbrSR, aliasMap as aliasMapSR, artiMap as artiMapSR, artisBuffs as artisBuffsSR, artiSetMap as artiSetMapSR } from '../resources/meta-sr/artifact/index.js'
+import {
+  abbr as abbrSR,
+  aliasMap as aliasMapSR,
+  artiMap as artiMapSR,
+  artisBuffs as artisBuffsSR,
+  artiSetMap as artiSetMapSR
+} from '../resources/meta-sr/artifact/index.js'
 
 import { Artifact } from './index.js'
 
@@ -79,7 +85,7 @@ class ArtifactSet extends Base {
   }
 
   getArti (idx = 1) {
-    return Artifact.get(this.getArtiName(idx))
+    return Artifact.get(this.getArtiName(idx), this.game)
   }
 
   static getAliasMap (game = 'gs') {
