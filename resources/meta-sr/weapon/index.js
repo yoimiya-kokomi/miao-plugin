@@ -1,5 +1,6 @@
 import { Data } from '#miao'
 import lodash from 'lodash'
+import { abbr, alias } from './meta.js'
 
 const types = '存护,丰饶,毁灭,同谐,虚无,巡猎,智识'.split(',')
 
@@ -10,6 +11,11 @@ let aliasMap = {}
 lodash.forEach(data, (ds) => {
   aliasMap[ds.id] = ds.id
   aliasMap[ds.name] = ds.id
+})
+lodash.forEach(alias, (name, alias) => {
+  if (aliasMap[name]) {
+    aliasMap[alias] = aliasMap[name]
+  }
 })
 
 export const weaponAlias = aliasMap

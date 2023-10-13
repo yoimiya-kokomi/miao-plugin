@@ -5,22 +5,6 @@ import lodash from 'lodash'
 import { Data } from '#miao'
 import { Character, ArtifactSet, ProfileData, Weapon, Player } from '#miao.models'
 
-const keyMap = {
-  artis: '圣遗物',
-  arti1: '花',
-  arti2: '毛,羽,羽毛',
-  arti3: '沙,沙漏,表',
-  arti4: '杯,杯子',
-  arti5: '头,冠',
-  weapon: '武器'
-}
-let keyTitleMap = {}
-lodash.forEach(keyMap, (val, key) => {
-  lodash.forEach(val.split(','), (v) => {
-    keyTitleMap[v] = key
-  })
-})
-const keyReg = new RegExp(`^(\\d{9})?\\s*(.+?)\\s*(\\d{9})?\\s*((?:${lodash.keys(keyTitleMap).join('|')}|\\+)+)$`)
 // 默认武器
 let defWeapon = {
   bow: '西风猎弓',
@@ -36,20 +20,46 @@ const ProfileChange = {
    * @param msg
    * @returns {{}}
    */
-  matchMsg (msg) {
+  matchMsg (msg, game = 'gs') {
     if (!/(变|改|换)/.test(msg)) {
       return false
     }
     msg = msg.toLowerCase().replace(/uid ?:? ?/, '')
-    let regRet = /^#*(\d{9})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9})?[变换改](.+)/.exec(msg)
+    let regRet = /^#*(?:原神|星铁)?(\d{9})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9})?[变换改](.+)/.exec(msg)
     if (!regRet || !regRet[2]) {
       return false
     }
+    const isGs = game === 'gs'
+    const keyMap = isGs ? {
+      artis: '圣遗物',
+      arti1: '花',
+      arti2: '毛,羽,羽毛',
+      arti3: '沙,沙漏,表',
+      arti4: '杯,杯子',
+      arti5: '头,冠',
+      weapon: '武器'
+    } : {
+      artis: '圣遗物,遗器',
+      arti1: '头,帽子',
+      arti2: '手,手套',
+      arti3: '衣,衣服,甲,躯干',
+      arti4: '鞋,靴,鞋子,靴子',
+      arti5: '球',
+      artis6: '绳',
+      weapon: '武器,光锥'
+    }
+    let keyTitleMap = {}
+    lodash.forEach(keyMap, (val, key) => {
+      lodash.forEach(val.split(','), (v) => {
+        keyTitleMap[v] = key
+      })
+    })
+    const keyReg = new RegExp(`^(\\d{9})?\\s*(.+?)\\s*(\\d{9})?\\s*((?:${lodash.keys(keyTitleMap).join('|')}|\\+)+)$`)
 
     let ret = {}
     let change = {}
     let char = Character.get(lodash.trim(regRet[2]))
-    if (!char) {
+    if (!char || char.game !== game) {
       return false
     }
     ret.char = char.id
@@ -69,7 +79,7 @@ const ProfileChange = {
       let keyRet = keyReg.exec(txt)
       if (keyRet && keyRet[4]) {
         let char = Character.get(lodash.trim(keyRet[2]))
-        if (char) {
+        if (char && char.game === game) {
           lodash.forEach(keyRet[4].split('+'), (key) => {
             key = lodash.trim(key)
             let type = keyTitleMap[key]
@@ -79,20 +89,32 @@ const ProfileChange = {
               type
             }
           })
-        } else if (keyRet[4] !== '武器' && keyRet[4] !== '花') {
+        } else if (!['武器', '光锥', '花'].includes(keyRet[4])) {
           return true
         }
       }
 
       // 匹配圣遗物套装
-      let asMap = ArtifactSet.getAliasMap()
-      let asKey = lodash.keys(asMap).sort((a,b)=>b.length-a.length).join('|')
-      let asReg = new RegExp(`(${asKey})套?[2,4]?\\+?(${asKey})?套?[2,4]?`)
+      let asMap = ArtifactSet.getAliasMap(game)
+      let asKey = lodash.keys(asMap).sort((a, b) => b.length - a.length).join('|')
+      let asReg = new RegExp(`(${asKey})套?[2,4]?\\+?(${asKey})?套?[2,4]?\\+?(${asKey})?套?[2,4]?`)
       let asRet = asReg.exec(txt)
       if (asRet && asRet[1] && asMap[asRet[1]]) {
-        change.artisSet = [asMap[asRet[1]]]
-        if (asRet[2] && asMap[asRet[2]]) {
-          change.artisSet.push(asMap[asRet[2]])
+        if (game === 'gs') {
+          change.artisSet = [asMap[asRet[1]], asMap?.[asRet[2]] || asMap[asRet[1]]]
+        } else if (game === 'sr') {
+          for (let idx = 1; idx <= 3; idx++) {
+            let as = ArtifactSet.get(asMap?.[asRet[idx]])
+            if (as) { // 球&绳
+              change.artisSet = change.artisSet || []
+              let ca = change.artisSet
+              ca[as.sets?.[1] ? (ca[0] ? 1 : 0) : 2] = as.name
+            }
+          }
+          let ca = change.artisSet
+          if (ca && ca[0] && !ca[1]) {
+            ca[1] = ca[0]
+          }
         }
         return true
       }
@@ -101,7 +123,7 @@ const ProfileChange = {
       let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?精炼?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
       if (wRet && wRet[5]) {
         let weaponName = lodash.trim(wRet[5])
-        let weapon = Weapon.get(weaponName, ret.char.game)
+        let weapon = Weapon.get(weaponName, game, ret.char.game)
         if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {
           let affix = wRet[2] || wRet[3]
           affix = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 满: 5 }[affix] || affix * 1
@@ -118,7 +140,7 @@ const ProfileChange = {
       }
       let char = change.char || {}
       // 命座匹配
-      let consRet = /([0-6零一二三四五六满])命/.exec(txt)
+      let consRet = /([0-6零一二三四五六满])(命|魂|星魂)/.exec(txt)
       if (consRet && consRet[1]) {
         let cons = consRet[1]
         char.cons = Math.max(0, Math.min(6, lodash.isNaN(cons * 1) ? '零一二三四五六满'.split('').indexOf(cons) : cons * 1))
@@ -126,15 +148,15 @@ const ProfileChange = {
       }
 
       // 天赋匹配
-      let talentRet = /(?:天赋|技能)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/.exec(txt)
+
+      let talentRet = (isGs ? /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/ :
+        /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/).exec(txt)
       if (talentRet) {
-        let [match, a, e, q] = talentRet
-        char.talent = {
-          a: a * 1 || 1,
-          e: e * 1 || 1,
-          q: q * 1 || 1
-        }
-        txt = txt.replace(match, '')
+        char.talent = {}
+        lodash.forEach((isGs ? 'aeq' : 'aetq').split(''), (key, idx) => {
+          char.talent[key] = talentRet[idx + 1] * 1 || 1
+        })
+        txt = txt.replace(talentRet[0], '')
       }
 
       let lvRet = /等级([1-9][0-9]?)|([1-9][0-9]?)级/.exec(txt)
@@ -145,7 +167,7 @@ const ProfileChange = {
       txt = lodash.trim(txt)
       if (txt) {
         let chars = Character.get(txt)
-        if (chars) {
+        if (chars && char.game === game) {
           char.char = chars.id
         }
       }
@@ -169,6 +191,8 @@ const ProfileChange = {
     if (!charid) {
       return false
     }
+
+    const isGs = game === 'gs'
 
     let player = Player.create(uid, game)
 
@@ -240,21 +264,21 @@ const ProfileChange = {
     if (ds?.char?.talent) {
       ret.setTalent(ds?.char?.talent, 'level')
     } else {
-      ret.setTalent(source?.originalTalent || { a: 9, e: 9, q: 9 }, 'original')
+      ret.setTalent(source?.originalTalent || (isGs ? { a: 9, e: 9, q: 9 } : { a: 6, e: 8, t: 8, q: 8 }), 'original')
     }
 
     // 设置圣遗物
     let artis = getSource(ds.artis)?.artis?.artis || {}
-
-    for (let idx = 1; idx <= 5; idx++) {
+    for (let idx = 1; idx <= (isGs ? 5 : 6); idx++) {
       if (ds['arti' + idx]) {
         let source = getSource(ds['arti' + idx])
         if (source && source.artis && source.artis[idx]) {
           artis[idx] = source.artis[idx]
         }
       }
-      if (ds.artisSet) {
-        let as = ArtifactSet.get(idx >= 3 && ds.artisSet[1] ? ds.artisSet[1] : ds.artisSet[0])
+      let artisIdx = (isGs ? '00111' : '001122')[idx - 1]
+      if (artis[idx] && ds.artisSet && ds.artisSet[artisIdx]) {
+        let as = ArtifactSet.get(ds.artisSet[artisIdx], game)
         if (as) {
           artis[idx]._name = artis[idx].name = as.getArtiName(idx)
           artis[idx]._set = artis[idx].set = as.name
