@@ -39,20 +39,20 @@ const ProfileChange = {
     const isGs = game === 'gs'
     const keyMap = isGs ? {
       artis: '圣遗物',
-      arti1: '花',
-      arti2: '毛,羽,羽毛',
-      arti3: '沙,沙漏,表',
-      arti4: '杯,杯子',
-      arti5: '头,冠',
+      arti1: '花,生之花',
+      arti2: '毛,羽,羽毛,死之羽',
+      arti3: '沙,沙漏,表,时之沙',
+      arti4: '杯,杯子,空之杯',
+      arti5: '头,冠,理之冠,礼冠,帽子,帽',
       weapon: '武器'
     } : {
       artis: '圣遗物,遗器',
-      arti1: '头,帽子',
-      arti2: '手,手套',
-      arti3: '衣,衣服,甲,躯干',
-      arti4: '鞋,靴,鞋子,靴子',
-      arti5: '球',
-      artis6: '绳',
+      arti1: '头,帽子,头部',
+      arti2: '手,手套,手部',
+      arti3: '衣,衣服,甲,躯干,',
+      arti4: '鞋,靴,鞋子,靴子,脚,脚部',
+      arti5: '球,位面球',
+      artis6: '绳,线,链接绳,连接绳',
       weapon: '武器,光锥'
     }
     let keyTitleMap = {}
@@ -80,7 +80,10 @@ const ProfileChange = {
       let keyRet = keyReg.exec(txt)
       if (keyRet && keyRet[4]) {
         let char = Character.get(lodash.trim(keyRet[2]))
-        if (char && (char.game === game)) {
+        if (char) {
+          if (char.game !== game) {
+            return true
+          }
           lodash.forEach(keyRet[4].split('+'), (key) => {
             key = lodash.trim(key)
             let type = keyTitleMap[key]
@@ -90,7 +93,7 @@ const ProfileChange = {
               type
             }
           })
-        } else if (!['武器', '光锥', '花', '手'].includes(keyRet[4])) {
+        } else if (keyRet[4].length > 2) {
           return true
         }
       }

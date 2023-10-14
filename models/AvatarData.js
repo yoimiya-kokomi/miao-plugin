@@ -124,11 +124,15 @@ export default class AvatarData extends Base {
     this._costume = ds.costume || this._costume || 0
     this.elem = ds.elem || this.elem || this.char.elem || ''
     this.promote = lodash.isUndefined(ds.promote) ? (this.promote || AttrCalc.calcPromote(this.level)) : (ds.promote || 0)
-    this.trees = ds.trees || this.trees || []
+    this.trees = this.trees || []
     this._source = ds._source || this._source || ''
     this._time = ds._time || this._time || now
     this._update = ds._update || this._update || ds._time || now
     this._talent = ds._talent || this._talent || ds._time || now
+
+    if (ds.trees) {
+      this.setTrees(ds.trees)
+    }
 
     // 存在数据源时更新时间
     if (source) {
@@ -141,6 +145,28 @@ export default class AvatarData extends Base {
         this._time = this._source !== 'mys' ? (this._time || now) : now
       }
     }
+  }
+
+  setTrees (ds) {
+    this.trees = []
+    let prefix = ''
+    let map = {}
+    lodash.forEach(this.char?.detail?.tree || {}, (ds, key) => {
+      let ret = /(\d{4})(\d{3})/.exec(key)
+      if (ret && ret[1] && ret[2]) {
+        prefix = prefix || ret[1]
+        map[ret[2]] = key
+      }
+    })
+    if (prefix) {
+      for (let i = 0; i <= 3; i++) {
+        map[`10${i}`] = `${prefix}10${i}`
+      }
+    }
+    lodash.forEach(ds,(id)=>{
+      let ret = /\d{4}(\d{3})/.exec(id)
+      this.trees.push(map[ret?.[1] || id] || id)
+    })
   }
 
   setWeapon (ds = {}) {
