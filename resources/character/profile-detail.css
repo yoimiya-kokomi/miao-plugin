@@ -513,28 +513,6 @@ body {
 .artis .head span {
   font-size: 14px;
 }
-.artis.input-mode .item {
-  height: 100px;
-  margin: 5px 3px;
-}
-.artis.input-mode .item.weapon {
-  margin-left: 5px;
-}
-.artis.input-mode .item.arti {
-  width: 72px;
-}
-.artis.input-mode .item.arti .arti-icon,
-.artis.input-mode .item.arti img {
-  width: 68px;
-  height: 68px;
-}
-.artis.input-mode .item.arti .head {
-  padding: 78px 0 0 0;
-}
-.artis.input-mode .item.arti .head strong {
-  font-size: 12px;
-  text-align: center;
-}
 .mark-ACE,
 .mark-ACE² {
   color: #e85656;
@@ -653,6 +631,7 @@ body {
   transform: scale(0.8);
   transform-origin: 100px 10px;
   display: inline-block;
+  display: none;
 }
 .artis .weapon .star.star-2 {
   background-position: 0 -20px;
@@ -667,14 +646,15 @@ body {
   background-position: 0 -80px;
 }
 .artis .weapon {
-  overflow: hidden;
-  height: 97px;
+  height: 86px;
+  overflow: visible;
+  margin-bottom: 10px;
 }
 .artis .weapon .img {
-  width: 100px;
-  height: 100px;
-  top: 0;
-  left: 0;
+  width: 96px;
+  height: 96px;
+  top: -10px;
+  right: -10px;
   position: absolute;
   z-index: 2;
   background-position: center;
@@ -683,30 +663,33 @@ body {
 }
 .artis .weapon .head {
   position: absolute;
+  top: 0;
+  left: 0;
   bottom: 0;
   right: 0;
-  left: 0;
-  text-align: right;
-  padding: 13px 12px 13px 0;
+  padding: 15px 0 10px 15px;
   z-index: 3;
+  border-radius: 10px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(25, 25, 25, 0.5), rgba(25, 25, 25, 0), rgba(25, 25, 25, 0));
 }
 .artis .weapon .head strong {
-  font-size: 18px;
+  font-size: 15px;
   margin-bottom: 3px;
-  font-weight: normal;
 }
 .artis .weapon .head > span {
   display: block;
 }
-.artis .weapon span {
-  font-size: 16px;
+.artis .weapon span.info {
+  font-size: 14px;
+  margin-bottom: 8px;
 }
 .artis .weapon .affix {
   color: #000;
   padding: 0 7px;
   border-radius: 4px;
-  margin-left: 5px;
-  font-size: 16px;
+  font-size: 14px;
+  width: 40px;
+  margin-right: 5px;
 }
 .artis .weapon .affix-1 {
   box-shadow: 0 0 4px 0 #a3a3a3 inset;
@@ -728,8 +711,32 @@ body {
   box-shadow: 0 0 4px 0 #deaf39 inset;
   background: #fff6dd;
 }
-.artis .artis-stat {
-  height: 85px;
+.artis .weapon .weapon-attr {
+  font-size: 14px;
+  text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.7);
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 26px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  line-height: 26px;
+  border-radius: 0 0 10px 10px;
+  text-align: center;
+  padding: 0 5px 0 10px;
+}
+.artis .weapon .weapon-attr div {
+  width: 50%;
+}
+.artis .weapon .weapon-attr div span {
+  color: #ffe699;
+  font-weight: bold;
+}
+.artis .arti-stat {
+  height: 94px;
+  padding-top: 5px;
 }
 .arti-class-title {
   height: 25px;
@@ -852,7 +859,7 @@ body {
   position: relative;
   border-radius: 10px 10px 0 0;
   text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.7);
-  padding: 17px 10px 3px 15px;
+  padding: 15px 10px 5px 15px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(25, 25, 25, 0.3), rgba(25, 25, 25, 0), rgba(25, 25, 25, 0));
 }
 .artis .item.arti .arti-icon {
@@ -874,6 +881,8 @@ body {
 }
 .artis ul.detail {
   backdrop-filter: blur(2px);
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
 }
 .artis ul.detail li.arti-main {
   background: rgba(25, 25, 25, 0.5);

@@ -163,7 +163,7 @@ export default class AvatarData extends Base {
         map[`10${i}`] = `${prefix}10${i}`
       }
     }
-    lodash.forEach(ds,(id)=>{
+    lodash.forEach(ds, (id) => {
       let ret = /\d{4}(\d{3})/.exec(id)
       this.trees.push(map[ret?.[1] || id] || id)
     })
@@ -188,9 +188,6 @@ export default class AvatarData extends Base {
   }
 
   getWeaponDetail () {
-    if (this.isGs) {
-      return this.weapon
-    }
     let ret = {
       ...this.weapon
     }
@@ -199,10 +196,21 @@ export default class AvatarData extends Base {
     }
     let wData = Weapon.get(ret.id, this.game)
     ret.splash = wData.imgs.gacha
-    let attrs = wData.calcAttr(ret.level, ret.promote)
-    lodash.forEach(attrs, (val, key) => {
-      attrs[key] = Format.comma(val, 1)
-    })
+    let wAttr = wData.calcAttr(ret.level, ret.promote)
+    let attrs = {}
+    if (this.isSr) {
+      lodash.forEach(wAttr, (val, key) => {
+        attrs[key] = Format.comma(val, 1)
+      })
+    } else if (this.isGs) {
+      attrs.atkBase = Format.comma(wAttr.atkBase, 1)
+      if (wAttr?.attr?.key) {
+        let keyType = {
+          mastery: 'comma'
+        }
+        attrs[wAttr.attr.key] = Format[keyType[wAttr.attr.key] || 'pct'](wAttr.attr.value, 1)
+      }
+    }
     ret.attrs = attrs
     ret.desc = wData.getAffixDesc(ret.affix)
     return ret

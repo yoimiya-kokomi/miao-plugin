@@ -16,7 +16,7 @@
 }
 .artis .item .avatar {
   position: absolute;
-  left: 30px;
+  right: 0;
   top: 24px;
   width: 38px;
   height: 38px;

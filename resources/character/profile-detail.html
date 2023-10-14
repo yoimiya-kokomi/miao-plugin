@@ -75,8 +75,7 @@
           <div class="head">
             <strong>{{weapon.name}}</strong>
             <div class="star star-{{weapon.star}}"></div>
-            <span>Lv.{{weapon.leve || weapon.level}} <span
-              class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
+            <span><span class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span> Lv.{{weapon.leve || weapon.level}} </span>
           </div>
         </div>
         {{/if}}
@@ -122,8 +121,7 @@
           <div class="talent-icon
                {{talent.level > talent.original ? `talent-plus`:``}}
                 {{talent.original >= 10 ? `talent-crown`:``}}">
-            <div class="talent-icon-img"
-                 style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
+            <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs[key]}})"></div>
             <strong>{{talent.level}}</strong>
             <span>{{tName}}</span>
           </div>
@@ -183,9 +181,16 @@
           <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
           <div class="head">
             <strong>{{weapon.name}}</strong>
-            <div class="star star-{{weapon.star}}"></div>
-            <span>Lv.{{weapon.leve || weapon.level}} <span
-              class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span></span>
+            <span class="info"><span
+              class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span> Lv.{{weapon.leve || weapon.level}} </span>
+            <div class="weapon-attr">
+              <div><span>攻击</span> +{{weapon.attrs.atkBase}}</div>
+              {{each weapon.attrs v k}} {{if k!== 'atkBase' }}
+              {{ set titleMap = {atkPct:'攻击',mastery:'精通',dmg:'伤害',hpPct:'生命',defPct:'防御',
+              cpct:'暴击', cdmg:'爆伤', phy:'物伤'} }}
+              <div><span>{{ titleMap[k] }}</span> +{{v}}</div>
+              {{/if}} {{/each}}
+            </div>
           </div>
         </div>
         <div class="item arti-stat">
@@ -197,6 +202,7 @@
         </div>
       </div>
       {{/if}}
+
       {{each ad.artis ds idx}}
       <div class="item arti">
         {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
