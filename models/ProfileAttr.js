@@ -134,7 +134,7 @@ class ProfileAttr extends Base {
     let ret = {}
     lodash.forEach(baseAttr[this.game], (key) => {
       ret[key] = this[key]
-      if (['hp', 'atk', 'def'].includes(key)) {
+      if (['hp', 'atk', 'def', 'speed'].includes(key)) {
         ret[`${key}Base`] = this[`${key}Base`]
       }
     })

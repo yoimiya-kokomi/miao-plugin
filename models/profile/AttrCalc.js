@@ -90,7 +90,7 @@ class AttrCalc {
       // 星铁面板属性
       let attr = char.getLvAttr(level, promote)
       lodash.forEach(attr, (v, k) => {
-        k = k + (['hp', 'atk', 'def'].includes(k) ? 'Base' : '')
+        k = k + (['hp', 'atk', 'def', 'speed'].includes(k) ? 'Base' : '')
         self.addAttr(k, v, true)
       })
 

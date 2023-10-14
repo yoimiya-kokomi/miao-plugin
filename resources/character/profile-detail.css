@@ -108,7 +108,7 @@ body {
   display: inline-block;
   height: 16px;
   width: 16px;
-  background-image: url("imgs/icon.png");
+  background-image: url("./imgs/icon.png");
   background-size: auto 16px;
 }
 .char-attr li .title {
@@ -601,7 +601,7 @@ body {
   top: 9px;
   height: 8px;
   width: 50px;
-  background-image: url('imgs/up-num-icon1.png');
+  background-image: url('./imgs/up-num-icon1.png');
   background-position: 0 0;
   background-repeat: no-repeat;
   background-size: auto 500%;
@@ -630,14 +630,14 @@ body {
   color: #ffe699;
 }
 .artis ul.detail li.great span.title i.up-num {
-  background-image: url("imgs/up-num-icon2.png");
+  background-image: url("./imgs/up-num-icon2.png");
   background-size: auto 500%;
 }
 .artis ul.detail li.nouse span {
   color: #888;
 }
 .artis ul.detail li.nouse span i.up-num {
-  background-image: url("imgs/up-num-icon0.png");
+  background-image: url("./imgs/up-num-icon0.png");
   background-size: auto 500%;
 }
 .artis ul.detail li.arti-main {
@@ -843,7 +843,43 @@ body {
   margin-bottom: 25px;
 }
 .game-sr .char-attr .icon i {
-  background-image: url('imgs/icon-sr.png');
+  background-image: url('./imgs/icon-sr.png');
+}
+.artis .item.arti {
+  overflow: visible;
+}
+.artis .item.arti .head {
+  position: relative;
+  border-radius: 10px 10px 0 0;
+  text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.7);
+  padding: 17px 10px 3px 15px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(25, 25, 25, 0.3), rgba(25, 25, 25, 0.3), rgba(25, 25, 25, 0));
+}
+.artis .item.arti .arti-icon {
+  left: auto;
+  right: -5px;
+  top: -10px;
+  width: 100px;
+  height: 100px;
+}
+.artis .item.arti .arti-icon .img {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.artis .item.arti .arti-icon span {
+  bottom: 35px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.8);
+}
+.artis ul.detail {
+  backdrop-filter: blur(2px);
+}
+.artis ul.detail li.arti-main {
+  background: rgba(25, 25, 25, 0.5);
+}
+.artis ul.detail li.arti-main .title {
+  padding-left: 15px;
 }
 .sr-weapon {
   margin: 0 15px 5px 10px;
@@ -1037,3 +1073,4 @@ body {
 .copyright.ad {
   font-size: 12px;
 }
+/*# sourceMappingURL=profile-detail.css.map */
