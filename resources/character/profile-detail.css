@@ -646,13 +646,13 @@ body {
   background-position: 0 -80px;
 }
 .artis .weapon {
-  height: 86px;
+  height: 96px;
   overflow: visible;
   margin-bottom: 10px;
 }
 .artis .weapon .img {
-  width: 96px;
-  height: 96px;
+  width: 106px;
+  height: 106px;
   top: -10px;
   right: -10px;
   position: absolute;
@@ -735,8 +735,7 @@ body {
   font-weight: bold;
 }
 .artis .arti-stat {
-  height: 94px;
-  padding-top: 5px;
+  height: 84px;
 }
 .arti-class-title {
   height: 25px;
@@ -864,19 +863,20 @@ body {
 }
 .artis .item.arti .arti-icon {
   left: auto;
-  right: -5px;
+  right: 0;
   top: -12px;
-  width: 85px;
-  height: 85px;
+  width: 90px;
+  height: 90px;
 }
 .artis .item.arti .arti-icon .img {
   width: 100%;
   height: 100%;
   margin: 0;
+  -webkit-mask: linear-gradient(45deg, #0000 0, #0005 30%, #000 50%);
 }
 .artis .item.arti .arti-icon span {
-  bottom: 20px;
-  right: 15px;
+  top: 50px;
+  right: 8px;
   background: rgba(0, 0, 0, 0.8);
 }
 .artis ul.detail {

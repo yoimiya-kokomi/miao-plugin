@@ -19,12 +19,6 @@ const _getTargetUid = async function (e) {
     return uidRet[0]
   }
   let uid = false
-  let getUid = async function (qq) {
-    uid = await redis.get(`genshin:id-uid:${qq}`) || await redis.get(`Yz:genshin:mys:qq-uid:${qq}`)
-    if (uid && uidReg.test(uid)) {
-      return uid
-    }
-  }
 
   try {
     let user = await MysApi.initUser(e)

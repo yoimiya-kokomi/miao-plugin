@@ -187,7 +187,7 @@
               <div><span>攻击</span> +{{weapon.attrs.atkBase}}</div>
               {{each weapon.attrs v k}} {{if k!== 'atkBase' }}
               {{ set titleMap = {atkPct:'攻击',mastery:'精通',dmg:'伤害',hpPct:'生命',defPct:'防御',
-              cpct:'暴击', cdmg:'爆伤', phy:'物伤'} }}
+              cpct:'暴击', cdmg:'爆伤', phy:'物伤', recharge:'充能', heal:'治疗', shield:'护盾'} }}
               <div><span>{{ titleMap[k] }}</span> +{{v}}</div>
               {{/if}} {{/each}}
             </div>

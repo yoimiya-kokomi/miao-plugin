@@ -11,7 +11,8 @@
   width: 790px;
 }
 .artis .item {
-  height: 205px;
+  height: 190px;
+  margin-bottom: 10px;
   overflow: hidden;
 }
 .artis .item .avatar {
@@ -24,9 +25,10 @@
   overflow: hidden;
   z-index: 3;
 }
-.artis .item .arti-icon img {
-  width: 52px;
-  height: 52px;
+.artis .item.arti .arti-icon {
+  right: 10px;
+  width: 75px;
+  height: 75px;
 }
 .artis .item .avatar img {
   max-width: 100%;

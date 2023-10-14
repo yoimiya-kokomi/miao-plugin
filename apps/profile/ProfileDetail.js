@@ -31,6 +31,8 @@ let ProfileDetail = {
       }
       e.game = pc.game
       e.isSr = e.game === 'sr'
+      e.uid = ''
+      e.msg = '#喵喵面板变换'
       e.uid = pc.uid || await getTargetUid(e)
       profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change, pc.game)
       if (profileChange && profileChange.char) {
