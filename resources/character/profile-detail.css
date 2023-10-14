@@ -853,14 +853,14 @@ body {
   border-radius: 10px 10px 0 0;
   text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.7);
   padding: 17px 10px 3px 15px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(25, 25, 25, 0.3), rgba(25, 25, 25, 0.3), rgba(25, 25, 25, 0));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(25, 25, 25, 0.3), rgba(25, 25, 25, 0), rgba(25, 25, 25, 0));
 }
 .artis .item.arti .arti-icon {
   left: auto;
   right: -5px;
-  top: -10px;
-  width: 100px;
-  height: 100px;
+  top: -12px;
+  width: 85px;
+  height: 85px;
 }
 .artis .item.arti .arti-icon .img {
   width: 100%;
@@ -868,7 +868,7 @@ body {
   margin: 0;
 }
 .artis .item.arti .arti-icon span {
-  bottom: 35px;
+  bottom: 20px;
   right: 15px;
   background: rgba(0, 0, 0, 0.8);
 }
