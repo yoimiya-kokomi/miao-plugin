@@ -1,9 +1,3 @@
-let eDmg = false
-let eAggrDmg = false
-let eAllDmg = false
-let ePlusDmg = false
-let ePlusAggrDmg = false
-
 export const details = [{
   title: 'Q状态·普攻首段',
   dmg: ({ talent }, dmg) => dmg(talent.q['一段伤害'], 'a')
@@ -13,19 +7,16 @@ export const details = [{
 }, {
   title: 'Q状态·强化E伤害',
   params: { showEBuff: true, eBuff: true },
-  dmg: ({ talent }, dmg) => {
-    eDmg = dmg(talent.e['冥祭伤害'], 'e')
-    eAggrDmg = dmg(talent.e['冥祭伤害'], 'e', 'aggravate')
-    return eDmg
-  }
+  dmg: ({ talent }, dmg) => dmg(talent.e['冥祭伤害'], 'e')
 }, {
   title: 'Q状态·QTE总伤害',
   params: { showEBuff: true },
-  dmg: ({ attr, calc }, { basic }) => {
+  dmg: ({ attr, calc, talent }, { basic, dynamic }) => {
     const em = calc(attr.mastery)
     const atk = calc(attr.atk)
     const ePlustd = 1.00 * atk + em * 2.5
-    ePlusDmg = basic(ePlustd, 'e')
+    let eDmg = dynamic(talent.e['冥祭伤害'], 'e', { dynamicDmg: 35 })
+    let ePlusDmg = basic(ePlustd, 'e')
     return {
       dmg: eDmg.dmg + ePlusDmg.dmg * 3,
       avg: eDmg.avg + ePlusDmg.avg * 3
@@ -34,23 +25,35 @@ export const details = [{
 }, {
   title: 'Q状态·QTE超激化总伤害',
   params: { showEBuff: true },
-  dmg: ({ attr, calc }, { basic }) => {
+  dmg: ({ attr, calc, talent }, { basic, dynamic }) => {
     const em = calc(attr.mastery)
     const atk = calc(attr.atk)
     const ePlustd = 1.00 * atk + em * 2.5
-    ePlusAggrDmg = basic(ePlustd, 'e', 'aggravate')
-    eAllDmg = {
+    let eAggrDmg = dynamic(talent.e['冥祭伤害'], 'e', { dynamicDmg: 35 }, 'aggravate')
+    let ePlusDmg = basic(ePlustd, 'e')
+    let ePlusAggrDmg = basic(ePlustd, 'e', 'aggravate')
+    return {
       dmg: eAggrDmg.dmg + ePlusAggrDmg.dmg + ePlusDmg.dmg * 2,
       avg: eAggrDmg.avg + ePlusAggrDmg.avg + ePlusDmg.avg * 2
     }
-    return eAllDmg
   }
 }, {
   check: ({ cons }) => cons < 6,
   dmgKey: 'q',
   title: 'Q状态·一轮普攻5A+QTE超激化总伤害',
   params: { showEBuff: true },
-  dmg: ({ talent }, dmg) => {
+  dmg: ({ attr, calc, talent }, dmg) => {
+    const em = calc(attr.mastery)
+    const atk = calc(attr.atk)
+    const ePlustd = 1.00 * atk + em * 2.5
+    let eAggrDmg = dmg.dynamic(talent.e['冥祭伤害'], 'e', { dynamicDmg: 35 }, 'aggravate')
+    let ePlusDmg = dmg.basic(ePlustd, 'e')
+    let ePlusAggrDmg = dmg.basic(ePlustd, 'e', 'aggravate')
+    let eAllDmg = {
+      dmg: eAggrDmg.dmg + ePlusAggrDmg.dmg + ePlusDmg.dmg * 2,
+      avg: eAggrDmg.avg + ePlusAggrDmg.avg + ePlusDmg.avg * 2
+    }
+
     let a1Aggrdmg = dmg(talent.q['一段伤害'], 'a', 'aggravate')
     let a2dmg = dmg(talent.q['二段伤害'], 'a')
     let a3dmg = dmg(talent.q['三段伤害'], 'a')
@@ -67,7 +70,18 @@ export const details = [{
   dmgKey: 'q',
   title: 'Q状态·一轮普攻5A+QTE超激化总伤害（消耗4层豺祭）',
   params: { showEBuff: true },
-  dmg: ({ talent }, dmg) => {
+  dmg: ({ attr, calc, talent }, dmg) => {
+    const em = calc(attr.mastery)
+    const atk = calc(attr.atk)
+    const ePlustd = 1.00 * atk + em * 2.5
+    let eAggrDmg = dmg.dynamic(talent.e['冥祭伤害'], 'e', { dynamicDmg: 35 }, 'aggravate')
+    let ePlusDmg = dmg.basic(ePlustd, 'e')
+    let ePlusAggrDmg = dmg.basic(ePlustd, 'e', 'aggravate')
+    let eAllDmg = {
+      dmg: eAggrDmg.dmg + ePlusAggrDmg.dmg + ePlusDmg.dmg * 2,
+      avg: eAggrDmg.avg + ePlusAggrDmg.avg + ePlusDmg.avg * 2
+    }
+
     let a1Aggrdmg = dmg(talent.q['一段伤害'], 'a', 'aggravate')
     let a2dmg = dmg(talent.q['二段伤害'], 'a')
     let a3dmg = dmg(talent.q['三段伤害'], 'a')
@@ -97,12 +111,12 @@ export const buffs = [{
   }
 }, {
   check: ({ params }) => params.showEBuff === true,
-  title: '赛诺被动：末途真眼状态提升秘仪·律渊渡魂35%伤害，发射渡荒之雷造成100%攻击力伤害',
+  title: '天赋-落羽的裁择：末途真眼状态提升秘仪·律渊渡魂35%伤害，发射渡荒之雷造成100%攻击力伤害',
   data: {
     eDmg: ({ params }) => params.eBuff ? 35 : 0
   }
 }, {
-  title: '赛诺被动：基于元素精通提升普攻[aPlus]点伤害值，渡荒之雷提升[_ePlus]伤害值',
+  title: '天赋-九弓的执命：基于元素精通提升普攻[aPlus]点伤害值，渡荒之雷提升[_ePlus]伤害值',
   sort: 9,
   data: {
     aPlus: ({ attr, calc }) => calc(attr.mastery) * 1.5,

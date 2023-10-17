@@ -16,12 +16,12 @@ export const details = [{
   title: '10层神君单体伤害',
   check: ({ cons }) => cons >= 6,
   dmgKey: 't',
-  dmg: ({ talent }, dmg) => {
+  dmg: ({ talent }, { dynamic }) => {
     const dynamicEnemyDmg = 12
-    let t1dmg = dmg(talent.t['技能伤害'], 't')
-    let t2dmg = dmg(talent.t['技能伤害'], 't', { dynamicEnemyDmg })
-    let t3dmg = dmg(talent.t['技能伤害'], 't', { dynamicEnemyDmg: dynamicEnemyDmg * 2 })
-    let t4dmg = dmg(talent.t['技能伤害'], 't', { dynamicEnemyDmg: dynamicEnemyDmg * 3 })
+    let t1dmg = dynamic(talent.t['技能伤害'], 't')
+    let t2dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemyDmg })
+    let t3dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemyDmg: dynamicEnemyDmg * 2 })
+    let t4dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemyDmg: dynamicEnemyDmg * 3 })
     return {
       dmg: t1dmg.dmg + t2dmg.dmg + t3dmg.dmg + t4dmg.dmg * 7,
       avg: t1dmg.avg + t2dmg.avg + t3dmg.avg + t4dmg.avg * 7
