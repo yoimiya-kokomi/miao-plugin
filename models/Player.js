@@ -210,9 +210,29 @@ export default class Player extends Base {
   }
 
   // 循环Avatar
-  forEachAvatar (fn) {
+  async forEachAvatar (fn) {
     for (let id in this._avatars) {
       let avatar = this._avatars[id]
+      // 没找到好的方法,暂时就实时获取吧
+      // 仅b服获取
+      if ((this.uid).match('^5')) {
+                const data = await this.e._mys.getAvatar(avatar.id)
+                avatar.talent = {
+                    a: {
+                        original: data.skill_list[0]?.level_current,
+                        level: data.skill_list[0]?.level_current
+                    },
+                    e: {
+                        original: data.skill_list[1]?.level_current,
+                        level: data.skill_list[1]?.level_current
+                    },
+                    q: {
+                        original: data.skill_list[2]?.level_current,
+                        level: data.skill_list[2]?.level_current
+                    }
+                }
+                console.info(this.uid, '获取天赋等级:', this.RoleMun)
+            }
       if (avatar && avatar.hasData) {
         let ret = fn(this._avatars[id])
         if (ret === false) {
@@ -334,7 +354,8 @@ export default class Player extends Base {
     }
 
     let avatarRet = {}
-    this.forEachAvatar((avatar) => {
+    this.RoleMun = 0
+    await this.forEachAvatar((avatar) => {
       let { talent } = avatar
       let ds = avatar.getDetail()
       ds.aeq = talent?.a?.original + talent?.e?.original + talent?.q?.original || 3
@@ -348,6 +369,7 @@ export default class Player extends Base {
           rank.getRank(profile)
         }
       }
+      this.RoleMun++
     })
     if (cfg.retType !== 'array') {
       return avatarRet
