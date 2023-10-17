@@ -52,7 +52,7 @@ const ProfileChange = {
       arti3: '衣,衣服,甲,躯干,',
       arti4: '鞋,靴,鞋子,靴子,脚,脚部',
       arti5: '球,位面球',
-      artis6: '绳,线,链接绳,连接绳',
+      arti6: '绳,线,链接绳,连接绳',
       weapon: '武器,光锥'
     }
     let keyTitleMap = {}

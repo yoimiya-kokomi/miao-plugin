@@ -40,7 +40,7 @@ export const buffs = [{
   cons: 1,
   check: ({ params }) => params.strength === true || params.q === true,
   data: {
-    cdmg: 20
+    cdmg: 24
   }
 }, {
   title: '镜流2命：释放终结技后，下一次强化战技的伤害提高[eDmg]%',
