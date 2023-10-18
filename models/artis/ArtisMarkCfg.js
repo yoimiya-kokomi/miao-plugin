@@ -2,7 +2,7 @@ import { usefulAttr as usefulAttrGS } from '../../resources/meta/artifact/artis-
 import { usefulAttr as usefulAttrSR } from '../../resources/meta-sr/artifact/artis-mark.js'
 import lodash from 'lodash'
 
-const CharArtis = {
+const ArtisMarkCfg = {
 
   getCharArtisCfg (char, profile, artis) {
     let { attr, weapon, elem } = profile
@@ -93,4 +93,4 @@ const CharArtis = {
     }
   }
 }
-export default CharArtis
+export default ArtisMarkCfg

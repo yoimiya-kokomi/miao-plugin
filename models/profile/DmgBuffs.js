@@ -70,7 +70,7 @@ let DmgBuffs = {
   // 圣遗物Buff
   getArtisBuffs (artis = {}, game = 'gs') {
     let retBuffs = []
-    ProfileArtis._eachArtisSet(artis, (sets, num) => {
+    ArtifactSet.eachSet(artis, (sets, num) => {
       let buffs = ArtifactSet.getArtisSetBuff(sets.name, num, game)
       if (lodash.isPlainObject(buffs)) {
         buffs = [buffs]

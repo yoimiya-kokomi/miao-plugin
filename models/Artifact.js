@@ -7,6 +7,7 @@ import { ArtifactSet } from './index.js'
 import { artiMap, attrMap, mainIdMap, attrIdMap } from '../resources/meta/artifact/index.js'
 import { idMap as idMapSR, artiMap as artiMapSR, metaData as metaDataSR, abbr as abbrSR } from '../resources/meta-sr/artifact/index.js'
 import lodash from 'lodash'
+import ArtisMark from './artis/ArtisMark.js'
 
 class Artifact extends Base {
   static getAttrs
@@ -123,6 +124,11 @@ class Artifact extends Base {
     }
   }
 
+  static getArtisKeyTitle (game = 'gs') {
+    return ArtisMark.getKeyTitleMap(game)
+  }
+
+  // 获取圣遗物属性数据
   getAttrData (mainId, attrData, level = 1, star = 5, idx = 1) {
     let mainKey = metaDataSR.mainIdx[idx][mainId]
     let starCfg = metaDataSR.starData[star]

@@ -91,6 +91,19 @@ class ArtifactSet extends Base {
   static getAliasMap (game = 'gs') {
     return game === 'gs' ? aliasMap : aliasMapSR
   }
+
+  // 循环圣遗物套装
+  static eachSet (sets, fn, game = 'gs') {
+    lodash.forEach(sets || [], (v, k) => {
+      let artisSet = ArtifactSet.get(k, game)
+      if (artisSet) {
+        if (v >= 4) {
+          fn(artisSet, 2)
+        }
+        fn(artisSet, v)
+      }
+    })
+  }
 }
 
 export default ArtifactSet

@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import AvatarData from './AvatarData.js'
 import { Data, Cfg } from '#miao'
-import { ProfileArtis, ProfileDmg } from './index.js'
+import { ProfileArtis, AvatarArtis, ProfileDmg } from './index.js'
 import AttrCalc from './profile/AttrCalc.js'
 import CharImg from './character/CharImg.js'
 
@@ -53,8 +53,16 @@ export default class ProfileData extends AvatarData {
     return this.hasData && !!ProfileDmg.dmgRulePath(this.name, this.game)
   }
 
-  static create (ds, game = 'gs') {
-    let profile = new ProfileData(ds, game)
+  get mysArtis(){
+    return this._mysArtis
+  }
+
+  get artis () {
+    return this._artis
+  }
+
+  static create (ds, game = 'gs', calc = true) {
+    let profile = new ProfileData(ds, game, calc)
     if (!profile) {
       return false
     }
@@ -62,17 +70,8 @@ export default class ProfileData extends AvatarData {
   }
 
   initArtis () {
-    this.artis = new ProfileArtis(this.id, this.elem, this.game)
-  }
-
-  setAttr (ds) {
-    this.attr = lodash.extend(Data.getData(ds, 'atk,atkBase,def,defBase,hp,hpBase,mastery,recharge'), {
-      heal: ds.heal || ds.hInc || 0,
-      cpct: ds.cpct || ds.cRate,
-      cdmg: ds.cdmg || ds.cDmg,
-      dmg: ds.dmg || ds.dmgBonus || 0,
-      phy: ds.phy || ds.phyBonus || 0
-    })
+    this._artis = new ProfileArtis(this.id, this.elem, this.game)
+    this._mysArtis = new AvatarArtis(this.id, this.game)
   }
 
   calcAttr () {
@@ -81,8 +80,12 @@ export default class ProfileData extends AvatarData {
     this.base = this._attr.getBase()
   }
 
-  setArtis (ds = false) {
-    this.artis?.setProfile(this, ds.artis?.artis || ds.artis || ds)
+  setArtis (ds = false, isMysArtis = false) {
+    if (isMysArtis) {
+      this.mysArtis.setArtis(ds.artis?.artis || ds.artis || ds)
+    } else {
+      this.artis?.setProfile(this, ds.artis?.artis || ds.artis || ds)
+    }
   }
 
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息

@@ -45,13 +45,10 @@ export default class Player extends Base {
   }
 
   get _file () {
-    if (this.isSr) {
-      return `/data/PlayerData/sr/${this.uid}.json`
-    } else {
-      return `/data/UserData/${this.uid}.json`
-    }
+    return `/data/PlayerData/${this.game}/${this.uid}.json`
   }
 
+  // 玩家头像
   get faceImgs () {
     let char
     if (this.isGs && this.face) {
@@ -98,12 +95,8 @@ export default class Player extends Base {
    * 重新加载json文件
    */
   reload () {
-    let data
-    data = Data.readJSON(this._file, 'root')
+    let data = Data.readJSON(this._file, 'root')
     this.setBasicData(data)
-    if (data.chars) {
-      this.setAvatars(data.chars)
-    }
     this.setAvatars(data.avatars || [])
     if (data._ck) {
       this._ck = data._ck
@@ -133,11 +126,7 @@ export default class Player extends Base {
     if (this._ck) {
       ret._ck = this._ck
     }
-    if (this.isSr) {
-      Data.writeJSON(`/data/PlayerData/sr/${this.uid}.json`, ret, 'root')
-    } else {
-      Data.writeJSON(`/data/UserData/${this.uid}.json`, ret, 'root')
-    }
+    Data.writeJSON(this._file, ret, 'root')
   }
 
   del () {
@@ -281,7 +270,7 @@ export default class Player extends Base {
   // 更新米游社数据
   /**
    * 更新米游社数据
-   * @param force: 0:不强制，长超时时间 1：短超时时间 2：无视缓存，强制刷新
+   * @param force 0:不强制，长超时时间 1：短超时时间 2：无视缓存，强制刷新
    * @returns {Promise<boolean>}
    */
   async refreshMysDetail (force = 0) {

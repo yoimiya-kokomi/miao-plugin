@@ -152,7 +152,9 @@ const MysAvatar = {
         stats[lodash.camelCase(key)] = num
       }
     })
-
+    if (stats?.fieldExtMap) {
+      delete stats.fieldExtMap
+    }
     let exploration = {}
     lodash.forEach(infoData?.world_explorations || [], (ds) => {
       let { name } = ds
@@ -166,6 +168,7 @@ const MysAvatar = {
       stats,
       exploration
     }
+
     player._info = new Date() * 1
     player.save()
   },
@@ -220,7 +223,7 @@ const MysAvatar = {
       // 并发5，请求天赋数据
       await Data.asyncPool(5, needReqIds, async (id) => {
         let avatar = player.getAvatar(id)
-        if (!avatar) {
+        if (!avatar || avatar.isMaxTalent) {
           return false
         }
         if (failCount > 5) {
@@ -246,7 +249,6 @@ const MysAvatar = {
       let id = char.id
       let talent = {}
       let talentRes = await mys.getDetail(id)
-      // { data: null, message: '请先登录', retcode: -100, api: 'detail' }
       if (talentRes && talentRes.skill_list) {
         let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
         for (let val of talentList) {

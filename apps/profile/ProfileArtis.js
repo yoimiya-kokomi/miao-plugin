@@ -27,7 +27,7 @@ export async function profileArtis (e) {
   let { attrMap } = Artifact.getMeta()
 
   let artisDetail = profile.getArtisMark()
-  let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
+  let artisKeyTitle = Artifact.getArtisKeyTitle()
 
   // 渲染图像
   return await Common.render('character/artis-mark', {
@@ -84,7 +84,7 @@ export async function profileArtisList (e) {
   artis = artis.reverse()
   let number = Cfg.get('artisNumber', 28)
   artis = artis.slice(0, `${number}`)
-  let artisKeyTitle = ProfileArtis.getArtisKeyTitle()
+  let artisKeyTitle = Artifact.getArtisKeyTitle()
 
   // 渲染图像
   return await Common.render('character/artis-list', {

@@ -18,7 +18,7 @@ export default class AvatarData extends Base {
     this.id = char.id
     this.char = char
     this.game = char.game || game
-    this.initArtis()
+    this._mysArtis = new AvatarArtis(this.id, this.game)
     this.setAvatar(ds)
   }
 
@@ -49,6 +49,13 @@ export default class AvatarData extends Base {
 
   get originalTalent () {
     return lodash.mapValues(this.talent, (ds) => ds.original)
+  }
+
+  // 已经到达当前等级的最大天赋
+  get isMaxTalent () {
+    let maxLv = [1, 2, 4, 6, 8, 10]?.[this.promote - 1] || 10
+    let minTalent = lodash.min(lodash.map(this.talent, (ds) => ds.original))
+    return minTalent >= maxLv
   }
 
   /**
@@ -84,16 +91,20 @@ export default class AvatarData extends Base {
     return ''
   }
 
+  get mysArtis () {
+    return this._mysArtis
+  }
+
+  get artis () {
+    return this._mysArtis
+  }
+
   static create (ds, game = 'gs') {
     let avatar = new AvatarData(ds, game)
     if (!avatar) {
       return false
     }
     return avatar
-  }
-
-  initArtis () {
-    this.artis = new AvatarArtis(this.id, this.game)
   }
 
   _get (key) {
@@ -107,7 +118,7 @@ export default class AvatarData extends Base {
     this.setBasic(ds, source)
     ds.weapon && this.setWeapon(ds.weapon)
     ds.talent && this.setTalent(ds.talent, 'original', source)
-    ds.artis && this.setArtis(ds)
+    this.setArtis(ds)
     delete this._now
   }
 
@@ -125,10 +136,10 @@ export default class AvatarData extends Base {
     this.elem = ds.elem || this.elem || this.char.elem || ''
     this.promote = lodash.isUndefined(ds.promote) ? (this.promote || AttrCalc.calcPromote(this.level)) : (ds.promote || 0)
     this.trees = this.trees || []
-    this._source = ds._source || this._source || ''
-    this._time = ds._time || this._time || now
-    this._update = ds._update || this._update || ds._time || now
-    this._talent = ds._talent || this._talent || ds._time || now
+    this._source = ds._source || this._source || '' // 数据源
+    this._time = ds._time || this._time || now // 面板最后更新时间
+    this._update = ds._update || this._update || ds._time || now //最后更新时间，包括mys
+    this._talent = ds._talent || this._talent || ds._time || now // 最后天赋更新时间，包括mys
 
     if (ds.trees) {
       this.setTrees(ds.trees)
@@ -147,6 +158,7 @@ export default class AvatarData extends Base {
     }
   }
 
+  // 星铁的行迹数据
   setTrees (ds) {
     this.trees = []
     let prefix = ''
@@ -169,6 +181,7 @@ export default class AvatarData extends Base {
     })
   }
 
+  // 设置武器
   setWeapon (ds = {}) {
     let w = Weapon.get(ds.name || ds.id, this.game)
     if (!w) {
@@ -187,6 +200,7 @@ export default class AvatarData extends Base {
     }
   }
 
+  // 获取武器详情信息
   getWeaponDetail () {
     let ret = {
       ...this.weapon
@@ -216,6 +230,7 @@ export default class AvatarData extends Base {
     return ret
   }
 
+  // 设置天赋
   setTalent (ds = false, mode = 'original', updateTime = '') {
     const now = this._now || (new Date()) * 1
     if (ds) {
@@ -232,7 +247,7 @@ export default class AvatarData extends Base {
   }
 
   setArtis (ds, source) {
-    this.artis.setArtisData(ds.artis, source)
+    this.mysArtis.setArtisData(ds.mysArtis || ds.artis, source)
   }
 
   getProfile () {
