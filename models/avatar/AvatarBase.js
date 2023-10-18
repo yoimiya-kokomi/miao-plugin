@@ -1,14 +1,15 @@
 import lodash from 'lodash'
-import Base from './Base.js'
+import Base from '../Base.js'
 import moment from 'moment'
-import { Character, AvatarArtis, ProfileData, Weapon } from './index.js'
+import { Character, Avatar, Weapon } from '#miao.models'
 import { Data, Format } from '#miao'
-import AttrCalc from './profile/AttrCalc.js'
-import Profile from './player/Profile.js'
+import Attr from '../attr/Attr.js'
+import Profile from '../player/Profile.js'
+import Artis from '../artis/Artis.js'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
 
-export default class AvatarData extends Base {
+export default class AvatarBase extends Base {
   constructor (ds = {}, game = 'gs') {
     super()
     let char = Character.get({ id: ds.id, elem: ds.elem })
@@ -18,7 +19,7 @@ export default class AvatarData extends Base {
     this.id = char.id
     this.char = char
     this.game = char.game || game
-    this._mysArtis = new AvatarArtis(this.id, this.game)
+    this._mysArtis = new Artis(this.game)
     this.setAvatar(ds)
   }
 
@@ -58,6 +59,14 @@ export default class AvatarData extends Base {
     return minTalent >= maxLv
   }
 
+  get artis () {
+    return this._mysArtis
+  }
+
+  get mysArtis () {
+    return this._mysArtis
+  }
+
   /**
    * 获取圣遗物套装属性
    * @returns {boolean|*|{imgs: *[], names: *[], sets: {}, abbrs: *[], sName: string, name: (string|*)}|{}}
@@ -91,16 +100,8 @@ export default class AvatarData extends Base {
     return ''
   }
 
-  get mysArtis () {
-    return this._mysArtis
-  }
-
-  get artis () {
-    return this._mysArtis
-  }
-
   static create (ds, game = 'gs') {
-    let avatar = new AvatarData(ds, game)
+    let avatar = new AvatarBase(ds, game)
     if (!avatar) {
       return false
     }
@@ -118,7 +119,7 @@ export default class AvatarData extends Base {
     this.setBasic(ds, source)
     ds.weapon && this.setWeapon(ds.weapon)
     ds.talent && this.setTalent(ds.talent, 'original', source)
-    this.setArtis(ds)
+    this._mysArtis.setArtisData(ds.mysArtis || ds.artis)
     delete this._now
   }
 
@@ -134,7 +135,7 @@ export default class AvatarData extends Base {
     this.fetter = ds.fetter || this.fetter || 0
     this._costume = ds.costume || this._costume || 0
     this.elem = ds.elem || this.elem || this.char.elem || ''
-    this.promote = lodash.isUndefined(ds.promote) ? (this.promote || AttrCalc.calcPromote(this.level)) : (ds.promote || 0)
+    this.promote = lodash.isUndefined(ds.promote) ? (this.promote || Attr.calcPromote(this.level)) : (ds.promote || 0)
     this.trees = this.trees || []
     this._source = ds._source || this._source || '' // 数据源
     this._time = ds._time || this._time || now // 面板最后更新时间
@@ -191,7 +192,7 @@ export default class AvatarData extends Base {
       id: ds.id || w.id,
       name: ds.name || w.name,
       level: ds.level || ds.lv || 1,
-      promote: lodash.isUndefined(ds.promote) ? AttrCalc.calcPromote(ds.level || ds.lv || 1) : (ds.promote || 0),
+      promote: lodash.isUndefined(ds.promote) ? Attr.calcPromote(ds.level || ds.lv || 1) : (ds.promote || 0),
       affix: ds.affix,
       ...w.getData('star,abbr,type,img')
     }
@@ -246,15 +247,15 @@ export default class AvatarData extends Base {
     }
   }
 
-  setArtis (ds, source) {
-    this.mysArtis.setArtisData(ds.mysArtis || ds.artis, source)
+  setArtis (ds) {
+    this.mysArtis.setArtisData(ds.mysArtis || ds.artis)
   }
 
   getProfile () {
     if (!this.isProfile) {
       return false
     }
-    return ProfileData.create(this, this.game)
+    return Avatar.create(this, this.game)
   }
 
   // 判断当前profileData是否具备有效圣遗物信息

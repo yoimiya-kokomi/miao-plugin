@@ -7,11 +7,11 @@ import { Data, Format } from '#miao'
 import ArtisMark from './ArtisMark.js'
 import { attrMap as attrMapGS } from '../../resources/meta/artifact/index.js'
 import { attrMap as attrMapSR } from '../../resources/meta-sr/artifact/index.js'
-import CharArtis from '../profile/CharArtis.js'
+import ArtisMarkCfg from './ArtisMarkCfg.js'
 import ArtisBase from './ArtisBase.js'
 
 export default class Artis extends ArtisBase {
-  constructor (isProfile = false, game = 'gs') {
+  constructor (game = 'gs', isProfile = false) {
     super(game)
     this.isProfile = !!isProfile
   }
@@ -31,7 +31,7 @@ export default class Artis extends ArtisBase {
   getCharCfg () {
     let char = Character.get(this.charid)
     let { game, isGs } = char
-    let { attrWeight, title } = CharArtis.getCharArtisCfg(char, this.profile, this)
+    let { attrWeight, title } = ArtisMarkCfg.getCharArtisCfg(char, this.profile, this)
     let attrs = {}
     let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
     let attrMap = isGs ? attrMapGS : attrMapSR
@@ -122,25 +122,28 @@ export default class Artis extends ArtisBase {
   }
 
   setArtis (idx = 1, ds = {}) {
-    idx = idx.toString().replace('arti', '')
-    parent.setArtis(idx, ds)
+    idx = idx.toString().replace('arti', '') * 1 || 1
+    super.setArtis(idx, ds)
+    if (!this.isProfile) {
+      return
+    }
     let arti = this.artis[idx]
     if (!ds.attrIds || !ds.mainId) {
       return false
     }
     arti.mainId = ds.mainId
     arti.attrIds = ds.attrIds
-    arti.main = {}
-    arti.attrs = {}
-    let artiObj = Artifact.get(ds.id, this.game)
+    let artiObj = Artifact.get(arti.id || arti.name, this.game)
     if (!artiObj) {
       return false
     }
-    let attr = artiObj.getAttrData(ds.mainId, attrIds, arti.level, arti.star, idx)
+    let attr = artiObj.getAttrData(arti, idx, this.game)
     if (!attr) {
       console.log('attr id error', ds.main, ds.mainId, idx, arti.level, arti.star)
       return false
     }
+    arti.main = attr.main
+    arti.attrs = attr.attrs
   }
 
   // 获取保存数据
@@ -155,7 +158,7 @@ export default class Artis extends ArtisBase {
       if (!this.isProfile) {
         return true
       }
-      tmp.mainId = ds.main?.id
+      tmp.mainId = ds.mainId || ds.main?.id
       if (this.isSr) {
         tmp.attrIds = []
         lodash.forEach(ds.attrs, (as) => {

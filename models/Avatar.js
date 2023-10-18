@@ -1,13 +1,15 @@
 import lodash from 'lodash'
-import AvatarData from './AvatarData.js'
+import AvatarBase from './avatar/AvatarBase.js'
 import { Data, Cfg } from '#miao'
-import { ProfileArtis, AvatarArtis, ProfileDmg } from './index.js'
-import AttrCalc from './profile/AttrCalc.js'
+import { ProfileDmg } from './index.js'
+import Attr from './attr/Attr.js'
 import CharImg from './character/CharImg.js'
+import Artis from './artis/Artis.js'
 
-export default class ProfileData extends AvatarData {
+export default class Avatar extends AvatarBase {
   constructor (ds = {}, game = 'gs', calc = true) {
     super(ds, game)
+    this._artis = new Artis(this.game, true)
     if (calc) {
       this.calcAttr()
     }
@@ -53,39 +55,39 @@ export default class ProfileData extends AvatarData {
     return this.hasData && !!ProfileDmg.dmgRulePath(this.name, this.game)
   }
 
-  get mysArtis(){
-    return this._mysArtis
-  }
-
   get artis () {
     return this._artis
   }
 
   static create (ds, game = 'gs', calc = true) {
-    let profile = new ProfileData(ds, game, calc)
+    let profile = new Avatar(ds, game, calc)
     if (!profile) {
       return false
     }
     return profile
   }
 
-  initArtis () {
-    this._artis = new ProfileArtis(this.id, this.elem, this.game)
-    this._mysArtis = new AvatarArtis(this.id, this.game)
+  setAvatar (ds, source = '') {
+    super.setAvatar(ds, source)
+    if (ds.artis) {
+      this._artis.setArtisData(ds.artis)
+    }
+    // this.calcAttr()
   }
 
   calcAttr () {
-    this._attr = AttrCalc.create(this)
+    this._attr = Attr.create(this)
     this.attr = this._attr.calc()
     this.base = this._attr.getBase()
   }
 
-  setArtis (ds = false, isMysArtis = false) {
-    if (isMysArtis) {
-      this.mysArtis.setArtis(ds.artis?.artis || ds.artis || ds)
-    } else {
-      this.artis?.setProfile(this, ds.artis?.artis || ds.artis || ds)
-    }
+  getArtis (isMysArtis = false) {
+    return isMysArtis ? this._mysArtis : this._artis
+  }
+
+  setArtis (ds = {}, isMysArtis = false) {
+    let artis = this.getArtis(isMysArtis)
+    artis.setArtisData(ds)
   }
 
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息

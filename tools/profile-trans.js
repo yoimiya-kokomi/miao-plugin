@@ -4,7 +4,7 @@ import fs from 'node:fs'
 
 let Trans = {
   init () {
-    Data.createDir('temp/UserData_BAK')
+    Data.createDir('temp/UserDataBAK')
     let uids = fs.readdirSync('./data/UserData')
     uids = uids.filter((uid) => /\.(json)/i.test(uid))
     let success = 0
@@ -27,7 +27,7 @@ let Trans = {
 
       try {
         let src = `./data/UserData/${uid}.json`
-        let dst = `./temp/UserData_BAK/${uid}.json`
+        let dst = `./temp/UserDataBAK/${uid}.json`
         fs.existsSync(dst) && fs.unlinkSync(dst)
         fs.copyFileSync(src, dst)
         fs.unlinkSync(src)

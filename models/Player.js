@@ -7,7 +7,7 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '#miao'
-import { AvatarData, ProfileRank, Character } from './index.js'
+import { Avatar, ProfileRank, Character } from './index.js'
 
 import MysAvatar from './player/MysAvatar.js'
 import Profile from './player/Profile.js'
@@ -183,7 +183,7 @@ export default class Player extends Base {
       }
     }
     if (!avatars[id] && create) {
-      avatars[id] = AvatarData.create({ id }, this.game)
+      avatars[id] = Avatar.create({ id }, this.game)
     }
     return avatars[id] || false
   }
@@ -232,7 +232,7 @@ export default class Player extends Base {
   // 获取指定角色的面板数据
   getProfile (id) {
     let avatar = this.getAvatar(id)
-    return avatar ? avatar.getProfile() : false
+    return avatar
   }
 
   // 获取所有面板数据

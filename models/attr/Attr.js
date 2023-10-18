@@ -2,13 +2,13 @@
  * 面板属性计算
  * @type {{}}
  */
-
-import { Weapon, ProfileAttr, ArtifactSet } from '../index.js'
 import { Format } from '#miao'
+import { Weapon, ArtifactSet } from '#miao.models'
+import AttrData from './AttrData.js'
 import { weaponBuffs } from '../../resources/meta/weapon/index.js'
 import lodash from 'lodash'
 
-class AttrCalc {
+class Attr {
   constructor (profile) {
     this.profile = profile
     this.char = profile.char
@@ -26,10 +26,10 @@ class AttrCalc {
   /**
    * 静态调用入口
    * @param profile
-   * @returns {AttrCalc}
+   * @returns {Attr}
    */
   static create (profile) {
-    return new AttrCalc(profile)
+    return new Attr(profile)
   }
 
   // 只有原神才需要
@@ -56,7 +56,7 @@ class AttrCalc {
    * @returns {{}}
    */
   calc () {
-    this.attr = ProfileAttr.create(this.char, {})
+    this.attr = AttrData.create(this.char, {})
     if (this.isGs) {
       this.addAttr('recharge', 100, true)
       this.addAttr('cpct', 5, true)
@@ -266,4 +266,4 @@ class AttrCalc {
   }
 }
 
-export default AttrCalc
+export default Attr

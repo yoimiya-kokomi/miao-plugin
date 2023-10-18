@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import Base from './Base.js'
+import Base from '../Base.js'
 import { Format } from '#miao'
 
 const baseAttr = {
@@ -11,7 +11,7 @@ let attrReg = {
   sr: new RegExp(`^(${baseAttr.sr.join('|')})(Base|Plus|Pct|Inc)$`)
 }
 
-class ProfileAttr extends Base {
+class AttrData extends Base {
   constructor (char, data = null) {
     super()
     this.char = char
@@ -20,7 +20,7 @@ class ProfileAttr extends Base {
   }
 
   static create (char, data = null) {
-    return new ProfileAttr(char, data)
+    return new AttrData(char, data)
   }
 
   init (data) {
@@ -147,4 +147,4 @@ class ProfileAttr extends Base {
   }
 }
 
-export default ProfileAttr
+export default AttrData

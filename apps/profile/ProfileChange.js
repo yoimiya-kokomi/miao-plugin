@@ -3,7 +3,7 @@
  */
 import lodash from 'lodash'
 import { Data } from '#miao'
-import { Character, ArtifactSet, ProfileData, Weapon, Player } from '#miao.models'
+import { Character, ArtifactSet, Avatar, Weapon, Player } from '#miao.models'
 
 // 默认武器
 let defWeapon = {
@@ -188,7 +188,7 @@ const ProfileChange = {
    * @param charid
    * @param ds
    * @param game
-   * @returns {ProfileData|boolean}
+   * @returns {Avatar|boolean}
    */
   getProfile (uid, charid, ds, game = 'gs') {
     if (!charid) {
@@ -231,7 +231,7 @@ const ProfileChange = {
       return profiles[key]?.id ? profiles[key] : source
     }
     // 初始化profile
-    let ret = new ProfileData({
+    let ret = new Avatar({
       uid,
       id: char.id,
       level,

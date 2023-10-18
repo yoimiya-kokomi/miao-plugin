@@ -2,7 +2,7 @@
 * 伤害计算 - Buff计算
 * */
 import lodash from 'lodash'
-import { ProfileArtis, ArtifactSet, Weapon } from '../index.js'
+import { ArtifactSet, Weapon } from '../index.js'
 
 /*
 理论参考：www.miyoushe.com/ys/article/32359316
