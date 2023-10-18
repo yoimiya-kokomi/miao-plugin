@@ -20,7 +20,6 @@ export default class AvatarBase extends Base {
     this.char = char
     this.game = char.game || game
     this._mysArtis = new Artis(this.game)
-    this.setAvatar(ds)
   }
 
   get hasTalent () {
@@ -263,18 +262,7 @@ export default class AvatarBase extends Base {
     return this.isProfile && this.artis.length > 0
   }
 
-  // toJSON 供保存使用
-  toJSON () {
-    let keys = this.isGs ?
-      'name,id,elem,level,promote,fetter,costume,cons,talent:originalTalent' :
-      'name,id,elem,level,promote,cons,talent:originalTalent,trees'
-    return {
-      ...this.getData(keys),
-      weapon: Data.getData(this.weapon, this.isGs ? 'name,level,promote,affix' : 'id,level,promote,affix'),
-      ...this.getData('artis,_source,_time,_update,_talent')
-    }
-  }
-
+  // 获取数据详情
   getDetail (keys = '') {
     let imgs = this.char.getImgs(this.costume)
     if (this.isGs) {

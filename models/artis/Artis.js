@@ -28,10 +28,10 @@ export default class Artis extends ArtisBase {
    * 获取角色配置
    * @returns {{classTitle: *, weight: *, posMaxMark: {}, mark: {}, attrs: {}}}
    */
-  getCharCfg () {
-    let char = Character.get(this.charid)
+  getCharCfg (profile) {
+    let char = profile.char
     let { game, isGs } = char
-    let { attrWeight, title } = ArtisMarkCfg.getCharArtisCfg(char, this.profile, this)
+    let { attrWeight, title } = ArtisMarkCfg.getCharArtisCfg(char, profile, this)
     let attrs = {}
     let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
     let attrMap = isGs ? attrMapGS : attrMapSR
@@ -60,8 +60,8 @@ export default class Artis extends ArtisBase {
     }
   }
 
-  getMarkDetail (withDetail = true) {
-    let charCfg = this.getCharCfg()
+  getMarkDetail (profile, withDetail = true) {
+    let charCfg = this.getCharCfg(profile)
     let artis = {}
     let setCount = {}
     let totalMark = 0
@@ -215,5 +215,16 @@ export default class Artis extends ArtisBase {
       }
     })
     return check
+  }
+
+  isSameArtis (target) {
+    let k = (ds) => [ds?.name || '', ds?.level || '', ds?.star || ''].join('|')
+    let ret = true
+    this.eachIdx((ds, idx) => {
+      if (k[ds] !== k(target[idx])) {
+        return ret = false
+      }
+    })
+    return ret
   }
 }

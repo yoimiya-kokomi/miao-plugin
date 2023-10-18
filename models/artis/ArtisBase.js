@@ -54,7 +54,10 @@ export default class ArtisBase extends Base {
   eachIdx (fn) {
     for (let idx = 1; idx <= (this.isGs ? 5 : 6); idx++) {
       this.artis[idx] = this.artis[idx] || {}
-      fn(this.artis[idx], idx)
+      let ret = fn(this.artis[idx], idx)
+      if (ret === false) {
+        break
+      }
     }
   }
 
@@ -80,9 +83,9 @@ export default class ArtisBase extends Base {
       arti.star = artiObj.getStarById(ds.id) || arti.star || 5
     } else {
       arti.name = ds.name || arti.name || ''
-      arti.set =  ds.set || Artifact.getSetNameByArti(arti.name) || ''
+      arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
       arti.level = ds.level || 1
-      arti.star =  ds.star || 5
+      arti.star = ds.star || 5
     }
   }
 

@@ -2,6 +2,28 @@ import { usefulAttr as usefulAttrGS } from '../../resources/meta/artifact/artis-
 import { usefulAttr as usefulAttrSR } from '../../resources/meta-sr/artifact/artis-mark.js'
 import lodash from 'lodash'
 
+const weaponCfg = {
+  磐岩结绿: {
+    attr: 'hp',
+    abbr: '绿剑'
+  },
+  赤角石溃杵: {
+    attr: 'def',
+    abbr: '赤角'
+  },
+  猎人之径: {
+    attr: 'mastery'
+  },
+  薙草之稻光: {
+    attr: 'recharge',
+    abbr: '薙刀'
+  },
+  护摩之杖: {
+    attr: 'hp',
+    abbr: '护摩'
+  }
+}
+
 const ArtisMarkCfg = {
 
   getCharArtisCfg (char, profile, artis) {
@@ -36,28 +58,6 @@ const ArtisMarkCfg = {
         // 对原神一些特殊情况做适配与判定
 
         // 增加攻击力或直接伤害类武器判定
-        const weaponCfg = {
-          磐岩结绿: {
-            attr: 'hp',
-            abbr: '绿剑'
-          },
-          赤角石溃杵: {
-            attr: 'def',
-            abbr: '赤角'
-          },
-          猎人之径: {
-            attr: 'mastery'
-          },
-          薙草之稻光: {
-            attr: 'recharge',
-            abbr: '薙刀'
-          },
-          护摩之杖: {
-            attr: 'hp',
-            abbr: '护摩'
-          }
-        }
-
         if (weight.atk > 0 && weaponCfg[wn]) {
           let wCfg = weaponCfg[wn]
           if (check(wCfg.attr, wCfg.max || 75, wCfg.plus || 75)) {
@@ -85,7 +85,7 @@ const ArtisMarkCfg = {
     }
 
     let charRule = char.getArtisCfg() || function ({ def }) {
-      return def(usefulAttr[char.name] || { atk: 75, cpct: 100, cdmg: 100 })
+      return def(usefulAttr[char.name] || { })
     }
 
     if (charRule) {

@@ -11,7 +11,6 @@ import lodash from 'lodash'
 class Attr {
   constructor (profile) {
     this.profile = profile
-    this.char = profile.char
     this.game = this.char.game
   }
 
@@ -21,6 +20,10 @@ class Attr {
 
   get isSr () {
     return this.game === 'sr'
+  }
+
+  get char () {
+    return this.profile?.char
   }
 
   /**
@@ -75,6 +78,10 @@ class Attr {
 
 
   addAttr (key, val, isBase = false) {
+    console.log(key, val, isBase)
+    if (isNaN(val)) {
+      cs.log(val)
+    }
     this.attr.addAttr(key, val, isBase)
   }
 

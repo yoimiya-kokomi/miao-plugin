@@ -5,7 +5,7 @@
 import lodash from 'lodash'
 import { Cfg, Common } from '#miao'
 import { getTargetUid, profileHelp, getProfileRefresh } from './ProfileCommon.js'
-import { Artifact, Character, ProfileArtis, Player } from '#miao.models'
+import { Artifact, Character, Player } from '#miao.models'
 
 /*
 * 角色圣遗物面板

@@ -77,7 +77,7 @@ export default class Avatar extends AvatarBase {
 
   calcAttr () {
     this._attr = Attr.create(this)
-    this.attr = this._attr.calc()
+    this.attr = this._attr.calc(this)
     this.base = this._attr.getBase()
   }
 
@@ -93,7 +93,7 @@ export default class Avatar extends AvatarBase {
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
   getArtisMark (withDetail = true) {
     if (this.hasData) {
-      return this.artis.getMarkDetail(withDetail)
+      return this.artis.getMarkDetail(this, withDetail)
     }
     return {}
   }
@@ -107,5 +107,24 @@ export default class Avatar extends AvatarBase {
       this.dmg = new ProfileDmg(ds, this.game)
     }
     return await this.dmg.calcData({ enemyLv, mode, dmgIdx, idxIsInput })
+  }
+
+  // toJSON 供保存使用
+  toJSON () {
+    let keys = this.isGs ?
+      'name,id,elem,level,promote,fetter,costume,cons,talent:originalTalent' :
+      'name,id,elem,level,promote,cons,talent:originalTalent,trees'
+    let ret = {
+      ...this.getData(keys),
+      weapon: Data.getData(this.weapon, this.isGs ? 'name,level,promote,affix' : 'id,level,promote,affix'),
+      artis: this.artis.toJSON()
+    }
+    if (!this.mysArtis.isSameArtis(this.artis)) {
+      ret.mysArtis = this.mysArtis.toJSON()
+    }
+    return {
+      ...ret,
+      ...this.getData('_source,_time,_update,_talent')
+    }
   }
 }
