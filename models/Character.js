@@ -6,7 +6,7 @@
 * */
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Data, Format, Cfg } from '#miao'
+import { Data, Format, Cfg, Meta } from '#miao'
 import CharImg from './character/CharImg.js'
 import CharTalent from './character/CharTalent.js'
 import CharId from './character/CharId.js'

@@ -154,10 +154,6 @@ const CharId = {
     return false
   },
 
-  getTravelerId (id, game = 'gs') {
-    return id * 1 === 10000005 ? 10000005 : 10000007
-  },
-
   getSrMeta (name) {
     return srData?.[aliasMap[name]] || {}
   }

@@ -12,7 +12,7 @@ let Trans = {
     if (uids.length === 0) {
       return
     }
-    console.log('准备将面板数据迁移至data/PlayerData/gs...')
+    console.log('miao-plugin: 准备将面板数据迁移至data/PlayerData/gs...')
     lodash.forEach(uids, (uid) => {
       uid = uid.replace('.json', '')
       let ret = Trans.trans(uid)
