@@ -35,7 +35,7 @@ export default class Player extends Base {
 
   get hasProfile () {
     let ret = false
-    lodash.forEach(this._avatars, (avatar) => {
+    this.forEachAvatar((avatar) => {
       if (avatar.isProfile) {
         ret = true
         return false
@@ -92,11 +92,13 @@ export default class Player extends Base {
 
   /**
    * 重新加载json文件
+   * 注意：为了性能，默认不初始化avatars数据，按需初始化
+   * 如需获取avatar请使用 player.getAvatar() 来进行获取以确保初始化
    */
   reload () {
     let data = Data.readJSON(this._file, 'root')
     this.setBasicData(data)
-    this.setAvatars(data.avatars || [])
+    this.setAvatars(data.avatars || [], true)
     if (data._ck) {
       this._ck = data._ck
     }
@@ -159,9 +161,17 @@ export default class Player extends Base {
   }
 
   // 设置角色列表
-  setAvatars (ds) {
+  // lazy：是否懒初始化avatar
+  setAvatars (ds, lazy = false) {
     lodash.forEach(ds, (avatar) => {
-      this.setAvatar(avatar)
+      if (!avatar.id) {
+        return true
+      }
+      if (lazy) {
+        this._avatars[avatar.id] = avatar
+      } else {
+        this.setAvatar(avatar)
+      }
     })
   }
 
@@ -169,6 +179,21 @@ export default class Player extends Base {
   setAvatar (ds, source = '') {
     let avatar = this.getAvatar(ds.id, true)
     avatar.setAvatar(ds, source)
+  }
+
+  delAvatar (id) {
+    delete this._avatars[id]
+  }
+
+  hasAvatar (id = '') {
+    if (!id) {
+      return !lodash.isEmpty(this._avatars)
+    }
+    return !!this._avatars[id]
+  }
+
+  getAvatarIds () {
+    return lodash.keys(this._avatars)
   }
 
   // 获取Avatar角色
@@ -181,28 +206,31 @@ export default class Player extends Base {
         id = avatars['10000005'] ? 10000005 : 10000007
       }
     }
-    if (!avatars[id] && create) {
-      avatars[id] = Avatar.create({ id }, this.game)
-    }
-    return avatars[id] || false
-  }
-
-  // 异步循环角色
-  async forEachAvatarAsync (fn) {
-    for (let id in this._avatars) {
-      let ret = await fn(this._avatars[id], id)
-      if (ret === false) {
+    if (!avatars[id]) {
+      if (create) {
+        avatars[id] = Avatar.create({ id }, this.game)
+      } else {
         return false
       }
     }
+    let avatar = avatars[id]
+    if (!avatar.isAvatar) {
+      let data = avatars[id]
+      avatar = avatars[id] = Avatar.create(avatars[id], this.game)
+      avatar.setAvatar(data)
+    }
+    if (avatar.hasData) {
+      return avatar
+    }
+    return false
   }
 
   // 循环Avatar
   async forEachAvatar (fn) {
     for (let id in this._avatars) {
-      let avatar = this._avatars[id]
+      let avatar = this.getAvatar(id)
       if (avatar && avatar.hasData) {
-        let ret = fn(this._avatars[id], id)
+        let ret = fn(avatar, id)
         ret = Data.isPromise(ret) ? await ret : ret
         if (ret === false) {
           return false

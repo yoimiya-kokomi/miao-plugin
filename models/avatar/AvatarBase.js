@@ -29,10 +29,6 @@ export default class AvatarBase extends Base {
     return this.char?.name || ''
   }
 
-  get hasData () {
-    return !!(this.level > 1 || this?.weapon?.name || this?.talent?.a)
-  }
-
   get costume () {
     let costume = this._costume
     if (lodash.isArray(costume)) {

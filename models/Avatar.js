@@ -14,6 +14,10 @@ export default class Avatar extends AvatarBase {
     this._artis = new Artis(this.game, true)
   }
 
+  get isAvatar () {
+    return true
+  }
+
   // 是否是合法面板数据
   get isProfile () {
     return ProfileAvatar.isProfile(this)
@@ -21,7 +25,7 @@ export default class Avatar extends AvatarBase {
 
   // profile.hasData 别名
   get hasData () {
-    return ProfileAvatar.isProfile(this)
+    return !!(this.level > 1 || this?.weapon?.name || this?.talent?.a)
   }
 
   get imgs () {

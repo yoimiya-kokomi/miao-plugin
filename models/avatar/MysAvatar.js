@@ -4,7 +4,6 @@ import { Data } from '#miao'
 import { chestInfo } from '../../resources/meta/info/index.js'
 import AvatarUtil from './AvatarUtil.js'
 
-
 const MysAvatar = {
   checkForce (player, force) {
     let e = player?.e
@@ -18,8 +17,8 @@ const MysAvatar = {
     }
     player._info = 0
     player._mys = 0
-    lodash.forEach(player._avatars, (ds) => {
-      ds._talent = 0
+    player.forEachAvatar((avatar) => {
+      avatar._talent = 0
     })
     return 2
   },
@@ -105,12 +104,12 @@ const MysAvatar = {
       if (lodash.keys(charIds).length > 8) {
         player.forEachAvatar((avatar) => {
           if (!charIds[avatar.id] && !avatar.isProfile) {
-            delete player._avatars[avatar.id]
+            player.delAvatar(avatar.id)
           }
         })
       }
     }
-    if (player._avatars && !lodash.isEmpty(player._avatars)) {
+    if (player.hasAvatar()) {
       player._mys = new Date() * 1
       player.save()
     }
@@ -170,7 +169,7 @@ const MysAvatar = {
   getNeedRefreshIds (player, ids, force = 0) {
     let ret = []
     if (!ids) {
-      ids = lodash.keys(player._avatars)
+      ids = player.getAvatarIds()
     } else if (!lodash.isArray(ids)) {
       ids = [ids]
     }
