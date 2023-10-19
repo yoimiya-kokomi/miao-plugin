@@ -1,5 +1,6 @@
 import lodash from 'lodash'
-import fs from 'fs'
+import fs from 'node:fs'
+import util from 'node:util'
 
 const _path = process.cwd()
 const getRoot = (root = '') => {
@@ -243,9 +244,7 @@ let Data = {
     if (lodash.isArray(data)) {
       for (let idx = 0; idx < data.length; idx++) {
         let ret = fn(data[idx], idx)
-        if (ret instanceof Promise) {
-          ret = await ret
-        }
+        ret = Data.isPromise(ret) ? await ret : ret
         if (ret === false) {
           break
         }
@@ -253,14 +252,16 @@ let Data = {
     } else if (lodash.isPlainObject(data)) {
       for (const idx in data) {
         let ret = fn(data[idx], idx)
-        if (ret instanceof Promise) {
-          ret = await ret
-        }
+        ret = Data.isPromise(ret) ? await ret : ret
         if (ret === false) {
           break
         }
       }
     }
+  },
+
+  isPromise(data){
+    return util.types.isPromise(data)
   },
 
   // 循环字符串回调

@@ -4,7 +4,6 @@ import moment from 'moment'
 import { Character, Avatar, Weapon } from '#miao.models'
 import { Data, Format } from '#miao'
 import Attr from '../attr/Attr.js'
-import Profile from '../player/Profile.js'
 import Artis from '../artis/Artis.js'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
@@ -113,7 +112,9 @@ export default class AvatarBase extends Base {
     this.setBasic(ds, source)
     ds.weapon && this.setWeapon(ds.weapon)
     ds.talent && this.setTalent(ds.talent, 'original', source)
-    this._mysArtis.setArtisData(ds.mysArtis || ds.artis)
+    let artis = ds.mysArtis || ds.artis
+    // 只要具备圣遗物信息，就更新mysArtis
+    this._mysArtis.setArtisData(artis)
     delete this._now
   }
 

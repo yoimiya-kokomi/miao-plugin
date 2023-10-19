@@ -96,7 +96,7 @@ const CharId = {
   isSr (id) {
     return gameMap[id] === 'sr'
   },
-  getId (ds = '', gsCfg = null, game = 'gs') {
+  getId (ds = '', gsCfg = null, game = '') {
     if (!ds) {
       return false
     }
@@ -110,10 +110,12 @@ const CharId = {
     if (!lodash.isObject(ds)) {
       let original = lodash.trim(ds || '')
       ds = original.toLowerCase()
-      // 尝试使用元素起始匹配
-      let em = Format.matchElem(ds, '', true)
-      if (em && aliasMap[em.name] && CharId.isTraveler(aliasMap[em.name])) {
-        return ret(aliasMap[em.name], em.elem)
+      if(game !== 'sr') {
+        // 尝试使用元素起始匹配
+        let em = Format.matchElem(ds, '', true)
+        if (em && aliasMap[em.name] && CharId.isTraveler(aliasMap[em.name])) {
+          return ret(aliasMap[em.name], em.elem)
+        }
       }
       // 直接匹配
       if (aliasMap[ds]) {

@@ -1,6 +1,5 @@
 import lodash from 'lodash'
 import MiaoData from './MiaoData.js'
-import { Data } from '#miao'
 
 export default {
   key: 'miao',

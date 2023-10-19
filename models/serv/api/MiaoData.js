@@ -1,7 +1,5 @@
-import { Character } from '../index.js'
+import { Character } from '#miao.models'
 import lodash from 'lodash'
-
-import { attrMap, artisIdxMap } from './ProfileMeta.js'
 
 let MiaoData = {
   setAvatar (player, ds) {

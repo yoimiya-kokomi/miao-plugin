@@ -9,8 +9,8 @@ import Base from './Base.js'
 import { Data } from '#miao'
 import { Avatar, ProfileRank, Character } from './index.js'
 
-import MysAvatar from './player/MysAvatar.js'
-import Profile from './player/Profile.js'
+import MysAvatar from './avatar/MysAvatar.js'
+import ProfileAvatar from './avatar/ProfileAvatar.js'
 
 Data.createDir('/data/UserData', 'root')
 Data.createDir('/data/PlayerData/gs', 'root')
@@ -80,8 +80,7 @@ export default class Player extends Base {
 
   // 获取面板更新服务名
   static getProfileServName (uid, game = 'gs') {
-    let Serv = Profile.getServ(uid, game)
-    return Serv.name
+    return ProfileAvatar.getServ(uid, game)?.name
   }
 
   static delByUid (uid, game = 'gs') {
@@ -199,11 +198,12 @@ export default class Player extends Base {
   }
 
   // 循环Avatar
-  forEachAvatar (fn) {
+  async forEachAvatar (fn) {
     for (let id in this._avatars) {
       let avatar = this._avatars[id]
       if (avatar && avatar.hasData) {
-        let ret = fn(this._avatars[id])
+        let ret = fn(this._avatars[id], id)
+        ret = Data.isPromise(ret) ? await ret : ret
         if (ret === false) {
           return false
         }
@@ -232,17 +232,18 @@ export default class Player extends Base {
   // 获取指定角色的面板数据
   getProfile (id) {
     let avatar = this.getAvatar(id)
-    avatar.calcAttr()
+    if (!avatar.isProfile) {
+      return false
+    }
     return avatar
   }
 
   // 获取所有面板数据
   getProfiles () {
     let ret = {}
-    lodash.forEach(this._avatars, (avatar) => {
-      let profile = avatar.getProfile()
-      if (profile) {
-        ret[profile.id] = profile
+    this.forEachAvatar((avatar) => {
+      if (avatar.isProfile) {
+        ret[avatar.id] = avatar
       }
     })
     return ret
@@ -265,7 +266,7 @@ export default class Player extends Base {
 
   // 更新面板
   async refreshProfile (force = 2) {
-    return await Profile.refreshProfile(this, force)
+    return await ProfileAvatar.refreshProfile(this, force)
   }
 
   // 更新米游社数据

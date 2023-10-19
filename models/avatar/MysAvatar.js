@@ -2,24 +2,10 @@ import lodash from 'lodash'
 import moment from 'moment'
 import { Data } from '#miao'
 import { chestInfo } from '../../resources/meta/info/index.js'
+import AvatarUtil from './AvatarUtil.js'
 
 
 const MysAvatar = {
-
-  needRefresh (time, force = 0, forceMap = {}) {
-    if (!time || force === 2) {
-      return true
-    }
-    if (force === true) {
-      force = 0
-    }
-    let duration = (new Date() * 1 - time * 1) / 1000
-    if (isNaN(duration) || duration < 0) {
-      return true
-    }
-    let reqTime = forceMap[force] === 0 ? 0 : (forceMap[force] || 60)
-    return duration > reqTime * 60
-  },
   checkForce (player, force) {
     let e = player?.e
     let mys = e?._mys
@@ -49,7 +35,7 @@ const MysAvatar = {
     if (!mys) {
       return false
     }
-    if (!MysAvatar.needRefresh(player._mys, force, { 0: 60, 1: 2, 2: 0 })) {
+    if (!AvatarUtil.needRefresh(player._mys, force, { 0: 60, 1: 2, 2: 0 })) {
       return false
     }
     let charData = await mys.getCharacter()
@@ -67,7 +53,7 @@ const MysAvatar = {
     if (!mys) {
       return false
     } // 不必要更新
-    if (!MysAvatar.needRefresh(player._info, force, { 0: 60, 1: 2, 2: 0 })) {
+    if (!AvatarUtil.needRefresh(player._info, force, { 0: 60, 1: 2, 2: 0 })) {
       return false
     }
     let infoData = await mys.getIndex()
@@ -114,7 +100,8 @@ const MysAvatar = {
         player.setAvatar(avatar, 'mys')
         charIds[avatar.id] = true
       })
-      // 若角色数据>8，检查缓存，删除错误缓存的数据
+      // 若角色数据>8，则说明为带ck更新
+      // 检查缓存，删除错误缓存的数据
       if (lodash.keys(charIds).length > 8) {
         player.forEachAvatar((avatar) => {
           if (!charIds[avatar.id] && !avatar.isProfile) {
@@ -193,7 +180,7 @@ const MysAvatar = {
         return true
       }
       let needMap = { 0: avatar.hasTalent ? 60 * 48 : 60 * 3, 1: 60, 2: 0 }
-      if (MysAvatar.needRefresh(avatar._talent, force, needMap)) {
+      if (AvatarUtil.needRefresh(avatar._talent, force, needMap)) {
         ret.push(avatar.id)
       }
     })

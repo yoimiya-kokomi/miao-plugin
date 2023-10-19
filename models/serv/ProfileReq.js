@@ -1,11 +1,11 @@
-import Base from './Base.js'
+import Base from '../Base.js'
 import fetch from 'node-fetch'
 
 export default class ProfileReq extends Base {
   constructor (e, game = 'gs') {
     super()
     this.e = e
-    this.game = game
+    this.game = e.game || game
     this.uid = e.uid
   }
 
@@ -17,7 +17,7 @@ export default class ProfileReq extends Base {
     if (e.uid * 1 < 100000006) {
       return false
     }
-    return new ProfileReq(e, game)
+    return new ProfileReq(e, e.game || game)
   }
 
   async setCd (seconds = 60) {

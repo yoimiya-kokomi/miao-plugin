@@ -147,37 +147,6 @@ const CharImg = {
     imgs.cons3 = imgs[talentCons[3]]
     imgs.cons5 = imgs[talentCons[5]]
     return imgs
-  },
-
-  getCostumeSplash (profile) {
-    let {char, name} = profile
-    if (!Cfg.get('costumeSplash', true)) {
-      return char.getImgs(profile._costume).splash
-    }
-
-    let costume = profile._costume
-    costume = profile.char.checkCostume(costume) ? '2' : ''
-    if (!Cfg.get('costumeSplash', true)) {
-      return this.char.getImgs(profile._costume).splash
-    }
-
-    let nPath = `meta/character/${name}`
-    let isSuper = false
-    let talent = profile.talent ? lodash.map(profile.talent, (ds) => ds.original).join('') : ''
-    if (profile.cons === 6 || ['ACE', 'MAX'].includes(profile.artis?.markClass) || talent === '101010') {
-      isSuper = true
-    }
-    if (isSuper) {
-      return CharImg.getRandomImg(
-        [`profile/super-character/${name}`, `profile/normal-character/${name}`],
-        [`${nPath}/imgs/splash0.webp`, `${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
-      )
-    } else {
-      return CharImg.getRandomImg(
-        [`profile/normal-character/${name}`],
-        [`${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
-      )
-    }
   }
 }
 export default CharImg

@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { attrMap, idsMap, artisIdxMap } from './ProfileMeta.js'
-import { Character, ArtifactSet, Weapon } from '../index.js'
+import { Character, ArtifactSet, Weapon } from '#miao.models'
 
 let EnkaData = {
   setAvatar (player, data, dataSource = 'enka') {

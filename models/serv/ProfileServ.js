@@ -1,10 +1,11 @@
 import lodash from 'lodash'
-import Base from './Base.js'
-import { Data, Cfg } from '#miao'
+import Base from '../Base.js'
+import { Data } from '#miao'
 
 let { sysCfg, diyCfg } = await Data.importCfg('profile')
 
 export default class ProfileServ extends Base {
+
   constructor (cfg) {
     super()
     this._name = cfg.name

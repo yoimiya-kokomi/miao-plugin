@@ -1,11 +1,11 @@
 import lodash from 'lodash'
-import AvatarBase from './avatar/AvatarBase.js'
+
 import { Data } from '#miao'
 import { ProfileDmg } from './index.js'
+import AvatarBase from './avatar/AvatarBase.js'
 import Attr from './attr/Attr.js'
-import CharImg from './character/CharImg.js'
 import Artis from './artis/Artis.js'
-import Profile from './player/Profile.js'
+import ProfileAvatar from './avatar/ProfileAvatar.js'
 import ArtisMark from './artis/ArtisMark.js'
 
 export default class Avatar extends AvatarBase {
@@ -16,12 +16,12 @@ export default class Avatar extends AvatarBase {
 
   // 是否是合法面板数据
   get isProfile () {
-    return Profile.isProfile(this)
+    return ProfileAvatar.isProfile(this)
   }
 
   // profile.hasData 别名
-  get hasData(){
-    return Profile.isProfile(this)
+  get hasData () {
+    return ProfileAvatar.isProfile(this)
   }
 
   get imgs () {
@@ -29,7 +29,7 @@ export default class Avatar extends AvatarBase {
   }
 
   get costumeSplash () {
-    return CharImg.getCostumeSplash(this)
+    return ProfileAvatar.getCostumeSplash(this)
   }
 
   get hasDmg () {
@@ -50,13 +50,16 @@ export default class Avatar extends AvatarBase {
 
   setAvatar (ds, source = '') {
     super.setAvatar(ds, source)
-    if (ds.artis) {
+    if (ds.artis && source !== 'mys') {
       this._artis.setArtisData(ds.artis)
     }
-    // this.calcAttr()
+    this.calcAttr()
   }
 
   calcAttr () {
+    if (!this.isProfile) {
+      return false
+    }
     let attr = this._attr = this._attr || Attr.create(this)
     this.attr = attr.calc()
     this.base = attr.getBase()
