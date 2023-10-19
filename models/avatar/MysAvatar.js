@@ -5,6 +5,7 @@ import { chestInfo } from '../../resources/meta/info/index.js'
 import AvatarUtil from './AvatarUtil.js'
 
 const MysAvatar = {
+  // 检查更新force值
   checkForce (player, force) {
     let e = player?.e
     let mys = e?._mys
@@ -15,6 +16,8 @@ const MysAvatar = {
     if (!ck || player._ck === ck) {
       return force
     }
+    return force
+    // 暂时不处理ck变更
     player._info = 0
     player._mys = 0
     player.forEachAvatar((avatar) => {
@@ -209,10 +212,10 @@ const MysAvatar = {
       // 并发5，请求天赋数据
       await Data.asyncPool(5, needReqIds, async (id) => {
         let avatar = player.getAvatar(id)
-        if (!avatar || avatar.isMaxTalent) {
+        if (avatar) {
           return false
         }
-        if (failCount > 5) {
+        if (avatar.isMaxTalent || failCount > 5) {
           avatar.setTalent(false, 'original', true)
           return false
         }

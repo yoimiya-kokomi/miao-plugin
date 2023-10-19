@@ -178,6 +178,10 @@ export default class Player extends Base {
   // 设置角色数据
   setAvatar (ds, source = '') {
     let avatar = this.getAvatar(ds.id, true)
+    if (!avatar.setAvatar) {
+      console.log(this._avatars)
+      console.log(avatar, ds)
+    }
     avatar.setAvatar(ds, source)
   }
 
@@ -206,6 +210,7 @@ export default class Player extends Base {
         id = avatars['10000005'] ? 10000005 : 10000007
       }
     }
+
     if (!avatars[id]) {
       if (create) {
         avatars[id] = Avatar.create({ id }, this.game)
@@ -213,16 +218,14 @@ export default class Player extends Base {
         return false
       }
     }
+
     let avatar = avatars[id]
     if (!avatar.isAvatar) {
       let data = avatars[id]
       avatar = avatars[id] = Avatar.create(avatars[id], this.game)
       avatar.setAvatar(data)
     }
-    if (avatar.hasData) {
-      return avatar
-    }
-    return false
+    return avatar
   }
 
   // 循环Avatar
@@ -321,6 +324,17 @@ export default class Player extends Base {
     return await MysAvatar.refreshTalent(this, ids, force)
   }
 
+  /**
+   * 刷新角色数据
+   *
+   * @param cfg
+   * @param cfg.detail mys-detail数据更新级别，角色列表与详情
+   * @param cfg.talent mys-talent数据更新级别，角色天赋数据
+   * @param cfg.index mys-index数据更新级别，游戏统计数据
+   * @param cfg.profile 刷新面板数据
+   * @param cfg.ids 刷新的角色列表
+   */
+
   async refresh (cfg) {
     this.save(false)
     try {
@@ -331,7 +345,7 @@ export default class Player extends Base {
         await this.refreshMysDetail(cfg.detail)
       }
       if (cfg.talent || cfg.talent === 0) {
-        await this.refreshTalent(cfg.ids, cfg.talent)
+        await this.refreshTalent(cfg.ids || '', cfg.talent)
       }
       if (cfg.profile || cfg.profile === 0) {
         await this.refreshProfile(cfg.profile)
@@ -342,6 +356,18 @@ export default class Player extends Base {
     }
     this.save(true)
   }
+
+  /**
+   * 刷新并获取角色数据
+   *
+   * @param cfg
+   * @param cfg.detail mys-detail数据更新级别，角色列表与详情
+   * @param cfg.talent mys-talent数据更新级别，角色天赋数据
+   * @param cfg.index mys-index数据更新级别，游戏统计数据
+   * @param cfg.retType 返回类型，默认id为key对象，设置为array时返回数组
+   * @param cfg.rank 返回为数组时，数据是否排序，排序规则：等级、星级、天赋、命座、武器、好感的顺序排序
+   * @returns {Promise<any[]|{}>}
+   */
 
   async refreshAndGetAvatarData (cfg) {
     await this.refresh(cfg)
@@ -360,8 +386,9 @@ export default class Player extends Base {
       avatarRet[ds.id] = ds
 
       let profile = avatar.getProfile()
-      if (profile) {
-        let mark = profile.getArtisMark(false)
+      if (avatar.isProfile) {
+        ds.artisSet = avatar.artis.getSetData()
+        let mark = avatar.getArtisMark(false)
         ds.artisMark = Data.getData(mark, 'mark,markClass,names')
         if (rank) {
           rank.getRank(profile)
