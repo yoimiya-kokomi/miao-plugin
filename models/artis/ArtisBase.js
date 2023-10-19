@@ -46,7 +46,7 @@ export default class ArtisBase extends Base {
   forEach (fn) {
     lodash.forEach(this.artis, (ds, idx) => {
       if (ds.name) {
-        fn(ds, idx)
+        return fn(ds, idx)
       }
     })
   }

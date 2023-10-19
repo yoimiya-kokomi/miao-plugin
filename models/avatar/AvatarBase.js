@@ -34,11 +34,6 @@ export default class AvatarBase extends Base {
     return !!(this.level > 1 || this?.weapon?.name || this?.talent?.a)
   }
 
-  // 是否是合法面板数据
-  get isProfile () {
-    return Profile.isProfile(this)
-  }
-
   get costume () {
     let costume = this._costume
     if (lodash.isArray(costume)) {

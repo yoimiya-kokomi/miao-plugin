@@ -2,28 +2,18 @@
  * 面板属性计算
  * @type {{}}
  */
+import Base from '../Base.js'
 import { Format } from '#miao'
 import { Weapon, ArtifactSet } from '#miao.models'
 import AttrData from './AttrData.js'
 import { weaponBuffs } from '../../resources/meta/weapon/index.js'
 import lodash from 'lodash'
 
-class Attr {
+class Attr extends Base {
   constructor (profile) {
+    super()
     this.profile = profile
-    this.game = this.char.game
-  }
-
-  get isGs () {
-    return this.game === 'gs'
-  }
-
-  get isSr () {
-    return this.game === 'sr'
-  }
-
-  get char () {
-    return this.profile?.char
+    this.game = profile.game
   }
 
   /**
@@ -59,7 +49,8 @@ class Attr {
    * @returns {{}}
    */
   calc () {
-    this.attr = AttrData.create(this.char, {})
+    let profile = this.profile
+    this.attr = AttrData.create(profile.char, {})
     if (this.isGs) {
       this.addAttr('recharge', 100, true)
       this.addAttr('cpct', 5, true)
@@ -78,18 +69,11 @@ class Attr {
 
 
   addAttr (key, val, isBase = false) {
-    console.log(key, val, isBase)
-    if (isNaN(val)) {
-      cs.log(val)
-    }
     this.attr.addAttr(key, val, isBase)
   }
 
-  /**
-   * 计算角色属性
-   * @param affix
-   */
-  setCharAttr (affix = '') {
+  // 计算角色属性
+  setCharAttr () {
     let { char, level, promote, trees } = this.profile
     let metaAttr = char.detail?.attr || {}
     let self = this
@@ -174,6 +158,7 @@ class Attr {
     }
     let wCalcRet = weapon.calcAttr(wData.level, wData.promote)
     let self = this
+    let char = this.profile.char
 
     if (this.isSr) {
       // 星铁面板属性
@@ -182,7 +167,7 @@ class Attr {
         self.addAttr(k, v, true)
       })
       // 检查武器类型
-      if (weapon.type === this.char.weapon) {
+      if (weapon.type === char.weapon) {
         // todo sr&gs 统一
         let wBuffs = weapon.getWeaponAffixBuffs(wData.affix, true)
         lodash.forEach(wBuffs, (buff) => {
@@ -221,12 +206,13 @@ class Attr {
    * 计算圣遗物属性
    */
   setArtisAttr () {
-    let artis = this.profile?.artis
+    let profile = this.profile
+    let artis = profile?.artis
     // 计算圣遗物词条
     artis.forEach((arti) => {
-      this.calcArtisAttr(arti.main, this.char)
+      this.calcArtisAttr(arti.main, profile.char)
       lodash.forEach(arti.attrs, (ds) => {
-        this.calcArtisAttr(ds, this.char)
+        this.calcArtisAttr(ds, profile.char)
       })
     })
     // 计算圣遗物静态加成
@@ -238,7 +224,7 @@ class Attr {
         if (!buff.isStatic) {
           return true
         }
-        if (buff.elem && !this.char.isElem(buff.elem)) {
+        if (buff.elem && !profile.char.isElem(buff.elem)) {
           return true
         }
         lodash.forEach(buff.data, (val, key) => {

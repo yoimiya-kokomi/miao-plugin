@@ -94,8 +94,22 @@ let AttrSR = {
   }
 }
 export default {
+
   getData (arti, idx = 1, game = 'gs') {
     let tmp = game === 'gs' ? AttrGS : AttrSR
     return tmp.getData(arti.mainId, arti.attrIds, arti.level, arti.star, idx)
+  },
+
+  hasAttr(arti){
+    if (arti.isSr) {
+      return true
+    }
+    let ret = true
+    arti.forEach((ds) => {
+      if (ds.name) {
+        return !!(ds.mainId && ds.attrIds)
+      }
+    })
+    return ret
   }
 }

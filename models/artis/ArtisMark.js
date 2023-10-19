@@ -1,23 +1,15 @@
 import lodash from 'lodash'
-import { Format } from '#miao'
-import {
-  attrNameMap,
-  mainAttr as mainAttrGS,
-  subAttr as subAttrGS,
-  attrMap as attrMapGS
-} from '../../resources/meta/artifact/index.js'
-import {
-  attrMap as attrMapSR,
-  mainAttr as mainAttrSR,
-  subAttr as subAttrSR
-} from '../../resources/meta-sr/artifact/meta.js'
+import { Data, Format } from '#miao'
+import { attrMap as attrMapGS, attrNameMap, mainAttr as mainAttrGS, subAttr as subAttrGS } from '../../resources/meta/artifact/index.js'
+import { attrMap as attrMapSR, mainAttr as mainAttrSR, subAttr as subAttrSR } from '../../resources/meta-sr/artifact/meta.js'
+import ArtisMarkCfg from './ArtisMarkCfg.js'
+import { Artifact } from '#miao.models'
 
 let ArtisMark = {
   // 根据Key获取标题
   getKeyByTitle (title, game = 'gs') {
     if (/元素伤害加成/.test(title) || Format.isElem(title)) {
-      let elem = Format.matchElem(title)
-      return elem
+      return Format.matchElem(title)
     } else if (title === '物理伤害加成') {
       return 'phy'
     }
@@ -110,7 +102,7 @@ let ArtisMark = {
   // 获取评分档位
   getMarkClass (mark) {
     let pct = mark
-    let scoreMap = [['D', 7], ['C', 14], ['B', 21], ['A', 28], ['S', 35], ['SS', 42], ['SSS', 49], ['ACE', 56], ['ACE²', 70]]
+    let scoreMap = [['D', 7], ['C', 14], ['B', 21], ['A', 28], ['S', 35], ['SS', 42], ['SSS', 49], ['ACE', 56], ['MAX', 70]]
     for (let idx = 0; idx < scoreMap.length; idx++) {
       if (pct < scoreMap[idx][1]) {
         return scoreMap[idx][0]
@@ -192,17 +184,50 @@ let ArtisMark = {
     return ret.slice(0, maxLen)
   },
 
-  hasAttr (artis, game = 'gs') {
-    for (let idx = 1; idx <= 5; idx++) {
-      let ds = artis[idx]
-      if (ds) {
-        // 不再支持非id格式的面板
-        if ((!ds.attrIds && !ds.attr) || !ds.mainId) {
-          return false
+  getMarkDetail (profile, withDetail = true) {
+    if (!profile.isProfile) {
+      return {}
+    }
+    let charCfg = ArtisMarkCfg.getCfg(profile)
+    let artisRet = {}
+    let setCount = {}
+    let totalMark = 0
+    let { game, artis, elem } = profile
+    artis.forEach((arti, idx) => {
+      let mark = ArtisMark.getMark({ charCfg, idx, arti, elem, game })
+      totalMark += mark
+      setCount[arti.set] = (setCount[arti.set] || 0) + 1
+      artisRet[idx] = {
+        _mark: mark,
+        mark: Format.comma(mark, 1),
+        markClass: ArtisMark.getMarkClass(mark)
+      }
+      if (withDetail) {
+        let artifact = Artifact.get(arti, game)
+        artisRet[idx] = {
+          ...Data.getData(artifact, 'name,abbr,set:setName,img'),
+          level: arti.level,
+          main: ArtisMark.formatArti(arti.main, charCfg.attrs, true, game),
+          attrs: ArtisMark.formatArti(arti.attrs, charCfg.attrs, false, game),
+          ...artisRet[idx]
         }
       }
+    })
+    let setData = artis.getSetData()
+    artis.mark = totalMark
+    artis.markClass = ArtisMark.getMarkClass(totalMark / 5)
+    let ret = {
+      classTitle: charCfg.classTitle,
+      artis: artisRet,
+      mark: Format.comma(totalMark, 1),
+      _mark: artis.mark,
+      markClass: artis.markClass,
+      ...Data.getData(setData, 'sets,names,imgs'),
     }
-    return true
+    if (withDetail) {
+      ret.charWeight = lodash.mapValues(charCfg.attrs, ds => ds.weight)
+    }
+    return ret
   }
 }
 

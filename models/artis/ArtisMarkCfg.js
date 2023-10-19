@@ -1,6 +1,9 @@
 import { usefulAttr as usefulAttrGS } from '../../resources/meta/artifact/artis-mark.js'
 import { usefulAttr as usefulAttrSR } from '../../resources/meta-sr/artifact/artis-mark.js'
 import lodash from 'lodash'
+import { attrMap as attrMapGS } from '../../resources/meta/artifact/index.js'
+import { attrMap as attrMapSR } from '../../resources/meta-sr/artifact/index.js'
+import ArtisMark from './ArtisMark.js'
 
 const weaponCfg = {
   磐岩结绿: {
@@ -25,9 +28,8 @@ const weaponCfg = {
 }
 
 const ArtisMarkCfg = {
-
-  getCharArtisCfg (char, profile, artis) {
-    let { attr, weapon, elem } = profile
+  getCharArtisCfg (profile) {
+    let { attr, weapon, elem, char, artis } = profile
     let { isGs } = char
     let usefulAttr = isGs ? usefulAttrGS : usefulAttrSR
 
@@ -85,11 +87,45 @@ const ArtisMarkCfg = {
     }
 
     let charRule = char.getArtisCfg() || function ({ def }) {
-      return def(usefulAttr[char.name] || { })
+      return def(usefulAttr[char.name] || {})
     }
 
     if (charRule) {
       return charRule({ attr, elem, artis, rule, def, weapon, cons: profile.cons })
+    }
+  },
+
+  getCfg (profile) {
+    let { char } = profile
+    let { game, isGs } = char
+    let { attrWeight, title } = ArtisMarkCfg.getCharArtisCfg(profile)
+    let attrs = {}
+    let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
+    let attrMap = isGs ? attrMapGS : attrMapSR
+    lodash.forEach(attrMap, (attr, key) => {
+      let k = attr.base || ''
+      let weight = attrWeight[k || key]
+      if (!weight || weight * 1 === 0) {
+        return true
+      }
+      let ret = {
+        ...attr, weight, fixWeight: weight, mark: weight / attr.value
+      }
+      if (!k) {
+        ret.mark = weight / attr.value
+      } else {
+        let plus = k === 'atk' ? 520 : 0
+        ret.mark = weight / attrMap[k].value / (baseAttr[k] + plus) * 100
+        ret.fixWeight = weight * attr.value / attrMap[k].value / (baseAttr[k] + plus) * 100
+      }
+      attrs[key] = ret
+    })
+    let posMaxMark = ArtisMark.getMaxMark(attrs, game)
+    // 返回内容待梳理简化
+    return {
+      attrs,
+      classTitle: title,
+      posMaxMark
     }
   }
 }

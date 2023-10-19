@@ -232,6 +232,7 @@ export default class Player extends Base {
   // 获取指定角色的面板数据
   getProfile (id) {
     let avatar = this.getAvatar(id)
+    avatar.calcAttr()
     return avatar
   }
 

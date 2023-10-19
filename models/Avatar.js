@@ -1,23 +1,27 @@
 import lodash from 'lodash'
 import AvatarBase from './avatar/AvatarBase.js'
-import { Data, Cfg } from '#miao'
+import { Data } from '#miao'
 import { ProfileDmg } from './index.js'
 import Attr from './attr/Attr.js'
 import CharImg from './character/CharImg.js'
 import Artis from './artis/Artis.js'
+import Profile from './player/Profile.js'
+import ArtisMark from './artis/ArtisMark.js'
 
 export default class Avatar extends AvatarBase {
-  constructor (ds = {}, game = 'gs', calc = true) {
+  constructor (ds = {}, game = 'gs') {
     super(ds, game)
     this._artis = new Artis(this.game, true)
-    if (calc) {
-      this.calcAttr()
-    }
   }
 
-  // 判断当前profileData是否具有有效数据
-  get hasData () {
-    return this.isProfile
+  // 是否是合法面板数据
+  get isProfile () {
+    return Profile.isProfile(this)
+  }
+
+  // profile.hasData 别名
+  get hasData(){
+    return Profile.isProfile(this)
   }
 
   get imgs () {
@@ -25,42 +29,19 @@ export default class Avatar extends AvatarBase {
   }
 
   get costumeSplash () {
-    let costume = this._costume
-    costume = this.char.checkCostume(costume) ? '2' : ''
-
-    if (!Cfg.get('costumeSplash', true)) {
-      return this.char.getImgs(this._costume).splash
-    }
-
-    let nPath = `meta/character/${this.name}`
-    let isSuper = false
-    let talent = this.talent ? lodash.map(this.talent, (ds) => ds.original).join('') : ''
-    if (this.cons === 6 || ['ACE', 'ACE²'].includes(this.artis?.markClass) || talent === '101010') {
-      isSuper = true
-    }
-    if (isSuper) {
-      return CharImg.getRandomImg(
-        [`profile/super-character/${this.name}`, `profile/normal-character/${this.name}`],
-        [`${nPath}/imgs/splash0.webp`, `${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
-      )
-    } else {
-      return CharImg.getRandomImg(
-        [`profile/normal-character/${this.name}`],
-        [`${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
-      )
-    }
+    return CharImg.getCostumeSplash(this)
   }
 
   get hasDmg () {
-    return this.hasData && !!ProfileDmg.dmgRulePath(this.name, this.game)
+    return this.isProfile && !!ProfileDmg.dmgRulePath(this.name, this.game)
   }
 
   get artis () {
     return this._artis
   }
 
-  static create (ds, game = 'gs', calc = true) {
-    let profile = new Avatar(ds, game, calc)
+  static create (ds, game = 'gs') {
+    let profile = new Avatar(ds, game)
     if (!profile) {
       return false
     }
@@ -76,9 +57,9 @@ export default class Avatar extends AvatarBase {
   }
 
   calcAttr () {
-    this._attr = Attr.create(this)
-    this.attr = this._attr.calc(this)
-    this.base = this._attr.getBase()
+    let attr = this._attr = this._attr || Attr.create(this)
+    this.attr = attr.calc()
+    this.base = attr.getBase()
   }
 
   getArtis (isMysArtis = false) {
@@ -92,10 +73,7 @@ export default class Avatar extends AvatarBase {
 
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
   getArtisMark (withDetail = true) {
-    if (this.hasData) {
-      return this.artis.getMarkDetail(this, withDetail)
-    }
-    return {}
+    return ArtisMark.getMarkDetail(this, withDetail)
   }
 
   // 计算当前profileData的伤害信息

@@ -50,8 +50,8 @@ class Artifact extends Base {
     }
 
     // 传入为artis对象
-    if (name.game) {
-      return Artifact.get(name.id || name.name, name.game)
+    if (name.id || name.name) {
+      return Artifact.get(name.id || name.name, name.game || game)
     }
     if (game === 'sr') {
       name = idMapSR[name]?.name || name
