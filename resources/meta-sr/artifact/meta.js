@@ -53,7 +53,7 @@ lodash.forEach(attrMap, (attr, key) => {
 
 export { attrMap }
 
-export const abbr = {
+export const artisAbbr = {
   快枪手的野穗毡帽: '快枪手的毡帽',
   快枪手的粗革手套: '快枪手的手套',
   快枪手的猎风披肩: '快枪手的披肩',
@@ -80,7 +80,8 @@ export const abbr = {
   泰科铵的弧光赛道: '泰科铵的赛道',
   伊须磨洲的残船鲸落: '伊须磨洲的鲸落',
   伊须磨洲的坼裂缆索: '伊须磨洲的缆索',
-
+}
+const artiSetAbbr = {
   盗匪荒漠的废土客: '虚数套',
   繁星璀璨的天才: '量子套',
   激奏雷电的乐队: '雷套',

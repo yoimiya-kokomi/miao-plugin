@@ -11,7 +11,6 @@ import { Avatar, ProfileRank, Character } from './index.js'
 
 import MysAvatar from './avatar/MysAvatar.js'
 import ProfileAvatar from './avatar/ProfileAvatar.js'
-import Trans from './player/PlayerTrans.js'
 
 Data.createDir('/data/UserData', 'root')
 Data.createDir('/data/PlayerData/gs', 'root')
@@ -408,7 +407,3 @@ export default class Player extends Base {
     return avatarRet
   }
 }
-
-setTimeout(() => {
-  Trans.init()
-}, 500)

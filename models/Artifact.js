@@ -3,25 +3,25 @@
 * */
 import Base from './Base.js'
 import { ArtifactSet } from './index.js'
-import { artiMap, attrMap } from '../resources/meta/artifact/index.js'
-import { idMap as idMapSR, artiMap as artiMapSR, abbr as abbrSR } from '../resources/meta-sr/artifact/index.js'
+import { attrMap } from '../resources/meta/artifact/index.js'
+import { abbr as abbrSR } from '../resources/meta-sr/artifact/index.js'
 import ArtisMark from './artis/ArtisMark.js'
 import ArtisAttr from './artis/ArtisAttr.js'
+import { Meta } from '#miao'
 
 class Artifact extends Base {
-  static getAttrs
 
-  constructor (name, game = 'gs') {
+  constructor (data, game = 'gs') {
+    if (!data) {
+      return false
+    }
     super()
+    let name = data.id || data.name
     let cache = this._getCache(`arti:${game}:${name}`)
     if (cache) {
       return cache
     }
     this.game = game
-    let data = (this.isGs ? artiMap : artiMapSR)[name]
-    if (!data) {
-      return false
-    }
     this.id = data.id || ''
     this.name = data.name
     this.meta = data
@@ -48,16 +48,13 @@ class Artifact extends Base {
     if (!name) {
       return false
     }
-
     // 传入为artis对象
     if (name.id || name.name) {
       return Artifact.get(name.id || name.name, name.game || game)
     }
-    if (game === 'sr') {
-      name = idMapSR[name]?.name || name
-    }
-    if ((game === 'gs' ? artiMap : artiMapSR)[name]) {
-      return new Artifact(name, game)
+    let data = Meta.getData(game, 'arti', name)
+    if(data){
+      return new Artifact(data, game)
     }
     return false
   }
@@ -76,6 +73,10 @@ class Artifact extends Base {
     }
   }
 
+  static getArtisKeyTitle (game = 'gs') {
+    return ArtisMark.getKeyTitleMap(game)
+  }
+
   getStarById (id) {
     return this.meta.ids[id] || ''
   }
@@ -87,10 +88,6 @@ class Artifact extends Base {
         return key
       }
     }
-  }
-
-  static getArtisKeyTitle (game = 'gs') {
-    return ArtisMark.getKeyTitleMap(game)
   }
 
   // 获取圣遗物属性数据

@@ -13,15 +13,7 @@ import CharId from './character/CharId.js'
 import CharMeta from './character/CharMeta.js'
 import CharCfg from './character/CharCfg.js'
 
-let { wifeMap, idSort, idMap } = CharId
-
-let getMeta = function (name, game = 'gs') {
-  if (game === 'gs') {
-    return Data.readJSON(`resources/meta/character/${name}/data.json`, 'miao')
-  } else {
-    return CharId.getSrMeta(name)
-  }
-}
+let { wifeMap } = CharId
 
 class Character extends Base {
   // 默认获取的数据
@@ -39,7 +31,7 @@ class Character extends Base {
     this.name = name
     this.game = game
     if (!this.isCustom) {
-      let meta = getMeta(name, game)
+      let meta = Meta.getData(game, 'char', name)
       this.meta = meta
       if (this.isGs) {
         this.elem = Format.elem(elem || meta.elem, 'anemo')
@@ -179,7 +171,7 @@ class Character extends Base {
 
   // 基于角色名获取Character
   static get (val, game = 'gs') {
-    let id = CharId.getId(val, Character.gsCfg, game)
+    let id = CharId.getId(val, game)
     if (!id) {
       return false
     }
@@ -187,8 +179,9 @@ class Character extends Base {
   }
 
   static forEach (fn, type = 'all', game = 'gs') {
-    lodash.forEach(idMap, (name, id) => {
-      let char = Character.get({ id, name })
+    let ids = Meta.getIds(game, 'char')
+    lodash.forEach(ids, (id) => {
+      let char = Character.get(id)
       if (char.game !== 'gs') {
         return true
       }
@@ -204,7 +197,7 @@ class Character extends Base {
 
   // 获取排序ID
   static sortIds (arr) {
-    return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))
+    return arr.sort((a, b) => a * 1 - b * 1)
   }
 
   // 获取attr列表
@@ -353,7 +346,5 @@ class Character extends Base {
     }
   }
 }
-
-Character.CharId = CharId
 
 export default Character

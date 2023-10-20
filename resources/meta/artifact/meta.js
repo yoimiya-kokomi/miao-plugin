@@ -48,7 +48,7 @@ export const abbr = {
 }
 
 
-let aliasCfg = {
+export const aliasCfg = {
   炽烈的炎之魔女: '魔女',
   昔日宗室之仪: '宗室',
   翠绿之影: '风套,翠绿',

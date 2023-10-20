@@ -1,4 +1,4 @@
-import { Data } from '#miao'
+import { Data, Meta } from '#miao'
 import lodash from 'lodash'
 import { weaponType, abbr, alias, weaponSet } from './meta.js'
 
@@ -33,7 +33,7 @@ for (let type in weaponType) {
   calc = lodash.extend(calc, typeRet)
 
   // data
-  let typeData = await Data.readJSON(`resources/meta/weapon/${type}/data.json`,'miao')
+  let typeData = await Data.readJSON(`resources/meta/weapon/${type}/data.json`, 'miao')
   lodash.forEach(typeData, (ds) => {
     data[ds.name] = {
       id: ds.id,
@@ -64,3 +64,12 @@ export const weaponData = data
 export const weaponAbbr = abbr
 export const weaponAlias = aliasMap
 export { weaponType, weaponSet }
+
+let meta = Meta.getMeta('gs', 'weapon')
+meta.addData(data)
+meta.addAlias(alias)
+meta.addAbbr(abbr)
+meta.addCfg({
+  weaponType, weaponSet, weaponBuffs
+})
+export default meta

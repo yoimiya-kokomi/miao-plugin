@@ -1,5 +1,5 @@
 import { Character, MysApi, Player } from '#miao.models'
-import { Cfg, Common } from '#miao'
+import { Cfg, Common, Meta } from '#miao'
 import lodash from 'lodash'
 import moment from 'moment'
 
@@ -94,7 +94,9 @@ let Avatar = {
         message_id.push(msgRes.message_id)
       }
       for (const i of message_id) {
-        await redis.set(`miao:original-picture:${i}`, JSON.stringify({ type: 'character', img: bg.img }), { EX: 3600 * 3 })
+        await redis.set(`miao:original-picture:${i}`, JSON.stringify({
+          type: 'character', img: bg.img
+        }), { EX: 3600 * 3 })
       }
     }
     return true
@@ -114,8 +116,15 @@ let Avatar = {
     }
     let name = msg.replace(/#|老婆|老公|卡片/g, '').trim()
 
-    // cache gsCfg
-    Character.gsCfg = Character.gsCfg || e?.runtime?.gsCfg
+    if (e?.runtime?.gsCfg) {
+      let gsCfg = e?.runtime?.gsCfg
+      Meta.addAliasFn('gs', 'char', (txt) => {
+        let roleRet = gsCfg.getRole(txt)
+        if (roleRet.name) {
+          return roleRet.name
+        }
+      })
+    }
 
     let char = Character.get(name.trim())
 

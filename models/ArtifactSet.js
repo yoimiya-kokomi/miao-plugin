@@ -3,6 +3,7 @@
 * */
 import lodash from 'lodash'
 import Base from './Base.js'
+import { Meta } from '#miao'
 import { abbr, aliasMap, artiMap, artiSetMap, calc as artisBuffs } from '../resources/meta/artifact/index.js'
 import {
   abbr as abbrSR,
@@ -15,20 +16,15 @@ import {
 import { Artifact } from './index.js'
 
 class ArtifactSet extends Base {
-  constructor (name, game = 'gs') {
+  constructor (data, game = 'gs') {
     super()
+    if(!data){
+      return false
+    }
+    let name = data.name
     let cache = this._getCache(`arti-set:${game}:${name}`)
     if (cache) {
       return cache
-    }
-    let data = (game === 'gs' ? artiSetMap : artiSetMapSR)[name]
-    if (!data) {
-      if (artiSetMapSR[name]) {
-        data = artiSetMapSR[name]
-        game = 'sr'
-      } else {
-        return false
-      }
     }
     this.game = game
     this.meta = data
@@ -54,7 +50,11 @@ class ArtifactSet extends Base {
     return false
   }
 
-  static get (name) {
+  static get (name, game = 'gs') {
+    let data = Meta.matchGame(game, 'artiSet', name)
+    if (data) {
+      return new ArtifactSet(data.data, data.game)
+    }
     if (artiSetMap[name]) {
       return new ArtifactSet(name, 'gs')
     }
@@ -80,14 +80,6 @@ class ArtifactSet extends Base {
     return ret
   }
 
-  getArtiName (idx = 1) {
-    return this.sets[idx]
-  }
-
-  getArti (idx = 1) {
-    return Artifact.get(this.getArtiName(idx), this.game)
-  }
-
   static getAliasMap (game = 'gs') {
     return game === 'gs' ? aliasMap : aliasMapSR
   }
@@ -103,6 +95,14 @@ class ArtifactSet extends Base {
         fn(artisSet, v)
       }
     })
+  }
+
+  getArtiName (idx = 1) {
+    return this.sets[idx]
+  }
+
+  getArti (idx = 1) {
+    return Artifact.get(this.getArtiName(idx), this.game)
   }
 }
 

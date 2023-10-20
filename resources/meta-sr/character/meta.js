@@ -40,4 +40,4 @@ lodash.forEach(alias, (txt, char) => {
   })
 })
 
-export { aliasMap }
+export { alias, aliasMap }
