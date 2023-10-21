@@ -6,12 +6,21 @@ import { Data, Format, Meta } from '#miao'
 
 async function init () {
   let { diyCfg } = await Data.importCfg('character')
-
-  lodash.forEach([diyCfg.customCharacters], (roleIds) => {
-    lodash.forEach(roleIds || {}, (aliases, id) => {
-      // TODO: 自定义角色支持
-    })
+  let meta = Meta.create('gs', 'char')
+  let customChars = {}
+  let customAlias = {}
+  lodash.forEach(diyCfg.customCharacters, (alias, id) => {
+    let charId = meta.getId(id)
+    if (!charId) {
+      customChars[id] = {
+        id,
+        name: alias[0]
+      }
+    }
+    customAlias[id] = alias.join(',')
   })
+  meta.addData(customChars)
+  meta.addAlias(customAlias)
 }
 
 await init()

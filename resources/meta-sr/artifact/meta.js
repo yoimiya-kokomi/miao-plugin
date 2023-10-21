@@ -53,7 +53,7 @@ lodash.forEach(attrMap, (attr, key) => {
 
 export { attrMap }
 
-export const artisAbbr = {
+export const artiAbbr = {
   快枪手的野穗毡帽: '快枪手的毡帽',
   快枪手的粗革手套: '快枪手的手套',
   快枪手的猎风披肩: '快枪手的披肩',
@@ -81,7 +81,7 @@ export const artisAbbr = {
   伊须磨洲的残船鲸落: '伊须磨洲的鲸落',
   伊须磨洲的坼裂缆索: '伊须磨洲的缆索',
 }
-const artiSetAbbr = {
+export const artiSetAbbr = {
   盗匪荒漠的废土客: '虚数套',
   繁星璀璨的天才: '量子套',
   激奏雷电的乐队: '雷套',
@@ -108,7 +108,7 @@ const artiSetAbbr = {
   骇域漫游的信使: '信使'
 }
 
-let aliasCfg = {
+export const aliasCfg = {
   盗匪荒漠的废土客: '虚数套,废土',
   繁星璀璨的天才: '量子套',
   激奏雷电的乐队: '雷套,雷电',
@@ -134,11 +134,3 @@ let aliasCfg = {
   宝命长存的莳者: '莳者,时者',
   骇域漫游的信使: '信使'
 }
-let alias = {}
-lodash.forEach(aliasCfg, (txt, name) => {
-  lodash.forEach(txt.split(','), (t) => {
-    alias[t] = name
-  })
-  alias[name] = name
-})
-export const aliasMap = alias

@@ -2,7 +2,7 @@
  * 面板数据替换相关逻辑
  */
 import lodash from 'lodash'
-import { Data } from '#miao'
+import { Data, Meta } from '#miao'
 import { Character, ArtifactSet, Avatar, Weapon, Player } from '#miao.models'
 
 // 默认武器
@@ -99,16 +99,20 @@ const ProfileChange = {
       }
 
       // 匹配圣遗物套装
-      let asMap = ArtifactSet.getAliasMap(game)
-      let asKey = lodash.keys(asMap).sort((a, b) => b.length - a.length).join('|')
+      let asMap = Meta.getAlias(game, 'artiSet')
+      let asKey = asMap.sort((a, b) => b.length - a.length).join('|')
       let asReg = new RegExp(`^(${asKey})套?[2,4]?\\+?(${asKey})?套?[2,4]?\\+?(${asKey})?套?[2,4]?$`)
       let asRet = asReg.exec(txt)
-      if (asRet && asRet[1] && asMap[asRet[1]]) {
+      let getSet = (idx) => {
+        let set = ArtifactSet.get(asRet[idx])
+        return set ? set.name : false
+      }
+      if (asRet && asRet[1] && getSet(1)) {
         if (game === 'gs') {
-          change.artisSet = [asMap[asRet[1]], asMap?.[asRet[2]] || asMap[asRet[1]]]
+          change.artisSet = [getSet(1), getSet(2) || getSet(1)]
         } else if (game === 'sr') {
           for (let idx = 1; idx <= 3; idx++) {
-            let as = ArtifactSet.get(asMap?.[asRet[idx]])
+            let as = ArtifactSet.get(asRet[idx])
             if (as) { // 球&绳
               change.artisSet = change.artisSet || []
               let ca = change.artisSet

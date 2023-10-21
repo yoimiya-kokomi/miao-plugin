@@ -3,8 +3,6 @@
 * */
 import Base from './Base.js'
 import { ArtifactSet } from './index.js'
-import { attrMap } from '../resources/meta/artifact/index.js'
-import { abbr as abbrSR } from '../resources/meta-sr/artifact/index.js'
 import ArtisMark from './artis/ArtisMark.js'
 import ArtisAttr from './artis/ArtisAttr.js'
 import { Meta } from '#miao'
@@ -37,11 +35,13 @@ class Artifact extends Base {
   }
 
   get abbr () {
-    return (abbrSR && abbrSR[this.name]) || this.name
+
   }
 
   get img () {
-    return this.isGs ? `meta/artifact/imgs/${this.setName}/${this.idx}.webp` : `meta-sr/artifact/${this.setName}/arti-${this.idx}.webp`
+    return this.isGs ?
+      `meta/artifact/imgs/${this.setName}/${this.idx}.webp` :
+      `meta-sr/artifact/${this.setName}/arti-${this.idx}.webp`
   }
 
   static get (name, game = 'gs') {
@@ -65,12 +65,6 @@ class Artifact extends Base {
       return arti.setName
     }
     return ''
-  }
-
-  static getMeta () {
-    return {
-      attrMap
-    }
   }
 
   static getArtisKeyTitle (game = 'gs') {

@@ -1,22 +1,17 @@
 import Base from './Base.js'
-import { Data, Format } from '#miao'
-import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet, weaponBuffs } from '../resources/meta/weapon/index.js'
-import {
-  weaponData as weaponDataSR,
-  weaponAlias as weaponAliasSR,
-  weaponBuffs as weaponBuffsSR
-} from '../resources/meta-sr/weapon/index.js'
+import { Data, Format, Meta } from '#miao'
+
+let weaponSet
 
 import lodash from 'lodash'
 
 class Weapon extends Base {
-  constructor (name, game = 'gs') {
-    super(name)
-    let meta = game === 'gs' ? weaponData[name] : weaponDataSR[name]
-    if (!meta) {
+  constructor (meta, game = 'gs') {
+    if (!meta || !meta.name) {
       return false
     }
-    let cache = this._getCache(`weapon:${game}:${name}`)
+    super()
+    let cache = this._getCache(`weapon:${game}:${meta.name}`)
     if (cache) {
       return cache
     }
@@ -27,10 +22,6 @@ class Weapon extends Base {
     this.star = meta.star
     this.game = game
     return this._cache()
-  }
-
-  get abbr () {
-    return weaponAbbr[this.name] || this.name
   }
 
   get title () {
@@ -82,33 +73,35 @@ class Weapon extends Base {
   }
 
   static isWeaponSet (name) {
+    weaponSet = weaponSet || Meta.getMeta('gs', 'weapon', 'weaponSet')
     return weaponSet.includes(name)
   }
 
   static get (name, game = 'gs', type = '') {
-    name = lodash.trim(name)
-    let alias = game === 'gs' ? weaponAlias : weaponAliasSR
-    if (alias[name]) {
-      return new Weapon(alias[name], game)
+    let data = Meta.getData(game, 'weapon', name)
+    if (data) {
+      return new Weapon(data, game)
     }
+
     if (type && game === 'gs') {
+      const { weaponType } = Meta.getMeta(game, 'weapon')
       let name2 = name + (weaponType[type] || type)
-      if (weaponAlias[name2]) {
-        return new Weapon(weaponAlias[name2])
+      let data = Meta.getData(game, 'weapon', name2)
+      if (data) {
+        return new Weapon(data, game)
       }
     }
     return false
   }
 
-  static async forEach (fn, type = '') {
-    for (let name in weaponData) {
-      let ds = weaponData[name]
+  static async forEach (fn, type = '', game = 'gs') {
+    Meta.forEach(game, 'weapon', async (ds, id) => {
       let w = Weapon.get(ds.name)
       if (!w || (type && type !== w.type)) {
-        continue
+        return true
       }
-      await fn(w)
-    }
+      return await fn(w)
+    })
   }
 
   getDetail () {
@@ -202,9 +195,9 @@ class Weapon extends Base {
   }
 
   getWeaponBuffs () {
-    let { isSr } = this
-    let wBuffs = (isSr ? weaponBuffsSR : weaponBuffs)
-    let buffs = wBuffs[this.id] || wBuffs[this.name]
+    let { game } = this
+    let { weaponBuffs } = Meta.getMeta(game, 'weapon')
+    let buffs = weaponBuffs[this.id] || weaponBuffs[this.name]
     if (!buffs) {
       return false
     }

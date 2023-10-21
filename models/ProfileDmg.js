@@ -2,8 +2,6 @@ import fs from 'fs'
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Character } from './index.js'
-import { attrMap as attrMapGS } from '../resources/meta/artifact/index.js'
-import { attrMap as attrMapSR } from '../resources/meta-sr/artifact/index.js'
 import DmgBuffs from './dmg/DmgBuffs.js'
 import DmgAttr from './dmg/DmgAttr.js'
 import DmgCalc from './dmg/DmgCalc.js'
@@ -220,7 +218,7 @@ export default class ProfileDmg extends Base {
         attr: []
       }
 
-      let attrMap = game === 'gs' ? attrMapGS : attrMapSR
+      let { attrMap } = Meta.getMeta(game, 'arti')
 
       // 计算角色属性增减
       mainAttr = mainAttr.split(',')

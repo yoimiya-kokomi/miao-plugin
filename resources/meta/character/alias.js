@@ -1,5 +1,3 @@
-import lodash from 'lodash'
-
 export const alias = {
   // 1.0
   琴: 'Jean,团长,代理团长,琴团长,蒲公英骑士',
@@ -82,7 +80,8 @@ export const alias = {
   林尼: 'Lyney,林妮,琳尼,琳妮,男魔术师,魔术师',
   菲米尼: 'Freminet,非米尼,潜水员',
   莱欧斯利: 'Wriothesley,莱欧,枫丹桑博',
-  那维莱特: 'Neuvillette,那维,水龙王,水龙,审判官,海獭',
+  那维莱特: 'Neuvillette,那维,水龙王,水龙,审判官,海獭,龙王',
   夏洛蒂: 'Charlotte,夏洛,夏洛帝,记者,小记者',
   芙宁娜: 'Furina,Focalors,水神,芙芙,芙卡洛斯',
 }
+

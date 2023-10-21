@@ -2,7 +2,7 @@ import { Data, Meta } from '#miao'
 import lodash from 'lodash'
 import { weaponType, abbr, alias, weaponSet } from './meta.js'
 
-let calc = {}
+let weaponBuffs = {}
 let data = {}
 
 const step = function (start, step = 0) {
@@ -30,7 +30,7 @@ for (let type in weaponType) {
   // calc
   let typeCalc = await Data.importDefault(`resources/meta/weapon/${type}/calc.js`, 'miao')
   let typeRet = typeCalc(step, attr)
-  calc = lodash.extend(calc, typeRet)
+  weaponBuffs = lodash.extend(weaponBuffs, typeRet)
 
   // data
   let typeData = await Data.readJSON(`resources/meta/weapon/${type}/data.json`, 'miao')
@@ -44,32 +44,10 @@ for (let type in weaponType) {
   })
 }
 
-let aliasMap = {}
-lodash.forEach(alias, (txt, name) => {
-  Data.eachStr(txt, (t) => {
-    aliasMap[t] = name
-    aliasMap[name] = name
-  })
-})
-lodash.forEach(abbr, (a, name) => {
-  aliasMap[a] = name
-})
-lodash.forEach(data, (ds, name) => {
-  aliasMap[name] = name
-  aliasMap[ds.id] = name
-})
-
-export const weaponBuffs = calc
-export const weaponData = data
-export const weaponAbbr = abbr
-export const weaponAlias = aliasMap
-export { weaponType, weaponSet }
-
-let meta = Meta.getMeta('gs', 'weapon')
+let meta = Meta.create('gs', 'weapon')
 meta.addData(data)
 meta.addAlias(alias)
 meta.addAbbr(abbr)
-meta.addCfg({
+meta.addMeta({
   weaponType, weaponSet, weaponBuffs
 })
-export default meta

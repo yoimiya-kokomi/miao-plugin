@@ -125,13 +125,10 @@ let Avatar = {
         }
       })
     }
-
     let char = Character.get(name.trim())
-
     if (!char) {
       return false
     }
-
     e.msg = '#喵喵角色卡片'
     e.char = char
     return true

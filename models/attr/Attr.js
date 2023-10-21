@@ -3,10 +3,9 @@
  * @type {{}}
  */
 import Base from '../Base.js'
-import { Format } from '#miao'
+import { Format, Meta } from '#miao'
 import { Weapon, ArtifactSet } from '#miao.models'
 import AttrData from './AttrData.js'
-import { weaponBuffs } from '../../resources/meta/weapon/index.js'
 import lodash from 'lodash'
 
 class Attr extends Base {
@@ -184,6 +183,8 @@ class Attr extends Base {
       this.addAttr('atkBase', wCalcRet.atkBase)
       this.addAttr(wCalcRet.attr?.key, wCalcRet.attr?.value)
     }
+
+    let { weaponBuffs } = Meta.getMeta('gs', 'weapon')
 
     let wBuffs = weaponBuffs[weapon.name] || []
     if (lodash.isPlainObject(wBuffs)) {

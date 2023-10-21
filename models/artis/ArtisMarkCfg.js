@@ -1,9 +1,6 @@
-import { usefulAttr as usefulAttrGS } from '../../resources/meta/artifact/artis-mark.js'
-import { usefulAttr as usefulAttrSR } from '../../resources/meta-sr/artifact/artis-mark.js'
 import lodash from 'lodash'
-import { attrMap as attrMapGS } from '../../resources/meta/artifact/index.js'
-import { attrMap as attrMapSR } from '../../resources/meta-sr/artifact/index.js'
 import ArtisMark from './ArtisMark.js'
+import { Meta } from '#miao'
 
 const weaponCfg = {
   磐岩结绿: {
@@ -29,9 +26,9 @@ const weaponCfg = {
 
 const ArtisMarkCfg = {
   getCharArtisCfg (profile) {
-    let { attr, weapon, elem, char, artis } = profile
+    let { attr, weapon, elem, char, artis, game } = profile
     let { isGs } = char
-    let usefulAttr = isGs ? usefulAttrGS : usefulAttrSR
+    let { usefulAttr } = Meta.getMeta(game, 'arti')
 
     let rule = function (title, attrWeight) {
       return {
@@ -97,11 +94,11 @@ const ArtisMarkCfg = {
 
   getCfg (profile) {
     let { char } = profile
-    let { game, isGs } = char
+    let { game } = char
     let { attrWeight, title } = ArtisMarkCfg.getCharArtisCfg(profile)
     let attrs = {}
     let baseAttr = char.baseAttr || { hp: 14000, atk: 230, def: 700 }
-    let attrMap = isGs ? attrMapGS : attrMapSR
+    let { attrMap } = Meta.getMeta(game, 'arti')
     lodash.forEach(attrMap, (attr, key) => {
       let k = attr.base || ''
       let weight = attrWeight[k || key]

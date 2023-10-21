@@ -1,8 +1,10 @@
-import { Data } from '#miao'
+import { Data, Meta } from '#miao'
 import lodash from 'lodash'
 import { abbr, alias } from './meta.js'
 
 const types = '存护,丰饶,毁灭,同谐,虚无,巡猎,智识'.split(',')
+
+const meta = Meta.create('sr', 'weapon')
 
 
 let data = Data.readJSON('/resources/meta-sr/weapon/data.json', 'miao')
@@ -17,6 +19,9 @@ lodash.forEach(alias, (name, alias) => {
     aliasMap[alias] = aliasMap[name]
   }
 })
+
+meta.addData(data)
+meta.addAlias(alias)
 
 export const weaponAlias = aliasMap
 export const weaponData = data
@@ -61,5 +66,7 @@ let loadBuffs = async function () {
   }
 }
 await loadBuffs()
+
+meta.addMeta({ weaponBuffs })
 
 export { weaponBuffs }

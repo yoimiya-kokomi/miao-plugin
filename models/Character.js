@@ -15,9 +15,12 @@ import CharCfg from './character/CharCfg.js'
 
 let { wifeMap } = CharId
 
+let metaKey = 'abbr,star,elem,weapon,talentId,talentCons,eta'.split(',')
+const detailKey = 'title,allegiance,birth,astro,desc,cncv,jpcv,costume,baseAttr,growAttr,materials,talent,talentData,cons,passive,attr'.split(',')
+
 class Character extends Base {
   // 默认获取的数据
-  _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,ver,desc,talentCons'
+  static _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,desc,talentCons'
 
   constructor ({ id, name = '', elem = '', game = 'gs' }) {
     super()
@@ -67,12 +70,13 @@ class Character extends Base {
     return this.isCustom ? this._id : this._id * 1
   }
 
-  get isGs () {
-    return this.game === 'gs'
-  }
-
-  get isSr () {
-    return this.game === 'sr'
+  _get (key) {
+    if (metaKey.includes(key)) {
+      return this.meta[key]
+    }
+    if (detailKey.includes(key)) {
+      return this.getDetail()[key]
+    }
   }
 
   // 获取短名字
@@ -243,7 +247,9 @@ class Character extends Base {
 
   // 检查老婆类型
   checkWifeType (type) {
-    return !!wifeMap[type][this.id]
+    let { wifeData } = Meta.getMeta(this.game, 'char')
+    let key = ['girlfriend', 'boyfriend', 'daughter', 'son'][type] || 'girlfriend'
+    return !!wifeData[key]?.[this.id]
   }
 
   // 检查时装
@@ -286,25 +292,19 @@ class Character extends Base {
 
   // 获取详情数据
   getDetail (elem = '') {
-    if (this._detail) {
-      return this._detail
+    if (this.meta?._detail) {
+      return this.meta._detail
     }
     if (this.isCustom) {
       return {}
     }
-    const path = this.isSr ? 'resources/meta-sr/character' : 'resources/meta/character'
-    const file = this.isSr ? 'data' : 'detail'
-
     try {
-      if (this.isTraveler) {
-        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/${file}.json`, 'miao')
-      } else {
-        this._detail = Data.readJSON(`${path}/${this.name}/${file}.json`, 'miao')
-      }
+      let name = this.isTraveler ? `旅行者/${this.elem}` : this.name
+      this.meta._detail = Data.readJSON(`resources/meta${this.isSr ? '-sr' : ''}/character/${name}/data.json`, 'miao')
     } catch (e) {
       console.log(e)
     }
-    return this._detail
+    return this.meta._detail
   }
 
   // 获取伤害计算配置

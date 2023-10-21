@@ -1,24 +1,12 @@
 import lodash from 'lodash'
-import { Data, Format } from '#miao'
-import { attrMap as attrMapGS, attrNameMap, mainAttr as mainAttrGS, subAttr as subAttrGS } from '../../resources/meta/artifact/index.js'
-import { attrMap as attrMapSR, mainAttr as mainAttrSR, subAttr as subAttrSR } from '../../resources/meta-sr/artifact/meta.js'
+import { Data, Format, Meta } from '#miao'
 import ArtisMarkCfg from './ArtisMarkCfg.js'
 import { Artifact } from '#miao.models'
 
 let ArtisMark = {
-  // 根据Key获取标题
-  getKeyByTitle (title, game = 'gs') {
-    if (/元素伤害加成/.test(title) || Format.isElem(title)) {
-      return Format.matchElem(title)
-    } else if (title === '物理伤害加成') {
-      return 'phy'
-    }
-    return attrNameMap[title] || attrMapGS[title]
-  },
-
   getKeyTitleMap (game = 'gs') {
     let ret = {}
-    let attrMap = game === 'gs' ? attrMapGS : attrMapSR
+    let { attrMap } = Meta.getMeta(game, 'arti')
     lodash.forEach(attrMap, (ds, key) => {
       ret[key] = ds.title
     })
@@ -32,17 +20,11 @@ let ArtisMark = {
     if (!ds) {
       return {}
     }
-    if (lodash.isArray(ds) && ds[0] && ds[1]) {
-      return {
-        key: ArtisMark.getKeyByTitle(ds[0], game),
-        value: ds[1]
-      }
-    }
     if (!ds.value) {
       return {}
     }
     return {
-      key: ds.key || ArtisMark.getKeyByTitle(ds.title || ds.name || ds.key || ds.id || '', game),
+      key: ds.key || '',
       value: ds.value || ''
     }
   },
@@ -67,17 +49,13 @@ let ArtisMark = {
     }
 
     let key = ds.key
-    let title = ds.title || ds[0]
-    if (!key) {
-      key = ArtisMark.getKeyByTitle(title, game)
-    }
     let isDmg = Format.isElem(key)
     let val = ds.value || ds[1]
     let num = ds.value || ds[1]
     if (!key || key === 'undefined') {
       return {}
     }
-    let arrCfg = (game === 'gs' ? attrMapGS : attrMapSR)[isDmg ? 'dmg' : key]
+    let arrCfg = Meta.getMeta(game, 'arti', 'attrMap')[isDmg ? 'dmg' : key]
     val = Format[arrCfg?.format || 'comma'](val, 1)
     let ret = {
       key,
@@ -96,6 +74,15 @@ let ArtisMark = {
       ret._mark = mark || 0
     }
     ret.eff = ret.eff ? Format.comma(ret.eff / (game === 'gs' ? 0.85 : 0.9), 1) : '-'
+    return ret
+  },
+
+  formatArtiAttrs (ds, charAttrCfg = false, game = 'gs') {
+    let ret = []
+    lodash.forEach(ds, (d) => {
+      let arti = ArtisMark.formatArti(d, charAttrCfg, false, game)
+      ret.push(arti)
+    })
     return ret
   },
 
@@ -143,8 +130,7 @@ let ArtisMark = {
   // 获取位置最高分
   getMaxMark (attrs, game = 'gs') {
     let ret = {}
-    let mainAttr = game === 'gs' ? mainAttrGS : mainAttrSR
-    let subAttr = game === 'gs' ? subAttrGS : subAttrSR
+    let { mainAttr, subAttr } = Meta.getMeta(game, 'arti')
     for (let idx = 1; idx <= (game === 'gs' ? 5 : 6); idx++) {
       let totalMark = 0
       let mMark = 0
@@ -208,7 +194,7 @@ let ArtisMark = {
           ...Data.getData(artifact, 'name,abbr,set:setName,img'),
           level: arti.level,
           main: ArtisMark.formatArti(arti.main, charCfg.attrs, true, game),
-          attrs: ArtisMark.formatArti(arti.attrs, charCfg.attrs, false, game),
+          attrs: ArtisMark.formatArtiAttrs(arti.attrs, charCfg.attrs, game),
           ...artisRet[idx]
         }
       }

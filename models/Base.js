@@ -43,7 +43,7 @@ export default class Base {
   }
 
   getData (arrList = '', cfg = {}) {
-    arrList = arrList || this._dataKey || ''
+    arrList = arrList || this._dataKey || this.constructor._dataKey || ''
     return Data.getData(this, arrList, cfg)
   }
 

@@ -1,12 +1,10 @@
 /*
 * 伤害计算 - 属性计算
 * */
-import { attrMap as attrMapGS } from '../../resources/meta/artifact/index.js'
-import { attrMap as attrMapSR } from '../../resources/meta-sr/artifact/index.js'
 import { eleBaseDmg } from './DmgCalcMeta.js'
 import lodash from 'lodash'
 import DmgMastery from './DmgMastery.js'
-import { Format } from '#miao'
+import { Format, Meta } from '#miao'
 
 let DmgAttr = {
   // 计算并返回指定属性值
@@ -115,8 +113,7 @@ let DmgAttr = {
   calcAttr ({ originalAttr, buffs, meta, params = {}, incAttr = '', reduceAttr = '', talent = '', game = 'gs' }) {
     let attr = lodash.merge({}, originalAttr)
     let msg = []
-
-    let attrMap = game === 'gs' ? attrMapGS : attrMapSR
+    let { attrMap } = Meta.getMeta(game, 'arti')
 
     if (incAttr && attrMap[incAttr]) {
       let aCfg = attrMap[incAttr]

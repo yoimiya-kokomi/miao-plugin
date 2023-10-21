@@ -2,12 +2,13 @@ import { Data, Meta } from '#miao'
 import lodash from 'lodash'
 import calc from './calc.js'
 import * as metaData from './meta.js'
+import { usefulAttr } from './artis-mark.js'
 
 let artiSetMap = {}
 let artiMap = {}
 
-let setMeta = Meta.getMeta('gs', 'artiSet')
-let artiMeta = Meta.getMeta('gs', 'artis')
+let setMeta = Meta.create('gs', 'artiSet')
+let artiMeta = Meta.create('gs', 'arti')
 
 let artis = Data.readJSON('resources/meta/artifact/data.json', 'miao')
 
@@ -39,8 +40,13 @@ export * from './meta.js'
 
 setMeta.addAbbr(metaData.abbr)
 setMeta.addAlias(metaData.aliasCfg)
-artiMeta.addCfg({
+artiMeta.addMeta({
   ...Data.getData(metaData, 'mainAttr,subAttr,attrMap,attrNameMap,mainIdMap,attrIdMap'),
-  calc
+  artiBuffs: calc,
+  usefulAttr
 })
-export default artiMeta
+
+setMeta.addMeta({
+  artiBuffs: calc
+})
+

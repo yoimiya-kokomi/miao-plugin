@@ -9,6 +9,7 @@ class MetaData {
     this.type = type
     this.data = {}
     this.alias = {}
+    this.alias2 = {}
     this.abbr = {}
     this.cfg = {}
   }
@@ -36,19 +37,21 @@ class MetaData {
 
   // 添加简写
   addAbbr (ds) {
-    let { abbr, alias } = this
+    let { data, alias, alias2 } = this
     lodash.forEach(ds, (txt, id) => {
-      abbr[id] = lodash.trim(txt + '')
-      alias[abbr] = alias[id] || id
+      id = alias[id] || alias2[id] || id
+      if (data[id]) {
+        data[id].abbr = txt
+      }
     })
   }
 
   // 添加别名
-  addAlias (ds) {
-    let { alias } = this
+  addAlias (ds, isPrivate = false) {
+    let { alias, alias2 } = this
     lodash.forEach(ds, (txt, id) => {
-      lodash.forEach(txt.split(','), (t) => {
-        alias[lodash.trim(t + '').toLowerCase()] = alias[id] || id
+      lodash.forEach((txt + '').split(','), (t) => {
+        (isPrivate ? alias2 : alias)[lodash.trim(t + '').toLowerCase()] = alias[id] || alias2[id] || id
       })
     })
   }
@@ -60,7 +63,7 @@ class MetaData {
     }
   }
 
-  addCfg (cfgMap) {
+  addMeta (cfgMap) {
     let { cfg } = this
     lodash.forEach(cfgMap, (v, k) => {
       cfg[k] = v
@@ -69,17 +72,17 @@ class MetaData {
 
   getId (txt) {
     txt = lodash.trim(txt + '').toLowerCase()
-    let { data, alias, aliasFn } = this
+    let { data, alias, alias2, aliasFn } = this
     if (data[txt]) {
       return txt
     }
-    if (alias[txt]) {
-      return alias[txt]
+    if (alias[txt] || alias2[txt]) {
+      return alias[txt] || alias2[txt]
     }
     if (aliasFn) {
       let id = aliasFn(txt)
-      if (alias[id]) {
-        return alias
+      if (alias[id] || alias2[id]) {
+        return alias[id] || alias2[id]
       }
     }
     return false
@@ -91,7 +94,7 @@ class MetaData {
     return data[id] || null
   }
 
-  getCfg (key = '') {
+  getMeta (key = '') {
     if (!key) {
       return this.cfg
     }
@@ -101,23 +104,38 @@ class MetaData {
   getIds () {
     return lodash.keys(this.data)
   }
+
+  getAlias () {
+    return lodash.keys(this.alias)
+  }
+
+  async forEach (fn) {
+    for (let id in this.data) {
+      let ds = this.data[id]
+      let ret = fn(ds, id)
+      ret = Data.isPromise(ret) ? await ret : ret
+      if (ret === false) {
+        break
+      }
+    }
+  }
 }
 
 const MetaFn = (fnKey) => {
   return (game, type, args = '') => {
-    let meta = Meta.getMeta(game, type)
+    let meta = Meta.create(game, type)
     return meta[fnKey](args)
   }
 }
 
 const Meta = {
   addAliasFn (game, type, fn) {
-    let meta = Meta.getMeta(game, type)
+    let meta = Meta.create(game, type)
     meta.addAliasFn(fn)
   },
 
   // 获取存储
-  getMeta (game, type) {
+  create (game, type) {
     let key = `${game}.${type}`
     if (!MetaStore[key]) {
       MetaStore[key] = new MetaData(game, type)
@@ -127,7 +145,12 @@ const Meta = {
   getId: MetaFn('getId'),
   getIds: MetaFn('getIds'),
   getData: MetaFn('getData'),
-  getCfg: MetaFn('getCfg'),
+  getMeta: MetaFn('getMeta'),
+  getAlias: MetaFn('getAlias'),
+  async forEach (game, type, fn) {
+    let meta = Meta.create(game, type)
+    meta.forEach(fn)
+  },
   // 在各个游戏内匹配，以传入的game优先
   matchGame (game = 'gs', type, txt) {
     txt = lodash.trim(txt + '').toLowerCase()

@@ -1,13 +1,15 @@
 import { Data, Meta } from '#miao'
 import lodash from 'lodash'
-import artisBuffs from './calc.js'
+import artiBuffs from './calc.js'
 import * as metaCfg from './meta.js'
 
-let data = Data.readJSON('/resources/meta-sr/artifact/data.json', 'miao')
-let meta = Data.readJSON('/resources/meta-sr/artifact/meta.json', 'miao')
+import { usefulAttr } from './artis-mark.js'
 
-let setMeta = Meta.getMeta('sr', 'artiSet')
-let artiMeta = Meta.getMeta('sr', 'artis')
+let data = Data.readJSON('/resources/meta-sr/artifact/data.json', 'miao')
+let metaData = Data.readJSON('/resources/meta-sr/artifact/meta.json', 'miao')
+
+let setMeta = Meta.create('sr', 'artiSet')
+let artiMeta = Meta.create('sr', 'artis')
 
 let artiMap = {}
 let idMap = {}
@@ -38,12 +40,16 @@ lodash.forEach(data, (setData) => {
   })
 })
 
-arti
+setMeta.addAbbr(metaCfg.artiSetAbbr)
+setMeta.addAlias(metaCfg.aliasCfg)
 
-artiMeta.addCfg({
-  idMap
+artiMeta.addAbbr(metaCfg.artiAbbr)
+artiMeta.addAlias(idMap, false)
+artiMeta.addMeta({
+  artiBuffs,
+  metaData,
+  usefulAttr,
+  ...Data.getData(metaCfg, 'mainAttr,subAttr,attrMap')
 })
 
-export const metaData = meta
-export { artiMap, idMap, artisBuffs, artiSetMap }
 export * from './meta.js'

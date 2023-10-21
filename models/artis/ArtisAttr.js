@@ -1,10 +1,9 @@
-import { Format } from '#miao'
+import { Format, Meta } from '#miao'
 import lodash from 'lodash'
-import { attrIdMap, attrMap, mainIdMap } from '../../resources/meta/artifact/index.js'
-import { metaData as metaDataSR } from '../../resources/meta-sr/artifact/index.js'
 
 let AttrGS = {
   getMain (id, level, star) {
+    const { mainIdMap, attrMap } = Meta.getMeta('gs', 'arti')
     let key = mainIdMap[id]
     if (!key) {
       return false
@@ -22,6 +21,7 @@ let AttrGS = {
   getAttr (ids, star = 5) {
     let ret = []
     let tmp = {}
+    const { attrIdMap, attrMap } = Meta.getMeta('gs', 'arti')
     lodash.forEach(ids, (id) => {
       let cfg = attrIdMap[id]
       if (!cfg) {
@@ -55,8 +55,9 @@ let AttrGS = {
 
 let AttrSR = {
   getData (mainId, attrIds, level, star, idx = 1) {
-    let mainKey = metaDataSR.mainIdx[idx][mainId]
-    let starCfg = metaDataSR.starData[star]
+    const { metaData } = Meta.getMeta('sr', 'arti')
+    let mainKey = metaData.mainIdx[idx][mainId]
+    let starCfg = metaData.starData[star]
     let mainCfg = starCfg.main[mainKey]
     if (!mainId || !mainCfg) {
       return false
@@ -100,7 +101,7 @@ export default {
     return tmp.getData(arti.mainId, arti.attrIds, arti.level, arti.star, idx)
   },
 
-  hasAttr(arti){
+  hasAttr (arti) {
     if (arti.isSr) {
       return true
     }

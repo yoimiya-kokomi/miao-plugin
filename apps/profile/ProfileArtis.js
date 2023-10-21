@@ -3,9 +3,10 @@
 *
 * */
 import lodash from 'lodash'
-import { Cfg, Common } from '#miao'
+import { Cfg, Common, Meta } from '#miao'
 import { getTargetUid, profileHelp, getProfileRefresh } from './ProfileCommon.js'
 import { Artifact, Character, Player } from '#miao.models'
+import ArtisMarkCfg from '../../models/artis/ArtisMarkCfg.js'
 
 /*
 * 角色圣遗物面板
@@ -22,9 +23,9 @@ export async function profileArtis (e) {
   }
   let char = profile.char
   let { game } = char
-  let charCfg = profile.artis.getCharCfg()
+  let charCfg = ArtisMarkCfg.getCfg(profile)
 
-  let { attrMap } = Artifact.getMeta()
+  let { attrMap } = Meta.getMeta('gs', 'arti')
 
   let artisDetail = profile.getArtisMark()
   let artisKeyTitle = Artifact.getArtisKeyTitle()
