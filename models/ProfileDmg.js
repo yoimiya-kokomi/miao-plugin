@@ -5,7 +5,7 @@ import { Character } from './index.js'
 import DmgBuffs from './dmg/DmgBuffs.js'
 import DmgAttr from './dmg/DmgAttr.js'
 import DmgCalc from './dmg/DmgCalc.js'
-import { Common, MiaoError } from '#miao'
+import { Common, MiaoError, Meta } from '#miao'
 
 export default class ProfileDmg extends Base {
   constructor (profile = {}, game = 'gs') {

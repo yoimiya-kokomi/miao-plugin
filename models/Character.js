@@ -121,7 +121,7 @@ class Character extends Base {
 
   // 获取角色描述
   get desc () {
-    return CharMeta.getDesc(this.meta.desc || '')
+    return CharMeta.getDesc(this.meta?._detail?.desc || '')
   }
 
   // 获取头像
@@ -206,8 +206,8 @@ class Character extends Base {
 
   // 获取attr列表
   getAttrList () {
-    let { meta } = this
-    return CharMeta.getAttrList(meta.baseAttr, meta.growAttr, this.elemName)
+    let { baseAttr, growAttr } = this
+    return CharMeta.getAttrList(baseAttr, growAttr, this.elemName)
   }
 
   // 获取素材
@@ -254,7 +254,7 @@ class Character extends Base {
 
   // 检查时装
   checkCostume (id) {
-    let costume = this.meta?.costume || []
+    let costume = this?.costume || []
     return costume.includes(id * 1)
   }
 

@@ -246,7 +246,7 @@ const ProfileChange = {
       _source: 'change',
       promote,
       trees: lodash.extend([], source.trees)
-    }, char.game, false)
+    }, char.game)
 
     // 设置武器
     let wCfg = ds.weapon || {}

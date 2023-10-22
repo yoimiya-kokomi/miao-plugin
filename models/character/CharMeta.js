@@ -116,7 +116,7 @@ const CharMeta = {
     return ret
   },
   getMaterials (char, type = 'all') {
-    let ds = char.meta.materials
+    let ds = char.materials
     let ret = []
     lodash.forEach(mKeys, (cfg) => {
       let title = ds[cfg.key]

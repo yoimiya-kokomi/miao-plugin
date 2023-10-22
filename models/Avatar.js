@@ -23,6 +23,7 @@ export default class Avatar extends Base {
     this.game = char.game || game
     this._mysArtis = new Artis(this.game)
     this._artis = new Artis(this.game, true)
+    this.setAvatar(ds)
   }
 
 
@@ -327,6 +328,9 @@ export default class Avatar extends Base {
   setArtis (ds = {}, isMysArtis = false) {
     let artis = this.getArtis(isMysArtis)
     artis.setArtisData(ds)
+    if (!this._mysArtis.hasArtis) {
+      this.setArtis(ds, true)
+    }
   }
 
   // 获取当前profileData的圣遗物评分，withDetail=false仅返回简略信息
