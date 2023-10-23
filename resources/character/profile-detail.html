@@ -13,10 +13,9 @@
 {{set gameHash = game === 'gs' ? '#':'*' }}
 
 {{block 'main'}}
-<div class="game-{{game}}">
+<div class="profile-cont game-{{game}}">
   <div class="basic">
-    <div class="main-pic"
-         style="background-image:url({{_res_path}}{{costumeSplash||imgs?.splash}})"></div>
+    <div class="main-pic" style="background-image:url({{_res_path}}{{costumeSplash||imgs?.splash}})"></div>
     <div class="detail">
       <div class="char-name">{{data.name}}</div>
       <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
@@ -110,7 +109,7 @@
   {{/if}}
 
   <!-- 【 武器+圣遗物列表】 -->
-  <div>
+  <div class="profile-detail">
     {{if game === 'sr'}}
     <!-- 【 星铁 天赋+行迹 】 -->
     <div class="sr-talent">
@@ -178,14 +177,21 @@
 
     {{if mode === "profile"}}
     {{set ad = artisDetail}}
-    <div class="arti-stat">
-      <div class="arti-class-title">评分规则：{{ad.classTitle}}</div>
-      <div class="arti-stat-ret">
-        <div><strong class="mark-{{ad.markClass}}">{{ad.markClass}}</strong><span>圣遗物评级</span></div>
-        <div><strong>{{ad.mark}}</strong><span>圣遗物总分</span></div>
+    <div class="cont arti-mark-cont">
+      <div class="arti-stat">
+        <div class="arti-stat-ret">
+          <div><span>圣遗物总分</span><strong>{{ad.mark}}</strong></div>
+          <div><span>圣遗物评级</span><strong class="mark-{{ad.markClass}}">{{ad.markClass}}</strong></div>
+        </div>
+        <div class="arti-class-title">评分规则：{{ad.classTitle}}</div>
+      </div>
+      <div class="arti-info">
+        <div class="arti-attr"></div>
+        <div class="arti-notice dmg-desc">
+          评分仅供参考与娱乐。可使用<strong>{{gameHash}}{{data.abbr}}圣遗物</strong>来查看评分详情
+        </div>
       </div>
     </div>
-
 
     <div class="artis">
       {{ if game === 'gs' }}
@@ -249,13 +255,6 @@
   {{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData} = dmgCalc }}
   <div>
     {{if game === 'gs'}}
-    {{if mode === "profile"}}
-    <div class="cont">
-      <div class="cont-footer dmg-desc">
-        当前评分为<strong>喵喵版评分规则</strong>，分值仅供参考与娱乐。可使用<strong>{{gameHash}}{{data.abbr}}圣遗物</strong>来查看评分详情
-      </div>
-    </div>
-    {{/if}}
     {{else}}
     <div class="cont">
       <div class="cont-footer dmg-desc">

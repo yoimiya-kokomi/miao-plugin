@@ -13,9 +13,13 @@ body {
   background-size: cover;
   overflow: hidden;
 }
+.profile-cont {
+  padding: 0 10px;
+  margin-right: 5px;
+}
 .basic {
   position: relative;
-  margin-bottom: 10px;
+  margin: 0 -15px 10px -10px;
 }
 .basic:after {
   content: "";
@@ -341,7 +345,7 @@ body {
   border-radius: 10px;
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
-  margin: 5px 15px 5px 10px;
+  margin: 5px 0;
   position: relative;
   box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
   overflow: hidden;
@@ -350,9 +354,8 @@ body {
 }
 .dmg-cont {
   display: table;
-  width: calc(100% - 25px);
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
+  width: 100%;
 }
 .dmg-mode .dmg-list .cont-footer {
   display: none;
@@ -458,8 +461,7 @@ body {
   display: flex;
   width: 600px;
   flex-wrap: wrap;
-  margin-bottom: 5px;
-  padding: 0 5px;
+  margin: 10px -5px 5px;
 }
 .artis .item {
   width: 185px;
@@ -650,8 +652,8 @@ body {
   overflow: visible;
 }
 .artis .weapon .img {
-  width: 106px;
-  height: 106px;
+  width: 100px;
+  height: 100px;
   top: -10px;
   right: -10px;
   position: absolute;
@@ -743,26 +745,27 @@ body {
   display: table-cell;
   vertical-align: middle;
 }
+.arti-mark-cont {
+  display: flex;
+}
 .arti-stat {
-  height: 84px;
-  background: url("../common/cont/card-bg.png") top left repeat-x;
-  margin: 5px 15px 5px 10px;
+  width: 185px;
+  background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
-  border-radius: 10px;
 }
 .arti-class-title {
   height: 25px;
-  line-height: 20px;
+  line-height: 25px;
   font-size: 12px;
   color: #fff;
-  padding: 5px 10px 0;
   text-align: center;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 0 2px #000;
+  background: rgba(0, 0, 0, 0.5);
 }
 .arti-stat-ret {
-  height: 55px;
-  padding: 0 10px 5px;
+  height: 64px;
+  padding: 3px 10px 2px;
   width: 100%;
   display: table;
 }
@@ -775,7 +778,20 @@ body {
   display: block;
   height: 35px;
   font-size: 30px;
-  line-height: 35px;
+  line-height: 32px;
+}
+.arti-info {
+  width: 390px;
+}
+.arti-info .arti-attr {
+  height: 64px;
+}
+.arti-info .arti-notice {
+  height: 25px;
+  line-height: 25px;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 10px;
+  padding-left: 10px;
 }
 .dmg-msg {
   font-size: 13px;
@@ -851,7 +867,7 @@ body {
   font-weight: normal;
 }
 .arti-stat span {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 20px;
   color: #bbb;
 }
@@ -904,7 +920,7 @@ body {
   padding-left: 15px;
 }
 .sr-weapon {
-  margin: 0 15px 5px 10px;
+  margin: 10px 0;
   border-radius: 10px;
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 150%;
@@ -913,8 +929,7 @@ body {
   overflow: hidden;
   display: table;
   color: #fff;
-  min-height: 120px;
-  width: calc(100% - 25px);
+  min-height: 100px;
 }
 .sr-weapon .weapon-img {
   display: table-cell;
@@ -989,7 +1004,7 @@ body {
   font-size: 12px;
   font-weight: normal;
   color: #fff;
-  white-space: break-spaces;
+  word-break: break-all;
 }
 .weapon-desc nobr {
   color: #ffe699;
@@ -1004,7 +1019,7 @@ body {
   margin: 0 2px;
 }
 .sr-talent {
-  margin: 0 15px 10px 10px;
+  margin: 10px 0;
   border-radius: 10px;
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 150%;
@@ -1014,7 +1029,6 @@ body {
   display: flex;
   color: #fff;
   height: 72px;
-  width: calc(100% - 25px);
   padding: 8px 10px;
 }
 .sr-talent .char-talents {
