@@ -1,6 +1,7 @@
 import { Data, Meta } from '#miao'
 import lodash from 'lodash'
 import { weaponType, abbr, alias, weaponSet } from './meta.js'
+import { descFix } from './desc.js'
 
 let weaponBuffs = {}
 let data = {}
@@ -49,5 +50,5 @@ meta.addData(data)
 meta.addAlias(alias)
 meta.addAbbr(abbr)
 meta.addMeta({
-  weaponType, weaponSet, weaponBuffs
+  weaponType, weaponSet, weaponBuffs, descFix
 })

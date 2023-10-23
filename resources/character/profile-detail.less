@@ -798,9 +798,8 @@ body {
 
 
 .artis .weapon {
-  height: 96px;
+  height: 190px;
   overflow: visible;
-  margin-bottom: 10px;
 
 
   .img {
@@ -816,14 +815,11 @@ body {
   }
 
   .head {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    position: relative;
+    height: 90px;
     padding: 15px 0 10px 15px;
     z-index: 3;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(25, 25, 25, 0.5), rgba(25, 25, 25, 0), rgba(25, 25, 25, 0));
 
     strong {
@@ -886,9 +882,8 @@ body {
     right: 0;
     height: 26px;
     width: 100%;
-    background: rgba(0, 0, 0, .2);
+    background: rgba(0, 0, 0, .3);
     line-height: 26px;
-    border-radius: 0 0 10px 10px;
     text-align: center;
     padding: 0 5px 0 10px;
 
@@ -901,10 +896,30 @@ body {
       }
     }
   }
+
+  .weapon-desc-cont {
+    height: 100px;
+    border-radius: 0 0 10px 10px;
+    background: rgba(0, 0, 0, .4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .weapon-desc {
+    height: 100px;
+    padding: 6px 5px 7px 10px;
+    color: #bbb;
+    display: table-cell;
+    vertical-align: middle;
+  }
 }
 
-.artis .arti-stat {
+.arti-stat {
   height: 84px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  margin: 5px 15px 5px 10px;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  border-radius: 10px;
 }
 
 .arti-class-title {
@@ -1210,24 +1225,27 @@ body {
 
   .weapon-desc {
     margin-top: 7px;
-    font-size: 12px;
-    font-weight: normal;
-    color: #fff;
-    white-space: break-spaces;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 1px 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
 
-    nobr {
-      color: #ffe699;
-      display: inline-block;
-      border-radius: 4px;
-      font-size: 12px;
-      height: 16px;
-      line-height: 16px;
-      background: rgba(0, 0, 0, 0.5);
-      text-align: center;
-      padding: 0 3px;
-      margin: 0 2px;
-    }
+.weapon-desc {
+  font-size: 12px;
+  font-weight: normal;
+  color: #fff;
+  white-space: break-spaces;
+
+  nobr {
+    color: #ffe699;
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 16px;
+    line-height: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding: 0 3px;
+    margin: 0 2px;
   }
 }
 

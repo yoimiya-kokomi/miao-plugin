@@ -125,7 +125,7 @@ let Avatar = {
         }
       })
     }
-    let char = Character.get(name.trim())
+    let char = Character.get(name.trim(), e.game)
     if (!char) {
       return false
     }

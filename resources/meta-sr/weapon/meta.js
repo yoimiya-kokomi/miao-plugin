@@ -20,7 +20,7 @@ export const abbr = {
   '今日亦是和平的一日': '今日亦是和平'
 }
 
-let aliasCfg = {
+export const aliasCfg = {
   // 巡猎
   '锋镝': '',
   '离弦': '',
@@ -113,13 +113,3 @@ let aliasCfg = {
   '银河铁道之夜': '银河铁道,星穹铁道之夜,星穹铁道',
   '拂晓之前': '拂晓'
 }
-let alias = {}
-lodash.forEach(aliasCfg, (txt, name) => {
-  if (txt) {
-    lodash.forEach(txt.split(','), (t) => {
-      alias[t] = name
-    })
-  }
-  alias[name] = name
-})
-export { alias }

@@ -32,6 +32,12 @@ class Weapon extends Base {
     return `${this.isGs ? 'meta' : 'meta-sr'}/weapon/${this.type}/${this.name}/icon.webp`
   }
 
+  get abbr () {
+    let name = this.name
+    let abbr = this.meta?.abbr
+    return name.length <= 4 ? name : (abbr || name)
+  }
+
   get imgs () {
     if (this.isGs) {
       return {
@@ -117,6 +123,12 @@ class Weapon extends Base {
     return this._detail
   }
 
+  /**
+   * 计算武器主属性
+   * @param level 武器等级
+   * @param promote 武器突破
+   * @returns {{atkBase: number, attr: {value: *, key: *}}|{}|boolean}
+   */
   calcAttr (level, promote = -1) {
     let metaAttr = this.detail?.attr
     if (!metaAttr) {
@@ -168,13 +180,30 @@ class Weapon extends Base {
     }
   }
 
-  // 获取精炼描述
+  /**
+   * 获取武器精炼描述
+   * @param affix 精炼
+   * @returns {{name, desc: *}|{}}
+   */
   getAffixDesc (affix = 1) {
     if (this.isGs) {
-      return {}
+      let { text, datas } = this.detail?.affixData || {}
+      let { descFix } = Meta.getMeta('gs', 'weapon')
+      let reg = /\$\[(\d)\]/g
+      let ret
+      let desc = descFix[this.name] || text || ''
+      while ((ret = reg.exec(desc)) !== null) {
+        let idx = ret[1]
+        let value = datas?.[idx]?.[affix - 1]
+        desc = desc.replaceAll(ret[0], `<nobr>${value}</nobr>`)
+      }
+      return {
+        name: '',
+        desc
+      }
     }
     let skill = this.detail.skill
-    let { name, desc, tables } = skill
+    let { desc, tables } = skill
     let reg = /\$(\d)\[(?:i|f1)\](\%?)/g
     let ret
     while ((ret = reg.exec(desc)) !== null) {
@@ -189,11 +218,15 @@ class Weapon extends Base {
       desc = desc.replaceAll(ret[0], value)
     }
     return {
-      name: skill.name,
+      name: skill.name || '',
       desc
     }
   }
 
+  /**
+   * 获取当前武器Buff配置
+   * @returns {*|boolean}
+   */
   getWeaponBuffs () {
     let { game } = this
     let { weaponBuffs } = Meta.getMeta(game, 'weapon')
@@ -207,6 +240,12 @@ class Weapon extends Base {
     return buffs
   }
 
+  /**
+   * 获取武器精炼 Buff
+   * @param affix
+   * @param isStatic
+   * @returns {*[]}
+   */
   getWeaponAffixBuffs (affix, isStatic = true) {
     let buffs = this.getWeaponBuffs()
     let ret = []

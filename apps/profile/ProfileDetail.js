@@ -77,11 +77,12 @@ let ProfileDetail = {
     if (!Common.cfg('avatarProfile')) {
       return false // 面板开关关闭
     }
-    let char = Character.get(name.trim())
+    let char = Character.get(name.trim(), e.game)
     if (!char) {
       return false
     }
     if (/星铁/.test(msg) || char.isSr) {
+      e.game = 'sr'
       e.isSr = true
     }
 

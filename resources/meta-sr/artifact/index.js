@@ -11,34 +11,23 @@ let metaData = Data.readJSON('/resources/meta-sr/artifact/meta.json', 'miao')
 let setMeta = Meta.create('sr', 'artiSet')
 let artiMeta = Meta.create('sr', 'arti')
 
-let artiMap = {}
 let idMap = {}
-let artiSetMap = {}
 lodash.forEach(data, (setData) => {
   let artiSet = {
     name: setData.name,
     effect: setData.skill,
     sets: {}
   }
-  artiSetMap[setData.name] = artiSet
   setMeta.addDataItem(artiSet.name, artiSet)
 
   lodash.forEach(setData.idxs, (ds, idx) => {
-    artiMap[ds.name] = {
-      ...ds,
-      set: setData.name,
-      setId: setData.id,
-      idx
-    }
     artiMeta.addDataItem(ds.name, {
       ...ds,
       set: setData.name,
       setId: setData.id,
       idx
     })
-
     idMap[ds.name] = lodash.keys(ds.ids).join(',')
-
     artiSet.sets[idx] = ds.name
   })
 })
@@ -54,5 +43,3 @@ artiMeta.addMeta({
   usefulAttr,
   ...Data.getData(metaCfg, 'mainAttr,subAttr,attrMap')
 })
-
-export * from './meta.js'
