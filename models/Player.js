@@ -228,7 +228,7 @@ export default class Player extends Base {
   async forEachAvatar (fn) {
     for (let id in this._avatars) {
       let avatar = this.getAvatar(id)
-      if (avatar && avatar.hasData) {
+      if (avatar && avatar.hasData && avatar.game === this.game) {
         let ret = fn(avatar, id)
         ret = Data.isPromise(ret) ? await ret : ret
         if (ret === false) {

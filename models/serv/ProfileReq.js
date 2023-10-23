@@ -69,7 +69,7 @@ export default class ProfileReq extends Base {
     let self = this
     this.serv = serv
     let uid = this.uid
-    let reqParam = await serv.getReqParam(uid, self.game)
+    let reqParam = await serv.getReqParam(uid, player.game)
     let cdTime = await this.inCd()
     if (cdTime && !process.argv.includes('web-debug')) {
       // return this.err(`请求过快，请${cdTime}秒后重试..`)
@@ -109,7 +109,7 @@ export default class ProfileReq extends Base {
       self._isReq = false
       data = {}
     }
-    data = await serv.response(data, this, self.game)
+    data = await serv.response(data, this, player.game)
     // 设置CD
     cdTime = serv.getCdTime(data)
     if (cdTime) {

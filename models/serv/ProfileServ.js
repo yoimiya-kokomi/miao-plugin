@@ -36,6 +36,7 @@ export default class ProfileServ extends Base {
     let url = this.getCfg('url')
     let profileApi = this.getCfg('listApi')
     let cfg = this._cfg
+
     let api = profileApi({
       url,
       uid: uid,
