@@ -186,9 +186,22 @@
         <div class="arti-class-title">评分规则：{{ad.classTitle}}</div>
       </div>
       <div class="arti-info">
-        <div class="arti-attr"></div>
-        <div class="arti-notice dmg-desc">
-          评分仅供参考与娱乐。可使用<strong>{{gameHash}}{{data.abbr}}圣遗物</strong>来查看评分详情
+        <div class="arti-all-attr">
+          <ul class="detail attr arti-attr">
+            {{set sTitle = {暴击率:'暴击',暴击伤害:'爆伤',充能效率:'充能',元素精通:'精通',效果命中:'命中',效果抵抗:'抵抗',击破特攻:'击破',
+            大生命:'生命',大攻击:'攻击',大防御:'防御',小生命:'生命',小攻击:'攻击',小防御:'防御'}
+            }}
+            {{each ad.allAttr attr}}
+            {{if attr && attr.key}}
+            <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
+              <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}} {{sTitle[artisKeyTitle[attr.key]] || artisKeyTitle[attr.key]}}</span>
+              <span class="val">+{{attr.value}}</span>
+            </li>
+            {{else}}
+            <li></li>
+            {{/if}}
+            {{/each}}
+          </ul>
         </div>
       </div>
     </div>

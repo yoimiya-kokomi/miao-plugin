@@ -540,7 +540,8 @@ body {
   position: initial;
   display: table;
 }
-.artis ul.detail li {
+.artis ul.detail li,
+.arti-info ul.detail li {
   padding: 0 3px;
   font-size: 14px;
   position: relative;
@@ -550,17 +551,20 @@ body {
   height: 26px;
   white-space: nowrap;
 }
-.artis ul.detail li span {
+.artis ul.detail li span,
+.arti-info ul.detail li span {
   position: initial;
   display: table-cell;
   color: #fff;
 }
-.artis ul.detail li span.title {
+.artis ul.detail li span.title,
+.arti-info ul.detail li span.title {
   text-align: left;
   padding-left: 30px;
   font-size: 14px;
 }
-.artis ul.detail li span.title i.eff {
+.artis ul.detail li span.title i.eff,
+.arti-info ul.detail li span.title i.eff {
   position: absolute;
   display: block;
   left: 3px;
@@ -574,7 +578,8 @@ body {
   width: 23px;
   text-align: center;
 }
-.artis ul.detail li span.title i.up-num {
+.artis ul.detail li span.title i.up-num,
+.arti-info ul.detail li span.title i.up-num {
   position: absolute;
   display: block;
   left: 91px;
@@ -586,41 +591,52 @@ body {
   background-repeat: no-repeat;
   background-size: auto 500%;
 }
-.artis ul.detail li span.title i.up-num.up-5 {
+.artis ul.detail li span.title i.up-num.up-5,
+.arti-info ul.detail li span.title i.up-num.up-5 {
   background-position: 0 -8px;
 }
-.artis ul.detail li span.title i.up-num.up-4 {
+.artis ul.detail li span.title i.up-num.up-4,
+.arti-info ul.detail li span.title i.up-num.up-4 {
   background-position: 0 -16px;
 }
-.artis ul.detail li span.title i.up-num.up-3 {
+.artis ul.detail li span.title i.up-num.up-3,
+.arti-info ul.detail li span.title i.up-num.up-3 {
   background-position: 0 -24px;
 }
-.artis ul.detail li span.title i.up-num.up-2 {
+.artis ul.detail li span.title i.up-num.up-2,
+.arti-info ul.detail li span.title i.up-num.up-2 {
   background-position: 0 -32px;
 }
-.artis ul.detail li span.title i.up-num.up-1 {
+.artis ul.detail li span.title i.up-num.up-1,
+.arti-info ul.detail li span.title i.up-num.up-1 {
   background: none !important;
 }
-.artis ul.detail li span.val {
+.artis ul.detail li span.val,
+.arti-info ul.detail li span.val {
   text-align: right;
   padding-right: 10px;
   font-size: 14px;
 }
-.artis ul.detail li.great span.title {
+.artis ul.detail li.great span.title,
+.arti-info ul.detail li.great span.title {
   color: #ffe699;
 }
-.artis ul.detail li.great span.title i.up-num {
+.artis ul.detail li.great span.title i.up-num,
+.arti-info ul.detail li.great span.title i.up-num {
   background-image: url("./imgs/up-num-icon2.png");
   background-size: auto 500%;
 }
-.artis ul.detail li.nouse span {
+.artis ul.detail li.nouse span,
+.arti-info ul.detail li.nouse span {
   color: #888;
 }
-.artis ul.detail li.nouse span i.up-num {
+.artis ul.detail li.nouse span i.up-num,
+.arti-info ul.detail li.nouse span i.up-num {
   background-image: url("./imgs/up-num-icon0.png");
   background-size: auto 500%;
 }
-.artis ul.detail li.arti-main {
+.artis ul.detail li.arti-main,
+.arti-info ul.detail li.arti-main {
   font-size: 16px;
   padding: 3px 3px;
   font-weight: bold;
@@ -783,8 +799,38 @@ body {
 .arti-info {
   width: 390px;
 }
-.arti-info .arti-attr {
+.arti-info .arti-all-attr {
   height: 64px;
+}
+.arti-info .arti-all-attr .arti-attr {
+  position: relative;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 90px;
+  width: 100%;
+}
+.arti-info .arti-all-attr .arti-attr li {
+  width: 33.33%;
+  display: flex;
+  height: 30px;
+  line-height: 30px;
+}
+.arti-info .arti-all-attr .arti-attr li i.eff {
+  width: 28px !important;
+  top: 6px !important;
+  left: 5px !important;
+}
+.arti-info .arti-all-attr .arti-attr li span.title {
+  padding-left: 36px;
+  width: 60%;
+}
+.arti-info .arti-all-attr .arti-attr li span.val {
+  padding-right: 5px;
+  font-size: 13px;
+  width: 40%;
 }
 .arti-info .arti-notice {
   height: 25px;

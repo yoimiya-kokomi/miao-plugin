@@ -187,6 +187,14 @@ let ProfileDetail = {
     }
 
     let artisDetail = profile.getArtisMark()
+    // 处理一下allAttr，确保都有9个内容，以获得比较好展示效果
+    let allAttr = profile.artis.getAllAttr() || []
+    allAttr = lodash.slice(allAttr, 0, 9)
+    for (let idx = allAttr.length; idx < 9; idx++) {
+      allAttr[idx] = {}
+    }
+    artisDetail.allAttr = allAttr
+
     let artisKeyTitle = Artifact.getArtisKeyTitle(game)
     let data = profile.getData('name,abbr,cons,level,talent,dataSource,updateTime,imgs,costumeSplash')
     if (isSr) {

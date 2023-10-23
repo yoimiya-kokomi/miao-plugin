@@ -667,7 +667,8 @@ body {
   display: table;
 }
 
-.artis ul.detail li {
+.artis ul.detail li,
+.arti-info ul.detail li {
   padding: 0 3px;
   font-size: 14px;
   position: relative;
@@ -960,8 +961,47 @@ body {
 .arti-info {
   width: 390px;
 
-  .arti-attr {
+  .arti-all-attr {
     height: 64px;
+
+    .arti-attr {
+      position: relative;
+      right: 0;
+      top: 0;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      height: 90px;
+      width: 100%;
+
+      li {
+        width: 33.33%;
+        display: flex;
+        height: 30px;
+        line-height: 30px;
+
+        i.eff {
+          width: 28px !important;
+          top: 6px !important;
+          left: 5px !important;
+        }
+
+        span {
+
+        }
+
+        span.title {
+          padding-left: 36px;
+          width: 60%;
+        }
+
+        span.val {
+          padding-right: 5px;
+          font-size: 13px;
+          width: 40%;
+        }
+      }
+    }
   }
 
   .arti-notice {

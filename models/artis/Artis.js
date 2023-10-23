@@ -248,4 +248,36 @@ export default class Artis extends Base {
     })
     return ret
   }
+
+  getAllAttr () {
+    let ret = {}
+    let add = (ds) => {
+      if (!ds) {
+        return
+      }
+      let key = ds.key
+      if (!ret[key]) {
+        ret[key] = {
+          key,
+          value: 0,
+          upNum: 0,
+          eff: 0
+        }
+      }
+      let tmp = ret[key]
+      tmp.value += ds.value
+      if (ds.eff && ds.upNum) {
+        tmp.eff += ds.eff
+        tmp.upNum += ds.upNum
+      }
+    }
+    this.forEach((arti) => {
+      // add(arti.main)
+      lodash.forEach(arti.attrs, (attr) => {
+        add(attr)
+      })
+    })
+    ret = lodash.sortBy(lodash.values(ret), ['eff']).reverse()
+    return ArtisMark.formatArti(ret, false, false, this.game)
+  }
 }
