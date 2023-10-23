@@ -13,8 +13,6 @@ import CharId from './character/CharId.js'
 import CharMeta from './character/CharMeta.js'
 import CharCfg from './character/CharCfg.js'
 
-let { wifeMap } = CharId
-
 let metaKey = 'abbr,star,elem,weapon,talentId,talentCons,eta'.split(',')
 const detailKey = 'title,allegiance,birth,astro,desc,cncv,jpcv,costume,baseAttr,growAttr,materials,talent,talentData,cons,passive,attr'.split(',')
 
@@ -71,6 +69,7 @@ class Character extends Base {
   }
 
   _get (key) {
+
     if (metaKey.includes(key)) {
       return this.meta[key]
     }

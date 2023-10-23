@@ -161,13 +161,15 @@ export default class Artis extends Base {
     this.eachIdx((ds, idx) => {
       let key = this.isGs ? 'name' : 'id'
       let tmp = {
-        level: ds.level || 1,
-        star: ds.star || 5
+        level: ds.level || 1
       }
       if (!ds[key]) {
         return true
       }
       tmp[key] = ds[key]
+      if (this.isGs) {
+        tmp.star = ds.star || 5
+      }
       // 如果不为面板数据，则不保存mainId和attrIds
       if (!this.isProfile) {
         ret[idx] = tmp

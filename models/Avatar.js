@@ -51,11 +51,6 @@ export default class Avatar extends Base {
   get isMaxTalent () {
     let maxLv = [1, 2, 4, 6, 8, 10]?.[this.promote - 1] || 10
     let minTalent = lodash.min(lodash.map(this.talent, (ds) => ds.original))
-    if (this.name === '卡维') {
-      console.log(
-        'kaka', maxLv, minTalent, this.promote
-      )
-    }
     return minTalent >= maxLv
   }
 

@@ -9,7 +9,7 @@ let data = Data.readJSON('/resources/meta-sr/artifact/data.json', 'miao')
 let metaData = Data.readJSON('/resources/meta-sr/artifact/meta.json', 'miao')
 
 let setMeta = Meta.create('sr', 'artiSet')
-let artiMeta = Meta.create('sr', 'artis')
+let artiMeta = Meta.create('sr', 'arti')
 
 let artiMap = {}
 let idMap = {}
@@ -30,12 +30,15 @@ lodash.forEach(data, (setData) => {
       setId: setData.id,
       idx
     }
-    artiMeta.addDataItem(ds.name, ds)
-
-    idMap[ds.name] = artiMap[ds.name]
-    lodash.forEach(ds.ids, (star, id) => {
-      idMap[id] = artiMap[ds.name]
+    artiMeta.addDataItem(ds.name, {
+      ...ds,
+      set: setData.name,
+      setId: setData.id,
+      idx
     })
+
+    idMap[ds.name] = lodash.keys(ds.ids).join(',')
+
     artiSet.sets[idx] = ds.name
   })
 })
@@ -44,7 +47,7 @@ setMeta.addAbbr(metaCfg.artiSetAbbr)
 setMeta.addAlias(metaCfg.aliasCfg)
 
 artiMeta.addAbbr(metaCfg.artiAbbr)
-artiMeta.addAlias(idMap, false)
+artiMeta.addAlias(idMap, true)
 artiMeta.addMeta({
   artiBuffs,
   metaData,

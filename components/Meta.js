@@ -159,7 +159,7 @@ const Meta = {
       let id = Meta.getId(currGame, type, txt)
       if (id) {
         let data = Meta.getData(currGame, type, id)
-        return { game, id, data }
+        return { game: currGame, id, data }
       }
     }
     return false

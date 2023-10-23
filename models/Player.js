@@ -178,10 +178,6 @@ export default class Player extends Base {
   // 设置角色数据
   setAvatar (ds, source = '') {
     let avatar = this.getAvatar(ds.id, true)
-    if (!avatar.setAvatar) {
-      console.log(this._avatars)
-      console.log(avatar, ds)
-    }
     avatar.setAvatar(ds, source)
   }
 
