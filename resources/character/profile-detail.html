@@ -203,6 +203,9 @@
             {{/each}}
           </ul>
         </div>
+        <div class="dmg-desc arti-notice">
+          评分为<strong>喵喵版规则</strong>，仅供参考与娱乐。可使用<strong>{{gameHash}}{{data.abbr}}圣遗物</strong>来查看评分详情
+        </div>
       </div>
     </div>
 
@@ -267,15 +270,6 @@
   <!-- 【 伤害表格 】 -->
   {{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData} = dmgCalc }}
   <div>
-    {{if game === 'gs'}}
-    {{else}}
-    <div class="cont">
-      <div class="cont-footer dmg-desc">
-        <strong>圣遗物评分功能尚未完全完成，分值可能不准确，请淡定...</strong>
-      </div>
-    </div>
-    {{/if}}
-
     {{if dmgData?.length > 0}}
     <div class="dmg-cont dmg-list cont">
       <div class="cont-title">
