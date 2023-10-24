@@ -37,7 +37,7 @@ export async function groupRank (e) {
     let player = Player.create(100000000)
     if (player.getProfile(char.id)) {
       e.uid = 100000000
-      if (Cfg.get('notReleasedData') === false) {
+      if (!char.isRelease && Cfg.get('notReleasedData') === false) {
         e.reply('未实装角色面板已禁用...')
         return true
       }
