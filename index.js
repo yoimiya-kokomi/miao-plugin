@@ -29,7 +29,7 @@ setTimeout(async function () {
     let msgs = [`当前喵喵版本: ${Version.version}`, '您可使用 #喵喵版本 命令查看更新信息']
     await relpyPrivate(msg.qq, msgs.join('\n'))
   }
-  if (!Version.isV3) {
+  if (!Version.isV3 && !Version.isAlemonjs) {
     console.log('警告：miao-plugin需要V3 Yunzai，请升级至最新版Miao-Yunzai以使用miao-plugin')
   }
   if (!fs.existsSync(process.cwd() + '/lib/plugins/runtime.js')) {
