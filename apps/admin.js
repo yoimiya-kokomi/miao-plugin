@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
 import { Cfg, Common, Data, Version, App } from '#miao'

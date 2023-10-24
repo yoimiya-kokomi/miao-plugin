@@ -3,7 +3,7 @@ import { Data, Meta } from '#miao'
 import { alias } from './alias.js'
 import { extraChars, wifeCfg } from './extra.js'
 
-let data = Data.readJSON('resources/meta/character/data.json', 'miao')
+let data = Data.readJSON('resources/meta-gs/character/data.json', 'miao')
 let meta = Meta.create('gs', 'char')
 
 meta.addData(data)

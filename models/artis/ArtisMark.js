@@ -117,6 +117,11 @@ let ArtisMark = {
           mainKey = 'dmg'
         }
         fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + idx])))
+        if (game === 'gs') {
+          if (['atk', 'hp', 'def'].includes(mainKey) && attrs[mainKey]?.weight >= 75) {
+            fixPct = 1
+          }
+        }
       }
       ret += (attrs[mainKey]?.mark || 0) * (mAttr.value || 0) / 4
     }
@@ -201,7 +206,7 @@ let ArtisMark = {
     })
     let setData = artis.getSetData()
     artis.mark = totalMark
-    artis.markClass = ArtisMark.getMarkClass(totalMark / 5)
+    artis.markClass = ArtisMark.getMarkClass(totalMark / (this.isGs ? 5 : 6))
     let ret = {
       classTitle: charCfg.classTitle,
       artis: artisRet,

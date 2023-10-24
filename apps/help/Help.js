@@ -1,5 +1,5 @@
 import { Cfg, Common, Data, Version } from '#miao'
-import fs from 'fs'
+import fs from 'node:fs'
 import lodash from 'lodash'
 import HelpTheme from './HelpTheme.js'
 

@@ -143,6 +143,9 @@ body {
 .char-attr li .value2 .base {
   color: #eee;
 }
+.char-attr li .value2 .base.zero {
+  color: #aaaa;
+}
 .char-attr li .value2 .plus {
   color: #90e800;
 }
@@ -289,42 +292,6 @@ body {
   filter: grayscale(100%);
   opacity: 0.4;
 }
-.elem_anemo .talent-icon {
-  background-image: url(../common/bg/talent-anemo.png);
-}
-.elem_anemo .container {
-  background-image: url(../common/bg/bg-anemo.jpg);
-}
-.elem_cryo .talent-icon {
-  background-image: url(../common/bg/talent-cryo.png);
-}
-.elem_cryo .container {
-  background-image: url(../common/bg/bg-cryo.jpg);
-}
-.elem_electro .talent-icon {
-  background-image: url(../common/bg/talent-electro.png);
-}
-.elem_electro .container {
-  background-image: url(../common/bg/bg-electro.jpg);
-}
-.elem_geo .talent-icon {
-  background-image: url(../common/bg/talent-geo.png);
-}
-.elem_geo .container {
-  background-image: url(../common/bg/bg-geo.jpg);
-}
-.elem_hydro .talent-icon {
-  background-image: url(../common/bg/talent-hydro.png);
-}
-.elem_hydro .container {
-  background-image: url(../common/bg/bg-hydro.jpg);
-}
-.elem_pyro .talent-icon {
-  background-image: url(../common/bg/talent-pyro.png);
-}
-.elem_pyro .container {
-  background-image: url(../common/bg/bg-pyro.jpg);
-}
 .data-info {
   position: absolute;
   bottom: -10px;
@@ -402,28 +369,30 @@ body {
 .dmg-cont .tr > div.value-none {
   box-shadow: none;
 }
-.dmg-cont .thead {
+.dmg-cont .tr.thead {
   text-align: center;
 }
-.dmg-cont .thead > div {
+.dmg-cont .tr.thead > div {
   color: #d3bc8e;
   background: rgba(0, 0, 0, 0.4);
   line-height: 40px;
   height: 40px;
+  font-size: 15px;
 }
-.dmg-cont .title,
-.dmg-cont .th {
+.dmg-cont .tr .title,
+.dmg-cont .tr .th {
   color: #d3bc8e;
   padding-right: 15px;
   text-align: right;
   background: rgba(0, 0, 0, 0.4);
   min-width: 100px;
+  font-size: 15px;
 }
 .profile-mode .dmg-idx {
   display: none !important;
 }
 .profile-mode .dmg-title {
-  width: 33.3333%;
+  width: 40%;
 }
 .dmg-mode .dmg-idx,
 .weapon-mode .dmg-idx {
@@ -976,6 +945,7 @@ body {
   display: table;
   color: #fff;
   min-height: 100px;
+  width: 100%;
 }
 .sr-weapon .weapon-img {
   display: table-cell;

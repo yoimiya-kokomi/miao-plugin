@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import moment from 'moment'
 import { Data } from '#miao'
-import { chestInfo } from '../../resources/meta/info/index.js'
+import { chestInfo } from '../../resources/meta-gs/info/index.js'
 import AvatarUtil from './AvatarUtil.js'
 
 const MysAvatar = {

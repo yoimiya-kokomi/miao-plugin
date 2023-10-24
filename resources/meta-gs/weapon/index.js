@@ -29,12 +29,12 @@ const attr = function (key, start, _step) {
 
 for (let type in weaponType) {
   // calc
-  let typeCalc = await Data.importDefault(`resources/meta/weapon/${type}/calc.js`, 'miao')
+  let typeCalc = await Data.importDefault(`resources/meta-gs/weapon/${type}/calc.js`, 'miao')
   let typeRet = typeCalc(step, attr)
   weaponBuffs = lodash.extend(weaponBuffs, typeRet)
 
   // data
-  let typeData = await Data.readJSON(`resources/meta/weapon/${type}/data.json`, 'miao')
+  let typeData = await Data.readJSON(`resources/meta-gs/weapon/${type}/data.json`, 'miao')
   lodash.forEach(typeData, (ds) => {
     data[ds.name] = {
       id: ds.id,

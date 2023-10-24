@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { Data } from '#miao'
 import { Character, Weapon } from '#miao.models'
-import { poolDetail } from '../../resources/meta/info/index.js'
+import { poolDetail } from '../../resources/meta-gs/info/index.js'
 import moment from 'moment'
 
 let poolVersion = []

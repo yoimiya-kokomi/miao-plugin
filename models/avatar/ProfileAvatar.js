@@ -64,7 +64,7 @@ const ProfileAvatar = {
       return this.char.getImgs(profile._costume).splash
     }
 
-    let nPath = `meta/character/${name}`
+    let nPath = `meta-gs/character/${name}`
     let isSuper = false
     let talent = profile.talent ? lodash.map(profile.talent, (ds) => ds.original).join('') : ''
     if (profile.cons === 6 || ['ACE', 'MAX'].includes(profile.artis?.markClass) || talent === '101010') {

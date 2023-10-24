@@ -1,11 +1,11 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Character } from './index.js'
 import DmgBuffs from './dmg/DmgBuffs.js'
 import DmgAttr from './dmg/DmgAttr.js'
 import DmgCalc from './dmg/DmgCalc.js'
-import { Common, MiaoError, Meta } from '#miao'
+import { MiaoError, Meta } from '#miao'
 
 export default class ProfileDmg extends Base {
   constructor (profile = {}, game = 'gs') {
@@ -20,18 +20,11 @@ export default class ProfileDmg extends Base {
 
   static dmgRulePath (name, game = 'gs') {
     const _path = process.cwd()
-    const meta = game === 'sr' ? 'meta-sr' : 'meta'
-    let path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc_user.js`
-    if (fs.existsSync(path)) {
-      return path
-    }
-    path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc_auto.js`
-    if (fs.existsSync(path) && Common.cfg('teamCalc')) {
-      return path
-    }
-    path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc.js`
-    if (fs.existsSync(path)) {
-      return path
+    for (let file of ['calc_user', 'calc_auto', 'calc']) {
+      let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${file}.js`
+      if (fs.existsSync(path)) {
+        return path
+      }
     }
     return false
   }

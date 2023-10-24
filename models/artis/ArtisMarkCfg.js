@@ -84,7 +84,7 @@ const ArtisMarkCfg = {
     }
 
     let charRule = char.getArtisCfg() || function ({ def }) {
-      return def(usefulAttr[char.name] || {})
+      return def(usefulAttr[char.name] || { atk: 75, cpct: 100, cdmg: 100, dmg: 100, phy: 100 })
     }
 
     if (charRule) {

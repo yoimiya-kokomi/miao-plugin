@@ -63,7 +63,7 @@ export default class Player extends Base {
     let imgs = char?.imgs || {}
     return {
       face: imgs.face || '/common/item/face.webp',
-      banner: imgs.banner || `/meta${this.isSr ? '-sr' : ''}/character/common/imgs/banner.webp`
+      banner: imgs.banner || `/meta-${this.game}/character/common/imgs/banner.webp`
     }
   }
 

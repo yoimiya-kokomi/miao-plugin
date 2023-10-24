@@ -60,7 +60,7 @@
               {{attr[key]}}
             </div>
             <div class="value2">
-              <span class="base">{{attr[key+'Base']}}</span>
+              <span class="base {{attr[key+'Base'] === '0.0%' ? 'zero':''}}">{{attr[key+'Base']}}</span>
               <span class="plus">+{{attr[key+'Plus']}}</span>
             </div>
 

@@ -40,7 +40,7 @@ class Artifact extends Base {
 
   get img () {
     return this.isGs ?
-      `meta/artifact/imgs/${this.setName}/${this.idx}.webp` :
+      `meta-gs/artifact/imgs/${this.setName}/${this.idx}.webp` :
       `meta-sr/artifact/${this.setName}/arti-${this.idx}.webp`
   }
 

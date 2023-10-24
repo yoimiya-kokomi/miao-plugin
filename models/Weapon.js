@@ -29,7 +29,7 @@ class Weapon extends Base {
   }
 
   get img () {
-    return `${this.isGs ? 'meta' : 'meta-sr'}/weapon/${this.type}/${this.name}/icon.webp`
+    return `${this.isGs ? 'meta-gs' : 'meta-sr'}/weapon/${this.type}/${this.name}/icon.webp`
   }
 
   get abbr () {
@@ -41,9 +41,9 @@ class Weapon extends Base {
   get imgs () {
     if (this.isGs) {
       return {
-        icon: `meta/weapon/${this.type}/${this.name}/icon.webp`,
-        icon2: `meta/weapon/${this.type}/${this.name}/awaken.webp`,
-        gacha: `meta/weapon/${this.type}/${this.name}/gacha.webp`
+        icon: `meta-gs/weapon/${this.type}/${this.name}/icon.webp`,
+        icon2: `meta-gs/weapon/${this.type}/${this.name}/awaken.webp`,
+        gacha: `meta-gs/weapon/${this.type}/${this.name}/gacha.webp`
       }
     } else {
       return {
@@ -114,7 +114,7 @@ class Weapon extends Base {
     if (this._detail) {
       return this._detail
     }
-    const path = this.isGs ? 'resources/meta/weapon' : 'resources/meta-sr/weapon'
+    const path = this.isGs ? 'resources/meta-gs/weapon' : 'resources/meta-sr/weapon'
     try {
       this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`, 'miao')
     } catch (e) {

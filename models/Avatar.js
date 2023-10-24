@@ -208,6 +208,9 @@ export default class Avatar extends Base {
 
   // 设置天赋
   setTalent (ds = false, mode = 'original', updateTime = '') {
+    if (!this.char) {
+      return false
+    }
     const now = this._now || (new Date()) * 1
     if (ds) {
       let ret = this.char.getAvatarTalent(ds, this.cons, mode)

@@ -31,13 +31,13 @@ export const defDmgIdx = 4
 export const mainAttr = 'hp,dmg,cpct,cdmg'
 
 export const buffs = [{
-  title: '天赋-古海孑遗的权柄：按两层计算，重击·衡平推裁造成原本125%的伤害',
+  title: '天赋-古海孑遗：按两层计算，重击·衡平推裁造成原本125%的伤害',
   check: ({ cons }) => cons < 1
 }, {
-  title: '天赋-古海孑遗的权柄：按三层计算，重击·衡平推裁造成原本160%的伤害',
+  title: '天赋-古海孑遗：按三层计算，重击·衡平推裁造成原本160%的伤害',
   cons: 1
 }, {
-  title: '天赋-至高仲裁的纪律：基于当前生命值超出生命值上限30%的部分，提升[dmg]%水元素伤害',
+  title: '天赋-至高仲裁：基于当前生命值超出生命值上限30%的部分，提升[dmg]%水元素伤害',
   data: {
     dmg: 30
   }

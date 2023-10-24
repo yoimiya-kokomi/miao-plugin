@@ -7,7 +7,7 @@ import { usefulAttr } from './artis-mark.js'
 let setMeta = Meta.create('gs', 'artiSet')
 let artiMeta = Meta.create('gs', 'arti')
 
-let artis = Data.readJSON('resources/meta/artifact/data.json', 'miao')
+let artis = Data.readJSON('resources/meta-gs/artifact/data.json', 'miao')
 
 lodash.forEach(artis, (ds) => {
   let artiSet = {

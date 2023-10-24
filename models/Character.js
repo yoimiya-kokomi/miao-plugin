@@ -299,7 +299,7 @@ class Character extends Base {
     }
     try {
       let name = this.isTraveler ? `旅行者/${this.elem}` : this.name
-      this.meta._detail = Data.readJSON(`resources/meta${this.isSr ? '-sr' : ''}/character/${name}/data.json`, 'miao')
+      this.meta._detail = Data.readJSON(`resources/meta-${this.game}/character/${name}/data.json`, 'miao')
     } catch (e) {
       console.log(e)
     }
