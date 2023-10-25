@@ -30,7 +30,7 @@ const Index = {
 
   // 检查版本
   async checkVersion () {
-    if (!Version.isV3) {
+    if (!Version.isV3 && !Version.isAlemonjs) {
       console.log('警告：miao-plugin需要V3 Yunzai，请升级至最新版Miao-Yunzai以使用miao-plugin')
     }
     if (!fs.existsSync(process.cwd() + '/lib/plugins/runtime.js')) {

@@ -95,7 +95,6 @@ let AttrSR = {
   }
 }
 export default {
-
   getData (arti, idx = 1, game = 'gs') {
     let tmp = game === 'gs' ? AttrGS : AttrSR
     return tmp.getData(arti.mainId, arti.attrIds, arti.level, arti.star, idx)

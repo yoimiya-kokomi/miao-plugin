@@ -12,7 +12,7 @@
   {{block 'css'}}
   {{/block}}
 </head>
-{{set elemCls = {火:'pyro',冰:'cryo',风:'anemo',雷:'electro',量子:'electro',虚数:'geo',物理:'hydro', }[element||elem] || element || elem || 'hydro' }}
+{{set elemCls = {火:'pyro',冰:'cryo',风:'anemo',雷:'electro',量子:'quantum',虚数:'geo',物理:'sr', }[element||elem] || element || elem || 'hydro' }}
 <body class="elem-{{elemCls}} {{displayMode || mode || `default`}}-mode {{bodyClass}}" {{sys.scale}}>
 <div class="container elem-bg" id="container">
   {{block 'main'}}{{/block}}

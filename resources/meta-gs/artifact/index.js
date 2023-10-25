@@ -1,7 +1,8 @@
 import { Data, Meta } from '#miao'
 import lodash from 'lodash'
 import calc from './calc.js'
-import * as metaData from './meta.js'
+import { mainAttr, subAttr, attrMap, attrNameMap, mainIdMap, attrIdMap } from './extra.js'
+import { setAlias, setAbbr } from './alias.js'
 import { usefulAttr } from './artis-mark.js'
 
 let setMeta = Meta.create('gs', 'artiSet')
@@ -30,10 +31,10 @@ lodash.forEach(artis, (ds) => {
   })
 })
 
-setMeta.addAbbr(metaData.abbr)
-setMeta.addAlias(metaData.aliasCfg)
+setMeta.addAbbr(setAbbr)
+setMeta.addAlias(setAlias)
 artiMeta.addMeta({
-  ...Data.getData(metaData, 'mainAttr,subAttr,attrMap,attrNameMap,mainIdMap,attrIdMap'),
+  mainAttr, subAttr, attrMap, attrNameMap, mainIdMap, attrIdMap,
   artiBuffs: calc,
   usefulAttr
 })

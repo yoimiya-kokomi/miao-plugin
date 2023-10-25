@@ -1,11 +1,3 @@
-export const weaponType = {
-  polearm: '枪',
-  catalyst: '法器',
-  sword: '剑',
-  bow: '弓',
-  claymore: '大剑'
-}
-
 export const abbr = {
   磐岩结绿: '绿剑',
   赤角石溃杵: '赤角石',
@@ -202,5 +194,3 @@ export const alias = {
   烈阳之嗣: '烈阳,烈阳弓',
   测距规: '测距,测距弓'
 }
-
-export const weaponSet = ['西风', '天空', '试做', '试作', '祭礼', '黑岩', '宗室', '暗巷', '匣里', '千岩']

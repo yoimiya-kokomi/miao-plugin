@@ -1,6 +1,7 @@
 import { Data, Meta } from '#miao'
 import lodash from 'lodash'
-import { weaponType, abbr, alias, weaponSet } from './meta.js'
+import { abbr, alias } from './alias.js'
+import { weaponType, weaponSet } from './extra.js'
 import { descFix } from './desc.js'
 
 let weaponBuffs = {}

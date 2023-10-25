@@ -163,16 +163,16 @@ body {
 
 /********  ELEM  ********/
 
-@elems: hydro, anemo, cryo, electro, geo, pyro, dendro;
+@elems: hydro, anemo, cryo, electro, geo, pyro, dendro, quantum, sr;
 
 each(@elems, {
   .elem-@{value} .talent-icon {
-    background-image: url("./bg/talent-@{value}.png");
+    background-image: url("./bg/talent-@{value}.webp");
   }
 
   .elem-@{value} .elem-bg,
   .@{value}-bg {
-    background-image: url("./bg/bg-@{value}.jpg");
+    background-image: url("./bg/bg-@{value}.webp");
   }
 })
 
