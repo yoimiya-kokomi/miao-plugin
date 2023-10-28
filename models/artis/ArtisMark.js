@@ -196,7 +196,7 @@ let ArtisMark = {
       if (withDetail) {
         let artifact = Artifact.get(arti, game)
         artisRet[idx] = {
-          ...Data.getData(artifact, 'name,abbr,set:setName,img'),
+          ...artifact.getData('name,abbr,set:setName,img'),
           level: arti.level,
           main: ArtisMark.formatArti(arti.main, charCfg.attrs, true, game),
           attrs: ArtisMark.formatArtiAttrs(arti.attrs, charCfg.attrs, game),
@@ -206,7 +206,7 @@ let ArtisMark = {
     })
     let setData = artis.getSetData()
     artis.mark = totalMark
-    artis.markClass = ArtisMark.getMarkClass(totalMark / (this.isGs ? 5 : 6))
+    artis.markClass = ArtisMark.getMarkClass(totalMark / (profile.isGs ? 5 : 6))
     let ret = {
       classTitle: charCfg.classTitle,
       artis: artisRet,
