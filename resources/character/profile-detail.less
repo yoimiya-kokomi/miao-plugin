@@ -18,7 +18,7 @@ body {
 
 .basic {
   position: relative;
-  margin: 0 -15px 10px -10px;
+  margin: 0 -15px 15px -10px;
 }
 
 .basic:after {
@@ -388,7 +388,12 @@ body {
   width: 100%;
 }
 
-.dmg-mode .dmg-list .cont-footer {
+.dmg-created-by {
+  padding-left: 5px;
+  float: right;
+}
+
+.dmg-mode .not-dmg-mode {
   display: none;
 }
 
@@ -461,10 +466,12 @@ body {
   .th {
     color: #d3bc8e;
     padding-right: 15px;
+    padding-left: 5px;
     text-align: right;
     background: rgba(0, 0, 0, .4);
     min-width: 100px;
     font-size: 15px;
+    white-space: nowrap;
   }
 }
 
@@ -532,6 +539,15 @@ body {
     position: relative;
     box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, .8);
     overflow: hidden;
+
+    &.item {
+      &.arti-class-ACE,
+      &.arti-class-MAX {
+        .head {
+
+        }
+      }
+    }
 
 
     .arti-icon {

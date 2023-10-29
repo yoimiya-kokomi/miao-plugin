@@ -19,7 +19,7 @@ body {
 }
 .basic {
   position: relative;
-  margin: 0 -15px 10px -10px;
+  margin: 0 -15px 15px -10px;
 }
 .basic:after {
   content: "";
@@ -324,7 +324,11 @@ body {
   margin: 10px 0;
   width: 100%;
 }
-.dmg-mode .dmg-list .cont-footer {
+.dmg-created-by {
+  padding-left: 5px;
+  float: right;
+}
+.dmg-mode .not-dmg-mode {
   display: none;
 }
 .cont-title {
@@ -383,10 +387,12 @@ body {
 .dmg-cont .tr .th {
   color: #d3bc8e;
   padding-right: 15px;
+  padding-left: 5px;
   text-align: right;
   background: rgba(0, 0, 0, 0.4);
   min-width: 100px;
   font-size: 15px;
+  white-space: nowrap;
 }
 .profile-mode .dmg-idx {
   display: none !important;

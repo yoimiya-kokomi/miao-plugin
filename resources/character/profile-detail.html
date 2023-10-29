@@ -236,7 +236,7 @@
       {{/if}}
 
       {{each ad.artis ds idx}}
-      <div class="item arti">
+      <div class="item arti arti-class-{{ds.markClass}}">
         {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
         <div class="arti-icon">
           <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
@@ -268,12 +268,13 @@
 
 
   <!-- 【 伤害表格 】 -->
-  {{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData} = dmgCalc }}
+  {{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData, createdBy} = dmgCalc }}
   <div>
     {{if dmgData?.length > 0}}
     <div class="dmg-cont dmg-list cont">
       <div class="cont-title">
-        伤害计算<span>目标为{{enemyLv}}级{{enemyName||'小宝'}}{{if game==='gs'}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置{{/if}}</span>
+        伤害计算
+        <span class="not-dmg-mode dmg-desc">使用<strong>{{gameHash}}{{data.abbr}}伤害</strong>命令可以查看伤害详情</span>
       </div>
       <div class="cont-table">
         <div class="tr thead">
@@ -297,7 +298,11 @@
         {{/each}}
       </div>
       <div class="cont-footer dmg-desc">
-        使用命令<strong>{{gameHash}}{{data.abbr}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
+        <span>目标为{{enemyLv}}级{{enemyName||'小宝'}}{{if game==='gs'}}，使用<strong>#敌人等级{{enemyLv}}</strong>命令可指定等级{{/if}}</span>
+        {{if createdBy}}
+        <!-- 优先展示calc.js中 返回的createdBy字段，用于展示伤害计算作者-->
+        <span class="dmg-created-by">伤害计算来源：<strong>{{createdBy}}</strong></span>
+        {{/if}}
       </div>
     </div>
     {{/if}}

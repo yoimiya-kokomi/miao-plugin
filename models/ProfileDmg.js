@@ -5,7 +5,7 @@ import { Character } from './index.js'
 import DmgBuffs from './dmg/DmgBuffs.js'
 import DmgAttr from './dmg/DmgAttr.js'
 import DmgCalc from './dmg/DmgCalc.js'
-import { MiaoError, Meta } from '#miao'
+import { MiaoError, Meta, Common } from '#miao'
 
 export default class ProfileDmg extends Base {
   constructor (profile = {}, game = 'gs') {
@@ -20,10 +20,18 @@ export default class ProfileDmg extends Base {
 
   static dmgRulePath (name, game = 'gs') {
     const _path = process.cwd()
-    for (let file of ['calc_user', 'calc_auto', 'calc']) {
-      let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${file}.js`
+    let dmgFile = [
+      { file: 'calc_user', name: '自定义伤害' },
+      { file: 'calc_auto', name: '组团伤害', test: () => Common.cfg('teamCalc') },
+      { file: 'calc', name: '喵喵' }
+    ]
+    for (let ds of dmgFile) {
+      let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
+      if (ds.test && !ds.test()) {
+        continue
+      }
       if (fs.existsSync(path)) {
-        return path
+        return { path, createdBy: ds.name }
       }
     }
     return false
@@ -79,8 +87,12 @@ export default class ProfileDmg extends Base {
     const cfgPath = ProfileDmg.dmgRulePath(this.char?.name, this.char?.game)
     let cfg = {}
     if (cfgPath) {
-      cfg = await import(`file://${cfgPath}`)
+      cfg = await import(`file://${cfgPath.path}`)
+      // 文件中定义了createBy的话，优先进行展示
+      let createdBy = cfg.createdBy || cfgPath.createdBy || '喵喵'
+      createdBy = createdBy.slice(0, 15)
       return {
+        createdBy,
         details: cfg.details || false, // 计算详情
         buffs: cfg.buffs || [], // 角色buff
         defParams: cfg.defParams || {}, // 默认参数，一般为空
@@ -105,7 +117,7 @@ export default class ProfileDmg extends Base {
     if (!charCalcData) {
       return false
     }
-    let { buffs, details, defParams, mainAttr, defDmgIdx, defDmgKey, enemyName } = charCalcData
+    let { createdBy, buffs, details, defParams, mainAttr, defDmgIdx, defDmgKey, enemyName } = charCalcData
 
     let talent = this.talent()
 
@@ -260,7 +272,8 @@ export default class ProfileDmg extends Base {
       dmgRet,
       enemyName,
       dmgCfg: dmgDetail,
-      enemyLv
+      enemyLv,
+      createdBy
     }
   }
 }
