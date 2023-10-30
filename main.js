@@ -7,5 +7,6 @@ app.setMessage(async e => {
   e.sender.card = e.user_name
   return e
 })
+app.setCharacter('#')
 app.component(apps)
 app.mount()
