@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
 import { Cfg, Common, Data, Version, App } from '#miao'
@@ -103,7 +103,6 @@ async function updateRes (e) {
       command = 'git  checkout . && git  pull'
     }
     exec(command, { cwd: `${resPath}/miao-res-plus/` }, function (error, stdout, stderr) {
-      console.log(stdout)
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
         e.reply('目前所有图片都已经是最新了~')
         return true

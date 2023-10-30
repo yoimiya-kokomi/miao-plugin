@@ -1,9 +1,10 @@
 /**
  * 角色照片及角色图像资源相关
  * */
-import fs from 'fs'
+import fs from 'node:fs'
 import lodash from 'lodash'
 import sizeOf from 'image-size'
+import { Cfg } from '#miao'
 
 const rPath = `${process.cwd()}/plugins/miao-plugin/resources`
 const CharImg = {
@@ -89,8 +90,8 @@ const CharImg = {
     if (!['空', '荧', '旅行者'].includes(name)) {
       travelerElem = ''
     }
-    const nPath = `/meta/character/${name}/`
-    const tPath = `/meta/character/旅行者/${travelerElem}/`
+    const nPath = `/meta-gs/character/${name}/`
+    const tPath = `/meta-gs/character/旅行者/${travelerElem}/`
     let add = (key, path, path2) => {
       if (path2 && fs.existsSync(`${rPath}/${nPath}/${path2}.${fileType}`)) {
         imgs[key] = `${nPath}${path2}.${fileType}`
@@ -120,6 +121,8 @@ const CharImg = {
     }
     return imgs
   },
+
+  // 获取星铁角色图像资源
   getImgsSr (name, talentCons) {
     let fileType = 'webp'
     const nPath = `/meta-sr/character/${name}/`

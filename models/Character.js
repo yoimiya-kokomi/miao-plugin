@@ -6,26 +6,19 @@
 * */
 import lodash from 'lodash'
 import Base from './Base.js'
-import { Data, Format, Cfg } from '#miao'
+import { Data, Format, Cfg, Meta } from '#miao'
 import CharImg from './character/CharImg.js'
 import CharTalent from './character/CharTalent.js'
 import CharId from './character/CharId.js'
 import CharMeta from './character/CharMeta.js'
 import CharCfg from './character/CharCfg.js'
 
-let { wifeMap, idSort, idMap } = CharId
-
-let getMeta = function (name, game = 'gs') {
-  if (game === 'gs') {
-    return Data.readJSON(`resources/meta/character/${name}/data.json`, 'miao')
-  } else {
-    return CharId.getSrMeta(name)
-  }
-}
+let metaKey = 'abbr,star,elem,weapon,talentId,talentCons,eta'.split(',')
+const detailKey = 'title,allegiance,birth,astro,desc,cncv,jpcv,costume,baseAttr,growAttr,materials,talent,talentData,cons,passive,attr'.split(',')
 
 class Character extends Base {
   // 默认获取的数据
-  _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,ver,desc,talentCons'
+  static _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,desc,talentCons'
 
   constructor ({ id, name = '', elem = '', game = 'gs' }) {
     super()
@@ -39,7 +32,7 @@ class Character extends Base {
     this.name = name
     this.game = game
     if (!this.isCustom) {
-      let meta = getMeta(name, game)
+      let meta = Meta.getData(game, 'char', name)
       this.meta = meta
       if (this.isGs) {
         this.elem = Format.elem(elem || meta.elem, 'anemo')
@@ -75,12 +68,14 @@ class Character extends Base {
     return this.isCustom ? this._id : this._id * 1
   }
 
-  get isGs () {
-    return this.game === 'gs'
-  }
+  _get (key) {
 
-  get isSr () {
-    return this.game === 'sr'
+    if (metaKey.includes(key)) {
+      return this.meta[key]
+    }
+    if (detailKey.includes(key)) {
+      return this.getDetail()[key]
+    }
   }
 
   // 获取短名字
@@ -125,7 +120,7 @@ class Character extends Base {
 
   // 获取角色描述
   get desc () {
-    return CharMeta.getDesc(this.meta.desc || '')
+    return CharMeta.getDesc(this.meta?._detail?.desc || '')
   }
 
   // 获取头像
@@ -179,7 +174,7 @@ class Character extends Base {
 
   // 基于角色名获取Character
   static get (val, game = 'gs') {
-    let id = CharId.getId(val, Character.gsCfg, game)
+    let id = CharId.getId(val, game)
     if (!id) {
       return false
     }
@@ -187,8 +182,9 @@ class Character extends Base {
   }
 
   static forEach (fn, type = 'all', game = 'gs') {
-    lodash.forEach(idMap, (name, id) => {
-      let char = Character.get({ id, name })
+    let ids = Meta.getIds(game, 'char')
+    lodash.forEach(ids, (id) => {
+      let char = Character.get(id)
       if (char.game !== 'gs') {
         return true
       }
@@ -204,13 +200,13 @@ class Character extends Base {
 
   // 获取排序ID
   static sortIds (arr) {
-    return arr.sort((a, b) => (idSort[a] || 300) - (idSort[b] || 300))
+    return arr.sort((a, b) => a * 1 - b * 1)
   }
 
   // 获取attr列表
   getAttrList () {
-    let { meta } = this
-    return CharMeta.getAttrList(meta.baseAttr, meta.growAttr, this.elemName)
+    let { baseAttr, growAttr } = this
+    return CharMeta.getAttrList(baseAttr, growAttr, this.elemName)
   }
 
   // 获取素材
@@ -250,12 +246,14 @@ class Character extends Base {
 
   // 检查老婆类型
   checkWifeType (type) {
-    return !!wifeMap[type][this.id]
+    let { wifeData } = Meta.getMeta(this.game, 'char')
+    let key = ['girlfriend', 'boyfriend', 'daughter', 'son'][type] || 'girlfriend'
+    return !!wifeData[key]?.[this.id]
   }
 
   // 检查时装
   checkCostume (id) {
-    let costume = this.meta?.costume || []
+    let costume = this?.costume || []
     return costume.includes(id * 1)
   }
 
@@ -293,25 +291,19 @@ class Character extends Base {
 
   // 获取详情数据
   getDetail (elem = '') {
-    if (this._detail) {
-      return this._detail
+    if (this.meta?._detail) {
+      return this.meta._detail
     }
     if (this.isCustom) {
       return {}
     }
-    const path = this.isSr ? 'resources/meta-sr/character' : 'resources/meta/character'
-    const file = this.isSr ? 'data' : 'detail'
-
     try {
-      if (this.isTraveler) {
-        this._detail = Data.readJSON(`${path}/旅行者/${this.elem}/${file}.json`, 'miao')
-      } else {
-        this._detail = Data.readJSON(`${path}/${this.name}/${file}.json`, 'miao')
-      }
+      let name = this.isTraveler ? `旅行者/${this.elem}` : this.name
+      this.meta._detail = Data.readJSON(`resources/meta-${this.game}/character/${name}/data.json`, 'miao')
     } catch (e) {
       console.log(e)
     }
-    return this._detail
+    return this.meta._detail
   }
 
   // 获取伤害计算配置
@@ -353,7 +345,5 @@ class Character extends Base {
     }
   }
 }
-
-Character.CharId = CharId
 
 export default Character

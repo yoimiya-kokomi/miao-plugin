@@ -13,10 +13,9 @@
 {{set gameHash = game === 'gs' ? '#':'*' }}
 
 {{block 'main'}}
-<div class="game-{{game}}">
+<div class="profile-cont game-{{game}}">
   <div class="basic">
-    <div class="main-pic"
-         style="background-image:url({{_res_path}}{{costumeSplash||imgs?.splash}})"></div>
+    <div class="main-pic" style="background-image:url({{_res_path}}{{costumeSplash||imgs?.splash}})"></div>
     <div class="detail">
       <div class="char-name">{{data.name}}</div>
       <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
@@ -49,7 +48,6 @@
           {{set cw = artisDetail?.charWeight || {} }}
           {{each attrMap title key}}
           <li>
-
             <div class="icon"><i class="i-{{key}}"></i></div>
 
             <div class="title">{{title}}</div>
@@ -62,7 +60,7 @@
               {{attr[key]}}
             </div>
             <div class="value2">
-              <span class="base">{{attr[key+'Base']}}</span>
+              <span class="base {{attr[key+'Base'] === '0.0%' ? 'zero':''}}">{{attr[key+'Base']}}</span>
               <span class="plus">+{{attr[key+'Plus']}}</span>
             </div>
 
@@ -111,8 +109,9 @@
   {{/if}}
 
   <!-- 【 武器+圣遗物列表】 -->
-  <div>
+  <div class="profile-detail">
     {{if game === 'sr'}}
+    <!-- 【 星铁 天赋+行迹 】 -->
     <div class="sr-talent">
       <div class="char-talents">
         {{each talentMap tName key}}
@@ -130,7 +129,6 @@
       </div>
 
       <div class="char-talents char-trees">
-
         {{each data.treeData tCfg}}
         {{if tCfg?.type === 'talent' }}
         <div class="talent-item">
@@ -153,6 +151,7 @@
     </div>
 
     {{if weapon && weapon.name}}
+    <!-- 【 星铁 武器 】 -->
     <div class="sr-weapon">
       <div class="weapon-img" style="background-image:url({{_res_path}}{{weapon.splash}})"></div>
       <div class="weapon-info">
@@ -167,13 +166,49 @@
           <div class="attr i-atk"><span>攻击</span>{{a.atk}}</div>
           <div class="attr i-def"><span>防御</span>{{a.def}}</div>
         </div>
-        <div class="weapon-desc">{{@weapon.desc?.desc}}</div>
+        <div class="weapon-desc">
+          {{@weapon.desc?.desc}}
+        </div>
       </div>
     </div>
     {{/if}}
     {{/if}}
+
+
     {{if mode === "profile"}}
     {{set ad = artisDetail}}
+    <div class="cont arti-mark-cont">
+      <div class="arti-stat">
+        <div class="arti-stat-ret">
+          <div><span>圣遗物总分</span><strong>{{ad.mark}}</strong></div>
+          <div><span>圣遗物评级</span><strong class="mark-{{ad.markClass}}">{{ad.markClass}}</strong></div>
+        </div>
+        <div class="arti-class-title">评分规则：{{ad.classTitle}}</div>
+      </div>
+      <div class="arti-info">
+        <div class="arti-all-attr">
+          <ul class="detail attr arti-attr">
+            {{set sTitle = {暴击率:'暴击',暴击伤害:'爆伤',充能效率:'充能',元素精通:'精通',效果命中:'命中',效果抵抗:'抵抗',击破特攻:'击破',
+            大生命:'生命',大攻击:'攻击',大防御:'防御',小生命:'生命',小攻击:'攻击',小防御:'防御'}
+            }}
+            {{each ad.allAttr attr}}
+            {{if attr && attr.key}}
+            <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
+              <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}} {{sTitle[artisKeyTitle[attr.key]] || artisKeyTitle[attr.key]}}</span>
+              <span class="val">+{{attr.value}}</span>
+            </li>
+            {{else}}
+            <li></li>
+            {{/if}}
+            {{/each}}
+          </ul>
+        </div>
+        <div class="dmg-desc arti-notice">
+          评分为<strong>喵喵版规则</strong>，仅供参考与娱乐。可使用<strong>{{gameHash}}{{data.abbr}}圣遗物</strong>来查看评分详情
+        </div>
+      </div>
+    </div>
+
     <div class="artis">
       {{ if game === 'gs' }}
       <div class="artis-weapon">
@@ -192,19 +227,16 @@
               {{/if}} {{/each}}
             </div>
           </div>
-        </div>
-        <div class="item arti-stat">
-          <div class="arti-class-title">评分规则：{{ad.classTitle}}</div>
-          <div class="arti-stat-ret">
-            <div><strong class="mark-{{ad.markClass}}">{{ad.markClass}}</strong><span>圣遗物评级</span></div>
-            <div><strong>{{ad.mark}}</strong><span>圣遗物总分</span></div>
+          <div class="weapon-desc-cont">
+            <div class="weapon-desc">{{@weapon.desc?.desc}}</div>
           </div>
         </div>
+
       </div>
       {{/if}}
 
       {{each ad.artis ds idx}}
-      <div class="item arti">
+      <div class="item arti arti-class-{{ds.markClass}}">
         {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
         <div class="arti-icon">
           <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
@@ -236,28 +268,13 @@
 
 
   <!-- 【 伤害表格 】 -->
-  {{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData} = dmgCalc }}
+  {{ set {dmgRet, dmgCfg, enemyLv, enemyName, dmgMsg, dmgData, createdBy} = dmgCalc }}
   <div>
-    {{if game === 'gs'}}
-    {{if mode === "profile"}}
-    <div class="cont">
-      <div class="cont-footer dmg-desc">
-        当前评分为<strong>喵喵版评分规则</strong>，分值仅供参考与娱乐。可使用<strong>{{gameHash}}{{data.abbr}}圣遗物</strong>来查看评分详情
-      </div>
-    </div>
-    {{/if}}
-    {{else}}
-    <div class="cont">
-      <div class="cont-footer dmg-desc">
-        <strong>圣遗物评分功能尚未完全完成，分值可能不准确，请淡定...</strong>
-      </div>
-    </div>
-    {{/if}}
-
     {{if dmgData?.length > 0}}
     <div class="dmg-cont dmg-list cont">
       <div class="cont-title">
-        伤害计算<span>目标为{{enemyLv}}级{{enemyName||'小宝'}}{{if game==='gs'}}，如需调整等级可使用 #敌人等级{{enemyLv}} 来进行设置{{/if}}</span>
+        伤害计算
+        <span class="not-dmg-mode dmg-desc">使用<strong>{{gameHash}}{{data.abbr}}伤害</strong>命令可以查看伤害详情</span>
       </div>
       <div class="cont-table">
         <div class="tr thead">
@@ -281,7 +298,11 @@
         {{/each}}
       </div>
       <div class="cont-footer dmg-desc">
-        使用命令<strong>{{gameHash}}{{data.abbr}}伤害</strong>可以查看伤害详情，使用命令<strong>#角色面板帮助</strong>可查看帮助说明
+        <span>目标为{{enemyLv}}级{{enemyName||'小宝'}}{{if game==='gs'}}，使用<strong>#敌人等级{{enemyLv}}</strong>命令可指定等级{{/if}}</span>
+        {{if createdBy}}
+        <!-- 优先展示calc.js中 返回的createdBy字段，用于展示伤害计算作者-->
+        <span class="dmg-created-by">伤害计算来源：<strong>{{createdBy}}</strong></span>
+        {{/if}}
       </div>
     </div>
     {{/if}}

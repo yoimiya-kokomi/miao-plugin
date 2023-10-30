@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import { promisify } from 'util'
 import { pipeline } from 'stream'
 import MD5 from 'md5'

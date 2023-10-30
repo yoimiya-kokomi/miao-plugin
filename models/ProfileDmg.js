@@ -1,13 +1,11 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Character } from './index.js'
-import { attrMap as attrMapGS } from '../resources/meta/artifact/index.js'
-import { attrMap as attrMapSR } from '../resources/meta-sr/artifact/index.js'
-import DmgBuffs from './profile/DmgBuffs.js'
-import DmgAttr from './profile/DmgAttr.js'
-import DmgCalc from './profile/DmgCalc.js'
-import { Common, MiaoError } from '#miao'
+import DmgBuffs from './dmg/DmgBuffs.js'
+import DmgAttr from './dmg/DmgAttr.js'
+import DmgCalc from './dmg/DmgCalc.js'
+import { MiaoError, Meta, Common } from '#miao'
 
 export default class ProfileDmg extends Base {
   constructor (profile = {}, game = 'gs') {
@@ -22,18 +20,19 @@ export default class ProfileDmg extends Base {
 
   static dmgRulePath (name, game = 'gs') {
     const _path = process.cwd()
-    const meta = game === 'sr' ? 'meta-sr' : 'meta'
-    let path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc_user.js`
-    if (fs.existsSync(path)) {
-      return path
-    }
-    path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc_auto.js`
-    if (fs.existsSync(path) && Common.cfg('teamCalc')) {
-      return path
-    }
-    path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc.js`
-    if (fs.existsSync(path)) {
-      return path
+    let dmgFile = [
+      { file: 'calc_user', name: '自定义伤害' },
+      { file: 'calc_auto', name: '组团伤害', test: () => Common.cfg('teamCalc') },
+      { file: 'calc', name: '喵喵' }
+    ]
+    for (let ds of dmgFile) {
+      let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
+      if (ds.test && !ds.test()) {
+        continue
+      }
+      if (fs.existsSync(path)) {
+        return { path, createdBy: ds.name }
+      }
     }
     return false
   }
@@ -88,8 +87,12 @@ export default class ProfileDmg extends Base {
     const cfgPath = ProfileDmg.dmgRulePath(this.char?.name, this.char?.game)
     let cfg = {}
     if (cfgPath) {
-      cfg = await import(`file://${cfgPath}`)
+      cfg = await import(`file://${cfgPath.path}`)
+      // 文件中定义了createBy的话，优先进行展示
+      let createdBy = cfg.createdBy || cfgPath.createdBy || '喵喵'
+      createdBy = createdBy.slice(0, 15)
       return {
+        createdBy,
         details: cfg.details || false, // 计算详情
         buffs: cfg.buffs || [], // 角色buff
         defParams: cfg.defParams || {}, // 默认参数，一般为空
@@ -114,7 +117,7 @@ export default class ProfileDmg extends Base {
     if (!charCalcData) {
       return false
     }
-    let { buffs, details, defParams, mainAttr, defDmgIdx, defDmgKey, enemyName } = charCalcData
+    let { createdBy, buffs, details, defParams, mainAttr, defDmgIdx, defDmgKey, enemyName } = charCalcData
 
     let talent = this.talent()
 
@@ -220,7 +223,7 @@ export default class ProfileDmg extends Base {
         attr: []
       }
 
-      let attrMap = game === 'gs' ? attrMapGS : attrMapSR
+      let { attrMap } = Meta.getMeta(game, 'arti')
 
       // 计算角色属性增减
       mainAttr = mainAttr.split(',')
@@ -269,7 +272,8 @@ export default class ProfileDmg extends Base {
       dmgRet,
       enemyName,
       dmgCfg: dmgDetail,
-      enemyLv
+      enemyLv,
+      createdBy
     }
   }
 }

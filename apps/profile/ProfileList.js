@@ -133,9 +133,11 @@ const ProfileList = {
       groupRank,
       updateTime: player.getUpdateTime(),
       allowRank: rank && rank.allowRank,
-      rankCfg
+      rankCfg,
+      elem: player.isGs ? 'hydro' : 'sr'
     }, { e, scale: 1.6 })
   },
+
   /**
    * 删除面板数据
    * @param e

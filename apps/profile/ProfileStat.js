@@ -9,6 +9,9 @@ const ProfileStat = {
   async avatarList (e) {
     return ProfileStat.render(e, true)
   },
+
+  // 渲染
+  // isAvatarList true:练度统计 false角色列表
   async render (e, isAvatarList = false) {
     // 缓存时间，单位小时
     let msg = e.msg.replace('#', '').trim()

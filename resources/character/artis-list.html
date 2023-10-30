@@ -8,34 +8,36 @@
 {{block 'main'}}
 <div class="uid">UID {{uid}}</div>
 
-<div class="artis">
-
-  {{each artis ds}}
-  <div class="item arti">
-    {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
-    <div class="avatar">
-      <img src="{{_res_path}}{{ds.side}}" onerror="whenError(this)"/>
-    </div>
-    <div class="arti-icon">
-      <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
-    </div>
-    <div class="head">
-      <strong>{{ds.name}}</strong>
-      <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
-    </div>
-    <ul class="detail attr">
-      <li class="arti-main"><span class="title">{{artisKeyTitle[ds.main?.key]}}</span><span class="val">+{{ds.main?.value}}</span>
-      </li>
-      {{each ds.attrs attr}}
-      {{if attr && attr.key}}
-      <li class="{{ds.charWeight[attr.key]*1 > 79.9 ?`great`:(ds.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
-        <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{if attr.upNum}}<i class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key]}}</span>
-        <span class="val">+{{attr.value}}</span></li>
+<div class="profile-cont game-{{game}}">
+  <div class="artis">
+    {{each artis ds}}
+    <div class="item arti">
+      {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
+      <div class="avatar">
+        <img src="{{_res_path}}{{ds.side}}" onerror="whenError(this)"/>
+      </div>
+      <div class="arti-icon">
+        <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
+      </div>
+      <div class="head">
+        <strong>{{ds.name}}</strong>
+        <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
+      </div>
+      <ul class="detail attr">
+        <li class="arti-main"><span class="title">{{artisKeyTitle[ds.main?.key]}}</span><span class="val">+{{ds.main?.value}}</span>
+        </li>
+        {{each ds.attrs attr}}
+        {{if attr && attr.key}}
+        <li class="{{ds.charWeight[attr.key]*1 > 79.9 ?`great`:(ds.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
+          <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{if attr.upNum}}<i
+            class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key]}}</span>
+          <span class="val">+{{attr.value}}</span></li>
+        {{/if}}
+        {{/each}}
+      </ul>
       {{/if}}
-      {{/each}}
-    </ul>
-    {{/if}}
+    </div>
+    {{/each}}
   </div>
-  {{/each}}
 </div>
 {{/block}}

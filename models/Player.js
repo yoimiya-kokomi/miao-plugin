@@ -7,10 +7,10 @@
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Data } from '#miao'
-import { AvatarData, ProfileRank, Character } from './index.js'
+import { Avatar, ProfileRank, Character } from './index.js'
 
-import MysAvatar from './player/MysAvatar.js'
-import Profile from './player/Profile.js'
+import MysAvatar from './avatar/MysAvatar.js'
+import ProfileAvatar from './avatar/ProfileAvatar.js'
 
 Data.createDir('/data/UserData', 'root')
 Data.createDir('/data/PlayerData/gs', 'root')
@@ -35,7 +35,7 @@ export default class Player extends Base {
 
   get hasProfile () {
     let ret = false
-    lodash.forEach(this._avatars, (avatar) => {
+    this.forEachAvatar((avatar) => {
       if (avatar.isProfile) {
         ret = true
         return false
@@ -45,13 +45,10 @@ export default class Player extends Base {
   }
 
   get _file () {
-    if (this.isSr) {
-      return `/data/PlayerData/sr/${this.uid}.json`
-    } else {
-      return `/data/UserData/${this.uid}.json`
-    }
+    return `/data/PlayerData/${this.game}/${this.uid}.json`
   }
 
+  // 玩家头像
   get faceImgs () {
     let char
     if (this.isGs && this.face) {
@@ -66,7 +63,7 @@ export default class Player extends Base {
     let imgs = char?.imgs || {}
     return {
       face: imgs.face || '/common/item/face.webp',
-      banner: imgs.banner || `/meta${this.isSr ? '-sr' : ''}/character/common/imgs/banner.webp`
+      banner: imgs.banner || `/meta-${this.game}/character/common/imgs/banner.webp`
     }
   }
 
@@ -83,8 +80,7 @@ export default class Player extends Base {
 
   // 获取面板更新服务名
   static getProfileServName (uid, game = 'gs') {
-    let Serv = Profile.getServ(uid, game)
-    return Serv.name
+    return ProfileAvatar.getServ(uid, game)?.name
   }
 
   static delByUid (uid, game = 'gs') {
@@ -96,15 +92,13 @@ export default class Player extends Base {
 
   /**
    * 重新加载json文件
+   * 注意：为了性能，默认不初始化avatars数据，按需初始化
+   * 如需获取avatar请使用 player.getAvatar() 来进行获取以确保初始化
    */
   reload () {
-    let data
-    data = Data.readJSON(this._file, 'root')
+    let data = Data.readJSON(this._file, 'root')
     this.setBasicData(data)
-    if (data.chars) {
-      this.setAvatars(data.chars)
-    }
-    this.setAvatars(data.avatars || [])
+    this.setAvatars(data.avatars || [], true)
     if (data._ck) {
       this._ck = data._ck
     }
@@ -133,11 +127,7 @@ export default class Player extends Base {
     if (this._ck) {
       ret._ck = this._ck
     }
-    if (this.isSr) {
-      Data.writeJSON(`/data/PlayerData/sr/${this.uid}.json`, ret, 'root')
-    } else {
-      Data.writeJSON(`/data/UserData/${this.uid}.json`, ret, 'root')
-    }
+    Data.writeJSON(this._file, ret, 'root')
   }
 
   del () {
@@ -171,9 +161,17 @@ export default class Player extends Base {
   }
 
   // 设置角色列表
-  setAvatars (ds) {
+  // lazy：是否懒初始化avatar
+  setAvatars (ds, lazy = false) {
     lodash.forEach(ds, (avatar) => {
-      this.setAvatar(avatar)
+      if (!avatar.id) {
+        return true
+      }
+      if (lazy) {
+        this._avatars[avatar.id] = avatar
+      } else {
+        this.setAvatar(avatar)
+      }
     })
   }
 
@@ -181,6 +179,21 @@ export default class Player extends Base {
   setAvatar (ds, source = '') {
     let avatar = this.getAvatar(ds.id, true)
     avatar.setAvatar(ds, source)
+  }
+
+  delAvatar (id) {
+    delete this._avatars[id]
+  }
+
+  hasAvatar (id = '') {
+    if (!id) {
+      return !lodash.isEmpty(this._avatars)
+    }
+    return !!this._avatars[id]
+  }
+
+  getAvatarIds () {
+    return lodash.keys(this._avatars)
   }
 
   // 获取Avatar角色
@@ -193,28 +206,31 @@ export default class Player extends Base {
         id = avatars['10000005'] ? 10000005 : 10000007
       }
     }
-    if (!avatars[id] && create) {
-      avatars[id] = AvatarData.create({ id }, this.game)
-    }
-    return avatars[id] || false
-  }
 
-  // 异步循环角色
-  async forEachAvatarAsync (fn) {
-    for (let id in this._avatars) {
-      let ret = await fn(this._avatars[id], id)
-      if (ret === false) {
+    if (!avatars[id]) {
+      if (create) {
+        avatars[id] = Avatar.create({ id }, this.game)
+      } else {
         return false
       }
     }
+
+    let avatar = avatars[id]
+    if (!avatar.isAvatar) {
+      let data = avatars[id]
+      avatar = avatars[id] = Avatar.create(avatars[id], this.game)
+      avatar.setAvatar(data)
+    }
+    return avatar
   }
 
   // 循环Avatar
-  forEachAvatar (fn) {
+  async forEachAvatar (fn) {
     for (let id in this._avatars) {
-      let avatar = this._avatars[id]
-      if (avatar && avatar.hasData) {
-        let ret = fn(this._avatars[id])
+      let avatar = this.getAvatar(id)
+      if (avatar && avatar.hasData && avatar.game === this.game) {
+        let ret = fn(avatar, id)
+        ret = Data.isPromise(ret) ? await ret : ret
         if (ret === false) {
           return false
         }
@@ -243,16 +259,18 @@ export default class Player extends Base {
   // 获取指定角色的面板数据
   getProfile (id) {
     let avatar = this.getAvatar(id)
-    return avatar ? avatar.getProfile() : false
+    if (!avatar.isProfile) {
+      return false
+    }
+    return avatar
   }
 
   // 获取所有面板数据
   getProfiles () {
     let ret = {}
-    lodash.forEach(this._avatars, (avatar) => {
-      let profile = avatar.getProfile()
-      if (profile) {
-        ret[profile.id] = profile
+    this.forEachAvatar((avatar) => {
+      if (avatar.isProfile) {
+        ret[avatar.id] = avatar
       }
     })
     return ret
@@ -275,13 +293,13 @@ export default class Player extends Base {
 
   // 更新面板
   async refreshProfile (force = 2) {
-    return await Profile.refreshProfile(this, force)
+    return await ProfileAvatar.refreshProfile(this, force)
   }
 
   // 更新米游社数据
   /**
    * 更新米游社数据
-   * @param force: 0:不强制，长超时时间 1：短超时时间 2：无视缓存，强制刷新
+   * @param force 0:不强制，长超时时间 1：短超时时间 2：无视缓存，强制刷新
    * @returns {Promise<boolean>}
    */
   async refreshMysDetail (force = 0) {
@@ -302,6 +320,17 @@ export default class Player extends Base {
     return await MysAvatar.refreshTalent(this, ids, force)
   }
 
+  /**
+   * 刷新角色数据
+   *
+   * @param cfg
+   * @param cfg.detail mys-detail数据更新级别，角色列表与详情
+   * @param cfg.talent mys-talent数据更新级别，角色天赋数据
+   * @param cfg.index mys-index数据更新级别，游戏统计数据
+   * @param cfg.profile 刷新面板数据
+   * @param cfg.ids 刷新的角色列表
+   */
+
   async refresh (cfg) {
     this.save(false)
     try {
@@ -312,7 +341,7 @@ export default class Player extends Base {
         await this.refreshMysDetail(cfg.detail)
       }
       if (cfg.talent || cfg.talent === 0) {
-        await this.refreshTalent(cfg.ids, cfg.talent)
+        await this.refreshTalent(cfg.ids || '', cfg.talent)
       }
       if (cfg.profile || cfg.profile === 0) {
         await this.refreshProfile(cfg.profile)
@@ -323,6 +352,18 @@ export default class Player extends Base {
     }
     this.save(true)
   }
+
+  /**
+   * 刷新并获取角色数据
+   *
+   * @param cfg
+   * @param cfg.detail mys-detail数据更新级别，角色列表与详情
+   * @param cfg.talent mys-talent数据更新级别，角色天赋数据
+   * @param cfg.index mys-index数据更新级别，游戏统计数据
+   * @param cfg.retType 返回类型，默认id为key对象，设置为array时返回数组
+   * @param cfg.rank 返回为数组时，数据是否排序，排序规则：等级、星级、天赋、命座、武器、好感的顺序排序
+   * @returns {Promise<any[]|{}>}
+   */
 
   async refreshAndGetAvatarData (cfg) {
     await this.refresh(cfg)
@@ -341,8 +382,9 @@ export default class Player extends Base {
       avatarRet[ds.id] = ds
 
       let profile = avatar.getProfile()
-      if (profile) {
-        let mark = profile.getArtisMark(false)
+      if (avatar.isProfile) {
+        ds.artisSet = avatar.artis.getSetData()
+        let mark = avatar.getArtisMark(false)
         ds.artisMark = Data.getData(mark, 'mark,markClass,names')
         if (rank) {
           rank.getRank(profile)

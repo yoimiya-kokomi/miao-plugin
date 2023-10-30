@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import lodash from 'lodash'
 import cfgData from './cfg/CfgData.js'
 import { Version } from '#miao'

@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import fs from 'fs'
+import fs from 'node:fs'
 import { Data } from '#miao'
 
 let HelpTheme = {

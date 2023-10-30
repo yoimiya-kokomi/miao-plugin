@@ -1,4 +1,4 @@
-import { ProfileData, Weapon } from '#miao.models'
+import { Avatar, Weapon } from '#miao.models'
 
 export const ProfileWeapon = {
   async calc (profile, game = 'gs') {
@@ -10,7 +10,7 @@ export const ProfileWeapon = {
         if (affix === 5 && w.maxAffix !== 5) {
           continue
         }
-        let tempProfile = new ProfileData({
+        let tempProfile = new Avatar({
           ...profile.getData('uid,id,level,cons,fetter,elem,promote,talent,artis'),
           dataSource: 'change'
         }, game, false)

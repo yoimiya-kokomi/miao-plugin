@@ -2,7 +2,7 @@ import lodash from 'lodash'
 import { getTargetUid, getProfileRefresh } from './ProfileCommon.js'
 import ProfileList from './ProfileList.js'
 import { Cfg, Common, Data, Format } from '#miao'
-import { MysApi, ProfileRank, ProfileArtis, Character, Weapon } from '#miao.models'
+import { MysApi, ProfileRank, Character, Weapon, Artifact } from '#miao.models'
 import ProfileChange from './ProfileChange.js'
 import { profileArtis } from './ProfileArtis.js'
 import { ProfileWeapon } from './ProfileWeapon.js'
@@ -77,11 +77,12 @@ let ProfileDetail = {
     if (!Common.cfg('avatarProfile')) {
       return false // 面板开关关闭
     }
-    let char = Character.get(name.trim())
+    let char = Character.get(name.trim(), e.game)
     if (!char) {
       return false
     }
     if (/星铁/.test(msg) || char.isSr) {
+      e.game = 'sr'
       e.isSr = true
     }
 
@@ -186,7 +187,15 @@ let ProfileDetail = {
     }
 
     let artisDetail = profile.getArtisMark()
-    let artisKeyTitle = ProfileArtis.getArtisKeyTitle(game)
+    // 处理一下allAttr，确保都有9个内容，以获得比较好展示效果
+    let allAttr = profile.artis.getAllAttr() || []
+    allAttr = lodash.slice(allAttr, 0, 9)
+    for (let idx = allAttr.length; idx < 9; idx++) {
+      allAttr[idx] = {}
+    }
+    artisDetail.allAttr = allAttr
+
+    let artisKeyTitle = Artifact.getArtisKeyTitle(game)
     let data = profile.getData('name,abbr,cons,level,talent,dataSource,updateTime,imgs,costumeSplash')
     if (isSr) {
       let treeData = []

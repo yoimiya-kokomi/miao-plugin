@@ -266,11 +266,11 @@ body {
   text-align: left;
 }
 .cont .td-artis.class-ACE,
-.cont .td-artis.class-ACE² {
+.cont .td-artis.class-MAX {
   background: rgba(255, 228, 180, 0.5);
 }
 .cont .td-artis.class-ACE .artis-mark-class,
-.cont .td-artis.class-ACE² .artis-mark-class {
+.cont .td-artis.class-MAX .artis-mark-class {
   background: #ff5722;
 }
 .cont .td-artis.class-SSS,

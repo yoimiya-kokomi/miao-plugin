@@ -1,22 +1,17 @@
 import Base from './Base.js'
-import { Data, Format } from '#miao'
-import { weaponData, weaponAbbr, weaponAlias, weaponType, weaponSet, weaponBuffs } from '../resources/meta/weapon/index.js'
-import {
-  weaponData as weaponDataSR,
-  weaponAlias as weaponAliasSR,
-  weaponBuffs as weaponBuffsSR
-} from '../resources/meta-sr/weapon/index.js'
+import { Data, Format, Meta } from '#miao'
+
+let weaponSet
 
 import lodash from 'lodash'
 
 class Weapon extends Base {
-  constructor (name, game = 'gs') {
-    super(name)
-    let meta = game === 'gs' ? weaponData[name] : weaponDataSR[name]
-    if (!meta) {
+  constructor (meta, game = 'gs') {
+    if (!meta || !meta.name) {
       return false
     }
-    let cache = this._getCache(`weapon:${game}:${name}`)
+    super()
+    let cache = this._getCache(`weapon:${game}:${meta.name}`)
     if (cache) {
       return cache
     }
@@ -29,24 +24,26 @@ class Weapon extends Base {
     return this._cache()
   }
 
-  get abbr () {
-    return weaponAbbr[this.name] || this.name
-  }
-
   get title () {
     return this.name
   }
 
   get img () {
-    return `${this.isGs ? 'meta' : 'meta-sr'}/weapon/${this.type}/${this.name}/icon.webp`
+    return `${this.isGs ? 'meta-gs' : 'meta-sr'}/weapon/${this.type}/${this.name}/icon.webp`
+  }
+
+  get abbr () {
+    let name = this.name
+    let abbr = this.meta?.abbr
+    return name.length <= 4 ? name : (abbr || name)
   }
 
   get imgs () {
     if (this.isGs) {
       return {
-        icon: `meta/weapon/${this.type}/${this.name}/icon.webp`,
-        icon2: `meta/weapon/${this.type}/${this.name}/awaken.webp`,
-        gacha: `meta/weapon/${this.type}/${this.name}/gacha.webp`
+        icon: `meta-gs/weapon/${this.type}/${this.name}/icon.webp`,
+        icon2: `meta-gs/weapon/${this.type}/${this.name}/awaken.webp`,
+        gacha: `meta-gs/weapon/${this.type}/${this.name}/gacha.webp`
       }
     } else {
       return {
@@ -82,40 +79,42 @@ class Weapon extends Base {
   }
 
   static isWeaponSet (name) {
+    weaponSet = weaponSet || Meta.getMeta('gs', 'weapon', 'weaponSet')
     return weaponSet.includes(name)
   }
 
   static get (name, game = 'gs', type = '') {
-    name = lodash.trim(name)
-    let alias = game === 'gs' ? weaponAlias : weaponAliasSR
-    if (alias[name]) {
-      return new Weapon(alias[name], game)
+    let data = Meta.getData(game, 'weapon', name)
+    if (data) {
+      return new Weapon(data, game)
     }
+
     if (type && game === 'gs') {
+      const { weaponType } = Meta.getMeta(game, 'weapon')
       let name2 = name + (weaponType[type] || type)
-      if (weaponAlias[name2]) {
-        return new Weapon(weaponAlias[name2])
+      let data = Meta.getData(game, 'weapon', name2)
+      if (data) {
+        return new Weapon(data, game)
       }
     }
     return false
   }
 
-  static async forEach (fn, type = '') {
-    for (let name in weaponData) {
-      let ds = weaponData[name]
+  static async forEach (fn, type = '', game = 'gs') {
+    Meta.forEach(game, 'weapon', async (ds, id) => {
       let w = Weapon.get(ds.name)
       if (!w || (type && type !== w.type)) {
-        continue
+        return true
       }
-      await fn(w)
-    }
+      return await fn(w)
+    })
   }
 
   getDetail () {
     if (this._detail) {
       return this._detail
     }
-    const path = this.isGs ? 'resources/meta/weapon' : 'resources/meta-sr/weapon'
+    const path = this.isGs ? 'resources/meta-gs/weapon' : 'resources/meta-sr/weapon'
     try {
       this._detail = Data.readJSON(`${path}/${this.type}/${this.name}/data.json`, 'miao')
     } catch (e) {
@@ -124,6 +123,12 @@ class Weapon extends Base {
     return this._detail
   }
 
+  /**
+   * 计算武器主属性
+   * @param level 武器等级
+   * @param promote 武器突破
+   * @returns {{atkBase: number, attr: {value: *, key: *}}|{}|boolean}
+   */
   calcAttr (level, promote = -1) {
     let metaAttr = this.detail?.attr
     if (!metaAttr) {
@@ -175,13 +180,30 @@ class Weapon extends Base {
     }
   }
 
-  // 获取精炼描述
+  /**
+   * 获取武器精炼描述
+   * @param affix 精炼
+   * @returns {{name, desc: *}|{}}
+   */
   getAffixDesc (affix = 1) {
     if (this.isGs) {
-      return {}
+      let { text, datas } = this.detail?.affixData || {}
+      let { descFix } = Meta.getMeta('gs', 'weapon')
+      let reg = /\$\[(\d)\]/g
+      let ret
+      let desc = descFix[this.name] || text || ''
+      while ((ret = reg.exec(desc)) !== null) {
+        let idx = ret[1]
+        let value = datas?.[idx]?.[affix - 1]
+        desc = desc.replaceAll(ret[0], `<nobr>${value}</nobr>`)
+      }
+      return {
+        name: '',
+        desc
+      }
     }
     let skill = this.detail.skill
-    let { name, desc, tables } = skill
+    let { desc, tables } = skill
     let reg = /\$(\d)\[(?:i|f1)\](\%?)/g
     let ret
     while ((ret = reg.exec(desc)) !== null) {
@@ -196,15 +218,19 @@ class Weapon extends Base {
       desc = desc.replaceAll(ret[0], value)
     }
     return {
-      name: skill.name,
+      name: skill.name || '',
       desc
     }
   }
 
+  /**
+   * 获取当前武器Buff配置
+   * @returns {*|boolean}
+   */
   getWeaponBuffs () {
-    let { isSr } = this
-    let wBuffs = (isSr ? weaponBuffsSR : weaponBuffs)
-    let buffs = wBuffs[this.id] || wBuffs[this.name]
+    let { game } = this
+    let { weaponBuffs } = Meta.getMeta(game, 'weapon')
+    let buffs = weaponBuffs[this.id] || weaponBuffs[this.name]
     if (!buffs) {
       return false
     }
@@ -214,6 +240,12 @@ class Weapon extends Base {
     return buffs
   }
 
+  /**
+   * 获取武器精炼 Buff
+   * @param affix
+   * @param isStatic
+   * @returns {*[]}
+   */
   getWeaponAffixBuffs (affix, isStatic = true) {
     let buffs = this.getWeaponBuffs()
     let ret = []

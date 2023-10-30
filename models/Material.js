@@ -6,8 +6,8 @@ import Base from './Base.js'
 import { Data } from '#miao'
 import MaterialMeta from './material/MaterialMeta.js'
 
-let data = Data.readJSON('resources/meta/material/data.json','miao')
-let abbr = await Data.importDefault('resources/meta/material/abbr.js', 'miao')
+let data = Data.readJSON('resources/meta-gs/material/data.json','miao')
+let abbr = await Data.importDefault('resources/meta-gs/material/abbr.js', 'miao')
 let mMap = {}
 let getItem = (ds) => {
   mMap[ds.name] = {
@@ -72,7 +72,7 @@ class Material extends Base {
   }
 
   get img () {
-    return `meta/material/${this.type}/${this.name}.webp`
+    return `meta-gs/material/${this.type}/${this.name}.webp`
   }
 
   get icon () {

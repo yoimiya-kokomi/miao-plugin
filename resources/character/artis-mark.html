@@ -12,75 +12,76 @@
 
 {{block 'main'}}
 {{set ad = artisDetail}}
-<div class="basic">
-  <div class="main-pic"
-       style="background-image:url({{_res_path}}{{splash}})"></div>
-  <div class="detail">
-    <div class="char-name">{{data.name}}</div>
-    <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
-      <span class="cons cons-{{data.cons}}">{{data.cons}}命</span></div>
-    <div class="cont">
-      <div class="item arti-stat">
-        <div class="arti-class-title">评分规则：{{charCfg.classTitle}}</div>
-        <div class="arti-stat-ret">
-          <div><strong class="mark-{{artisDetail.markClass}}">{{ad.markClass}}</strong><span>圣遗物评级</span></div>
-          <div><strong>{{ad.mark}}</strong><span>圣遗物总分</span></div>
+<div class="profile-cont game-{{game}}">
+  <div class="basic">
+    <div class="main-pic"
+         style="background-image:url({{_res_path}}{{splash}})"></div>
+    <div class="detail">
+      <div class="char-name">{{data.name}}</div>
+      <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
+        <span class="cons cons-{{data.cons}}">{{data.cons}}命</span></div>
+      <div class="cont">
+        <div class="item arti-stat">
+          <div class="arti-class-title">评分规则：{{charCfg.classTitle}}</div>
+          <div class="arti-stat-ret">
+            <div><strong class="mark-{{artisDetail.markClass}}">{{ad.markClass}}</strong><span>圣遗物评级</span></div>
+            <div><strong>{{ad.mark}}</strong><span>圣遗物总分</span></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<div class="artis">
-  <% for(let idx = 1; idx<=(game==='gs'?5:6); idx++) {
-  let ds = ad?.artis[idx]
-  %>
-  {{if idx === 1 && game === 'gs'}}
-  <div class="item no-bg"></div>
-  {{/if}}
-  <div class="item arti {{idx}}">
-    {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
-    <div class="arti-icon">
-      <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
-      <span>+{{ds.level}}</span>
-    </div>
-    <div class="head">
-      <strong>{{ds.name}}</strong>
-      <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
-    </div>
-    <ul class="detail attr">
-      <li class="arti-main">
-        <span class="title">{{artisKeyTitle[ds.main.key]}}</span>
-        <span class="val">+{{ds.main.value}}</span>
-        {{if idx >1 }}
-        <span class="mark">{{ mark( ds.main.mark / 6 ) }}</span>
-        {{else}}
-        <span class="val"> - </span>
-        {{/if}}
-      </li>
-      {{each ds.attrs attr}}
-      {{if attr.key}}
-      <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}"><span
+  <div class="artis">
+    <% for(let idx = 1; idx<=(game==='gs'?5:6); idx++) {
+    let ds = ad?.artis[idx]
+    %>
+    {{if idx === 1 && game === 'gs'}}
+    <div class="item no-bg"></div>
+    {{/if}}
+    <div class="item arti {{idx}}">
+      {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
+      <div class="arti-icon">
+        <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
+        <span>+{{ds.level}}</span>
+      </div>
+      <div class="head">
+        <strong>{{ds.name}}</strong>
+        <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
+      </div>
+      <ul class="detail attr">
+        <li class="arti-main">
+          <span class="title">{{artisKeyTitle[ds.main.key]}}</span>
+          <span class="val">+{{ds.main.value}}</span>
+          {{if idx >1 }}
+          <span class="mark">{{ mark( ds.main.mark / 6 ) }}</span>
+          {{else}}
+          <span class="val"> - </span>
+          {{/if}}
+        </li>
+        {{each ds.attrs attr}}
+        {{if attr.key}}
+        <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}"><span
           class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{artisKeyTitle[attr.key]}} </span><span
           class="val">+{{attr.value}}</span>
-        <span class="mark">{{ ( 46.6 / 6 / 100 * attr._mark ).toFixed(1) }}</span>
-      </li>
-      {{/if}}
-      {{/each}}
-    </ul>
-    <ul class="detail attr mark-calc">
-      <li style="display:none;"></li>
-      <li>
-        <span class="title">总分对齐</span>
-        <span class="val">
+          <span class="mark">{{ ( 46.6 / 6 / 100 * attr._mark ).toFixed(1) }}</span>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ul>
+      <ul class="detail attr mark-calc">
+        <li style="display:none;"></li>
+        <li>
+          <span class="title">总分对齐</span>
+          <span class="val">
            *{{( 66 / (46.6/6/100 * charCfg.posMaxMark[idx]) * 100).toFixed(1)}}%
         </span>
-      </li>
-      {{if idx>2 || game==='sr' }}
-      <li>
-        <span class="title">最优主词缀</span>
-        <span class="val">
+        </li>
+        {{if idx>2 || game==='sr' }}
+        <li>
+          <span class="title">最优主词缀</span>
+          <span class="val">
           {{if game==='sr' && idx<=2 }} - {{else}}
           {{if ds.main.title === '充能效率'}}
           *100%
@@ -89,140 +90,141 @@
          *{{(50  +  50 * mainWeight / charCfg.posMaxMark["m"+idx] ).toFixed(0)}}%
           {{/if}}{{/if}}
         </span>
-      </li>
+        </li>
+        {{/if}}
+
+        <li class="result">
+          <span class="title">最终得分</span>
+          <span class="mark">{{ds.mark}}</span>
+        </li>
+      </ul>
       {{/if}}
-
-      <li class="result">
-        <span class="title">最终得分</span>
-        <span class="mark">{{ds.mark}}</span>
-      </li>
-    </ul>
-    {{/if}}
-  </div>
-  <% } %>
-</div>
-
-{{if changeProfile}}
-<div class="cont">
-  <div class="cont-footer  dmg-desc">
-    <strong>该面板为非实际数据。当前替换命令：</strong> {{changeProfile}}
-  </div>
-</div>
-{{/if}}
-
-<!-- 词条规则 -->
-<div class="cont">
-  <div class="cont-title">
-    {{data.name}}评分规则: {{charCfg.classTitle}}
-  </div>
-  <div class="cont-table mark-table">
-    <div class="tr thead">
-      <div class="th">属性</div>
-      <div>评分权重</div>
-      <div>词条成长</div>
-      <div>每点得分</div>
-      <div>副词条最高分</div>
-      <div>主词条最高分</div>
     </div>
-    {{each attrMap ds key}}
-    {{set keyCfg = charCfg.attrs[key]||{} }}
-    {{if ds.type!== "plus" && keyCfg?.weight > 0}}
-    <div class="tr">
-      <div class="th">{{ds.title}}</div>
-      <div class="td">{{keyCfg?.weight}}</div>
-      <div class="td">{{ds.text}}</div>
-      <div class="td">{{charCfg.attrs[key]?.mark > 0 ? (46.6/6 / 100 * charCfg.attrs[key]?.mark).toFixed(2) : "-"}}
+    <% } %>
+  </div>
+
+  {{if changeProfile}}
+  <div class="cont">
+    <div class="cont-footer  dmg-desc">
+      <strong>该面板为非实际数据。当前替换命令：</strong> {{changeProfile}}
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- 词条规则 -->
+  <div class="cont">
+    <div class="cont-title">
+      {{data.name}}评分规则: {{charCfg.classTitle}}
+    </div>
+    <div class="cont-table mark-table">
+      <div class="tr thead">
+        <div class="th">属性</div>
+        <div>评分权重</div>
+        <div>词条成长</div>
+        <div>每点得分</div>
+        <div>副词条最高分</div>
+        <div>主词条最高分</div>
       </div>
-      <div class="td">
-        {{if ['元素伤害','物伤加成','治疗加成'].includes(ds.title)}}
-        &nbsp; &nbsp; -
+      {{each attrMap ds key}}
+      {{set keyCfg = charCfg.attrs[key]||{} }}
+      {{if ds.type!== "plus" && keyCfg?.weight > 0}}
+      <div class="tr">
+        <div class="th">{{ds.title}}</div>
+        <div class="td">{{keyCfg?.weight}}</div>
+        <div class="td">{{ds.text}}</div>
+        <div class="td">{{charCfg.attrs[key]?.mark > 0 ? (46.6/6 / 100 * charCfg.attrs[key]?.mark).toFixed(2) : "-"}}
+        </div>
+        <div class="td">
+          {{if ['元素伤害','物伤加成','治疗加成'].includes(ds.title)}}
+          &nbsp; &nbsp; -
+          {{else}}
+          {{ mark(keyCfg?.weight) }}
+          {{/if}}
+        </div>
+        <div class="td"> {{ mark(keyCfg?.weight / 3 ) }}</div>
+      </div>
+      {{/if}}{{/each}}
+    </div>
+    <ul class="cont-msg">
+      <li>每个角色有不同的词条评分权重（已隐藏权重为0的词条），后续会逐步扩充不同流派的规则</li>
+      <li>以权重值100的单词条理论最高分46.6分为基准，根据权重值及当前词条成长计算每点得分</li>
+      <li><strong>词条得分：</strong> 词条数值 * 当前词条每点得分。小攻击、小防御、小生命折算为对应百分比词条进行计分</li>
+      <li><strong>原始总分（对齐前）：</strong>计算所有副词条的评分之和，沙杯头三个位置附加25%的主词条评分</li>
+    </ul>
+  </div>
+
+  <!-- 位置规则 -->
+  <div class="cont">
+    <div class="cont-title">
+      圣遗物评分计算
+    </div>
+    <div class="cont-table mark-table">
+      <div class="tr thead">
+
+        <div class="th">位置</div>
+        {{if game === 'gs'}}
+        <div>生之花</div>
+        <div>死之羽</div>
+        <div>时之沙</div>
+        <div>空之杯</div>
+        <div>理之冠</div>
         {{else}}
-        {{ mark(keyCfg?.weight) }}
+        <div>帽子</div>
+        <div>手套</div>
+        <div>衣服</div>
+        <div>靴子</div>
+        <div>球</div>
+        <div>绳</div>
         {{/if}}
       </div>
-      <div class="td"> {{ mark(keyCfg?.weight / 3 ) }}</div>
+      <div class="tr">
+        <div class="th">最高分(对齐前)</div>
+        {{each charCfg.posMaxMark m key}}
+        {{if key.length === 1}}
+        <div>{{ mark( m / 6 )}}</div>
+        {{/if}}
+        {{/each}}
+      </div>
+      <div class="tr">
+        <div class="th">总分对齐比例</div>
+        {{each charCfg.posMaxMark m key}}
+        {{if key.length === 1}}
+        <div>{{( 66 / (46.6/6/100 * m) * 100).toFixed(1)}}%</div>
+        {{/if}}
+        {{/each}}
+      </div>
+      <div class="tr">
+        <div class="th">最优主词缀权重</div>
+        <div>-</div>
+        <div>-</div>
+        <div>{{charCfg.posMaxMark.m3}}</div>
+        <div>{{charCfg.posMaxMark.m4}}</div>
+        <div>{{charCfg.posMaxMark.m5}}</div>
+      </div>
     </div>
-    {{/if}}{{/each}}
+    <ul class="cont-msg">
+      <li><strong>总分对齐比例: </strong>根据<strong>{{data.name}}</strong>不同圣遗物位置可选词条及评分，计算理论最高原始词条总分。为使不同角色不同位置最终总分对齐，规定圣遗物满分为66分。理论总分对齐比例
+        = 66 / 理论最高原始分 * 100%
+      </li>
+      <li><strong>最优主词缀比例: </strong>对主词条词缀非最优的圣遗物进行评分惩罚。若装备的圣遗物主词条不是当前位置的最高权重主词条或元素杯属性不符，则依据权重差值比例进行分数扣减，最多扣减50%。主词缀为充能时不进行扣减
+      </li>
+      <li><strong>最终得分：</strong>圣遗物最终得分 = 原始总分 * 总分对齐比例 * 最优主词缀比例</li>
+      <li><strong>得分级别：</strong>MAX(&gt;56分) / ACE(&gt;49分) / SSS(&gt;42分) / SS(&gt;35分) / S(&gt;28分) / A / B / C / D
+      </li>
+    </ul>
   </div>
-  <ul class="cont-msg">
-    <li>每个角色有不同的词条评分权重（已隐藏权重为0的词条），后续会逐步扩充不同流派的规则</li>
-    <li>以权重值100的单词条理论最高分46.6分为基准，根据权重值及当前词条成长计算每点得分</li>
-    <li><strong>词条得分：</strong> 词条数值 * 当前词条每点得分。小攻击、小防御、小生命折算为对应百分比词条进行计分</li>
-    <li><strong>原始总分（对齐前）：</strong>计算所有副词条的评分之和，沙杯头三个位置附加25%的主词条评分</li>
-  </ul>
-</div>
 
-<!-- 位置规则 -->
-<div class="cont">
-  <div class="cont-title">
-    圣遗物评分计算
+
+  <div class="cont">
+    <div class="cont-title">圣遗物评分补充说明</div>
+    <ul class="cont-msg">
+      <li>圣遗物评分的目标是对角色圣遗物词条进行一个快速的评估，一般来说评分更高的圣遗物可能会更匹配角色</li>
+      <li>但实际情况下圣遗物各词条的提升并非线性，且需考虑各的词条平衡，故评分仅供参考，请勿过分追求高评分</li>
+      <li>如需更精准的词条评估请使用 <strong>#{{data.name}}伤害</strong>命令进行伤害及词条侧重分析</li>
+      <li>当前评分为<strong>喵喵版评分规则</strong>，根据角色实际需求侧重，对不同角色会使用不同的评分逻辑。</li>
+      <li>喵喵逻辑与通用的评分不同，请勿横向比较分值。当前评分逻辑仍在完善中，如有问题请反馈给喵喵</li>
+      <li>目前为角色通用逻辑，后期会补充同角色不同流派（例如血牛钟离、暴力芭芭拉）的判定及评分逻辑，以使评分更加精准</li>
+    </ul>
   </div>
-  <div class="cont-table mark-table">
-    <div class="tr thead">
-
-      <div class="th">位置</div>
-      {{if game === 'gs'}}
-      <div>生之花</div>
-      <div>死之羽</div>
-      <div>时之沙</div>
-      <div>空之杯</div>
-      <div>理之冠</div>
-      {{else}}
-      <div>帽子</div>
-      <div>手套</div>
-      <div>衣服</div>
-      <div>靴子</div>
-      <div>球</div>
-      <div>绳</div>
-      {{/if}}
-    </div>
-    <div class="tr">
-      <div class="th">最高分(对齐前)</div>
-      {{each charCfg.posMaxMark m key}}
-      {{if key.length === 1}}
-      <div>{{ mark( m / 6 )}}</div>
-      {{/if}}
-      {{/each}}
-    </div>
-    <div class="tr">
-      <div class="th">总分对齐比例</div>
-      {{each charCfg.posMaxMark m key}}
-      {{if key.length === 1}}
-      <div>{{( 66 / (46.6/6/100 * m) * 100).toFixed(1)}}%</div>
-      {{/if}}
-      {{/each}}
-    </div>
-    <div class="tr">
-      <div class="th">最优主词缀权重</div>
-      <div>-</div>
-      <div>-</div>
-      <div>{{charCfg.posMaxMark.m3}}</div>
-      <div>{{charCfg.posMaxMark.m4}}</div>
-      <div>{{charCfg.posMaxMark.m5}}</div>
-    </div>
-  </div>
-  <ul class="cont-msg">
-    <li><strong>总分对齐比例: </strong>根据<strong>{{data.name}}</strong>不同圣遗物位置可选词条及评分，计算理论最高原始词条总分。为使不同角色不同位置最终总分对齐，规定圣遗物满分为66分。理论总分对齐比例
-      = 66 / 理论最高原始分 * 100%
-    </li>
-    <li><strong>最优主词缀比例: </strong>对主词条词缀非最优的圣遗物进行评分惩罚。若装备的圣遗物主词条不是当前位置的最高权重主词条或元素杯属性不符，则依据权重差值比例进行分数扣减，最多扣减50%。主词缀为充能时不进行扣减
-    </li>
-    <li><strong>最终得分：</strong>圣遗物最终得分 = 原始总分 * 总分对齐比例 * 最优主词缀比例</li>
-    <li><strong>得分级别：</strong>ACE²(&gt;56分) / ACE(&gt;49分) / SSS(&gt;42分) / SS(&gt;35分) / S(&gt;28分) / A / B / C / D
-    </li>
-  </ul>
-</div>
-
-
-<div class="cont">
-  <div class="cont-title">圣遗物评分补充说明</div>
-  <ul class="cont-msg">
-    <li>圣遗物评分的目标是对角色圣遗物词条进行一个快速的评估，一般来说评分更高的圣遗物可能会更匹配角色</li>
-    <li>但实际情况下圣遗物各词条的提升并非线性，且需考虑各的词条平衡，故评分仅供参考，请勿过分追求高评分</li>
-    <li>如需更精准的词条评估请使用 <strong>#{{data.name}}伤害</strong>命令进行伤害及词条侧重分析</li>
-    <li>当前评分为<strong>喵喵版评分规则</strong>，根据角色实际需求侧重，对不同角色会使用不同的评分逻辑。</li>
-    <li>喵喵逻辑与通用的评分不同，请勿横向比较分值。当前评分逻辑仍在完善中，如有问题请反馈给喵喵</li>
-    <li>目前为角色通用逻辑，后期会补充同角色不同流派（例如血牛钟离、暴力芭芭拉）的判定及评分逻辑，以使评分更加精准</li>
-  </ul>
 </div>
 {{/block}}

@@ -13,9 +13,13 @@ body {
   background-size: cover;
   overflow: hidden;
 }
+.profile-cont {
+  padding: 0 10px;
+  margin-right: 5px;
+}
 .basic {
   position: relative;
-  margin-bottom: 10px;
+  margin: 0 -15px 15px -10px;
 }
 .basic:after {
   content: "";
@@ -138,6 +142,9 @@ body {
 }
 .char-attr li .value2 .base {
   color: #eee;
+}
+.char-attr li .value2 .base.zero {
+  color: #aaaa;
 }
 .char-attr li .value2 .plus {
   color: #90e800;
@@ -285,42 +292,6 @@ body {
   filter: grayscale(100%);
   opacity: 0.4;
 }
-.elem_anemo .talent-icon {
-  background-image: url(../common/bg/talent-anemo.png);
-}
-.elem_anemo .container {
-  background-image: url(../common/bg/bg-anemo.jpg);
-}
-.elem_cryo .talent-icon {
-  background-image: url(../common/bg/talent-cryo.png);
-}
-.elem_cryo .container {
-  background-image: url(../common/bg/bg-cryo.jpg);
-}
-.elem_electro .talent-icon {
-  background-image: url(../common/bg/talent-electro.png);
-}
-.elem_electro .container {
-  background-image: url(../common/bg/bg-electro.jpg);
-}
-.elem_geo .talent-icon {
-  background-image: url(../common/bg/talent-geo.png);
-}
-.elem_geo .container {
-  background-image: url(../common/bg/bg-geo.jpg);
-}
-.elem_hydro .talent-icon {
-  background-image: url(../common/bg/talent-hydro.png);
-}
-.elem_hydro .container {
-  background-image: url(../common/bg/bg-hydro.jpg);
-}
-.elem_pyro .talent-icon {
-  background-image: url(../common/bg/talent-pyro.png);
-}
-.elem_pyro .container {
-  background-image: url(../common/bg/bg-pyro.jpg);
-}
 .data-info {
   position: absolute;
   bottom: -10px;
@@ -341,7 +312,7 @@ body {
   border-radius: 10px;
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
-  margin: 5px 15px 5px 10px;
+  margin: 5px 0;
   position: relative;
   box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
   overflow: hidden;
@@ -350,11 +321,14 @@ body {
 }
 .dmg-cont {
   display: table;
-  width: calc(100% - 25px);
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
+  width: 100%;
 }
-.dmg-mode .dmg-list .cont-footer {
+.dmg-created-by {
+  padding-left: 5px;
+  float: right;
+}
+.dmg-mode .not-dmg-mode {
   display: none;
 }
 .cont-title {
@@ -399,28 +373,32 @@ body {
 .dmg-cont .tr > div.value-none {
   box-shadow: none;
 }
-.dmg-cont .thead {
+.dmg-cont .tr.thead {
   text-align: center;
 }
-.dmg-cont .thead > div {
+.dmg-cont .tr.thead > div {
   color: #d3bc8e;
   background: rgba(0, 0, 0, 0.4);
   line-height: 40px;
   height: 40px;
+  font-size: 15px;
 }
-.dmg-cont .title,
-.dmg-cont .th {
+.dmg-cont .tr .title,
+.dmg-cont .tr .th {
   color: #d3bc8e;
   padding-right: 15px;
+  padding-left: 5px;
   text-align: right;
   background: rgba(0, 0, 0, 0.4);
   min-width: 100px;
+  font-size: 15px;
+  white-space: nowrap;
 }
 .profile-mode .dmg-idx {
   display: none !important;
 }
 .profile-mode .dmg-title {
-  width: 33.3333%;
+  width: 40%;
 }
 .dmg-mode .dmg-idx,
 .weapon-mode .dmg-idx {
@@ -458,8 +436,7 @@ body {
   display: flex;
   width: 600px;
   flex-wrap: wrap;
-  margin-bottom: 5px;
-  padding: 0 5px;
+  margin: 10px -5px 5px;
 }
 .artis .item {
   width: 185px;
@@ -514,7 +491,7 @@ body {
   font-size: 14px;
 }
 .mark-ACE,
-.mark-ACE² {
+.mark-MAX {
   color: #e85656;
   font-weight: bold;
 }
@@ -538,7 +515,8 @@ body {
   position: initial;
   display: table;
 }
-.artis ul.detail li {
+.artis ul.detail li,
+.arti-info ul.detail li {
   padding: 0 3px;
   font-size: 14px;
   position: relative;
@@ -548,17 +526,20 @@ body {
   height: 26px;
   white-space: nowrap;
 }
-.artis ul.detail li span {
+.artis ul.detail li span,
+.arti-info ul.detail li span {
   position: initial;
   display: table-cell;
   color: #fff;
 }
-.artis ul.detail li span.title {
+.artis ul.detail li span.title,
+.arti-info ul.detail li span.title {
   text-align: left;
   padding-left: 30px;
   font-size: 14px;
 }
-.artis ul.detail li span.title i.eff {
+.artis ul.detail li span.title i.eff,
+.arti-info ul.detail li span.title i.eff {
   position: absolute;
   display: block;
   left: 3px;
@@ -572,7 +553,8 @@ body {
   width: 23px;
   text-align: center;
 }
-.artis ul.detail li span.title i.up-num {
+.artis ul.detail li span.title i.up-num,
+.arti-info ul.detail li span.title i.up-num {
   position: absolute;
   display: block;
   left: 91px;
@@ -584,41 +566,52 @@ body {
   background-repeat: no-repeat;
   background-size: auto 500%;
 }
-.artis ul.detail li span.title i.up-num.up-5 {
+.artis ul.detail li span.title i.up-num.up-5,
+.arti-info ul.detail li span.title i.up-num.up-5 {
   background-position: 0 -8px;
 }
-.artis ul.detail li span.title i.up-num.up-4 {
+.artis ul.detail li span.title i.up-num.up-4,
+.arti-info ul.detail li span.title i.up-num.up-4 {
   background-position: 0 -16px;
 }
-.artis ul.detail li span.title i.up-num.up-3 {
+.artis ul.detail li span.title i.up-num.up-3,
+.arti-info ul.detail li span.title i.up-num.up-3 {
   background-position: 0 -24px;
 }
-.artis ul.detail li span.title i.up-num.up-2 {
+.artis ul.detail li span.title i.up-num.up-2,
+.arti-info ul.detail li span.title i.up-num.up-2 {
   background-position: 0 -32px;
 }
-.artis ul.detail li span.title i.up-num.up-1 {
+.artis ul.detail li span.title i.up-num.up-1,
+.arti-info ul.detail li span.title i.up-num.up-1 {
   background: none !important;
 }
-.artis ul.detail li span.val {
+.artis ul.detail li span.val,
+.arti-info ul.detail li span.val {
   text-align: right;
   padding-right: 10px;
   font-size: 14px;
 }
-.artis ul.detail li.great span.title {
+.artis ul.detail li.great span.title,
+.arti-info ul.detail li.great span.title {
   color: #ffe699;
 }
-.artis ul.detail li.great span.title i.up-num {
+.artis ul.detail li.great span.title i.up-num,
+.arti-info ul.detail li.great span.title i.up-num {
   background-image: url("./imgs/up-num-icon2.png");
   background-size: auto 500%;
 }
-.artis ul.detail li.nouse span {
+.artis ul.detail li.nouse span,
+.arti-info ul.detail li.nouse span {
   color: #888;
 }
-.artis ul.detail li.nouse span i.up-num {
+.artis ul.detail li.nouse span i.up-num,
+.arti-info ul.detail li.nouse span i.up-num {
   background-image: url("./imgs/up-num-icon0.png");
   background-size: auto 500%;
 }
-.artis ul.detail li.arti-main {
+.artis ul.detail li.arti-main,
+.arti-info ul.detail li.arti-main {
   font-size: 16px;
   padding: 3px 3px;
   font-weight: bold;
@@ -646,13 +639,12 @@ body {
   background-position: 0 -80px;
 }
 .artis .weapon {
-  height: 96px;
+  height: 190px;
   overflow: visible;
-  margin-bottom: 10px;
 }
 .artis .weapon .img {
-  width: 106px;
-  height: 106px;
+  width: 100px;
+  height: 100px;
   top: -10px;
   right: -10px;
   position: absolute;
@@ -662,14 +654,11 @@ body {
   background-repeat: no-repeat;
 }
 .artis .weapon .head {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  position: relative;
+  height: 90px;
   padding: 15px 0 10px 15px;
   z-index: 3;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(25, 25, 25, 0.5), rgba(25, 25, 25, 0), rgba(25, 25, 25, 0));
 }
 .artis .weapon .head strong {
@@ -721,9 +710,8 @@ body {
   right: 0;
   height: 26px;
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   line-height: 26px;
-  border-radius: 0 0 10px 10px;
   text-align: center;
   padding: 0 5px 0 10px;
 }
@@ -734,22 +722,41 @@ body {
   color: #ffe699;
   font-weight: bold;
 }
-.artis .arti-stat {
-  height: 84px;
+.artis .weapon .weapon-desc-cont {
+  height: 100px;
+  border-radius: 0 0 10px 10px;
+  background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.artis .weapon .weapon-desc {
+  height: 100px;
+  padding: 6px 5px 7px 10px;
+  color: #bbb;
+  display: table-cell;
+  vertical-align: middle;
+}
+.arti-mark-cont {
+  display: flex;
+}
+.arti-stat {
+  width: 185px;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
 }
 .arti-class-title {
   height: 25px;
-  line-height: 20px;
+  line-height: 25px;
   font-size: 12px;
   color: #fff;
-  padding: 5px 10px 0;
   text-align: center;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 0 2px #000;
+  background: rgba(0, 0, 0, 0.5);
 }
 .arti-stat-ret {
-  height: 55px;
-  padding: 0 10px 5px;
+  height: 78px;
+  padding: 12px 10px 2px;
   width: 100%;
   display: table;
 }
@@ -762,7 +769,50 @@ body {
   display: block;
   height: 35px;
   font-size: 30px;
-  line-height: 35px;
+  line-height: 32px;
+}
+.arti-info {
+  width: 390px;
+}
+.arti-info .arti-all-attr {
+  height: 78px;
+}
+.arti-info .arti-all-attr .arti-attr {
+  position: relative;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 90px;
+  width: 100%;
+}
+.arti-info .arti-all-attr .arti-attr li {
+  width: 33.33%;
+  display: flex;
+}
+.arti-info .arti-all-attr .arti-attr li i.eff {
+  width: 28px !important;
+  top: 6px !important;
+  left: 5px !important;
+}
+.arti-info .arti-all-attr .arti-attr li span.title {
+  padding-left: 36px;
+  width: 60%;
+}
+.arti-info .arti-all-attr .arti-attr li span.val {
+  padding-right: 5px;
+  font-size: 13px;
+  width: 40%;
+}
+.arti-info .arti-notice {
+  height: 25px;
+  line-height: 25px;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 10px;
+  padding-left: 10px;
+  text-align: center;
+  margin-left: 1px;
 }
 .dmg-msg {
   font-size: 13px;
@@ -838,7 +888,7 @@ body {
   font-weight: normal;
 }
 .arti-stat span {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 20px;
   color: #bbb;
 }
@@ -891,7 +941,7 @@ body {
   padding-left: 15px;
 }
 .sr-weapon {
-  margin: 0 15px 5px 10px;
+  margin: 10px 0;
   border-radius: 10px;
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 150%;
@@ -900,8 +950,8 @@ body {
   overflow: hidden;
   display: table;
   color: #fff;
-  min-height: 120px;
-  width: calc(100% - 25px);
+  min-height: 100px;
+  width: 100%;
 }
 .sr-weapon .weapon-img {
   display: table-cell;
@@ -970,13 +1020,15 @@ body {
 }
 .sr-weapon .weapon-desc {
   margin-top: 7px;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+.weapon-desc {
   font-size: 12px;
   font-weight: normal;
   color: #fff;
-  white-space: break-spaces;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 1px 1px 3px rgba(0, 0, 0, 0.4);
+  word-break: break-all;
 }
-.sr-weapon .weapon-desc nobr {
+.weapon-desc nobr {
   color: #ffe699;
   display: inline-block;
   border-radius: 4px;
@@ -989,7 +1041,7 @@ body {
   margin: 0 2px;
 }
 .sr-talent {
-  margin: 0 15px 10px 10px;
+  margin: 10px 0;
   border-radius: 10px;
   background: url("../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 150%;
@@ -999,7 +1051,6 @@ body {
   display: flex;
   color: #fff;
   height: 72px;
-  width: calc(100% - 25px);
   padding: 8px 10px;
 }
 .sr-talent .char-talents {

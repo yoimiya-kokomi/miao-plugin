@@ -1,8 +1,8 @@
 import { Data } from '#miao'
 import lodash from 'lodash'
-import fs from 'fs'
+import fs from 'node:fs'
 
-const charPath = process.cwd() + '/plugins/miao-plugin/resources/meta/character'
+const charPath = process.cwd() + '/plugins/miao-plugin/resources/meta-gs/character'
 let cfgMap = {
   char: {},
   async init () {
@@ -28,7 +28,7 @@ let cfgMap = {
     return fs.existsSync(`${charPath}/${char}/${file}.js`)
   },
   async getCfg (char, file, module = '') {
-    let cfg = await Data.importModule(`resources/meta/character/${char}/${file}.js`, 'miao')
+    let cfg = await Data.importModule(`resources/meta-gs/character/${char}/${file}.js`, 'miao')
     if (module) {
       return cfg[module]
     }

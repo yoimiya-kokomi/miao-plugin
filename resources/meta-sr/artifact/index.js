@@ -1,36 +1,43 @@
-import { Data } from '#miao'
+import { Data, Meta } from '#miao'
 import lodash from 'lodash'
-import artisBuffs from './calc.js'
+import artiBuffs from './calc.js'
+import { mainAttr, subAttr, attrMap } from './meta.js'
+import { artiSetAbbr, aliasCfg, artiAbbr } from './alias.js'
+
+import { usefulAttr } from './artis-mark.js'
 
 let data = Data.readJSON('/resources/meta-sr/artifact/data.json', 'miao')
-let meta = Data.readJSON('/resources/meta-sr/artifact/meta.json', 'miao')
+let metaData = Data.readJSON('/resources/meta-sr/artifact/meta.json', 'miao')
 
-let artiMap = {}
+let setMeta = Meta.create('sr', 'artiSet')
+let artiMeta = Meta.create('sr', 'arti')
+
 let idMap = {}
-let artiSetMap = {}
 lodash.forEach(data, (setData) => {
   let artiSet = {
     name: setData.name,
     effect: setData.skill,
     sets: {}
   }
-  artiSetMap[setData.name] = artiSet
+  setMeta.addDataItem(artiSet.name, artiSet)
 
   lodash.forEach(setData.idxs, (ds, idx) => {
-    artiMap[ds.name] = {
+    artiMeta.addDataItem(ds.name, {
       ...ds,
       set: setData.name,
       setId: setData.id,
       idx
-    }
-    idMap[ds.name] = artiMap[ds.name]
-    lodash.forEach(ds.ids, (star, id) => {
-      idMap[id] = artiMap[ds.name]
     })
+    idMap[ds.name] = lodash.keys(ds.ids).join(',')
     artiSet.sets[idx] = ds.name
   })
 })
 
-export const metaData = meta
-export { artiMap, idMap, artisBuffs, artiSetMap }
-export * from './meta.js'
+setMeta.addAbbr(artiSetAbbr)
+setMeta.addAlias(aliasCfg)
+
+artiMeta.addAbbr(artiAbbr)
+artiMeta.addAlias(idMap, true)
+artiMeta.addMeta({
+  artiBuffs, metaData, usefulAttr, mainAttr, subAttr, attrMap
+})

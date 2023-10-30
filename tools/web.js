@@ -1,6 +1,6 @@
 import express from 'express'
 import template from 'express-art-template'
-import fs from 'fs'
+import fs from 'node:fs'
 import lodash from 'lodash'
 
 /*
