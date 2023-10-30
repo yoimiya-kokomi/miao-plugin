@@ -16,7 +16,7 @@ body {
 .group-rank-icon {
   width: 16px;
   height: 16px;
-  background: url("imgs/mark-icon.png");
+  background: url("./imgs/mark-icon.png");
   background-size: auto 100%;
   display: inline-block;
   vertical-align: bottom;
@@ -55,7 +55,7 @@ body {
   width: 24px;
   height: 24px;
   margin: 13px 12px;
-  background: url('imgs/mark-icon.png');
+  background: url('./imgs/mark-icon.png');
   background-size: auto 100%;
   text-align: center;
   font-size: 12px;
@@ -66,7 +66,7 @@ body {
 .char-idx .idx-icon.mode-dmg.idx-1 {
   width: 48px;
   margin: 13px 0;
-  background-image: url('imgs/mark-icon2.png');
+  background-image: url('./imgs/mark-icon2.png');
   color: rgba(0, 0, 0, 0);
   text-shadow: none;
 }
@@ -342,3 +342,4 @@ body {
   font-size: 12px;
   color: #aaa;
 }
+/*# sourceMappingURL=rank-profile-list.css.map */

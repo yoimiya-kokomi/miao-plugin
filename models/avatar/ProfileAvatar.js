@@ -38,7 +38,7 @@ const ProfileAvatar = {
       return false
     }
     // 检查武器及天赋
-    if (!avatar.weapon || lodash.isUndefined(avatar.weapon.promote) || !avatar.talent) {
+    if (avatar.isGs && (!avatar.weapon || lodash.isUndefined(avatar.weapon.promote) || !avatar.talent)) {
       return false
     }
     // 检查圣遗物词条是否完备
