@@ -9,19 +9,12 @@ export const details = [{
   params: { tBuff: true },
   dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值'])
 }, {
-  title: '战技持续治疗量',
-  dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * talent.e['复活·百分比生命'] + talent.e['复活·固定值'])
-}, {
-  title: '战技持续治疗量(目标生命<=30%)',
-  params: { tBuff: true },
-  dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * talent.e['复活·百分比生命'] + talent.e['复活·固定值'])
-}, {
   title: '终结技治疗量',
-  dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * talent.e['百分比生命'] + talent.e['固定值'])
+  dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * talent.q['百分比生命'] + talent.q['固定值'])
 }, {
   title: '终结技治疗量(目标生命<=30%)',
   params: { tBuff: true },
-  dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * talent.e['百分比生命'] + talent.e['固定值'])
+  dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * talent.q['百分比生命'] + talent.q['固定值'])
 }, {
   title: '1命治疗量',
   params: { tBuff: true },
@@ -54,3 +47,5 @@ export const buffs = [{
     heal: 10
   }
 }]
+
+export const createdBy = 'Aluxes'

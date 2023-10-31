@@ -277,7 +277,7 @@ const ProfileChange = {
     }
 
     // 设置圣遗物
-    let artis = getSource(ds.artis)?.artis?.artis || {}
+    let artis = getSource(ds.artis)?.artis?.toJSON() || {}
     for (let idx = 1; idx <= (isGs ? 5 : 6); idx++) {
       if (ds['arti' + idx]) {
         let source = getSource(ds['arti' + idx])
@@ -290,8 +290,8 @@ const ProfileChange = {
         let as = ArtifactSet.get(ds.artisSet[artisIdx], game)
         if (as) {
           artis[idx].id = as.getArti(idx)?.getIdByStar(artis[idx].star || 5)
-          artis[idx]._name = artis[idx].name = as.getArtiName(idx)
-          artis[idx]._set = artis[idx].set = as.name
+          artis[idx].name = as.getArtiName(idx)
+          artis[idx].set = as.name
         }
       }
     }

@@ -36,7 +36,7 @@ const Serv = {
     let servType = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 9: 2 }[uid[0]]
 
     // 获取原神、星铁对应服务选择的配置
-    let servCfg = Cfg.get(isGs ? 'profileServer' : 'srProfileServer', '0').toString() || '0'
+    let servCfg = (Cfg.get(isGs ? 'profileServer' : 'srProfileServer', '0') || '0').toString()
     let servIdx = servCfg[servType] || servCfg[0] || '0'
 
     // 设置为自动或1时，如果具备token则使用miao

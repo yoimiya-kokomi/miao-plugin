@@ -56,3 +56,5 @@ export const buffs = [{
     atkPct: 25
   }
 }]
+
+export const createdBy = 'Aluxes'

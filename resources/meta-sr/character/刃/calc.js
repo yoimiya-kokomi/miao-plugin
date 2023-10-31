@@ -96,3 +96,5 @@ export const buffs = [{
     tPlus: ({ attr, calc }) => calc(attr.hp) * 0.5
   }
 }]
+
+export const createdBy = 'Aluxes'

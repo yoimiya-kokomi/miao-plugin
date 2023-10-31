@@ -41,6 +41,10 @@ let Avatar = {
       return false
     }
     let bg = char.getCardImg(Cfg.get('charPicSe', false))
+    if (!bg) {
+      e.reply(`${char.name}暂无角色图片`)
+      return true
+    }
     if (renderType === 'photo') {
       e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/${bg.img}`))
       return true

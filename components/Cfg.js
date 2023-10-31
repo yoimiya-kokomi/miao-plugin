@@ -22,11 +22,12 @@ try {
 }
 
 let Cfg = {
-  get (rote) {
+  get (rote, def = '') {
     if (Version.isMiao && miaoCfg[rote]) {
       return true
     }
-    return lodash.get(cfg, rote)
+    let ret = lodash.get(cfg, rote)
+    return lodash.isUndefined(cfg) ? def : ret
   },
   set (rote, val) {
     cfg[rote] = val

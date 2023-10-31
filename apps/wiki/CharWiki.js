@@ -76,6 +76,10 @@ const CharWiki = {
         e.reply('暂不支持该角色图鉴展示')
         return true
       }
+      if (char.isSr) {
+        e.reply('暂不支持星铁角色')
+        return true
+      }
       return await CharWiki.render({ e, char })
     } else if (mode === 'material') {
       return CharMaterial.render({ e, char })

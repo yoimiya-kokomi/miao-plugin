@@ -44,7 +44,8 @@ const CharImg = {
     let img = lodash.sample(list)
     if (!img) {
       if (def) {
-        img = '/character-img/default/01.jpg'
+        // img = '/character-img/default/01.jpg'
+        return false
       } else {
         return false
       }
