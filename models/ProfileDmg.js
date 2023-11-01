@@ -12,6 +12,7 @@ export default class ProfileDmg extends Base {
     super()
     this.profile = profile
     this.game = game
+    this._update = profile._update
     if (profile && profile.id) {
       let { id } = profile
       this.char = Character.get(id)

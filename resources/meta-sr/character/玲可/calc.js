@@ -40,3 +40,5 @@ export const buffs = [{
     _hpPlus: ({ calc, attr }) => calc(attr.hp) * 0.06
   }
 }]
+
+export const createdBy = 'Aluxes'

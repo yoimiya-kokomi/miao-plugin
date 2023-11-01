@@ -1,5 +1,12 @@
 body, .container {
-  width: 650px;
+  width: 660px;
+}
+
+.main-pic {
+  @n: 1.1;
+  width: 1400px * @n;
+  height: 500px * @n;
+  margin-left: -545px * @n;
 }
 
 .container > .cont {
@@ -81,12 +88,22 @@ body, .container {
     opacity: 0;
   }
 
+  ul.detail.attr-detail {
+    border-radius: 0;
+  }
+
   ul.detail li span {
     width: initial;
 
+    &.val {
+      padding-right: 8px;
+    }
+
     &.mark {
       text-align: right;
-      padding-right: 10px;
+      padding-left: 5px;
+      padding-right: 6px;
+      background: rgba(0, 0, 0, .4);
 
       &:after {
         content: "分";
@@ -116,7 +133,7 @@ body, .container {
 
   .item {
     height: inherit;
-    width: 200px;
+    width: 205px;
   }
 
 

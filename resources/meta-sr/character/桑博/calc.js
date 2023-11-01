@@ -48,3 +48,5 @@ export const buffs = [{
     dotEnemyDmg: 30
   }
 }]
+
+export const createdBy = 'Aluxes'

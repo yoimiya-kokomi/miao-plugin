@@ -1,6 +1,11 @@
 body,
 .container {
-  width: 650px;
+  width: 660px;
+}
+.main-pic {
+  width: 1540px;
+  height: 550px;
+  margin-left: -599.5px;
 }
 .container > .cont {
   margin-left: 15px;
@@ -61,12 +66,20 @@ body,
 .artis .no-bg {
   opacity: 0;
 }
+.artis ul.detail.attr-detail {
+  border-radius: 0;
+}
 .artis ul.detail li span {
   width: initial;
 }
+.artis ul.detail li span.val {
+  padding-right: 8px;
+}
 .artis ul.detail li span.mark {
   text-align: right;
-  padding-right: 10px;
+  padding-left: 5px;
+  padding-right: 6px;
+  background: rgba(0, 0, 0, 0.4);
 }
 .artis ul.detail li span.mark:after {
   content: "分";
@@ -89,6 +102,6 @@ body,
 }
 .artis .item {
   height: inherit;
-  width: 200px;
+  width: 205px;
 }
 /*# sourceMappingURL=artis-mark.css.map */

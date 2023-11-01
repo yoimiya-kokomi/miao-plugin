@@ -43,7 +43,7 @@ export async function profileArtis (e) {
     charCfg,
     game,
     changeProfile: e._profileMsg
-  }, { e, scale: 1.3 })
+  }, { e, scale: 1.6 / 1.1 })
 }
 
 /*
