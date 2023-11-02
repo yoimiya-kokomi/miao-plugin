@@ -11,7 +11,7 @@ const ProfileStat = {
   },
 
   // 渲染
-  // isAvatarList true:练度统计 false角色列表
+  // isAvatarList true:角色列表 false练度统计
   async render (e, isAvatarList = false) {
     // 缓存时间，单位小时
     let msg = e.msg.replace('#', '').trim()
@@ -19,6 +19,8 @@ const ProfileStat = {
       // 暂时避让一下抽卡分析的关键词
       return false
     }
+
+    let isTalent = !isAvatarList && /天赋|技能/.test(msg)
 
     let mys = await MysApi.init(e)
     if (!mys || !mys.uid) return false
@@ -32,6 +34,7 @@ const ProfileStat = {
       detail: 1,
       talent: isAvatarList ? 0 : 1,
       rank: true,
+      materials: isTalent,
       retType: 'array',
       sort: true
     })

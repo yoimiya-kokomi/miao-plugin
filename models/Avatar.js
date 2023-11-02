@@ -8,6 +8,7 @@ import Artis from './artis/Artis.js'
 import ProfileAvatar from './avatar/ProfileAvatar.js'
 import ArtisMark from './artis/ArtisMark.js'
 import moment from 'moment'
+import MysAvatar from './avatar/MysAvatar.js'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
 
@@ -25,7 +26,6 @@ export default class Avatar extends Base {
     this._artis = new Artis(this.game, true)
     this.setAvatar(ds)
   }
-
 
   get hasTalent () {
     return this.talent && !lodash.isEmpty(this.talent) && !!this._talent
@@ -91,12 +91,49 @@ export default class Avatar extends Base {
     return ''
   }
 
+  get isAvatar () {
+    return true
+  }
+
+  // 是否是合法面板数据
+  get isProfile () {
+    return ProfileAvatar.isProfile(this)
+  }
+
+  // profile.hasData 别名
+  get hasData () {
+    return !!(this.level > 1 || this?.weapon?.name)
+  }
+
+  get imgs () {
+    return this.char.getImgs(this.costume) || {}
+  }
+
+  get costumeSplash () {
+    return ProfileAvatar.getCostumeSplash(this)
+  }
+
+  get hasDmg () {
+    return this.isProfile && !!ProfileDmg.dmgRulePath(this.name, this.game)
+  }
+
+  get artis () {
+    return this._artis
+  }
+
+  static create (ds, game = 'gs') {
+    let profile = new Avatar(ds, game)
+    if (!profile) {
+      return false
+    }
+    return profile
+  }
+
   _get (key) {
     if (charKey.includes(key)) {
       return this.char[key]
     }
   }
-
 
   /**
    * 设置角色基础数据
@@ -253,44 +290,6 @@ export default class Avatar extends Base {
     }
   }
 
-  get isAvatar () {
-    return true
-  }
-
-  // 是否是合法面板数据
-  get isProfile () {
-    return ProfileAvatar.isProfile(this)
-  }
-
-  // profile.hasData 别名
-  get hasData () {
-    return !!(this.level > 1 || this?.weapon?.name)
-  }
-
-  get imgs () {
-    return this.char.getImgs(this.costume) || {}
-  }
-
-  get costumeSplash () {
-    return ProfileAvatar.getCostumeSplash(this)
-  }
-
-  get hasDmg () {
-    return this.isProfile && !!ProfileDmg.dmgRulePath(this.name, this.game)
-  }
-
-  get artis () {
-    return this._artis
-  }
-
-  static create (ds, game = 'gs') {
-    let profile = new Avatar(ds, game)
-    if (!profile) {
-      return false
-    }
-    return profile
-  }
-
   setAvatarBase (ds, source = '') {
     this._now = new Date() * 1
     this.setBasic(ds, source)
@@ -372,5 +371,9 @@ export default class Avatar extends Base {
 
   getArtisDetail (mysArtis = false) {
     return (mysArtis ? this.mysArtis : this.artis).getDetail()
+  }
+
+  getMaterials () {
+    return MysAvatar.getMaterials(this)
   }
 }

@@ -360,8 +360,10 @@ export default class Player extends Base {
    * @param cfg.detail mys-detail数据更新级别，角色列表与详情
    * @param cfg.talent mys-talent数据更新级别，角色天赋数据
    * @param cfg.index mys-index数据更新级别，游戏统计数据
+   * @param cfg.materials 是否返回角色的材料，默认false
    * @param cfg.retType 返回类型，默认id为key对象，设置为array时返回数组
-   * @param cfg.rank 返回为数组时，数据是否排序，排序规则：等级、星级、天赋、命座、武器、好感的顺序排序
+   * @param cfg.rank 面板数据是否参与群排序
+   * @param cfg.sort 返回为数组时，数据是否排序，排序规则：等级、星级、天赋、命座、武器、好感的顺序排序
    * @returns {Promise<any[]|{}>}
    */
 
@@ -390,6 +392,9 @@ export default class Player extends Base {
           rank.getRank(profile)
         }
       }
+      if (cfg.materials) {
+        ds.materials = avatar.getMaterials()
+      }
     })
     if (cfg.retType !== 'array') {
       return avatarRet
@@ -402,4 +407,6 @@ export default class Player extends Base {
     }
     return avatarRet
   }
+
+
 }

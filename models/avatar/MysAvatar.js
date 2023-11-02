@@ -317,6 +317,14 @@ const MysAvatar = {
     stats.avatar5 = avatar5Count
     ret.stats = stats
     return ret
+  },
+
+  getMaterials (avatar) {
+    let ret = {}
+    let { char } = avatar
+    ret.talent = char.getMaterials('talent')
+    ret.weekly = char.getMaterials('weekly')
+    return ret
   }
 }
 export default MysAvatar
