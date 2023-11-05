@@ -9,6 +9,11 @@ body {
 .head-box {
   margin-top: 0;
 }
+.item-icon {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
 #profile-stat {
   display: table;
   border-collapse: collapse;
@@ -357,15 +362,32 @@ body {
   font-size: 12px;
   margin-right: -60px;
 }
+.cont .td-material {
+  padding-left: 5px;
+  text-align: left !important;
+}
+.cont .td-weekly.today,
+.cont .td-material.today {
+  background: rgba(255, 212, 132, 0.35);
+  color: #6f4b00;
+}
+.cont .td-weekly.not-today,
+.cont .td-material.not-today {
+  opacity: 0.7;
+  background: rgba(50, 50, 50, 0.2);
+}
 .cont-notice {
   background: rgba(0, 0, 0, 0.7);
   font-size: 13px;
-  text-align: right;
-  padding: 8px 12px 8px 8px;
+  text-align: center;
+  padding: 10px;
 }
 .cont-notice strong {
   color: #d3bc8e;
   font-weight: normal;
+}
+.cont-notice div {
+  margin: 8px 0 0;
 }
 .cont-notice span {
   margin-left: 5px;

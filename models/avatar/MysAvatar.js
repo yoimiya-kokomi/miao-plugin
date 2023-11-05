@@ -194,7 +194,7 @@ const MysAvatar = {
    * @param player
    * @param ids
    * @param force
-   * @returns {Promise<boolean>}
+   * @returns {Promise<number|boolean>}
    */
   async refreshTalent (player, ids, force = 0) {
     let e = player?.e
@@ -204,15 +204,16 @@ const MysAvatar = {
     }
     force = MysAvatar.checkForce(player, force)
     let needReqIds = MysAvatar.getNeedRefreshIds(player, ids, force)
+    let refreshCount = 0
+    let failCount = 0
     if (needReqIds.length > 0) {
       if (needReqIds.length > 8) {
         e && e.reply('正在获取角色信息，请稍候...')
       }
-      let failCount = 0
       // 并发5，请求天赋数据
       await Data.asyncPool(5, needReqIds, async (id) => {
         let avatar = player.getAvatar(id)
-        if (avatar) {
+        if (!avatar) {
           return false
         }
         if (avatar.isMaxTalent || failCount > 5) {
@@ -222,11 +223,13 @@ const MysAvatar = {
         let ret = await MysAvatar.refreshAvatarTalent(avatar, mys)
         if (ret === false) {
           failCount++
+        } else {
+          refreshCount++
         }
       })
     }
     player.save()
-    return true
+    return refreshCount
   },
 
   async refreshAvatarTalent (avatar, mys) {

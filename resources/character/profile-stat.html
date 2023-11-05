@@ -22,8 +22,13 @@
         <div class="td-talent">A</div>
         <div class="td-talent">E</div>
         <div class="td-talent">Q</div>
+        {{if mode === 'talent'}}
+        <div class="td">周本</div>
+        <div class="td">天赋书</div>
+        {{else}}
         <div class="td-weapon">武器</div>
         <div class="td-artis">圣遗物</div>
+        {{/if}}
       </div>
       {{each avatars avatar idx}}
       {{set talent = avatar.talent}}
@@ -34,8 +39,7 @@
         <div class="td td-name  star{{avatar.star}}">
           <div class="item-banner">
             <div class="item-icon char-icon star{{avatar.star}}">
-              <span class="img"
-                    style="background-image:url({{_res_path}}{{avatar.face}})"></span>
+              <span class="img" style="background-image:url({{_res_path}}{{avatar.face}})"></span>
             </div>
 
             <span class="item-name">{{avatar.abbr||avatar.name}}</span>
@@ -48,7 +52,6 @@
         <div class="td td-fetter">
           <span class="fetter fetter{{['空','荧','旅行者'].includes(avatar.name)?10:avatar.fetter}}"></span>
         </div>
-
         {{set talentLvMap = [0,1,1,1,2,2,3,3,3,4,5] }}
         {{each tk talentKey}}
         {{set curr = (avatar.talent||{})[talentKey] || {original:1,level:'-'} }}
@@ -56,15 +59,29 @@
           {{curr.level}}
         </div>
         {{/each}}
+        {{if mode === 'talent'}}
+        {{set m = avatar.materials || {} }}
+        {{set w = {'周一/周四':1,'周二/周五':2, '周三/周六':3}[m.talent?.num] }}
+        {{set isToday = (week === 6) || (week % 3 + 1 === w)}}
+        <div class="td td-weekly {{isToday?'today':'not-today'}}">
+          <div class="item-icon">
+            <span class="img" style="background-image:url({{_res_path}}{{m.weekly?.icon}})"></span>
+          </div>
+        </div>
+        <div class="td {{isToday?'today':'not-today'}} td-material">
+          <div class="item-icon">
+            <span class="img" style="background-image:url({{_res_path}}{{m.talent?.icon}})"></span>
+          </div>
+          {{m.talent?.label || '-'}} (周{{['1/4','2/5','3/6'][w-1] || '-'}})
+        </div>
 
+        {{else}}
         <div class="td td-weapon  star{{weapon.star}}">
           {{if weapon?.name}}
           <div class="item-banner star{{weapon.star}}">
             <span class="level">{{weapon.level}}</span>
-
             <div class="item-icon weapon-icon">
-              <span class="img"
-                    style="background-image:url({{_res_path}}{{weapon.img}})"></span>
+              <span class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></span>
             </div>
             <span class="cons weapon cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
             <span class="item-name">{{weapon.abbr}}</span>
@@ -90,8 +107,8 @@
             <span class="artis-na">暂无面板数据</span>
             {{/if}}
           </div>
-
         </div>
+        {{/if}}
       </div>
       {{/each}}
     </div>
@@ -105,6 +122,9 @@
       {{/if}}
       {{if ut.mys}}
       <span>米游社: {{ut.mys}}</span>
+      <div>
+        天赋数据每2小时最多更新一次，可通过<strong>#刷新天赋</strong>来强制刷新天赋数据，需具备有效CK
+      </div>
       {{/if}}
       {{else}}
       未绑定CK或CK失效，信息可能不完全。发送<strong>#体力帮助</strong>查看CK绑定方法，发送<strong>#更新面板</strong>更新游戏内角色展柜信息
@@ -113,6 +133,4 @@
 
   </div>
 </div>
-
-
 {{/block}}

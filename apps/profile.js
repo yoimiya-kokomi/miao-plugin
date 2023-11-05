@@ -73,16 +73,28 @@ app.reg({
     name: '面板练度统计',
     fn: ProfileStat.stat,
     rule: /^#(面板|喵喵)练度统计$/,
-    yzRule: /^#*(我的)*(技能|天赋|武器|角色|练度|五|四|5|4|星)+(汇总|统计|列表)(force|五|四|5|4|星)*[ |0-9]*$/,
+    yzRule: /^#*(我的)*(武器|角色|练度|五|四|5|4|星)+(汇总|统计|列表)(force|五|四|5|4|星)*[ |0-9]*$/,
     yzCheck: () => Cfg.get('profileStat', false)
+  },
+
+  talentStat: {
+    name: '天赋统计',
+    fn: ProfileStat.stat,
+    rule: /^#*(我的)*(今日|今天|明日|明天|周.*)?(五|四|5|4|星)?(技能|天赋)+(汇总|统计|列表)?[ |0-9]*$/,
   },
 
   avatarList: {
     name: '角色查询',
     fn: ProfileStat.avatarList,
     rule: /^#喵喵(角色|查询)[ |0-9]*$/,
-    yzRule: /^(#(角色|查询|查询角色|角色查询|人物)[ |0-9]*$)|(^(#*uid|#*UID)\+*[1|2|5-9][0-9]{8}$)|(^#[\+|＋]*[1|2|5-9][0-9]{8})/,
+    yzRule: /^(#(五|四|5|4|星)*(角色|查询|查询角色|角色查询|人物)[ |0-9]*$)|(^(#*uid|#*UID)\+*[1|2|5-9][0-9]{8}$)|(^#[\+|＋]*[1|2|5-9][0-9]{8})/,
     yzCheck: () => Cfg.get('avatarList', false)
+  },
+
+  refreshTalent: {
+    name: '强制刷新天赋',
+    fn: ProfileStat.refreshTalent,
+    rule: /^#(强制)?(刷新|更新)(所有|角色)*(天赋|技能)$/
   },
 
   profileHelp: {
@@ -133,9 +145,9 @@ app.reg({
     rule: /^#(删除全部面板|删除面板|删除面板数据)\s*(\d{9})?$/
   },
 
-  profileReload:{
+  profileReload: {
     name: '重新加载面板',
-    fn:ProfileList.reload,
+    fn: ProfileList.reload,
     rule: /^#(星铁|原神)?(加载|重新加载|重载)面板\s*(\d{9})?$/
   }
 })

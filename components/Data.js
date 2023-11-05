@@ -105,7 +105,7 @@ let Data = {
     return {}
   },
 
-  async setCacheJSON (key, data, EX = 3600 * 24 * 90) {
+  async setCacheJSON (key, data, EX = 3600 * 24 * 365) {
     await redis.set(key, JSON.stringify(data), { EX })
   },
 
