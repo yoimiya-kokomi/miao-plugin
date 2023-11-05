@@ -236,6 +236,17 @@ export default function (step, staticStep) {
         eCpct: step(8),
         qCpct: step(8)
       }
+    }],
+    静水流涌之辉: [{
+      title: '生命值变化时，3层Buff战技伤害提高[eDmg]%',
+      refine: {
+        eDmg: step(8 * 3)
+      }
+    }, {
+      title: '其他角色生命值变化时，2层Buff提高生命上限[hpPct]%',
+      refine: {
+        hpPct: step(14 * 2)
+      }
     }]
   }
 }
