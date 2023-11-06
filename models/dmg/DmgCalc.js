@@ -12,10 +12,15 @@ let DmgCalc = {
       ele, // 元素反应
       basicNum, // 基础数值
       mode, // 模式
+      dynamicData // 动态伤害计算数据
+    } = fnArgs
+    let {
       dynamicDmg = 0, // 动态增伤
+      dynamicPhy = 0, // 动态物伤
+      dynamicCpct = 0, // 动态暴击率
       dynamicCdmg = 0, // 动态暴击伤害
       dynamicEnemyDmg = 0 // 动态易伤
-    } = fnArgs
+    } = dynamicData
     let {
       ds, // 数据集
       attr, // 属性
@@ -38,7 +43,7 @@ let DmgCalc = {
     let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100 + dynamicDmg / 100)
 
     if (ele === 'phy') {
-      dmgNum = (1 + phy.base / 100 + phy.plus / 100)
+      dmgNum = (1 + phy.base / 100 + phy.plus / 100 + dynamicPhy / 100)
     }
 
     // 易伤区
@@ -47,7 +52,8 @@ let DmgCalc = {
       enemyDmgNum = 1 + enemyDmg.base / 100 + enemyDmg.plus / 100 + dynamicEnemyDmg / 100
     }
 
-    let cpctNum = cpct.base / 100 + cpct.plus / 100
+    // 暴击区
+    let cpctNum = cpct.base / 100 + cpct.plus / 100 + dynamicCpct / 100
 
     // 爆伤区
     let cdmgNum = cdmg.base / 100 + cdmg.plus / 100 + dynamicCdmg / 100
@@ -236,7 +242,7 @@ let DmgCalc = {
         // 星铁meta数据天赋为百分比前数字
         pctNum = pctNum * 100
       }
-      return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode, ...dynamicData }, data)
+      return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode, dynamicData }, data)
     }
 
     dmgFn.basic = function (basicNum = 0, talent = false, ele = false, dynamicData = false) {

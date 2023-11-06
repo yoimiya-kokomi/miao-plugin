@@ -2,7 +2,7 @@ export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
-  title: '战技伤害(扩散)',
+  title: '战技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '转魄状态·战技伤害(扩散)',
@@ -64,3 +64,5 @@ export const buffs = [{
     cdmg: 50
   }
 }]
+
+export const createdBy = 'Aluxes'
