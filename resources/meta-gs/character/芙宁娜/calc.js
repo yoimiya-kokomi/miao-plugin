@@ -15,7 +15,7 @@ export const details = [{
 }, {
   title: 'E谢贝蕾妲小姐(螃蟹)·蒸发',
   dmgKey: 'e',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4, 'e')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4, 'e', '蒸发')
 }, {
   title: 'Q万众狂欢·伤害',
   params: { talentQ: true },
