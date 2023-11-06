@@ -33,7 +33,7 @@ class Character extends Base {
     this.game = game
     if (!this.isCustom) {
       let meta = Meta.getData(game, 'char', name)
-      this.meta = meta
+      this.meta = meta || {}
       if (this.isGs) {
         this.elem = Format.elem(elem || meta.elem, 'anemo')
       }
@@ -246,7 +246,7 @@ class Character extends Base {
 
   // 检查老婆类型
   checkWifeType (type) {
-    let { wifeData } = Meta.getMeta(this.game, 'char')
+    let { wifeData } = Meta.getMeta('gs', 'char')
     let key = ['girlfriend', 'boyfriend', 'daughter', 'son'][type] || 'girlfriend'
     return !!wifeData[key]?.[this.id]
   }
@@ -290,7 +290,7 @@ class Character extends Base {
   // 基于角色名获取Character
 
   // 获取详情数据
-  getDetail (elem = '') {
+  getDetail () {
     if (this.meta?._detail) {
       return this.meta._detail
     }
@@ -299,6 +299,7 @@ class Character extends Base {
     }
     try {
       let name = this.isTraveler ? `旅行者/${this.elem}` : this.name
+      this.meta = this.meta || {}
       this.meta._detail = Data.readJSON(`resources/meta-${this.game}/character/${name}/data.json`, 'miao')
     } catch (e) {
       console.log(e)

@@ -6,7 +6,7 @@ const Render = {
     if (!e.runtime) {
       console.log('未找到e.runtime，请升级至最新版Yunzai')
     }
-    return e.runtime.render('miao-plugin', path, params, {
+    return e.runtime.render(cfg.plugin || 'miao-plugin', path, params, {
       retType: cfg.retMsgId ? 'msgId' : 'default',
       beforeRender ({ data }) {
         let pluginName = ''
@@ -21,7 +21,6 @@ const Render = {
         return {
           ...data,
           _res_path: resPath,
-          _miao_path: resPath,
           _layout_path: layoutPath,
           _tpl_path: process.cwd() + '/plugins/miao-plugin/resources/common/tpl/',
           defaultLayout: layoutPath + 'default.html',

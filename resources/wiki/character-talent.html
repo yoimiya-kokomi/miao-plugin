@@ -12,16 +12,16 @@
   </div>
   <div class="head-detail">
     <div class="name">
-      {{if game === 'gs'}} 
-        {{title}}·{{name}} 
+      {{if game === 'gs'}}
+        {{title}}·{{name}}
       {{else}}
         {{name}}
       {{/if}}
     </div>
     <div class="desc">
-      {{if game === 'gs'}} 
+      {{if game === 'gs'}}
         {{@desc}}
-      {{else}} 
+      {{else}}
         {{detail.desc}}
       {{/if}}
     </div>
@@ -54,8 +54,8 @@
 {{each detail.talent talent type}}
 <div class="talent-box elem-bg">
   <div class="talent-detail cont">
-    {{set minLv = game === 'gs' ? 4 : (type==='a' || type ==='a2'?1:4) }}
-    {{set maxLv = game === 'gs' ? (type==='a'?11:13) : (type==='a' || type ==='a2'?7:12)}}
+    {{set minLv = game === 'gs' ? 6 : (type==='a' || type ==='a2'? 1 : 6) }}
+    {{set maxLv = game === 'gs' ? 13 : (type==='a' || type ==='a2' ? 7 : 12 )}}
     <% include(_tpl_path+'/talent-detail.html', [talent, {_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
   </div>
 </div>

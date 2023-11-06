@@ -2499,5 +2499,17 @@
     "name": "苍晶螺",
     "type": "specialty",
     "star": 1
+  },
+  "无光质块": {
+    "id": "n113056",
+    "name": "无光质块",
+    "type": "weekly",
+    "star": 5
+  },
+  "无光丝线": {
+    "id": "n113054",
+    "name": "无光丝线",
+    "type": "weekly",
+    "star": 5
   }
 }

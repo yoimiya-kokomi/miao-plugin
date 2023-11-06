@@ -183,6 +183,7 @@
       "10041": "a"
     },
     "talentCons": {
+      "a": 0,
       "e": 5,
       "q": 3
     }
@@ -1307,7 +1308,11 @@
     "star": 4,
     "elem": "cryo",
     "weapon": "catalyst",
-    "talentId": {},
+    "talentId": {
+      "10881": "a",
+      "10882": "e",
+      "10885": "q"
+    },
     "talentCons": {
       "a": 0,
       "e": 5,
@@ -1322,7 +1327,11 @@
     "star": 5,
     "elem": "hydro",
     "weapon": "sword",
-    "talentId": {},
+    "talentId": {
+      "10891": "a",
+      "10892": "e",
+      "10895": "q"
+    },
     "talentCons": {
       "a": 0,
       "e": 5,
