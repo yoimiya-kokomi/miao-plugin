@@ -19,6 +19,7 @@ const Render = {
         let resPath = data.pluResPath
         const layoutPath = process.cwd() + '/plugins/miao-plugin/resources/common/layout/'
         return {
+          _miao_path: resPath,
           ...data,
           _res_path: resPath,
           _layout_path: layoutPath,
