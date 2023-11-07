@@ -52,8 +52,17 @@ class Artifact extends Base {
     if (name.id || name.name) {
       return Artifact.get(name.id || name.name, name.game || game)
     }
+    // 兼容圣遗物ID获取
+    if (game === 'gs' && /^\d{5}$/.test(name)) {
+      name = name.toString()
+      let artiSet = ArtifactSet.get(name)
+      if (artiSet) {
+        return artiSet.getArti([4, 2, 5, 1, 3][name[3] - 1])
+      }
+    }
+    // 根据名字查询
     let data = Meta.getData(game, 'arti', name)
-    if(data){
+    if (data) {
       return new Artifact(data, game)
     }
     return false

@@ -24,7 +24,7 @@ class ArtifactSet extends Base {
   }
 
   get img () {
-    let arti = Artifact.get(this.sets[1] || this.sets[5], this.game)
+    let arti = Artifact.get(this.idxs[1] || this.idxs[5], this.game)
     return arti ? arti.img : ''
   }
 
@@ -37,6 +37,9 @@ class ArtifactSet extends Base {
   }
 
   static get (name, game = 'gs') {
+    if (game === 'gs' && /^\d{5}$/.test(name)) {
+      name = name.toString().slice(0, 2)
+    }
     let data = Meta.matchGame(game, 'artiSet', name)
     if (data) {
       return new ArtifactSet(data.data, data.game)
@@ -61,8 +64,8 @@ class ArtifactSet extends Base {
   }
 
   // 循环圣遗物套装
-  static eachSet (sets, fn, game = 'gs') {
-    lodash.forEach(sets || [], (v, k) => {
+  static eachSet (idxs, fn, game = 'gs') {
+    lodash.forEach(idxs || [], (v, k) => {
       let artisSet = ArtifactSet.get(k, game)
       if (artisSet) {
         if (v >= 4) {
@@ -74,7 +77,7 @@ class ArtifactSet extends Base {
   }
 
   getArtiName (idx = 1) {
-    return this.sets[idx]
+    return this.idxs[idx]
   }
 
   getArti (idx = 1) {

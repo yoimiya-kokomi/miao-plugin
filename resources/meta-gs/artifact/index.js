@@ -9,30 +9,34 @@ let setMeta = Meta.create('gs', 'artiSet')
 let artiMeta = Meta.create('gs', 'arti')
 
 let artis = Data.readJSON('resources/meta-gs/artifact/data.json', 'miao')
+let setIds = {}
 
 lodash.forEach(artis, (ds) => {
   let artiSet = {
     name: ds.name,
     effect: ds.effect,
-    sets: {}
+    idxs: {}
   }
   setMeta.addDataItem(ds.name, artiSet)
 
-  lodash.forEach(ds.sets, (as, idx) => {
+  lodash.forEach(ds.idxs, (as, idx) => {
     if (as.name) {
       let tmp = {
         set: ds.name,
         name: as.name,
         idx
       }
-      artiSet.sets[idx] = as.name
+      artiSet.idxs[idx] = as.name
       artiMeta.addDataItem(as.name, tmp)
+
+      setIds[artiSet.name] = setIds[artiSet.name] || as.id.toString().slice(0, 2)
     }
   })
 })
 
 setMeta.addAbbr(setAbbr)
 setMeta.addAlias(setAlias)
+setMeta.addAlias(setIds)
 artiMeta.addMeta({
   mainAttr, subAttr, attrMap, attrNameMap, mainIdMap, attrIdMap,
   artiBuffs: calc,

@@ -1,6 +1,19 @@
 import lodash from 'lodash'
-import { attrMap, idsMap, artisIdxMap } from './ProfileMeta.js'
-import { Character, ArtifactSet, Weapon } from '#miao.models'
+import { Character, Artifact, Weapon } from '#miao.models'
+
+const artisIdxMap = {
+  EQUIP_BRACER: 1,
+  EQUIP_NECKLACE: 2,
+  EQUIP_SHOES: 3,
+  EQUIP_RING: 4,
+  EQUIP_DRESS: 5,
+  生之花: 1,
+  死之羽: 2,
+  时之沙: 3,
+  空之杯: 4,
+  理之冠: 5
+}
+
 
 let EnkaData = {
   setAvatar (player, data, dataSource = 'enka') {
@@ -74,49 +87,16 @@ let EnkaData = {
       if (!idx) {
         return
       }
-      let setName = idsMap[flat.setNameTextMapHash] || ''
+      let arti = Artifact.get(ds.itemId)
+      if (!arti) {
+        return true
+      }
       ret[idx] = {
-        name: ArtifactSet.getArtiNameBySet(setName, idx),
+        name: arti.name,
         level: Math.min(20, ((re.level) || 1) - 1),
         star: flat.rankLevel || 5,
         mainId: re.mainPropId,
         attrIds: re.appendPropIdList
-      }
-    })
-    return ret
-  },
-
-  getArtifactBak (data) {
-    let ret = {}
-    let get = function (d) {
-      if (!d) {
-        return {}
-      }
-      let id = d.appendPropId || d.mainPropId || ''
-      id = id.replace('FIGHT_PROP_', '')
-      if (!attrMap[id]) {
-        return {}
-      }
-      return { key: attrMap[id], value: d.statValue }
-    }
-    lodash.forEach(data, (ds) => {
-      let flat = ds.flat || {}
-      let sub = flat.reliquarySubstats || []
-      let idx = artisIdxMap[flat.equipType]
-      if (!idx) {
-        return
-      }
-      let setName = idsMap[flat.setNameTextMapHash] || ''
-      ret[idx] = {
-        name: ArtifactSet.getArtiNameBySet(setName, idx),
-        level: Math.min(20, ((ds.reliquary && ds.reliquary.level) || 1) - 1),
-        main: get(flat.reliquaryMainstat),
-        attrs: [
-          get(sub[0]),
-          get(sub[1]),
-          get(sub[2]),
-          get(sub[3])
-        ]
       }
     })
     return ret

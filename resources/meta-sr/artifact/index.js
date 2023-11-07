@@ -17,7 +17,7 @@ lodash.forEach(data, (setData) => {
   let artiSet = {
     name: setData.name,
     effect: setData.skill,
-    sets: {}
+    idxs: {}
   }
   setMeta.addDataItem(artiSet.name, artiSet)
 
@@ -29,7 +29,7 @@ lodash.forEach(data, (setData) => {
       idx
     })
     idMap[ds.name] = lodash.keys(ds.ids).join(',')
-    artiSet.sets[idx] = ds.name
+    artiSet.idxs[idx] = ds.name
   })
 })
 

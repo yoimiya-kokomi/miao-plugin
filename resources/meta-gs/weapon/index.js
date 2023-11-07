@@ -37,7 +37,7 @@ for (let type in weaponType) {
   // data
   let typeData = await Data.readJSON(`resources/meta-gs/weapon/${type}/data.json`, 'miao')
   lodash.forEach(typeData, (ds) => {
-    data[ds.name] = {
+    data[ds.id] = {
       id: ds.id,
       name: ds.name,
       type,
