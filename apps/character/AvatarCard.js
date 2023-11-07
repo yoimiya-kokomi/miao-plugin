@@ -123,7 +123,12 @@ let Avatar = {
     if (e?.runtime?.gsCfg) {
       let gsCfg = e?.runtime?.gsCfg
       Meta.addAliasFn('gs', 'char', (txt) => {
-        let roleRet = gsCfg.getRole(txt)
+        let roleRet
+        if (gsCfg._getRole) {
+          roleRet = gsCfg._getRole(txt)
+        } else {
+          roleRet = gsCfg.getRole(txt)
+        }
         if (roleRet.name) {
           return roleRet.name
         }

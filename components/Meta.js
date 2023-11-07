@@ -123,6 +123,9 @@ class MetaData {
 
 const MetaFn = (fnKey) => {
   return (game, type, args = '') => {
+    if (!game) {
+      game = 'gs'
+    }
     let meta = Meta.create(game, type)
     return meta[fnKey](args)
   }
@@ -154,7 +157,7 @@ const Meta = {
   // 在各个游戏内匹配，以传入的game优先
   matchGame (game = 'gs', type, txt) {
     txt = lodash.trim(txt + '').toLowerCase()
-    let games = game === 'gs' ? ['gs', 'sr'] : ['sr', 'gs']
+    let games = (!game || game === 'gs') ? ['gs', 'sr'] : ['sr', 'gs']
     for (let currGame of games) {
       let id = Meta.getId(currGame, type, txt)
       if (id) {

@@ -145,6 +145,7 @@ const CharImg = {
         add(`cons${i}`, `imgs/cons-${i}`)
       }
     }
+    imgs.banner = 'meta-sr/character/common/imgs/banner.webp'
     imgs.cons3 = imgs[talentCons[3]]
     imgs.cons5 = imgs[talentCons[5]]
     return imgs
