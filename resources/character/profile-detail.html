@@ -71,7 +71,7 @@
         <div class="char-weapon">
           <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
           <div class="head">
-            <strong>{{weapon.name}}</strong>
+            <strong>{{weapon.sName || weapon.name}}</strong>
             <div class="star star-{{weapon.star}}"></div>
             <span><span class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span> Lv.{{weapon.leve || weapon.level}} </span>
           </div>
@@ -215,7 +215,7 @@
         <div class="item weapon">
           <div class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
           <div class="head">
-            <strong>{{weapon.name}}</strong>
+            <strong>{{weapon.sName || weapon.name}}</strong>
             <span class="info"><span
               class="affix affix-{{weapon.affix}}">精{{weapon.affix}}</span> Lv.{{weapon.leve || weapon.level}} </span>
             <div class="weapon-attr">

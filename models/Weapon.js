@@ -38,6 +38,13 @@ class Weapon extends Base {
     return name.length <= 4 ? name : (abbr || name)
   }
 
+  get sName () {
+    let name = this.name
+    let abbr = this.meta?.abbr
+    name = name.replaceAll(/[「」]/g, '')
+    return name.length <= 8 ? name : (abbr || name)
+  }
+
   get imgs () {
     if (this.isGs) {
       return {

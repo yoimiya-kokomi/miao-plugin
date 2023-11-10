@@ -27,7 +27,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'hp,mastery,cpct,cdmg'
-export const defDmgIdx = 4
+export const defDmgIdx = 3
 
 export const buffs = [{
   title: '芙宁娜天赋：消耗4队友生命值，E伤害提升140%'
@@ -35,7 +35,7 @@ export const buffs = [{
   title: '天赋E·万众狂欢：300层气氛值提升[dmg]%伤害，[heal]%治疗加成',
   data: {
     dmg: ({ talent }) => talent.q['气氛值转化提升伤害比例'] * 300,
-    heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 300
+    heal: ({ talent }) => talent.q['气氛值转化受治疗加成比例'] * 300
   }
 }, {
   title: '芙宁娜被动：基于生命值，提升召唤物伤害[eDmg]%',
@@ -47,7 +47,7 @@ export const buffs = [{
   cons: 1,
   data: {
     dmg: ({ talent }) => talent.q['气氛值转化提升伤害比例'] * 100,
-    heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 100
+    heal: ({ talent }) => talent.q['气氛值转化受治疗加成比例'] * 100
   }
 }, {
   title: '芙宁娜2命：万众狂欢持续期间，满气氛值提升芙宁娜140%生命值',

@@ -137,7 +137,7 @@ export const cfgSchema = {
       notReleasedData: {
         title: '未实装角色数据',
         key: '未实装',
-        def: true,
+        def: false,
         showDesc: true,
         desc: '开启时才能查看未实装角色信息。数据仅供参考，请以游戏正式实装内容为准'
       },
