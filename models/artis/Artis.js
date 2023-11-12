@@ -226,13 +226,19 @@ export default class Artis extends Base {
   isAttr (attr, pos = '') {
     let mainAttr = this.getMainAttr()
     let check = true
-    pos = pos || this.isGs ? '3,4,5' : '3,4,5,6'
+    pos = pos || (this.isGs ? '3,4,5' : '3,4,5,6')
     let dmgIdx = this.isGs ? 4 : 5
+    let attrs = attr.split(',')
     Data.eachStr(pos.toString(), (p) => {
-      let attrs = attr.split(',')
-      if (!attrs.includes(mainAttr[p]) && (p === dmgIdx && !attrs.includes('dmg') && Format.isElem(mainAttr[p]))) {
-        check = false
-        return false
+      let posAttr = mainAttr[p]
+      if (!attrs.includes(posAttr)) {
+        if (p === dmgIdx && attrs.includes('dmg') && Format.isElem(posAttr)) {
+          return true
+        }
+        /* if (/Plus$/.test(posAttr) && attrs.includes(posAttr.replace('Pct', ''))) {
+          return true
+        } */
+        return check = false
       }
     })
     return check
