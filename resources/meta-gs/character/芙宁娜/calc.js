@@ -1,29 +1,29 @@
 export const details = [{
   title: 'E众水歌者治疗',
-  dmg: ({ talent, attr, calc }, { heal }) =>
-    heal(talent.e['众水的歌者治疗量2'][0] * calc(attr.hp) / 100 + talent.e['众水的歌者治疗量2'][1] * 1)
+  dmg: ({ talent, attr }, { heal }) =>
+    heal(talent.e['众水的歌者治疗量2'][0] * attr.hp / 100 + talent.e['众水的歌者治疗量2'][1] * 1)
 }, {
   title: 'E海薇玛夫人(海马)·伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4, 'e')
+  dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['海薇玛夫人伤害'] / 100 * 1.4, 'e')
 }, {
   title: 'E乌瑟勋爵(章鱼)·伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4, 'e')
+  dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['乌瑟勋爵伤害'] / 100 * 1.4, 'e')
 }, {
   title: 'E谢贝蕾妲小姐(螃蟹)·伤害',
   dmgKey: 'e',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4, 'e')
+  dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4, 'e')
 }, {
   title: 'E谢贝蕾妲小姐(螃蟹)·蒸发',
   dmgKey: 'e',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4, 'e', '蒸发')
+  dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4, 'e', '蒸发')
 }, {
   title: 'Q万众狂欢·伤害',
   params: { talentQ: true },
-  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
+  dmg: ({ talent, attr, cons }, { basic }) => basic(attr.hp * (talent.q['技能伤害'] / 100), 'q')
 }, {
   title: 'Q万众狂欢伤害·蒸发',
   params: { talentQ: true },
-  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q', '蒸发')
+  dmg: ({ talent, attr, cons }, { basic }) => basic(attr.hp * (talent.q['技能伤害'] / 100), 'q', '蒸发')
 }]
 
 export const mainAttr = 'hp,mastery,cpct,cdmg'
@@ -40,7 +40,7 @@ export const buffs = [{
 }, {
   title: '芙宁娜被动：基于生命值，提升召唤物伤害[eDmg]%',
   data: {
-    eDmg: ({ calc, attr }) => Math.min(28, (calc(attr.hp)) / 1000 * 0.7)
+    eDmg: ({ attr }) => Math.min(28, attr.hp / 1000 * 0.7)
   }
 }, {
   title: '芙宁娜1命：气氛值层数上限提升100',

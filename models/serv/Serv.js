@@ -79,7 +79,7 @@ const Serv = {
     if (!req) {
       return false
     }
-    let serv = Serv.getServ(e.uid, player.game)
+    let serv = Serv.getServ(e.uid || player.uid, player.game)
     let { uid } = player
     try {
       player._update = []

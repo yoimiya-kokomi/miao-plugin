@@ -4,8 +4,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: 'E刹那之花伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['刹那之花伤害'] * calc(attr.def) / 100 + attr.e.plus
+  dmg: ({ talent, attr }, { basic }) => {
+    let ret = talent.e['刹那之花伤害'] * attr.def / 100 + attr.e.plus
     return basic(ret, 'e')
   }
 }, {
@@ -13,8 +13,8 @@ export const details = [{
   params: {
     half: true
   },
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['刹那之花伤害'] * calc(attr.def) / 100 + attr.e.plus
+  dmg: ({ talent, attr }, { basic }) => {
+    let ret = talent.e['刹那之花伤害'] * attr.def / 100 + attr.e.plus
     return basic(ret, 'e')
   }
 }, {
@@ -41,6 +41,6 @@ export const buffs = [{
   cons: 2,
   sort: 9,
   data: {
-    qPlus: ({ params, attr, calc }) => params.buff === 0 ? 0 : calc(attr.def) * 1.2
+    qPlus: ({ params, attr }) => params.buff === 0 ? 0 : attr.def * 1.2
   }
 }]
