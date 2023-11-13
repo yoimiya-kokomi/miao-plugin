@@ -137,7 +137,7 @@ export default class ProfileDmg extends Base {
 
     buffs = this.getBuffs(buffs)
 
-    let { msg } = DmgAttr.calcAttr({ originalAttr, buffs, meta, params: defParams || {} })
+    let { msg } = DmgAttr.calcAttr({ originalAttr, buffs, meta, params: defParams || {}, game })
     let msgList = []
 
     let ret = []
@@ -172,7 +172,7 @@ export default class ProfileDmg extends Base {
         detail = detail({ ...ds, attr, profile })
       }
       let params = lodash.merge({}, defParams, detail?.params || {})
-      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, meta, params, talent: detail.talent || '' })
+      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, meta, params, talent: detail.talent || '', game })
       if (detail.isStatic) {
         return
       }

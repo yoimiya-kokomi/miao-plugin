@@ -118,7 +118,7 @@ let DmgAttr = {
 
   // 计算属性
   calcAttr ({ originalAttr, buffs, meta, params = {}, incAttr = '', reduceAttr = '', talent = '', game = 'gs' }) {
-    let attr = DmgAttr.getAttr({ originalAttr, game: originalAttr.game })
+    let attr = DmgAttr.getAttr({ originalAttr, game })
     let msg = []
     let { attrMap } = Meta.getMeta(game, 'arti')
 
@@ -202,9 +202,6 @@ let DmgAttr = {
         }
         let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|phy|shield|speed)(Plus|Pct|Inc)?$/.exec(key)
         if (aRet) {
-          if (aRet[1] === 'hp') {
-            console.log(val, key, attr[aRet[1]], val)
-          }
           attr[aRet[1]][aRet[2] ? aRet[2].toLowerCase() : 'plus'] += val * 1 || 0
           return
         }
