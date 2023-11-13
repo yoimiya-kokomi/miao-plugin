@@ -37,24 +37,26 @@ const ProfileChange = {
     }
     const game = char.game
     const isGs = game === 'gs'
-    const keyMap = isGs ? {
-      artis: '圣遗物',
-      arti1: '花,生之花',
-      arti2: '毛,羽,羽毛,死之羽',
-      arti3: '沙,沙漏,表,时之沙',
-      arti4: '杯,杯子,空之杯',
-      arti5: '头,冠,理之冠,礼冠,帽子,帽',
-      weapon: '武器'
-    } : {
-      artis: '圣遗物,遗器',
-      arti1: '头,帽子,头部',
-      arti2: '手,手套,手部',
-      arti3: '衣,衣服,甲,躯干,',
-      arti4: '鞋,靴,鞋子,靴子,脚,脚部',
-      arti5: '球,位面球',
-      arti6: '绳,线,链接绳,连接绳',
-      weapon: '武器,光锥'
-    }
+    const keyMap = isGs
+      ? {
+          artis: '圣遗物',
+          arti1: '花,生之花',
+          arti2: '毛,羽,羽毛,死之羽',
+          arti3: '沙,沙漏,表,时之沙',
+          arti4: '杯,杯子,空之杯',
+          arti5: '头,冠,理之冠,礼冠,帽子,帽',
+          weapon: '武器'
+        }
+      : {
+          artis: '圣遗物,遗器',
+          arti1: '头,帽子,头部',
+          arti2: '手,手套,手部',
+          arti3: '衣,衣服,甲,躯干,',
+          arti4: '鞋,靴,鞋子,靴子,脚,脚部',
+          arti5: '球,位面球',
+          arti6: '绳,线,链接绳,连接绳',
+          weapon: '武器,光锥'
+        }
     let keyTitleMap = {}
     lodash.forEach(keyMap, (val, key) => {
       lodash.forEach(val.split(','), (v) => {
@@ -156,8 +158,9 @@ const ProfileChange = {
       }
 
       // 天赋匹配
-      let talentRet = (isGs ? /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/ :
-        /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/).exec(txt)
+      let talentRet = (isGs
+        ? /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/
+        : /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/).exec(txt)
       if (talentRet) {
         char.talent = {}
         lodash.forEach((isGs ? 'aeq' : 'aetq').split(''), (key, idx) => {
@@ -241,7 +244,7 @@ const ProfileChange = {
       level,
       cons: Data.def(dc.cons, source.cons, 0),
       fetter: source.fetter || 10,
-      elem: char.elem,
+      elem: source.char?.elem || char.elem,
       dataSource: 'change',
       _source: 'change',
       promote,

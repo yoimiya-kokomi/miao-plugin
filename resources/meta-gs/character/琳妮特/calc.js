@@ -32,3 +32,5 @@ export const buffs = [{
     dmg: 20
   }
 }]
+
+export const createdBy = 'Aluxes'

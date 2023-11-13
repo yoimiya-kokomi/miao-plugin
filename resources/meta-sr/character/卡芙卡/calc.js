@@ -57,3 +57,5 @@ export const buffs = [{
     dotData: ({ weapon }) => weapon.affix * 10 + 50
   }
 }]
+
+export const createdBy = 'Aluxes'

@@ -41,3 +41,5 @@ export const buffs = [{
     atkPct: ({ talent }) => talent.t['攻击力提高'] * 5 * 100
   }
 }]
+
+export const createdBy = 'Aluxes'

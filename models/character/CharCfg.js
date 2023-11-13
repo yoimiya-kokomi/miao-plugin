@@ -43,7 +43,7 @@ await cfgMap.init()
 let CharCfg = {
   // 获取角色伤害计算相关配置
   getCalcRule (char) {
-    let cfg = cfgMap.char[char.isTraveler ? '旅行者' : char.name]?.calc
+    let cfg = cfgMap.char[char.isTraveler ? `旅行者/${char.elem}` : char.name]?.calc
     if (!cfg || lodash.isEmpty(cfg)) {
       return false
     }

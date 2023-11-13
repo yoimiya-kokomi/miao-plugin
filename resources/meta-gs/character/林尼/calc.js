@@ -62,3 +62,5 @@ export const buffs = [{
     a2Plus: ({ talent, attr, calc }) => talent.a['礼花术弹伤害'] / 100 * calc(attr.atk) * 0.8
   }
 }]
+
+export const createdBy = 'Aluxes'

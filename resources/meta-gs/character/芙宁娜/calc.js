@@ -19,14 +19,29 @@ export const details = [{
 }, {
   title: 'Q万众狂欢·伤害',
   params: { talentQ: true },
-  dmg: ({ talent, attr, cons }, { basic }) => basic(attr.hp * (talent.q['技能伤害'] / 100), 'q')
+  dmg: ({ talent, attr }, { basic }) => basic(attr.hp * (talent.q['技能伤害'] / 100), 'q')
 }, {
   title: 'Q万众狂欢伤害·蒸发',
   params: { talentQ: true },
-  dmg: ({ talent, attr, cons }, { basic }) => basic(attr.hp * (talent.q['技能伤害'] / 100), 'q', '蒸发')
+  dmg: ({ talent, attr }, { basic }) => basic(attr.hp * (talent.q['技能伤害'] / 100), 'q', '蒸发')
+}, {
+  title: '六命荒刀每秒治疗',
+  cons: 6,
+  params: { talentQ: true },
+  dmg: ({ attr }, { heal }) => heal(attr.hp * 0.04)
+}, {
+  title: '六命荒刀普攻伤害',
+  cons: 6,
+  params: { talentQ: true },
+  dmg: ({ talent, attr }, { basic }) => basic(attr.atk * talent.a['一段伤害'] / 100 + attr.hp * 0.18, 'a')
+}, {
+  title: '六命芒刀普攻伤害',
+  cons: 6,
+  params: { talentQ: true },
+  dmg: ({ talent, attr }, { basic }) => basic(attr.atk * talent.a['一段伤害'] / 100 + attr.hp * 0.43, 'a')
 }]
 
-export const mainAttr = 'hp,mastery,cpct,cdmg'
+export const mainAttr = 'hp,mastery,cpct,cdmg,dmg'
 export const defDmgIdx = 3
 
 export const buffs = [{
@@ -53,6 +68,6 @@ export const buffs = [{
   title: '芙宁娜2命：万众狂欢持续期间，满气氛值提升芙宁娜140%生命值',
   cons: 2,
   data: {
-    hpPct: ({ params }) => params.talentQ ? 140 : 0,
+    hpPct: ({ params }) => params.talentQ ? 140 : 0
   }
 }, 'vaporize']

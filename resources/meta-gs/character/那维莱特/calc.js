@@ -56,3 +56,5 @@ export const buffs = [{
     hpPct: 25
   }
 }]
+
+export const createdBy = 'Aluxes'

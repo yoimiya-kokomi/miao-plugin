@@ -51,3 +51,5 @@ export const buffs = [{
   title: '桂乃芬2命：目标处于灼烧状态时，持续伤害倍率提升40%',
   cons: 2
 }]
+
+export const createdBy = 'Aluxes'

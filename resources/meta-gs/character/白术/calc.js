@@ -13,19 +13,9 @@ export const details = [{
   title: 'Q每跳护盾吸收量',
   dmg: ({ talent, calc, attr }, { shield }) => shield(talent.q['无郤气护盾吸收量2'][0] * calc(attr.hp) / 100 + talent.q['无郤气护盾吸收量2'][1])
 }, {
-  check: ({ cons }) => cons < 6,
   title: 'Q每跳伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['灵气脉技能伤害'], 'q')
 }, {
-  check: ({ cons }) => cons >= 6,
-  title: 'Q每跳伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['灵气脉技能伤害'], 'q')
-}, {
-  check: ({ cons }) => cons < 6,
-  title: 'Q每跳激化伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['灵气脉技能伤害'], 'q', 'spread')
-}, {
-  check: ({ cons }) => cons >= 6,
   title: 'Q每跳激化伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['灵气脉技能伤害'], 'q', 'spread')
 }]

@@ -56,3 +56,5 @@ export const buffs = [{
     qPlus: ({ attr, calc }) => calc(attr.hp) * 1.2
   }
 }]
+
+export const createdBy = 'Aluxes'

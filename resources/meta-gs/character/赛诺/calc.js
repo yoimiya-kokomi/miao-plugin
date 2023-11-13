@@ -123,3 +123,5 @@ export const buffs = [{
     _ePlus: ({ attr, calc }) => calc(attr.mastery) * 2.5
   }
 }, 'aggravate']
+
+export const createdBy = 'Aluxes'

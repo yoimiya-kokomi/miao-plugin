@@ -151,7 +151,7 @@ export default class Avatar extends Base {
     this.trees = this.trees || []
     this._source = ds._source || this._source || '' // 数据源
     this._time = ds._time || this._time || now // 面板最后更新时间
-    this._update = ds._update || this._update || ds._time || now //最后更新时间，包括mys
+    this._update = ds._update || this._update || ds._time || now // 最后更新时间，包括mys
     this._talent = ds._talent || this._talent || ds._time || now // 最后天赋更新时间，包括mys
 
     if (ds.trees) {
@@ -339,7 +339,7 @@ export default class Avatar extends Base {
   // 计算当前profileData的伤害信息
   async calcDmg ({ enemyLv = 91, mode = 'profile', dmgIdx = 0, idxIsInput = false }) {
     if (!this.dmg || this.dmg._update !== this._update) {
-      let ds = this.getData('id,level,attr,cons,artis:artis.sets,trees')
+      let ds = this.getData('id,level,elem,attr,cons,artis:artis.sets,trees')
       ds.talent = lodash.mapValues(this.talent, 'level')
       ds.weapon = Data.getData(this.weapon, 'name,affix')
       ds._update = this._update
@@ -350,9 +350,9 @@ export default class Avatar extends Base {
 
   // toJSON 供保存使用
   toJSON () {
-    let keys = this.isGs ?
-      'name,id,elem,level,promote,fetter,costume,cons,talent:originalTalent' :
-      'name,id,elem,level,promote,cons,talent:originalTalent,trees'
+    let keys = this.isGs
+      ? 'name,id,elem,level,promote,fetter,costume,cons,talent:originalTalent'
+      : 'name,id,elem,level,promote,cons,talent:originalTalent,trees'
     let ret = {
       ...this.getData(keys),
       weapon: Data.getData(this.weapon, this.isGs ? 'name,level,promote,affix' : 'id,level,promote,affix')

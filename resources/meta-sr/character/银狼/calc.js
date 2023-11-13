@@ -54,3 +54,5 @@ export const buffs = [{
     kx: 3
   }
 }]
+
+export const createdBy = 'Aluxes'

@@ -85,7 +85,11 @@ export default class ProfileDmg extends Base {
   }
 
   async getCalcRule () {
-    const cfgPath = ProfileDmg.dmgRulePath(this.char?.name, this.char?.game)
+    let ruleName = this.char?.name
+    if (['空', '荧'].includes(ruleName)) {
+      ruleName = `旅行者/${this.profile.elem}`
+    }
+    const cfgPath = ProfileDmg.dmgRulePath(ruleName, this.char?.game)
     let cfg = {}
     if (cfgPath) {
       cfg = await import(`file://${cfgPath.path}`)

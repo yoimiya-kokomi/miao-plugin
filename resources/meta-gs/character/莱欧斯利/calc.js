@@ -93,3 +93,5 @@ export const buffs = [{
     a2Cdmg: 80
   }
 }, 'melt']
+
+export const createdBy = 'Aluxes'
