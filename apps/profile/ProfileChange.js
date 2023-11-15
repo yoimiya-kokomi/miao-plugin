@@ -118,7 +118,7 @@ const ProfileChange = {
             if (as) { // 球&绳
               change.artisSet = change.artisSet || []
               let ca = change.artisSet
-              ca[as.sets?.[1] ? (ca[0] ? 1 : 0) : 2] = as.name
+              ca[as.idxs?.[1] ? (ca[0] ? 1 : 0) : 2] = as.name
             }
           }
           let ca = change.artisSet

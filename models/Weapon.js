@@ -211,18 +211,17 @@ class Weapon extends Base {
     }
     let skill = this.detail.skill
     let { desc, tables } = skill
-    let reg = /\$(\d)\[(?:i|f1)\](\%?)/g
+    let reg = /\$(\d)\[(i|f1|f2)\](\%?)/g
     let ret
     while ((ret = reg.exec(desc)) !== null) {
-      let idx = ret[1]
-      let pct = ret[2]
+      let [txt, idx, format, pct] = ret
       let value = tables?.[idx]?.[affix - 1]
       if (pct === '%') {
-        value = Format.pct(value)
+        value = Format.pct(value, format === 'f2' ? 2 : 1)
       } else {
         value = Format.comma(value)
       }
-      desc = desc.replaceAll(ret[0], value)
+      desc = desc.replaceAll(txt, value)
     }
     return {
       name: skill.name || '',

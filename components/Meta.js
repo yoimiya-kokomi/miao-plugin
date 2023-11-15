@@ -40,6 +40,7 @@ class MetaData {
     let { data, alias, alias2 } = this
     lodash.forEach(ds, (txt, id) => {
       id = alias[id] || alias2[id] || id
+      alias[txt.toLowerCase()] = id
       if (data[id]) {
         data[id].abbr = txt
       }

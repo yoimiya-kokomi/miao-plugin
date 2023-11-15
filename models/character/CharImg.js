@@ -146,6 +146,7 @@ const CharImg = {
       }
     }
     imgs.banner = 'meta-sr/character/common/imgs/banner.webp'
+    imgs.card = 'meta-sr/character/common/imgs/card.webp'
     imgs.cons3 = imgs[talentCons[3]]
     imgs.cons5 = imgs[talentCons[5]]
     return imgs

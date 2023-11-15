@@ -14,7 +14,7 @@ export default function (staticIdx, keyIdx) {
       return {
         title: '根据能量上限提高数据',
         data: {
-          dmg: ({ sp }) => tables[1] * Math.min(sp, 160)
+          dmg: ({ attr }) => tables[1] * Math.min(attr.sp, 160)
         }
       }
     },
@@ -55,6 +55,17 @@ export default function (staticIdx, keyIdx) {
           data: {
             atkPct: tables[1] * 3,
             dmg: tables[2]
+          }
+        }
+      }
+    ],
+    '片刻，留在眼底': [
+      staticIdx(1, 'cdmg'),
+      (tables) => {
+        return {
+          title: '根据装备者的能量上限提高伤害[dmg]%',
+          data: {
+            dmg: ({ attr }) => tables[2] * Math.min(attr.sp, 180)
           }
         }
       }

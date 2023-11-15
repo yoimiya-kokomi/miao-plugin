@@ -188,5 +188,31 @@ export default {
         cdmg: 10
       }
     }]
-  }
+  },
+  毁烬焚骨的大公: {
+    // TODO: 追加伤害加伤..
+  },
+  幽锁深牢的系囚: {
+    2: attr('atkPct', 12),
+    4: {
+      title: '3层持续伤害下无视18%防御力',
+      data: {
+        ignore: 18
+      }
+    }
+  },
+  苍穹战线格拉默: [attr('atkPct', 12), {
+    title: '装备者速度大于[_speed]时，伤害提高[dmg]%',
+    check: ({ attr }) => attr.speed >= 135,
+    data: {
+      _speed: ({ attr }) => attr.speed < 160 ? 135 : 160,
+      dmg: ({ attr }) => attr.speed < 160 ? 12 : 18
+    }
+  }],
+  梦想之地匹诺康尼: [attr('recharge', 5), {
+    title: '同属性角色伤害提高10%',
+    data: {
+      dmg: 10
+    }
+  }]
 }

@@ -14,7 +14,7 @@ import CharMeta from './character/CharMeta.js'
 import CharCfg from './character/CharCfg.js'
 
 let metaKey = 'abbr,star,elem,weapon,talentId,talentCons,eta'.split(',')
-const detailKey = 'title,allegiance,birth,astro,desc,cncv,jpcv,costume,baseAttr,growAttr,materials,talent,talentData,cons,passive,attr'.split(',')
+const detailKey = 'title,allegiance,birth,astro,desc,cncv,jpcv,costume,baseAttr,growAttr,materials,talent,talentData,cons,passive,attr,sp'.split(',')
 
 class Character extends Base {
   // 默认获取的数据

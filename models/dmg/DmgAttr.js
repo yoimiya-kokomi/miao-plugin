@@ -97,6 +97,7 @@ let DmgAttr = {
           dmg: 0, // 伤害提高
           enemydmg: 0 // 承受伤害提高
         }
+        ret.sp = char.sp * 1
       }
     }
     return ret
