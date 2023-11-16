@@ -5,7 +5,7 @@ import CharMaterial from './CharMaterial.js'
 import { Cfg, Common } from '#miao'
 import { Character } from '#miao.models'
 
-const wikiReg = /^(?:#|喵喵)?(?:星铁)+(.*)(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/
+const wikiReg = /^(?:#|喵喵)?(?:星铁)?(.*)(天赋|技能|命座|命之座|资料|图鉴|照片|写真|图片|图像)$/
 
 const CharWiki = {
   check (e) {
