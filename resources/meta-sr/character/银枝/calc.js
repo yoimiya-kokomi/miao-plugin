@@ -21,7 +21,7 @@ export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
-  title: '天赋-勇气：对当前生命百分比小于等于50%的敌人目标造成的伤害提高[dmg]%',
+  title: '行迹-勇气：对当前生命百分比小于等于50%的敌人目标造成的伤害提高[dmg]%',
   trees: 2,
   data: {
     dmg: 15
