@@ -12,6 +12,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'], 't')
 }]
 
+export const defParams = { tArtisBuffCount: 8 }
 export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg,speed'
 

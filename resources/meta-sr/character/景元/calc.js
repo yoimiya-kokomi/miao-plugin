@@ -29,6 +29,7 @@ export const details = [{
   }
 }]
 
+export const defParams = { tArtisBuffCount: 8 }
 export const defDmgKey = 't'
 export const mainAttr = 'atk,cpct,cdmg,speed'
 

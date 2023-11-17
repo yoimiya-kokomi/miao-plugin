@@ -68,7 +68,7 @@ export default {
   激奏雷电的乐队: {
     2: attr('elec', 10),
     4: {
-      title: '释放战绩时，攻击力提高20%',
+      title: '释放战技时，攻击力提高20%',
       data: {
         atkPct: 20
       }
@@ -190,7 +190,19 @@ export default {
     }]
   },
   毁烬焚骨的大公: {
-    // TODO: 追加伤害加伤..
+    2: {
+      title: '追加攻击造成的伤害提高[tDmg]%',
+      data: {
+        tDmg: 20
+      }
+    },
+    4: {
+      title: '计算[_buffCount]层，提高攻击力[atkPct]%',
+      data: {
+        _buffCount: ({ params }) => params.tArtisBuffCount || 3,
+        atkPct: ({ params }) => (params.tArtisBuffCount || 3) * 6
+      }
+    }
   },
   幽锁深牢的系囚: {
     2: attr('atkPct', 12),
@@ -201,18 +213,22 @@ export default {
       }
     }
   },
-  苍穹战线格拉默: [attr('atkPct', 12), {
-    title: '装备者速度大于[_speed]时，伤害提高[dmg]%',
-    check: ({ attr }) => attr.speed >= 135,
-    data: {
-      _speed: ({ attr }) => attr.speed < 160 ? 135 : 160,
-      dmg: ({ attr }) => attr.speed < 160 ? 12 : 18
-    }
-  }],
-  梦想之地匹诺康尼: [attr('recharge', 5), {
-    title: '同属性角色伤害提高10%',
-    data: {
-      dmg: 10
-    }
-  }]
+  苍穹战线格拉默: {
+    2: [attr('atkPct', 12), {
+      title: '装备者速度大于[_speed]时，伤害提高[dmg]%',
+      check: ({ attr }) => attr.speed >= 135,
+      data: {
+        _speed: ({ attr }) => attr.speed < 160 ? 135 : 160,
+        dmg: ({ attr }) => attr.speed < 160 ? 12 : 18
+      }
+    }]
+  },
+  梦想之地匹诺康尼: {
+    2: [attr('recharge', 5), {
+      title: '同属性角色伤害提高10%',
+      data: {
+        dmg: 10
+      }
+    }]
+  }
 }
