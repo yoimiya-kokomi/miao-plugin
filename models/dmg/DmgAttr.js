@@ -21,7 +21,6 @@ let DmgAttr = {
       ret = lodash.merge({}, originalAttr)
     }
 
-
     // 基础属性
     lodash.forEach('atk,def,hp'.split(','), (key) => {
       ret[key] = AttrItem.create(originalAttr?.[key] || {
@@ -41,7 +40,7 @@ let DmgAttr = {
     })
 
     // 技能属性记录
-    lodash.forEach((game === 'gs' ? 'a,a2,a3,e,q' : 'a,a2,a3,e,e2,q,t').split(','), (key) => {
+    lodash.forEach((game === 'gs' ? 'a,a2,a3,e,q' : 'a,a2,a3,e,e2,q,q2,t').split(','), (key) => {
       ret[key] = ret[key] || {
         pct: 0, // 倍率加成
         multi: 0, // 独立倍率乘区加成，宵宫E等

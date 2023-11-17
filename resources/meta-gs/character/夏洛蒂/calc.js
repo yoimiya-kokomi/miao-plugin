@@ -9,14 +9,14 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: 'Q释放治疗量',
-  dmg: ({ talent, attr, calc }, { heal }) => heal(talent.q['施放治疗量2'][0] / 100 * calc(attr.atk) + talent.q['施放治疗量2'][1])
+  dmg: ({ talent, attr }, { heal }) => heal(talent.q['施放治疗量2'][0] / 100 * attr.atk + talent.q['施放治疗量2'][1])
 }, {
   title: 'Q持续治疗量',
-  dmg: ({ talent, attr, calc }, { heal }) => heal(talent.q['相机持续治疗量2'][0] / 100 * calc(attr.atk) + talent.q['相机持续治疗量2'][1])
+  dmg: ({ talent, attr }, { heal }) => heal(talent.q['相机持续治疗量2'][0] / 100 * attr.atk + talent.q['相机持续治疗量2'][1])
 }, {
   title: '六命额外治疗量',
   cons: 6,
-  dmg: ({ attr, calc }, { heal }) => heal(0.42 * calc(attr.atk))
+  dmg: ({ attr }, { heal }) => heal(0.42 * attr.atk)
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,heal'
