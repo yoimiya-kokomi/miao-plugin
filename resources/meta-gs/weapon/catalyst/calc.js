@@ -182,7 +182,7 @@ export default function (step, staticStep) {
       }
     }],
     遗祀玉珑: [{
-      title: '处于队伍后台超过6秒后，生命值上限提升[hpPct]%，元素精通提升[mastery]点',
+      title: '处于队伍后台超过5秒后，生命值上限提升[hpPct]%，元素精通提升[mastery]点',
       refine: {
         hpPct: step(32),
         mastery: step(40)
