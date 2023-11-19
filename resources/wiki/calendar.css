@@ -151,7 +151,7 @@ body {
   max-width: 500px;
   top: 0;
   bottom: 0;
-  right: 0;
+  right: -10px;
   background-size: 100% auto;
   background-position: left 40%;
 }
@@ -292,7 +292,7 @@ body {
 }
 .cal-abyss-cont .cal-item {
   border-radius: 0;
-  background: url("./imgs/abyss.jpg") #333465 top right no-repeat;
+  background: url("imgs/abyss.jpg") #333465 top right no-repeat;
   position: absolute;
 }
 .cal-abyss-cont .cal-item .info {
@@ -450,4 +450,3 @@ body {
 .daily-talent .card .banner.city-5 .line {
   background: #557dd6;
 }
-/*# sourceMappingURL=calendar.css.map */

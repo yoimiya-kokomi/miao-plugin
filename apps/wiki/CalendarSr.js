@@ -3,7 +3,6 @@ import fetch from 'node-fetch'
 import moment from 'moment'
 import Calendar from './Calendar.js'
 import { Common, Data } from '#miao'
-import { Character } from '#miao.models'
 
 const ignoreIds = [
   257, // 保密测试参与意愿调研
@@ -26,8 +25,11 @@ let CalSr = {
 
     let timeMap
     let timeMapCache = await redis.get('miao:calendarSr:detail')
-    if (timeMapCache) {
+    let gachaImgs
+    let gachaImgsCache = await redis.get('miao:calendarSr:gachaImgs')
+    if (timeMapCache && gachaImgsCache) {
       timeMap = JSON.parse(timeMapCache) || {}
+      gachaImgs = JSON.parse(gachaImgsCache) || {}
     } else {
       let detailApi = 'https://hkrpg-api-static.mihoyo.com/common/hkrpg_cn/announcement/api/getAnnContent?game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&bundle_id=hkrpg_cn&platform=pc&region=prod_gf_cn&level=65&channel_id=1'
       let request2 = await fetch(detailApi)
@@ -49,6 +51,8 @@ let CalSr = {
             }
           }
         })
+
+        gachaImgs = []
         let ret = function (ds) {
           let { ann_id: annId, content, title } = ds
           if (ignoreReg.test(title)) {
@@ -60,6 +64,9 @@ let CalSr = {
           content = /(?:活动时间|活动跃迁|开放时间|开启时间|折扣时间|上架时间)\s*※([^※]+)(※|$)/.exec(content)
           if (!content || !content[1]) {
             return true
+          }
+          if (/活动跃迁/.test(content)) {
+            gachaImgs.push(ds.img)
           }
           content = content[1]
           let annTime = []
@@ -99,7 +106,7 @@ let CalSr = {
       }
       await Data.setCacheJSON('miao:calendarSr:detail', timeMap, 60 * 10)
     }
-    return { listData, timeMap }
+    return { listData, timeMap, gachaImgs }
   },
 
   // 深渊日历信息
@@ -107,7 +114,7 @@ let CalSr = {
     let check = []
     let f = 'YYYY-MM-DD HH:mm:ss'
 
-    let abyss1Start = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').add(5, 'days').subtract(3, 'hours').format(f)
+    let abyss1Start = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').subtract(2, 'days').add(4, 'hours').format(f)
     let abyss1End = moment(abyss1Start).add(14, 'days').format(f)
     let abyss2Start = abyss1End
     let abyss2End = moment(abyss2Start).add(14, 'days').format(f)
@@ -134,11 +141,10 @@ let CalSr = {
     return ret
   },
 
-  getList (ds, target, { startTime, endTime, totalRange, now, timeMap = {} }) {
+  getList (ds, target, { startTime, endTime, totalRange, now, timeMap = {}, gachaImgs = [] }) {
     let type = 'activity'
     let id = ds.ann_id
     let title = ds.title
-    let subTitle = ds.subtitle
     let banner = ds.banner
     let extra = { sort: 5 }
     let detail = timeMap[id] || {}
@@ -146,22 +152,14 @@ let CalSr = {
     if (ignoreIds.includes(id) || ignoreReg.test(title)) {
       return true
     }
-
     if (/流光定影/.test(title)) {
       type = 'weapon'
-      title = title.replace(/(限定5星光锥)/g, '')
       extra.sort = 2
-    } else if (/跃迁/.test(subTitle)) {
+      banner = gachaImgs.shift()
+    } else if (/角色活动跃迁/.test(title)) {
       type = 'character'
-      let regRet = /角色「(.*)(（|\()/.exec(title)
-      if (regRet[1]) {
-        let char = Character.get(regRet[1])
-        extra.banner2 = char.getImgs()?.card
-        extra.face = char.face
-        extra.character = regRet[1]
-        extra.elem = char.elem
-        extra.sort = 1
-      }
+      extra.sort = 1
+      banner = gachaImgs.shift()
     } else if (/无名勋礼/.test(title)) {
       type = 'pass'
     }
@@ -218,14 +216,14 @@ let CalSr = {
     moment.locale('zh-cn')
     let now = moment()
 
-    let { listData, timeMap } = await CalSr.reqCalData()
+    let { listData, timeMap, gachaImgs } = await CalSr.reqCalData()
     let dateList = Calendar.getDateList()
 
     let resultList = []
     let abyss = []
 
-    lodash.forEach(listData.data.list[0].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap }))
-    lodash.forEach(listData.data.pic_list[0].type_list[0].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap }))
+    lodash.forEach(listData.data.list[0].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap, gachaImgs }))
+    lodash.forEach(listData.data.pic_list[0].type_list[0].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap, gachaImgs }))
 
     let versionStartTime
     lodash.forEach(listData.data.list[0].list, (ds) => {

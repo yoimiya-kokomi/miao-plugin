@@ -75,7 +75,7 @@
       <div class="banner" style="background-image:url('{{li.banner}}')"></div>
       {{/if}}
       <div class="info">
-        {{if li.type === "character"}}
+        {{if li.type === "character" && game === 'gs'}}
         <img src="{{_res_path}}{{li.face}}" class="character-img"/>
         {{else if li.icon}}
         <img src="{{li.icon}}" class="cal-icon"/>
