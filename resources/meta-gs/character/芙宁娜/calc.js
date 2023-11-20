@@ -54,6 +54,7 @@ export const buffs = [{
   }
 }, {
   title: '芙宁娜被动：基于生命值，提升召唤物伤害[eDmg]%',
+  sort: 9,
   data: {
     eDmg: ({ attr }) => Math.min(28, attr.hp / 1000 * 0.7)
   }
