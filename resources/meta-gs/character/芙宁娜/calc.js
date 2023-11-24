@@ -68,7 +68,8 @@ export const buffs = [{
 }, {
   title: '芙宁娜2命：万众狂欢持续期间，满气氛值提升芙宁娜140%生命值',
   cons: 2,
+  check: ({ params }) => params.talentQ === true,
   data: {
-    hpPct: ({ params }) => params.talentQ ? 140 : 0
+    hpPct: 140
   }
 }, 'vaporize']
