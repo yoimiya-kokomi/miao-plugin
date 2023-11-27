@@ -81,7 +81,7 @@ export const alias = {
   菲米尼: 'Freminet,非米尼,潜水员',
   莱欧斯利: 'Wriothesley,莱欧,枫丹桑博,公爵',
   那维莱特: 'Neuvillette,那维,水龙王,水龙,审判官,海獭,龙王,最高审判官,水之龙王',
-  夏洛蒂: 'Charlotte,夏洛,夏洛帝,记者,小记者',
+  夏洛蒂: 'Charlotte,夏洛,夏洛帝,记者,小记者,佳能400D,400D',
   芙宁娜: 'Furina,Focalors,水神,芙芙,芙卡洛斯,傻芙芙',
   娜维娅: 'navia,大小姐,刺玫会,黄豆,流汗黄豆,黄豆姐',
   夏沃蕾: 'chevreuse,夏沃雷',

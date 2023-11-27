@@ -23,7 +23,7 @@
           {{if cfgItem.type==='num'}} {{cfgItem.def}}{{else}} 开启/关闭{{/if}}
         </span>
         {{/if}}
-        {{if cfgItem.type === 'num'}}
+        {{if cfgItem.type === 'num' ||  cfgItem.type === 'str'}}
         <div class="cfg-status">{{cfg[cfgKey]}}</div>
         {{else}}
         {{if cfg[cfgKey] || (cfgItem.miao && isMiao)}}

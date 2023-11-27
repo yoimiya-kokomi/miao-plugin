@@ -69,7 +69,6 @@ class Character extends Base {
   }
 
   _get (key) {
-
     if (metaKey.includes(key)) {
       return this.meta[key]
     }
@@ -179,6 +178,11 @@ class Character extends Base {
       return false
     }
     return new Character(id)
+  }
+
+  static sample (game = 'gs') {
+    let id = CharId.getRandomId(game)
+    return Character.get(id)
   }
 
   static forEach (fn, type = 'all', game = 'gs') {

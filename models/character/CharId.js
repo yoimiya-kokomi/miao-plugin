@@ -64,6 +64,15 @@ const CharId = {
     return false
   },
 
+  getRandomId (game = 'gs') {
+    let meta = Meta.create(game, 'char')
+    let ids = meta.getIds()
+    if (game === 'gs') {
+      ids = lodash.filter(ids, (id) => /^\d+$/.test(id))
+    }
+    return lodash.sample(ids)
+  },
+
   isTraveler (id) {
     if (id) {
       return [10000007, 10000005, 20000000].includes(id * 1)

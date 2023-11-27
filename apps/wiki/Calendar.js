@@ -218,11 +218,11 @@ let Cal = {
     // 遍历角色数据
     Character.forEach((char) => {
       if (charBirth[char.birth] && (char.isRelease || char.birth !== '1-1')) {
-        charBirth[char.birth].push(char.getData('id,name:sName,star,face'))
+        charBirth[char.birth].push(char.getData('id,name:abbr,star,face'))
       }
       let t = char.materials?.talent
       if (t && charTalent[t] && !char.isTraveler) {
-        let data = char.getData('id,name:sName,star,face')
+        let data = char.getData('id,name:abbr,star,face')
         data.weekly = char.getMaterials('weekly')?.icon
         charTalent[t].chars.push(data)
       }

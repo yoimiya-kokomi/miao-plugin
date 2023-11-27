@@ -134,7 +134,7 @@ export default class ProfileDmg extends Base {
       trees: this.trees()
     }
 
-    let { id, weapon, attr } = profile
+    let { id, weapon, attr, artis } = profile
 
     defParams = defParams || {}
 
@@ -142,7 +142,7 @@ export default class ProfileDmg extends Base {
 
     buffs = this.getBuffs(buffs)
 
-    let { msg } = DmgAttr.calcAttr({ originalAttr, buffs, meta, params: defParams || {}, game })
+    let { msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params: defParams || {}, game })
     let msgList = []
 
     let ret = []
@@ -172,22 +172,24 @@ export default class ProfileDmg extends Base {
       }
 
       if (lodash.isFunction(detail)) {
-        let { attr } = DmgAttr.calcAttr({ originalAttr, buffs, meta })
+        let { attr } = DmgAttr.calcAttr({ originalAttr, artis, buffs, meta })
         let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
         detail = detail({ ...ds, attr, profile })
       }
       let params = lodash.merge({}, defParams, detail?.params || {})
-      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, meta, params, talent: detail.talent || '', game })
+      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params, talent: detail.talent || '', game })
       if (detail.isStatic) {
         return
       }
-      if (detail.check && !detail.check(DmgAttr.getDs(attr, meta, params))) {
+
+      let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
+      ds.artis = artis
+      if (detail.check && !detail.check(ds)) {
         return
       }
       if (detail.cons && meta.cons < detail.cons * 1) {
         return
       }
-      let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
 
       let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, showDetail: detail.showDetail, game })
       let basicDmgRet
@@ -218,7 +220,7 @@ export default class ProfileDmg extends Base {
       }
 
       if (lodash.isFunction(detail)) {
-        let { attr } = DmgAttr.calcAttr({ originalAttr, buffs, meta })
+        let { attr } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta })
         let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
         detail = detail({ ...ds, attr, profile })
       }
@@ -246,6 +248,7 @@ export default class ProfileDmg extends Base {
           let { attr } = DmgAttr.calcAttr({
             originalAttr,
             buffs,
+            artis,
             meta,
             params,
             incAttr,

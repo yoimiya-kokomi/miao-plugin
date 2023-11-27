@@ -55,75 +55,76 @@
   </div>
 </div>
 
-{{if holding.num}}
-{{set cNum ='零一二三四五满'.split('')}}
-<div class="cont cont-bg">
-  <div class="char-holding">
-    <div class="char-pct">
-      <strong>{{holding.num}}</strong>
-      <div class="cons-title">角色持有率</div>
-    </div>
-    <div class="char-cons">
-      {{each holding.cons cons}}
-      <div class="cons-item cons{{cons.cons}}">
-        <div class="talent-icon">
-          {{if cons.cons > 0}}
-          <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs[`cons${cons.cons}`]}})"></div>
-          {{else}}
-          <div class="talent-icon-img" style="background-image:url({{_res_path}}common/item/cons0.webp)"></div>
-          {{/if}}
-        </div>
-        <div class="cons-num">{{cons.num}}</div>
-        <div class="cons-title">{{cNum[cons.cons]}}命</div>
+<div class="wiki-cont">
+  {{if holding.num}}
+  {{set cNum ='零一二三四五满'.split('')}}
+  <div class="cont cont-bg">
+    <div class="char-holding">
+      <div class="char-pct">
+        <strong>{{holding.num}}</strong>
+        <div class="cons-title">角色持有率</div>
       </div>
+      <div class="char-cons">
+        {{each holding.cons cons}}
+        <div class="cons-item cons{{cons.cons}}">
+          <div class="talent-icon">
+            {{if cons.cons > 0}}
+            <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs[`cons${cons.cons}`]}})"></div>
+            {{else}}
+            <div class="talent-icon-img" style="background-image:url({{_res_path}}common/item/cons0.webp)"></div>
+            {{/if}}
+          </div>
+          <div class="cons-num">{{cons.num}}</div>
+          <div class="cons-title">{{cNum[cons.cons]}}命</div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+  <div class="talent-notice">输入<strong>#{{data.abbr}}天赋、#{{data.abbr}}命座</strong>可查看详细天赋/命座信息</div>
+  {{set weapons = usage.weapons || [] }}
+  {{if weapons.length >0}}
+  <div class="cont">
+    <div class="cont-title border-less">常用武器</div>
+    <div class="item-list weapon-list">
+      {{each weapons weapon idx}}
+      {{if idx < 7}}
+      <div class="item item-card">
+        <div class="item-icon star{{weapon.star}}">
+          <div class="item-bg" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
+        </div>
+        <div class="item-value">{{weapon.value}}</div>
+        <div class="item-title">{{weapon.abbr}}</div>
+      </div>
+      {{/if}}
       {{/each}}
     </div>
   </div>
-</div>
-{{/if}}
-
-<div class="talent-notice">输入<strong>#{{data.abbr}}天赋、#{{data.abbr}}命座</strong>可查看详细天赋/命座信息</div>
-{{set weapons = usage.weapons || [] }}
-{{if weapons.length >0}}
-<div class="cont">
-  <div class="cont-title border-less">常用武器</div>
-  <div class="item-list weapon-list">
-    {{each weapons weapon idx}}
-    {{if idx <7}}
-    <div class="item item-card">
-      <div class="item-icon star{{weapon.star}}">
-        <div class="item-bg" style="background-image:url({{_res_path}}{{weapon.img}})"></div>
+  {{/if}}
+  {{set artis = usage.artis || [] }}
+  {{if artis.length >0}}
+  <div class="cont">
+    <div class="cont-title border-less">常用圣遗物<span>持有率、武器、圣遗物统计来自胡桃API，未经允许请勿使用此数据</span></div>
+    <div class="item-list weapon-list artis-list">
+      {{each artis arti idx}}
+      {{if idx < 7}}
+      <div class="item item-card">
+        <div class="item-icon star5 artis-count{{arti.imgs.length}}">
+          {{each arti.imgs img idx}}
+          <div class="item-bg artis{{idx+1}}"
+               style="background-image:url({{_res_path}}{{img}})"></div>
+          {{/each}}
+        </div>
+        <div class="item-value">{{arti.value}}</div>
+        <div class="item-title">{{arti.title}}</div>
       </div>
-      <div class="item-value">{{weapon.value}}</div>
-      <div class="item-title">{{weapon.abbr}}</div>
+      {{/if}}
+      {{/each}}
     </div>
-    {{/if}}
-    {{/each}}
   </div>
+  <div class="talent-notice"></div>
+  {{/if}}
 </div>
-{{/if}}
-{{set artis = usage.artis || [] }}
-{{if artis.length >0}}
-<div class="cont">
-  <div class="cont-title border-less">常用圣遗物<span>持有率、武器、圣遗物统计来自胡桃API，未经允许请勿使用此数据</span></div>
-  <div class="item-list weapon-list artis-list">
-    {{each artis arti idx}}
-    {{if idx <7}}
-    <div class="item item-card">
-      <div class="item-icon star5 artis-count{{arti.imgs.length}}">
-        {{each arti.imgs img idx}}
-        <div class="item-bg artis{{idx+1}}"
-             style="background-image:url({{_res_path}}{{img}})"></div>
-        {{/each}}
-      </div>
-      <div class="item-value">{{arti.value}}</div>
-      <div class="item-title">{{arti.title}}</div>
-    </div>
-    {{/if}}
-    {{/each}}
-  </div>
-</div>
-<div class="talent-notice"></div>
-{{/if}}
-
 {{/block}}

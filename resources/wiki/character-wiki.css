@@ -34,6 +34,10 @@ body {
 .char-meta {
   padding-left: 370px;
 }
+.wiki-cont {
+  padding: 0 10px;
+  margin-right: 5px;
+}
 .detail {
   right: 18px;
 }

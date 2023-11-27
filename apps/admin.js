@@ -71,6 +71,8 @@ async function sysCfg (e) {
     let cfgSchema = cfgSchemaMap[regRet[1]]
     if (cfgSchema.input) {
       val = cfgSchema.input(val)
+    } else if (cfgSchema.type === 'str') {
+      val = (val || cfgSchema.def) + ''
     } else {
       val = cfgSchema.type === 'num' ? (val * 1 || cfgSchema.def) : !/关闭/.test(val)
     }

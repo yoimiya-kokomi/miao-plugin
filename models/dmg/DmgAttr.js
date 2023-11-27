@@ -117,7 +117,7 @@ let DmgAttr = {
   },
 
   // 计算属性
-  calcAttr ({ originalAttr, buffs, meta, params = {}, incAttr = '', reduceAttr = '', talent = '', game = 'gs' }) {
+  calcAttr ({ originalAttr, buffs, meta, artis, params = {}, incAttr = '', reduceAttr = '', talent = '', game = 'gs' }) {
     let attr = DmgAttr.getAttr({ originalAttr, game })
     let msg = []
     let { attrMap } = Meta.getMeta(game, 'arti')
@@ -135,6 +135,7 @@ let DmgAttr = {
       let ds = DmgAttr.getDs(attr, meta, params)
 
       ds.currentTalent = talent
+      ds.artis = artis
 
       if (buff.isStatic) {
         return

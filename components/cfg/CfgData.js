@@ -14,7 +14,11 @@ let cfgData = {
         if (cfgItem.input) {
           val = cfgItem.input(val)
         }
-        ret.push(`export const ${cfgKey} = ${val.toString()}`, '')
+        if (cfgItem.type === 'str') {
+          ret.push(`export const ${cfgKey} = '${val.toString()}'`, '')
+        } else {
+          ret.push(`export const ${cfgKey} = ${val.toString()}`, '')
+        }
       })
     })
     fs.writeFileSync(`${process.cwd()}/plugins/miao-plugin/config/cfg.js`, ret.join('\n'), 'utf8')
