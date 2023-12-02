@@ -68,10 +68,15 @@ export const buffs = [{
     aPlus: ({ attr, calc, talent }) => calc(attr.hp) * talent.e['浪闪伤害值提高'] / 100 * 5
   }
 }, {
-  check: ({ params }) => params.team === true,
-  title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
+  check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
+  title: '班尼特-昔日宗室之仪：增加攻击[atkPct]%',
   data: {
-    atkPct: 20,
+    atkPct: 20
+  }
+}, {
+  check: ({ params }) => params.team === true,
+  title: '风鹰宗室班：增加[atkPlus]点攻击力',
+  data: {
     atkPlus: 1202.35
   }
 }, {

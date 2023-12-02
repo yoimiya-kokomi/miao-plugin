@@ -79,10 +79,15 @@ export const buffs = [{
   }
 }, {
   check: ({ params }) => params.team === true,
-  title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
+  title: '风鹰宗室班：增加[atkPlus]点攻击力',
   data: {
-    atkPct: ({ params }) => 20 * params.ban,
     atkPlus: ({ params }) => 1202.35 * params.ban
+  }
+}, {
+  check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
+  title: '班尼特-昔日宗室之仪：增加攻击[atkPct]%',
+  data: {
+    atkPct: ({ params }) => 20 * params.ban
   }
 }, {
   check: ({ cons, params }) => cons > 2 && params.team === true,
@@ -126,11 +131,16 @@ export const buffs = [{
     mastery: 200
   }
 }, {
+  check: ({ params , artis }) => params.team === true && artis.教官 !== 4 ,
+  title: '九条-教官：精通提升[mastery]',
+  data: {
+    mastery: 120
+  }
+}, {
   check: ({ params }) => params.team === true,
-  title: '教官天空九条：增加[atkPlus]点攻击力与[cdmg]%爆伤,精通[mastery]',
+  title: '天空九条：增加[atkPlus]点攻击力与[cdmg]%爆伤',
   data: {
     atkPlus: 794.2,
-    cdmg: 60,
-    mastery: 120
+    cdmg: 60
   }
 }]
