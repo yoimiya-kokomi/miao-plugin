@@ -48,7 +48,7 @@ app.reg({
   refreshRank: {
     name: '重置排名',
     fn: refreshRank,
-    rule: /^#(刷新|更新|重新加载)(群内|群|全部)*(排名|排行)$/
+    rule: /^#(星铁|原神)?(刷新|更新|重新加载)(群内|群|全部)*(排名|排行)$/
   },
 
   manageRank: {

@@ -57,8 +57,8 @@ const ProfileList = {
 
     let isSelfUid = false
     if (e.runtime) {
-      let uids = e.runtime?.user?.ckUids || []
-      isSelfUid = uids.join(',').split(',').includes(uid + '')
+      let uids = e.runtime?.user?.getCkUidList(e.game) || []
+      isSelfUid = uids.some(ds => ds.uid === uid + '')
     }
     let rank = false
 
