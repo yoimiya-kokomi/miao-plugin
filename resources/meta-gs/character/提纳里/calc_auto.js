@@ -135,17 +135,21 @@ export const buffs = [{
   }
 }, {
   check: ({ cons, params }) => (cons >= 2 && params.team === true),
-  title: '精5千夜草套纳西妲：增加精通[mastery]（双草千夜）,减防[enemyDef]%,减抗[kx]%',
+  title: '精5千夜纳西妲：增加精通[mastery]（双草千夜）,减防[enemyDef]%',
   data: {
     mastery: 148,
-    enemyDef: 30,
-    kx: 30
+    enemyDef: 30
   }
 }, {
   check: ({ cons, params }) => (cons < 2 && params.team === true),
-  title: '精1千夜草套纳西妲：增加精通[mastery]（双草千夜）,减抗[kx]%',
+  title: '精1千夜纳西妲：增加精通[mastery]（双草千夜）',
   data: {
-    mastery: 140,
+    mastery: 140
+  }
+}, {
+  check: ({ params, artis }) => ( params.team === true && artis.深林的记忆 !== 4 ),
+  title: '纳西妲-草套：减抗[kx]%',
+  data: {
     kx: 30
   }
 }, {

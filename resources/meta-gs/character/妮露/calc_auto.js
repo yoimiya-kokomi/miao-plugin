@@ -164,10 +164,15 @@ export const buffs = [{
   }
 }, {
   check: ({ params }) => team2.is(params),
-  title: '千精草套纳西妲开Q：增加[mastery]点精通，减[kx]%草抗',
+  title: '千精纳西妲开Q：增加[mastery]点精通',
   sort: 7,
   data: {
-    mastery: 1000 * 0.25,
+    mastery: 1000 * 0.25
+  }
+}, {
+  check: ({ params , artis }) => team2.is(params) && artis.深林的记忆 !== 4 ,
+  title: '纳西妲-草套：草抗降低[kx]%',
+  data: {
     kx: 30
   }
 }, {

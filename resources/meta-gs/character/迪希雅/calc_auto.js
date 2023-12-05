@@ -93,9 +93,15 @@ export const buffs = [{
   check: ({ params }) => params.team === true,
   title: '风鹰宗室班+双火：增加[atkPlus]点攻击力与[atkPct]%攻击力,获得[dmg]%增伤',
   data: {
-    atkPct: 45,
+    atkPct: 25,
     dmg: 15,
     atkPlus: 1202.35
+  }
+}, {
+  check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
+  title: '班尼特-昔日宗室之仪：增加攻击[atkPct]%',
+  data: {
+    atkPct: 20
   }
 }, {
   check: ({ cons, params }) => cons <= 1 && params.team === true,

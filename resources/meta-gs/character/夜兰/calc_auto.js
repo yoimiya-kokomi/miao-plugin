@@ -108,20 +108,26 @@ export const buffs = [{
   }
 }, {
   check: ({ cons, params }) => (cons >= 2 && params.team === true),
-  title: '千夜教官满命莫娜：获得[dmg]%增伤，双水,暴击[cpct]%,精通[mastery]',
+  title: '千夜满命莫娜：获得[dmg]%增伤，双水,暴击[cpct]%,精通[mastery]',
   data: {
     dmg: 60,
     vaporize: 15,
     hpPct: 25,
     cpct: 15,
-    mastery: 168
+    mastery: 48
   }
 }, {
   check: ({ cons, params }) => (cons < 2 && params.team === true),
-  title: '千夜教官0命莫娜：获得[dmg]%增伤，双水,精通[mastery]',
+  title: '千夜0命莫娜：获得[dmg]%增伤，双水,精通[mastery]',
   data: {
     dmg: 60,
     hpPct: 25,
-    mastery: 168
+    mastery: 48
   }
-}, 'vaporize']
+}, {
+  check: ({ params , artis }) => params.team === true && artis.教官 !== 4 ,
+  title: '莫娜-教官：精通提升[mastery]',
+  data: {
+    mastery: 120
+  }
+},'vaporize']

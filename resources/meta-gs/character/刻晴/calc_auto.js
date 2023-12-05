@@ -100,10 +100,15 @@ export const buffs = [{
   }
 }, {
   check: ({ params }) => params.team === true,
-  title: '宗室天空九条：增加[atkPlus]点攻击力与[cdmg]%爆伤,攻击[atkPct]%',
+  title: '天空九条：增加[atkPlus]点攻击力与[cdmg]%爆伤',
   data: {
     atkPlus: 794.2,
-    cdmg: 60,
+    cdmg: 60
+  }
+}, {
+  check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
+  title: '九条-昔日宗室之仪：增加攻击[atkPct]%',
+  data: {
     atkPct: 20
   }
 }, {
