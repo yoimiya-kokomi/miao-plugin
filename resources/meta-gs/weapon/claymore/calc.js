@@ -179,6 +179,18 @@ export default function (step, staticStep) {
       data: {
         mastery: step(40 * 3)
       }
-    }]
+    }],
+    裁断: [staticStep('atkPct', 20), {
+      title: '满层时，元素战技造成的伤害提升[eDmg]%',
+      refine: {
+        eDmg: step(18 * 2)
+      }
+    }],
+    '「究极霸王超级魔剑」': {
+      title: '攻击力提升[atkPct]%',
+      refine: {
+        atkPct: step(12 * 2)
+      }
+    }
   }
 }

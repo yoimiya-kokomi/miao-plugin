@@ -28,7 +28,7 @@ const _getTargetUid = async function (e) {
     }
     uid = user.uid
     if ((!uid || !uidReg.test(uid)) && !e._replyNeedUid) {
-      e.reply('请先发送【#绑定+你的UID】来绑定查询目标')
+      e.reply('请先发送【#绑定+你的UID】来绑定查询目标\n星铁请使用【#星铁绑定+UID】')
       e._replyNeedUid = true
       return false
     }
