@@ -1,0 +1,534 @@
+@import "../common/base.less";
+
+body {
+  font-size: 16px;
+  color: #1e1f20;
+  max-width: 680px;
+  transform: scale(1.5);
+  transform-origin: 0 0;
+}
+
+.container {
+  width: 680px;
+  padding: 20px 10px;
+  background-color: #f5f1eb;
+  position: relative;
+}
+
+.base_info {
+  display: flex;
+  position: relative;
+  margin-bottom: 9px;
+  color: #504c49;
+  font-size: 24px;
+  padding: 0 10px;
+}
+
+.base_info .id {
+  flex: 1;
+  line-height: 18px;
+  padding-left: 10px;
+}
+
+.base_info .id:before {
+  content: " ";
+  position: absolute;
+  width: 5px;
+  height: 24px;
+  border-radius: 1px;
+  left: 10px;
+  top: -3px;
+  background: #d3bc8d;
+}
+
+.base_info .day {
+  line-height: 18px;
+}
+
+.city-cont {
+  background: #fffa;
+  box-shadow: 1px 1px 5px 0 #aaaa;
+  border-radius: 10px;
+  margin: 15px 5px 15px 0;
+}
+
+.ele_info {
+  display: flex;
+  margin: 0 0 14px 0;
+  padding: 10px;
+  position: relative;
+  background: #d3bc8d75;
+  border-radius: 10px 10px 0 0;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.tab-line {
+  position: absolute;
+  bottom: 0;
+  left: 2%;
+  z-index: 1;
+  height: 1px;
+  background: #eae4db;
+  width: 96%;
+}
+
+.ele_info .area {
+  position: relative;
+}
+
+.tab-item-icon {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  background: #c3b6aa;
+  z-index: 2;
+  border-radius: 50%;
+  left: 21px;
+  top: 7px;
+}
+
+.tab-item-left {
+  background: url(data:image/png;base64,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);
+  background-size: 80px 50px;
+  height: 50px;
+  width: 80px;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.tab-item-middle {
+  z-index: 0;
+  height: 50px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAABAAgMAAABNSE7QAAAACVBMVEUAAADq387x6t7Yd13LAAAAAXRSTlMAQObYZgAAABNJREFUCNdjWACEIBBAZwgEILsBAMsUAXqDjfEAAAAASUVORK5CYII=);
+  background-repeat: repeat-x;
+  background-size: contain;
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  width: auto;
+}
+
+.tab-item-right {
+  background: url(data:image/png;base64,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);
+  background-size: 80px 50px;
+  height: 50px;
+  width: 80px;
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.tab-item-text {
+  position: relative;
+  z-index: 2;
+  color: #504c49;
+  font-weight: 700;
+  font-size: 26px;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 70px;
+  padding-right: 40px;
+}
+
+.ele_box {
+  display: flex;
+}
+
+.ele_box .ele_name {
+  font-size: 22px;
+  color: #504c49;
+  font-weight: 600;
+  line-height: 50px;
+  margin-right: 10px;
+}
+
+.ele_box .ele_img {
+  display: flex;
+}
+
+.ele_box .ele_img .img_item {
+  width: 50px;
+  height: 50px;
+  background-image: url(./imgs/item-bg.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin-right: 3px;
+}
+
+.ele_box .ele_img .img_item img {
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+}
+
+.item_box {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.item {
+  margin: 0px 0 10px 10px;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: 0 3px 6px 0 rgb(132 93 90 / 40%);
+  width: 95px;
+  background: #e9e5dc;
+}
+
+.role_box {
+  overflow: hidden;
+  height: 95px;
+  width: 95px;
+  position: relative;
+  background: #e9e5dc;
+}
+
+.role_box .role_img {
+  width: 100%;
+  overflow: hidden;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  /*filter: contrast(95%);*/
+}
+
+.talent {
+  height: 23px;
+  padding: 3px 3px;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  color: #222;
+}
+
+.talent-item {
+  width: 20px;
+  height: 16px;
+  line-height: 17px;
+  margin: 0 3px;
+  text-align: center;
+  display: block;
+  background-size: contain;
+  opacity: 0.8;
+  position: relative;
+  border-radius: 3px;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.bg5, .bg4 {
+  width: 100%;
+  height: 95px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.bg5 {
+  background-image: url(../common/item/bg5.png);
+}
+
+.bg4 {
+  background-image: url(../common/item/bg4.png);
+}
+
+.item .text_box {
+  font-size: 12px;
+  background: #e9e5dc;
+  padding: 5px 0px 4px 0px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.item .text_box .weapon_box {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  padding: 2px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  margin-left: 3px;
+}
+
+.item .text_box .weapon_boder {
+  border: 1px solid #d3bc8d;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+}
+
+.item .text_box .weapon_img {
+  width: 100%;
+  transform: scale(1.2, 1.2);
+}
+
+.item .text_box .weapon_name_box {
+  margin-left: 3px;
+  white-space: nowrap;
+}
+
+.item .text_box .weapon_name_box .weapon_level {
+  margin-top: 2px;
+}
+
+.item .text_box .weapon_affix {
+  border-radius: 2px;
+  background-color: #ff5722;
+  padding: 2px 3px;
+  color: #fff;
+  display: inline-block;
+  transform: scale(0.8);
+  transform-origin: 12px 7px;
+}
+
+.role_box .fill_img {
+  position: absolute;
+  width: 15px;
+  right: 0;
+  bottom: 17px;
+}
+
+.role_box .desc {
+  font-weight: 500;
+  text-align: center;
+  line-height: 22px;
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ececec;
+  width: 100%;
+  height: 22px;
+  font-size: 16px;
+}
+
+.role_box .role_name {
+  /* overflow: hidden; */
+  white-space: nowrap;
+  margin-top: 5px;
+  font-weight: 500;
+  text-align: center;
+  font-size: 14px;
+  /*margin-top: 5px;*/
+}
+
+.role_box .life {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 9;
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+
+.life1 {
+  background-color: #62a8ea;
+}
+
+.life2 {
+  background-color: #62a8ea;
+}
+
+.life3 {
+  background-color: #45b97c;
+}
+
+.life4 {
+  background-color: #45b97c;
+}
+
+.life5 {
+  background-color: #ff5722;
+}
+
+.life6 {
+  background-color: #ff5722;
+}
+
+.base_info span {
+  margin-left: 5px;
+}
+
+.avatar {
+  height: 24px;
+  width: 24px;
+  background-color: #ffb285;
+  vertical-align: -5px;
+  margin-left: 2px;
+  margin-right: 3px;
+  border: 1px solid #ffb285;
+  border-radius: 100%;
+}
+
+.fetter {
+  display: inline-block;
+  transform: scale(0.8);
+}
+
+.explain {
+  color: #757c83;
+  font-size: 16px;
+}
+
+.weapon_box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.weapon_item {
+  width: 68px;
+  margin: 0px 0 10px 12px;
+  position: relative;
+}
+
+.weapon_role_box {
+  overflow: hidden;
+  height: 84px;
+  border-radius: 5px;
+  position: relative;
+  /*border: 2px solid #d3bc8d;*/
+  background: #e9e5dc;
+  box-shadow: 0 2px 6px 0 rgb(132 93 90 / 30%);
+}
+
+.weapon_role_box .weapon_role_img {
+  width: 68px;
+  height: 68px;
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  display: block;
+}
+
+.weapon-bg {
+  width: 100%;
+  height: 70px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+
+.bg5 {
+  background-image: url(../common/item/bg5.png);
+}
+
+.bg4 {
+  background-image: url(../common/item/bg4.png);
+}
+
+.bg3 {
+  background-image: url(../common/item/bg3.png);
+}
+
+.bg2 {
+  background-image: url(../common/item/bg2.png);
+}
+
+.bg1 {
+  background-image: url(../common/item/bg1.png);
+}
+
+
+.weapon_role_box .fill_img {
+  position: absolute;
+  width: 15px;
+  right: 0;
+  bottom: 17px;
+}
+
+.weapon_role_box .desc_1 {
+  font-weight: 500;
+  text-align: center;
+  line-height: 18px;
+  position: absolute;
+  bottom: 0;
+  background: #e9e5dc;
+  width: 100%;
+  height: 18px;
+  font-size: 14px;
+}
+
+.role_name {
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 5px;
+  font-weight: 500;
+  text-align: center;
+  font-size: 14px;
+  /*margin-top: 5px;*/
+}
+
+.weapon_role_box .life {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 9;
+  font-size: 13px;
+  text-align: center;
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.life1 {
+  background-color: #62a8ea;
+}
+
+.life2 {
+  background-color: #62a8ea;
+}
+
+.life3 {
+  background-color: #62a8ea;
+}
+
+.life4 {
+  background-color: #ff5722;
+}
+
+.life5 {
+  background-color: #ff5722;
+}
+
+.weapon_user {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  z-index: 9;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  padding: 1px 3px;
+  border-radius: 100%;
+  border: 1px solid #fff;
+  width: 24px;
+  height: 24px;
+  background-color: #4e5362;
+}
+
+.user_img {
+  width: 32px;
+  height: 32px;
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -12px;
+  right: -5px;
+}
+
+.disable {
+  opacity: 0.7;
+  filter: grayscale(40%)
+}

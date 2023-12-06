@@ -77,6 +77,10 @@ class Weapon extends Base {
     return this.star <= 2 ? 4 : 6
   }
 
+  get materials () {
+    return this.getDetail()?.materials || {}
+  }
+
   get maxAffix () {
     if (this.isSr) {
       return 5

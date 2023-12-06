@@ -132,7 +132,7 @@ const CharMeta = {
       }
       ret.push({
         ...mat.getData('label,star,icon,type'),
-        num: cfg.num || mat.getSource() || ''
+        num: cfg.num || mat.source || ''
       })
     })
     return type === 'all' ? ret : ret[0]

@@ -287,6 +287,12 @@ body {
   margin-top: 0;
   margin-bottom: 0;
 }
+.talent-detail.talent-merge .talent-line:nth-child(2) {
+  margin-bottom: 0;
+}
+.talent-detail.talent-merge .talent-line:nth-child(2) .talent-icon {
+  display: none;
+}
 .talent-table {
   text-align: center;
   border-collapse: collapse;

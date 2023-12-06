@@ -1,0 +1,99 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/today-material.css"/>
+{{/block}}
+
+{{block 'main'}}
+
+<div class="main_box">
+  <div class="base_info">
+    <div class="id">
+      <span>ID：{{uid}}</span>
+    </div>
+    <div class="day">
+      <span>{{day}}</span>
+    </div>
+  </div>
+  {{set types = ['talent', 'weapon'] }}
+  {{each types type }}
+  {{each data cityData}}
+  {{set curr = cityData[type] || {} }}
+  {{if curr.data?.length>0}}
+
+  <div class="city-cont">
+    <div class="ele_info">
+      <div class="area">
+        <img class="tab-item-icon" src="{{_res_path}}/common/item/{{cityData.city}}.png"/>
+        <div class="tab-item-left"></div>
+        <div class="tab-item-middle"></div>
+        <div class="tab-item-text">{{cityData.city}}</div>
+        <div class="tab-item-right"></div>
+      </div>
+      <div class="ele_box">
+        <div class="ele_name">{{curr.material?.name}}</div>
+        <div class="ele_img">
+          {{each curr.material?.icons icon}}
+          <div class="img_item">
+            <img src="{{_res_path}}{{icon}}"/>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="tab-line"></div>
+    </div>
+    <!-- talent -->
+    {{if type === 'talent' }}
+    <div class="item_box">
+      {{each curr.data char}}
+      <div class="item  {{char.isMax?'disable':''}}">
+        <div class="role_box">
+          {{ if char.cons>0}}
+          <span class="life life{{char.cons}}"> {{char.cons}}命</span>
+          {{/if}}
+          <div class="bg{{char.star}}"></div>
+          <img class="role_img" src="{{_res_path}}{{char.face}}"/>
+          <div class="desc">Lv.{{char.level}}</div>
+          <!-- <div class="role_name">{{char.name}}</div> -->
+        </div>
+        <div class="talent">
+          {{each char.talent talent}}
+          <span class="talent-item">{{talent.level}}</span>
+          {{/each}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    <!-- weapon -->
+    {{if type === 'weapon'}}
+    <div class="weapon_box">
+      {{each curr.data weapon}}
+      <div class="weapon_item {{weapon.isMax?'disable':''}}">
+              <span class="weapon_user">
+                <span class="user_img" style="background-image:url({{_res_path}}{{weapon.face}})"></span>
+              </span>
+        <div class="weapon_role_box">
+          {{ if weapon.affix>1}}
+          <span class="life life{{weapon.affix}}">{{weapon.affix}}</span>
+          {{/if}}
+          <div class="weapon_bg bg{{weapon.star}}"></div>
+          <span class="weapon_role_img" style="background-image:url({{_res_path}}{{weapon.icon}})"></span>
+          <div class="desc_1">Lv.{{weapon.level}}</div>
+        </div>
+        <div class="role_name">{{weapon.abbr}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+
+  {{/if}}
+  {{/each}}
+  {{/each}}
+
+
+</div>
+<div class="explain">*根据你所拥有的角色查询今天可升天赋角色<br>*仅显现已装备的武器</div>
+{{/block}}

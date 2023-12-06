@@ -36,7 +36,7 @@ const CharWiki = {
     if (['cons', 'talent'].includes(mode) && !Common.cfg('charWikiTalent')) {
       return false
     }
-    let char = Character.get(ret[1])
+    let char = Character.get(ret[1], e.game)
     if (!char || (char.isCustom && mode !== 'pic')) {
       return false
     }
