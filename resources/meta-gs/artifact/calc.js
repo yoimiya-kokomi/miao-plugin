@@ -457,7 +457,7 @@ const buffs = {
         eDmg: 50
       }
     }
-  }
+  },
 
   昔时之歌: {
     2: attr('heal', 15),
