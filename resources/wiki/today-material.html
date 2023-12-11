@@ -22,20 +22,17 @@
   {{if curr.data?.length>0}}
 
   <div class="city-cont">
-    <div class="ele_info">
+    <div class="cont-title">
       <div class="area">
         <img class="tab-item-icon" src="{{_res_path}}/common/item/{{cityData.city}}.png"/>
-        <div class="tab-item-left"></div>
-        <div class="tab-item-middle"></div>
         <div class="tab-item-text">{{cityData.city}}</div>
-        <div class="tab-item-right"></div>
       </div>
       <div class="ele_box">
         <div class="ele_name">{{curr.material?.name}}</div>
         <div class="ele_img">
           {{each curr.material?.icons icon}}
           <div class="img_item">
-            <img src="{{_res_path}}{{icon}}"/>
+            <span class="icon" style="background-image:url({{_res_path}}{{icon}})"></span>
           </div>
           {{/each}}
         </div>
@@ -46,7 +43,7 @@
     {{if type === 'talent' }}
     <div class="item_box">
       {{each curr.data char}}
-      <div class="item  {{char.isMax?'disable':''}}">
+      <div class="item  {{char.isMax?'disable':''}} avatar-card">
         <div class="role_box">
           {{ if char.cons>0}}
           <span class="life life{{char.cons}}"> {{char.cons}}命</span>
@@ -54,11 +51,10 @@
           <div class="bg{{char.star}}"></div>
           <img class="role_img" src="{{_res_path}}{{char.face}}"/>
           <div class="desc">Lv.{{char.level}}</div>
-          <!-- <div class="role_name">{{char.name}}</div> -->
         </div>
-        <div class="talent">
+        <div class="talent avatar-talent">
           {{each char.talent talent}}
-          <span class="talent-item">{{talent.level}}</span>
+          <span class="talent-item{{talent.original>=10?' talent-crown':''}}{{talent.level>talent.original?' talent-plus':''}}">{{talent.level}}</span>
           {{/each}}
         </div>
       </div>
@@ -95,5 +91,9 @@
 
 
 </div>
-<div class="explain">*根据你所拥有的角色查询今天可升天赋角色<br>*仅显现已装备的武器</div>
+<div class="explain">
+  * 根据你所拥有的角色查询今天可升天赋角色，仅显现已装备的武器 <br>
+  * 可通过【#练度统计】（需具备CK），或【#更新面板】更新本地缓存<br>
+  * 绑定CK用户也可通过【#刷新天赋】来强制更新天赋数据
+</div>
 {{/block}}

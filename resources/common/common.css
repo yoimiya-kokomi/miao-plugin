@@ -469,4 +469,10 @@ ul.cont-msg li strong,
   padding: 4px 5px 3px;
   border-radius: 0 0 6px 0;
 }
+.icon {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+}
 /*# sourceMappingURL=common.css.map */

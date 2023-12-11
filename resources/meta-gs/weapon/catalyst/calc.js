@@ -169,10 +169,10 @@ export default function (step, staticStep) {
         dmg: step(8)
       }
     }],
-    金流监督: [staticStep('atkPlus', 16), {
-      title: '攻击力提升[_atkPlus]%',
+    金流监督: [staticStep('atkPct', 16), {
+      title: '攻击力提升[_atkPct]%',
       refine: {
-        _atkPlus: step(16)
+        _atkPct: step(16)
       }
     }, {
       title: '满层下，普通攻击造成的伤害提升[aDmg]%，重击造成的伤害提升[a2Dmg]%',

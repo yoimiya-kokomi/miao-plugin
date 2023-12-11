@@ -72,18 +72,18 @@ const CharTalent = {
   },
   // 获取精炼描述
   getDesc (desc, tables, lv = 5) {
-    let reg = /\$(\d)\[[i|f1]\](\%?)/g
+    let reg = /\$(\d)\[(i|f1|f2)](%?)/g
+
     let ret
 
     let idxFormat = {}
     while ((ret = reg.exec(desc)) !== null) {
-      let idx = ret[1]
-      let pct = ret[2]
+      let [, idx, format, pct] = ret
       let value = tables?.[idx]?.values[lv - 1]
       if (value) {
         if (pct === '%') {
           idxFormat[idx] = 'percent'
-          value = Format.percent(value)
+          value = Format.percent(value, format === 'f2' ? 2 : 1)
         } else {
           idxFormat[idx] = 'comma'
           value = Format.comma(value)

@@ -130,9 +130,11 @@
   margin: 10px 0;
   justify-content: center;
 
+  @width: 82px;
+
   .item {
-    width: 93px;
-    height: 93*1.25px;
+    width: @width;
+    height: @width*1.25;
     background: url('./imgs/exploration.webp') no-repeat;
     background-size: auto 100%;
     border-radius: 4px;
@@ -142,7 +144,7 @@
     align-items: center;
 
     strong {
-      font-size: 22px;
+      font-size: 20px;
       display: block;
       height: 30px;
       line-height: 30px;
@@ -151,10 +153,10 @@
     }
 
     span {
-      margin-top: 58px;
-      font-size: 14px;
-      height: 20px;
-      line-height: 20px;
+      margin-top: 53px;
+      font-size: 13px;
+      height: 16px;
+      line-height: 16px;
       display: block;
       text-shadow: 0 0 1px rgba(0, 0, 0, .5);
     }

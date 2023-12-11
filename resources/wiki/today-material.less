@@ -47,20 +47,27 @@ body {
 
 .city-cont {
   background: #fffa;
-  box-shadow: 1px 1px 5px 0 #aaaa;
-  border-radius: 10px;
+  box-shadow: 1px 1px 5px 0 #aaaa, 0 0 1px 0 #504c49;
+  border-radius: 20px;
   margin: 15px 5px 15px 0;
 }
 
-.ele_info {
+.cont-title {
   display: flex;
-  margin: 0 0 14px 0;
-  padding: 10px;
+  margin: 0 0 5px 0;
+  padding: 0 10px;
   position: relative;
   background: #d3bc8d75;
-  border-radius: 10px 10px 0 0;
+  border-radius: 20px 20px 0 0;
   flex-flow: row nowrap;
   justify-content: space-between;
+  overflow: visible;
+  border-bottom: 1px solid #504c4922;
+
+  .area {
+    position: relative;
+    display: flex;
+  }
 }
 
 .tab-line {
@@ -73,19 +80,14 @@ body {
   width: 96%;
 }
 
-.ele_info .area {
-  position: relative;
-}
 
 .tab-item-icon {
   width: 36px;
   height: 36px;
-  position: absolute;
   background: #c3b6aa;
   z-index: 2;
+  margin: 7px 10px 7px 7px;
   border-radius: 50%;
-  left: 21px;
-  top: 7px;
 }
 
 .tab-item-left {
@@ -130,8 +132,6 @@ body {
   font-size: 26px;
   height: 50px;
   line-height: 50px;
-  padding-left: 70px;
-  padding-right: 40px;
 }
 
 .ele_box {
@@ -151,18 +151,18 @@ body {
 }
 
 .ele_box .ele_img .img_item {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-image: url(./imgs/item-bg.png);
   background-size: 100%;
   background-repeat: no-repeat;
-  margin-right: 3px;
-}
+  margin: 5px;
 
-.ele_box .ele_img .img_item img {
-  padding: 4px;
-  width: 100%;
-  height: 100%;
+  .icon {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
 }
 
 .item_box {
@@ -199,18 +199,18 @@ body {
 }
 
 .talent {
-  height: 23px;
-  padding: 3px 3px;
+  height: 25px;
+  padding: 3px 3px 1px;
   display: flex;
   justify-content: center;
-  font-size: 16px;
+  font-size: 15px;
   color: #222;
 }
 
 .talent-item {
-  width: 20px;
-  height: 16px;
-  line-height: 17px;
+  width: 22px;
+  height: 18px;
+  line-height: 18px;
   margin: 0 3px;
   text-align: center;
   display: block;
@@ -219,6 +219,18 @@ body {
   position: relative;
   border-radius: 3px;
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+
+  &.talent-plus {
+    font-weight: bold;
+    color: #0284b9;
+    box-shadow: 0 0 2px 0 #0008;
+  }
+
+  &.talent-crown {
+    background: #d3bc8e;
+    color: #3a2702;
+    box-shadow: 0 0 2px 0 #000;
+  }
 }
 
 .bg5, .bg4 {
@@ -381,11 +393,14 @@ body {
 .weapon_box {
   display: flex;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+  padding: 5px 0 0 6px;
 }
 
 .weapon_item {
   width: 68px;
-  margin: 0px 0 10px 12px;
+  margin: 5px 6px;
   position: relative;
 }
 
@@ -529,6 +544,25 @@ body {
 }
 
 .disable {
+  position: relative;
   opacity: 0.7;
-  filter: grayscale(40%)
+  filter: grayscale(40%);
+
+  &:after {
+    display: none;
+    content: "满";
+    position: absolute;
+    width: 22px;
+    height: 16px;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    margin: 0 0 0 -15px;
+    background: #ff5722;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 16px;
+  }
 }
+

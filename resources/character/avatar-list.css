@@ -105,8 +105,8 @@
   justify-content: center;
 }
 .exploration .item {
-  width: 93px;
-  height: 116.25px;
+  width: 82px;
+  height: 102.5px;
   background: url('./imgs/exploration.webp') no-repeat;
   background-size: auto 100%;
   border-radius: 4px;
@@ -116,7 +116,7 @@
   align-items: center;
 }
 .exploration .item strong {
-  font-size: 22px;
+  font-size: 20px;
   display: block;
   height: 30px;
   line-height: 30px;
@@ -124,10 +124,10 @@
   font-weight: normal;
 }
 .exploration .item span {
-  margin-top: 58px;
-  font-size: 14px;
-  height: 20px;
-  line-height: 20px;
+  margin-top: 53px;
+  font-size: 13px;
+  height: 16px;
+  line-height: 16px;
   display: block;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
