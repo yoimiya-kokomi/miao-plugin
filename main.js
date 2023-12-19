@@ -1,27 +1,21 @@
-import { createApps } from 'alemonjs'
+import { createApp } from 'alemonjs'
 import { apps } from './index.js'
-const app = createApps(import.meta.url)
-const arg = /^#?(\*|星铁|星轨|穹轨|星穹|崩铁|星穹铁道|崩坏星穹铁道|铁道)+/
-app.setMessage(async e => {
-  e.isSr = true
-  e.isGs = true
-  await runtime.init(e)
-  Object.defineProperty(e, 'isSr', {
-    get: () => e.game === 'sr',
-    set: (v) => { e.game = v ? 'sr' : 'gs' }
-  })
-  Object.defineProperty(e, 'isGs', {
-    get: () => e.game === 'gs',
-    set: (v) => { e.game = v ? 'gs' : 'sr' }
-  })
-  if (arg.test(e.msg)) {
-    e.game = 'sr'
-    e.msg = e.msg.replace(arg, '#星铁')
-  }
-  e.sender = {}
-  e.sender.card = e.user_name
-  return e
-})
-app.setCharacter('#')
-app.component(apps)
-app.mount()
+/**
+ * *******
+ * 创建应用 createApp
+ * 重定义  reSetEvent
+ * 切割消息 replace
+ * 使用 use
+ * 挂载 mount
+ * *******
+ * global.YUNZAI_GENSHIN 原神星铁重定义方法 | 方便A崽统一修改
+ * global.YUNZAI_EVENT 非原神星铁相关的重定义方法 | 方便A崽统一修改
+ * global.YUNZAI_REG 星铁消息的正则变量
+ * *******
+ */
+createApp(import.meta.url)
+.reSetEvent(global.YUNZAI_GENSHIN)
+.replace(global.YUNZAI_REG,'#星铁')
+.replace(/^(\/|#)/,'#')
+.use(apps)
+.mount()
