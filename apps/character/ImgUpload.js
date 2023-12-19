@@ -60,12 +60,12 @@ export async function uploadCharacterImg (e) {
           imageMessages.push(val)
         } else if (val.type === 'xml' || val.type === 'forward') {// 支持合并转发消息内置的图片批量上传，喵喵 喵喵喵？ 喵喵喵喵
           let resid
-            try {
-              resid = val.data.match(/m_resid="(\d|\w|\/|\+)*"/)[0].replace(/m_resid=|"/g, '')
-            } catch (err) {
-              console.log('Miao合并上传：转换id获取')
-              resid = val.id
-            }
+          try {
+            resid = val.data.match(/m_resid="(\d|\w|\/|\+)*"/)[0].replace(/m_resid=|"/g, '')
+          } catch (err) {
+            console.log('Miao合并上传：转换id获取')
+            resid = val.id
+          }
           if (!resid) break
           let message = await e.bot.getForwardMsg(resid)
           for (const item of message) {
@@ -94,7 +94,7 @@ async function saveImages (e, name, imageMessages) {
   let path = resPath + pathSuffix
 
   if (!fs.existsSync(path)) {
-    Data.createDir("resources/" + pathSuffix, 'miao')
+    Data.createDir('resources/' + pathSuffix, 'miao')
   }
   let senderName = lodash.truncate(e.sender.card, { length: 8 })
   let imgCount = 0
@@ -113,8 +113,8 @@ async function saveImages (e, name, imageMessages) {
       e.reply([segment.at(e.user_id, senderName), '添加失败：图片太大了。'])
       return true
     }
-    let fileName = ""
-    let fileType = "png"
+    let fileName = ''
+    let fileType = 'png'
     if (val.file) {
       fileName = val.file.substring(0, val.file.lastIndexOf('.'))
       fileType = val.file.substring(val.file.lastIndexOf('.') + 1)
@@ -122,7 +122,15 @@ async function saveImages (e, name, imageMessages) {
     if (response.headers.get('content-type') === 'image/gif') {
       fileType = 'gif'
     }
-    if (isProfile) fileType = 'webp'
+
+    if (isProfile) {
+      // 面板图默认webp
+      fileType = 'webp'
+    } else if (!'jpg,jpeg,png,webp'.split(',').includes(fileType)) {
+      // 角色图像默认jpg
+      fileType = 'jpg'
+    }
+
     let imgPath = `${path}/${fileName}.${fileType}`
     const streamPipeline = promisify(pipeline)
     await streamPipeline(response.body, fs.createWriteStream(imgPath))

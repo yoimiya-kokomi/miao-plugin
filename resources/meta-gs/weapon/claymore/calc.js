@@ -151,10 +151,15 @@ export default function (step, staticStep) {
         mastery: step(48)
       }
     },
-    苇海信标: [staticStep('hpPct', 32), {
+    苇海信标: [{
       title: '元素战技命中敌人并受伤害后提升攻击力[atkPct]%',
       refine: {
         atkPct: step(40)
+      }
+    }, {
+      title: '不处于护盾情况下提升生命值[hpPct]%',
+      refine: {
+        hpPct: step(32)
       }
     }],
     浪影阔剑: {
