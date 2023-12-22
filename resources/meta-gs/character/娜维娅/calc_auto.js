@@ -81,10 +81,22 @@ export const buffs = [{
     dmg: 35
   }
 }, {
-  check: ({ params }) => params.team === true ,
-  title: '芙宁娜：获得[dmg]%增伤',
+  check: ({ params , cons }) => ( cons < 1 ) && params.team === true ,
+  title: '0命芙宁娜：获得[dmg]%增伤',
   data: {
     dmg: 52.5
+  }
+}, {
+  check: ({ params , cons }) => ( ( cons < 2 && cons >= 1 ) && params.team === true ) ,
+  title: '1命芙宁娜：获得[dmg]%增伤',
+  data: {
+    dmg: 70
+  }
+}, {
+  check: ({ params , cons }) => ( cons >= 2 && params.team === true ) ,
+  title: '2命芙宁娜：获得[dmg]%增伤',
+  data: {
+    dmg: 100
   }
 }, {
   check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
