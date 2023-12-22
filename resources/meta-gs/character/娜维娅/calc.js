@@ -20,7 +20,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['支援炮击伤害'], 'q')
 }]
 
-export const defDmgIdx = 5
+export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
