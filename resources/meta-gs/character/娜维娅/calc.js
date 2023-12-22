@@ -9,14 +9,6 @@ export const details = [{
   params: { jp: 3 },
   dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
 },{
-  title: '4消耗典仪式晶火',
-  params: { jp: 4 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
-},{
-  title: '5消耗典仪式晶火',
-  params: { jp: 5 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
-},{
   title: '6消耗典仪式晶火',
   params: { jp: 6 },
   dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
