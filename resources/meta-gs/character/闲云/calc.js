@@ -60,8 +60,8 @@ export const buffs = [{
   title: '闲云6命：施展了[buffCount]次步天梯,闲云冲击波的暴击伤害提升[a3Cdmg]%',
   cons: 6,
   data: {
-    buffCount: ({ params }) => Params.btt ,
-    a3Cdmg: ({ params }) => 15 + Math.floor( Params.btt / 2 )  * 20 + Math.floor( Params.btt / 3 ) * 35
+    buffCount: ({ params }) => params.btt ,
+    a3Cdmg: ({ params }) => 15 + Math.floor( params.btt / 2 )  * 20 + Math.floor( params.btt / 3 ) * 35
   }
 }]
 
