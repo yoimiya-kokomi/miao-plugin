@@ -1,7 +1,4 @@
 export const details = [{
-  title: 'E后普通攻击一段',
-  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
-},{
   title: '0消耗典仪式晶火',
   dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'], 'e')
 },{
