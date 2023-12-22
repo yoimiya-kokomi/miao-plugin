@@ -12,15 +12,15 @@ export const details = [{
 },{
   title: '一段跳冲击波伤害',
   params: { btt: 1 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['一段跳 · 鹤形追击伤害'], 'a3')
+  dmg: ({ talent }, dmg) => dmg(talent.e['一段跳·鹤形追击伤害'], 'a3')
 },{
   title: '二段跳冲击波伤害',
   params: { btt: 2 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['二段跳 · 鹤形追击伤害'], 'a3')
+  dmg: ({ talent }, dmg) => dmg(talent.e['二段跳·鹤形追击伤害'], 'a3')
 },{
   title: '三段跳冲击波伤害',
   params: { btt: 3 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['三段跳 · 鹤形追击伤害'], 'a3')
+  dmg: ({ talent }, dmg) => dmg(talent.e['三段跳·鹤形追击伤害'], 'a3')
 },{
   title: '暮集竹星释放伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['施放瞬间伤害'], 'q')
