@@ -205,6 +205,12 @@ export default function (step, staticStep) {
         aDmg: step(8 * 3),
         a2Dmg: step(6 * 3)
       }
+    }],
+    鹤鸣余音: [{
+      title: '下落攻击命中敌人后，下落攻击造成的伤害提高[hpPct]%',
+      refine: {
+        a3Dmg: step(28)
+      }
     }]
   }
 }
