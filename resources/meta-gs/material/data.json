@@ -2523,5 +2523,43 @@
     "name": "初露之源",
     "type": "specialty",
     "star": 1
+  },
+  "凝云鳞甲": {
+    "id": "n113058",
+    "name": "凝云鳞甲",
+    "type": "boss",
+    "star": 4
+  },
+  "清水玉": {
+    "id": "n101241",
+    "name": "清水玉",
+    "type": "specialty",
+    "star": 1
+  },
+  "渊光鳍翅": {
+    "id": 112097,
+    "name": "渊光鳍翅",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "羽状鳍翅": {
+        "id": 112095,
+        "name": "羽状鳍翅",
+        "type": "monster",
+        "star": 2
+      },
+      "月色鳍翅": {
+        "id": 112096,
+        "name": "月色鳍翅",
+        "type": "monster",
+        "star": 3
+      },
+      "渊光鳍翅": {
+        "id": 112097,
+        "name": "渊光鳍翅",
+        "type": "monster",
+        "star": 4
+      }
+    }
   }
 }
