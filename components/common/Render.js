@@ -7,7 +7,7 @@ const Render = {
       console.log('未找到e.runtime，请升级至最新版Yunzai')
     }
     return e.runtime.render(cfg.plugin || 'miao-plugin', path, params, {
-      retType: cfg.retMsgId ? 'msgId' : 'default',
+      retType: cfg.retType || (cfg.retMsgId ? 'msgId' : 'default'),
       beforeRender ({ data }) {
         let pluginName = ''
         if (data.pluginName !== false) {

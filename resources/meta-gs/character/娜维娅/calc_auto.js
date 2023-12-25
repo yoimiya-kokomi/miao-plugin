@@ -1,7 +1,4 @@
 export const details = [{
-  title: 'E后普通攻击一段',
-  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
-},{
   title: '0消耗典仪式晶火',
   dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'], 'e')
 },{
@@ -18,9 +15,23 @@ export const details = [{
 },{
   title: '支援炮击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['支援炮击伤害'], 'q')
+},{
+  title: '娜芙夜琴EAAA冲AA两轮',
+  params: { jp: 6 , team: true },
+  dmg: ({ talent }, dmg) => {
+    let a1 = dmg(talent.a['一段伤害'], 'a')
+    let a2 = dmg(talent.a['二段伤害'], 'a')
+    let a3 = dmg(talent.a['三段伤害'], 'a')
+    let e = dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
+    let e_Arkhe = dmg(talent.e['流涌之刃伤害'], 'e')
+    return {
+      dmg: e.dmg * 2 + e_Arkhe.dmg + 2 * ( 2 * a1.dmg + 2 * a2.dmg + a3.dmg ) ,
+      avg: e.avg * 2 + e_Arkhe.avg + 2 * ( 2 * a1.avg + 2 * a2.avg + a3.avg )
+    }
+  }
 }]
 
-export const defDmgIdx = 3
+export const defDmgIdx = 5
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
@@ -62,6 +73,36 @@ export const buffs = [{
   data: {
     _count: ({ params }) => params.jp ,
     eCdmg :  ({ params }) => Math.min( 135 , ( params.jp - 3 ) * 45 )
+  }
+}, {
+  check: ({ params }) => params.team === true ,
+  title: '夜兰：获得[dmg]%增伤',
+  data: {
+    dmg: 35
+  }
+}, {
+  check: ({ params , cons }) => ( cons < 1 ) && params.team === true ,
+  title: '0命芙宁娜：获得[dmg]%增伤',
+  data: {
+    dmg: 52.5
+  }
+}, {
+  check: ({ params , cons }) => ( ( cons < 2 && cons >= 1 ) && params.team === true ) ,
+  title: '1命芙宁娜：获得[dmg]%增伤',
+  data: {
+    dmg: 70
+  }
+}, {
+  check: ({ params , cons }) => ( cons >= 2 && params.team === true ) ,
+  title: '2命芙宁娜：获得[dmg]%增伤',
+  data: {
+    dmg: 100
+  }
+}, {
+  check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
+  title: '宗室琴：增加[atkPlus]%攻击力',
+  data: {
+    atkPct: 20
   }
 }]
 
