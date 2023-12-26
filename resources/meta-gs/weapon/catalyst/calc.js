@@ -207,7 +207,7 @@ export default function (step, staticStep) {
       }
     }],
     鹤鸣余音: [{
-      title: '下落攻击命中敌人后，下落攻击造成的伤害提高[hpPct]%',
+      title: '下落攻击命中敌人后，下落攻击造成的伤害提高[a3Dmg]%',
       refine: {
         a3Dmg: step(28)
       }
