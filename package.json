@@ -16,8 +16,5 @@
   "imports": {
     "#miao": "./components/index.js",
     "#miao.models": "./models/index.js"
-  },
-  "pnpm": {
-    "patchedDependencies": {}
   }
 }
