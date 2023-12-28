@@ -5,39 +5,47 @@ export const details = [{
 }, {
   title: '灭净三业伤害',
   params: { e2: true, q: false },
-  dmg: ({ talent, calc, attr }, { basic }) => {
+  dmg: ({ talent, attr }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
-    const em = calc(attr.mastery)
-    const atk = calc(attr.atk)
+    const em = attr.mastery
+    const atk = attr.atk
     return basic(td[0] * atk / 100 + td[1] * em / 100, 'e')
   }
 }, {
   title: '开Q灭净三业伤害',
   params: { e2: true },
-  dmg: ({ talent, calc, attr, cons }, { basic }) => {
+  dmg: ({ talent, attr }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
-    const em = calc(attr.mastery)
-    const atk = calc(attr.atk)
+    const em = attr.mastery
+    const atk = attr.atk
     return basic(td[0] * atk / 100 + td[1] * em / 100, 'e')
   }
 }, {
   title: '灭净三业·蔓激化',
   params: { e2: true, q: false },
-  dmg: ({ talent, calc, attr }, { basic }) => {
+  dmg: ({ talent, attr }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
-    const em = calc(attr.mastery)
-    const atk = calc(attr.atk)
+    const em = attr.mastery
+    const atk = attr.atk
     return basic(td[0] * atk / 100 + td[1] * em / 100, 'e', 'spread')
   }
 }, {
   title: '开Q灭净三业·蔓激化',
   params: { e2: true },
-  dmg: ({ talent, calc, attr, cons }, { basic }) => {
+  dmg: ({ talent, attr }, { basic }) => {
     const td = talent.e['灭净三业伤害2']
-    const em = calc(attr.mastery)
-    const atk = calc(attr.atk)
+    const em = attr.mastery
+    const atk = attr.atk
     return basic(td[0] * atk / 100 + td[1] * em / 100, 'e', 'spread')
   }
+}, {
+  title: '六命特殊E伤害',
+  cons: 6,
+  dmg: ({ attr }, { basic }) => basic(attr.atk * 2.00 + attr.mastery * 4.00, 'e')
+}, {
+  title: '六命特殊E伤害·蔓激化',
+  cons: 6,
+  dmg: ({ attr }, { basic }) => basic(attr.atk * 2.00 + attr.mastery * 4.00, 'e', 'spread')
 }]
 
 export const defDmgIdx = 4
@@ -62,14 +70,14 @@ export const buffs = [{
   title: '草神被动：开Q元素精通提升[mastery]',
   sort: 7,
   data: {
-    mastery: ({ calc, attr, params }) => (params.q === false ? 0 : 1) * Math.min(250, calc(attr.mastery) * 0.25)
+    mastery: ({ attr, params }) => (params.q === false ? 0 : 1) * Math.min(250, attr.mastery * 0.25)
   }
 }, {
   title: '草神被动：基于元素精通提升灭净三业伤害[eDmg]%，暴击率[eCpct]%',
   sort: 9,
   data: {
-    eDmg: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min(80, (calc(attr.mastery) - 200) * 0.1),
-    eCpct: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min(24, (calc(attr.mastery) - 200) * 0.03)
+    eDmg: ({ attr, params }) => (params.e ? 0 : 1) * Math.min(80, (attr.mastery - 200) * 0.1),
+    eCpct: ({ attr, params }) => (params.e ? 0 : 1) * Math.min(24, (attr.mastery - 200) * 0.03)
   }
 }, {
   title: '草神Q：开Q提升灭净三业伤害[eDmg]%',

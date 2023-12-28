@@ -37,7 +37,7 @@ export const buffs = [{
     eDmg: ({ params }) => params.half ? 25 : 0
   }
 }, {
-  title: '阿贝多2命：4每层Buff提高Q [qPlus]伤害',
+  title: '阿贝多2命：4层Buff提高Q [qPlus]伤害',
   cons: 2,
   sort: 9,
   data: {

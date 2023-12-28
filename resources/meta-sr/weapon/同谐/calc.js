@@ -18,6 +18,10 @@ export default function (staticIdx, keyIdx) {
     ],
     齐颂: [
       keyIdx('进入战斗后，攻击力提高[atkPct]%', 'atkPct', 1)
+    ],
+    镜中故我: [
+      staticIdx(1, 'stance'),
+      keyIdx('装备者释放终结技后，我方全体造成伤害提高[dmg]%', 'dmg', 2)
     ]
   }
 }

@@ -90,7 +90,7 @@ let DmgCalc = {
     let kx = attr.kx
     let kNum = 0.9
     if (game === 'sr') {
-      kNum = (1 + (kx / 100)) * 0.9
+      kNum = 1 + (kx / 100)
     } else {
       if (ele === 'swirl') {
         kx = attr.fykx
@@ -103,6 +103,12 @@ let DmgCalc = {
       } else {
         kNum = 1 - kx / 200
       }
+    }
+
+    // 减伤区
+    let dmgReduceNum = 1
+    if (game === 'sr') {
+      dmgReduceNum = 0.9
     }
 
     cpctNum = Math.max(0, Math.min(1, cpctNum))
@@ -139,7 +145,8 @@ let DmgCalc = {
         case 'windBreak':
         case 'physicalBreak':
         case 'quantumBreak':
-        case 'imaginaryBreak': {
+        case 'imaginaryBreak':
+        case 'iceBreak': {
           eleNum = DmgMastery.getBasePct(ele, attr.element)
           stanceNum = 1 + calc(attr.stance) / 100
           enemyDmgNum += attr.dot.enemydmg / 100
@@ -190,12 +197,15 @@ let DmgCalc = {
 
       case 'skillDot': {
         ret = {
-          avg: dmgBase * dmgNum * enemyDmgNum * defNum * kNum
+          avg: dmgBase * dmgNum * enemyDmgNum * defNum * kNum * dmgReduceNum
         }
         break
       }
 
       // 未计算层数(风化、纠缠)和韧性条系数(击破、纠缠)
+      // 常规击破伤害均需要计算减伤区（即按韧性条存在处理） 特例：阮梅终结技/秘技击破伤害不计算减伤
+      // 击破伤害 = 基础伤害 * 属性击破伤害系数 * (1+击破特攻%) * 易伤区 * 防御区 * 抗性区 * 减伤区 * (敌方韧性+2)/4 * 层数系数
+      // 击破持续伤害 = 基础伤害 * 属性持续伤害系数 * (1+击破特攻%) * 易伤区 * 防御区 * 抗性区 * 减伤区 * 层数系数
       case 'shock':
       case 'burn':
       case 'windShear':
@@ -206,25 +216,26 @@ let DmgCalc = {
       case 'windBreak':
       case 'physicalBreak':
       case 'quantumBreak' :
-      case 'imaginaryBreak':{
+      case 'imaginaryBreak':
+      case 'iceBreak': {
         breakDotBase *= breakBaseDmg[level]
         ret = {
-          avg: breakDotBase * eleNum * stanceNum * enemyDmgNum * defNum * kNum
+          avg: breakDotBase * eleNum * stanceNum * enemyDmgNum * defNum * kNum * dmgReduceNum
         }
         break
       }
 
       default: {
         ret = {
-          dmg: dmgBase * dmgNum * enemyDmgNum * (1 + cdmgNum) * defNum * kNum,
-          avg: dmgBase * dmgNum * enemyDmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum
+          dmg: dmgBase * dmgNum * enemyDmgNum * (1 + cdmgNum) * defNum * kNum * dmgReduceNum,
+          avg: dmgBase * dmgNum * enemyDmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * dmgReduceNum
         }
       }
     }
 
     if (showDetail) {
       console.log('Attr', attr)
-      console.log({ mode, dmgBase, atkNum, pctNum, multiNum, plusNum, dmgNum, enemyDmgNum, stanceNum, cpctNum, cdmgNum, defNum, eleNum, kNum })
+      console.log({ mode, dmgBase, atkNum, pctNum, multiNum, plusNum, dmgNum, enemyDmgNum, stanceNum, cpctNum, cdmgNum, defNum, eleNum, kNum, dmgReduceNum })
       console.log('Ret', ret)
     }
 
