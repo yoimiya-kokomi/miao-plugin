@@ -186,7 +186,7 @@ let DmgCalc = {
 
       case 'crystallize':{
         eleBase *= cryBaseDmg[level]
-        ret = { avg: eleBase * eleNum * (calc(attr.shield) / 100) * (attr.shield.inc / 100) }
+        ret = { avg: eleBase * (calc(attr.shield) / 100) * (attr.shield.inc / 100) }
         break
       }
 
