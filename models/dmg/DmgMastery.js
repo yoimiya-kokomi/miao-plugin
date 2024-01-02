@@ -9,6 +9,8 @@ let DmgMastery = {
       return 16 * mastery / (mastery + 2000)
     } else if (typeCfg.type === 'bonus') {
       return 5 * mastery / (mastery + 1200)
+    } else if (typeCfg.type === 'shield') {
+      return (40 / 9) * mastery / (mastery + 1400)
     }
     return 0
   },
