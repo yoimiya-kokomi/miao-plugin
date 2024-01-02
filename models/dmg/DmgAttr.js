@@ -79,6 +79,7 @@ let DmgAttr = {
         ret.vaporize = 0 // 蒸发
         ret.melt = 0 // 融化
         ret.burning = 0 // 燃烧
+        ret.crystallize = 0 // 结晶
         ret.superConduct = 0 // 超导
         ret.swirl = 0 // 扩散
         ret.electroCharged = 0 // 感电
@@ -215,7 +216,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx'].includes(key)) {
+        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx'].includes(key)) {
           attr[key] += val * 1 || 0
           return
         }
