@@ -7,7 +7,7 @@ const CharTalent = {
     for (let i = 1; i <= 15; i++) {
       lvs.push('Lv' + i)
     }
-    let detail = lodash.extend({}, char.getDetail())
+    let detail = JSON.parse(JSON.stringify(char.getDetail()))
     if (char.game === 'sr') {
       lodash.forEach(['cons', 'talent', 'treeData'], (key) => {
         lodash.forEach(detail[key], (ds, idx) => {
@@ -27,7 +27,7 @@ const CharTalent = {
       saveId: `${mode}-${char.id}`,
       ...char.getData(),
       game: char.game,
-      detail: char.getDetail(),
+      detail,
       imgs: char.getImgs(),
       mode,
       lvs,

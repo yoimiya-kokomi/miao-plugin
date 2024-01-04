@@ -81,7 +81,7 @@ export const buffs = [{
   check: ({ params }) => params.break === true,
   cons: 4,
   data: {
-    stance: ({ attr }) => attr.stance
+    stance: 100
   }
 }, {
   title: '阮梅6命：天赋造成的击破伤害倍率额外提高200%',

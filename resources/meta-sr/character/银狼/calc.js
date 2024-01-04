@@ -11,7 +11,7 @@ export const details = [{
     return dmg(talent.q['技能伤害'] + addDmg, 'q')
   }
 }, {
-  title: '对10韧性敌人量子击破纠缠伤害',
+  title: '击破纠缠伤害(10韧性怪)',
   dmg: ({ calc, attr }, { reaction }) => {
     return {
       avg: reaction('entanglement').avg * 5 * (10 + 2) / 4

@@ -50,7 +50,7 @@ let ProfileDetail = {
     let name = msg.replace(/#|老婆|老公|星铁|原神/g, '').trim()
     msg = msg.replace('面版', '面板')
     let dmgRet = /(?:伤害|武器)(\d*)$/.exec(name)
-    let dmgIdx = 0, idxIsInput = false
+    let dmgIdx = 0; let idxIsInput = false
     if (/(最强|最高|最高分|最牛|第一)/.test(msg)) {
       mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'rank-mark' : 'rank-dmg'
       name = name.replace(/(最强|最高分|第一|最高|最牛|圣遗物|评分|群)/g, '')
@@ -177,7 +177,7 @@ let ProfileDetail = {
       wCfg.weapons = await ProfileWeapon.calc(profile)
     }
 
-    let enemyLv = isGs ? (await selfUser.getCfg('char.enemyLv', 91)) : profile.level
+    let enemyLv = isGs ? (await selfUser.getCfg('char.enemyLv', 91)) : 80
     let dmgCalc = await ProfileDetail.getProfileDmgCalc({ profile, enemyLv, mode, params })
 
     let rank = false
@@ -203,7 +203,7 @@ let ProfileDetail = {
       // 属性
       lodash.forEach('0113355778'.split(''), (pos, idx) => {
         treeData[pos] = treeData[pos] || []
-        let tmp = { type: 'tree', img: `/meta-sr/public/icons/tree-cpct.webp` }
+        let tmp = { type: 'tree', img: '/meta-sr/public/icons/tree-cpct.webp' }
         treeData[pos].push(tmp)
         treeMap[idx + 201 + ''] = tmp
       })

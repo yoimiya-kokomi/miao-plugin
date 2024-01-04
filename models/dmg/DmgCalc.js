@@ -195,6 +195,7 @@ let DmgCalc = {
         break
       }
 
+      // 技能持续伤害 = 伤害值乘区 * 增伤区 * 易伤区 * 防御区 * 抗性区 * 减伤区
       case 'skillDot': {
         ret = {
           avg: dmgBase * dmgNum * enemyDmgNum * defNum * kNum * dmgReduceNum
