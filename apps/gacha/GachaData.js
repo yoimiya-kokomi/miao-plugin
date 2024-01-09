@@ -152,13 +152,13 @@ let GachaData = {
         let isUp = false
         // 歪了多少个
         if (type === 'char') {
-          if (!currVersion.hasOwnProperty("char5") || currVersion.char5.includes(ds.name)) {
+          if (currVersion.char5?.includes(ds.name)) {
             isUp = true
           } else {
             wai++
           }
         } else {
-          if (currVersion.weapon5.includes(ds.name)) {
+          if (currVersion.weapon5?.includes(ds.name)) {
             isUp = true
           } else {
             wai++
