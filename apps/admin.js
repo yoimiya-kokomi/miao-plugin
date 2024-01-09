@@ -2,6 +2,8 @@ import fs from 'node:fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
 import { Cfg, Common, Data, Version, App } from '#miao'
+import makemsg from "../../../lib/common/common.js"
+import { execSync } from "child_process";
 import fetch from 'node-fetch'
 
 let keys = lodash.map(Cfg.getCfgSchemaMap(), (i) => i.key)
@@ -22,6 +24,11 @@ app.reg({
   update: {
     rule: /^#喵喵(强制)?更新$/,
     fn: updateMiaoPlugin,
+    desc: '【#管理】喵喵更新'
+  },
+  updatelog: {
+    rule: /^#?喵喵更新日志$/,
+    fn: Miaoupdatelog,
     desc: '【#管理】喵喵更新'
   },
   sysCfg: {
@@ -51,7 +58,7 @@ const checkAuth = async function (e) {
   return true
 }
 
-async function sysCfg (e) {
+async function sysCfg(e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -92,7 +99,7 @@ async function sysCfg (e) {
   }, { e, scale: 1.4 })
 }
 
-async function updateRes (e) {
+async function updateRes(e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -136,7 +143,7 @@ async function updateRes (e) {
 
 let timer
 
-async function updateMiaoPlugin (e) {
+async function updateMiaoPlugin(e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -184,7 +191,36 @@ async function updateMiaoPlugin (e) {
   return true
 }
 
-async function miaoApiInfo (e) {
+async function Miaoupdatelog(e, plugin = 'miao-plugin') {
+  let cm = 'git log  -20 --oneline --pretty=format:"%h||[%cd]  %s" --date=format:"%F %T"'
+  if (plugin) {
+    cm = `cd ./plugins/${plugin}/ && ${cm}`
+  }
+  let logAll
+  try {
+    logAll = await execSync(cm, { encoding: 'utf-8', windowsHide: true })
+  } catch (error) {
+    logger.error(error.toString())
+    this.reply(error.toString())
+  }
+  if (!logAll) return false
+  logAll = logAll.split('\n')
+  let log = []
+  for (let str of logAll) {
+    str = str.split('||')
+    if (str[0] == this.oldCommitId) break
+    if (str[1].includes('Merge branch')) continue
+    log.push(str[1])
+  }
+  let line = log.length
+  log = log.join('\n\n')
+  if (log.length <= 0) return ''
+  let end = '更多详细信息，请前往gitee查看\nhttps://gitee.com/yoimiya-kokomi/miao-plugin'
+  log = await makemsg.makeForwardMsg(this.e, [log, end], `${plugin}更新日志，共${line}条`)
+  e.reply(log)
+}
+
+async function miaoApiInfo(e) {
   if (!await checkAuth(e)) {
     return true
   }
