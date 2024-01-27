@@ -50,7 +50,7 @@ class Material extends Base {
     return false
   }
 
-  static forEach (type = 'all', fn, filter = false) {
+  static forEach (type = 'all', fn, filter = false, game = 'gs') {
     if (!lodash.isFunction(filter)) {
       filter = () => true
     }
@@ -58,7 +58,7 @@ class Material extends Base {
       if (type !== 'all' && type !== ds.type) {
         return true
       }
-      let obj = new Material(name)
+      let obj = Material.get(name, game)
       if (filter(obj)) {
         return fn(obj) !== false
       }
