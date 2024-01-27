@@ -26,14 +26,14 @@
         {{each dateList d}}{{each d.date dn}}
         <td class="line {{dn === nowDate ? 'current-date':''}}">
           {{if game === 'gs'}}
-          {{each charBirth[`${d.month}-${dn}`] char}}
-          <div class="card">
-            <div class="item-icon star{{char.star}}">
-              <div class="img" style="background-image:url({{_res_path}}{{char.face}})"></div>
-              <span class="char-name">{{char.name.length>=4?char.name:`${char.name}生日`}}</span>
+            {{each charBirth[`${d.month}-${dn}`] char}}
+            <div class="card">
+              <div class="item-icon star{{char.star}}">
+                <div class="img" style="background-image:url({{_res_path}}{{char.face}})"></div>
+                <span class="char-name">{{char.name.length>=4?char.name:`${char.name}生日`}}</span>
+              </div>
             </div>
-          </div>
-          {{/each}}
+            {{/each}}
           {{/if}}
         </td>
         {{/each}} {{/each}}
@@ -51,17 +51,31 @@
     </table>
   </div>
   <div class="cal-list {{charMode}} char-num-{{charNum}}">
+    {{if game === 'gs'}}
     <div class="cal-abyss-cont">
       {{each abyss li}}
-      <div class="cal-item type-abyss" style="{{`left:${li.left}%;width:${li.width}%`}}">
-        <div class="info">
-          <img src="{{_res_path}}/wiki/imgs/abyss-icon.png" class="cal-icon"/>
-          <strong>{{li.title}}</strong>
-          <span>{{li.label}}</span>
+        <div class="cal-item type-abyss" style="{{`left:${li.left}%;width:${li.width}%;`}}">
+          <div class="info">
+            <img src="{{_res_path}}/wiki/imgs/abyss-icon.png" class="cal-icon"/>
+            <strong>{{li.title}}</strong>
+            <span>{{li.label}}</span>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    {{else}}
+      {{each abyss li}}
+      <div class="cal-abyss-cont">
+        <div class="cal-item type-{{li.type}}" style="{{`left:${li.left}%;width:${li.width}%;`}}">
+          <div class="info">
+            <img src="{{_res_path}}/wiki/imgs/{{li.type}}-icon.png" class="cal-icon" />
+            <strong>{{li.title}}</strong>
+            <span>{{li.label}}</span>
+          </div>
         </div>
       </div>
       {{/each}}
-    </div>
+    {{/if}}
     {{each list lis}}
     {{each lis li idx}}
     <div

@@ -1,4 +1,4 @@
-//linear-gradient(to right, rgba(232, 226, 216, 1), rgba(232, 226, 216, 1) 80%, rgba(232, 226, 216, 0) 100%);
+// linear-gradient(to right, rgba(232, 226, 216, 1), rgba(232, 226, 216, 1) 80%, rgba(232, 226, 216, 0) 100%);
 
 .linear-bg(@color) {
   background-image: linear-gradient(to right, @color, @color 80%, fade(@color, 0) 100%);
@@ -380,16 +380,36 @@ body {
   height: 80px;
   position: relative;
 
-  .cal-item {
-    border-radius: 0;
+  .type-abyss {
     background: url("./imgs/abyss.jpg") #333465 top right no-repeat;
-    position: absolute;
-
     .info {
       background: none;
       color: rgba(211, 188, 141, 1);
       .linear-bg(#333465);
     }
+  }
+
+  .type-abyss-1 {
+    background: url("./imgs/abyss-1.jpg") #0f0829 top right no-repeat;
+    .info {
+        background: none;
+        color: rgba(211, 188, 141, 1);
+        .linear-bg(#0f0829);
+    }
+  }
+
+  .type-abyss-2 {
+    background: url("./imgs/abyss-2.jpg") #16202a top right no-repeat;
+    .info {
+        background: none;
+        color: rgba(211, 188, 141, 1);
+        .linear-bg(#16202a);
+    }
+  }
+
+  .cal-item {
+    border-radius: 0;
+    position: absolute;
 
     &:before {
       content: "";
@@ -401,7 +421,6 @@ body {
       position: absolute;
       background: #d3bc8d;
       z-index: 8;
-
     }
 
     &:after {

@@ -14,7 +14,7 @@ const ignoreIds = [
   171 // 《崩坏：星穹铁道》社区专属工具一览
 ]
 
-const ignoreReg = /(更新概览|游戏优化|优化说明|内容专题页|版本更新说明|循星归程|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时|周边上新|角色演示|角色PV|版本PV|动画短片|bilibili|激励计划|调整说明|攻略征集)/
+const ignoreReg = /(更新概览|游戏优化|优化说明|内容专题页|专题展示页|版本更新说明|循星归程|调研|防沉迷|米游社|专项意见|更新修复与优化|问卷调查|版本更新通知|更新时间说明|预下载功能|周边限时|周边上新|角色演示|角色PV|版本PV|动画短片|bilibili|激励计划|调整说明|攻略征集|测试招募)/
 
 let CalSr = {
   async reqCalData () {
@@ -113,28 +113,53 @@ let CalSr = {
   getAbyssCal (s1, e1, versionStartTime) {
     let check = []
     let f = 'YYYY-MM-DD HH:mm:ss'
+    let newAbyssStart = moment('2023-12-25 04:00:00')
 
-    let abyss1Start = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').subtract(2, 'days').add(4, 'hours').format(f)
-    let abyss1End = moment(abyss1Start).add(14, 'days').format(f)
-    let abyss2Start = abyss1End
-    let abyss2End = moment(abyss2Start).add(14, 'days').format(f)
-    let abyss3Start = abyss2End
-    let abyss3End = moment(abyss3Start).add(14, 'days').format(f)
-    let abyss4Start = abyss3End
-    let abyss4End = moment(abyss4Start).add(14, 'days').format(f)
-    let abyss0End = abyss1Start
-    let abyss0Start = moment(abyss0End).subtract(14, 'days').format(f)
+    let abyss1Start = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').subtract(2, 'days').hours(4).format(f)
 
-    check.push([moment(abyss0Start), moment(abyss0End)])
-    check.push([moment(abyss1Start), moment(abyss1End)])
-    check.push([moment(abyss2Start), moment(abyss2End)])
-    check.push([moment(abyss3Start), moment(abyss3End)])
-    check.push([moment(abyss4Start), moment(abyss4End)])
+    if (newAbyssStart.diff(abyss1Start, 'days') % 14 !== 0) {
+      abyss1Start = moment(abyss1Start).subtract(7, 'days').format(f)
+    }
+
+    let abyss1End = moment(abyss1Start).add(42, 'days').format(f)
+    let abyss2Start = moment(abyss1Start).add(14, 'days').format(f)
+    let abyss2End = moment(abyss2Start).add(42, 'days').format(f)
+    let abyss3Start = moment(abyss2Start).add(14, 'days').format(f)
+    let abyss3End = moment(abyss3Start).add(42, 'days').format(f)
+    let abyss4Start = moment(abyss3Start).add(14, 'days').format(f)
+    let abyss4End = moment(abyss4Start).add(42, 'days').format(f)
+    let abyss5Start = moment(abyss4Start).add(14, 'days').format(f)
+    let abyss5End = moment(abyss5Start).add(42, 'days').format(f)
+
+    let abyss0Start = moment(abyss1Start).subtract(14, 'days').format(f)
+    let abyss0End = moment(abyss0Start).add(42, 'days').format(f)
+    let abyssB1Start = moment(abyss0Start).subtract(14, 'days').format(f)
+    let abyssB1End = moment(abyssB1Start).add(42, 'days').format(f)
+
+    let title1 = '「混沌回忆」'
+    let title2 = '「虚构叙事」'
+    let exchange = true
+    let diff = newAbyssStart.diff(abyss0Start, 'days')
+    if (diff >= 0 && diff % 14 === 0) {
+      exchange = false
+    }
+    if (exchange) {
+      [title1, title2] = [title2, title1]
+    }
+
+    check.push([moment(abyssB1Start), moment(abyssB1End), title1])
+    check.push([moment(abyss0Start), moment(abyss0End), title2])
+    check.push([moment(abyss1Start), moment(abyss1End), title1])
+    check.push([moment(abyss2Start), moment(abyss2End), title2])
+    check.push([moment(abyss3Start), moment(abyss3End), title1])
+    check.push([moment(abyss4Start), moment(abyss4End), title2])
+    check.push([moment(abyss5Start), moment(abyss5End), title1])
 
     let ret = []
     lodash.forEach(check, (ds) => {
       let [s2, e2] = ds
-      if ((s2 <= s1 && s1 <= e2) || (s2 <= e1 && e1 <= e2)) {
+      let now = moment()
+      if ((s2 <= now && now <= e2) || (now <= s2 && s2 <= e1)) {
         ret.push(ds)
       }
     })
@@ -142,14 +167,14 @@ let CalSr = {
   },
 
   getList (ds, target, { startTime, endTime, totalRange, now, timeMap = {}, gachaImgs = [] }) {
-    let type = 'activity'
+    let type = ds.abyssType ? ds.abyssType : 'activity'
     let id = ds.ann_id
     let title = ds.title
     let banner = ds.banner
     let extra = { sort: 5 }
     let detail = timeMap[id] || {}
 
-    if (ignoreIds.includes(id) || ignoreReg.test(title)) {
+    if (!title || ignoreIds.includes(id) || ignoreReg.test(title)) {
       return true
     }
     if (/流光定影/.test(title)) {
@@ -235,9 +260,10 @@ let CalSr = {
     let abyssCal = CalSr.getAbyssCal(dateList.startTime, dateList.endTime, versionStartTime)
     lodash.forEach(abyssCal, (t) => {
       CalSr.getList({
-        title: '「混沌回忆」',
+        title: t[2],
         start_time: t[0].format('YYYY-MM-DD HH:mm'),
-        end_time: t[1].format('YYYY-MM-DD HH:mm')
+        end_time: t[1].format('YYYY-MM-DD HH:mm'),
+        abyssType: t[2] === '「混沌回忆」' ? 'abyss-1' : 'abyss-2'
       }, abyss, { ...dateList, now })
     })
 

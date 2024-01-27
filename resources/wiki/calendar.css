@@ -290,15 +290,33 @@ body {
   height: 80px;
   position: relative;
 }
-.cal-abyss-cont .cal-item {
-  border-radius: 0;
-  background: url("./imgs/abyss.jpg") #333465 top right no-repeat;
-  position: absolute;
+.cal-abyss-cont .type-abyss {
+  background: url("imgs/abyss.jpg") #333465 top right no-repeat;
 }
-.cal-abyss-cont .cal-item .info {
+.cal-abyss-cont .type-abyss .info {
   background: none;
   color: #d3bc8d;
   background-image: linear-gradient(to right, #333465, #333465 80%, rgba(51, 52, 101, 0) 100%);
+}
+.cal-abyss-cont .type-abyss-1 {
+  background: url("imgs/abyss-1.jpg") #0f0829 top right no-repeat;
+}
+.cal-abyss-cont .type-abyss-1 .info {
+  background: none;
+  color: #d3bc8d;
+  background-image: linear-gradient(to right, #0f0829, #0f0829 80%, rgba(15, 8, 41, 0) 100%);
+}
+.cal-abyss-cont .type-abyss-2 {
+  background: url("imgs/abyss-2.jpg") #16202a top right no-repeat;
+}
+.cal-abyss-cont .type-abyss-2 .info {
+  background: none;
+  color: #d3bc8d;
+  background-image: linear-gradient(to right, #16202a, #16202a 80%, rgba(22, 32, 42, 0) 100%);
+}
+.cal-abyss-cont .cal-item {
+  border-radius: 0;
+  position: absolute;
 }
 .cal-abyss-cont .cal-item:before {
   content: "";
@@ -450,4 +468,3 @@ body {
 .daily-talent .card .banner.city-5 .line {
   background: #557dd6;
 }
-/*# sourceMappingURL=calendar.css.map */
