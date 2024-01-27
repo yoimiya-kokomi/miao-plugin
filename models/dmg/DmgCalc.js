@@ -63,9 +63,8 @@ let DmgCalc = {
 
     let plusNum = 0
 
+    pctNum = pctNum / 100
     if (talent && attr[talent]) {
-      pctNum = pctNum / 100
-
       let ds = attr[talent]
 
       pctNum += ds.pct / 100
@@ -130,7 +129,6 @@ let DmgCalc = {
     if (game === 'sr') {
       switch (ele) {
         case 'skillDot': {
-          pctNum = pctNum / 100
           dmgNum += attr.dot.dmg / 100
           enemyDmgNum += attr.dot.enemydmg / 100
           break
