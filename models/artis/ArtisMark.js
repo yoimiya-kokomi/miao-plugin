@@ -213,7 +213,7 @@ let ArtisMark = {
       mark: Format.comma(totalMark, 1),
       _mark: artis.mark,
       markClass: artis.markClass,
-      ...Data.getData(setData, 'sets,names,imgs'),
+      ...Data.getData(setData, 'sets,names,imgs')
     }
     if (withDetail) {
       ret.charWeight = lodash.mapValues(charCfg.attrs, ds => ds.weight)

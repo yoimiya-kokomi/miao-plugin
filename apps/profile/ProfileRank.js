@@ -18,7 +18,7 @@ export async function groupRank (e) {
   if (!type || (!groupId && type !== 'super')) {
     return false
   }
-  let mode = /(分|圣遗物|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
+  let mode = /(分|圣遗物|遗器|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
   mode = /(词条)/.test(msg) ? 'valid' : mode
   mode = /(双爆)/.test(msg) ? 'crit' : mode
   let name = msg.replace(/(#|星铁|最强|最高分|第一|词条|双爆|极限|最高|最多|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
@@ -81,7 +81,7 @@ export async function groupRank (e) {
       if (uids.length > 0) {
         return renderCharRankList({ e, uids, char, mode, groupId })
       } else {
-        if (e.isSr){
+        if (e.isSr) {
           e.reply('暂无排名：请通过【*面板】查看角色面板以更新排名信息...')
         } else {
           e.reply('暂无排名：请通过【#面板】查看角色面板以更新排名信息...')
@@ -101,6 +101,7 @@ export async function resetRank (e) {
     e.reply('只有管理员可重置排名')
     return true
   }
+  let game = e.isSr ? 'sr' : 'gs'
   let msg = e.original_msg || e.msg
   let name = msg.replace(/(#|重置|重设|排名|排行|群|群内|面板|详情|面版)/g, '').trim()
   let charId = ''
@@ -114,7 +115,7 @@ export async function resetRank (e) {
     charId = char.id
     charName = char.name
   }
-  await ProfileRank.resetRank(groupId, charId)
+  await ProfileRank.resetRank(groupId, charId, game)
   e.reply(`本群${charName}排名已重置...`)
 }
 
@@ -134,7 +135,7 @@ export async function refreshRank (e) {
   }
   e.reply('面板数据刷新中，等待时间可能较长，请耐心等待...')
   let game = e.isSr ? 'sr' : 'gs'
-  await ProfileRank.resetRank(groupId)
+  await ProfileRank.resetRank({ groupId, game })
   let uidMap = await ProfileRank.getUserUidMap(e, game)
   let count = 0
   for (let uid in uidMap) {
@@ -206,7 +207,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
         }
         title = title.length > 10 ? title.replace(/伤害$/, '') : title
         tmp.dmg = {
-          title: title,
+          title,
           avg: Format.comma(dmg.avg, 1)
         }
       }

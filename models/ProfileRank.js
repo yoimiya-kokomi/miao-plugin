@@ -69,10 +69,10 @@ export default class ProfileRank {
    * @param charId
    * @returns {Promise<void>}
    */
-  static async resetRank (groupId, charId = '') {
+  static async resetRank (groupId, charId = '', game = 'gs') {
     let keys = await redis.keys(`miao:rank:${groupId}:*`)
     for (let key of keys) {
-      let charRet = /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key)
+      let charRet = game === 'gs' ? /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key) : /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{4})$/.exec(key)
       if (charRet) {
         if (charId === '' || charId * 1 === charRet[1] * 1) {
           await redis.del(key)
@@ -398,7 +398,8 @@ export default class ProfileRank {
       }
     }
     if (type === 'dmg' && profile.hasDmg) {
-      let dmg = await profile.calcDmg({ mode: 'single' })
+      let enemyLv = profile.game === 'gs' ? 91 : 80
+      let dmg = await profile.calcDmg({ enemyLv, mode: 'single' })
       if (dmg && dmg.avg) {
         return {
           score: dmg.avg,
@@ -408,6 +409,4 @@ export default class ProfileRank {
     }
     return false
   }
-
-
 }

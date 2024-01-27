@@ -81,7 +81,7 @@ class Character extends Base {
   get sName () {
     let name = this.name
     let abbr = this.abbr
-    return name.length <= 4 ? name : (abbr || name)
+    return name.length < 4 ? name : (abbr || name)
   }
 
   // 是否是旅行者
