@@ -54,10 +54,10 @@ export const buffs = [{
     _atkPct: ({ params }) => Math.min(params.debuffCount * 20, 80)
   }
 }, {
-  title: '真理6命：天赋的追加攻击造成伤害提高[dmg]%',
+  title: '真理6命：天赋的追加攻击造成伤害提高[tDmg]%',
   cons: 6,
   data: {
-    dmg: 50
+    tDmg: 50
   }
 }]
 
