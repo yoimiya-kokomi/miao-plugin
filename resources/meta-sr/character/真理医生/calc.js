@@ -8,7 +8,7 @@ export const details = [{
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
-  title: '追加攻击伤害(3负面)',
+  title: '3负面·追加攻击',
   dmg: ({ talent, cons }, dmg) => {
     const extraPct = cons >= 2 ? 60 : 0
     return {
@@ -17,7 +17,7 @@ export const details = [{
     }
   }
 }, {
-  title: '追加攻击伤害(5负面)',
+  title: '5负面·追加攻击',
   params: { debuffCount: 5 },
   dmg: ({ talent, cons }, dmg) => {
     const extraPct = cons >= 2 ? 80 : 0

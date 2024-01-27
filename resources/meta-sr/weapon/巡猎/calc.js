@@ -67,6 +67,18 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    纯粹思维的洗礼: [
+      staticIdx(1, 'cdmg'),
+      (tables) => {
+        return {
+          title: '3层Buff提升装备者暴击伤害[cdmg]%',
+          data: {
+            cdmg: tables[2] * 3
+          }
+        }
+      },
+      keyIdx('释放终结技后，造成伤害提高[dmg]%，追加攻击无视目标防御力[tIgnore]%', { dmg: 3, tIgnore: 4 })
     ]
   }
 }
