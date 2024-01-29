@@ -22,19 +22,17 @@ export async function groupRank (e) {
   mode = /(词条)/.test(msg) ? 'valid' : mode
   mode = /(双爆)/.test(msg) ? 'crit' : mode
   let name = msg.replace(/(#|星铁|最强|最高分|第一|词条|双爆|极限|最高|最多|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
-  let char = Character.get(name)
+  let game = e.isSr ? 'sr' : 'gs'
+  let char = Character.get(name, game)
   if (!char) {
     // 名字不存在或不为列表模式，则返回false
     if (name || type !== 'list') {
       return false
     }
   }
-  if (/星铁/.test(msg) || char.isSr) {
-    e.isSr = true
-  }
   // 对鲸泽佬的极限角色文件增加支持
   if (type === 'super') {
-    let player = Player.create(100000000)
+    let player = Player.create(100000000, game)
     if (player.getProfile(char.id)) {
       e.uid = 100000000
       if (!char.isRelease && Cfg.get('notReleasedData') === false) {
@@ -107,7 +105,7 @@ export async function resetRank (e) {
   let charId = ''
   let charName = '全部角色'
   if (name) {
-    let char = Character.get(name)
+    let char = Character.get(name, game)
     if (!char) {
       e.reply(`重置排名失败，角色：${name}不存在`)
       return true
