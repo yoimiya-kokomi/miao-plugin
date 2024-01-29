@@ -33,13 +33,22 @@ let Cal = {
       if (detailData && detailData.data && detailData.data.list) {
         let versionTime = {}
         lodash.forEach(detailData.data.list, (ds) => {
-          let vRet = /(\d\.\d)版本更新通知/.exec(ds.title)
+          let vRet = /(\d\.\d)版本更新(通知|维护预告)/.exec(ds.title)
           if (vRet && vRet[1]) {
             let content = /(?:更新时间)\s*〓([^〓]+)(?:〓|$)/.exec(ds.content)
             if (content && content[1]) {
               let tRet = /([0-9\\/\\: ]){9,}/.exec(content[1])
               if (tRet && tRet[0]) {
                 versionTime[vRet[1]] = versionTime[vRet[1]] || tRet[0].replace('06:00', '11:00')
+              }
+            } else {
+              content = ds.content
+              content = content.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\),\\.]+(>|&gt;)|(&nbsp;)/g, '')
+              if (/(将于)(([0-9\\/\\: ]){9,})(进行)/.exec(content)) {
+                let tRet = /(将于)(([0-9\\/\\: ]){9,})(进行)/.exec(content)
+                if (tRet && tRet[2]) {
+                  versionTime[vRet[1]] = versionTime[vRet[1]] || tRet[2].replace('06:00', '11:00')
+                }
               }
             }
           }
@@ -49,7 +58,7 @@ let Cal = {
           if (ignoreReg.test(title)) {
             return true
           }
-          content = content.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\),\\.]+(>|&gt;)/g, '')
+          content = content.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\),\\.]+(>|&gt;)|(&nbsp;)/g, '')
           content = /(?:活动时间|祈愿介绍|任务开放时间|冒险....包|折扣时间)\s*〓([^〓]+)(〓|$)/.exec(content)
           if (!content || !content[1]) {
             return true
@@ -61,7 +70,8 @@ let Cal = {
           let timeRet = /(?:活动时间)?(?:〓|\s)*([0-9\\/\\: ~]{6,})/.exec(content)
           if (timeRet && timeRet[1]) {
             annTime = timeRet[1].split('~')
-          } else if (/\d\.\d版本更新后/.test(content)) {
+          }
+          if (/\d\.\d版本更新后/.test(content)) {
             let vRet = /(\d\.\d)版本更新后/.exec(content)
             let vTime = ''
             if (vRet && vRet[1] && versionTime[vRet[1]]) {
@@ -78,6 +88,19 @@ let Cal = {
                 annTime = [vTime, timeRet[0]]
               }
             }
+          }
+          if (/\d\.\d版本期间持续开放/.test(content)) {
+            let vRet = /(\d\.\d)版本期间持续开放/.exec(content)
+            let vTime = ''
+            if (vRet && vRet[1] && versionTime[vRet[1]]) {
+              vTime = versionTime[vRet[1]]
+            }
+            if (!vTime) {
+              return true
+            }
+            let format = 'YYYY-MM-DD HH:mm:ss'
+            let versionLastDay = moment(vTime, format).add(42, 'days').hours(6).format(format)
+            annTime = [vTime, versionLastDay]
           }
           if (annTime.length === 2) {
             timeMap[annId] = {
