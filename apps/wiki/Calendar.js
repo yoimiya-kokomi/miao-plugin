@@ -33,7 +33,7 @@ let Cal = {
       if (detailData && detailData.data && detailData.data.list) {
         let versionTime = {}
         lodash.forEach(detailData.data.list, (ds) => {
-          let vRet = /(\d\.\d)版本更新(通知|维护预告)/.exec(ds.title)
+          let vRet = /(\d\.\d)版本更新(通知|说明|维护预告)/.exec(ds.title)
           if (vRet && vRet[1]) {
             let content = /(?:更新时间)\s*〓([^〓]+)(?:〓|$)/.exec(ds.content)
             if (content && content[1]) {
