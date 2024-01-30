@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 计算伤害
 * */
-import { eleBaseDmg, erTitle, breakBaseDmg } from './DmgCalcMeta.js'
+import { eleBaseDmg, erTitle, breakBaseDmg, cryBaseDmg } from './DmgCalcMeta.js'
 import DmgMastery from './DmgMastery.js'
 
 let DmgCalc = {
@@ -179,6 +179,12 @@ let DmgCalc = {
       case 'hyperBloom': {
         eleBase *= eleBaseDmg[level]
         ret = { avg: eleBase * eleNum * kNum }
+        break
+      }
+
+      case 'crystallize':{
+        eleBase *= cryBaseDmg[level]
+        ret = { avg: eleBase * (calc(attr.shield) / 100) * (attr.shield.inc / 100) }
         break
       }
 

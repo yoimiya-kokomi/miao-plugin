@@ -18,6 +18,9 @@ export const details = [{
 },{
   title: '支援炮击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['支援炮击伤害'], 'q')
+},{
+  title: '结晶护盾吸收量',
+  dmg: ({}, { reaction }) => reaction('crystallize')
 }]
 
 export const defDmgIdx = 3
@@ -47,7 +50,7 @@ export const buffs = [{
   title: '娜维娅2命：施放典仪式晶火时消耗「裂晶弹片」使本次典仪式晶火的暴击率提升[eCpct]%',
   cons: 2,
   data: {
-    eCpct :  ({ params }) => Math.min( 36 , params.jp * 12 )
+    eCpct : ({ params }) => Math.min( 36 , params.jp * 12 )
   }
 },{
   title: '娜维娅4命：被如霰澄天的鸣礼命中的敌人抗性降低[kx]%',
@@ -61,7 +64,7 @@ export const buffs = [{
   cons: 6,
   data: {
     _count: ({ params }) => params.jp ,
-    eCdmg :  ({ params }) => Math.min( 135 , ( params.jp - 3 ) * 45 )
+    eCdmg : ({ params }) => Math.min( 135 , ( params.jp - 3 ) * 45 )
   }
 }]
 
