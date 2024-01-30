@@ -1384,7 +1384,11 @@
     "star": 4,
     "elem": "pyro",
     "weapon": "claymore",
-    "talentId": {},
+    "talentId": {
+      "10921": "a",
+      "10922": "e",
+      "10925": "q"
+    },
     "talentCons": {
       "a": 0,
       "e": 3,
@@ -1399,7 +1403,11 @@
     "star": 5,
     "elem": "anemo",
     "weapon": "catalyst",
-    "talentId": {},
+    "talentId": {
+      "10931": "a",
+      "10932": "e",
+      "10935": "q"
+    },
     "talentCons": {
       "a": 0,
       "e": 5,
