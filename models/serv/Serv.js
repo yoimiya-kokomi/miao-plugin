@@ -26,14 +26,20 @@ const servs = {}
 
 const Serv = {
   // 根据UID获取 ProfileServ
-  getServ (uid, game = 'gs') {
+  getServ(uid, game = 'gs') {
     let token = diyCfg?.miaoApi?.token
     let qq = diyCfg?.miaoApi?.qq
     let hasToken = !!(qq && token && token.length === 32 && !/^test/.test(token))
     let isGs = game === 'gs'
 
     // 根据uid判断当前服务器类型。官服0 B服1 国际2
-    let servType = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 9: 2 }[uid[0]]
+    let uidPrefix = uid.toString()
+    if (uidPrefix.length == 10) {
+      uidPrefix = uidPrefix.slice(0, 2)
+    } else {
+      uidPrefix = uidPrefix.slice(0, 1)
+    }
+    let servType = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 18: 2, 9: 2 }[uidPrefix]
 
     // 获取原神、星铁对应服务选择的配置
     let servCfg = (Cfg.get(isGs ? 'profileServer' : 'srProfileServer', '0') || '0').toString()
@@ -66,7 +72,7 @@ const Serv = {
   },
 
   // 根据key获取ProfileServ
-  serv (key) {
+  serv(key) {
     if (!servs[key]) {
       servs[key] = new ProfileServ(apis[key])
     }
@@ -74,7 +80,7 @@ const Serv = {
   },
 
   // 发起请求
-  async req (e, player) {
+  async req(e, player) {
     let req = ProfileReq.create(e, player.game)
     if (!req) {
       return false
