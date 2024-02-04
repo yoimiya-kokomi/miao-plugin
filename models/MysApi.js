@@ -1,5 +1,6 @@
 import { User } from './index.js'
 import { Version } from '#miao'
+import { Button } from '#miao.models'
 
 export default class MysApi {
   constructor (e, uid, mysInfo) {
@@ -71,7 +72,7 @@ export default class MysApi {
     if (uid) {
       return new User({ id: e.user_id, uid })
     } else {
-      e.reply('请先发送【#绑定+你的UID】来绑定查询目标\n星铁请使用【#星铁绑定+UID】')
+      e.reply(['请先发送【#绑定+你的UID】来绑定查询目标\n星铁请使用【#星铁绑定+UID】', new Button(e).bindUid()])
       e._replyNeedUid = true
       return false
     }
