@@ -13,6 +13,7 @@ import Material from './Material.js'
 import Weapon from './Weapon.js'
 import User from './User.js'
 import MysApi from './MysApi.js'
+import Button from './Button.js'
 
 for (let game of ['gs', 'sr']) {
   for (let type of ['artifact', 'character', 'material', 'weapon']) {
@@ -30,6 +31,7 @@ for (let game of ['gs', 'sr']) {
 export {
   Base,
   Abyss,
+  Button,
   Character,
   Artifact,
   ArtifactSet,
@@ -42,5 +44,3 @@ export {
   MysApi,
   Player
 }
-
-
