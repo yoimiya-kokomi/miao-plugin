@@ -1,4 +1,4 @@
-import { Character, MysApi, Player } from '#miao.models'
+import { Button, Character, MysApi, Player } from '#miao.models'
 import { Cfg, Common, Meta } from '#miao'
 import lodash from 'lodash'
 import moment from 'moment'
@@ -79,7 +79,7 @@ let Avatar = {
       scale = 1.45
     }
     // 渲染图像
-    let msgRes = await Common.render('character/character-card', {
+    let msgRes = await e.reply([await Common.render('character/character-card', {
       saveId: uid,
       uid,
       bg,
@@ -88,7 +88,7 @@ let Avatar = {
       custom,
       isRelease,
       data
-    }, { e, scale, retMsgId: true })
+    }, { e, scale, retType: "base64" }), new Button(e).profile(char, uid)])
     if (msgRes) {
       // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
       const message_id = [e.message_id]

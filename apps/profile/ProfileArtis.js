@@ -5,7 +5,7 @@
 import lodash from 'lodash'
 import { Cfg, Common, Meta } from '#miao'
 import { getTargetUid, profileHelp, getProfileRefresh } from './ProfileCommon.js'
-import { Artifact, Character, Player } from '#miao.models'
+import { Artifact, Button, Character, Player } from '#miao.models'
 import ArtisMarkCfg from '../../models/artis/ArtisMarkCfg.js'
 
 /*
@@ -31,7 +31,7 @@ export async function profileArtis (e) {
   let artisKeyTitle = Artifact.getArtisKeyTitle()
 
   // 渲染图像
-  return await Common.render('character/artis-mark', {
+  return e.reply([await Common.render('character/artis-mark', {
     uid,
     elem: char.elem,
     splash: profile.costumeSplash,
@@ -43,7 +43,7 @@ export async function profileArtis (e) {
     charCfg,
     game,
     changeProfile: e._profileMsg
-  }, { e, scale: 1.6 / 1.1 })
+  }, { e, scale: 1.6 / 1.1, retType: "base64" }), new Button(e).profile(char, uid)])
 }
 
 /*

@@ -1,7 +1,7 @@
 import { Common } from '#miao'
 import { getTargetUid } from '../profile/ProfileCommon.js'
 import GachaData from './GachaData.js'
-import { Character, Player } from '#miao.models'
+import { Button, Character, Player } from '#miao.models'
 
 let Gacha = {
   async detail (e) {
@@ -29,15 +29,15 @@ let Gacha = {
 
     let gacha = GachaData.analyse(e.user_id, uid, type)
     if (!gacha) {
-      e.reply(`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`)
+      e.reply([`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`, new Button(e).gacha()])
       return true
     }
-    await Common.render('gacha/gacha-detail', {
+    this.reply([await Common.render('gacha/gacha-detail', {
       save_id: uid,
       uid,
       gacha,
       face: Gacha.getFace(uid)
-    }, { e, scale: 1.4, retMsgId: true })
+    }, { e, scale: 1.4, retType: "base64" }), new Button(e).gacha()])
   },
   async stat (e) {
     let msg = e.msg.replace(/#|统计|分析|池/g, '')
@@ -58,15 +58,15 @@ let Gacha = {
     }
     let gacha = GachaData.stat(e.user_id, uid, type)
     if (!gacha) {
-      e.reply(`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`)
+      e.reply([`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`, new Button(e).gacha()])
       return true
     }
-    await Common.render('gacha/gacha-stat', {
+    e.reply([await Common.render('gacha/gacha-stat', {
       save_id: uid,
       uid,
       gacha,
       face: Gacha.getFace(uid)
-    }, { e, scale: 1.4 })
+    }, { e, scale: 1.4, retType: "base64" }), new Button(e).gacha()])
   },
 
   getFace (uid) {

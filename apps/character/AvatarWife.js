@@ -102,11 +102,11 @@ const Wife = {
     let renderType = (action === '卡片' ? 'card' : 'photo')
     let addRet = []
     switch (action) {
-      case '卡片':
       case '照片':
       case '相片':
       case '图片':
       case '写真':
+      case '卡片':
         // 展示老婆卡片
         // 如果选择过，则进行展示
         if (!e.isPoke) {

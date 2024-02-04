@@ -1,6 +1,6 @@
 import ProfileDetail from './ProfileDetail.js'
 import { Data, Common, Format, Cfg } from '#miao'
-import { Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
+import { Button, Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
 import lodash from 'lodash'
 
 export async function groupRank (e) {
@@ -61,14 +61,14 @@ export async function groupRank (e) {
       return await ProfileDetail.render(e, char)
     } else {
       if (mode === 'dmg' && !ProfileDmg.dmgRulePath(char.name, char.game)) {
-        e.reply(`暂无排名：${char.name}暂不支持伤害计算，无法进行排名..`)
+        e.reply([`暂无排名：${char.name}暂不支持伤害计算，无法进行排名..`, new Button(e).profile(char)])
       } else {
         e.reply('暂无排名：请通过【#面板】查看角色面板以更新排名信息...')
       }
     }
   } else if (type === 'list') {
     if (mode === 'dmg' && char && !ProfileDmg.dmgRulePath(char.name, char.game)) {
-      e.reply(`暂无排名：${char.name}暂不支持伤害计算，无法进行排名..`)
+      e.reply([`暂无排名：${char.name}暂不支持伤害计算，无法进行排名..`, new Button(e).profile(char)])
     } else {
       let uids = []
       if (char) {
@@ -80,9 +80,9 @@ export async function groupRank (e) {
         return renderCharRankList({ e, uids, char, mode, groupId })
       } else {
         if (e.isSr) {
-          e.reply('暂无排名：请通过【*面板】查看角色面板以更新排名信息...')
+          e.reply(['暂无排名：请通过【*面板】查看角色面板以更新排名信息...', new Button(e).profile(char)])
         } else {
-          e.reply('暂无排名：请通过【#面板】查看角色面板以更新排名信息...')
+          e.reply(['暂无排名：请通过【#面板】查看角色面板以更新排名信息...', new Button(e).profile(char)])
         }
       }
     }
@@ -114,7 +114,7 @@ export async function resetRank (e) {
     charName = char.name
   }
   await ProfileRank.resetRank(groupId, charId, game)
-  e.reply(`本群${charName}排名已重置...`)
+  e.reply([`本群${charName}排名已重置...`, new Button(e).profile(char)])
 }
 
 /**
@@ -266,7 +266,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
 
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
   // 渲染图像
-  return await Common.render('character/rank-profile-list', {
+  return e.reply([await Common.render('character/rank-profile-list', {
     save_id: char.id,
     game: e.isSr ? 'sr' : 'gs',
     list,
@@ -275,5 +275,5 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
     bodyClass: `char-${char.name}`,
     rankCfg,
     mode
-  }, { e, scale: 1.4 })
+  }, { e, scale: 1.4, retType: "base64" }), new Button(e).profile(char)])
 }

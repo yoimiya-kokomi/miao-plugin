@@ -1,9 +1,11 @@
 import { Data, Version } from '#miao'
 import Index from './tools/index.js'
 
-if (!global.segment) {
+if (!global.segment)
   global.segment = (await import('oicq')).segment
-}
+
+if (!segment.button)
+  segment.button = () => ""
 
 export * from './apps/index.js'
 
