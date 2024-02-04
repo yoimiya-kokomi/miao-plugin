@@ -9,7 +9,7 @@ const ProfileList = {
    * @param e
    * @returns {Promise<boolean|*>}
    */
-  async refresh (e) {
+  async refresh(e) {
     let uid = await getTargetUid(e)
     if (!uid) {
       e._replyNeedUid || e.reply('请先发送【#绑定+你的UID】来绑定查询目标\n星铁请使用【#星铁绑定+UID】')
@@ -48,7 +48,7 @@ const ProfileList = {
    * @returns {Promise<boolean|*>}
    */
 
-  async render (e) {
+  async render(e) {
     let uid = await getTargetUid(e)
     if (!uid) {
       e._replyNeedUid || e.reply('请先发送【#绑定+你的UID】来绑定查询目标\n星铁请使用【#星铁绑定+UID】')
@@ -149,8 +149,8 @@ const ProfileList = {
    * @param e
    * @returns {Promise<boolean>}
    */
-  async del (e) {
-    let ret = /^#(删除全部面板|删除面板|删除面板数据)\s*(\d{9})?$/.exec(e.msg)
+  async del(e) {
+    let ret = /^#(删除全部面板|删除面板|删除面板数据)\s*(\d{9,10})?$/.exec(e.msg)
     let uid = await getTargetUid(e)
     if (!uid) {
       return true
@@ -179,7 +179,7 @@ const ProfileList = {
     return true
   },
 
-  async reload (e) {
+  async reload(e) {
     let uid = await getTargetUid(e)
     if (!uid) {
       return true

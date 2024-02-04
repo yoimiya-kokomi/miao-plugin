@@ -3,7 +3,7 @@ import moment from 'moment'
 import { Cfg, Common, Data, Version } from '#miao'
 
 export default class ProfileRank {
-  constructor (data) {
+  constructor(data) {
     this.groupId = data.groupId || data.groupId || ''
     if (!this.groupId || this.groupId === 'undefined') {
       return false
@@ -13,7 +13,7 @@ export default class ProfileRank {
     this.allowRank = false
   }
 
-  static async create (data) {
+  static async create(data) {
     let rank = new ProfileRank(data)
     rank.allowRank = await ProfileRank.checkRankLimit(rank.uid)
     return rank
@@ -26,12 +26,12 @@ export default class ProfileRank {
    * @param type
    * @returns {Promise<string|boolean>}
    */
-  static async getGroupMaxUid (groupId, charId, type = 'mark') {
+  static async getGroupMaxUid(groupId, charId, type = 'mark') {
     let uids = await redis.zRange(`miao:rank:${groupId}:${type}:${charId}`, -1, -1)
     return uids ? uids[0] : false
   }
 
-  static async getGroupMaxUidList (groupId, type = 'mark') {
+  static async getGroupMaxUidList(groupId, type = 'mark') {
     let keys = await redis.keys(`miao:rank:${groupId}:${type}:*`)
     let ret = []
     for (let key of keys) {
@@ -57,7 +57,7 @@ export default class ProfileRank {
    * @param type
    * @returns {Promise<ConvertArgumentType<ZMember, string>[]|boolean>}
    */
-  static async getGroupUidList (groupId, charId, type = 'mark') {
+  static async getGroupUidList(groupId, charId, type = 'mark') {
     let number = Cfg.get('rankNumber', 15)
     let uids = await redis.zRangeWithScores(`miao:rank:${groupId}:${type}:${charId}`, -`${number}`, -1)
     return uids ? uids.reverse() : false
@@ -69,7 +69,7 @@ export default class ProfileRank {
    * @param charId
    * @returns {Promise<void>}
    */
-  static async resetRank (groupId, charId = '', game = 'gs') {
+  static async resetRank(groupId, charId = '', game = 'gs') {
     let keys = await redis.keys(`miao:rank:${groupId}:*`)
     for (let key of keys) {
       let charRet = game === 'gs' ? /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key) : /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{4})$/.exec(key)
@@ -84,7 +84,7 @@ export default class ProfileRank {
     }
   }
 
-  static async getGroupCfg (groupId) {
+  static async getGroupCfg(groupId) {
     const rankLimitTxt = {
       1: '无限制',
       2: '绑定有CK的用户',
@@ -110,7 +110,7 @@ export default class ProfileRank {
    * @param status：0开启，1关闭
    * @returns {Promise<void>}
    */
-  static async setGroupStatus (groupId, status = 0) {
+  static async setGroupStatus(groupId, status = 0) {
     let cfg = await Data.redisGet(`miao:rank:${groupId}:cfg`, {
       timestamp: (new Date()) * 1,
       status
@@ -119,7 +119,7 @@ export default class ProfileRank {
     await Data.redisSet(`miao:rank:${groupId}:cfg`, cfg, 3600 * 24 * 365)
   }
 
-  static async setUidInfo ({ uid, qq, profiles, uidType = 'bind' }) {
+  static async setUidInfo({ uid, qq, profiles, uidType = 'bind' }) {
     if (!uid) {
       return false
     }
@@ -165,10 +165,10 @@ export default class ProfileRank {
     await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify(data), { EX: 3600 * 24 * 365 })
   }
 
-  static async delUidInfo (uid) {
+  static async delUidInfo(uid) {
     let keys = await redis.keys('miao:rank:*')
     uid = uid + ''
-    if (!/\d{9}/.test(uid)) {
+    if (!/\d{9,10}/.test(uid)) {
       return false
     }
     for (let key of keys) {
@@ -179,7 +179,7 @@ export default class ProfileRank {
     }
   }
 
-  static async getUidInfo (uid) {
+  static async getUidInfo(uid) {
     try {
       let data = await redis.get(`miao:rank:uid-info:${uid}`)
       return JSON.parse(data)
@@ -188,7 +188,7 @@ export default class ProfileRank {
     return false
   }
 
-  static async getUserUidMap (e, game = 'gs') {
+  static async getUserUidMap(e, game = 'gs') {
     let rn = e.runtime
     let groupMemMap = await e.group?.getMemberMap() || []
     let users = {}
@@ -208,7 +208,7 @@ export default class ProfileRank {
       let data = await Data.redisGet(key)
       let { qq, uidType } = data
       if (!users[qq]) continue
-      let uidRet = /miao:rank:uid-info:(\d{9})/.exec(key)
+      let uidRet = /miao:rank:uid-info:(\d{9,10})/.exec(key)
       if (qq && uidType && uidRet?.[1]) {
         add(qq, uidRet[1], uidType === 'ck' ? 'ck' : 'bind')
       }
@@ -257,7 +257,7 @@ export default class ProfileRank {
    * @param uid
    * @returns {Promise<boolean>}
    */
-  static async checkRankLimit (uid) {
+  static async checkRankLimit(uid) {
     if (!uid) {
       return false
     }
@@ -290,7 +290,7 @@ export default class ProfileRank {
     }
   }
 
-  key (profile, type) {
+  key(profile, type) {
     return `miao:rank:${this.groupId}:${type}:${profile.id}`
   }
 
@@ -300,7 +300,7 @@ export default class ProfileRank {
    * @param force
    * @returns {Promise<{}|boolean>}
    */
-  async getRank (profile, force = false) {
+  async getRank(profile, force = false) {
     if (!profile || !this.groupId || !this.allowRank || !profile.hasData) {
       return false
     }
@@ -318,7 +318,7 @@ export default class ProfileRank {
     return ret
   }
 
-  async getTypeRank (profile, type, force) {
+  async getTypeRank(profile, type, force) {
     if (!profile || !profile.hasData || !type) {
       return false
     }
@@ -357,7 +357,7 @@ export default class ProfileRank {
     }
   }
 
-  async getTypeValue (profile, type) {
+  async getTypeValue(profile, type) {
     if (!profile || !profile.hasData) {
       return false
     }
