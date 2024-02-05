@@ -33,13 +33,7 @@ const Serv = {
     let isGs = game === 'gs'
 
     // 根据uid判断当前服务器类型。官服0 B服1 国际2
-    let uidPrefix = uid.toString()
-    if (uidPrefix.length == 10) {
-      uidPrefix = uidPrefix.slice(0, 2)
-    } else {
-      uidPrefix = uidPrefix.slice(0, 1)
-    }
-    let servType = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 18: 2, 9: 2 }[uidPrefix]
+    let servType = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 2, 7: 2, 8: 2, 18: 2, 9: 2 }[String(uid).slice(0, -8)]
 
     // 获取原神、星铁对应服务选择的配置
     let servCfg = (Cfg.get(isGs ? 'profileServer' : 'srProfileServer', '0') || '0').toString()
