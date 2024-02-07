@@ -208,21 +208,29 @@ let ProfileDetail = {
         treeData[pos].push(tmp)
         treeMap[idx + 201 + ''] = tmp
       })
+      // 属性建成后图标替换
+      lodash.forEach(Object.keys(char.detail.tree), (id) => {
+        let ret = /([12][01][0-9])$/.exec(id + '')
+        if (ret && ret[1]) {
+          let treeId = ret[1]
+          if (treeId[0] === '2') {
+            treeMap[treeId].img = `/meta-sr/public/icons/tree-${char.detail?.tree?.[id]?.key}.webp`
+          }
+        }
+      })
       // 能力
       lodash.forEach([2, 4, 6], (pos, idx) => {
         let tmp = { type: 'talent', img: data.imgs[`tree${idx + 1}`] }
         treeData[pos] = tmp
         treeMap[idx + 101 + ''] = tmp
       })
+      // 点亮图标
       lodash.forEach(profile.trees, (id) => {
         let ret = /([12][01][0-9])$/.exec(id + '')
         if (ret && ret[1]) {
           let treeId = ret[1]
           if (treeMap?.[treeId]) {
             treeMap[treeId].value = 1
-          }
-          if (treeId[0] === '2') {
-            treeMap[treeId].img = `/meta-sr/public/icons/tree-${char.detail?.tree?.[id]?.key}.webp`
           }
         }
       })
