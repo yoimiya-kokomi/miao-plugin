@@ -3,7 +3,7 @@ import { Data, Common, Format, Cfg } from '#miao'
 import { Button, Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
 import lodash from 'lodash'
 
-export async function groupRank (e) {
+export async function groupRank(e) {
   const groupRank = Common.cfg('groupRank')
   let msg = e.original_msg || e.msg
   let type = ''
@@ -20,8 +20,8 @@ export async function groupRank (e) {
   }
   let mode = /(分|圣遗物|遗器|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
   mode = /(词条)/.test(msg) ? 'valid' : mode
-  mode = /(双爆)/.test(msg) ? 'crit' : mode
-  let name = msg.replace(/(#|星铁|最强|最高分|第一|词条|双爆|极限|最高|最多|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
+  mode = /(双爆|双暴)/.test(msg) ? 'crit' : mode
+  let name = msg.replace(/(#|星铁|最强|最高分|第一|词条|双爆|双暴|极限|最高|最多|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
   let game = e.isSr ? 'sr' : 'gs'
   let char = Character.get(name, game)
   if (!char) {
@@ -29,6 +29,8 @@ export async function groupRank (e) {
     if (name || type !== 'list') {
       return false
     }
+  } else {
+    e.isSr = char.game === 'sr'
   }
   // 对鲸泽佬的极限角色文件增加支持
   if (type === 'super') {
@@ -90,7 +92,7 @@ export async function groupRank (e) {
   }
 }
 
-export async function resetRank (e) {
+export async function resetRank(e) {
   let groupId = e.group_id
   if (!groupId) {
     return true
@@ -114,7 +116,7 @@ export async function resetRank (e) {
     charName = char.name
   }
   await ProfileRank.resetRank(groupId, charId, game)
-  e.reply([`本群${charName}排名已重置...`, new Button(e).profile(char)])
+  e.reply([`本群${charName}排名已重置...`, name ? new Button(e).profile(char) : ''])
 }
 
 /**
@@ -122,7 +124,7 @@ export async function resetRank (e) {
  * @param e
  * @returns {Promise<boolean>}
  */
-export async function refreshRank (e) {
+export async function refreshRank(e) {
   let groupId = e.group_id || ''
   if (!groupId) {
     return true
@@ -157,7 +159,7 @@ export async function refreshRank (e) {
   e.reply(`本群排名已刷新，共刷新${count}个UID数据...`)
 }
 
-export async function manageRank (e) {
+export async function manageRank(e) {
   let groupId = e.group_id
   if (!groupId) {
     return true
@@ -175,7 +177,7 @@ export async function manageRank (e) {
   }
 }
 
-async function renderCharRankList ({ e, uids, char, mode, groupId }) {
+async function renderCharRankList({ e, uids, char, mode, groupId }) {
   let list = []
   for (let ds of uids) {
     let uid = ds.uid || ds.value
