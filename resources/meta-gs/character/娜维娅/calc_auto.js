@@ -100,7 +100,7 @@ export const buffs = [{
   }
 }, {
   check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
-  title: '宗室琴：增加[atkPlus]%攻击力',
+  title: '宗室琴：增加[atkPct]%攻击力',
   data: {
     atkPct: 20
   }
