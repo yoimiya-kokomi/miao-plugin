@@ -6,9 +6,11 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['喷火伤害'], 'e', 'vaporize')
 }, {
   title: '旋火轮单次伤害',
+  let i = 1,
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q')
 }, {
   title: '旋火轮单次蒸发',
+  let i = 1,
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q', 'vaporize')
 }]
 
@@ -22,9 +24,10 @@ export const buffs = [{
     kx: 15
   }
 }, {
+  check: i !== 1,
   title: '香菱6命：旋火轮持续期间获得15%火伤加成',
   cons: 6,
   data: {
-    qDmg: 15
+    dmg: 15
   }
 }, 'vaporize']
