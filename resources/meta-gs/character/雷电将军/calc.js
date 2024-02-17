@@ -27,7 +27,7 @@ export const defParams = {
 }
 
 export const defDmgIdx = 1
-export const mainAttr = 'atk,cpct,cdmg,recharge'
+export const mainAttr = 'atk,cpct,cdmg,recharge,dmg'
 
 export const buffs = [{
   title: '恶曜开眼：开E元素爆发伤害提升[qDmg]%',

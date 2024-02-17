@@ -11,7 +11,7 @@ export const details = [{
     let plusDot = cons >= 6 ? 1.56 : 0
     let weaponDot = weapon.name === '只需等待' ? (weapon.affix * 10 + 50) / 100 : 0
     let eDmg = dmg(talent.e['单体伤害'], 'e')
-    let dotDmg = dmg((talent.q['回合持续伤害'] + plusDot + weaponDot) * talent.e['额外持续伤害'], '', 'skillDot')
+    let dotDmg = dmg((talent.q['回合持续伤害'] + plusDot + weaponDot) * talent.e['额外持续伤害'], 'dot', 'skillDot')
     return {
       dmg: eDmg.dmg + dotDmg.avg,
       avg: eDmg.avg + dotDmg.avg
@@ -24,7 +24,7 @@ export const details = [{
     let plusDot = cons >= 6 ? 1.56 : 0
     let weaponDot = weapon.name === '只需等待' ? (weapon.affix * 10 + 50) / 100 : 0
     let qDmg = dmg(talent.q['技能伤害'], 'q')
-    let dotDmg = dmg((talent.q['回合持续伤害'] + plusDot + weaponDot) * talent.q['额外持续伤害'], '', 'skillDot')
+    let dotDmg = dmg((talent.q['回合持续伤害'] + plusDot + weaponDot) * talent.q['额外持续伤害'], 'dot', 'skillDot')
     return {
       dmg: qDmg.dmg + dotDmg.avg,
       avg: qDmg.avg + dotDmg.avg
@@ -40,7 +40,7 @@ export const buffs = [{
   title: '卡芙卡1命：目标受到的持续伤害提高30%',
   cons: 1,
   data: {
-    dotEnemyDmg: 30
+    dotEnemydmg: 30
   }
 }, {
   title: '卡芙卡2命：我方全体造成的持续伤害提高25%',

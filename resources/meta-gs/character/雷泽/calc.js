@@ -29,6 +29,6 @@ export const buffs = [{
   title: '雷泽4命：E点按降低敌人防御力15%',
   cons: 4,
   data: {
-    def: 15
+    enemyDef: 15
   }
 }]

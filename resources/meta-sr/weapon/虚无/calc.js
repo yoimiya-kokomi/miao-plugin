@@ -53,6 +53,37 @@ export default function (staticIdx, keyIdx) {
     孤独的疗愈: [
       staticIdx(1, 'stance'),
       keyIdx('装备者造成的持续伤害提高[dotDmg]%', 'dotDmg', 2)
+    ],
+    重塑时光之忆: [
+      staticIdx(1, 'effPct'),
+      (tables) => {
+        return {
+          title: '4层Buff提高攻击力[atkPct]%，造成的持续伤害无视目标[dotIgnore]%的防御力',
+          data: {
+            atkPct: tables[2] * 4,
+            dotIgnore: tables[3] * 4
+          }
+        }
+      }
+    ],
+    好戏开演: [
+      (tables) => {
+        return {
+          title: '3层Buff提高造成的伤害[dmg]%',
+          data: {
+            dmg: tables[1] * 3
+          }
+        }
+      },
+      (tables) => {
+        return {
+          check: ({ attr, calc }) => calc(attr.effPct) >= 80,
+          title: '攻击力提高[atkPct]%',
+          data: {
+            atkPct: tables[2]
+          }
+        }
+      }
     ]
   }
 }

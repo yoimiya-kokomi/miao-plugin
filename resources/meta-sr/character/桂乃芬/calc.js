@@ -8,7 +8,7 @@ export const details = [{
   title: '灼烧持续伤害',
   dmg: ({ talent, cons }, dmg) => {
     const dotPlus = cons >= 2 ? 0.4 : 0
-    return dmg(talent.e['持续伤害'] + dotPlus, '', 'skillDot')
+    return dmg(talent.e['持续伤害'] + dotPlus, 'dot', 'skillDot')
   }
 }, {
   title: '终结技伤害',
@@ -18,7 +18,7 @@ export const details = [{
   dmg: ({ talent, cons }, dmg) => {
     let qDmg = dmg(talent.q['技能伤害'], 'q')
     const dotPlus = cons >= 2 ? 0.4 : 0
-    let dotDmg = dmg((talent.e['持续伤害'] + dotPlus) * talent.q['灼烧伤害比例'], '', 'skillDot')
+    let dotDmg = dmg((talent.e['持续伤害'] + dotPlus) * talent.q['灼烧伤害比例'], 'dot', 'skillDot')
     return {
       dmg: qDmg.dmg + dotDmg.avg,
       avg: qDmg.avg + dotDmg.avg
@@ -30,16 +30,16 @@ export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
-  title: '天赋-古来君子养艺人：3层【吞火】状态下目标受到的伤害提高[enemyDmg]%',
+  title: '天赋-古来君子养艺人：3层【吞火】状态下目标受到的伤害提高[enemydmg]%',
   check: ({ cons }) => cons < 6,
   data: {
-    enemyDmg: ({ talent }) => talent.t['伤害提高'] * 100 * 3
+    enemydmg: ({ talent }) => talent.t['伤害提高'] * 100 * 3
   }
 }, {
-  title: '天赋-古来君子养艺人：4层【吞火】状态下目标受到的伤害提高[enemyDmg]%',
+  title: '天赋-古来君子养艺人：4层【吞火】状态下目标受到的伤害提高[enemydmg]%',
   cons: 6,
   data: {
-    enemyDmg: ({ talent }) => talent.t['伤害提高'] * 100 * 4
+    enemydmg: ({ talent }) => talent.t['伤害提高'] * 100 * 4
   }
 }, {
   title: '行迹-逾锋：对陷入灼烧状态的地方目标造成的伤害提高[dmg]%',

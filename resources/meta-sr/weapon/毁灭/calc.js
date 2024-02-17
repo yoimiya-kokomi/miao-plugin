@@ -73,6 +73,13 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    在火的远处: [
+      keyIdx('装备者造成的伤害提高[dmg]%', 'dmg', 1)
+    ],
+    铭记于心的约定: [
+      staticIdx(1, 'stance'),
+      keyIdx('释放终结技时，暴击率提高[cpct]%', 'cpct', 2)
     ]
   }
 }

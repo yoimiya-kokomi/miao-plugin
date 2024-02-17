@@ -9,7 +9,7 @@ export const details = [{
 }, {
   title: '普攻灼烧持续伤害',
   tree: 3,
-  dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'] * 0.5, '', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'] * 0.5, 'dot', 'skillDot')
 }, {
   title: '蓄能5层全队加攻',
   dmg: ({ talent }) => {

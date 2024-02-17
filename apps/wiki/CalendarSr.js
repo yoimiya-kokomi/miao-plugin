@@ -115,7 +115,7 @@ let CalSr = {
     let f = 'YYYY-MM-DD HH:mm:ss'
     let newAbyssStart = moment('2023-12-25 04:00:00')
 
-    let abyss1Start = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').subtract(2, 'days').hours(4).format(f)
+    let abyss1Start = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
 
     if (newAbyssStart.diff(abyss1Start, 'days') % 14 !== 0) {
       abyss1Start = moment(abyss1Start).subtract(7, 'days').format(f)

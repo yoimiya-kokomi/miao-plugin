@@ -19,7 +19,7 @@ let DmgCalc = {
       dynamicPhy = 0, // 动态物伤
       dynamicCpct = 0, // 动态暴击率
       dynamicCdmg = 0, // 动态暴击伤害
-      dynamicEnemyDmg = 0 // 动态易伤
+      dynamicEnemydmg = 0 // 动态易伤
     } = dynamicData
     let {
       ds, // 数据集
@@ -31,7 +31,7 @@ let DmgCalc = {
     } = data
     let calc = ds.calc
 
-    let { atk, dmg, phy, cdmg, cpct, enemyDmg } = attr
+    let { atk, dmg, phy, cdmg, cpct, enemydmg } = attr
 
     // 攻击区
     let atkNum = calc(atk)
@@ -47,9 +47,9 @@ let DmgCalc = {
     }
 
     // 易伤区
-    let enemyDmgNum = 1
+    let enemydmgNum = 1
     if (game === 'sr') {
-      enemyDmgNum = 1 + enemyDmg.base / 100 + enemyDmg.plus / 100 + dynamicEnemyDmg / 100
+      enemydmgNum = 1 + enemydmg.base / 100 + enemydmg.plus / 100 + dynamicEnemydmg / 100
     }
 
     // 暴击区
@@ -69,7 +69,7 @@ let DmgCalc = {
 
       pctNum += ds.pct / 100
       dmgNum += ds.dmg / 100
-      enemyDmgNum += game === 'gs' ? 0 : ds.enemydmg / 100
+      enemydmgNum += game === 'gs' ? 0 : ds.enemydmg / 100
       cpctNum += ds.cpct / 100
       cdmgNum += ds.cdmg / 100
       enemyDef += ds.def / 100
@@ -128,11 +128,6 @@ let DmgCalc = {
     let stanceNum = 1
     if (game === 'sr') {
       switch (ele) {
-        case 'skillDot': {
-          dmgNum += attr.dot.dmg / 100
-          enemyDmgNum += attr.dot.enemydmg / 100
-          break
-        }
         case 'shock':
         case 'burn':
         case 'windShear':
@@ -147,7 +142,6 @@ let DmgCalc = {
         case 'iceBreak': {
           eleNum = DmgMastery.getBasePct(ele, attr.element)
           stanceNum = 1 + calc(attr.stance) / 100
-          enemyDmgNum += attr.dot.enemydmg / 100
           break
         }
         default:
@@ -182,7 +176,7 @@ let DmgCalc = {
         break
       }
 
-      case 'crystallize':{
+      case 'crystallize': {
         eleBase *= cryBaseDmg[level]
         ret = { avg: eleBase * (calc(attr.shield) / 100) * (attr.shield.inc / 100) }
         break
@@ -202,7 +196,7 @@ let DmgCalc = {
       // 技能持续伤害 = 伤害值乘区 * 增伤区 * 易伤区 * 防御区 * 抗性区 * 减伤区
       case 'skillDot': {
         ret = {
-          avg: dmgBase * dmgNum * enemyDmgNum * defNum * kNum * dmgReduceNum
+          avg: dmgBase * dmgNum * enemydmgNum * defNum * kNum * dmgReduceNum
         }
         break
       }
@@ -220,27 +214,27 @@ let DmgCalc = {
       case 'fireBreak':
       case 'windBreak':
       case 'physicalBreak':
-      case 'quantumBreak' :
+      case 'quantumBreak':
       case 'imaginaryBreak':
       case 'iceBreak': {
         breakDotBase *= breakBaseDmg[level]
         ret = {
-          avg: breakDotBase * eleNum * stanceNum * enemyDmgNum * defNum * kNum * dmgReduceNum
+          avg: breakDotBase * eleNum * stanceNum * enemydmgNum * defNum * kNum * dmgReduceNum
         }
         break
       }
 
       default: {
         ret = {
-          dmg: dmgBase * dmgNum * enemyDmgNum * (1 + cdmgNum) * defNum * kNum * dmgReduceNum,
-          avg: dmgBase * dmgNum * enemyDmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * dmgReduceNum
+          dmg: dmgBase * dmgNum * enemydmgNum * (1 + cdmgNum) * defNum * kNum * dmgReduceNum,
+          avg: dmgBase * dmgNum * enemydmgNum * (1 + cpctNum * cdmgNum) * defNum * kNum * dmgReduceNum
         }
       }
     }
 
     if (showDetail) {
       console.log('Attr', attr)
-      console.log({ mode, dmgBase, atkNum, pctNum, multiNum, plusNum, dmgNum, enemyDmgNum, stanceNum, cpctNum, cdmgNum, defNum, eleNum, kNum, dmgReduceNum })
+      console.log({ mode, dmgBase, atkNum, pctNum, multiNum, plusNum, dmgNum, enemydmgNum, stanceNum, cpctNum, cdmgNum, defNum, eleNum, kNum, dmgReduceNum })
       console.log('Ret', ret)
     }
 
@@ -265,8 +259,8 @@ let DmgCalc = {
       return dmgFn(0, talent, ele, basicNum, 'basic', dynamicData)
     }
 
-    dmgFn.reaction = function (ele = false) {
-      return dmgFn(0, 'fy', ele, 0, 'basic')
+    dmgFn.reaction = function (ele = false, talent = 'fy') {
+      return dmgFn(0, talent, ele, 0, 'basic')
     }
 
     dmgFn.dynamic = function (pctNum = 0, talent = false, dynamicData = false, ele = false) {

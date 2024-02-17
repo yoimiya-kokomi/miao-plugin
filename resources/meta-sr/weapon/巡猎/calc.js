@@ -79,6 +79,17 @@ export default function (staticIdx, keyIdx) {
         }
       },
       keyIdx('释放终结技后，造成伤害提高[dmg]%，追加攻击无视目标防御力[tIgnore]%', { dmg: 3, tIgnore: 4 })
+    ],
+    最后的赢家: [
+      staticIdx(1, 'atkPct'),
+      (tables) => {
+        return {
+          title: '4层Buff提升装备者暴击伤害[cdmg]%',
+          data: {
+            cdmg: tables[2] * 4
+          }
+        }
+      }
     ]
   }
 }

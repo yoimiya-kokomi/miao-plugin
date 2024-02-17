@@ -12,10 +12,10 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'] + talent.e['相邻目标伤害'] * 2, 'e')
 }, {
   title: '秘技触电持续伤害',
-  dmg: ({ talent }, dmg) => dmg(0.5, '', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(0.5, 'dot', 'skillDot')
 }, {
   title: '战技触电持续伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['触电持续伤害'], '', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.e['触电持续伤害'], 'dot', 'skillDot')
 }, {
   title: '天赋附加伤害',
   dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'], 't')

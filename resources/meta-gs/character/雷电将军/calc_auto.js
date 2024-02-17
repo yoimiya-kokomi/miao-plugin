@@ -53,7 +53,7 @@ export const defParams = {
 }
 
 export const defDmgIdx = 2
-export const mainAttr = 'atk,cpct,cdmg,recharge,mastery'
+export const mainAttr = 'atk,cpct,cdmg,recharge,dmg'
 
 export const buffs = [{
   title: '恶曜开眼：开E元素爆发伤害提升[qDmg]%',
@@ -84,7 +84,7 @@ export const buffs = [{
     atkPlus: ({ params }) => 1202.35 * params.ban
   }
 }, {
-  check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
+  check: ({ params, artis }) => params.team === true && artis.昔日宗室之仪 !== 4,
   title: '班尼特-昔日宗室之仪：增加攻击[atkPct]%',
   data: {
     atkPct: ({ params }) => 20 * params.ban
@@ -131,7 +131,7 @@ export const buffs = [{
     mastery: 200
   }
 }, {
-  check: ({ params , artis }) => params.team === true && artis.教官 !== 4 ,
+  check: ({ params, artis }) => params.team === true && artis.教官 !== 4,
   title: '九条-教官：精通提升[mastery]',
   data: {
     mastery: 120

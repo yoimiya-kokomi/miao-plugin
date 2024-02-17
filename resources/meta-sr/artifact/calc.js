@@ -127,7 +127,7 @@ export default {
     }]
   },
   泛银河商业公司: {
-    2: [attr('effPct', 12), {
+    2: [attr('effPct', 10), {
       title: '基于效果命中提高攻击力[atkPct]%',
       data: {
         atkPct: ({ calc, attr }) => Math.min(25, calc(attr.effPct) / 4 || 0)
@@ -230,5 +230,28 @@ export default {
         dmg: 10
       }
     }]
+  },
+  死水深潜的先驱: {
+    2: {
+      title: '对受负面状态影响的敌人造成伤害提高[dmg]%',
+      data: {
+        dmg: 12
+      }
+    },
+    4: [attr('cpct', 4), {
+      title: '对陷入不少于3个负面效果的地方目标造成的暴击伤害提高[cdmg]%',
+      data: {
+        cdmg: 24
+      }
+    }]
+  },
+  机心戏梦的钟表匠: {
+    2: attr('stance', 16),
+    4: {
+      title: '装备者对我方释放终结技时，我方全体击破特攻提高[stance]%',
+      data: {
+        stance: 30
+      }
+    }
   }
 }

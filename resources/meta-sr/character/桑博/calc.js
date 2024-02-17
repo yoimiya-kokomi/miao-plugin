@@ -13,7 +13,7 @@ export const details = [{
   dmg: ({ talent, cons }, dmg) => {
     let eDmg = dmg(talent.e['技能伤害'] * 6, 'e')
     let plusDot = cons >= 6 ? 0.15 : 0
-    let dotDmg = dmg((talent.t['回合开始受到伤害'] + plusDot) * 5, '', 'skillDot')
+    let dotDmg = dmg((talent.t['回合开始受到伤害'] + plusDot) * 5, 'dot', 'skillDot')
     return {
       dmg: eDmg.dmg + dotDmg.avg * 0.08,
       avg: eDmg.avg + dotDmg.avg * 0.08
@@ -26,7 +26,7 @@ export const details = [{
   title: '天赋5层风化持续伤害',
   dmg: ({ talent, cons }, dmg) => {
     let plusDot = cons >= 6 ? 0.15 : 0
-    return dmg((talent.t['回合开始受到伤害'] + plusDot) * 5, '', 'skillDot')
+    return dmg((talent.t['回合开始受到伤害'] + plusDot) * 5, 'dot', 'skillDot')
   }
 }]
 
@@ -43,9 +43,9 @@ export const buffs = [{
   title: '桑博6命：天赋施加的风化状态伤害倍率提高15%',
   cons: 6
 }, {
-  title: '惊喜礼盒：Q后使敌方目标受到的持续伤害提高[dotEnemyDmg]%',
+  title: '惊喜礼盒：Q后使敌方目标受到的持续伤害提高[dotEnemydmg]%',
   data: {
-    dotEnemyDmg: 30
+    dotEnemydmg: 30
   }
 }]
 

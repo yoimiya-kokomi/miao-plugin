@@ -69,6 +69,10 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    银河沦陷日: [
+      staticIdx(1, 'atkPct'),
+      keyIdx('提高暴击伤害[cdmg]%', 'cdmg', 2)
     ]
   }
 }
