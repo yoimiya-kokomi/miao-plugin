@@ -20,11 +20,10 @@ export default {
       return req.err('error', 60)
     }
     let ds = data.detailInfo
-    let ac = ds.assistAvatarDetail
     let avatars = {}
-    if (ac && !lodash.isEmpty(ac)) {
-      avatars[ac.AvatarID] = ac
-    }
+    lodash.forEach(ds.assistAvatarList, (ds) => {
+      avatars[ds.avatarId] = ds
+    })
     lodash.forEach(ds.avatarDetailList, (ds) => {
       avatars[ds.avatarId] = ds
     })
