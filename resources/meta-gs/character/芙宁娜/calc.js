@@ -4,16 +4,20 @@ export const details = [{
     heal(talent.e['众水的歌者治疗量2'][0] * attr.hp / 100 + talent.e['众水的歌者治疗量2'][1] * 1)
 }, {
   title: 'E海薇玛夫人(海马)·伤害',
+  params: { talentQ: true },
   dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['海薇玛夫人伤害'] / 100 * 1.4, 'e')
 }, {
   title: 'E乌瑟勋爵(章鱼)·伤害',
+  params: { talentQ: true },
   dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['乌瑟勋爵伤害'] / 100 * 1.4, 'e')
 }, {
   title: 'E谢贝蕾妲小姐(螃蟹)·伤害',
+  params: { talentQ: true },
   dmgKey: 'e',
   dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4, 'e')
 }, {
   title: 'E谢贝蕾妲小姐(螃蟹)·蒸发',
+  params: { talentQ: true },
   dmgKey: 'e',
   dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4, 'e', '蒸发')
 }, {
