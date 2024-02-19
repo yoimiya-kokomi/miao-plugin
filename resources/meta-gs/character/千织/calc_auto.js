@@ -55,19 +55,26 @@ export const buffs = [{
   data: {
     aPlus: ({ attr }) => attr.def * 235 / 100
   }
-}, {
+},{
   check: ({ params }) => params.team === true,
   title: '6命五郎：增加[defPct]%防御力，增加[cdmg]%暴击伤害',
   data: {
     cdmg: 40,
     defPct: 25
   }
-}, {
+},{
    check: ({ params }) => params.team === true,
    title: '钟离：降低敌人[kx]%全抗',
    data: {
      kx: 20
    }
+},{
+  check: ({ params }) => params.team === true,
+  title: '坚定之岩：造成的伤害提升[dmg]%，降低敌人[kx]%岩元素抗性',
+  data: {
+    dmg: 15,
+    kx: 20
+  }
 }]
 
 export const createdBy = 'liangshi'
