@@ -251,8 +251,8 @@ export default function (step, staticStep) {
     有乐御簾切: [staticStep('defPct', 20),{
       title: '附近的角色在场上造成岩元素伤害后，普通攻击伤害提升[aDmg]%，元素战伤害提升[eDmg]%；',
       refine: {
-        aDmg: step(16),
-        eDmg: step(24)
+        aDmg: step(16 * 2),
+        eDmg: step(24 * 2)
       }
     }]
   }
