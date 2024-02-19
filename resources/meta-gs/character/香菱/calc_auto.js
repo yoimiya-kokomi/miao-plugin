@@ -8,20 +8,15 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['喷火伤害'], 'e', 'vaporize')
 }, {
   title: ' 旋火轮单次伤害',
-  let i = 1,
-  params: { team: false },
+  params: { team: false, isQ: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q')
 }, {
   title: '雷国旋火轮单次蒸发',
-  let i = 1,
-  let x = 2,
-  params: { team: true },
+  params: { team: true, isQ: true, x: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q', 'vaporize')
 },{
   title: '万达旋火轮单次蒸发',
-  let i = 1,
-  let x = 1,
-  params: { team: true },
+  params: { team: true, isQ: true, x: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q', 'vaporize')
 }]
 
@@ -39,7 +34,7 @@ export const buffs = [{
     kx: 15
   }
 }, {
-  check: i !== 1,
+  check: ({ params }) => !params.isQ,
   title: '香菱6命：旋火轮持续期间获得15%火伤加成',
   cons: 6,
   data: {
@@ -52,19 +47,19 @@ export const buffs = [{
     atkPlus: 1202.35
   }
 }, {
-  check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
+  check: ({ params , artis }) => params.team === true && artis['昔日宗室之仪'] !== 4 ,
   title: '班尼特-昔日宗室之仪：增加攻击[atkPct]%',
   data: {
     atkPct: 20
   }
 }, {
-  check: x == 2,
+  check: ({ params }) => params.x === 2,
   title: '雷电将军增伤：获得[qDmg]%元素爆发增伤',
   data: {
     qDmg: 24
   }
 },{
-  check: ({ cons, params }) => cons <= 1 && params.team === true && x == 1,
+  check: ({ cons, params }) => cons <= 1 && params.team === true && params.x === 1,
   title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
   data: {
     aDmg: 16,
@@ -75,7 +70,7 @@ export const buffs = [{
     kx: 40
   }
 }, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true && x == 1),
+  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true && params.x === 1),
   title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
   data: {
     aDmg: 16,
@@ -87,7 +82,7 @@ export const buffs = [{
     mastery: 200
   }
 }, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true && x == 1),
+  check: ({ cons, params }) => (cons >= 6 && params.team === true && params.x === 1),
   title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
   data: {
     aDmg: 32,
