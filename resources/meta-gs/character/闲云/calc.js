@@ -52,7 +52,7 @@ export const buffs = [{
   cons: 6,
   data: {
     buffCount: ({ params }) => params.btt,
-    a3Cdmg: ({ params }) => 15 + Math.floor(params.btt / 2) * 20 + Math.floor(params.btt / 3) * 35
+    a3Cdmg: ({ params }) => (5 / 3) * Math.pow(params.btt, 3) - (5 / 2) * Math.pow(params.btt, 2) + (95 / 6) * params.btt
   }
 }]
 
