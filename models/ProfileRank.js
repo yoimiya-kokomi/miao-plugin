@@ -337,7 +337,8 @@ export default class ProfileRank {
       }
     }
     if (value && !lodash.isUndefined(value.score)) {
-      await redis.zAdd(typeKey, { score: value.score, value: this.uid })
+      let tmpScore = value.score.toString().replaceAll('%', '')
+      await redis.zAdd(typeKey, { score: tmpScore, value: this.uid })
     }
     if (!lodash.isNumber(rank)) {
       rank = await redis.zRevRank(typeKey, this.uid)

@@ -206,9 +206,11 @@ async function renderCharRankList({ e, uids, char, mode, groupId }) {
           title = title.replace(/[ ·]*/g, '')
         }
         title = title.length > 10 ? title.replace(/伤害$/, '') : title
+        let tmpAvg = dmg.type !== 'text' ? Format.comma(dmg.avg, 1) : dmg.avg
         tmp.dmg = {
           title,
-          avg: Format.comma(dmg.avg, 1)
+          avg: tmpAvg,
+          rank: data.dmg.rank
         }
       }
       if (uid) {
@@ -236,7 +238,7 @@ async function renderCharRankList({ e, uids, char, mode, groupId }) {
         tmp._mark = mark?._mark || 0
       }
       tmp._formatmark = Format.comma(tmp._mark, 1)
-      tmp._dmg = dmg?.avg || 0
+      tmp._dmg = (0 - tmp.dmg.rank) || 0
       tmp._star = 5 - tmp.star
       list.push(tmp)
     }
