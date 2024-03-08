@@ -238,7 +238,7 @@ async function renderCharRankList({ e, uids, char, mode, groupId }) {
         tmp._mark = mark?._mark || 0
       }
       tmp._formatmark = Format.comma(tmp._mark, 1)
-      tmp._dmg = (0 - tmp.dmg.rank) || 0
+      tmp._dmg = (0 - tmp.dmg?.rank) || 0
       tmp._star = 5 - tmp.star
       list.push(tmp)
     }

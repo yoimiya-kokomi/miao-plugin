@@ -247,6 +247,13 @@ export default function (step, staticStep) {
       refine: {
         hpPct: step(14 * 2)
       }
+    }],
+    有乐御簾切: [staticStep('defPct', 20), {
+      title: '普通攻击伤害提高[aDmg]%，元素战技伤害提高[eDmg]%',
+      refine: {
+        aDmg: step(16 * 2),
+        eDmg: step(24 * 2)
+      }
     }]
   }
 }

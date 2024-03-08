@@ -21,7 +21,7 @@ export const details = [{
   },
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
 }, {
-  title: '魈珐班开Q满被动E',
+  title: '魈珐闲芙·开Q满被动E',
   params: {
     e: 1,
     layer: 5,
@@ -29,14 +29,14 @@ export const details = [{
   },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
-  title: '魈珐班开Q首插',
+  title: '魈珐闲芙·开Q首插',
   params: {
     layer: 1,
     team: true
   },
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
 }, {
-  title: '魈珐班开Q尾插',
+  title: '魈珐闲芙·开Q尾插',
   params: {
     layer: 5,
     team: true
@@ -68,16 +68,40 @@ export const buffs = [{
     eDmg: ({ params }) => params.e ? 45 : 0
   }
 }, {
-  check: ({ params }) => params.team === true,
-  title: '风鹰宗室班：增加[atkPlus]点攻击力',
+  check: ({ params, cons }) => params.team === true && cons <= 1,
+  title: '0命芙宁娜：获得[dmg]%增伤',
   data: {
-    atkPlus: 1202.35
+    dmg: ({ params }) => params.layer * 15
   }
 }, {
-  check: ({ params , artis }) => params.team === true && artis.昔日宗室之仪 !== 4 ,
-  title: '班尼特-昔日宗室之仪：增加攻击[atkPct]%',
+  check: ({ params, cons }) => params.team === true && cons > 1,
+  title: '2命芙宁娜：获得[dmg]%增伤',
   data: {
-    atkPct: 20
+    dmg: 100
+  }
+}, {
+  check: ({ params, cons }) => params.team === true && cons <= 1,
+  title: '0命精1鹤鸣闲云：获得[a3Dmg]%下落攻击增伤，[a3Plus]下落攻击伤害值加成，[a3Cpct]%下落攻击暴击率提高',
+  data: {
+    a3Dmg: 28,
+    a3Plus: 9000,
+    a3Cpct: 10
+  }
+}, {
+  check: ({ params, cons }) => params.team === true && cons > 1 && cons < 6,
+  title: '2命精1鹤鸣闲云：获得[a3Dmg]%下落攻击增伤，[a3Plus]下落攻击伤害值加成，[a3Cpct]%下落攻击暴击率提高',
+  data: {
+    a3Dmg: 28,
+    a3Plus: 18000,
+    a3Cpct: 10
+  }
+}, {
+  check: ({ params, cons }) => params.team === true && cons >= 6,
+  title: '2命精5鹤鸣闲云：获得[a3Dmg]%下落攻击增伤，[a3Plus]下落攻击伤害值加成，[a3Cpct]%下落攻击暴击率提高',
+  data: {
+    a3Dmg: 80,
+    a3Plus: 18000,
+    a3Cpct: 10
   }
 }, {
   check: ({ params }) => params.team === true,
