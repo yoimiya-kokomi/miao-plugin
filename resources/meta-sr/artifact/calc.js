@@ -93,9 +93,9 @@ export default {
   宝命长存的莳者: {
     2: attr('hpPct', 12),
     4: {
-      title: '消耗生命2层提高暴击率12%',
+      title: '消耗生命2层提高暴击率16%',
       data: {
-        cpct: 12
+        cpct: 16
       }
     }
   },

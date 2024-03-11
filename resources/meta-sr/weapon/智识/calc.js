@@ -63,9 +63,9 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'cdmg'),
       (tables) => {
         return {
-          title: '根据装备者的能量上限提高伤害[dmg]%',
+          title: '根据装备者的能量上限提高伤害[qDmg]%',
           data: {
-            dmg: ({ attr }) => tables[2] * Math.min(attr.sp, 180)
+            qDmg: ({ attr }) => tables[2] * Math.min(attr.sp, 180)
           }
         }
       }

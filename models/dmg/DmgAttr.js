@@ -185,7 +185,7 @@ let DmgAttr = {
         if (lodash.isFunction(val)) {
           val = val(ds)
         }
-        if (!val) {
+        if (!val && val !== 0) {
           return
         }
 
