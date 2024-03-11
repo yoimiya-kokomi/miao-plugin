@@ -282,6 +282,8 @@ let Cal = {
     if (/神铸赋形/.test(title)) {
       type = 'weapon'
       title = title.replace(/(单手剑|双手剑|长柄武器|弓|法器|·)/g, '')
+      extra.sort = 3
+    } else if (/集录/.test(title)) {
       extra.sort = 2
     } else if (/祈愿/.test(title)) {
       type = 'character'
