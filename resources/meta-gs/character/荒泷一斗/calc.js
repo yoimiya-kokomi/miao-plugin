@@ -10,7 +10,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
+export const mainAttr = 'atk,def,cpct,cdmg'
 export const enemyName = '魔偶/女士/雷神'
 
 export const buffs = [{
