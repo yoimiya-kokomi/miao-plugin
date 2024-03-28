@@ -84,6 +84,18 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    行于流逝的岸: [
+      staticIdx(1, 'cdmg'),
+      (tables) => {
+        return {
+          title: '造成的伤害提高[dmg]%，终结技伤害额外提高[qDmg]%',
+          data: {
+            dmg: tables[2],
+            qDmg: tables[3]
+          }
+        }
+      }
     ]
   }
 }

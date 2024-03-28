@@ -94,11 +94,6 @@ export default function (step, staticStep) {
       }
     },
     尘世之锁: [staticStep('shield', 20), {
-      title: '护盾强效提升[_shield]%',
-      refine: {
-        _shield: step(20)
-      }
-    }, {
       title: '护盾+满层情况下攻击力提高[atkPct]%',
       buffCount: 10,
       refine: {
@@ -107,11 +102,8 @@ export default function (step, staticStep) {
       }
     }],
     不灭月华: [staticStep('heal', 10, 2.5), {
-      title: '治疗加成提高[_heal]%，普攻伤害增加[aPlus]',
+      title: '普攻伤害增加[aPlus]',
       sort: 9,
-      refine: {
-        _heal: step(10, 2.5)
-      },
       data: {
         aPlus: ({ attr, calc, refine }) => calc(attr.hp) * step(1, 0.5)[refine] / 100
       }
@@ -170,11 +162,6 @@ export default function (step, staticStep) {
       }
     }],
     金流监督: [staticStep('atkPct', 16), {
-      title: '攻击力提升[_atkPct]%',
-      refine: {
-        _atkPct: step(16)
-      }
-    }, {
       title: '满层下，普通攻击造成的伤害提升[aDmg]%，重击造成的伤害提升[a2Dmg]%',
       refine: {
         aDmg: step(16 * 3),
@@ -189,11 +176,6 @@ export default function (step, staticStep) {
       }
     }],
     万世流涌大典: [staticStep('hpPct', 16), {
-      title: '生命值提升[_hpPct]%',
-      refine: {
-        _hpPct: step(16)
-      }
-    }, {
       title: '满层下，重击造成的伤害提升[a2Dmg]%',
       refine: {
         a2Dmg: [14 * 3, 18 * 3, 22 * 3, 26 * 3, 30 * 3]

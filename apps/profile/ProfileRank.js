@@ -21,7 +21,7 @@ export async function groupRank(e) {
   let mode = /(分|圣遗物|遗器|评分|ACE)/.test(msg) ? 'mark' : 'dmg'
   mode = /(词条)/.test(msg) ? 'valid' : mode
   mode = /(双爆|双暴)/.test(msg) ? 'crit' : mode
-  let name = msg.replace(/(#|星铁|最强|最高分|第一|词条|双爆|双暴|极限|最高|最多|最牛|圣遗物|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
+  let name = msg.replace(/(#|星铁|最强|最高分|第一|词条|双爆|双暴|极限|最高|最多|最牛|圣遗物|遗器|评分|群内|群|排名|排行|面板|面版|详情|榜)/g, '')
   let game = e.isSr ? 'sr' : 'gs'
   let char = Character.get(name, game)
   if (!char) {

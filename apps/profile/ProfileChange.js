@@ -20,7 +20,7 @@ const ProfileChange = {
    * @param msg
    * @returns {{}}
    */
-  matchMsg(msg) {
+  matchMsg (msg) {
     if (!/(变|改|换)/.test(msg)) {
       return false
     }
@@ -130,17 +130,17 @@ const ProfileChange = {
       }
 
       // 匹配武器
-      let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?精炼?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
-      if (wRet && wRet[5]) {
-        let weaponName = lodash.trim(wRet[5])
+      let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?(?:(精炼?)|(叠影?))?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
+      if (wRet && wRet[7]) {
+        let weaponName = lodash.trim(wRet[7])
         let weapon = Weapon.get(weaponName, game, ret.char.game)
         if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {
-          let affix = wRet[2] || wRet[3]
+          let affix = wRet[2] || wRet[5]
           affix = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 满: 5 }[affix] || affix * 1
           let tmp = {
             weapon: (Weapon.isWeaponSet(weaponName) ? weaponName : weapon?.name) || '',
             affix: affix || '',
-            level: wRet[1] * 1 || wRet[4] * 1 || ''
+            level: wRet[1] * 1 || wRet[6] * 1 || ''
           }
           if (lodash.values(tmp).join('')) {
             change.weapon = tmp
@@ -197,7 +197,7 @@ const ProfileChange = {
    * @param game
    * @returns {Avatar|boolean}
    */
-  getProfile(uid, charid, ds, game = 'gs') {
+  getProfile (uid, charid, ds, game = 'gs') {
     if (!charid) {
       return false
     }

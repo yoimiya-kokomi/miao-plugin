@@ -3,6 +3,7 @@
 * */
 import { eleBaseDmg, erTitle, breakBaseDmg, cryBaseDmg } from './DmgCalcMeta.js'
 import DmgMastery from './DmgMastery.js'
+import lodash from 'lodash'
 
 let DmgCalc = {
   calcRet (fnArgs = {}, data = {}) {
@@ -64,18 +65,22 @@ let DmgCalc = {
     let plusNum = 0
 
     pctNum = pctNum / 100
-    if (talent && attr[talent]) {
-      let ds = attr[talent]
+    if (talent) {
+      lodash.forEach(talent.split(','), (t) => {
+        if (attr[t]) {
+          let ds = attr[t]
 
-      pctNum += ds.pct / 100
-      dmgNum += ds.dmg / 100
-      enemydmgNum += game === 'gs' ? 0 : ds.enemydmg / 100
-      cpctNum += ds.cpct / 100
-      cdmgNum += ds.cdmg / 100
-      enemyDef += ds.def / 100
-      enemyIgnore += ds.ignore / 100
-      multiNum += ds.multi / 100
-      plusNum += ds.plus
+          pctNum += ds.pct / 100
+          dmgNum += ds.dmg / 100
+          enemydmgNum += game === 'gs' ? 0 : ds.enemydmg / 100
+          cpctNum += ds.cpct / 100
+          cdmgNum += ds.cdmg / 100
+          enemyDef += ds.def / 100
+          enemyIgnore += ds.ignore / 100
+          multiNum += ds.multi / 100
+          plusNum += ds.plus
+        }
+      })
     }
 
     // 防御区

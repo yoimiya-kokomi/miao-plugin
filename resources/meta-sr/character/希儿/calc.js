@@ -36,7 +36,7 @@ export const buffs = [{
     speedPct: 50
   }
 }, {
-  title: '行迹-夜行：抗性穿透提高20',
+  title: '行迹-夜行：抗性穿透提高20%',
   tree: 2,
   data: {
     kx: 20
