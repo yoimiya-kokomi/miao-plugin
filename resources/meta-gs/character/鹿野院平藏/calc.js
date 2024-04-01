@@ -13,6 +13,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['不动流·真空弹伤害'], 'q')
 }]
 
+export const defDmgIdx = 1
+
 export const buffs = [{
   title: '平藏6命：每层「变格」提高E 4%暴击率,「正论」提高E 32%暴击伤害',
   cons: 6,
