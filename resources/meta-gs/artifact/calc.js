@@ -284,9 +284,10 @@ const buffs = {
   千岩牢固: {
     2: attr('hpPct', 20),
     4: {
-      title: '元素战技命中敌人后，攻击力提升20%',
+      title: '元素战技命中敌人后，攻击力提升[atkPct]%，护盾强效提升[shield]%',
       data: {
-        atkPct: 20
+        atkPct: 20,
+        shield: 30
       }
     }
   },
@@ -465,17 +466,17 @@ const buffs = {
       title: '触发后，普通攻击、重击、下落攻击、元素战技与元素爆发伤害提高1200',
       sort: 9,
       data: {
-        aPlus: 1200 ,
-        a2Plus: 1200 ,
-        a3Plus: 1200 ,
-        ePlus: 1200 ,
+        aPlus: 1200,
+        a2Plus: 1200,
+        a3Plus: 1200,
+        ePlus: 1200,
         qPlus: 1200
       }
     }
   },
 
   回声之林夜话: {
-    2: attr('atkPct', 18 ),
+    2: attr('atkPct', 18),
     4: {
       check: ({ element }) => element === '岩',
       title: '施放元素战技后，岩元素伤害加成提升50%',
