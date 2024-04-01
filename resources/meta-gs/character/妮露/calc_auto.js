@@ -41,7 +41,7 @@ export const details = [{
 }, {
   title: '海妮心二妲·丰穰之核',
   params: { team: false, bloom: true, ...team2.params },
-  dmg: ({}, { reaction }) => {
+  dmg: ({ }, { reaction }) => {
     // 草神二命固定暴击率20%、暴击伤害100%
     const cpctNum = 20 / 100; const cdmgNum = 100 / 100
     // 计算丰穰之核非暴击伤害
@@ -77,7 +77,7 @@ export const buffs = [{
   title: '天赋-翩舞永世之梦：丰穰之核增伤[bloom]%',
   sort: 9,
   data: {
-    bloom: ({ calc, attr }) => Math.min(400, (calc(attr.hp) - 30000) / 1000 * 9)
+    bloom: ({ attr }) => Math.min(400, attr.hp <= 30000 ? 0 : (attr.hp - 30000) / 1000 * 9)
   }
 }, {
   title: '妮露1命：水月造成的伤害提升65%',
@@ -152,8 +152,8 @@ export const buffs = [{
   cons: 6,
   sort: 9,
   data: {
-    cpct: ({ calc, attr }) => Math.min(30, calc(attr.hp) / 1000 * 0.6),
-    cdmg: ({ calc, attr }) => Math.min(60, calc(attr.hp) / 1000 * 1.2)
+    cpct: ({ attr }) => Math.min(30, attr.hp / 1000 * 0.6),
+    cdmg: ({ attr }) => Math.min(60, attr.hp / 1000 * 1.2)
   }
 }, {
   check: ({ params }) => team2.is(params),
@@ -170,7 +170,7 @@ export const buffs = [{
     mastery: 1000 * 0.25
   }
 }, {
-  check: ({ params , artis }) => team2.is(params) && artis.深林的记忆 !== 4 ,
+  check: ({ params, artis }) => team2.is(params) && artis.深林的记忆 !== 4,
   title: '纳西妲-草套：草抗降低[kx]%',
   data: {
     kx: 30
