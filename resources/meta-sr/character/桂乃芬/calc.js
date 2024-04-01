@@ -42,7 +42,7 @@ export const buffs = [{
     enemydmg: ({ talent }) => talent.t['伤害提高'] * 100 * 4
   }
 }, {
-  title: '行迹-逾锋：对陷入灼烧状态的地方目标造成的伤害提高[dmg]%',
+  title: '行迹-逾锋：对陷入灼烧状态的敌方目标造成的伤害提高[dmg]%',
   tree: 3,
   data: {
     dmg: 20

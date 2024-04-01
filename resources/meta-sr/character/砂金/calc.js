@@ -23,7 +23,7 @@ export const mainAttr = 'cpct,cdmg,def'
 export const defDmgIdx = 1
 
 export const buffs = [{
-  title: '终结技-惊惶：击中【惊惶】状态下的地方目标时，造成的暴击伤害提高[cdmg]%',
+  title: '终结技-惊惶：击中【惊惶】状态下的敌方目标时，造成的暴击伤害提高[cdmg]%',
   data: {
     cdmg: ({ talent }) => talent.q['暴击伤害提高'] * 100
   }

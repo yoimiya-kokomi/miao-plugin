@@ -2,8 +2,8 @@ import lodash from 'lodash'
 import { getTargetUid, getProfileRefresh } from './ProfileCommon.js'
 import ProfileList from './ProfileList.js'
 import { Cfg, Common, Data, Format } from '#miao'
-import { Button } from '#miao.models'
-import { MysApi, ProfileRank, Character, Weapon, Artifact } from '#miao.models'
+import { Button, MysApi, ProfileRank, Character, Weapon, Artifact } from '#miao.models'
+
 import ProfileChange from './ProfileChange.js'
 import { profileArtis } from './ProfileArtis.js'
 import { ProfileWeapon } from './ProfileWeapon.js'
@@ -253,7 +253,7 @@ let ProfileDetail = {
       changeProfile: e._profileMsg
     }
     // 渲染图像
-    const msgRes = await e.reply([await Common.render('character/profile-detail', renderData, { e, scale: 1.6, retType: "base64" }), new Button(e).profile(char, uid)])
+    const msgRes = await e.reply([await Common.render('character/profile-detail', renderData, { e, scale: 1.6, retType: 'base64' }), new Button(e).profile(char, uid)])
     if (msgRes) {
       // 如果消息发送成功，就将message_id和图片路径存起来，3小时过期
       const message_id = [e.message_id]

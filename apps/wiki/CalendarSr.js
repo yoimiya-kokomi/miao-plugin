@@ -117,8 +117,9 @@ let CalSr = {
 
     let abyss1Start = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
 
-    if (newAbyssStart.diff(abyss1Start, 'days') % 14 !== 0) {
-      abyss1Start = moment(abyss1Start).subtract(7, 'days').format(f)
+    let diff0 = Math.abs(newAbyssStart.diff(abyss1Start, 'days') % 14)
+    if (diff0 !== 0) {
+      abyss1Start = moment(abyss1Start).subtract(diff0, 'days').format(f)
     }
 
     let abyss1End = moment(abyss1Start).add(42, 'days').format(f)
@@ -138,10 +139,10 @@ let CalSr = {
 
     let title1 = '「混沌回忆」'
     let title2 = '「虚构叙事」'
-    let exchange = true
+    let exchange = false
     let diff = newAbyssStart.diff(abyss0Start, 'days')
-    if (diff >= 0 && diff % 14 === 0) {
-      exchange = false
+    if (diff >= 0 && diff % 28 === 0) {
+      exchange = true
     }
     if (exchange) {
       [title1, title2] = [title2, title1]

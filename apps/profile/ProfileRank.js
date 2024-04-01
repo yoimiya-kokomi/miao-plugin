@@ -103,7 +103,7 @@ export async function resetRank(e) {
   }
   let game = e.isSr ? 'sr' : 'gs'
   let msg = e.original_msg || e.msg
-  let name = msg.replace(/(#|重置|重设|排名|排行|群|群内|面板|详情|面版)/g, '').trim()
+  let name = msg.replace(/(#|星铁|重置|重设|排名|排行|群|群内|面板|详情|面版)/g, '').trim()
   let charId = ''
   let charName = '全部角色'
   if (name) {

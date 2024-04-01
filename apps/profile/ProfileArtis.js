@@ -25,10 +25,10 @@ export async function profileArtis (e) {
   let { game } = char
   let charCfg = ArtisMarkCfg.getCfg(profile)
 
-  let { attrMap } = Meta.getMeta('gs', 'arti')
+  let { attrMap } = Meta.getMeta(game, 'arti')
 
   let artisDetail = profile.getArtisMark()
-  let artisKeyTitle = Artifact.getArtisKeyTitle()
+  let artisKeyTitle = Artifact.getArtisKeyTitle(game)
 
   // 渲染图像
   return e.reply([await Common.render('character/artis-mark', {
@@ -43,7 +43,7 @@ export async function profileArtis (e) {
     charCfg,
     game,
     changeProfile: e._profileMsg
-  }, { e, scale: 1.6 / 1.1, retType: "base64" }), new Button(e).profile(char, uid)])
+  }, { e, scale: 1.6 / 1.1, retType: 'base64' }), new Button(e).profile(char, uid)])
 }
 
 /*
