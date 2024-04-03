@@ -9,7 +9,7 @@ const ProfileList = {
    * @param e
    * @returns {Promise<boolean|*>}
    */
-  async refresh(e) {
+  async refresh (e) {
     let uid = await getTargetUid(e)
     if (!uid) {
       e._replyNeedUid || e.reply(['请先发送【#绑定+你的UID】来绑定查询目标\n星铁请使用【#星铁绑定+UID】', new Button(e).bindUid()])
@@ -48,7 +48,7 @@ const ProfileList = {
    * @returns {Promise<boolean|*>}
    */
 
-  async render(e) {
+  async render (e) {
     let uid = await getTargetUid(e)
     if (!uid) {
       e._replyNeedUid || e.reply(['请先发送【#绑定+你的UID】来绑定查询目标\n星铁请使用【#星铁绑定+UID】', new Button(e).bindUid()])
@@ -141,7 +141,7 @@ const ProfileList = {
       allowRank: rank && rank.allowRank,
       rankCfg,
       elem: player.isGs ? 'hydro' : 'sr'
-    }, { e, scale: 1.6, retType: "base64" }), new Button(e).profileList(uid, newChar)])
+    }, { e, scale: 1.6, retType: 'base64' }), new Button(e).profileList(uid, newChar)])
   },
 
   /**
@@ -149,13 +149,13 @@ const ProfileList = {
    * @param e
    * @returns {Promise<boolean>}
    */
-  async del(e) {
-    let ret = /^#(删除全部面板|删除面板|删除面板数据)\s*(\d{9,10})?$/.exec(e.msg)
+  async del (e) {
+    let ret = /^#(星铁)?(删除全部面板|删除面板|删除面板数据)\s*(\d{9,10})?$/.exec(e.msg)
     let uid = await getTargetUid(e)
     if (!uid) {
       return true
     }
-    let targetUid = ret[2]
+    let targetUid = ret[3]
 
     let user = e?.runtime?.user || {}
     if (!user.hasCk && !e.isMaster) {
@@ -168,18 +168,20 @@ const ProfileList = {
       return true
     }
 
-    let ckUids = (user?.ckUids || []).join(',').split(',')
+    const game = /星铁/.test(e.msg) ? 'sr' : 'gs'
+    let uidList = user?.getCkUidList(game)
+    let ckUids = (lodash.map(uidList, (ds) => ds.uid) || []).join(',').split(',')
     if (!ckUids.includes(targetUid) && !e.isMaster) {
       e.reply([`仅允许删除自己的UID数据[${ckUids.join(',')}]`, new Button(e).profileList(uid)])
       return true
     }
 
-    Player.delByUid(targetUid)
+    Player.delByUid(targetUid, game)
     e.reply([`UID${targetUid}的本地数据已删除，排名数据已清除...`, new Button(e).profileList(uid)])
     return true
   },
 
-  async reload(e) {
+  async reload (e) {
     let uid = await getTargetUid(e)
     if (!uid) {
       return true
