@@ -46,6 +46,9 @@
   width: 125px;
   text-align: left;
 }
+.gacha-pool .pool-name.mix {
+  width: 160px;
+}
 .gacha-pool .pool-name .name {
   height: 22px;
   line-height: 22px;
@@ -136,4 +139,3 @@
   background: #333;
   color: #fff;
 }
-/*# sourceMappingURL=gacha-stat.css.map */

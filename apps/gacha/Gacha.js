@@ -20,6 +20,9 @@ let Gacha = {
       case '武器':
         type = 302
         break
+      case '集录':
+        type = 500
+        break
     }
     let uid = e.uid || await getTargetUid(e)
     let qq = e.user_id
@@ -37,7 +40,7 @@ let Gacha = {
       uid,
       gacha,
       face: Gacha.getFace(uid)
-    }, { e, scale: 1.4, retType: "base64" }), new Button(e).gacha()])
+    }, { e, scale: 1.4, retType: 'base64' }), new Button(e).gacha()])
   },
   async stat (e) {
     let msg = e.msg.replace(/#|统计|分析|池/g, '')
@@ -48,6 +51,8 @@ let Gacha = {
       type = 'char'
     } else if (/常驻/.test(msg)) {
       type = 'normal'
+    } else if (/集录/.test(msg)) {
+      type = 'mix'
     } else if (/全部/.test(msg)) {
       type = 'all'
     }
@@ -66,7 +71,7 @@ let Gacha = {
       uid,
       gacha,
       face: Gacha.getFace(uid)
-    }, { e, scale: 1.4, retType: "base64" }), new Button(e).gacha()])
+    }, { e, scale: 1.4, retType: 'base64' }), new Button(e).gacha()])
   },
 
   getFace (uid) {

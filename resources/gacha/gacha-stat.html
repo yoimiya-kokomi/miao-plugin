@@ -1,10 +1,10 @@
 {{extend elemLayout}}
 
 {{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/avatar-list.css"/>
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/gacha/gacha-detail.css?v=1.0"/>
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/gacha/gacha-stat.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0" />
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/avatar-list.css" />
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/gacha/gacha-detail.css?v=1.0" />
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/gacha/gacha-stat.css?v=1.0" />
 
 {{/block}}
 
@@ -41,7 +41,9 @@
 
   <div class="ck-notice">
     <strong>#角色统计/#武器统计</strong>角色/武器池统计，
-    <strong>#常驻统计</strong>常驻池统计，
+    <strong>#常驻统计/#集录统计</strong>常驻/集录池统计
+  </div>
+  <div class="ck-notice">
     <strong>#全部统计</strong>全部抽卡统计，
     <strong>#抽卡帮助</strong> 获取帮助
   </div>
@@ -56,7 +58,7 @@
           <div class="version-name line">
             {{vData.version}} {{vData.half}}
           </div>
-          <div class="pool-name">
+          <div class="pool-name {{gacha.isMix ? 'mix' : 'non-mix'}}">
             <div class="name">{{vData.name}}</div>
             <div class="time">{{vData.from}}~{{vData.to}}</div>
           </div>

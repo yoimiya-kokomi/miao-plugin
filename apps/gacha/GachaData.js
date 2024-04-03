@@ -1,7 +1,7 @@
 import lodash from 'lodash'
 import { Data } from '#miao'
 import { Character, Weapon } from '#miao.models'
-import { poolDetail } from '../../resources/meta-gs/info/index.js'
+import { poolDetail, mixPoolDetail } from '../../resources/meta-gs/info/index.js'
 import moment from 'moment'
 
 let poolVersion = []
@@ -20,6 +20,24 @@ poolVersion.push({
   from: last.to,
   to: '2025-12-31 23:59:59',
   start: last.end,
+  end: new Date('2025-12-31 23:59:59')
+})
+
+let mixPoolVersion = []
+lodash.forEach(mixPoolDetail, (ds) => {
+  mixPoolVersion.push({
+    ...ds,
+    start: new Date(ds.from),
+    end: new Date(ds.to)
+  })
+})
+let mixLast = mixPoolVersion[mixPoolVersion.length - 1]
+mixPoolVersion.push({
+  version: '新版本',
+  half: '?',
+  from: mixLast.to,
+  to: '2025-12-31 23:59:59',
+  start: mixLast.end,
   end: new Date('2025-12-31 23:59:59')
 })
 
@@ -109,6 +127,10 @@ let GachaData = {
     let weaponFourNum = 0
     let bigNum = 0
     let allNum = 0
+    let isMix = false
+    if (type === 500) {
+      isMix = true
+    }
 
     let itemMap = logData.itemMap
     if (logData.items.length === 0) {
@@ -117,7 +139,7 @@ let GachaData = {
     let currVersion
     lodash.forEach(logData.items, (item) => {
       if (!currVersion || (item.time < currVersion.start)) {
-        currVersion = GachaData.getVersion(item.time)
+        currVersion = GachaData.getVersion(item.time, true, isMix)
       }
 
       allNum++
@@ -264,6 +286,7 @@ let GachaData = {
     let items = []
     let itemMap = {}
     let hasVersion = true
+    let isMix = false
     let loadData = function (poolId) {
       let gachaData = GachaData.readJSON(qq, uid, poolId)
       items = items.concat(gachaData.items)
@@ -278,6 +301,13 @@ let GachaData = {
     if (['all', 'normal'].includes(type)) {
       hasVersion = false
       loadData(200)
+    }
+    if (['mix'].includes(type)) {
+      isMix = true
+      loadData(500)
+    }
+    if (['all'].includes(type)) {
+      loadData(500)
     }
 
     items = items.sort((a, b) => b.time - a.time)
@@ -366,7 +396,7 @@ let GachaData = {
         if (currVersion) {
           versionData.push(getCurr())
         }
-        let v = GachaData.getVersion(ds.time, hasVersion)
+        let v = GachaData.getVersion(ds.time, hasVersion, isMix)
         if (!hasVersion) {
           v.version = type === 'all' ? '全部统计' : '常驻池'
         }
@@ -401,11 +431,19 @@ let GachaData = {
     return {
       versionData,
       itemMap,
-      totalStat: stat
+      totalStat: stat,
+      isMix
     }
   },
 
-  getVersion (time, hasVersion = true) {
+  getVersion (time, hasVersion = true, isMix = false) {
+    if (isMix) {
+      for (let ds of mixPoolVersion) {
+        if (time > ds.start && time < ds.end) {
+          return ds
+        }
+      }
+    }
     if (hasVersion) {
       for (let ds of poolVersion) {
         if (time > ds.start && time < ds.end) {
