@@ -1,8 +1,8 @@
 {{extend elemLayout}}
 
 {{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-detail.css"/>
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/artis-list.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-detail.css" />
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/artis-list.css" />
 {{/block}}
 
 {{block 'main'}}
@@ -14,7 +14,7 @@
     <div class="item arti">
       {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
       <div class="avatar">
-        <img src="{{_res_path}}{{ds.side}}" onerror="whenError(this)"/>
+        <img src="{{_res_path}}{{ds.side}}" onerror="whenError(this)" />
       </div>
       <div class="arti-icon">
         <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
@@ -24,14 +24,16 @@
         <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
       </div>
       <ul class="detail attr">
-        <li class="arti-main"><span class="title">{{artisKeyTitle[ds.main?.key]}}</span><span class="val">+{{ds.main?.value}}</span>
+        <li class="arti-main"><span class="title">{{artisKeyTitle[ds.main?.key]}}</span><span
+            class="val">+{{ds.main?.value}}</span>
         </li>
         {{each ds.attrs attr}}
         {{if attr && attr.key}}
         <li class="{{ds.charWeight[attr.key]*1 > 79.9 ?`great`:(ds.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
           <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{if attr.upNum}}<i
-            class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key]}}</span>
-          <span class="val">+{{attr.value}}</span></li>
+              class="up-num up-{{attr.upNum}}"></i>{{/if}}{{artisKeyTitle[attr.key]}}</span>
+          <span class="val">+{{attr.value}}</span>
+        </li>
         {{/if}}
         {{/each}}
       </ul>

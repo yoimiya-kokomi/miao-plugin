@@ -1,20 +1,24 @@
 .container {
   width: 790px;
 }
+
 .uid {
   margin: 20px 10px 10px;
   text-shadow: 0 0 3px #000, 2px 2px 4px rgba(0, 0, 0, 0.7);
   text-align: right;
   color: #fff;
 }
+
 .artis {
   width: 790px;
 }
+
 .artis .item {
   height: 190px;
   margin-bottom: 10px;
   overflow: hidden;
 }
+
 .artis .item .avatar {
   position: absolute;
   right: 0;
@@ -25,13 +29,16 @@
   overflow: hidden;
   z-index: 3;
 }
+
 .artis .item.arti .arti-icon {
   right: 10px;
   width: 75px;
   height: 75px;
 }
+
 .artis .item .avatar img {
   max-width: 100%;
   max-height: 100%;
 }
+
 /*# sourceMappingURL=artis-list.css.map */

@@ -66,7 +66,7 @@ app.reg({
   artisList: {
     name: '面板圣遗物列表',
     fn: profileArtisList,
-    rule: /^#圣遗物列表\s*(\d{9,10})?$/
+    rule: /^#(星铁|原神)?(圣遗物|遗器)列表\s*(\d{9,10})?$/
   },
 
   profileStat: {

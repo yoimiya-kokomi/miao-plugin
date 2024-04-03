@@ -51,20 +51,23 @@ export async function profileArtis (e) {
 * 圣遗物列表
 * */
 export async function profileArtisList (e) {
+  let game = /星铁|遗器/.test(e.msg) ? 'sr' : 'gs'
+  e.isSr = game
+
   let uid = await getTargetUid(e)
   if (!uid) {
     return true
   }
 
   let artis = []
-  let player = Player.create(uid)
+  let player = Player.create(uid, game)
   player.forEachAvatar((avatar) => {
     let profile = avatar.getProfile()
     if (!profile) {
       return true
     }
     let name = profile.name
-    let char = Character.get(name)
+    let char = Character.get(name, game)
     if (!profile.hasData || !profile.hasArtis()) {
       return true
     }
@@ -78,7 +81,8 @@ export async function profileArtisList (e) {
   })
 
   if (artis.length === 0) {
-    e.reply('请先获取角色面板数据后再查看圣遗物列表...')
+    let artisName = game === 'gs' ? '圣遗物' : '遗器'
+    e.reply(`请先获取角色面板数据后再查看${artisName}列表...`)
     await profileHelp(e)
     return true
   }
@@ -86,7 +90,7 @@ export async function profileArtisList (e) {
   artis = artis.reverse()
   let number = Cfg.get('artisNumber', 28)
   artis = artis.slice(0, `${number}`)
-  let artisKeyTitle = Artifact.getArtisKeyTitle()
+  let artisKeyTitle = Artifact.getArtisKeyTitle(game)
 
   // 渲染图像
   return await Common.render('character/artis-list', {
