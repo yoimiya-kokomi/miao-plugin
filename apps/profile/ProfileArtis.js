@@ -52,7 +52,7 @@ export async function profileArtis (e) {
 * */
 export async function profileArtisList (e) {
   let game = /星铁|遗器/.test(e.msg) ? 'sr' : 'gs'
-  e.isSr = game
+  e.isSr = game === 'sr'
 
   let uid = await getTargetUid(e)
   if (!uid) {
