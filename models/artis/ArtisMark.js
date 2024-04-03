@@ -49,7 +49,7 @@ let ArtisMark = {
     }
 
     let key = ds.key
-    let isDmg = Format.isElem(key)
+    let isDmg = Format.isElem(key, game)
     let val = ds.value || ds[1]
     let num = ds.value || ds[1]
     if (!key || key === 'undefined') {
@@ -66,6 +66,9 @@ let ArtisMark = {
 
     if (charAttrCfg) {
       let mark = charAttrCfg[key]?.mark * num || 0
+      if (isDmg) {
+        mark = charAttrCfg.dmg?.mark * num || 0
+      }
       if (isMain) {
         mark = mark / 4 + 0.01
         ret.key = key

@@ -35,6 +35,7 @@ export async function profileArtis (e) {
     uid,
     elem: char.elem,
     splash: profile.costumeSplash,
+    imgs: profile.imgs,
     data: profile,
     costume: profile.costume ? '2' : '',
     artisDetail,

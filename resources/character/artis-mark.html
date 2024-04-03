@@ -1,8 +1,8 @@
 {{extend elemLayout}}
 
 {{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-detail.css"/>
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/artis-mark.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-detail.css" />
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/artis-mark.css" />
 {{/block}}
 
 {{set talent = data.talent}}
@@ -14,12 +14,12 @@
 {{set ad = artisDetail}}
 <div class="profile-cont game-{{game}}">
   <div class="basic">
-    <div class="main-pic"
-         style="background-image:url({{_res_path}}{{splash}})"></div>
+    <div class="main-pic" style="background-image:url({{_res_path}}{{splash||imgs?.splash}})"></div>
     <div class="detail">
       <div class="char-name">{{data.name}}</div>
       <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
-        <span class="cons cons-{{data.cons}}">{{data.cons}}命</span></div>
+        <span class="cons cons-{{data.cons}}">{{data.cons}}命</span>
+      </div>
       <div class="cont">
         <div class="item arti-stat">
           <div class="arti-class-title">评分规则：{{charCfg.classTitle}}</div>
@@ -34,73 +34,74 @@
 
 
   <div class="artis">
-    <% for(let idx = 1; idx<=(game==='gs'?5:6); idx++) {
-    let ds = ad?.artis[idx]
-    %>
-    {{if idx === 1 && game === 'gs'}}
-    <div class="item no-bg"></div>
-    {{/if}}
-    <div class="item arti {{idx}}">
-      {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
-      <div class="arti-icon">
-        <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
-        <span>+{{ds.level}}</span>
-      </div>
-      <div class="head">
-        <strong>{{ds.name}}</strong>
-        <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
-      </div>
-      <ul class="detail attr attr-detail">
-        <li class="arti-main">
-          <span class="title">{{artisKeyTitle[ds.main.key]}}</span>
-          <span class="val">+{{ds.main.value}}</span>
-          {{if idx >1 }}
-          <span class="mark">{{ mark( ds.main.mark / 6 ) }}</span>
-          {{else}}
-          <span class="val"> - </span>
-          {{/if}}
-        </li>
-        {{each ds.attrs attr}}
-        {{if attr.key}}
-        <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}"><span
-          class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{artisKeyTitle[attr.key]}} </span><span
-          class="val">+{{attr.value}}</span>
-          <span class="mark">{{ ( 46.6 / 6 / 100 * attr._mark ).toFixed(1) }}</span>
-        </li>
-        {{/if}}
-        {{/each}}
-      </ul>
-      <ul class="detail attr mark-calc">
-        <li style="display:none;"></li>
-        <li>
-          <span class="title">总分对齐</span>
-          <span class="val">
-           *{{( 66 / (46.6/6/100 * charCfg.posMaxMark[idx]) * 100).toFixed(1)}}%
-        </span>
-        </li>
-        {{if idx>2 || game==='sr' }}
-        <li>
-          <span class="title">最优主词缀</span>
-          <span class="val">
-          {{if game==='sr' && idx<=2 }} - {{else}}
-          {{if ds.main.title === '充能效率'}}
-          *100%
-          {{else}}
-          {{set mainWeight = charCfg?.attrs[ds.main?.key===data.elem?'dmg':ds.main?.key]?.weight || 0}}
-         *{{(50  +  50 * mainWeight / charCfg.posMaxMark["m"+idx] ).toFixed(0)}}%
-          {{/if}}{{/if}}
-        </span>
-        </li>
-        {{/if}}
-
-        <li class="result">
-          <span class="title">最终得分</span>
-          <span class="mark">{{ds.mark}}</span>
-        </li>
-      </ul>
+    <% for(let idx=1; idx<=(game==='gs' ?5:6); idx++) { let ds=ad?.artis[idx] %>
+      {{if idx === 1 && game === 'gs'}}
+      <div class="item no-bg"></div>
       {{/if}}
-    </div>
-    <% } %>
+      <div class="item arti {{idx}}">
+        {{if ds && ds.name && ds.main && ds.main.key && ds.main.key!="undefined"}}
+        <div class="arti-icon">
+          <div class="img" style="background-image:url({{_res_path}}{{ds.img}})"></div>
+          <span>+{{ds.level}}</span>
+        </div>
+        <div class="head">
+          <strong>{{ds.name}}</strong>
+          <span class="mark mark-{{ds.markClass}}"><span>{{ds.mark}}分</span> - {{ds.markClass}}</span>
+        </div>
+        <ul class="detail attr attr-detail">
+          <li class="arti-main">
+            <span class="title">{{artisKeyTitle[ds.main.key]}}</span>
+            <span class="val">+{{ds.main.value}}</span>
+            {{if idx >1 }}
+            <span class="mark">{{ mark( ds.main.mark / 6 ) }}</span>
+            {{else}}
+            <span class="val"> - </span>
+            {{/if}}
+          </li>
+          {{each ds.attrs attr}}
+          {{if attr.key}}
+          <li class="{{ad.charWeight[attr.key]*1 > 79.9 ?`great`:(ad.charWeight[attr.key]*1>0 ? `useful`:`nouse`)}}">
+            <span class="title">{{if attr.eff}}<i class="eff">{{attr.eff || ''}}</i>{{/if}}{{artisKeyTitle[attr.key]}}
+            </span><span class="val">+{{attr.value}}</span>
+            <span class="mark">{{ ( 46.6 / 6 / 100 * attr._mark ).toFixed(1) }}</span>
+          </li>
+          {{/if}}
+          {{/each}}
+        </ul>
+        <ul class="detail attr mark-calc">
+          <li style="display:none;"></li>
+          <li>
+            <span class="title">总分对齐</span>
+            <span class="val">
+              *{{( 66 / (46.6/6/100 * charCfg.posMaxMark[idx]) * 100).toFixed(1)}}%
+            </span>
+          </li>
+          {{if idx>2 || game==='sr' }}
+          <li>
+            <span class="title">最优主词缀</span>
+            <span class="val">
+              {{if game==='sr' && idx<=2 }} - 
+              {{else}} 
+                {{if ds.main.title==='充能效率' }} *100% 
+                {{else}} 
+                {{set elemMapSr = {火:'fire',冰:'ice',风:'wind',雷:'elec',量子:'quantum',虚数:'imaginary',物理:'phy', } }}
+                {{set elemKey = game==='sr' ? elemMapSr[data.elem] : data.elem }} 
+                {{set mainWeight=charCfg?.attrs[ds.main?.key===elemKey?'dmg':ds.main?.key]?.weight || 0}} *{{(50 + 50 *
+                mainWeight / charCfg.posMaxMark["m"+idx] ).toFixed(0)}}%
+                {{/if}}
+              {{/if}} 
+            </span>
+          </li>
+          {{/if}}
+
+          <li class="result">
+            <span class="title">最终得分</span>
+            <span class="mark">{{ds.mark}}</span>
+          </li>
+        </ul>
+        {{/if}}
+      </div>
+      <% } %>
   </div>
 
   {{if changeProfile}}
@@ -206,10 +207,12 @@
       </div>
     </div>
     <ul class="cont-msg">
-      <li><strong>总分对齐比例: </strong>根据<strong>{{data.name}}</strong>不同圣遗物位置可选词条及评分，计算理论最高原始词条总分。为使不同角色不同位置最终总分对齐，规定圣遗物满分为66分。理论总分对齐比例
+      <li><strong>总分对齐比例:
+        </strong>根据<strong>{{data.name}}</strong>不同圣遗物位置可选词条及评分，计算理论最高原始词条总分。为使不同角色不同位置最终总分对齐，规定圣遗物满分为66分。理论总分对齐比例
         = 66 / 理论最高原始分 * 100%
       </li>
-      <li><strong>最优主词缀比例: </strong>对主词条词缀非最优的圣遗物进行评分惩罚。若装备的圣遗物主词条不是当前位置的最高权重主词条或元素杯属性不符，则依据权重差值比例进行分数扣减，最多扣减50%。主词缀为充能时不进行扣减
+      <li><strong>最优主词缀比例:
+        </strong>对主词条词缀非最优的圣遗物进行评分惩罚。若装备的圣遗物主词条不是当前位置的最高权重主词条或元素杯属性不符，则依据权重差值比例进行分数扣减，最多扣减50%。主词缀为充能时不进行扣减
       </li>
       <li><strong>最终得分：</strong>圣遗物最终得分 = 原始总分 * 总分对齐比例 * 最优主词缀比例</li>
       <li><strong>得分级别：</strong>MAX(&gt;56分) / ACE(&gt;49分) / SSS(&gt;42分) / SS(&gt;35分) / S(&gt;28分) / A / B / C / D
