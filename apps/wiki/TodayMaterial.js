@@ -10,7 +10,18 @@ const TodayMaterial = {
     if (now.hour() < 4) {
       now = now.add(-1, 'days')
     }
+    if (/明天|明日/.test(e.msg)) {
+      now = now.add(1, 'days')
+    }
     let week = now.weekday()
+
+    let weekRet = /周([1-7]|一|二|三|四|五|六|日)/.exec(e.msg)
+    let weekSel = weekRet?.[1]
+    if (weekSel) {
+      week = (weekSel * 1) || ('一二三四五六日'.split('').indexOf(weekSel) + 1)
+      week = week - 1
+    }
+
     if (week === 6) {
       e.reply('今天周日，全部素材都可以刷哦~')
       return false
