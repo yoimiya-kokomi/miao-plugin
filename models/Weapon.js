@@ -1,12 +1,11 @@
 import Base from './Base.js'
 import { Data, Format, Meta } from '#miao'
+import lodash from 'lodash'
 
 let weaponSet
 
-import lodash from 'lodash'
-
 class Weapon extends Base {
-  constructor (meta, game = 'gs') {
+  constructor(meta, game = 'gs') {
     if (!meta || !meta.name) {
       return false
     }
@@ -309,7 +308,6 @@ class Weapon extends Base {
         if (!tables[ds.idx]) return true
         ds.data[ds.key] = tables[ds.idx]
       } else if (ds.refine) {
-
         lodash.forEach(ds.refine, (r, key) => {
           ds.data[key] = ({ refine }) => r[refine] * (ds.buffCount || 1)
         })

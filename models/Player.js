@@ -17,7 +17,7 @@ Data.createDir('/data/PlayerData/gs', 'root')
 Data.createDir('/data/PlayerData/sr', 'root')
 
 export default class Player extends Base {
-  constructor (uid, game = 'gs') {
+  constructor(uid, game = 'gs') {
     super()
     uid = uid?._mys?.uid || uid?.uid || uid
     if (!uid) {
@@ -381,6 +381,9 @@ export default class Player extends Base {
       let { talent } = avatar
       let ds = avatar.getDetail()
       ds.aeq = talent?.a?.original + talent?.e?.original + talent?.q?.original || 3
+      if (avatar.game === 'sr') {
+        ds.aeq = talent?.a?.original + talent?.e?.original + talent?.q?.original + talent?.t?.original || 4
+      }
       avatarRet[ds.id] = ds
 
       let profile = avatar.getProfile()
@@ -407,6 +410,4 @@ export default class Player extends Base {
     }
     return avatarRet
   }
-
-
 }

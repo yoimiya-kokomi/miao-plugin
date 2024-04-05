@@ -3,7 +3,7 @@ import { Version } from '#miao'
 import { Button } from '#miao.models'
 
 export default class MysApi {
-  constructor (e, uid, mysInfo) {
+  constructor(e, uid, mysInfo) {
     this.e = e
     this.mysInfo = mysInfo
     this.ckInfo = mysInfo.ckInfo
@@ -82,7 +82,7 @@ export default class MysApi {
     if (this.mys) {
       return this.mys
     }
-    this.mys = await e.runtime.getMysApi(targetType, option)
+    this.mys = await e.runtime.getMysApi(targetType, option, e.isSr)
     return this.mys
   }
 
@@ -146,6 +146,7 @@ export default class MysApi {
   }
 
   async getDetail (id) {
+    if (this.e.isSr) { return await this.getData('detail', { avatar_id: id, tab_from: 'TabOwned' }) }
     return await this.getData('detail', { avatar_id: id })
   }
 

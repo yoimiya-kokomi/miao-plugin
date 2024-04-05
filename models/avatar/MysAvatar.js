@@ -17,13 +17,6 @@ const MysAvatar = {
       return force
     }
     return force
-    // 暂时不处理ck变更
-    player._info = 0
-    player._mys = 0
-    player.forEachAvatar((avatar) => {
-      avatar._talent = 0
-    })
-    return 2
   },
   /**
    * 更新米游社角色信息
@@ -241,7 +234,8 @@ const MysAvatar = {
       let id = char.id
       let talent = {}
       let talentRes = await mys.getDetail(id)
-      if (talentRes && talentRes.skill_list) {
+      let game = avatar.game
+      if (game === 'gs' && talentRes && talentRes.skill_list) {
         let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
         for (let val of talentList) {
           let { max_level: maxLv, level_current: lv } = val
@@ -255,6 +249,27 @@ const MysAvatar = {
           }
           if (maxLv >= 10 && !talent.q) {
             talent.q = lv
+          }
+        }
+      } else if (game === 'sr' && talentRes && talentRes.skills) {
+        let talentList = lodash.orderBy(talentRes.skills, ['point_id'], ['asc'])
+        for (let val of talentList) {
+          let { cur_level: lv, anchor } = val
+          if (anchor.includes('Point01')) {
+            talent.a = lv
+            continue
+          }
+          if (anchor.includes('Point02')) {
+            talent.e = lv
+            continue
+          }
+          if (anchor.includes('Point03')) {
+            talent.q = lv
+            continue
+          }
+          if (anchor.includes('Point04')) {
+            talent.t = lv
+            continue
           }
         }
       }

@@ -13,23 +13,32 @@ const ProfileStat = {
   },
 
   async refreshTalent (e) {
+    let game = /星铁/.test(e.msg) ? 'sr' : 'gs'
+    e.isSr = game === 'sr'
+
     let mys = await MysApi.init(e)
     if (!mys || !mys.uid) return false
 
-    let player = Player.create(e)
+    let player = Player.create(e, game)
     let refreshCount = await player.refreshTalent('', 2)
-    if (refreshCount) {
+    if (refreshCount && !e.isSr) {
       e.reply(`角色天赋更新成功，共${refreshCount}个角色\n你现在可以通过【#练度统计】【#天赋统计】来查看角色信息了...`)
+    } else if (e.isSr) {
+      e.reply(`角色天赋更新成功，共${refreshCount}个角色\n你现在可以通过【*练度统计】来查看角色信息了...`)
     } else {
       e.reply('角色天赋未能更新...')
     }
   },
 
   // 渲染
-  // isAvatarList true:角色列表 false练度统计
+  // mode stat:练度统计 avatar:角色列表 talent:天赋统计
   async render (e, mode = 'stat') {
+    let game = /星铁/.test(e.msg) ? 'sr' : 'gs'
+    e.isSr = game === 'sr'
+    e.game = game
+
     // 缓存时间，单位小时
-    let msg = e.msg.replace('#', '').trim()
+    let msg = e.msg.replace(/#星铁|#/, '').trim()
     if (msg === '角色统计' || msg === '武器统计') {
       // 暂时避让一下抽卡分析的关键词
       return false
@@ -39,13 +48,12 @@ const ProfileStat = {
       mode = 'talent'
     }
 
-
     let mys = await MysApi.init(e)
     if (!mys || !mys.uid) return false
 
     const uid = mys.uid
 
-    let player = Player.create(e)
+    let player = Player.create(e, game)
 
     let avatarRet = await player.refreshAndGetAvatarData({
       index: 2,
@@ -112,7 +120,6 @@ const ProfileStat = {
       goldCount: '金卡总数'
     }
 
-
     let tpl = mode === 'avatar' ? 'character/avatar-list' : 'character/profile-stat'
     return await Common.render(tpl, {
       save_id: uid,
@@ -123,7 +130,8 @@ const ProfileStat = {
       face,
       mode,
       week,
-      avatars: avatarRet
+      avatars: avatarRet,
+      game
     }, { e, scale: 1.4 })
   }
 }

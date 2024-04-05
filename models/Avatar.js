@@ -206,7 +206,7 @@ export default class Avatar extends Base {
       level: ds.level || ds.lv || 1,
       promote: lodash.isUndefined(ds.promote) ? Attr.calcPromote(ds.level || ds.lv || 1) : (ds.promote || 0),
       affix: ds.affix,
-      ...w.getData('star,abbr,type,img')
+      ...w.getData('star,abbr,type,img,imgs')
     }
     if (this.weapon.level < 20) {
       this.weapon.promote = 0

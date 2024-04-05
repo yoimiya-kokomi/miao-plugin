@@ -1,14 +1,41 @@
 {{extend defaultLayout}}
 
+{{set isSr = game === 'sr'}}
+
 {{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-stat.css"/>
+{{if isSr}}
+<style>
+  body {
+    background: url('{{_res_path}}/character/imgs/bg-02.jpg') left center;
+    background-size: 100% auto;
+  }
+
+  .container {
+    background: url('{{_res_path}}/character/imgs/main-02.png') center -25px no-repeat;
+    background-size: 100% auto;
+  }
+</style>
+{{else}}
+<style>
+  body {
+    background: url('{{_res_path}}/character/imgs/bg-01.jpg') left center;
+    background-size: 100% auto;
+  }
+
+  .container {
+    background: url('{{_res_path}}/character/imgs/main-01.png') center -25px no-repeat;
+    background-size: 100% auto;
+  }
+</style>
+{{/if}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/profile-stat.css" />
 {{/block}}
 
-
 {{block 'main'}}
+
 <div class="head-box">
-  <div class="title">#面板练度统计</div>
-  <div class="label">UID:{{uid}} 共{{avatars.length }}名角色</div>
+  <div class="title">{{isSr?'*':'#'}}面板练度统计</div>
+  <div class="label">UID:{{uid}} 共{{avatars.length}}名角色</div>
 </div>
 <div id="profile-stat">
   <div class="cont">
@@ -17,23 +44,28 @@
         <div class="td-idx">#</div>
         <div class="td-name">角色</div>
         <div class="td-lv">Lv</div>
-        <div class="td-cons">命座</div>
+        <div class="td-cons">{{isSr?'星魂':'命座'}}</div>
+        {{if !isSr}}
         <div class="td-fetter">好感</div>
+        {{/if}}
         <div class="td-talent">A</div>
         <div class="td-talent">E</div>
         <div class="td-talent">Q</div>
+        {{if isSr}}
+        <div class="td-talent">T</div>
+        {{/if}}
         {{if mode === 'talent'}}
         <div class="td">周本</div>
         <div class="td">天赋书</div>
         {{else}}
-        <div class="td-weapon">武器</div>
-        <div class="td-artis">圣遗物</div>
+        <div class="td-weapon">{{isSr?'光锥':'武器'}}</div>
+        <div class="td-artis">{{isSr?'遗器':'圣遗物'}}</div>
         {{/if}}
       </div>
       {{each avatars avatar idx}}
       {{set talent = avatar.talent}}
       {{set weapon = avatar.weapon}}
-      {{set tk = ['a','e','q'] }}
+      {{set tk = isSr?['a','e','q','t']:['a','e','q']}}
       <div class="avatar tr">
         <div class="td td-idx  star{{avatar.star}}">{{idx+1}}</div>
         <div class="td td-name  star{{avatar.star}}">
@@ -49,15 +81,26 @@
         <div class="td td-cons">
           <span class="cons avatar cons-{{avatar.cons}}">{{avatar.cons}}</span>
         </div>
+        {{if !isSr}}
         <div class="td td-fetter">
           <span class="fetter fetter{{['空','荧','旅行者'].includes(avatar.name)?10:avatar.fetter}}"></span>
         </div>
+        {{/if}}
         {{set talentLvMap = [0,1,1,1,2,2,3,3,3,4,5] }}
+        {{set talentALvMap = [0,1,1,2,3,4,5]}}
         {{each tk talentKey}}
         {{set curr = (avatar.talent||{})[talentKey] || {original:1,level:'-'} }}
-        <div class="td-talent lv{{talentLvMap[curr.original]}} {{curr.level>curr.original?'talent-plus':''}}">
+        {{if isSr && talentKey === 'a'}}
+        <div
+          class="td-talent lv{{talentALvMap[curr.original]}} {{curr.level>curr.original?'talent-plus':''}} {{isSr?'crown-sr':''}}">
           {{curr.level}}
         </div>
+        {{else}}
+        <div
+          class="td-talent lv{{talentLvMap[curr.original]}} {{curr.level>curr.original?'talent-plus':''}} {{isSr?'crown-sr':''}}">
+          {{curr.level}}
+        </div>
+        {{/if}}
         {{/each}}
         {{if mode === 'talent'}}
         {{set m = avatar.materials || {} }}
@@ -81,7 +124,8 @@
           <div class="item-banner star{{weapon.star}}">
             <span class="level">{{weapon.level}}</span>
             <div class="item-icon weapon-icon">
-              <span class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></span>
+              <span class="img"
+                style="background-image:url({{_res_path}}{{isSr?weapon.imgs?.icon2:weapon.img}})"></span>
             </div>
             <span class="cons weapon cons-{{weapon.affix+1}} star{{weapon.star}}">{{weapon.affix}}</span>
             <span class="item-name">{{weapon.abbr}}</span>
@@ -118,16 +162,16 @@
       {{if ut.profile || ut.mys}}
       <strong>数据更新时间</strong>
       {{if ut.profile}}
-      <span>#更新面板: {{ut.profile}}</span>
+      <span>{{isSr?'*':'#'}}更新面板: {{ut.profile}}</span>
       {{/if}}
       {{if ut.mys}}
       <span>米游社: {{ut.mys}}</span>
       <div>
-        天赋数据每2小时最多更新一次，可通过<strong>#刷新天赋</strong>来强制刷新天赋数据，需具备有效CK
+        天赋数据每2小时最多更新一次，可通过<strong>{{isSr?'*':'#'}}刷新天赋</strong>来强制刷新天赋数据，需具备有效CK
       </div>
       {{/if}}
       {{else}}
-      未绑定CK或CK失效，信息可能不完全。发送<strong>#体力帮助</strong>查看CK绑定方法，发送<strong>#更新面板</strong>更新游戏内角色展柜信息
+      未绑定CK或CK失效，信息可能不完全。发送<strong>#体力帮助</strong>查看CK绑定方法，发送<strong>{{isSr?'*':'#'}}更新面板</strong>更新游戏内角色展柜信息
       {{/if}}
     </div>
 

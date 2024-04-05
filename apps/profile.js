@@ -72,7 +72,7 @@ app.reg({
   profileStat: {
     name: '面板练度统计',
     fn: ProfileStat.stat,
-    rule: /^#(面板|喵喵)练度统计$/,
+    rule: /^#(星铁|原神)?(面板|喵喵)?练度统计$/,
     yzRule: /^#*(我的)*(武器|角色|练度|五|四|5|4|星)+(汇总|统计|列表)(force|五|四|5|4|星)*[ |0-9]*$/,
     yzCheck: () => Cfg.get('profileStat', false)
   },
@@ -94,7 +94,7 @@ app.reg({
   refreshTalent: {
     name: '强制刷新天赋',
     fn: ProfileStat.refreshTalent,
-    rule: /^#(强制)?(刷新|更新)(所有|角色)*(天赋|技能)$/
+    rule: /^#(星铁|原神)?(强制)?(刷新|更新)(所有|角色)*(天赋|技能)$/
   },
 
   profileHelp: {
