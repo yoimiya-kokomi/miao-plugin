@@ -2,6 +2,19 @@
 
 {{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/character/rank-profile-list.css"/>
+{{if game==='sr'}}
+<style>
+body .container {
+  width: 900px;
+}
+</style>
+{{else}}
+<style>
+body .container {
+  width: 820px;
+}
+</style>
+{{/if}}
 {{/block}}
 
 {{set talentMap = game === 'sr' ? {a: '普攻', e: '战技', t:'天赋', q: '爆发'} : {a: '普攻', e: '战技', q: '爆发'} }}

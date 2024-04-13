@@ -8,7 +8,7 @@ import DmgCalc from './dmg/DmgCalc.js'
 import { MiaoError, Meta, Common } from '#miao'
 
 export default class ProfileDmg extends Base {
-  constructor(profile = {}, game = 'gs') {
+  constructor (profile = {}, game = 'gs') {
     super()
     this.profile = profile
     this.game = game
