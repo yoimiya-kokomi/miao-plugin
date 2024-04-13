@@ -8,7 +8,7 @@ import DmgCalc from './dmg/DmgCalc.js'
 import { MiaoError, Meta, Common } from '#miao'
 
 export default class ProfileDmg extends Base {
-  constructor (profile = {}, game = 'gs') {
+  constructor(profile = {}, game = 'gs') {
     super()
     this.profile = profile
     this.game = game
@@ -136,7 +136,9 @@ export default class ProfileDmg extends Base {
 
     let { id, weapon, attr, artis } = profile
 
-    defParams = defParams || {}
+    defDmgKey = lodash.isFunction(defDmgKey) ? defDmgKey(meta) : defDmgKey
+    defDmgIdx = lodash.isFunction(defDmgIdx) ? defDmgIdx(meta) : defDmgIdx
+    defParams = lodash.isFunction(defParams) ? defParams(meta) : defParams || {}
 
     let originalAttr = DmgAttr.getAttr({ id, weapon, attr, char: this.char, game, sp })
 
@@ -176,7 +178,7 @@ export default class ProfileDmg extends Base {
         let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
         detail = detail({ ...ds, attr, profile })
       }
-      let params = lodash.merge({}, defParams, detail?.params || {})
+      let params = lodash.merge({}, defParams, lodash.isFunction(detail?.params) ? detail?.params(meta) : detail?.params || {})
       let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params, talent: detail.talent || '', game })
       if (detail.isStatic) {
         return

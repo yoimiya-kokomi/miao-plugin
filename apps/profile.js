@@ -94,7 +94,7 @@ app.reg({
   refreshTalent: {
     name: '强制刷新天赋',
     fn: ProfileStat.refreshTalent,
-    rule: /^#(星铁|原神)?(强制)?(刷新|更新)(所有|角色)*(天赋|技能)$/
+    rule: /^#(星铁|原神)?(强制)?(刷新|更新)(所有|角色)*(天赋|技能|行迹)$/
   },
 
   profileHelp: {

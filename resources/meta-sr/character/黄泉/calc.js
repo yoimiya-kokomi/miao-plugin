@@ -16,7 +16,10 @@ export const details = [{
 }, {
   title: '终结技伤害·对单',
   params: { q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['单体伤害'] + 1.5, 'q')
+  dmg: ({ talent, trees }, dmg) => {
+    let extraTd = trees['103'] ? 1.5 : 0
+    return dmg(talent.q['单体伤害'] + extraTd, 'q')
+  }
 }, {
   title: '终结技伤害·对无花目标',
   params: { q: true },

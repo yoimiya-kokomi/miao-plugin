@@ -24,7 +24,7 @@ const ProfileStat = {
     if (refreshCount && !e.isSr) {
       e.reply(`角色天赋更新成功，共${refreshCount}个角色\n你现在可以通过【#练度统计】【#天赋统计】来查看角色信息了...`)
     } else if (e.isSr) {
-      e.reply(`角色天赋更新成功，共${refreshCount}个角色\n你现在可以通过【*练度统计】来查看角色信息了...`)
+      e.reply(`角色行迹更新成功，共${refreshCount}个角色\n你现在可以通过【*练度统计】来查看角色信息了...`)
     } else {
       e.reply('角色天赋未能更新...')
     }

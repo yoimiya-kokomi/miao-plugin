@@ -21,6 +21,7 @@ export const details = [{
 
 export const mainAttr = 'cpct,cdmg,def'
 export const defDmgIdx = 1
+export const defParams = ({ cons }) => cons < 4 ? { tArtisBuffCount: 4 } : { tArtisBuffCount: 5.5 }
 
 export const buffs = [{
   title: '终结技-惊惶：击中【惊惶】状态下的敌方目标时，造成的暴击伤害提高[cdmg]%',

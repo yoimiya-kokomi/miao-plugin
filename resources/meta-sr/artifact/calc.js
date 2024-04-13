@@ -135,7 +135,7 @@ export default {
     }]
   },
   筑城者的贝洛伯格: {
-    2: [attr('defPct', 12), {
+    2: [attr('defPct', 15), {
       title: '效果命中大于50%时，提高防御力15%',
       check: ({ calc, attr }) => calc(attr.effPct) > 50,
       data: {

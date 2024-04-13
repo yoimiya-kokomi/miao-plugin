@@ -751,6 +751,7 @@
     "id": 1211,
     "key": "bailu",
     "name": "白露",
+    "star": 5,
     "elem": "雷",
     "weapon": "丰饶",
     "sp": 100,

@@ -155,6 +155,13 @@ const ProfileChange = {
         txt = txt.replace(consRet[0], '')
       }
 
+      // 行迹树匹配
+      let treeRet = /满行迹/.exec(txt)
+      if (!isGs && treeRet) {
+        char.trees = ['101', '102', '103', '201', '202', '203', '204', '205', '206', '207', '208', '209', '210']
+        txt = txt.replace(treeRet[0], '')
+      }
+
       // 天赋匹配
       let talentRet = (isGs
         ? /(?:天赋|技能|行迹)((?:[1][0-5]|[1-9])[ ,]?)((?:[1][0-5]|[1-9])[ ,]?)([1][0-5]|[1-9])/
@@ -246,7 +253,7 @@ const ProfileChange = {
       dataSource: 'change',
       _source: 'change',
       promote,
-      trees: lodash.extend([], source.trees)
+      trees: lodash.extend([], Data.def(dc.trees, source.trees))
     }, char.game)
 
     // 设置武器
