@@ -95,7 +95,7 @@
           ]
         },
         "2": {
-          "name": "相邻目标伤害",
+          "name": "持续伤害",
           "isSame": false,
           "values": [
             0.25,
@@ -193,7 +193,7 @@
       "desc": "对指定敌方单体造成等同于虎克<nobr>$1[i]%</nobr>攻击力的<span>火</span>属性伤害，同时有<nobr>100.0%</nobr>的<u>基础概率</u>使其陷入灼烧状态，持续<nobr>2</nobr>回合。此外对其相邻目标造成等同于虎克<nobr>$2[i]%</nobr>攻击力的<span>火</span>属性伤害。<br />灼烧状态下，敌方目标每回合开始时受到等同于虎克<nobr>$3[i]%</nobr>攻击力的<span>火</span>属性持续伤害。",
       "tables": {
         "1": {
-          "name": "TODO",
+          "name": "技能伤害",
           "isSame": false,
           "values": [
             1.4,
@@ -214,7 +214,7 @@
           ]
         },
         "2": {
-          "name": "TODO",
+          "name": "相邻目标伤害",
           "isSame": false,
           "values": [
             0.4,
@@ -235,7 +235,7 @@
           ]
         },
         "3": {
-          "name": "TODO",
+          "name": "持续伤害",
           "isSame": false,
           "values": [
             0.25,

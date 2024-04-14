@@ -4,7 +4,7 @@ export default function (staticIdx, keyIdx) {
       keyIdx('对陷入负面效果的敌人伤害提高[dmg]%，释放战技的功力提高[atkPct]%', { dmg: 1, atkPct: 3 })
     ],
     决心如汗珠般闪耀: [
-      keyIdx('攻陷状态敌方防御力降低[ignore]%', 'ignore', 2)
+      keyIdx('攻陷状态敌方防御力降低[enemyDef]%', 'enemyDef', 2)
     ],
     匿影: [],
     后会有期: [],
