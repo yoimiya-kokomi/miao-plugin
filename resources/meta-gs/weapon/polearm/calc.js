@@ -132,6 +132,12 @@ export default function (step, staticStep) {
         atkPlus: ({ attr, calc, refine }) => step(52 + 28 * 3)[refine] * calc(attr.mastery) / 100
       }
     },
+    赤月之形: {
+      title: '生命之契大于等于生命上限30%，造成的伤害提升[dmg]%',
+      refine: {
+        dmg: step(36, 12)
+      }
+    },
     风信之锋: {
       title: '触发元素反应提升攻击力[atkPct]%, 精通[mastery]',
       refine: {
