@@ -110,7 +110,7 @@ export default class Avatar extends Base {
   }
 
   get costumeSplash () {
-    return ProfileAvatar.getCostumeSplash(this)
+    return ProfileAvatar.getCostumeSplash(this, this.game)
   }
 
   get hasDmg () {

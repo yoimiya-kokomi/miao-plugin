@@ -61,7 +61,7 @@ const CharImg = {
       let ret = []
       for (let type of ['webp', 'png']) {
         if (fs.existsSync(`${rPath}/${imgPath}.${type}`)) {
-          ret.push(imgPath + '.webp')
+          ret.push(imgPath + `.${type}`)
         }
       }
       if (fs.existsSync(`${rPath}/${imgPath}`)) {

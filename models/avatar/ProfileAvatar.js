@@ -52,7 +52,7 @@ const ProfileAvatar = {
     return true
   },
 
-  getCostumeSplash (profile) {
+  getCostumeSplash (profile, game = 'gs') {
     let { char, name } = profile
     if (!Cfg.get('costumeSplash', true)) {
       return char.getImgs(profile._costume).splash
@@ -64,10 +64,33 @@ const ProfileAvatar = {
       return this.char.getImgs(profile._costume).splash
     }
 
-    let nPath = `meta-gs/character/${name}`
+    let nPath = `meta-${game}/character/${name}`
     let isSuper = false
     let talent = profile.talent ? lodash.map(profile.talent, (ds) => ds.original).join('') : ''
-    if (profile.cons === 6 || ['ACE', 'MAX'].includes(profile.artis?.markClass) || talent === '101010') {
+    let isGs = game === 'gs'
+    if (isGs && (
+      profile.cons === 6 ||
+      ['ACE', 'MAX'].includes(profile.artis?.markClass) ||
+      talent === '101010'
+    )) {
+      isSuper = true
+    }
+
+    let treeSet = ['101', '102', '103', '201', '202', '203', '204', '205', '206', '207', '208', '209', '210']
+    let treeSuper = false
+    if (!isGs && profile.trees) {
+      treeSuper = true
+      lodash.forEach(profile.trees, (tree, idx) => {
+        if (!tree.includes(treeSet[idx])) {
+          treeSuper = false
+        }
+      })
+    }
+    if (!isGs && (
+      profile.cons === 6 ||
+      ['ACE', 'MAX'].includes(profile.artis?.markClass) ||
+      (talent === '6101010' && treeSuper)
+    )) {
       isSuper = true
     }
     if (isSuper) {
