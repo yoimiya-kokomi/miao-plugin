@@ -29,7 +29,7 @@ export const buffs = [
   title: '阿蕾奇诺天赋：[buffCount]%最大生命值的生命之契,普通攻击伤害提升[aPlus]',
   data: {
     buffCount: ({ params , weapon }) => Math.min(params.BondOfLife + (weapon.name === '赤月之形' ? 25 : 0), 200),
-    aPlus: ({ talent , attr , params , cons , weapon }) => attr.atk * ((Math.min((params.BondOfLife + (weapon.name === '赤月之形' ? 25 : 0)), 200) / 200) * ((cons >= 1 ? (talent.a['红死之宴提升值比例'] + 100) : talent.a['红死之宴提升值比例']) / 100 ))
+    aPlus: ({ talent , attr , params , cons , weapon }) => attr.atk * ((Math.min((params.BondOfLife + (weapon.name === '赤月之形' ? 25 : 0)), 200) / 100) * ((cons >= 1 ? (talent.a['红死之宴提升值比例'] + 100) : talent.a['红死之宴提升值比例']) / 100 ))
   }
 },
 {
@@ -42,7 +42,7 @@ export const buffs = [
   title: '阿蕾奇诺6命：Q造成的伤害提高[qPlus],且释放后普通攻击与元素爆发的暴击率提高[aCpct]%,暴击伤害提高[aCdmg]%',
   cons: 6,
   data: {
-    qPlus: ({ attr , params , weapon }) => attr.atk * (Math.min((params.BondOfLife + (weapon.name === '赤月之形' ? 25 : 0)), 200) / 200) * (700 / 100),
+    qPlus: ({ attr , params , weapon }) => attr.atk * (Math.min((params.BondOfLife + (weapon.name === '赤月之形' ? 25 : 0)), 200) / 100) * (700 / 100),
     aCpct: 10 ,
     aCdmg: 70 ,
     qCpct: 10 ,

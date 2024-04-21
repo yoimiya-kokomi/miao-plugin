@@ -128,7 +128,7 @@ const ProfileChange = {
       }
 
       // 匹配武器
-      let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?(?:(精炼?)|(叠影?))?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
+       let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])(精炼?|叠影?)|(精炼?|叠影?)([1-5一二三四五]))?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
       if (wRet && wRet[7]) {
         let weaponName = lodash.trim(wRet[7])
         let weapon = Weapon.get(weaponName, game, ret.char.game)
