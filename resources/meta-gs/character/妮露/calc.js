@@ -11,10 +11,11 @@ export const details = [{
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     let pct = talent.e['剑舞步/旋舞步一段伤害2'][0] * 1 + talent.e['剑舞步/旋舞步二段伤害2'][0] * 1
     let ret1 = basic(calc(attr.hp) * pct / 100, 'e')
+    let dynamicDmg = 0
     if (cons >= 1) {
-      attr.e.dmg += 65
+      dynamicDmg = 65
     }
-    let ret2 = basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e')
+    let ret2 = basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e', false, { dynamicDmg })
     return {
       dmg: ret1.dmg + ret2.dmg,
       avg: ret2.avg + ret2.avg

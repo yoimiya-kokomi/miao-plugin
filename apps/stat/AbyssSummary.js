@@ -82,13 +82,13 @@ export async function AbyssSummary (e) {
             msg.push({
               title: '少于',
               value: (Math.max(0.1, 100 - percent * 100)).toFixed(1),
-              name: name
+              name
             })
           } else {
             msg.push({
               title: '超过',
               value: (Math.min(99.9, percent * 100)).toFixed(1),
-              name: name
+              name
             })
           }
         }

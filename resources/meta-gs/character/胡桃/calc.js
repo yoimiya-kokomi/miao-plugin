@@ -16,8 +16,8 @@ export const buffs = [{
   title: '蝶引来生：开E获得[atkPlus]点攻击力加成',
   sort: 9,
   data: {
-    atkPlus: ({ talent, attr, calc }) => {
-      return Math.min(talent.e['攻击力提高'] * calc(attr.hp) / 100, attr.atk.base * 4)
+    atkPlus: ({ talent, attr }) => {
+      return Math.min(talent.e['攻击力提高'] * attr.hp / 100, attr.atk.base * 4)
     }
   }
 }, {
