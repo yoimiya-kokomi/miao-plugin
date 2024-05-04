@@ -266,25 +266,25 @@
     "star": 1
   },
   "织金红绸": {
-    "id": 112067,
+    "id": "n112067",
     "name": "织金红绸",
     "type": "normal",
     "star": 3,
     "items": {
       "褪色红绸": {
-        "id": 112065,
+        "id": "n112065",
         "name": "褪色红绸",
         "type": "normal",
         "star": 1
       },
       "镶边红绸": {
-        "id": 112066,
+        "id": "n112066",
         "name": "镶边红绸",
         "type": "normal",
         "star": 2
       },
       "织金红绸": {
-        "id": 112067,
+        "id": "n112067",
         "name": "织金红绸",
         "type": "normal",
         "star": 3
@@ -2599,5 +2599,11 @@
     "name": "残火灯烛",
     "type": "weekly",
     "star": 5
+  },
+  "万相石": {
+    "id": "n101224",
+    "name": "万相石",
+    "type": "specialty",
+    "star": 1
   }
 }
