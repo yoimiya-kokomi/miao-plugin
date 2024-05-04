@@ -3,20 +3,20 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '三岩Q伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.q['技能伤害'] * calc(attr.def) / 100 + attr.q.plus * 1
+  dmg: ({ talent, attr }, { basic }) => {
+    let ret = talent.q['技能伤害'] / 100 * attr.def
     return basic(ret, 'q')
   }
 }, {
   title: '三岩Q每跳伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.q['岩晶崩破伤害'] * calc(attr.def) / 100 + attr.q.plus * 1
+  dmg: ({ talent, attr }, { basic }) => {
+    let ret = talent.q['岩晶崩破伤害'] / 100 * attr.def
     return basic(ret, 'q')
   }
 }, {
   title: 'Q每跳治疗',
   cons: 4,
-  dmg: ({ attr, calc }, { heal }) => heal(0.5 * calc(attr.def))
+  dmg: ({ attr }, { heal }) => heal(0.5 * attr.def)
 }]
 
 export const mainAttr = 'atk,def,cpct,cdmg'
@@ -26,6 +26,13 @@ export const buffs = [{
   data: {
     defPlus: ({ talent }) => talent.e['防御力提升'] * 1,
     dmg: 15
+  }
+}, {
+  title: '天赋-报恩之守：基于防御力，提高E伤害[ePlus]，提高Q伤害[qPlus]',
+  sort: 9,
+  data: {
+    ePlus: ({ attr }) => 1.56 * attr.def,
+    qPlus: ({ attr }) => 0.156 * attr.def
   }
 }, {
   title: '五郎被动：释放E后防御力提高25%',

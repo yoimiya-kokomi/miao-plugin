@@ -21,7 +21,18 @@ meta.addAlias(extraChars)
 
 // 添加老婆设置
 let wifeData = {}
+let { diyCfg } = await Data.importCfg('character')
+let diyWifeData = diyCfg.wifeData || {}
 lodash.forEach(wifeCfg, (txt, type) => {
+  wifeData[type] = wifeData[type] || {}
+  Data.eachStr(txt, (name) => {
+    let id = meta.getId(name)
+    if (id) {
+      wifeData[type][id] = true
+    }
+  })
+})
+lodash.forEach(diyWifeData, (txt, type) => {
   wifeData[type] = wifeData[type] || {}
   Data.eachStr(txt, (name) => {
     let id = meta.getId(name)

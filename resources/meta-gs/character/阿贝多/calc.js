@@ -5,7 +5,7 @@ export const details = [{
 }, {
   title: 'E刹那之花伤害',
   dmg: ({ talent, attr }, { basic }) => {
-    let ret = talent.e['刹那之花伤害'] * attr.def / 100 + attr.e.plus
+    let ret = talent.e['刹那之花伤害'] * attr.def / 100
     return basic(ret, 'e')
   }
 }, {
@@ -14,7 +14,7 @@ export const details = [{
     half: true
   },
   dmg: ({ talent, attr }, { basic }) => {
-    let ret = talent.e['刹那之花伤害'] * attr.def / 100 + attr.e.plus
+    let ret = talent.e['刹那之花伤害'] * attr.def / 100
     return basic(ret, 'e')
   }
 }, {
