@@ -129,7 +129,6 @@ let DmgCalc = {
       eleBase = isEle ? 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, calc(attr.mastery)) : 1
     }
 
-    let breakDotBase = 1
     let stanceNum = 1
     if (game === 'sr') {
       switch (ele) {
@@ -222,6 +221,7 @@ let DmgCalc = {
       case 'quantumBreak':
       case 'imaginaryBreak':
       case 'iceBreak': {
+        let breakDotBase = 1
         breakDotBase *= breakBaseDmg[level]
         ret = {
           avg: breakDotBase * eleNum * stanceNum * enemydmgNum * defNum * kNum * dmgReduceNum
@@ -265,6 +265,29 @@ let DmgCalc = {
     }
 
     dmgFn.reaction = function (ele = false, talent = 'fy') {
+      switch (ele) {
+        // 击破持续伤害
+        case 'shock':
+        case 'burn':
+        case 'windShear':
+        case 'bleed': {
+          talent = 'dot'
+          break
+        }
+        // 击破伤害
+        case 'lightningBreak':
+        case 'fireBreak':
+        case 'windBreak':
+        case 'physicalBreak':
+        case 'quantumBreak':
+        case 'imaginaryBreak':
+        case 'iceBreak': {
+          talent = 'break'
+          break
+        }
+        default:
+          break
+      }
       return dmgFn(0, talent, ele, 0, 'basic')
     }
 

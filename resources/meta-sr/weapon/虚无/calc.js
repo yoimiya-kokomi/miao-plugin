@@ -96,6 +96,10 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    无边曼舞: [
+      staticIdx(1, 'cpct'),
+      keyIdx('对处于防御降低或减速状态下的敌人暴击伤害提高[cdmg]%', 'cdmg', 2)
     ]
   }
 }

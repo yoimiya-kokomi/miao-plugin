@@ -38,6 +38,23 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    为了明日的旅途: [
+      staticIdx(1, 'atkPct'),
+      keyIdx('装备者释放终结技后，造成的伤害提高[dmg]%', 'dmg', 2)
+    ],
+    夜色流光溢彩: [
+      (tables) => {
+        return {
+          title: '5层【歌咏】使装备者能量恢复效率提高[recharge]%，释放终结技后，装备者攻击力提高[atkPct]%，我方全体造成伤害提高[dmg]%',
+          data: {
+            recharge: tables[1] * 5,
+            atkPct: tables[2],
+            dmg: tables[3]
+          }
+        }
+      }
+
     ]
   }
 }

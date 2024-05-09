@@ -90,6 +90,19 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    驶向第二次生命: [
+      staticIdx(1, 'stance'),
+      keyIdx('造成的击破伤害无视目标[breakIgnore]%的防御力', 'breakIgnore', 2),
+      (tables) => {
+        return {
+          title: '速度提高[speedPct]%',
+          check: ({ attr }) => attr.stance >= 150,
+          data: {
+            speedPct: tables[3]
+          }
+        }
+      }
     ]
   }
 }
