@@ -22,7 +22,7 @@ export const usefulAttr = {
   玲可: { hp: 100, atk: 0, def: 50, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 100, recharge: 75, effPct: 0, effDef: 50, dmg: 0 },
   符玄: { hp: 100, atk: 0, def: 50, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 50, dmg: 100 },
   驭空: { hp: 50, atk: 75, def: 50, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 50, dmg: 100 },
-  '丹恒•饮月': { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
+  '丹恒•饮月': { hp: 0, atk: 75, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   卢卡: { hp: 0, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 75, heal: 0, recharge: 50, effPct: 75, effDef: 0, dmg: 100 },
   卡芙卡: { hp: 0, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 50, heal: 0, recharge: 50, effPct: 75, effDef: 0, dmg: 100 },
   刃: { hp: 100, atk: 50, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
@@ -50,6 +50,7 @@ export const usefulAttr = {
   青雀: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   停云: { hp: 50, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 0 },
   素裳: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 50, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
+  开拓者虚数: { hp: 75, atk: 0, def: 75, speed: 100, cpct: 0, cdmg: 0, stance: 100, heal: 0, recharge: 75, effPct: 0, effDef: 0, dmg: 0 },
   开拓者火: { hp: 50, atk: 0, def: 100, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 0, effPct: 100, effDef: 50, dmg: 0 },
   开拓者物理: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 }
 }
