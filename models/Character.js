@@ -89,6 +89,11 @@ class Character extends Base {
     return this.isGs && CharId.isTraveler(this.id)
   }
 
+  // 是否是开拓者
+  get isTrailblazer () {
+    return this.isSr && CharId.isTrailblazer(this.id)
+  }
+
   get weaponType () {
     return this.weapon
   }

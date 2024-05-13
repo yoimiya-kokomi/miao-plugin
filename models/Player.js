@@ -17,7 +17,7 @@ Data.createDir('/data/PlayerData/gs', 'root')
 Data.createDir('/data/PlayerData/sr', 'root')
 
 export default class Player extends Base {
-  constructor(uid, game = 'gs') {
+  constructor (uid, game = 'gs') {
     super()
     uid = uid?._mys?.uid || uid?.uid || uid
     if (!uid) {
@@ -204,6 +204,23 @@ export default class Player extends Base {
       // 兼容处理旅行者的情况
       if (char.isTraveler && !create) {
         id = avatars['10000005'] ? 10000005 : 10000007
+      }
+    }
+
+    if (this.isSr) {
+      // 兼容处理开拓者的情况
+      if (char.isTrailblazer && !create) {
+        switch (id) {
+          case 8001:
+            id = avatars['8001'] ? 8001 : 8002
+            break
+          case 8003:
+            id = avatars['8003'] ? 8003 : 8004
+            break
+          case 8005:
+            id = avatars['8005'] ? 8005 : 8006
+            break
+        }
       }
     }
 

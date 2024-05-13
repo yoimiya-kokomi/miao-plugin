@@ -38,7 +38,7 @@ const _getTargetUid = async function (e) {
   return uid || false
 }
 
-export async function getTargetUid(e) {
+export async function getTargetUid (e) {
   let uid = await _getTargetUid(e)
   if (uid) {
     e.uid = uid
@@ -46,7 +46,7 @@ export async function getTargetUid(e) {
   return uid
 }
 
-export async function getProfileRefresh(e, avatar) {
+export async function getProfileRefresh (e, avatar) {
   let char = Character.get(avatar)
   if (!char) {
     return false
@@ -71,7 +71,7 @@ export async function getProfileRefresh(e, avatar) {
 /*
 * 面板帮助
 * */
-export async function profileHelp(e) {
+export async function profileHelp (e) {
   e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/character/imgs/help.jpg`))
   return true
 }

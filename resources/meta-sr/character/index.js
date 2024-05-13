@@ -25,4 +25,3 @@ lodash.forEach(wifeCfg, (txt, type) => {
   })
 })
 gsMeta.addMeta({ wifeData })
-

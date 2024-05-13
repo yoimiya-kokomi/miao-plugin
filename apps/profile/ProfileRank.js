@@ -3,7 +3,7 @@ import { Data, Common, Format, Cfg } from '#miao'
 import { Button, Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
 import lodash from 'lodash'
 
-export async function groupRank(e) {
+export async function groupRank (e) {
   const groupRank = Common.cfg('groupRank')
   let msg = e.original_msg || e.msg
   let type = ''
@@ -92,7 +92,7 @@ export async function groupRank(e) {
   }
 }
 
-export async function resetRank(e) {
+export async function resetRank (e) {
   let groupId = e.group_id
   if (!groupId) {
     return true
@@ -124,7 +124,7 @@ export async function resetRank(e) {
  * @param e
  * @returns {Promise<boolean>}
  */
-export async function refreshRank(e) {
+export async function refreshRank (e) {
   let groupId = e.group_id || ''
   if (!groupId) {
     return true
@@ -159,7 +159,7 @@ export async function refreshRank(e) {
   e.reply(`本群排名已刷新，共刷新${count}个UID数据...`)
 }
 
-export async function manageRank(e) {
+export async function manageRank (e) {
   let groupId = e.group_id
   if (!groupId) {
     return true
@@ -177,7 +177,7 @@ export async function manageRank(e) {
   }
 }
 
-async function renderCharRankList({ e, uids, char, mode, groupId }) {
+async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   let list = []
   for (let ds of uids) {
     let uid = ds.uid || ds.value
@@ -261,7 +261,21 @@ async function renderCharRankList({ e, uids, char, mode, groupId }) {
         valid: '加权有效词条'
       }
     }
-    title = `${e.isSr ? '*' : '#'}${char.name}${modeTitleMap[mode]}排行`
+
+    // 特殊处理开拓者的情况
+    let titleName = {
+      穹·毁灭: '开拓者·毁灭',
+      星·毁灭: '开拓者·毁灭',
+      穹·存护: '开拓者·存护',
+      星·存护: '开拓者·存护',
+      穹·同谐: '开拓者·同谐',
+      星·同谐: '开拓者·同谐'
+    }
+    if (titleName[char.name]) {
+      title = `${e.isSr ? '*' : '#'}${titleName[char.name]}${modeTitleMap[mode]}排行`
+    } else {
+      title = `${e.isSr ? '*' : '#'}${char.name}${modeTitleMap[mode]}排行`
+    }
     list = lodash.sortBy(list, mode === 'dmg' ? '_dmg' : '_mark').reverse()
   } else {
     title = `${e.isSr ? '*' : '#'}${mode === 'mark' ? '最高分' : '最强'}排行`
@@ -279,5 +293,5 @@ async function renderCharRankList({ e, uids, char, mode, groupId }) {
     bodyClass: `char-${char.name}`,
     rankCfg,
     mode
-  }, { e, scale: 1.4, retType: "base64" }), new Button(e).profile(char)])
+  }, { e, scale: 1.4, retType: 'base64' }), new Button(e).profile(char)])
 }

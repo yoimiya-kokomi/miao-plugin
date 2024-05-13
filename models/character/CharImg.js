@@ -128,7 +128,7 @@ const CharImg = {
     let fileType = 'webp'
     const nPath = `/meta-sr/character/${name}/`
     let imgs = {}
-    let add = (key, path, path2) => {
+    let add = (key, path) => {
       imgs[key] = `${nPath}${path}.${fileType}`
     }
     add('face', 'imgs/face')
@@ -137,7 +137,7 @@ const CharImg = {
     for (let i = 1; i <= 3; i++) {
       add(`tree${i}`, `imgs/tree-${i}`)
     }
-    for (let key of ['a', 'e', 'q', 't', 'z', 'a2', 'e2']) {
+    for (let key of ['a', 'e', 'q', 't', 'z', 'a2', 'e2', 'q2']) {
       add(key, `imgs/talent-${key}`)
     }
     for (let i = 1; i <= 6; i++) {

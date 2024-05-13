@@ -23,6 +23,11 @@ export const buffs = [{
     heal: ({ attr }) => Math.min(attr.stance * 0.5, 75)
   }
 }, {
+  title: '天赋-鏖战正酣：终结技Debuff使敌方受到的击破伤害提高[breakEnemydmg]%',
+  data: {
+    breakEnemydmg: ({ talent }) => talent.t['击破伤害提高'] * 100
+  }
+}, {
   title: '加拉赫1命：效果抵抗提高[effDef]%',
   cons: 1,
   data: {

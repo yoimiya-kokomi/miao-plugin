@@ -26,7 +26,6 @@ async function init () {
 await init()
 
 const CharId = {
-
   getId (ds = '', game = '', elem = '') {
     if (!ds) {
       return false
@@ -42,7 +41,7 @@ const CharId = {
     }
 
     const ret = (data, game = 'gs', em = '') => {
-      let { id, name } = data
+      let { id, name, elem } = data
       return { id, data, name, game, elem: em || elem }
     }
 
@@ -76,6 +75,13 @@ const CharId = {
   isTraveler (id) {
     if (id) {
       return [10000007, 10000005, 20000000].includes(id * 1)
+    }
+    return false
+  },
+
+  isTrailblazer (id) {
+    if (id) {
+      return [8001, 8002, 8003, 8004, 8005, 8006].includes(id * 1)
     }
     return false
   }
