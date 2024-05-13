@@ -143,7 +143,8 @@ let DmgCalc = {
         case 'physicalBreak':
         case 'quantumBreak':
         case 'imaginaryBreak':
-        case 'iceBreak': {
+        case 'iceBreak':
+        case 'superBreak':{
           eleNum = DmgMastery.getBasePct(ele, attr.element)
           stanceNum = 1 + calc(attr.stance) / 100
           break
