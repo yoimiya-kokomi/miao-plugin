@@ -34,7 +34,9 @@ export const erType = {
   physicalBreak: { type: 'break', num: () => 2.0, title: '物理击破' },
   quantumBreak: { type: 'break', num: () => 0.5, title: '量子击破' },
   imaginaryBreak: { type: 'break', num: () => 0.5, title: '虚数击破' },
-  iceBreak: { type: 'break', num: () => 1.0, title: '冰击破' }
+  iceBreak: { type: 'break', num: () => 1.0, title: '冰击破' },
+  // 超击破伤害
+  superBreak: { type: 'break', num: () => 1.0, title: '超击破' }
 }
 let erTmp = {}
 lodash.forEach(erType, (er, key) => {
