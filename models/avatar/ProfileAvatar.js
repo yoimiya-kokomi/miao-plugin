@@ -53,7 +53,7 @@ const ProfileAvatar = {
   },
 
   getCostumeSplash (profile, game = 'gs') {
-    let { char, name } = profile
+    let { char, id, name } = profile
     if (!Cfg.get('costumeSplash', true)) {
       return char.getImgs(profile._costume).splash
     }
@@ -92,6 +92,21 @@ const ProfileAvatar = {
       (talent === '6101010' && treeSuper)
     )) {
       isSuper = true
+    }
+    // 特殊处理开拓者的情况
+    if (char.isTrailblazer) {
+      switch (id) {
+        case 8001:
+        case 8003:
+        case 8005:
+          name = '穹'
+          break
+        case 8002:
+        case 8004:
+        case 8006:
+          name = '星'
+          break
+      }
     }
     if (isSuper) {
       return CharImg.getRandomImg(
