@@ -128,10 +128,15 @@ const CharImg = {
     let fileType = 'webp'
     const nPath = `/meta-sr/character/${name}/`
     let imgs = {}
-    let add = (key, path) => {
-      imgs[key] = `${nPath}${path}.${fileType}`
+    let add = (key, path, path2) => {
+      if (path2 && fs.existsSync(`${rPath}/${nPath}/${path2}.${fileType}`)) {
+        imgs[key] = `${nPath}${path2}.${fileType}`
+      } else {
+        imgs[key] = `${nPath}${path}.${fileType}`
+      }
     }
     add('face', 'imgs/face')
+    add('qFace', 'imgs/face', 'imgs/face-q')
     add('splash', 'imgs/splash')
     add('preview', 'imgs/preview')
     for (let i = 1; i <= 3; i++) {
