@@ -35,6 +35,7 @@ export const buffs = [{
   }
 }, {
   title: '加拉赫6命：击破特攻提高[stance]%',
+  cons: 6,
   data: {
     stance: 20
   }

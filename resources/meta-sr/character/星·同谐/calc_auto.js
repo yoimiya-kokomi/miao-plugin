@@ -83,11 +83,12 @@ export const buffs = [{
   title: '开拓者6命：战技的额外伤害次数增加2次',
   cons: 6
 }, {
-  title: '0魂阮梅：弱点击破效率提高50%，击破特攻提高20%，抗性穿透提高25%',
+  title: '0魂阮梅：弱点击破效率提高50%，击破特攻提高20%，抗性穿透提高25%，速度提高10%',
   check: ({ params }) => params.team === true,
   data: {
     stance: 20,
-    kx: 25
+    kx: 25,
+    speedPct: 10
   }
 }, {
   title: '加拉赫：敌方受到的击破伤害提高13.2%',
