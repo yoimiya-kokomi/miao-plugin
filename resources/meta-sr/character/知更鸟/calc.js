@@ -24,7 +24,7 @@ export const details = [{
   dmg: ({ talent, cons }, dmg) => {
     // 暴击伤害固定为150%（6命时为600%），且伤害必定暴击
     let cdmgNum = cons < 6 ? 1.5 : 6
-    let { avg } = dmg(talent.q['附加伤害'], '')
+    let { avg } = dmg(talent.q['附加伤害'], '', 'skillDot') // 无双爆区近似
     return {
       avg: avg * (1 + cdmgNum)
     }
