@@ -50,6 +50,7 @@ export const details = [{
 
 export const defDmgIdx = 4
 export const mainAttr = 'atk,mastery,cpct,cdmg'
+export const defParams = { mArtisDiffCount: 2 }
 
 export const buffs = [{
   title: '草神1命：火元素队友额外计入1位',

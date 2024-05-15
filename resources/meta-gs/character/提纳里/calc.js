@@ -52,6 +52,7 @@ export const details = [{
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const defDmgKey = 'a2_j'
+export const defParams = { mArtisDiffCount: 2 }
 
 export const buffs = [{
   title: '提纳里被动：发射花筥箭后，元素精通提升50点',

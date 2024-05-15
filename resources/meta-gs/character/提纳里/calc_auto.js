@@ -70,6 +70,7 @@ export const details = [{
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const defDmgIdx = 5
+export const defParams = { mArtisDiffCount: 2 }
 
 export const buffs = [{
   title: '提纳里被动：发射花筥箭后，元素精通提升50点',
@@ -124,7 +125,7 @@ export const buffs = [{
     mastery: 140
   }
 }, {
-  check: ({ params, artis }) => ( params.team === true && artis.深林的记忆 !== 4 ),
+  check: ({ params, artis }) => (params.team === true && artis.深林的记忆 !== 4),
   title: '纳西妲-草套：减抗[kx]%',
   data: {
     kx: 30

@@ -61,7 +61,8 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const defParams = {
   q: false,
-  e: true
+  e: true,
+  mArtisDiffCount: 2
 }
 
 export const buffs = [{

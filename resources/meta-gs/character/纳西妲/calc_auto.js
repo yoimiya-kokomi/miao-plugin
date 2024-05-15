@@ -58,7 +58,9 @@ export const details = [{
 }]
 
 export const defParams = {
-  q: true, team: true
+  q: true,
+  team: true,
+  mArtisDiffCount: 2
 }
 
 export const defDmgIdx = 5

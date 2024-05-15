@@ -376,9 +376,12 @@ const buffs = {
   饰金之梦: {
     2: attr('mastery', 80),
     4: {
-      title: '队伍存在其他3个不同元素类型角色时，精通提高150',
+      title: '队伍存在[mArtisDiffCount]个不同元素类型角色，[sameCount]个相同类型角色，精通提高[mastery]，攻击力提高[atkPct]%',
       data: {
-        mastery: 150
+        mArtisDiffCount: ({ params }) => params.mArtisDiffCount || 3,
+        sameCount: ({ params }) => 3 - (params.mArtisDiffCount || 3),
+        mastery: ({ params }) => (params.mArtisDiffCount || 3) * 50,
+        atkPct: ({ params }) => (3 - (params.mArtisDiffCount || 3)) * 14
       }
     }
   },

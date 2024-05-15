@@ -23,13 +23,13 @@ export const details = [{
 }, {
   check: ({ cons }) => cons < 2,
   dmgKey: 'e_t',
-  params: { team: true, team2: false },
+  params: { team: true, team2: false, mArtisDiffCount: 1 },
   title: '温三雷叄阶杀生樱伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['杀生樱伤害·叁阶'], 'e')
 }, {
   check: ({ cons }) => cons >= 2,
   dmgKey: 'e_t',
-  params: { team: true, team2: false },
+  params: { team: true, team2: false, mArtisDiffCount: 1 },
   title: '温三雷肆阶杀生樱伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['杀生樱伤害·肆阶'], 'e')
 }, {
@@ -49,7 +49,7 @@ export const details = [{
   }
 }, {
   title: '温三雷四段Q总伤害',
-  params: { team: true, team2: false },
+  params: { team: true, team2: false, mArtisDiffCount: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + talent.q['天狐霆雷伤害'] * 3, 'q')
 }, {
   check: ({ cons }) => cons < 2,
@@ -80,7 +80,9 @@ export const mainAttr = 'atk,cpct,cdmg,mastery,dmg'
 export const defDmgKey = 'e_j'
 
 export const defParams = {
-  team: true, team2: true
+  team: true,
+  team2: true,
+  mArtisDiffCount: 3
 }
 
 export const buffs = [{

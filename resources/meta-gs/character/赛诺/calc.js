@@ -97,6 +97,7 @@ export const details = [{
 
 export const defDmgKey = 'q'
 export const mainAttr = 'atk,cpct,cdmg,mastery'
+export const defParams = { mArtisDiffCount: 2 }
 
 export const buffs = [{
   title: '圣仪·煟煌随狼行：Q状态下提升元素精通100点',
