@@ -48,7 +48,7 @@ export const details = [{
     }
   }
 }, {
-  title: '提万妲eQ3ae3a总激化伤害',
+  title: '提钟妲eQ3ae3a总激化伤害',
   params: { q: true, team: true },
   dmg: ({ talent, cons }, dmg) => {
     let d1j = dmg(talent.a['花筥箭伤害'], 'a2', 'spread')
@@ -105,33 +105,10 @@ export const buffs = [{
   title: '提纳里6命：花筥箭在命中后能产生1枚额外的藏蕴花矢',
   cons: 6
 }, {
-  check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '精1苍古0命万叶：苍古普攻16增伤，增加[atkPct]%攻击',
+  check: ({ params }) => params.team === true,
+  title: '钟离：降低敌人[kx]%全抗',
   data: {
-    aDmg: 16,
-    a2Dmg: 16,
-    a3Dmg: 16,
-    atkPct: 20
-  }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '精1苍古2命万叶：苍古普攻16增伤，增加[atkPct]%攻击,精通[mastery]',
-  data: {
-    aDmg: 16,
-    a2Dmg: 16,
-    a3Dmg: 16,
-    atkPct: 20,
-    mastery: 200
-  }
-}, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true),
-  title: '精5苍古6命万叶：苍古普攻32增伤，增加[atkPct]%攻击,精通[mastery]',
-  data: {
-    aDmg: 32,
-    a2Dmg: 32,
-    a3Dmg: 32,
-    atkPct: 40,
-    mastery: 200
+    kx: 20
   }
 }, {
   check: ({ cons, params }) => (cons >= 2 && params.team === true),
