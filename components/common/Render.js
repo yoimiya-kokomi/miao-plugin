@@ -29,10 +29,7 @@ const Render = {
           sys: {
             scale: Cfg.scale(cfg.scale || 1)
           },
-          copyright: `Created By ${Version.name}<span class="version">${Version.yunzai}</span>${pluginName}</span>`,
-          pageGotoParams: {
-            waitUntil: 'networkidle2'
-          }
+          copyright: `Created By ${Version.name}<span class="version">${Version.yunzai}</span>${pluginName}</span>`
         }
       }
     })

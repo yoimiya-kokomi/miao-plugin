@@ -292,6 +292,7 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
     elem: char.elem,
     bodyClass: `char-${char.name}`,
     rankCfg,
-    mode
+    mode,
+    pageGotoParams: { waitUntil: 'networkidle2' }
   }, { e, scale: 1.4, retType: 'base64' }), new Button(e).profile(char)])
 }
