@@ -2,8 +2,7 @@ import lodash from 'lodash'
 import fs from 'node:fs'
 import util from 'node:util'
 
-//const _path = process.cwd()
-const _path = import.meta.dirname + '/../../../'
+const _path = process.cwd()
 const getRoot = (root = '') => {
   if (!root) {
     root = `${_path}/`
