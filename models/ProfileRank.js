@@ -19,6 +19,16 @@ export default class ProfileRank {
     return rank
   }
 
+  static async getCharacterFromKey(key, game = 'gs') {
+    if (game === 'gs') {
+      // 原神的角色id都是8位
+      return /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key)
+    } else {
+      // 星铁的角色id都是4位
+      return /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{4})$/.exec(key)
+    }
+  }
+
   /**
    * 获取群排行UID
    * @param groupId
@@ -31,11 +41,11 @@ export default class ProfileRank {
     return uids ? uids[0] : false
   }
 
-  static async getGroupMaxUidList (groupId, type = 'mark') {
+  static async getGroupMaxUidList (groupId, type = 'mark', game = 'gs') {
     let keys = await redis.keys(`miao:rank:${groupId}:${type}:*`)
     let ret = []
     for (let key of keys) {
-      let keyRet = /^miao:rank:[\w-]+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key)
+      let keyRet = await ProfileRank.getCharacterFromKey(key, game)
       if (keyRet && keyRet[1]) {
         let charId = keyRet[1]
         let uid = await ProfileRank.getGroupMaxUid(groupId, charId, type)
@@ -78,7 +88,7 @@ export default class ProfileRank {
   static async resetRank (groupId, charId = '', game = 'gs') {
     let keys = await redis.keys(`miao:rank:${groupId}:*`)
     for (let key of keys) {
-      let charRet = game === 'gs' ? /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key) : /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{4})$/.exec(key)
+      let charRet = await ProfileRank.getCharacterFromKey(key, game)
       if (charRet) {
         if (charId === '' || charId * 1 === charRet[1] * 1) {
           await redis.del(key)
@@ -171,14 +181,14 @@ export default class ProfileRank {
     await redis.set(`miao:rank:uid-info:${uid}`, JSON.stringify(data), { EX: 3600 * 24 * 365 })
   }
 
-  static async delUidInfo (uid) {
+  static async delUidInfo (uid, game = 'gs') {
     let keys = await redis.keys('miao:rank:*')
     uid = uid + ''
     if (!/\d{9,10}/.test(uid)) {
       return false
     }
     for (let key of keys) {
-      let charRet = /^miao:rank:\d+:(?:mark|dmg|crit|valid):(\d{8})$/.exec(key)
+      let charRet = await ProfileRank.getCharacterFromKey(key, game)
       if (charRet) {
         await redis.zRem(key, uid)
       }
