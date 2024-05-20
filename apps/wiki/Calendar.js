@@ -88,8 +88,7 @@ let Cal = {
                 annTime = [vTime, timeRet[0]]
               }
             }
-          }
-          if (/\d\.\d版本期间持续开放/.test(content)) {
+          } else if (/\d\.\d版本期间持续开放/.test(content)) {
             let vRet = /(\d\.\d)版本期间持续开放/.exec(content)
             let vTime = ''
             if (vRet && vRet[1] && versionTime[vRet[1]]) {
@@ -101,6 +100,8 @@ let Cal = {
             let format = 'YYYY-MM-DD HH:mm:ss'
             let versionLastDay = moment(vTime, format).add(42, 'days').hours(6).format(format)
             annTime = [vTime, versionLastDay]
+          } else if (/后永久开放/.test(content)) {
+            annTime = [timeRet[1], '2099/01/01 00:00:00']
           }
           if (annTime.length === 2) {
             timeMap[annId] = {
