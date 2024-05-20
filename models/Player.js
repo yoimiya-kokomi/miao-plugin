@@ -210,7 +210,7 @@ export default class Player extends Base {
     if (this.isSr) {
       // 兼容处理开拓者的情况
       if (char.isTrailblazer && !create) {
-        switch (id) {
+        switch (id * 1) {
           case 8001:
             id = avatars['8001'] ? 8001 : 8002
             break

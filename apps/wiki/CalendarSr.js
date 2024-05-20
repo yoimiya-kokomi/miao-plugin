@@ -141,7 +141,7 @@ let CalSr = {
     let title2 = '「虚构叙事」'
     let exchange = false
     let diff = newAbyssStart.diff(abyss0Start, 'days')
-    if (diff >= 0 && diff % 28 === 0) {
+    if (diff % 28 === 0) {
       exchange = true
     }
     if (exchange) {
