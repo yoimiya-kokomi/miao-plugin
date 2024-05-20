@@ -20,14 +20,15 @@ export default class ProfileDmg extends Base {
   }
 
   static dmgRulePath (name, game = 'gs') {
-    const _path = process.cwd()
+    //const _path = process.cwd()
+    const _path = import.meta.dirname + '/../'
     let dmgFile = [
       { file: 'calc_user', name: '自定义伤害' },
       { file: 'calc_auto', name: '组团伤害', test: () => Common.cfg('teamCalc') },
       { file: 'calc', name: '喵喵' }
     ]
     for (let ds of dmgFile) {
-      let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
+      let path = `${_path}/resources/meta-${game}/character/${name}/${ds.file}.js`
       if (ds.test && !ds.test()) {
         continue
       }

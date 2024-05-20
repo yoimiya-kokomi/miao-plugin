@@ -3,7 +3,8 @@ import lodash from 'lodash'
 import cfgData from './cfg/CfgData.js'
 import { Version } from '#miao'
 
-const _path = process.cwd()
+//const _path = process.cwd()
+const _path = import.meta.dirname + '/../../../'
 const _cfgPath = `${_path}/plugins/miao-plugin/components/`
 let cfg = {}
 let miaoCfg = {}

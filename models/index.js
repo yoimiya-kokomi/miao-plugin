@@ -17,10 +17,10 @@ import Button from './Button.js'
 
 for (let game of ['gs', 'sr']) {
   for (let type of ['artifact', 'character', 'material', 'weapon']) {
-    let file = `./plugins/miao-plugin/resources/meta-${game}/${type}/index.js`
+    let file = `${import.meta.dirname}/../resources/meta-${game}/${type}/index.js`
     if (fs.existsSync(file)) {
       try {
-        await import(`file://${process.cwd()}/${file}`)
+        await import(`file://${file}`)
       } catch (e) {
         console.log(e)
       }
