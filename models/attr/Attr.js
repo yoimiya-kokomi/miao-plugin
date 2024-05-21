@@ -24,17 +24,10 @@ class Attr extends Base {
     return new Attr(profile)
   }
 
-  // 只有原神才需要
-  static calcPromote (lv) {
-    if (lv === 20) {
-      return 1
-    }
-    if (lv === 90) {
-      return 6
-    }
-    let lvs = [1, 20, 40, 50, 60, 70, 80, 90]
+  static calcPromote (lv, game = 'gs') {
+    let lvs = game === 'gs' ? [1, 20, 40, 50, 60, 70, 80, 90] : [1, 20, 30, 40, 50, 60, 70, 80]
     let promote = 0
-    for (let idx = 0; idx < lvs.length - 1; idx++) {
+    for (let idx = 0; idx <= lvs.length - 1; idx++) {
       if (lv >= lvs[idx] && lv <= lvs[idx + 1]) {
         return promote
       }
@@ -59,13 +52,11 @@ class Attr extends Base {
     this.setWeaponAttr()
     this.setArtisAttr()
     return this.attr.getAttr()
-
   }
 
   getBase () {
     return this.attr.getBase()
   }
-
 
   addAttr (key, val, isBase = false) {
     this.attr.addAttr(key, val, isBase)
