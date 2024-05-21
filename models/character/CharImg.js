@@ -4,9 +4,9 @@
 import fs from 'node:fs'
 import lodash from 'lodash'
 import sizeOf from 'image-size'
-import { Cfg } from '#miao'
+import { miaoPath } from '#miao.path'
 
-const rPath = `${process.cwd()}/plugins/miao-plugin/resources`
+const rPath = `${miaoPath}/resources`
 const CharImg = {
 
   // 获取角色的插画

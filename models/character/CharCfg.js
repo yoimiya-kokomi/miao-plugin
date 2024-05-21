@@ -1,8 +1,9 @@
 import { Data } from '#miao'
 import lodash from 'lodash'
 import fs from 'node:fs'
+import { miaoPath } from '#miao.path'
 
-const charPath = process.cwd() + '/plugins/miao-plugin/resources/meta-gs/character'
+const charPath = `${miaoPath}/resources/meta-gs/character`
 let cfgMap = {
   char: {},
   async init () {

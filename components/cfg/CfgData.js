@@ -2,6 +2,7 @@ import { cfgSchema } from '../../config/system/cfg_system.js'
 import lodash from 'lodash'
 import { Data } from '../index.js'
 import fs from 'node:fs'
+import { miaoPath } from '#miao.path'
 
 let cfgData = {
   saveCfg (cfg) {
@@ -21,7 +22,7 @@ let cfgData = {
         }
       })
     })
-    fs.writeFileSync(`${process.cwd()}/plugins/miao-plugin/config/cfg.js`, ret.join('\n'), 'utf8')
+    fs.writeFileSync(`${miaoPath}/config/cfg.js`, ret.join('\n'), 'utf8')
   },
 
   async getCfg () {

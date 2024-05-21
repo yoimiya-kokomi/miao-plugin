@@ -1,5 +1,6 @@
 import { Cfg } from '#miao'
 import { MysApi } from '#miao.models'
+import { miaoPath } from '#miao.path'
 
 /** 获取角色卡片的原图 */
 export async function getOriginalPicture (e) {
@@ -48,12 +49,12 @@ export async function getOriginalPicture (e) {
         }
       }
       if (imgPath && imgPath.img) {
-        e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/${decodeURIComponent(imgPath.img)}`), false, { recallMsg: 30 })
+        e.reply(segment.image(`file://${miaoPath}/resources/${decodeURIComponent(imgPath.img)}`), false, { recallMsg: 30 })
       }
       return true
     }
     // 对at错图像的增加嘲讽...
-    e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/common/face/what.jpg`))
+    e.reply(segment.image(`file://${miaoPath}/resources/common/face/what.jpg`))
     return false
   }
   e.reply('消息太过久远了，俺也忘了原图是啥了，下次早点来吧~')

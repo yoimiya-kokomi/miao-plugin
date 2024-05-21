@@ -14,13 +14,14 @@ import Weapon from './Weapon.js'
 import User from './User.js'
 import MysApi from './MysApi.js'
 import Button from './Button.js'
+import { rootPath } from '#miao.path'
 
 for (let game of ['gs', 'sr']) {
   for (let type of ['artifact', 'character', 'material', 'weapon']) {
     let file = `./plugins/miao-plugin/resources/meta-${game}/${type}/index.js`
     if (fs.existsSync(file)) {
       try {
-        await import(`file://${process.cwd()}/${file}`)
+        await import(`file://${rootPath}/${file}`)
       } catch (e) {
         console.log(e)
       }

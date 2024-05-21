@@ -6,8 +6,9 @@ import fetch from 'node-fetch'
 import lodash from 'lodash'
 import { Cfg, Data } from '#miao'
 import { Character } from '#miao.models'
+import { miaoPath } from '#miao.path'
 
-const resPath = process.cwd() + '/plugins/miao-plugin/resources/'
+const resPath = miaoPath + '/resources/'
 let regex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:照片|写真|图片|图像)\s*$/
 let profileRegex = /^#?\s*(?:喵喵)?(?:上传|添加)(.+)(?:面板图)\s*$/
 let isProfile = false

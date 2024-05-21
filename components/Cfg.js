@@ -2,9 +2,9 @@ import fs from 'node:fs'
 import lodash from 'lodash'
 import cfgData from './cfg/CfgData.js'
 import { Version } from '#miao'
+import { miaoPath } from '#miao.path'
 
-const _path = process.cwd()
-const _cfgPath = `${_path}/plugins/miao-plugin/components/`
+const _cfgPath = `${miaoPath}/components/`
 let cfg = {}
 let miaoCfg = {}
 

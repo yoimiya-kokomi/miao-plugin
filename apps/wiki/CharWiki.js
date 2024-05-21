@@ -4,6 +4,7 @@ import CharWikiData from './CharWikiData.js'
 import CharMaterial from './CharMaterial.js'
 import { Cfg, Common } from '#miao'
 import { Character } from '#miao.models'
+import { miaoPath } from '#miao.path'
 
 const wikiReg = /^(?:#|喵喵)?(?:星铁)?(.*)(天赋|技能|行迹|命座|命之座|星魂|资料|图鉴|照片|写真|图片|图像)$/
 
@@ -53,7 +54,7 @@ const CharWiki = {
     if (mode === 'pic') {
       let img = char.getCardImg(Cfg.get('charPicSe', false), false)
       if (img && img.img) {
-        e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/${img.img}`))
+        e.reply(segment.image(`file://${miaoPath}/resources/${img.img}`))
       } else {
         e.reply('暂无图片')
       }

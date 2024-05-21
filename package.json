@@ -15,6 +15,7 @@
   },
   "imports": {
     "#miao": "./components/index.js",
-    "#miao.models": "./models/index.js"
+    "#miao.models": "./models/index.js",
+    "#miao.path": "./tools/path.js"
   }
 }

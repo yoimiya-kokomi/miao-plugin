@@ -2,6 +2,7 @@ import express from 'express'
 import template from 'express-art-template'
 import fs from 'node:fs'
 import lodash from 'lodash'
+import { rootPath } from '#miao.path'
 
 /*
 * npm run app web-debug开启Bot后
@@ -15,7 +16,7 @@ import lodash from 'lodash'
 
 let app = express()
 
-let _path = process.cwd()
+let _path = rootPath
 
 app.engine('html', template)
 app.set('views', _path + '/resources/')

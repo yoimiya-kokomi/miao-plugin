@@ -1,8 +1,9 @@
 import lodash from 'lodash'
 import fs from 'node:fs'
 import util from 'node:util'
+import { rootPath } from '#miao.path'
 
-const _path = process.cwd()
+const _path = rootPath
 const getRoot = (root = '') => {
   if (!root) {
     root = `${_path}/`

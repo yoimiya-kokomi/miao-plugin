@@ -1,8 +1,8 @@
 /*
 * 面板公共方法及处理
 * */
-import { Version } from '#miao'
 import { Button, Character, MysApi, Player } from '#miao.models'
+import { miaoPath } from '#miao.path'
 
 /*
 * 获取面板查询的 目标uid
@@ -72,6 +72,6 @@ export async function getProfileRefresh (e, avatar) {
 * 面板帮助
 * */
 export async function profileHelp (e) {
-  e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/character/imgs/help.jpg`))
+  e.reply(segment.image(`file://${miaoPath}/resources/character/imgs/help.jpg`))
   return true
 }

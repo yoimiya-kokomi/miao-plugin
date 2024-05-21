@@ -1,4 +1,5 @@
 import { Version, Cfg } from '#miao'
+import { miaoPath } from '#miao.path'
 
 const Render = {
   async render (path, params, cfg) {
@@ -17,13 +18,13 @@ const Render = {
           }
         }
         let resPath = data.pluResPath
-        const layoutPath = process.cwd() + '/plugins/miao-plugin/resources/common/layout/'
+        const layoutPath = miaoPath + '/resources/common/layout/'
         return {
           _miao_path: resPath,
           ...data,
           _res_path: resPath,
           _layout_path: layoutPath,
-          _tpl_path: process.cwd() + '/plugins/miao-plugin/resources/common/tpl/',
+          _tpl_path: miaoPath + '/resources/common/tpl/',
           defaultLayout: layoutPath + 'default.html',
           elemLayout: layoutPath + 'elem.html',
           sys: {

@@ -1,6 +1,7 @@
 import { Data, Version } from '#miao'
 import fs from 'node:fs'
 import Trans from './trans.js'
+import { rootPath } from '#miao.path'
 
 let relpyPrivate = async function () {
 }
@@ -33,7 +34,7 @@ const Index = {
     if (!Version.isV3 && !Version.isAlemonjs) {
       console.log('警告：miao-plugin需要V3 Yunzai，请升级至最新版Miao-Yunzai以使用miao-plugin')
     }
-    if (!fs.existsSync(process.cwd() + '/lib/plugins/runtime.js')) {
+    if (!fs.existsSync(rootPath + '/lib/plugins/runtime.js')) {
       let msg = '警告：未检测到runtime，miao-plugin可能无法正常工作。请升级至最新版Miao-Yunzai以使用miao-plugin'
       if (!await redis.get('miao:runtime-warning')) {
         await relpyPrivate(msg.qq, msg)

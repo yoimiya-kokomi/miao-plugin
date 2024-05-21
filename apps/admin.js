@@ -2,9 +2,10 @@ import fs from 'node:fs'
 import lodash from 'lodash'
 import { exec } from 'child_process'
 import { Cfg, Common, Data, Version, App } from '#miao'
-import makemsg from "../../../lib/common/common.js"
-import { execSync } from "child_process";
+import makemsg from '../../../lib/common/common.js'
+import { execSync } from 'child_process'
 import fetch from 'node-fetch'
+import { miaoPath } from '#miao.path'
 
 let keys = lodash.map(Cfg.getCfgSchemaMap(), (i) => i.key)
 let app = App.init({
@@ -45,8 +46,7 @@ app.reg({
 
 export default app
 
-const _path = process.cwd()
-const resPath = `${_path}/plugins/miao-plugin/resources/`
+const resPath = `${miaoPath}/resources/`
 const plusPath = `${resPath}/miao-res-plus/`
 
 const checkAuth = async function (e) {
@@ -58,7 +58,7 @@ const checkAuth = async function (e) {
   return true
 }
 
-async function sysCfg(e) {
+async function sysCfg (e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -99,7 +99,7 @@ async function sysCfg(e) {
   }, { e, scale: 1.4 })
 }
 
-async function updateRes(e) {
+async function updateRes (e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -143,7 +143,7 @@ async function updateRes(e) {
 
 let timer
 
-async function updateMiaoPlugin(e) {
+async function updateMiaoPlugin (e) {
   if (!await checkAuth(e)) {
     return true
   }
@@ -155,7 +155,7 @@ async function updateMiaoPlugin(e) {
   } else {
     e.reply('正在执行更新操作，请稍等')
   }
-  exec(command, { cwd: `${_path}/plugins/miao-plugin/` }, function (error, stdout, stderr) {
+  exec(command, { cwd: miaoPath }, function (error, stdout, stderr) {
     if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
       e.reply('目前已经是最新版喵喵了~')
       return true
@@ -191,7 +191,7 @@ async function updateMiaoPlugin(e) {
   return true
 }
 
-async function Miaoupdatelog(e, plugin = 'miao-plugin') {
+async function Miaoupdatelog (e, plugin = 'miao-plugin') {
   let cm = 'git log  -20 --oneline --pretty=format:"%h||[%cd]  %s" --date=format:"%F %T"'
   if (plugin) {
     cm = `cd ./plugins/${plugin}/ && ${cm}`
@@ -220,7 +220,7 @@ async function Miaoupdatelog(e, plugin = 'miao-plugin') {
   e.reply(log)
 }
 
-async function miaoApiInfo(e) {
+async function miaoApiInfo (e) {
   if (!await checkAuth(e)) {
     return true
   }

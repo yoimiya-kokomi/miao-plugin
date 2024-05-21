@@ -2,9 +2,9 @@ import { Cfg, Common, Data, Version } from '#miao'
 import fs from 'node:fs'
 import lodash from 'lodash'
 import HelpTheme from './HelpTheme.js'
+import { miaoPath } from '#miao.path'
 
-const _path = process.cwd()
-const helpPath = `${_path}/plugins/miao-plugin/resources/help`
+const helpPath = `${miaoPath}/resources/help`
 
 const Help = {
   async render (e) {
