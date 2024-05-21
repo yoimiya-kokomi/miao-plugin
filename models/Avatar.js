@@ -147,7 +147,7 @@ export default class Avatar extends Base {
     this.fetter = ds.fetter || this.fetter || 0
     this._costume = ds.costume || this._costume || 0
     this.elem = ds.elem || this.elem || this.char.elem || ''
-    this.promote = Math.max((ds.promote ? ds.promote : this.promote) * 1 || 0, Attr.calcPromote(this.level))
+    this.promote = Math.max((ds.promote ? ds.promote : this.promote) * 1 || 0, Attr.calcPromote(this.level, this.game))
     this.trees = this.trees || []
     this._source = ds._source || this._source || '' // 数据源
     this._time = ds._time || this._time || now // 面板最后更新时间
@@ -204,7 +204,7 @@ export default class Avatar extends Base {
       id: ds.id || w.id,
       name: ds.name || w.name,
       level: ds.level || ds.lv || 1,
-      promote: lodash.isUndefined(ds.promote) ? Attr.calcPromote(ds.level || ds.lv || 1) : (ds.promote || 0),
+      promote: lodash.isUndefined(ds.promote) ? Attr.calcPromote(ds.level || ds.lv || 1, this.game) : (ds.promote || 0),
       affix: ds.affix,
       ...w.getData('star,abbr,type,img,imgs')
     }

@@ -5,7 +5,7 @@ import lodash from 'lodash'
 let weaponSet
 
 class Weapon extends Base {
-  constructor(meta, game = 'gs') {
+  constructor (meta, game = 'gs') {
     if (!meta || !meta.name) {
       return false
     }
