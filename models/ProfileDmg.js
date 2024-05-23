@@ -131,7 +131,8 @@ export default class ProfileDmg extends Base {
       level: profile.level,
       cons: profile.cons * 1,
       talent,
-      trees: this.trees()
+      trees: this.trees(),
+      weapon: profile.weapon
     }
 
     let { id, weapon, attr, artis } = profile

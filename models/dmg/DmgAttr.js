@@ -106,7 +106,6 @@ let DmgAttr = {
       params,
       refine: attr.refine,
       weaponTypeName: attr.weaponTypeName,
-      weapon: attr.weapon,
       element: Format.elemName(attr.element) || attr.element, // 计算属性
       calc: DmgAttr.getAttrValue
     }
