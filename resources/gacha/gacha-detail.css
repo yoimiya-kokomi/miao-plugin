@@ -20,7 +20,7 @@
 .gacha-list .gacha-item .date .dot {
   width: 23.75px;
   height: 43px;
-  background: url('./imgs/date-icon.webp') center -38px;
+  background: url('imgs/date-icon.webp') center -38px;
   background-size: 100% auto;
 }
 .gacha-list .gacha-item .date .dot.first {
@@ -45,7 +45,6 @@
   margin-top: 5px;
 }
 .gacha-list .gacha-item .name {
-  width: 90px;
   text-align: right;
   line-height: 38px;
   padding-right: 5px;
@@ -140,4 +139,3 @@
 .avatar-card .name {
   text-align: center;
 }
-/*# sourceMappingURL=gacha-detail.css.map */

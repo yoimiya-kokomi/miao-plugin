@@ -2,6 +2,7 @@ import lodash from 'lodash'
 import { Data } from '#miao'
 import { Character, Weapon } from '#miao.models'
 import { poolDetail, mixPoolDetail } from '../../resources/meta-gs/info/index.js'
+import { poolDetailSr } from '../../resources/meta-sr/info/index.js'
 import moment from 'moment'
 
 let poolVersion = []
@@ -20,6 +21,24 @@ poolVersion.push({
   from: last.to,
   to: '2025-12-31 23:59:59',
   start: last.end,
+  end: new Date('2025-12-31 23:59:59')
+})
+
+let poolVersionSr = []
+lodash.forEach(poolDetailSr, (ds) => {
+  poolVersionSr.push({
+    ...ds,
+    start: new Date(ds.from),
+    end: new Date(ds.to)
+  })
+})
+let lastSr = poolVersionSr[poolVersionSr.length - 1]
+poolVersionSr.push({
+  version: '新版本',
+  half: '?',
+  from: lastSr.to,
+  to: '2025-12-31 23:59:59',
+  start: lastSr.end,
   end: new Date('2025-12-31 23:59:59')
 })
 
@@ -44,18 +63,20 @@ mixPoolVersion.push({
 let GachaData = {
 
   // 获取JSON数据
-  readJSON (qq, uid, type) {
+  readJSON (qq, uid, type, game) {
     let logJson = []
     // 获取本地数据 进行数据合并
-    logJson = Data.readJSON(`/data/gachaJson/${qq}/${uid}/${type}.json`, 'root')
+    game === 'gs'
+      ? logJson = Data.readJSON(`/data/gachaJson/${qq}/${uid}/${type}.json`, 'root')
+      : logJson = Data.readJSON(`/data/srJson/${qq}/${uid}/${type}.json`, 'root')
     let itemMap = {}
     let nameMap = {}
     let items = []
     let ids = {}
     lodash.forEach(logJson, (ds) => {
       if (!nameMap[ds.name]) {
-        if (ds.item_type === '武器') {
-          let weapon = Weapon.get(ds.name)
+        if (ds.item_type === '武器' || ds.item_type === '光锥') {
+          let weapon = Weapon.get(ds.name, game)
           if (weapon) {
             nameMap[ds.name] = weapon.id
             itemMap[weapon.id] = {
@@ -75,7 +96,7 @@ let GachaData = {
             }
           }
         } else if (ds.item_type === '角色') {
-          let char = Character.get(ds.name)
+          let char = Character.get(ds.name, game)
           if (char) {
             nameMap[ds.name] = char.id
             itemMap[char.id] = {
@@ -112,8 +133,8 @@ let GachaData = {
   },
 
   // 卡池分析
-  analyse (qq, uid, type) {
-    let logData = GachaData.readJSON(qq, uid, type)
+  analyse (qq, uid, type, game) {
+    let logData = GachaData.readJSON(qq, uid, type, game)
     let fiveLog = []
     let fourLog = []
     let fiveNum = 0
@@ -139,7 +160,7 @@ let GachaData = {
     let currVersion
     lodash.forEach(logData.items, (item) => {
       if (!currVersion || (item.time < currVersion.start)) {
-        currVersion = GachaData.getVersion(item.time, true, isMix)
+        currVersion = GachaData.getVersion(item.time, true, isMix, game)
       }
 
       allNum++
@@ -282,31 +303,32 @@ let GachaData = {
   },
 
   // 卡池统计
-  stat (qq, uid, type) {
+  stat (qq, uid, type, game) {
     let items = []
     let itemMap = {}
     let hasVersion = true
     let isMix = false
+    let isSr = game === 'sr'
     let loadData = function (poolId) {
-      let gachaData = GachaData.readJSON(qq, uid, poolId)
+      let gachaData = GachaData.readJSON(qq, uid, poolId, game)
       items = items.concat(gachaData.items)
       lodash.extend(itemMap, gachaData.itemMap || {})
     }
     if (['up', 'char', 'all'].includes(type)) {
-      loadData(301)
+      isSr ? loadData(11) : loadData(301)
     }
     if (['up', 'weapon', 'all'].includes(type)) {
-      loadData(302)
+      isSr ? loadData(12) : loadData(302)
     }
     if (['all', 'normal'].includes(type)) {
       hasVersion = false
-      loadData(200)
+      isSr ? loadData(1) : loadData(200)
     }
     if (['mix'].includes(type)) {
       isMix = true
       loadData(500)
     }
-    if (['all'].includes(type)) {
+    if (['all'].includes(type) && !isSr) {
       loadData(500)
     }
 
@@ -396,7 +418,7 @@ let GachaData = {
         if (currVersion) {
           versionData.push(getCurr())
         }
-        let v = GachaData.getVersion(ds.time, hasVersion, isMix)
+        let v = GachaData.getVersion(ds.time, hasVersion, isMix, game)
         if (!hasVersion) {
           v.version = type === 'all' ? '全部统计' : '常驻池'
         }
@@ -436,7 +458,7 @@ let GachaData = {
     }
   },
 
-  getVersion (time, hasVersion = true, isMix = false) {
+  getVersion (time, hasVersion = true, isMix = false, game) {
     if (isMix) {
       for (let ds of mixPoolVersion) {
         if (time > ds.start && time < ds.end) {
@@ -444,8 +466,14 @@ let GachaData = {
         }
       }
     }
-    if (hasVersion) {
+    if (hasVersion && game === 'gs') {
       for (let ds of poolVersion) {
+        if (time > ds.start && time < ds.end) {
+          return ds
+        }
+      }
+    } else if (hasVersion && game === 'sr') {
+      for (let ds of poolVersionSr) {
         if (time > ds.start && time < ds.end) {
           return ds
         }

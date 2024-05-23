@@ -39,6 +39,7 @@
     {{/if}}
   </div>
 
+  {{if game==='gs'}}
   <div class="ck-notice">
     <strong>#角色统计/#武器统计</strong>角色/武器池统计，
     <strong>#常驻统计/#集录统计</strong>常驻/集录池统计
@@ -47,6 +48,14 @@
     <strong>#全部统计</strong>全部抽卡统计，
     <strong>#抽卡帮助</strong> 获取帮助
   </div>
+  {{else}}
+  <div class="ck-notice">
+    <strong>*角色统计/*武器统计</strong>角色/武器池统计，
+    <strong>*常驻统计</strong>常驻池统计，
+    <strong>*全部统计</strong>全部抽卡统计，
+    <strong>*抽卡帮助</strong>获取帮助
+  </div>
+  {{/if}}
 
   {{each gacha.versionData vData}}
   {{set stats = vData.stats}}
@@ -83,8 +92,9 @@
       {{each vData.items ds}}
       {{set item = gacha.itemMap[ds.id]}}
       {{if item.star === 4 || item.star === 5}}
+      {{set cardWidth = (game==='gs' ? 69: 90)}}
       <div class="gacha-item">
-        <div class="item-card {{ds.isUp ? 'up-card':'normal-card'}}">
+        <div class="item-card {{ds.isUp ? 'up-card':'normal-card'}}" style="width:{{cardWidth}}px">
           <div class="item-icon  star{{item.star}}">
             <div class="item-bg" style="background-image:url({{_res_path}}{{item.img}})"></div>
             <div class="item-life {{ds.isUp ? 'life5': 'life1'}}">{{ds.num}}</div>
