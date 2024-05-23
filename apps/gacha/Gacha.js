@@ -47,12 +47,12 @@ let Gacha = {
       }
     }
     let uid = e.uid || await getTargetUid(e)
-    let qq = e.user_id
+    let qq = e.user.qq
     if (!uid || !qq) {
       return false
     }
 
-    let gacha = GachaData.analyse(e.user_id, uid, type, game)
+    let gacha = GachaData.analyse(qq, uid, type, game)
     if (!gacha) {
       e.reply([`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`, new Button(e).gacha()])
       return true
@@ -86,11 +86,11 @@ let Gacha = {
       type = 'all'
     }
     let uid = e.uid || await getTargetUid(e)
-    let qq = e.user_id
+    let qq = e.user.qq
     if (!uid || !qq) {
       return false
     }
-    let gacha = GachaData.stat(e.user_id, uid, type, game)
+    let gacha = GachaData.stat(qq, uid, type, game)
     if (!gacha) {
       e.reply([`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`, new Button(e).gacha()])
       return true
