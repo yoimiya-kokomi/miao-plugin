@@ -111,7 +111,7 @@ let Gacha = {
     let faceChar = Character.get(player.face || defaultFaceChar, game)
     let imgs = faceChar?.imgs
     if (!imgs?.face) {
-      imgs = Character.get(10000079).imgs
+      imgs = game === 'gs' ? Character.get(10000079, game).imgs : Character.get(1005, game).imgs
     }
     return {
       banner: imgs?.banner,
