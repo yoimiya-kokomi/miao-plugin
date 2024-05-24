@@ -254,6 +254,12 @@ export default function (step, staticStep) {
         aDmg: step(16 * 2),
         eDmg: step(24 * 2)
       }
+    }],
+    赦罪: [staticStep('cdmg', 20), {
+      title: '生命之契的数值增加时，装备者造成的伤害提升[dmg]%',
+      refine: {
+        dmg: step(16 * 3)
+      }
     }]
   }
 }
