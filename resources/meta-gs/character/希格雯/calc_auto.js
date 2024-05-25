@@ -11,9 +11,6 @@ export const details = [{
 	title: '长按E弹跳伤害',
 	dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['激愈水球伤害'] / 100, 'e')
 }, {
-	title: '长按E弹跳蒸发',
-	dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['激愈水球伤害'] / 100, 'e', 'vaporize')
-}, {
 	title: '长按E弹跳治疗',
 	dmg: ({ talent, attr }, { heal }) => heal((attr.hp * talent.e['激愈水球治疗量2'][0] / 100 + talent.e['激愈水球治疗量2'][1]) * 1.4)
 }, {
@@ -29,9 +26,20 @@ export const details = [{
 		dmg: q1.dmg * cons4
 	  }
 	}
+}, {
+	title: '希芙双水 完整Q',
+	params: { team: true },
+	dmg: ({ talent, attr , cons }, { basic }) => {
+	  let q1 = basic(attr.hp * talent.q['技能伤害'] / 100, 'q')
+	  let cons4 = cons >= 4 ? 13 : 6
+	  return {
+		avg: q1.avg * cons4,
+		dmg: q1.dmg * cons4
+	  }
+	}
 }]
 
-export const defDmgIdx = 3
+export const defDmgIdx = 0
 export const mainAttr = 'hp,cpct,cdmg,mastery,dmg'
 
 export const buffs = [{
@@ -60,6 +68,24 @@ export const buffs = [{
       qCpct: ({ attr }) => Math.min(20, attr.hp / 1000 * 0.4),
       qCdmg: ({ attr }) => Math.min(110, attr.hp / 1000 * 2.2)
     }
+}, {
+  check: ({ params, cons }) => params.team === true,
+  title: '双水Buff：生命值提高[hpPct]%',
+  data: {
+    hpPct: 25
+  }
+}, {
+  check: ({ params, cons }) => params.team === true && cons <= 1,
+  title: '0命芙宁娜：获得[dmg]%增伤',
+  data: {
+    dmg: 75
+  }
+}, {
+  check: ({ params, cons }) => params.team === true && cons > 1,
+  title: '2命芙宁娜：获得[dmg]%增伤',
+  data: {
+    dmg: 100
+  }
 }, 'vaporize']
 
 export const createdBy = 'liangshi'

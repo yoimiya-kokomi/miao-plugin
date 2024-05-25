@@ -10,8 +10,8 @@ export const details = [{
     title: 'E贯夜·契令伤害',
     dmg: ({ talent }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'a')
 }, {
-     title: 'E贯夜·契令激化',
-     dmg: ({ talent }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'a', 'aggravate')
+    title: 'E贯夜·契令激化',
+    dmg: ({ talent }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'a', 'aggravate')
 }, {
     title: 'Q完整伤害',
     dmg: ({ talent }, dmg) => {
@@ -102,3 +102,5 @@ export const buffs = [{
      kx: 20
    }
 }]
+
+export const createdBy = 'liangshi'
