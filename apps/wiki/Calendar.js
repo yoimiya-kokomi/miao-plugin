@@ -71,8 +71,8 @@ let Cal = {
           if (timeRet && timeRet[1]) {
             annTime = timeRet[1].split('~')
           }
-          if (/\d\.\d版本更新后/.test(content)) {
-            let vRet = /(\d\.\d)版本更新后/.exec(content)
+          if (/\d\.\d版本更新(?:完成)?后/.test(content)) {
+            let vRet = /(\d\.\d)版本更新(?:完成)?后/.exec(content)
             let vTime = ''
             if (vRet && vRet[1] && versionTime[vRet[1]]) {
               vTime = versionTime[vRet[1]]
