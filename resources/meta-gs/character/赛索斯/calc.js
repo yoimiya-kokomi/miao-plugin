@@ -1,9 +1,9 @@
 export const details = [{
     title: '贯影箭伤害',
-    dmg: ({ talent, attr }, { basic }) => basic(talent.a['贯影箭伤害'][0] * attr.atk / 100 + talent.a['贯影箭伤害'][1] * attr.mastery / 100, 'a2')
+    dmg: ({ talent, attr }, { basic }) => basic(talent.a['贯影箭伤害2'][0] * attr.atk / 100 + talent.a['贯影箭伤害2'][1] * attr.mastery / 100, 'a2')
 }, {
     title: '贯影箭激化',
-    dmg: ({ talent, attr }, { basic }) => basic(talent.a['贯影箭伤害'][0] * attr.atk / 100 + talent.a['贯影箭伤害'][1] * attr.mastery / 100, 'a2', 'aggravate')
+    dmg: ({ talent, attr }, { basic }) => basic(talent.a['贯影箭伤害2'][0] * attr.atk / 100 + talent.a['贯影箭伤害2'][1] * attr.mastery / 100, 'a2', 'aggravate')
 }, {
     title: 'E伤害',
     dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
