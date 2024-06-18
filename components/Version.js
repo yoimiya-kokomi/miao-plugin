@@ -76,7 +76,7 @@ const { changelogs, currentVersion } = readLogFile('miao')
 
 
 const yunzaiVersion = packageJson.version
-const isV3 = yunzaiVersion[0] === '3'
+const isV3 = yunzaiVersion[0] === '3' || yunzaiVersion[0] === '4'
 let isMiao = false
 let name = 'Yunzai-Bot'
 let isAlemonjs = false
