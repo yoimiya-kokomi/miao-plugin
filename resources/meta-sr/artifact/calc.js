@@ -270,5 +270,24 @@ export default {
         cpct: 12
       }
     }]
+  },
+  荡除蠹灾的铁骑: {
+    2: attr('stance', 16),
+    4: {
+      check: ({ attr }) => attr.stance >= 150,
+      title: '基于击破特攻，使造成的击破伤害无视[breakIgnore]%防御',
+      data: {
+        breakIgnore: ({ attr }) => attr.stance >= 250 ? 25 : 10
+      }
+    }
+  },
+  风举云飞的勇烈: {
+    2: attr('atkPct', 12),
+    4: [attr('cpct', 6), {
+      title: '施放追加攻击使终结技伤害提高[qDmg]%',
+      data: {
+        qDmg: 36
+      }
+    }]
   }
 }

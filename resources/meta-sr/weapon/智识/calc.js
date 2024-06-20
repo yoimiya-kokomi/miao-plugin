@@ -73,6 +73,36 @@ export default function (staticIdx, keyIdx) {
     银河沦陷日: [
       staticIdx(1, 'atkPct'),
       keyIdx('提高暴击伤害[cdmg]%', 'cdmg', 2)
+    ],
+    谐乐静默之后: [
+      staticIdx(1, 'stance'),
+      keyIdx('施放终结技速度提高[speedPct]%', 'speedPct', 2)
+    ],
+    不息的演算: [
+      staticIdx(1, 'atkPct'),
+      (tables) => {
+        return {
+          title: '施放攻击击中五名敌方目标，使攻击力额外提高[atkPct]%，速度提升[speedPct]%',
+          data: {
+            atkPct: tables[2] * 5,
+            speedPct: tables[3]
+          }
+        }
+      }
+    ],
+    偏偏希望无价: [
+      staticIdx(1, 'cpct'),
+      (tables) => {
+        return {
+          check: ({ attr }) => attr.cdmg > 120,
+          title: '基于暴击伤害，追加攻击伤害提高[tDmg]%，终结技或追加攻击伤害无视[qIgnore]%防御',
+          data: {
+            tDmg: ({ attr }) => Math.min(Math.floor((attr.cdmg - 120) / 20), 4) * tables[2],
+            qIgnore: tables[3],
+            tIgnore: tables[3]
+          }
+        }
+      }
     ]
   }
 }

@@ -80,6 +80,10 @@ export default function (staticIdx, keyIdx) {
     铭记于心的约定: [
       staticIdx(1, 'stance'),
       keyIdx('释放终结技时，暴击率提高[cpct]%', 'cpct', 2)
+    ],
+    梦应归于何处: [
+      staticIdx(1, 'stance'),
+      keyIdx('造成的击破伤害提高[breakDmg]%', 'breakDmg', 2)
     ]
   }
 }
