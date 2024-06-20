@@ -65,7 +65,7 @@ export const usefulAttr = {
   流浪者: { hp: 0, atk: 80, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 35, heal: 0 },
   珐露珊: { hp: 0, atk: 75, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 100, phy: 0, recharge: 100, heal: 0 },
   瑶瑶: { hp: 100, atk: 75, def: 0, cpct: 30, cdmg: 30, mastery: 75, dmg: 100, phy: 0, recharge: 75, heal: 100 },
-  艾尔海森: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 35, heal: 0 },
+  艾尔海森: { hp: 0, atk: 55, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 35, heal: 0 },
   迪希雅: { hp: 75, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   米卡: { hp: 75, atk: 55, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 75, phy: 75, recharge: 55, heal: 100 },
   白术: { hp: 100, atk: 0, def: 0, cpct: 30, cdmg: 30, mastery: 75, dmg: 100, phy: 0, recharge: 75, heal: 100 },
@@ -84,7 +84,7 @@ export const usefulAttr = {
   嘉明: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   千织: { hp: 0, atk: 50, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   阿蕾奇诺: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
-  赛索斯: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
-  克洛琳德: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 55, heal: 0 },
+  赛索斯: { hp: 0, atk: 30, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 55, heal: 0 },
+  克洛琳德: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   希格雯: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 100 }
 }
