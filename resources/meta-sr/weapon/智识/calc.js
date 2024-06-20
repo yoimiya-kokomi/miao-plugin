@@ -96,6 +96,7 @@ export default function (staticIdx, keyIdx) {
         return {
           check: ({ attr }) => attr.cdmg > 120,
           title: '基于暴击伤害，追加攻击伤害提高[tDmg]%，终结技或追加攻击伤害无视[qIgnore]%防御',
+          sort: 9,
           data: {
             tDmg: ({ attr }) => Math.min(Math.floor((attr.cdmg - 120) / 20), 4) * tables[2],
             qIgnore: tables[3],
