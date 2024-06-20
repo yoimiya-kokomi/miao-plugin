@@ -76,7 +76,7 @@ export default function (staticIdx, keyIdx) {
     ],
     谐乐静默之后: [
       staticIdx(1, 'stance'),
-      keyIdx('施放终结技速度提高[speedPct]%', 'speedPct', 2)
+      keyIdx('施放终结技后速度提高[speedPct]%', 'speedPct', 2)
     ],
     不息的演算: [
       staticIdx(1, 'atkPct'),

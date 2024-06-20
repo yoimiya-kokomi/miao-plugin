@@ -58,7 +58,7 @@ export const details = [{
   dmg: ({ talent }, { reaction }) => {
     let cost = 1 * 1.5
     return {
-      avg: reaction('superBreak').avg * cost * 1.6
+      avg: reaction('superBreak').avg / 0.9 * cost * 1.6
     }
   }
 }]

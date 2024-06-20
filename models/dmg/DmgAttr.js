@@ -93,6 +93,10 @@ let DmgAttr = {
         ret.fykx = 0 // 敌人反应抗性降低
       } else if (game === 'sr') {
         ret.sp = char.sp * 1
+        // 超击破
+        ret.superBreak = {
+          ignore: 0 // 无视防御
+        }
       }
     }
     return ret
@@ -212,6 +216,12 @@ let DmgAttr = {
 
         if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx', 'multi'].includes(key)) {
           attr[key] += val * 1 || 0
+          return
+        }
+
+        let sRet = /^(superBreak)(Ignore)$/.exec(key)
+        if (sRet) {
+          attr[sRet[1]][sRet[2].toLowerCase()] += val * 1 || 0
         }
       })
       msg.push(title)

@@ -17,7 +17,7 @@ export const details = [{
     // 加拉赫6命提高20%弱点击破效率，阮梅提供50%弱点击破效率
     let cost = 1 * ((cons < 6 ? 1 : 1.2) + 0.5)
     return {
-      avg: reaction('superBreak').avg * cost * 1.6 // 同谐主提供1.6独立增伤乘区
+      avg: reaction('superBreak').avg / 0.9 * cost * 1.6 // 同谐主提供1.6独立增伤乘区
     }
   }
 }, {
@@ -27,7 +27,7 @@ export const details = [{
     // 加拉赫6命提高20%弱点击破效率，阮梅提供50%弱点击破效率
     let cost = 3 * ((cons < 6 ? 1 : 1.2) + 0.5)
     return {
-      avg: reaction('superBreak').avg * cost * 1.6 // 同谐主提供1.6独立增伤乘区
+      avg: reaction('superBreak').avg / 0.9 * cost * 1.6 // 同谐主提供1.6独立增伤乘区
     }
   }
 }, {
@@ -37,7 +37,7 @@ export const details = [{
     // 加拉赫6命提高20%弱点击破效率，阮梅提供50%弱点击破效率
     let cost = 2 * ((cons < 6 ? 1 : 1.2) + 0.5)
     return {
-      avg: reaction('superBreak').avg * cost * 1.6 // 同谐主提供1.6独立增伤乘区
+      avg: reaction('superBreak').avg / 0.9 * cost * 1.6 // 同谐主提供1.6独立增伤乘区
     }
   }
 }]

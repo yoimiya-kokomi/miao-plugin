@@ -47,7 +47,9 @@ export const alias = {
   加拉赫: '',
   砂金: '卡卡瓦夏,沙金',
   知更鸟: '鸟妹',
-  波提欧: 'bto,BTO'
+  波提欧: 'bto,BTO',
+  流萤: '小女友,萨姆,萨缪尔',
+  翡翠: '慈玉'
 }
 
 export const abbr = {

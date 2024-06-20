@@ -273,13 +273,19 @@ export default {
   },
   荡除蠹灾的铁骑: {
     2: attr('stance', 16),
-    4: {
+    4: [{
       check: ({ attr }) => attr.stance >= 150,
-      title: '基于击破特攻，使造成的击破伤害无视[breakIgnore]%防御',
+      title: '造成的击破伤害无视敌方[breakIgnore]%防御',
       data: {
-        breakIgnore: ({ attr }) => attr.stance >= 250 ? 25 : 10
+        breakIgnore: 10
       }
-    }
+    }, {
+      check: ({ attr }) => attr.stance >= 250,
+      title: '造成的超击破伤害无视敌方[superBreakIgnore]%防御',
+      data: {
+        superBreakIgnore: 15
+      }
+    }]
   },
   风举云飞的勇烈: {
     2: attr('atkPct', 12),
@@ -287,6 +293,23 @@ export default {
       title: '施放追加攻击使终结技伤害提高[qDmg]%',
       data: {
         qDmg: 36
+      }
+    }]
+  },
+  奔狼的都蓝王朝: {
+    2: {
+      title: '5层Buff使得装备者造成的追击伤害提高[tDmg]%，装备者的暴击伤害提高[cdmg]%',
+      data: {
+        tDmg: 25,
+        cdmg: 25
+      }
+    }
+  },
+  劫火莲灯铸炼宫: {
+    2: [attr('speedPct', 6), {
+      title: '击中火弱点的敌方时，击破特攻提高[stance]%',
+      data: {
+        stance: 40
       }
     }]
   }

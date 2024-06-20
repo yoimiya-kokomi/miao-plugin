@@ -83,7 +83,7 @@ export default function (staticIdx, keyIdx) {
     ],
     梦应归于何处: [
       staticIdx(1, 'stance'),
-      keyIdx('造成的击破伤害提高[breakEnemydmg]%', 'breakEnemydmg', 2)
+      keyIdx('敌方受到装备者造成的击破伤害提高[breakEnemydmg]%', 'breakEnemydmg', 2)
     ]
   }
 }

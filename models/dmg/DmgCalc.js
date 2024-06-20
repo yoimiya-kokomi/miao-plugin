@@ -83,6 +83,11 @@ let DmgCalc = {
       })
     }
 
+    // TODO
+    if (ele === 'superBreak') {
+      enemyIgnore += attr.superBreak.ignore / 100
+    }
+
     // 防御区
     let defNum = (level + 100) / ((level + 100) + (enemyLv + 100) * (1 - enemyDef) * (1 - enemyIgnore))
     if (game === 'sr') {

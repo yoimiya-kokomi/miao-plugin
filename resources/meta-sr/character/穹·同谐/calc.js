@@ -30,7 +30,7 @@ export const details = [{
   dmg: ({ trees }, { reaction }) => {
     let extraDmg = trees['101'] ? 1.6 : 1
     return {
-      avg: reaction('superBreak').avg * extraDmg
+      avg: reaction('superBreak').avg / 0.9 * extraDmg
     }
   }
 }, {
@@ -41,7 +41,7 @@ export const details = [{
     let cost = (cons < 6 ? 3 : 4) + (trees['102'] ? 1 : 0)
     let extraDmg = trees['101'] ? 1.6 : 1
     return {
-      avg: reaction('superBreak').avg * cost * extraDmg
+      avg: reaction('superBreak').avg / 0.9 * cost * extraDmg
     }
   }
 }]
