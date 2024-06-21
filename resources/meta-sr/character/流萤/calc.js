@@ -61,6 +61,7 @@ export const buffs = [{
   title: '行迹-过载核心：基于攻击力，提高自身击破特攻[stance]%',
   check: ({ params, attr }) => params.q === true && attr.atk >= 1800,
   sort: 9,
+  tree: 3,
   data: {
     stance: ({ attr }) => Math.floor((attr.atk - 1800) / 10) * 0.8
   }
