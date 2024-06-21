@@ -3,11 +3,12 @@ import lodash from 'lodash'
 import fs from 'node:fs'
 import { miaoPath } from '#miao.path'
 
-const charPath = `${miaoPath}/resources/meta-gs/character`
 let cfgMap = {
   char: {},
-  async init () {
-    let chars = fs.readdirSync(charPath)
+  game: 'gs',
+  async init (game = 'gs') {
+    this.game = game
+    let chars = fs.readdirSync(`${miaoPath}/resources/meta-${game}/character`)
     for (let char of chars) {
       cfgMap.char[char] = {}
       let curr = cfgMap.char[char]
@@ -26,17 +27,20 @@ let cfgMap = {
     }
   },
   exists (char, file) {
-    return fs.existsSync(`${charPath}/${char}/${file}.js`)
+    return fs.existsSync(`${miaoPath}/resources/meta-${this.game}/character/${char}/${file}.js`)
   },
   async getCfg (char, file, module = '') {
-    let cfg = await Data.importModule(`resources/meta-gs/character/${char}/${file}.js`, 'miao')
+    let cfg = await Data.importModule(`resources/meta-${this.game}/character/${char}/${file}.js`, 'miao')
     if (module) {
       return cfg[module]
     }
     return cfg
   }
 }
-await cfgMap.init()
+await cfgMap.init('gs')
+let cfgMapGs = { ...cfgMap }
+await cfgMap.init('sr')
+let cfgMapSr = { ...cfgMap }
 
 /**
  * 角色相关配置
@@ -59,7 +63,12 @@ let CharCfg = {
     }
   },
   getArtisCfg (char) {
-    return cfgMap.char[char.isTraveler ? '旅行者' : char.name]?.artis || false
+    if (char.game !== 'sr') {
+      let charName = char.isTraveler ? `旅行者/${char.elem}` : char.name
+      return cfgMapGs.char[charName]?.artis || false
+    } else {
+      return cfgMapSr.char[char.name]?.artis || false
+    }
   }
 }
 export default CharCfg
