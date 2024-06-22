@@ -12,7 +12,7 @@ export default {
   },
   野穗伴行的快枪手: {
     2: attr('atkPct', 12),
-    4: [attr('speed', 6), {
+    4: [attr('speedPct', 6), {
       title: '普攻伤害提高10%',
       data: {
         aDmg: 10
