@@ -146,8 +146,8 @@ export default class MysApi {
   }
 
   // 获取幻想真境剧诗信息
-  async getRoleCombat () {
-    return await this.getData('role_combat')
+  async getRoleCombat (need_detail = false) {
+    return await this.getData('role_combat', { need_detail: need_detail })
   }
 
   async getDetail (id) {

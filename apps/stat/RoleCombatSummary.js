@@ -20,7 +20,7 @@ export async function RoleCombatSummary (e) {
   let player = Player.create(e)
   let resDetail, resRole
   try {
-    resRole = await mys.getRoleCombat()
+    resRole = await mys.getRoleCombat(true)
     let lvs = Data.getVal(resRole, 'data.0')
     // 检查是否查询到了幻想真境剧诗信息
     if (!lvs || !lvs.has_data) {
