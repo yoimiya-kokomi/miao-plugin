@@ -186,6 +186,34 @@ body,
 .role-buff .role-choice-cards-container .role-choice-cards-content {
   width: 100%;
   padding: 5px;
+  display: flex;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-container {
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 5px;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-container-2 {
+  width: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 5px;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-icon {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  background-color: black;
+  border-radius: 50%;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-name {
+  width: 100%;
+  color: rgba(100, 100, 100, 0.5);
+  text-align: center;
+  font-size: 9px;
 }
 .role-buff .role-choice-cards-container + .role-choice-cards-container {
   margin-top: 4%;

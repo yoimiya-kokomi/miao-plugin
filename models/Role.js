@@ -4,6 +4,7 @@
 
 import lodash from 'lodash'
 import moment from 'moment'
+
 import Base from '../models/Base.js'
 import Character from '../models/Character.js'
 import { Data } from '#miao'
@@ -15,7 +16,6 @@ export default class Role extends Base {
     super()
     this.rounds = {}
     lodash.forEach(data.detail.rounds_data, (round) => {
-      // TODO: Analyze Choice cards & buffs
       let tmp = {
         'is_get_medal': round.is_get_medal,
         'choice_cards': round.choice_cards,

@@ -90,15 +90,29 @@
         </div>
         <div class="line"></div>
         <div class="role-buff">
-          {{set buffs=round?.buff }}
+          {{set buffs=round?.buffs }}
           <div class="role-choice-cards-container">
             <div class="role-choice-cards-header">奇妙助益</div>
-            <div class="role-choice-cards-content">等待实现</div>
+            <div class="role-choice-cards-content">
+              {{each buffs buff}}
+                <div class="role-content-container">
+                  <div class="role-content-icon" style="background-image:url({{_res_path}}/stat/imgs/role/buffs/{{buff.id}}.png)"></div>
+                  <div class="role-content-name">{{buff.name}}</div>
+                </div>
+              {{/each}}
+            </div>
           </div>
           {{set choice_cards=round?.choice_cards }}
           <div class="role-choice-cards-container">
             <div class="role-choice-cards-header">神秘收获</div>
-            <div class="role-choice-cards-content">等待实现</div>
+            <div class="role-choice-cards-content">
+              {{each choice_cards choice_card}}
+                <div class="role-content-container-2">
+                  <div class="role-content-icon" style="background-image:url({{_res_path}}/stat/imgs/role/choice_cards/{{choice_card.id}}.png)"></div>
+                  <div class="role-content-name">{{choice_card.name}}</div>
+                </div>
+              {{/each}}
+            </div>
           </div>
         </div>
       </div>
