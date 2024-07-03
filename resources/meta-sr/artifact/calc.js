@@ -274,16 +274,16 @@ export default {
   荡除蠹灾的铁骑: {
     2: attr('stance', 16),
     4: [{
-      check: ({ attr }) => attr.stance >= 150,
-      title: '造成的击破伤害无视敌方[breakIgnore]%防御',
+      title: '基于击破特攻，造成的击破伤害无视敌方[breakIgnore]%防御',
+      sort: 9,
       data: {
-        breakIgnore: 10
+        breakIgnore: ({ attr }) => attr.stance >= 150 ? 10 : 0
       }
     }, {
-      check: ({ attr }) => attr.stance >= 250,
-      title: '造成的超击破伤害无视敌方[superBreakIgnore]%防御',
+      title: '基于击破特攻，造成的超击破伤害无视敌方[superBreakIgnore]%防御',
+      sort: 9,
       data: {
-        superBreakIgnore: 15
+        superBreakIgnore: ({ attr }) => attr.stance >= 250 ? 15 : 0
       }
     }]
   },
