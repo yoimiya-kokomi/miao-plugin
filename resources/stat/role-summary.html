@@ -7,7 +7,7 @@
 {{/block}}
 
 {{block 'main'}}
-{{ set upDown = {up:'上半', down:'下半'} }}
+{{ set difficultyName = {1:'简单', 2:'普通', 3:'困难'} }}
 <div class="head-box type">
   <div class="title">#上传幻想<span>{{role.start_time}}-{{role.end_time}}</span></div>
   <div class="uid">UID:{{uid}}</div>
@@ -22,7 +22,7 @@
           <span>最佳纪录</span>
         </div>
         <div class="stat-msg">
-          <strong>第 {{role.stat.max_round_id}} 幕</strong>
+          <strong>{{ difficultyName[role.stat.difficulty_id] }} {{role.stat.max_round_id}}</strong>
         </div>
       </div>
       <div class="cont star-display">
