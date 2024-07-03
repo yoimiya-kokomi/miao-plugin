@@ -14,9 +14,9 @@
 </div>
 <div class="info_box">
 
-  <div class="abyss-stat-cont">
+  <div class="role-stat-cont">
 
-    <div class="abyss-stat">
+    <div class="role-stat">
       <div class="cont best-record">
         <div class="stat-title">
           <span>最佳纪录</span>
@@ -72,17 +72,17 @@
   {{each role?.rounds round round_index}}
   <div class="cont">
     <div class="cont-body">
-      <div class="abyss-title">
+      <div class="role-title">
         {{if round.is_get_medal}}
-        <div class="abyss-star" style="background-image:url({{_res_path}}/stat/imgs/role/star/star.png)"></div>
+        <div class="role-star" style="background-image:url({{_res_path}}/stat/imgs/role/star/star.png)"></div>
         {{else}}
-        <div class="abyss-star" style="background-image:url({{_res_path}}/stat/imgs/role/star/nostar.png)"></div>
+        <div class="role-star" style="background-image:url({{_res_path}}/stat/imgs/role/star/nostar.png)"></div>
         {{/if}}
         <strong>第 {{round_index}} 幕</strong>
         <span>{{round?.finish_time}}</span>
       </div>
-      <div class="abyss-floor-team">
-        <div class="abyss-team">
+      <div class="role-floor-team">
+        <div class="role-team">
           {{set current_avatars=round?.avatars||[] }}
           {{each current_avatars avatar idx}}
           <% include(_tpl_path+'/avatar-card.html', [avatars[avatar.avatar_id],{_res_path, cardType:cardTypes[current_avatars.length][idx]}]) %>
@@ -116,9 +116,9 @@
           </div>
         </div>
       </div>
-      <!-- <div class="abyss-detail">
+      <!-- <div class="role-detail">
         {{each floor?.levels level idx}}
-        <div class="abyss-level">
+        <div class="role-level">
           <div class="info">
             <div class="title">
               第{{idx}}间
@@ -146,7 +146,7 @@
   </div>
   {{/each}}
 
-  <div class="cont abyss-notice">
+  <div class="cont role-notice">
     <div class="cont-body">
       <ul class="cont-msg">
         <li><strong>#上传幻想</strong>不会上传你的角色列表及当期幻想真境剧诗挑战数据，喵~</li>

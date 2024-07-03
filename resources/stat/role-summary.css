@@ -32,28 +32,28 @@ body,
   padding-right: 10px;
   font-size: 25px;
 }
-.abyss-stat-cont {
+.role-stat-cont {
   display: flex;
   padding: 5px;
 }
-.abyss-stat {
+.role-stat {
   display: flex;
 }
-.abyss-stat .cont {
+.role-stat .cont {
   margin: 5px 10px 5px 5px;
   width: 175px;
   height: 90px;
 }
-.abyss-stat .cont.best-record {
+.role-stat .cont.best-record {
   width: 120px;
 }
-.abyss-stat .cont.star-display {
+.role-stat .cont.star-display {
   width: 230px;
 }
-.abyss-stat strong {
+.role-stat strong {
   text-shadow: 0 0 3px #000;
 }
-.abyss-stat .stat-title {
+.role-stat .stat-title {
   position: absolute;
   top: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -61,17 +61,17 @@ body,
   width: 100%;
   text-shadow: 0 0 1px #000;
 }
-.abyss-stat .stat-title span {
+.role-stat .stat-title span {
   display: block;
   font-weight: normal;
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   font-size: 24px;
 }
-.abyss-stat .stat-title strong {
+.role-stat .stat-title strong {
   display: block;
   font-size: 30px;
 }
-.abyss-stat .stat-msg {
+.role-stat .stat-msg {
   position: absolute;
   bottom: 0;
   background: rgba(0, 0, 0, 0.55);
@@ -84,12 +84,12 @@ body,
   display: flex;
   justify-content: flex-start;
 }
-.abyss-stat .stat-msg .stat-star-container {
+.role-stat .stat-msg .stat-star-container {
   flex: 0 0 11%;
   /* 23% 是为了在有间隙的情况下，四个元素一行 */
   margin-bottom: 10px;
 }
-.abyss-stat .stat-msg .stat-star-container .stat-star {
+.role-stat .stat-msg .stat-star-container .stat-star {
   width: 25px;
   height: 25px;
   background-size: cover;
@@ -101,60 +101,60 @@ body,
   background-size: 100% auto;
   background-position: 0 10%;
 }
-.abyss-data {
+.role-data {
   display: flex;
   padding: 0 6px;
 }
-.abyss-data .abyss-item {
+.role-data .role-item {
   color: #fff;
   margin: 5px;
 }
-.abyss-data .abyss-item .info {
+.role-data .role-item .info {
   text-align: center;
   text-shadow: 0 0 1px #000, 1px 1px 3px #000;
 }
-.abyss-data .abyss-item .info strong {
+.role-data .role-item .info strong {
   display: block;
   font-weight: normal;
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
-.abyss-data .abyss-item .info span {
+.role-data .role-item .info span {
   font-size: 24px;
   display: block;
 }
-.abyss-data .abyss-item .info span:after {
+.role-data .role-item .info span:after {
   content: "次";
   font-size: 15px;
   margin-left: 2px;
 }
-.abyss-title {
+.role-title {
   margin: -3px 0 8px;
   display: flex;
   align-items: flex-end;
 }
-.abyss-title strong {
+.role-title strong {
   color: #d3bc8e;
   font-size: 18px;
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   font-weight: normal;
   margin-right: 10px;
 }
-.abyss-title .abyss-star {
+.role-title .role-star {
   width: 25px;
   height: 25px;
   background-size: cover;
 }
-.abyss-floor-team {
+.role-floor-team {
   display: flex;
 }
-.abyss-floor-team .line {
+.role-floor-team .line {
   width: 1px;
   background: rgba(255, 255, 255, 0.5);
   height: 80px;
   vertical-align: middle;
   margin: 15px 8px 0;
 }
-.abyss-team {
+.role-team {
   display: flex;
   margin-right: -5px;
   margin-left: -5px;
@@ -218,66 +218,66 @@ body,
   margin-top: 4%;
   /* 两个子元素之间的间距4% */
 }
-.abyss-detail {
+.role-detail {
   display: flex;
   width: calc(100% + 40px);
   margin: 10px -15px -10px;
 }
-.abyss-level {
+.role-level {
   padding: 5px 10px 7px;
   width: 33%;
   box-shadow: 0 0 1px 0 #fff;
 }
-.abyss-level:nth-child(even) {
+.role-level:nth-child(even) {
   background: rgba(255, 255, 255, 0.1);
 }
-.abyss-level .info {
+.role-level .info {
   margin-bottom: 5px;
   display: flex;
   padding-left: 8px;
 }
-.abyss-level .title {
+.role-level .title {
   font-size: 16px;
   white-space: nowrap;
   font-weight: bold;
 }
-.abyss-level .star {
+.role-level .star {
   height: 18px;
   display: inline-block;
   background: url(./imgs/star.png);
   background-size: 18px 18px;
   margin-left: 5px;
 }
-.abyss-level .star.star1 {
+.role-level .star.star1 {
   width: 18px;
   margin-right: 36px;
 }
-.abyss-level .star.star2 {
+.role-level .star.star2 {
   width: 36px;
   margin-right: 18px;
 }
-.abyss-level .star.star3 {
+.role-level .star.star3 {
   width: 54px;
   margin-right: 0;
 }
-.abyss-level .time {
+.role-level .time {
   text-align: right;
   width: 60%;
   color: #aaa;
   font-size: 14px;
 }
-.abyss-level .avatars {
+.role-level .avatars {
   display: flex;
   width: 100%;
 }
-.abyss-level .avatars .avatar-list {
+.role-level .avatars .avatar-list {
   display: flex;
   position: relative;
 }
-.abyss-level .avatars .avatar-list.up {
+.role-level .avatars .avatar-list.up {
   padding-right: 15px;
 }
-.abyss-level .avatars .avatar-list.up:after {
+.role-level .avatars .avatar-list.up:after {
   content: "";
   display: block;
   position: absolute;
@@ -288,20 +288,20 @@ body,
   top: 50%;
   margin-top: -8px;
 }
-.abyss-level .avatars .avatar-icon {
+.role-level .avatars .avatar-icon {
   width: 33px;
   height: 33px;
   border-radius: 50%;
   margin-right: 2px;
 }
-.abyss-level .avatars .avatar-icon .img {
+.role-level .avatars .avatar-icon .img {
   background-size: auto 100%;
   background-position: center;
   width: 29px;
   height: 29px;
   margin: 2px;
 }
-.abyss-notice .cont-body {
+.role-notice .cont-body {
   font-size: 16px;
 }
 .avatar-banner.avatar-枫原万叶,
