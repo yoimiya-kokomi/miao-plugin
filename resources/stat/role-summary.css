@@ -82,8 +82,7 @@ body,
   font-size: 30px;
   height: 45px;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 .abyss-stat .stat-msg .stat-star-container {
   flex: 0 0 11%;
