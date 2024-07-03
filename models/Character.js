@@ -132,6 +132,11 @@ class Character extends Base {
     return this.getImgs().face
   }
 
+  // 获取Q版头像
+  get qFace () {
+    return this.getImgs().qFace
+  }
+
   // 获取侧脸图像
   get side () {
     if (this.isSr) {

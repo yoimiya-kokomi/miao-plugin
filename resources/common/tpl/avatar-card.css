@@ -1,57 +1,214 @@
 .avatar-card {
-  margin: 0 0 10px 10px;
-  border-radius: 7px;
-  box-shadow: 0 2px 6px 0 rgba(132, 93, 90, 0.3);
-  height: 88px;
+  margin: 4.5px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
+  font-size: 19.5px;
+  border-radius: 10.5px;
+}
+.avatar-card .card {
+  border-radius: 10.5px;
+  box-shadow: 0 2px 9px 0 rgba(132, 93, 90, 0.3);
   position: relative;
   overflow: hidden;
   background: #e7e5d9;
+  width: 105px;
 }
-.avatar-card img {
-  width: 70px;
-  height: 70px;
-  border-radius: 7px 7px 20px 0;
-}
-.avatar-card.star5 img {
-  background-image: url(../common/item/bg5.png);
-  width: 100%;
-  height: 70px;
-  /*filter: brightness(1.1);*/
-  background-size: 100%;
+.avatar-card .avatar-face {
+  width: 105px;
+  height: 105px;
+  border-radius: 10.5px 10.5px 22.5px 0;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
+  position: relative;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
 }
-.avatar-card.star4 img {
-  width: 100%;
-  height: 70px;
-  background-image: url(../common/item/bg4.png);
-  background-size: 100%;
-  background-repeat: no-repeat;
+.avatar-card .avatar-face .img {
+  background-position: center bottom;
 }
-.avatar-card .num {
+.avatar-card .avatar-face .avatar-level {
   position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 9;
-  font-size: 18px;
-  text-align: center;
-  color: #fff;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.5);
-}
-.avatar-card .name,
-.avatar-card .num_name {
-  position: absolute;
-  top: 70px;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
   left: 0;
-  z-index: 9;
-  font-size: 12px;
-  text-align: center;
-  width: 100%;
-  height: 16px;
-  line-height: 18px;
-}
-.avatar-card .num_name {
+  padding: 3px 7.5px 3px 4.5px;
+  border-radius: 0 6px 0 0;
+  color: #fff;
   font-size: 16px;
+  text-shadow: 0 0 1px #000;
 }
-/*# sourceMappingURL=avatar-card.css.map */
+.avatar-card .avatar-face .avatar-level span {
+  font-size: 12px;
+}
+.avatar-card .cons {
+  border-radius: 0 0 0 7.5px;
+  padding: 3px 7.5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 16px;
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+.avatar-card .cons.cons-0 {
+  display: none;
+}
+.avatar-card .cons.cons-试用 {
+  background-color: #d9767c;
+}
+.avatar-card .cons.cons-助演 {
+  background-color: #4889bf;
+}
+.avatar-card .avatar-talent {
+  height: 30px;
+  padding: 4.5px 7.5px 3px;
+  font-size: 18px;
+  width: 100%;
+  color: #222;
+  text-align: center;
+  display: flex;
+}
+.avatar-card .avatar-talent .talent-item {
+  width: 30px;
+  height: 24px;
+  line-height: 25.5px;
+  margin: 0 3px;
+  text-align: center;
+  display: block;
+  background-size: contain;
+  opacity: 0.8;
+  position: relative;
+  border-radius: 4.5px;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+.avatar-card .avatar-talent .talent-item.talent-plus {
+  font-weight: bold;
+  color: #0284b9;
+}
+.avatar-card .avatar-talent .talent-item.talent-crown {
+  background: #d3bc8e;
+  color: #3a2702;
+  box-shadow: 0 0 3px 0 #000;
+}
+.avatar-card .avatar-talent.no-talent {
+  font-size: 18px;
+  color: rgba(100, 100, 100, 0.5);
+  text-align: center;
+  padding: 4.5px 0 3px;
+}
+.avatar-card .avatar-talent.no-talent span {
+  transform: scale(0.75);
+  white-space: nowrap;
+  margin-left: -1px;
+}
+.avatar-card.card-mini .wide,
+.avatar-card.card-mini .line {
+  display: none;
+}
+.avatar-card .avatar-name {
+  padding: 12px 0 0 7.5px;
+  color: #333;
+}
+.avatar-card .avatar-name strong {
+  font-size: 30px;
+  display: block;
+  height: 34.5px;
+  line-height: 30px;
+}
+.avatar-card .avatar-name .cons {
+  position: initial;
+  border-radius: 4px;
+  padding: 1.5px 4.5px;
+  vertical-align: baseline;
+}
+.avatar-card.card-wide .mini {
+  display: none;
+}
+.avatar-card.card-wide .card {
+  width: 219px;
+  display: flex;
+}
+.avatar-card.card-wide .avatar-face {
+  height: 189px;
+  width: 114px;
+  border-radius: 10.5px 0 0 10.5px;
+}
+.avatar-card.card-wide .avatar-face .img {
+  background-size: 100% auto;
+  background-position: 0 10%;
+  height: 202.5px;
+  margin-top: -13.5px;
+}
+.avatar-card.card-wide .avatar-info {
+  width: 105px;
+}
+.avatar-card.card-wide .avatar-info strong {
+  display: block;
+  height: 45px;
+  line-height: 45px;
+}
+.avatar-card.card-wide .avatar-info .lv-info {
+  height: 30px;
+}
+.avatar-card.card-wide .line {
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin: 5px 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(100, 100, 100, 0.5) 20%, rgba(100, 100, 100, 0.5) 80%, rgba(0, 0, 0, 0));
+  transform: scale(0.8);
+}
+.avatar-card.wide2 .card {
+  width: 447px;
+}
+.avatar-card.wide2 .avatar-face {
+  width: 219px;
+}
+.avatar-card.wide2 .avatar-face .img {
+  margin-top: -75px;
+  height: 264px;
+}
+.avatar-card.wide2 .avatar-info {
+  width: 219px;
+  padding-left: 7.5px;
+}
+.avatar-card .avatar-detail {
+  display: flex;
+  padding: 0 1.5px 3px 3px;
+}
+.avatar-card .avatar-detail .item {
+  width: 46.5px;
+  height: 46.5px;
+  border-radius: 4.5px;
+  margin: 1.5px;
+  overflow: hidden;
+}
+.avatar-card .avatar-weapon .icon {
+  border-radius: 4px;
+}
+.avatar-card .avatar-weapon .cons {
+  top: initial;
+  bottom: 0;
+  padding: 1.5px 4.5px;
+  border-radius: 4.5px 0 0 0;
+}
+.avatar-card .avatar-artis {
+  position: relative;
+}
+.avatar-card .avatar-artis.artis0 .item-icon {
+  background: url('./item/artifact-icon.webp') rgba(0, 0, 0, 0.3) center no-repeat;
+  background-size: auto 80%;
+}
+.avatar-card .avatar-artis .artis {
+  background: rgba(0, 0, 0, 0.4);
+}
+.avatar-card .avatar-artis.artis2 .img {
+  position: absolute;
+  transform: scale(0.7);
+  width: 92%;
+  height: 92%;
+  margin: 4%;
+}
+.avatar-card .avatar-artis.artis2 .img:first-child {
+  transform-origin: left top;
+}
+.avatar-card .avatar-artis.artis2 .img:last-child {
+  transform-origin: right bottom;
+}

@@ -145,6 +145,11 @@ export default class MysApi {
     return await this.getData('spiralAbyss', { schedule_type: type })
   }
 
+  // 获取幻想真境剧诗信息
+  async getRoleCombat () {
+    return await this.getData('role_combat')
+  }
+
   async getDetail (id) {
     if (this.e.isSr) { return await this.getData('detail', { avatar_id: id, tab_from: 'TabOwned' }) }
     return await this.getData('detail', { avatar_id: id })

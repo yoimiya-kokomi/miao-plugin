@@ -189,6 +189,12 @@
 .avatar-card .cons.cons-0 {
   display: none;
 }
+.avatar-card .cons.cons-试用 {
+  background-color: #d9767c;
+}
+.avatar-card .cons.cons-助演 {
+  background-color: #4889bf;
+}
 .avatar-card .avatar-talent {
   height: 30px;
   padding: 4.5px 7.5px 3px;
@@ -353,4 +359,3 @@
 .item-list .item {
   width: 65px;
 }
-/*# sourceMappingURL=tpl.css.map */
