@@ -50,6 +50,10 @@ export const helpList = [{
     title: '#深渊 #深渊12层',
     desc: '深渊数据，打完请2小时后查询'
   }, {
+    icon: 64,
+    title: '#幻想 #幻想真境剧诗',
+    desc: '幻想真境剧诗数据'
+  }, {
     icon: 67,
     title: '#五星 #武器 #今日素材',
     desc: '你的原神角色详情数据'

@@ -1,0 +1,159 @@
+<script src="../../../../../Yunzai-Botconfig/miao-diy/app/main.js"></script>{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/role-summary.css?v=1.0"/>
+{{/block}}
+
+{{block 'main'}}
+{{ set difficultyName = {1:'简单', 2:'普通', 3:'困难'} }}
+<div class="head-box type">
+  <div class="title">#上传幻想<span>{{role.start_time}}-{{role.end_time}}</span></div>
+  <div class="uid">UID:{{uid}}</div>
+</div>
+<div class="info_box">
+
+  <div class="role-stat-cont">
+
+    <div class="role-stat">
+      <div class="cont best-record">
+        <div class="stat-title">
+          <span>最佳纪录</span>
+        </div>
+        <div class="stat-msg">
+          <strong>{{ difficultyName[role.stat.difficulty_id] }} {{role.stat.max_round_id}}</strong>
+        </div>
+      </div>
+      <div class="cont star-display">
+        <div class="stat-title">
+          <span>明星挑战星章</span>
+        </div>
+        <div class="stat-msg">
+          {{each role.stat.get_medal_round_list star}}
+          <div class="stat-star-container">
+            {{if star == 1}}
+            <div class="stat-star" style="background-image:url({{_res_path}}/stat/imgs/role/star/star.png)"></div>
+            {{else}}
+            <div class="stat-star" style="background-image:url({{_res_path}}/stat/imgs/role/star/nostar.png)"></div>
+            {{/if}}
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="cont">
+        <div class="stat-title">
+          <span>消耗幻剧之花</span>
+        </div>
+        <div class="stat-msg">
+          <strong>{{role.stat.coin_num}}</strong>
+        </div>
+      </div>
+      <div class="cont">
+        <div class="stat-title">
+          <span>场外观众声援</span>
+        </div>
+        <div class="stat-msg">
+          <strong>{{role.stat.avatar_bonus_num}} 次</strong>
+        </div>
+      </div>
+      <div class="cont">
+        <div class="stat-title">
+          <span>支援其他玩家</span>
+        </div>
+        <div class="stat-msg">
+          <strong>{{role.stat.rent_cnt}} 次</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {{set cardTypes={1:['wide wide2'],2:['wide','wide'],3:['wide','mini','mini'],4:['mini','mini','mini','mini']} }}
+  {{each role?.rounds round round_index}}
+  <div class="cont">
+    <div class="cont-body">
+      <div class="role-title">
+        {{if round.is_get_medal}}
+        <div class="role-star" style="background-image:url({{_res_path}}/stat/imgs/role/star/star.png)"></div>
+        {{else}}
+        <div class="role-star" style="background-image:url({{_res_path}}/stat/imgs/role/star/nostar.png)"></div>
+        {{/if}}
+        <strong>第 {{round_index}} 幕</strong>
+        <span>{{round?.finish_time}}</span>
+      </div>
+      <div class="role-floor-team">
+        <div class="role-team">
+          {{set current_avatars=round?.avatars||[] }}
+          {{each current_avatars avatar idx}}
+          <% include(_tpl_path+'/avatar-card.html', [avatars[avatar.avatar_id],{_res_path, cardType:cardTypes[current_avatars.length][idx]}]) %>
+          {{/each}}
+        </div>
+        <div class="line"></div>
+        <div class="role-buff">
+          {{set buffs=round?.buffs }}
+          <div class="role-choice-cards-container">
+            <div class="role-choice-cards-header">奇妙助益</div>
+            <div class="role-choice-cards-content">
+              {{each buffs buff}}
+                <div class="role-content-container">
+                  <div class="role-content-icon" style="background-image:url({{_res_path}}/stat/imgs/role/buffs/{{buff.id}}.png)"></div>
+                  <div class="role-content-name">{{buff.name}}</div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+          {{set choice_cards=round?.choice_cards }}
+          <div class="role-choice-cards-container">
+            <div class="role-choice-cards-header">神秘收获</div>
+            <div class="role-choice-cards-content">
+              {{each choice_cards choice_card}}
+                <div class="role-content-container-2">
+                  <div class="role-content-icon" style="background-image:url({{_res_path}}/stat/imgs/role/choice_cards/{{choice_card.id}}.png)"></div>
+                  <div class="role-content-name">{{choice_card.name}}</div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="role-detail">
+        {{each floor?.levels level idx}}
+        <div class="role-level">
+          <div class="info">
+            <div class="title">
+              第{{idx}}间
+            </div>
+            <span class="star star{{level.star}}"></span>
+            <div class="time">{{level?.up?.time}}</div>
+          </div>
+          <div class="avatars">
+            {{each upDown v k}}
+            <div class="avatar-list {{k}}">
+              {{each level[k]?.avatars||[] id}}
+              {{set avatar = avatars[id] || {} }}
+              <div class="avatar-icon item-icon star{{avatar.star==4?4:5}}">
+      <span class="img"
+            style="background-image:url({{_res_path}}{{avatar.face}})"></span>
+              </div>
+              {{/each}}
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/each}}
+      </div> -->
+    </div>
+  </div>
+  {{/each}}
+
+  <div class="cont role-notice">
+    <div class="cont-body">
+      <ul class="cont-msg">
+        <li><strong>#上传幻想</strong>不会上传你的角色列表及当期幻想真境剧诗挑战数据，喵~</li>
+        <li><strong>明星挑战星章</strong>仅作为展示用，<strong>不会</strong>影响挑战的奖励领取~</li>
+        <li>角色装备与圣遗物为当前最新状态；排名会随时间而更新，数据排名仅供娱乐~</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{{/block}}

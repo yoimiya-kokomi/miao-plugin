@@ -20,6 +20,12 @@ export const cfgSchema = {
         def: false,
         miao: true
       },
+      uploadRoleCombat: {
+        title: '#幻想',
+        key: '幻想真境剧诗',
+        def: false,
+        miao: true
+      },
       profileStat: {
         title: '#练度统计',
         key: '练度统计',

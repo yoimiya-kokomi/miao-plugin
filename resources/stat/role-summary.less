@@ -1,0 +1,406 @@
+@import "../common/base.less";
+
+@scale: 1.4;
+body, .container {
+  width: 970px;
+}
+
+.container {
+  padding: 5px 0 10px 5px;
+}
+
+.head-box {
+  display: flex;
+  width: 100%;
+
+  .title {
+    font-size: 45px;
+    padding-bottom: 10px;
+    width: 70%;
+
+    span {
+      font-size: 30px;
+      margin-left: 10px;
+      color: #d3bc8e;
+    }
+  }
+
+  .uid {
+    text-align: right;
+    width: 30%;
+    padding-top: 25px;
+    padding-right: 10px;
+    font-size: 25px;
+  }
+}
+
+.role-stat-cont {
+  display: flex;
+  padding: 5px;
+}
+
+.role-stat {
+  display: flex;
+
+  .cont {
+    // position: relative;
+    margin: 5px 10px 5px 5px;
+    width: 175px;
+    height: 90px;
+  }
+
+  .cont.best-record {
+    width: 120px;
+  }
+
+  .cont.star-display {
+    width: 230px;
+  }
+
+  strong {
+    text-shadow: 0 0 3px #000;
+  }
+
+  .stat-title {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    width: 100%;
+    text-shadow: 0 0 1px #000;
+
+    span {
+      display: block;
+      font-weight: normal;
+      .font-NZBZ;
+      font-size: 24px;
+    }
+
+    strong {
+      display: block;
+      font-size: 30px;
+    }
+  }
+
+  .stat-msg {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+    padding: 5px 10px;
+    width: 100%;
+    text-shadow: 0 0 1px #000;
+    font-size: 30px;
+    height: 45px;
+    display: flex;
+    justify-content: flex-start;
+
+    .stat-star-container {
+      flex: 0 0 11%; /* 23% 是为了在有间隙的情况下，四个元素一行 */
+      margin-bottom: 10px;
+      
+      .stat-star {
+        width: 25px;
+        height: 25px;
+        background-size: cover;
+      }
+    }
+  }
+}
+
+
+.avatar-banner {
+  height: 100px;
+  width: 175px;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: 0 10%;
+}
+
+.role-data {
+  display: flex;
+  padding: 0 6px;
+
+  .role-item {
+    color: #fff;
+    margin: 5px;
+
+    .info {
+      text-align: center;
+      text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+
+      strong {
+        display: block;
+        font-weight: normal;
+        .font-NZBZ;
+      }
+
+      span {
+        font-size: 24px;
+        display: block;
+
+        &:after {
+          content: "次";
+          font-size: 15px;
+          margin-left: 2px;
+        }
+      }
+    }
+  }
+}
+
+.role-title {
+  margin: -3px 0 8px;
+  display: flex;
+  align-items: flex-end;
+
+  strong {
+    color: #d3bc8e;
+    font-size: 18px;
+    .font-NZBZ;
+    font-weight: normal;
+    margin-right: 10px;
+  }
+
+  .role-star {
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+  }
+}
+
+.role-floor-team {
+  display: flex;
+
+  .line {
+    width: 1px;
+    background: rgba(255, 255, 255, .5);
+    height: 80px;
+    vertical-align: middle;
+    margin: 15px 8px 0;
+  }
+}
+
+.role-team {
+  display: flex;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.role-buff {
+  display: flex;
+  margin-right: -5px;
+  margin-left: -5px;
+  flex-direction: column;
+  width: 50%;
+
+  .role-choice-cards-container {
+    width: 100%;
+    height: 46%;
+    background-color: rgb(231, 229, 217);
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+
+    .role-choice-cards-header {
+      width: 100%;
+      height: 30px;
+      background-color: rgb(139, 139, 131);
+      padding: 5px;
+      font-size: 18px;
+    }
+
+    .role-choice-cards-content {
+      width: 100%;
+      padding: 5px;
+      display: flex;
+
+      .role-content-container {
+        width: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 5px
+      }
+
+      .role-content-container-2 {
+        width: 65px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 5px;
+      }
+
+      .role-content-icon {
+        width: 40px;
+        height: 40px;
+        background-size: cover;
+        background-color: black;
+        border-radius: 50%;
+      }
+
+      .role-content-name {
+        width: 100%;
+        color: rgba(100, 100, 100, 0.5);
+        text-align: center;
+        font-size: 9px;
+      }
+    }
+  }
+
+  .role-choice-cards-container + .role-choice-cards-container {
+    margin-top: 4%; /* 两个子元素之间的间距4% */
+  }
+}
+
+.role-detail {
+  display: flex;
+  width: calc(100% + 40px);
+  margin: 10px -15px -10px;
+}
+
+
+.role-level {
+  padding: 5px 10px 7px;
+  width: 33%;
+  box-shadow: 0 0 1px 0 #fff;
+
+  &:nth-child(even) {
+    background: rgba(255, 255, 255, .1)
+  }
+
+
+  .info {
+    margin-bottom: 5px;
+    display: flex;
+    padding-left: 8px;
+  }
+
+  .title {
+    font-size: 16px;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  .star {
+    @size: 18px;
+
+    height: @size;
+    display: inline-block;
+    background: url(./imgs/star.png);
+    background-size: @size @size;
+    margin-left: 5px;
+
+    &.star1 {
+      width: @size;
+      margin-right: @size * 2;
+    }
+
+    &.star2 {
+      width: @size * 2;
+      margin-right: @size;
+    }
+
+    &.star3 {
+      width: @size * 3;
+      margin-right: 0;
+    }
+  }
+
+  .time {
+    text-align: right;
+    width: 60%;
+    color: #aaa;
+    font-size: 14px;
+  }
+
+  .avatars {
+    display: flex;
+    width: 100%;
+
+    .avatar-list {
+      display: flex;
+      position: relative;
+
+      &.up {
+        padding-right: 15px;
+      }
+
+      &.up:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: 16px;
+        background: rgba(255, 255, 255, .3);
+        right: 8px;
+        top: 50%;
+        margin-top: -8px;
+      }
+    }
+
+    .avatar-icon {
+      width: 33px;
+      height: 33px;
+      border-radius: 50%;
+      margin-right: 2px;
+
+      .img {
+        background-size: auto 100%;
+        background-position: center;
+        width: 29px;
+        height: 29px;
+        margin: 2px;
+      }
+    }
+  }
+}
+
+.role-notice {
+  .cont-body {
+    font-size: 16px;
+  }
+}
+
+.avatar-banner, .img.wide {
+  &.avatar-枫原万叶 {
+    background-position: 0 -13%;
+  }
+
+  &.avatar-九条裟罗 {
+    background-position: 0 0;
+  }
+
+  &.avatar-香菱 {
+    background-position: 0 -16%;
+  }
+
+  &.avatar-行秋 {
+    background-position: 0 -16%;
+  }
+
+  &.avatar-甘雨 {
+    background-position: 0 -8%;
+  }
+
+  &.avatar-刻晴 {
+    background-position: 0 -5%;
+  }
+
+  &.avatar-神里绫华 {
+    background-position: 0 13%;
+  }
+
+  &.avatar-班尼特 {
+    background-position: 0 15%;
+  }
+
+  &.avatar-五郎 {
+    background-position: 0 15%;
+  }
+
+  &.avatar-托马 {
+    background-position: 0 -5%;
+  }
+}

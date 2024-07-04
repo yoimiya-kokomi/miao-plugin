@@ -1,0 +1,346 @@
+.font-YS {
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.font-NZBZ {
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+body,
+.container {
+  width: 970px;
+}
+.container {
+  padding: 5px 0 10px 5px;
+}
+.head-box {
+  display: flex;
+  width: 100%;
+}
+.head-box .title {
+  font-size: 45px;
+  padding-bottom: 10px;
+  width: 70%;
+}
+.head-box .title span {
+  font-size: 30px;
+  margin-left: 10px;
+  color: #d3bc8e;
+}
+.head-box .uid {
+  text-align: right;
+  width: 30%;
+  padding-top: 25px;
+  padding-right: 10px;
+  font-size: 25px;
+}
+.role-stat-cont {
+  display: flex;
+  padding: 5px;
+}
+.role-stat {
+  display: flex;
+}
+.role-stat .cont {
+  margin: 5px 10px 5px 5px;
+  width: 175px;
+  height: 90px;
+}
+.role-stat .cont.best-record {
+  width: 120px;
+}
+.role-stat .cont.star-display {
+  width: 230px;
+}
+.role-stat strong {
+  text-shadow: 0 0 3px #000;
+}
+.role-stat .stat-title {
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  width: 100%;
+  text-shadow: 0 0 1px #000;
+}
+.role-stat .stat-title span {
+  display: block;
+  font-weight: normal;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+  font-size: 24px;
+}
+.role-stat .stat-title strong {
+  display: block;
+  font-size: 30px;
+}
+.role-stat .stat-msg {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  padding: 5px 10px;
+  width: 100%;
+  text-shadow: 0 0 1px #000;
+  font-size: 30px;
+  height: 45px;
+  display: flex;
+  justify-content: flex-start;
+}
+.role-stat .stat-msg .stat-star-container {
+  flex: 0 0 11%;
+  /* 23% 是为了在有间隙的情况下，四个元素一行 */
+  margin-bottom: 10px;
+}
+.role-stat .stat-msg .stat-star-container .stat-star {
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+}
+.avatar-banner {
+  height: 100px;
+  width: 175px;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: 0 10%;
+}
+.role-data {
+  display: flex;
+  padding: 0 6px;
+}
+.role-data .role-item {
+  color: #fff;
+  margin: 5px;
+}
+.role-data .role-item .info {
+  text-align: center;
+  text-shadow: 0 0 1px #000, 1px 1px 3px #000;
+}
+.role-data .role-item .info strong {
+  display: block;
+  font-weight: normal;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.role-data .role-item .info span {
+  font-size: 24px;
+  display: block;
+}
+.role-data .role-item .info span:after {
+  content: "次";
+  font-size: 15px;
+  margin-left: 2px;
+}
+.role-title {
+  margin: -3px 0 8px;
+  display: flex;
+  align-items: flex-end;
+}
+.role-title strong {
+  color: #d3bc8e;
+  font-size: 18px;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+  font-weight: normal;
+  margin-right: 10px;
+}
+.role-title .role-star {
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+}
+.role-floor-team {
+  display: flex;
+}
+.role-floor-team .line {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.5);
+  height: 80px;
+  vertical-align: middle;
+  margin: 15px 8px 0;
+}
+.role-team {
+  display: flex;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+.role-buff {
+  display: flex;
+  margin-right: -5px;
+  margin-left: -5px;
+  flex-direction: column;
+  width: 50%;
+}
+.role-buff .role-choice-cards-container {
+  width: 100%;
+  height: 46%;
+  background-color: #e7e5d9;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-direction: column;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-header {
+  width: 100%;
+  height: 30px;
+  background-color: #8b8b83;
+  padding: 5px;
+  font-size: 18px;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-container {
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 5px;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-container-2 {
+  width: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 5px;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-icon {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  background-color: black;
+  border-radius: 50%;
+}
+.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-name {
+  width: 100%;
+  color: rgba(100, 100, 100, 0.5);
+  text-align: center;
+  font-size: 9px;
+}
+.role-buff .role-choice-cards-container + .role-choice-cards-container {
+  margin-top: 4%;
+  /* 两个子元素之间的间距4% */
+}
+.role-detail {
+  display: flex;
+  width: calc(100% + 40px);
+  margin: 10px -15px -10px;
+}
+.role-level {
+  padding: 5px 10px 7px;
+  width: 33%;
+  box-shadow: 0 0 1px 0 #fff;
+}
+.role-level:nth-child(even) {
+  background: rgba(255, 255, 255, 0.1);
+}
+.role-level .info {
+  margin-bottom: 5px;
+  display: flex;
+  padding-left: 8px;
+}
+.role-level .title {
+  font-size: 16px;
+  white-space: nowrap;
+  font-weight: bold;
+}
+.role-level .star {
+  height: 18px;
+  display: inline-block;
+  background: url(./imgs/star.png);
+  background-size: 18px 18px;
+  margin-left: 5px;
+}
+.role-level .star.star1 {
+  width: 18px;
+  margin-right: 36px;
+}
+.role-level .star.star2 {
+  width: 36px;
+  margin-right: 18px;
+}
+.role-level .star.star3 {
+  width: 54px;
+  margin-right: 0;
+}
+.role-level .time {
+  text-align: right;
+  width: 60%;
+  color: #aaa;
+  font-size: 14px;
+}
+.role-level .avatars {
+  display: flex;
+  width: 100%;
+}
+.role-level .avatars .avatar-list {
+  display: flex;
+  position: relative;
+}
+.role-level .avatars .avatar-list.up {
+  padding-right: 15px;
+}
+.role-level .avatars .avatar-list.up:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.3);
+  right: 8px;
+  top: 50%;
+  margin-top: -8px;
+}
+.role-level .avatars .avatar-icon {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  margin-right: 2px;
+}
+.role-level .avatars .avatar-icon .img {
+  background-size: auto 100%;
+  background-position: center;
+  width: 29px;
+  height: 29px;
+  margin: 2px;
+}
+.role-notice .cont-body {
+  font-size: 16px;
+}
+.avatar-banner.avatar-枫原万叶,
+.img.wide.avatar-枫原万叶 {
+  background-position: 0 -13%;
+}
+.avatar-banner.avatar-九条裟罗,
+.img.wide.avatar-九条裟罗 {
+  background-position: 0 0;
+}
+.avatar-banner.avatar-香菱,
+.img.wide.avatar-香菱 {
+  background-position: 0 -16%;
+}
+.avatar-banner.avatar-行秋,
+.img.wide.avatar-行秋 {
+  background-position: 0 -16%;
+}
+.avatar-banner.avatar-甘雨,
+.img.wide.avatar-甘雨 {
+  background-position: 0 -8%;
+}
+.avatar-banner.avatar-刻晴,
+.img.wide.avatar-刻晴 {
+  background-position: 0 -5%;
+}
+.avatar-banner.avatar-神里绫华,
+.img.wide.avatar-神里绫华 {
+  background-position: 0 13%;
+}
+.avatar-banner.avatar-班尼特,
+.img.wide.avatar-班尼特 {
+  background-position: 0 15%;
+}
+.avatar-banner.avatar-五郎,
+.img.wide.avatar-五郎 {
+  background-position: 0 15%;
+}
+.avatar-banner.avatar-托马,
+.img.wide.avatar-托马 {
+  background-position: 0 -5%;
+}
