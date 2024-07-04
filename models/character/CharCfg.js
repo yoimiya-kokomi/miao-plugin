@@ -64,7 +64,8 @@ let CharCfg = {
   },
   getArtisCfg (char) {
     if (char.game !== 'sr') {
-      let charName = char.isTraveler ? `旅行者/${char.elem}` : char.name
+      // 评分规则在 旅行者 下而非 旅行者/elem 下
+      let charName = char.isTraveler ? `旅行者` : char.name
       return cfgMapGs.char[charName]?.artis || false
     } else {
       return cfgMapSr.char[char.name]?.artis || false
