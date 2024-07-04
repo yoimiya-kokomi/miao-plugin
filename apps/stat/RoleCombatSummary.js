@@ -4,7 +4,7 @@ import { Cfg, Common, Data } from '#miao'
 import { Role, Character, MysApi, Player } from '#miao.models'
 
 export async function RoleCombatSummary (e) {
-  let isMatch = /^#(喵喵|上传)*(幻想|剧诗|幻想真境剧诗)(数据)?$/.test(e.original_msg || e.msg || '')
+  let isMatch = /^#(喵喵|上传)(幻想|剧诗|幻想真境剧诗)(数据)?$/.test(e.original_msg || e.msg || '')
   if (!Cfg.get('uploadRoleCombat', false) && !isMatch) {
     return false
   }
