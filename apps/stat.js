@@ -35,9 +35,9 @@ app.reg({
     desc: '上传深渊'
   },
   RoleCombatSummary: {
-    rule: /^#*(喵喵|上传|本期)*(幻想|剧诗|幻想真境剧诗)[ |0-9]*(数据)?$/,
+    rule: /^#*(喵喵)*(幻想|幻境|剧诗|幻想真境剧诗)[ |0-9]*(数据)?$/,
     fn: RoleCombatSummary,
-    desc: '上传幻想真境剧诗'
+    desc: '幻想真境剧诗'
   }
 })
 export default app

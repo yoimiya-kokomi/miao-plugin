@@ -20,7 +20,7 @@ export const cfgSchema = {
         def: false,
         miao: true
       },
-      uploadRoleCombat: {
+      roleCombat: {
         title: '#幻想',
         key: '幻想真境剧诗',
         def: false,
