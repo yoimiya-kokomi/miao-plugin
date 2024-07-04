@@ -9,6 +9,15 @@ let meta = Meta.create('gs', 'char')
 meta.addData(data)
 meta.addAlias(alias)
 
+// 导入主角天赋对应元素，以据此判断主角元素
+let travelers = ["荧", "空", "旅行者"]
+travelers.forEach(name => {
+  meta.addDataItem(
+    meta.getId(name),
+    Data.readJSON(`resources/meta-gs/character/${name}/data.json`, 'miao')
+  )
+})
+
 // 添加自定义角色
 lodash.forEach(extraChars, (alias, char) => {
   meta.addDataItem(char, {
