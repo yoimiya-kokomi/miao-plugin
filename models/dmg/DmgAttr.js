@@ -129,7 +129,10 @@ let DmgAttr = {
       let aCfg = attrMap[reduceAttr]
       attr[reduceAttr][aCfg.calc] -= aCfg.value
     }
-
+    
+    lodash.forEach(buffs, (buff) => {
+      meta.mastery = meta.mastery || buff.mastery // 先反应
+    })
     lodash.forEach(buffs, (buff) => {
       let ds = DmgAttr.getDs(attr, meta, params)
 

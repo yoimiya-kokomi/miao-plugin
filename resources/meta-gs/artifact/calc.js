@@ -122,7 +122,7 @@ const buffs = {
   冰风迷途的勇士: {
     2: attr('dmg', 15, '冰'),
     4: {
-      check: ({ element }) => element === '冰',
+      check: ({ element, mastery }) => element === '冰' && mastery != 'melt',
       title: '攻击处于冰元素影响下的敌人时，暴击率提高20%',
       data: {
         cpct: 20
