@@ -3,8 +3,8 @@ import { Cfg, Common, Data } from '#miao'
 import { RoleCombat, MysApi, Player } from '#miao.models'
 
 export async function RoleCombatSummary (e) {
-  let isMatch = /^#(喵喵)*(幻想|幻境|剧诗|幻想真境剧诗)(数据)?$/.test(e.original_msg || e.msg || '')
-  if (!Cfg.get('uploadRoleCombat', false) && !isMatch) {
+  let isMatch = /^#(喵喵)(幻想|幻境|剧诗|幻想真境剧诗)(数据)?$/.test(e.original_msg || e.msg || '')
+  if (!Cfg.get('roleCombat', false) && !isMatch) {
     return false
   }
   let mys = await MysApi.init(e, 'all')
