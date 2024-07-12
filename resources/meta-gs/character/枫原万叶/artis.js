@@ -1,4 +1,5 @@
-import { usefulAttr } from "../../artifact/artis-mark"
+import { Data } from "#miao"
+const usefulAttr = await Data.importModule("resources/meta-gs/artifact/artis-mark", "miao")
 
 export default function ({ cons, rule, def }) {
   if (cons === 6) {
