@@ -1,4 +1,4 @@
-import { usefulAttr } from "../../artifact/artis-mark"
+import { usefulAttr } from "../../artifact/artis-mark.js"
 
 export default function ({ cons, rule, def }) {
   if (cons === 6) {
