@@ -181,7 +181,7 @@ export default function (step, staticStep) {
     }],
     便携动力锯: [{
       title: '满层时，元素精通提升[mastery]点',
-      data: {
+      refine: {
         mastery: step(40 * 3)
       }
     }],

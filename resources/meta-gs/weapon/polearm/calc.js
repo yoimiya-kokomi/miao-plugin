@@ -158,6 +158,12 @@ export default function (step, staticStep) {
         dmg: [7 * 3, 8.5 * 3, 10 * 3, 11.5 * 3, 13 * 3]
       }
     },
+    柔灯挽歌: [staticStep('atkPct', 15), {
+      title: '对处于燃烧状态的敌人造成伤害提升[dmg]%',
+      data: {
+        dmg: ({ refine }) => step(18, 5)[refine] * 2
+      }
+    }],
     公义的酬报: false
   }
 }

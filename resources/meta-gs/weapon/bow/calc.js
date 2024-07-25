@@ -222,7 +222,7 @@ export default function (step, staticStep) {
 
     鹮穿之喙: {
       title: '重击命中敌人2层提高元素精通[mastery]点',
-      data: {
+      refine: {
         mastery: step(80)
       }
     },
