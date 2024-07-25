@@ -183,7 +183,7 @@ export default function (step, staticStep) {
     }],
     无垠蔚蓝之歌: [{
       title: '满层下，普通攻击造成的伤害提升[aDmg]%，重击造成的伤害提升[a2Dmg]%',
-      data: {
+      refine: {
         aDmg: step(8 * 3),
         a2Dmg: step(6 * 3)
       }
