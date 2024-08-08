@@ -15,15 +15,15 @@ export async function getOriginalPicture (e) {
     if (e.source.user_id !== e.self_id) {
       return false
     }
-    // 引用的消息不是纯图片
-    if (!/^\[图片]$/.test(e.source.message)) {
-      return false
-    }
     // 获取原消息
     if (e.group?.getChatHistory) {
       source = (await e.group.getChatHistory(e.source.seq, 1)).pop()
     } else if (e.friend?.getChatHistory) {
       source = (await e.friend.getChatHistory(e.source.time, 1)).pop()
+    }
+    // 引用的不是纯图片
+    if (!(source?.message?.length === 1 && source?.message[0]?.type === 'image')) {
+      return false
     }
   }
   let originalPic = Cfg.get('originalPic') * 1
