@@ -456,9 +456,9 @@ const buffs = {
       }
     },
     4: {
-      title: '满层时元素战技造成的伤害提升50%',
+      title: '元素战技造成的伤害额外提升[eDmg]%',
       data: {
-        eDmg: 50
+        eDmg: ({ params }) => params.off_field === false ? 25 : 50
       }
     }
   },

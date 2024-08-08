@@ -6,6 +6,11 @@ export const details = [{
   title: '柔灯之匣二阶单枚伤害',
   params: { e: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['柔灯之匣·二阶攻击伤害2'][0], 'e')
+},  {
+  title: '后台柔灯之匣二阶单枚',
+  check: ({ weapon }) => weapon.name === '息灾',
+  params: { e: true , off_field: true },
+  dmg: ({ talent }, dmg) => dmg(talent.e['柔灯之匣·二阶攻击伤害2'][0], 'e')
 }, {
   title: '天赋浸析伤害',
   params: { e: true },

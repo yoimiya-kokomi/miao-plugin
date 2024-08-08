@@ -111,10 +111,10 @@ export default function (step, staticStep) {
       }
     }],
     息灾: {
-      title: '获得[dmg]%元素伤害加成，满Buff前台提供[atkPct]%攻击力加成',
-      refine: {
-        dmg: step(12),
-        atkPct: step(3.2 * 6)
+      title: '获得[dmg]%元素伤害加成，满Buff提供[atkPct]%攻击力加成',
+      data: {
+        dmg: ({ refine }) => step(12)[refine],
+        atkPct: ({ refine, params }) => step(3.2 * 6)[refine] * (params.off_field === true ? 2 : 1)
       }
     },
     贯月矢: {
