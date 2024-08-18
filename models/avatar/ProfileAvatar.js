@@ -18,7 +18,7 @@ const ProfileAvatar = {
       return false
     }
     let { uid, e } = player
-    if (uid.toString().length !== 9 || !e) {
+    if (![9, 10].includes(uid.toString().length) || !e) {
       return false
     }
     let ret = await Serv.req(e, player)
