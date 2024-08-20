@@ -192,10 +192,8 @@ let Cal = {
     let next = now.add(1, 'M').format(f)
     let nextM = now.format('MMMM')
 
-    check.push([moment(`${last}-16 04:00:00`), moment(`${curr}-01 03:59:59`), lastM + '下半'])
-    check.push([moment(`${curr}-01 04:00:00`), moment(`${curr}-16 03:59:59`), currM + '上半'])
-    check.push([moment(`${curr}-16 04:00:00`), moment(`${next}-01 03:59:59`), currM + '下半'])
-    check.push([moment(`${next}-01 04:00:00`), moment(`${next}-16 03:59:59`), nextM + '上半'])
+    check.push([moment(`${last}-16 04:00:00`), moment(`${curr}-16 03:59:59`), lastM])
+    check.push([moment(`${curr}-16 04:00:00`), moment(`${next}-16 03:59:59`), currM])
 
     let ret = []
     lodash.forEach(check, (ds) => {
