@@ -278,22 +278,25 @@ let Cal = {
       return false
     }
 
-    if (/神铸赋形/.test(title)) {
-      type = 'weapon'
-      title = title.replace(/(单手剑|双手剑|长柄武器|弓|法器|·)/g, '')
-      extra.sort = 3
-    } else if (/集录/.test(title)) {
-      extra.sort = 2
-    } else if (/祈愿/.test(title)) {
-      type = 'character'
-      let regRet = /·(.*)\(/.exec(title)
-      if (regRet[1]) {
-        let char = Character.get(regRet[1])
-        extra.banner2 = char.getImgs()?.card
-        extra.face = char.face
-        extra.character = regRet[1]
-        extra.elem = char.elem
-        extra.sort = 1
+    if (/概率UP/.test(title)) {
+      let reg = /(单手剑|双手剑|长柄武器|弓|法器)·/g
+      if (reg.test(title)) {
+        type = 'weapon'
+        title = title.replace(reg, '')
+        extra.sort = 3
+      } else if (/集录/.test(title)) {
+        extra.sort = 2
+      } else if (/祈愿/.test(title)) {
+        type = 'character'
+        let regRet = /·(.*)\(/.exec(title)
+        if (regRet[1]) {
+          let char = Character.get(regRet[1])
+          extra.banner2 = char.getImgs?.()?.card
+          extra.face = char.face
+          extra.character = regRet[1]
+          extra.elem = char.elem
+          extra.sort = 1
+        }
       }
     } else if (/纪行/.test(title)) {
       type = 'pass'
