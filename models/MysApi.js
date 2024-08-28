@@ -34,6 +34,9 @@ export default class MysApi {
     return new User({ id: this.e.user_id, uid: this.uid })
   }
 
+  /**
+   * @returns {Promise<MysApi>} 
+   */
   static async init (e, auth = 'all') {
     if (!e.runtime) {
       Version.runtime()
