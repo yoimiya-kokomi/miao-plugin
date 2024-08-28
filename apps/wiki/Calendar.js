@@ -192,10 +192,8 @@ let Cal = {
     let next = now.add(1, 'M').format(f)
     let nextM = now.format('MMMM')
 
-    check.push([moment(`${last}-16 04:00:00`), moment(`${curr}-01 03:59:59`), lastM + '下半'])
-    check.push([moment(`${curr}-01 04:00:00`), moment(`${curr}-16 03:59:59`), currM + '上半'])
-    check.push([moment(`${curr}-16 04:00:00`), moment(`${next}-01 03:59:59`), currM + '下半'])
-    check.push([moment(`${next}-01 04:00:00`), moment(`${next}-16 03:59:59`), nextM + '上半'])
+    check.push([moment(`${last}-16 04:00:00`), moment(`${curr}-16 03:59:59`), lastM])
+    check.push([moment(`${curr}-16 04:00:00`), moment(`${next}-16 03:59:59`), currM])
 
     let ret = []
     lodash.forEach(check, (ds) => {
@@ -280,22 +278,25 @@ let Cal = {
       return false
     }
 
-    if (/神铸赋形/.test(title)) {
-      type = 'weapon'
-      title = title.replace(/(单手剑|双手剑|长柄武器|弓|法器|·)/g, '')
-      extra.sort = 3
-    } else if (/集录/.test(title)) {
-      extra.sort = 2
-    } else if (/祈愿/.test(title)) {
-      type = 'character'
-      let regRet = /·(.*)\(/.exec(title)
-      if (regRet[1]) {
-        let char = Character.get(regRet[1])
-        extra.banner2 = char.getImgs()?.card
-        extra.face = char.face
-        extra.character = regRet[1]
-        extra.elem = char.elem
-        extra.sort = 1
+    if (/概率UP/.test(title)) {
+      let reg = /(单手剑|双手剑|长柄武器|弓|法器)·/g
+      if (reg.test(title)) {
+        type = 'weapon'
+        title = title.replace(reg, '')
+        extra.sort = 3
+      } else if (/集录/.test(title)) {
+        extra.sort = 2
+      } else if (/祈愿/.test(title)) {
+        type = 'character'
+        let regRet = /·(.*)\(/.exec(title)
+        if (regRet[1]) {
+          let char = Character.get(regRet[1])
+          extra.banner2 = char.getImgs?.()?.card
+          extra.face = char.face
+          extra.character = regRet[1]
+          extra.elem = char.elem
+          extra.sort = 1
+        }
       }
     } else if (/纪行/.test(title)) {
       type = 'pass'

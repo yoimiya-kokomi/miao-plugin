@@ -58,7 +58,7 @@ export default class Abyss extends Base {
       stat[dst] = Data.getData(data[key] ? data[key][0] : [], keys)
     })
     let st = moment(new Date(data.start_time * 1000))
-    this.schedule = st.format('M') + '月' + (st.format('D') * 1 > 1 ? '下半' : '上半')
+    this.schedule = st.format('M') + '月'
     this.maxFloor = data.max_floor
     this.total = data.total_battle_times
     this.time = moment().format('MM-DD HH:mm:ss')

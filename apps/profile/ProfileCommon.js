@@ -8,7 +8,7 @@ import { miaoPath } from '#miao.path'
 * 获取面板查询的 目标uid
 * */
 const _getTargetUid = async function (e) {
-  let uidReg = /([1-9]|18)[0-9]{8}/
+  let uidReg = /(18|[1-9])[0-9]{8}/
 
   if (e.uid && uidReg.test(e.uid)) {
     return e.uid
