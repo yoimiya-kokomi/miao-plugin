@@ -121,7 +121,7 @@ const ProfileList = {
     }
 
     if (newCount > 0) {
-      hasNew = newCount <= 8
+      hasNew = newCount <= 12
     }
 
     chars = lodash.sortBy(chars, ['isNew', 'star', 'level', 'id'])
