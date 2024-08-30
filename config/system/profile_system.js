@@ -24,7 +24,7 @@ export const mggApi = {
   url: 'http://profile.microgg.cn/',
   userAgent: 'Miao-Plugin/3.1',
   listApi: ({ url, uid, diyCfg }) => {
-    return `${url}api/uid/${uid}/`
+    return `${url}api/uid/${uid}`
   }
 }
 
@@ -32,7 +32,7 @@ export const hutaoApi = {
   url: 'http://enka-api.hut.ao/',
   userAgent: 'Snap Hutao/miao',
   listApi: ({ url, uid, diyCfg }) => {
-    return `${url}/${uid}/`
+    return `${url}/${uid}`
   }
 }
 
