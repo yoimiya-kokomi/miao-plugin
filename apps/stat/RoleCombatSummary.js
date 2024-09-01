@@ -21,7 +21,10 @@ export async function RoleCombatSummary (e) {
     resRole = await mys.getRoleCombat(true)
     let lvs = Data.getVal(resRole, 'data.0')
     // 检查是否查询到了幻想真境剧诗信息
-    if (!lvs || !lvs.has_data) {
+    // TODO: 有个 has_data，有个 has_detail_data
+    // 注意可能出现 has_data 为 false，但是 has_detail_data 为 true 的情形
+    // 不知道怎么搞，分别做适配？
+    if (!lvs || !lvs.has_detail_data) {
       e.reply('暂未获得本期幻想真境剧诗挑战数据...')
       return true
     }
