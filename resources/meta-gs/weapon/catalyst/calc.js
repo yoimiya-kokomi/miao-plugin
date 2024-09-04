@@ -193,6 +193,12 @@ export default function (step, staticStep) {
       refine: {
         a3Dmg: step(28, 13)
       }
+    }],
+    冲浪时光: [staticStep('hpPct', 20), {
+      title: '施放元素战技后，普通攻击造成的伤害提升[dmg]%',
+      refine: {
+        dmg: step(12 * 4)
+      }
     }]
   }
 }

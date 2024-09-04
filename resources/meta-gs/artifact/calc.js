@@ -509,15 +509,26 @@ const buffs = {
     }
   },
 
+  烬城勇者绘卷: {
+    4: {
+      title: '触发元素反应后，元素伤害加成提升[dmg]%',
+      data: {
+        dmg: ({ params }) => params.Nightsoul === true ? 40 : 12
+      }
+    }
+  },
+
   黑曜秘典: {
     2: {
-      title: '装备者处于夜魂加持状态，并且在场上时，造成的伤害提高15%。',
+      check: ({ params }) => params.Nightsoul === true,
+      title: '在场上处于夜魂加持状态时，造成的伤害提高[dmg]%',
       data: {
         dmg: 15
       }
     },
     4: {
-      title: '装备者在场上消耗1点夜魂值后，暴击率提高40%',
+      check: ({ params }) => params.Nightsoul === true,
+      title: '在场上消耗夜魂值后，暴击率提高[cpct]%',
       data: {
         cpct: 40
       }

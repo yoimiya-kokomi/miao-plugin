@@ -196,6 +196,13 @@ export default function (step, staticStep) {
       refine: {
         atkPct: step(12 * 2)
       }
-    }
+    },
+    山王长牙: [{
+      title: '满层时，元素战技与元素爆发伤害提升[eDmg]%',
+      refine: {
+        eDmg: step(10 * 6),
+        qDmg: step(10 * 6)
+      }
+    }]
   }
 }
