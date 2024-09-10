@@ -106,8 +106,9 @@ export async function resetRank (e) {
   let name = msg.replace(/(#|星铁|重置|重设|排名|排行|群|群内|面板|详情|面版)/g, '').trim()
   let charId = ''
   let charName = '全部角色'
+  let char 
   if (name) {
-    let char = Character.get(name, game)
+    char = Character.get(name, game)
     if (!char) {
       e.reply(`重置排名失败，角色：${name}不存在`)
       return true
