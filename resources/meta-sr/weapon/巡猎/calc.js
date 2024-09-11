@@ -103,6 +103,21 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    黑夜如影随行: [
+      staticIdx(1, 'stance'),
+      keyIdx('进入战斗时或造成击破伤害后，速度提高[speedPct]%', 'speedPct', 2)
+    ],
+    '我将，巡征追猎': [
+      staticIdx(1, 'cpct'),
+      (tables) => {
+        return {
+          title: '2层【流光】使装备者造成的终结技伤害无视目标[qIgnore]%的防御力',
+          data: {
+            qIgnore: tables[2] * 2
+          }
+        }
+      }
     ]
   }
 }

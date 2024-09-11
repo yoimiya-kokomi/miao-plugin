@@ -49,6 +49,19 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    唯有香如故: [
+      staticIdx(1, 'stance'),
+      keyIdx('【忘忧】状态下的敌方目标受到的伤害提高[enemydmg]%', 'enemydmg', 2),
+      (tables) => {
+        return {
+          title: '击破特攻大于等于150%，受到的伤害提高效果额外提高[enemydmg]%',
+          check: ({ attr }) => attr.stance >= 150,
+          data: {
+            enemydmg: tables[3]
+          }
+        }
+      }
     ]
   }
 }
