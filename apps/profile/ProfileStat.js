@@ -78,6 +78,35 @@ const ProfileStat = {
       avatarRet = lodash.filter(avatarRet, ds => ds.star === starFilter)
     }
 
+    // elementFilter: 检测是否有元素筛选
+    let elementFilter = []
+    let chineseToEnglishElements = {}
+    if (e.isSr) {
+      // 先给星铁的元素筛选留空
+    } else {
+      chineseToEnglishElements = {
+        '风': 'anemo',
+        '岩': 'geo',
+        '雷': 'electro',
+        '草': 'dendro',
+        '水': 'hydro',
+        '火': 'pyro',
+        '冰': 'cryo'
+      }
+    }
+    for (let [k, v] of Object.entries(chineseToEnglishElements)) {
+      // 如果后续需支持星铁，这里可能也要用到正则判断
+      // e.g. 物(理)?  量(子)?  虚(数)?
+      if (msg.includes(k)) {
+        elementFilter.push(v)
+      }
+    }
+    if (elementFilter.length > 0) {
+      avatarRet = lodash.filter(avatarRet, ds => 
+        elementFilter.some(elem => ds.elem.includes(elem))
+      )
+    }
+
     let now = moment(new Date())
     if (now.hour() < 4) {
       now = now.add(-1, 'days')
