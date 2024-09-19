@@ -311,8 +311,6 @@ export default {
       data: {
         stance: 40
       }
-
-      
     }]
   },
   奇想蕉乐园: {
