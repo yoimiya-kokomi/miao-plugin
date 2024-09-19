@@ -312,5 +312,16 @@ export default {
         stance: 40
       }
     }]
+  },
+  奇想蕉乐园: {
+    2: [attr('cdmg', 16), {
+      title: '存在装备者召唤的目标时，暴击伤害额外提高[cdmg]%',
+      data: {
+        cdmg: 32
+      }
+    }]
+  },
+  沉陆海域露莎卡: {
+    2: attr('recharge', 5)
   }
 }
