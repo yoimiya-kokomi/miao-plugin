@@ -7,7 +7,8 @@ export async function RoleCombatSummary (e) {
   if (!Cfg.get('roleCombat', false) && !isMatch) {
     return false
   }
-  let mys = await MysApi.init(e, 'all')
+  // 需要自身 ck 查询
+  let mys = await MysApi.init(e, 'cookie')
   if (!mys || !mys.uid) {
     if (isMatch) {
       e.reply(`请绑定ck后再使用${e.original_msg || e.msg}`)
