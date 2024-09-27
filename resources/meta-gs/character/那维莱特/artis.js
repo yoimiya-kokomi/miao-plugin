@@ -9,7 +9,7 @@ export default function ({ attr, weapon, rule, def }) {
   }
   if (title.length > 0) {
     let role = usefulAttr['那维莱特'];
-    return rule(`那维莱特-${title.join('')}`, { role.hp, role.atk, role.def, role.cpct, role.cdmg, role.mastery, role.dmg, role.phy, recharge, role.heal })
+    return rule(`那维莱特-${title.join('')}`, { hp: role.hp, atk: role.atk, def: role.def, cpct: role.cpct, cdmg: role.cdmg, mastery: role.mastery, dmg: role.dmg, phy: role.phy, recharge, heal: role.heal })
   }
   return def(usefulAttr['那维莱特'])
 }
