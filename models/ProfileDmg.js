@@ -111,7 +111,7 @@ export default class ProfileDmg extends Base {
     return false
   }
 
-  async calcData ({ enemyLv = 91, mode = 'profile', dmgIdx = 0, idxIsInput = false }) {
+  async calcData ({ enemyLv = 103, mode = 'profile', dmgIdx = 0, idxIsInput = false }) {
     if (!this.char || !this.profile) {
       return false
     }
