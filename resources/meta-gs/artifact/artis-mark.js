@@ -79,8 +79,8 @@ export const usefulAttr = {
   芙宁娜: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 95, phy: 0, recharge: 75, heal: 95 },
   夏洛蒂: { hp: 0, atk: 85, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 100 },
   娜维娅: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
-  夏沃蕾: { hp: 100, atk: 0, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 55, heal: 95 },
-  闲云: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 75, heal: 95 },
+  夏沃蕾: { hp: 100, atk: 0, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 55, heal: 55 },
+  闲云: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 75, heal: 75 },
   嘉明: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   千织: { hp: 0, atk: 50, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   阿蕾奇诺: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
@@ -90,5 +90,6 @@ export const usefulAttr = {
   艾梅莉埃: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   卡齐娜: { hp: 0, atk: 0, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   玛拉妮: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 85, dmg: 100, phy: 0, recharge: 45, heal: 0 },
-  基尼奇: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 50, heal: 0 }
+  基尼奇: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 50, heal: 0 },
+  希诺宁: { hp: 0, atk: 0, def: 100, cpct: 30, cdmg: 30, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 100 }
 }
