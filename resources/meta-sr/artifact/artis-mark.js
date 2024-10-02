@@ -3,6 +3,7 @@
  * 如character/${name}/artis.js下有角色自定义规则优先使用自定义
  */
 export const usefulAttr = {
+  灵砂: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 100, heal: 100, recharge: 100, effPct: 0, effDef: 0, dmg: 0 },
   飞霄: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
   云璃: { hp: 0, atk: 75, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
   貊泽: { hp: 0, atk: 75, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
