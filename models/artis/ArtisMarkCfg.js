@@ -5,11 +5,9 @@ import { Meta } from '#miao'
 const weaponCfg = {
   磐岩结绿: {
     attr: 'hp',
-    abbr: '绿剑'
-  },
-  赤角石溃杵: {
-    attr: 'def',
-    abbr: '赤角'
+    abbr: '绿剑',
+    max: 30,
+    min: 15
   },
   猎人之径: {
     attr: 'mastery'
@@ -20,7 +18,9 @@ const weaponCfg = {
   },
   护摩之杖: {
     attr: 'hp',
-    abbr: '护摩'
+    abbr: '护摩',
+    max: 18,
+    min: 10
   }
 }
 
@@ -51,6 +51,19 @@ const ArtisMarkCfg = {
         return false
       }
 
+      /* maxAffix_attr 精5武器权重
+      minAffix_attr 精1武器权重 */
+      let weaponCheck = (key, maxAffix_attr = 20, minAffix_attr = 10, max = 100) => {
+        let original = weight[key] || 0
+        if (original == max) {
+          return false
+        } else {
+          let plus = minAffix_attr + (maxAffix_attr - minAffix_attr) * (weapon.affix - 1) / 4
+          weight[key] = Math.min(Math.round(original + plus), max)
+          return true
+        }
+      }
+
       let wn = weapon?.name || ''
 
       if (isGs) {
@@ -59,14 +72,9 @@ const ArtisMarkCfg = {
         // 增加攻击力或直接伤害类武器判定
         if (weight.atk > 0 && weaponCfg[wn]) {
           let wCfg = weaponCfg[wn]
-          if (check(wCfg.attr, wCfg.max || 75, wCfg.plus || 75)) {
+          if (weaponCheck(wCfg.attr, wCfg.max || 20, wCfg.min || 10)) {
             title.push(wCfg.abbr || wn)
           }
-        }
-
-        // 不与攻击力挂钩的武器判定
-        if (wn === '辰砂之纺锤' && check('def')) {
-          title.push('纺锤')
         }
 
         // 圣遗物判定，如果是绝缘4，将充能权重拉高至沙漏圣遗物当前最高权重齐平
