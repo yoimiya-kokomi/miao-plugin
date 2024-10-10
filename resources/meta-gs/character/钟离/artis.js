@@ -1,7 +1,23 @@
-export default function ({ attr, artis, rule, def }) {
-  if (artis.is('hp', '3,4,5') && attr.hp > 40000 && attr.cpct * 2 + attr.cdmg < 100) {
-    // 血牛钟离，其余词缀权重不高于41.84，确保小生命命中副词缀最高权重
-    return rule('钟离-血牛', { hp: 100, atk: 30, cpct: 41, cdmg: 41, recharge: 30 })
+import { usefulAttr } from "../../artifact/artis-mark.js"
+
+export default function ({ attr, weapon, rule, def }) {
+  let title = []
+  let particularAttr = JSON.parse(JSON.stringify(usefulAttr['钟离']))
+  if (weapon.name === '西风长枪') {
+    title.push('西风枪')
+    particularAttr.cpct = 100
   }
-  return def({ hp: 80, atk: 75, cpct: 100, cdmg: 100, dmg: 80, phy: 80, recharge: 55 })
+  if (attr.cpct * 2 + attr.cdmg > 240) {
+    title.push('战斗')
+    particularAttr.hp = 80
+    particularAttr.atk = 75
+    particularAttr.cpct = 100
+    particularAttr.cdmg = 100
+    particularAttr.dmg = 100
+    particularAttr.recharge = 30
+  }
+  if (title.length > 0) {
+    return rule(`钟离-${title.join('')}`, particularAttr)
+  }
+  return def(usefulAttr['钟离'])
 }
