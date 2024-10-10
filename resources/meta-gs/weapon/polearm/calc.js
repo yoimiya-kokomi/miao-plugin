@@ -170,6 +170,12 @@ export default function (step, staticStep) {
       refine: {
         defPct: step(16)
       }
+    },
+    镇山之钉: {
+      title: '元素战技造成的伤害提升[eDmg]%',
+      refine: {
+        eDmg: step(12 * 2)
+      }
     }
   }
 }

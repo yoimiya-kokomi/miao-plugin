@@ -266,6 +266,25 @@ export default function (step, staticStep) {
       refine: {
         defPct: step(16)
       }
-    }
+    },
+    弥坚骨: {
+      title: "冲刺或替代冲刺的能力后，普通攻击造成的伤害提高[aPlus]%",
+      data: {
+        aPlus: ({ attr, calc , refine }) => calc(attr.atk) * step(16)[refine] / 100
+      }
+    },
+    岩峰巡歌: [{
+      title: '2层buff使防御力提高[defPct]%所有元素伤害加成提高[dmg]%',
+      refine: {
+        defPct: step(8 * 2),
+        dmg: step(10 * 2)
+      }
+    }, {
+      title: '基于防御力,使队伍中附近所有角色的所有元素伤害加成提高[dmg]%',
+      sort: 9,
+      data: {
+        dmg: ({ attr, calc, refine }) => Math.min(calc(attr.def) / 1000 * step(8)[refine], step(25.6)[refine])
+      }
+    }]
   }
 }
