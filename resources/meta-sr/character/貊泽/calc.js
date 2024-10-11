@@ -35,7 +35,7 @@ export const buffs = [{
     cdmg: 40
   }
 }, {
-  title: '4魂：施放终结技时，貊泽造成的伤害提高[qDmg]%',
+  title: '4魂：施放终结技时，貊泽造成的伤害提高[dmg]%',
   cons: 4,
   data: {
     dmg: 30
