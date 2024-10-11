@@ -48,4 +48,4 @@ export const buffs = [{
  }
 }]
 
-export const createdBy = 'y'
+export const createdBy = '羊咩别闹！'
