@@ -10,6 +10,12 @@ const ProfileStat = {
     return ProfileStat.render(e, 'stat', filterFunc)
   },
 
+  async roleStat(e) {
+    // Get filter function
+    let roleFilterFunc = ProfileStat.getRoleFilterFunc(e)
+    return ProfileStat.render(e, 'stat', roleFilterFunc)
+  },
+
   async avatarList (e) {
     return ProfileStat.render(e, 'avatar')
   },
@@ -32,7 +38,7 @@ const ProfileStat = {
     }
   },
 
-  getFilterFunc(e) {
+  getStarFilterFunc(e) {
     let msg = e.msg.replace(/#星铁|#/, '').trim()
 
     // starFilter: 检测是否有星级筛选
@@ -44,6 +50,11 @@ const ProfileStat = {
     if (requiredStar) {
       starFilter = ds => ds.star === requiredStar
     }
+    return starFilter
+  },
+
+  getElementFilterFunc(e) {
+    let msg = e.msg.replace(/#星铁|#/, '').trim()
 
     // elementFilter: 检测是否有元素筛选
     let requiredElements = []
@@ -72,9 +83,24 @@ const ProfileStat = {
     if (requiredElements.length > 0) {
       elementFilter = ds => requiredElements.some(elem => ds.elem.includes(elem))
     }
+    return elementFilter
+  },
+
+  getFilterFunc(e) {
+    let starFilter = ProfileStat.getStarFilterFunc(e)
+    let elementFilter = ProfileStat.getElementFilterFunc(e)
     
     // 组合函数
     let combinedFilter = lodash.overEvery([starFilter, elementFilter])
+    return combinedFilter
+  },
+
+  getRoleFilterFunc(e) {
+    let specialCharacterFilter = (x) => true
+    let elementFilter = ProfileStat.getElementFilterFunc(e)
+    
+    // 组合函数
+    let combinedFilter = lodash.overSome([specialCharacterFilter, elementFilter])
     return combinedFilter
   },
 
