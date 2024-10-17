@@ -41,8 +41,8 @@ body,
 }
 .role-stat .cont {
   margin: 5px 10px 5px 5px;
-  width: 175px;
-  height: 90px;
+  width: 150px;
+  height: 82px;
 }
 .role-stat .cont.star-display {
   width: 300px;
@@ -62,7 +62,7 @@ body,
   display: block;
   font-weight: normal;
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
-  font-size: 24px;
+  font-size: 20px;
 }
 .role-stat .stat-title strong {
   display: block;

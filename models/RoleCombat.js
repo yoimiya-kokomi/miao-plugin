@@ -56,6 +56,7 @@ export default class RoleCombat extends Base {
     })
     this.stat = data.stat
     this.month = data.schedule.start_date_time.month
+    this.stat.total_use_time = data.detail.fight_statisic.total_use_time
   }
 
   getData () {

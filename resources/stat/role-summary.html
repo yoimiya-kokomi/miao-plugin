@@ -31,6 +31,14 @@
           {{/each}}
         </div>
       </div>
+      <div class="cont" style="width:120px">
+        <div class="stat-title">
+          <span>总耗时</span>
+        </div>
+        <div class="stat-msg">
+          <strong>{{role.stat.total_use_time}} 秒</strong>
+        </div>
+      </div>
       <div class="cont">
         <div class="stat-title">
           <span>消耗幻剧之花</span>
@@ -56,6 +64,8 @@
         </div>
       </div>
     </div>
+  </div>
+      
 
   </div>
   {{set cardTypes={1:['wide wide2'],2:['wide','wide'],3:['wide','mini','mini'],4:['mini','mini','mini','mini']} }}
