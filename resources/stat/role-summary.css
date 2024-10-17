@@ -133,26 +133,53 @@ body,
 }
 .role-buff .role-choice-cards-container {
   width: 100%;
-  height: 46%;
+  height: 100%;
   background-color: #e7e5d9;
   display: flex;
   border-radius: 10px;
   overflow: hidden;
   flex-direction: column;
 }
-.role-buff .role-choice-cards-container .role-choice-cards-header {
+.role-buff .role-enemy-container {
+  width: 20%;
+  height: 100%;
+  background-color: #e7e5d9;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-direction: column;
+}
+.role-buff .role-splendour-container {
+  width: 40%;
+  height: 100%;
+  background-color: #e7e5d9;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-direction: column;
+}
+.role-buff .role-splendour-buff-container {
+  width: 40%;
+  height: 100%;
+  background-color: #e7e5d9;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-direction: column;
+}
+.role-buff .role-choice-cards-header {
   width: 100%;
   height: 30px;
   background-color: #8b8b83;
   padding: 5px;
   font-size: 18px;
 }
-.role-buff .role-choice-cards-container .role-choice-cards-content {
+.role-buff .role-choice-cards-content {
   width: 100%;
   padding: 5px;
   display: flex;
 }
-.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-container {
+.role-buff .role-choice-cards-content .role-content-container {
   width: 40px;
   display: flex;
   margin-top: 5px;
@@ -161,14 +188,20 @@ body,
   align-items: center;
   margin-right: 5px;
 }
-.role-buff .role-choice-cards-container .role-choice-cards-content .role-content-icon {
+.role-buff .role-choice-cards-content .role-content-icon {
   width: 40px;
   height: 40px;
   background-size: cover;
   background-color: black;
   border-radius: 50%;
 }
-.role-buff .role-choice-cards-container + .role-choice-cards-container {
+.role-buff .role-buff-line {
+  width: 100%;
+  height: 46%;
+  display: flex;
+  flex-direction: row;
+}
+.role-buff .role-buff-line + .role-buff-line {
   margin-top: 4%;
   /* 两个子元素之间的间距4% */
 }
