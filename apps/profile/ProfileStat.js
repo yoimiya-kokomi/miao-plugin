@@ -5,7 +5,9 @@ import lodash from 'lodash'
 
 const ProfileStat = {
   async stat (e) {
-    return ProfileStat.render(e, 'stat')
+    // Get filter function
+    let filterFunc = ProfileStat.getFilterFunc(e)
+    return ProfileStat.render(e, 'stat', filterFunc)
   },
 
   async avatarList (e) {
@@ -30,9 +32,55 @@ const ProfileStat = {
     }
   },
 
+  getFilterFunc(e) {
+    let msg = e.msg.replace(/#星铁|#/, '').trim()
+
+    // starFilter: 检测是否有星级筛选
+    let requiredStar = 0
+    if (/(五|四|5|4|)+星/.test(msg)) {
+      requiredStar = /(五|5)+星/.test(msg) ? 5 : 4
+    }
+    let starFilter = ds => true;
+    if (requiredStar) {
+      starFilter = ds => ds.star === requiredStar
+    }
+
+    // elementFilter: 检测是否有元素筛选
+    let requiredElements = []
+    let chineseToEnglishElements = {}
+    if (e.isSr) {
+      // 先给星铁的元素筛选留空
+    } else {
+      chineseToEnglishElements = {
+        '风': 'anemo',
+        '岩': 'geo',
+        '雷': 'electro',
+        '草': 'dendro',
+        '水': 'hydro',
+        '火': 'pyro',
+        '冰': 'cryo'
+      }
+    }
+    for (let [k, v] of Object.entries(chineseToEnglishElements)) {
+      // 如果后续需支持星铁，这里可能也要用到正则判断
+      // e.g. 物(理)?  量(子)?  虚(数)?
+      if (msg.includes(k)) {
+        requiredElements.push(v)
+      }
+    }
+    let elementFilter = ds => true;
+    if (requiredElements.length > 0) {
+      elementFilter = ds => requiredElements.some(elem => ds.elem.includes(elem))
+    }
+    
+    // 组合函数
+    let combinedFilter = lodash.overEvery([starFilter, elementFilter])
+    return combinedFilter
+  },
+
   // 渲染
   // mode stat:练度统计 avatar:角色列表 talent:天赋统计
-  async render (e, mode = 'stat') {
+  async render (e, mode = 'stat', filterFunc = (x) => true) {
     let game = /星铁/.test(e.msg) ? 'sr' : 'gs'
     e.isSr = game === 'sr'
     e.game = game
@@ -70,42 +118,7 @@ const ProfileStat = {
       return true
     }
 
-    let starFilter = 0
-    if (/(五|四|5|4|)+星/.test(msg)) {
-      starFilter = /(五|5)+星/.test(msg) ? 5 : 4
-    }
-    if (starFilter) {
-      avatarRet = lodash.filter(avatarRet, ds => ds.star === starFilter)
-    }
-
-    // elementFilter: 检测是否有元素筛选
-    let elementFilter = []
-    let chineseToEnglishElements = {}
-    if (e.isSr) {
-      // 先给星铁的元素筛选留空
-    } else {
-      chineseToEnglishElements = {
-        '风': 'anemo',
-        '岩': 'geo',
-        '雷': 'electro',
-        '草': 'dendro',
-        '水': 'hydro',
-        '火': 'pyro',
-        '冰': 'cryo'
-      }
-    }
-    for (let [k, v] of Object.entries(chineseToEnglishElements)) {
-      // 如果后续需支持星铁，这里可能也要用到正则判断
-      // e.g. 物(理)?  量(子)?  虚(数)?
-      if (msg.includes(k)) {
-        elementFilter.push(v)
-      }
-    }
-    if (elementFilter.length > 0) {
-      avatarRet = lodash.filter(avatarRet, ds => 
-        elementFilter.some(elem => ds.elem.includes(elem))
-      )
-    }
+    avatarRet = lodash.filter(avatarRet, filterFunc)
 
     let now = moment(new Date())
     if (now.hour() < 4) {
