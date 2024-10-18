@@ -240,8 +240,60 @@ const ProfileStat = {
 
   mergeStart (avatars, initialAvatarIds) {
     let initialAvatars = []
-    // TODO: Build a fake one
-    return [...avatars, ...initialAvatars]
+    lodash.forEach(initialAvatarIds, (id) => {
+      let char = Character.get(id)
+      if (char) {
+        initialAvatars.push({
+          id: id,
+          name: char.name,
+          elem: char.elem,
+          abbr: char.abbr,
+          star: char.star,
+          face: char.face,
+          level: 80,
+          cons: 0,
+        })
+      }
+    })
+
+    // mergedAvatars: 求 avatars 和 initialAvatars 的并集
+    // 判断标准为这些元素的 id 属性
+    // 如果 avatars 和 initialAvatars 中的元素 id 属性相同，则比较这两个元素的 level 属性，
+    // 选取 level 较大的那个元素放入 mergedAvatars
+    // 注意：即使 avatars 和 initialAvatars 中的元素除了 id 属性相同，其他属性完全不同，
+    // 但在 id 属性相同的情况下，仍需放入整个元素
+    let mergedAvatars = []
+    
+    // 合并逻辑实现
+    let avatarMap = new Map();
+
+    // 遍历 avatars，将每个元素加入到 avatarMap 中
+    avatars.forEach(avatar => {
+        avatarMap.set(avatar.id, avatar);
+    });
+
+    // 遍历 initialAvatars，进行合并
+    initialAvatars.forEach(initialAvatar => {
+        if (avatarMap.has(initialAvatar.id)) {
+            // 如果 id 相同，比较 level，选取较大的元素
+            let existingAvatar = avatarMap.get(initialAvatar.id);
+            avatarMap.set(initialAvatar.id, 
+                existingAvatar.level >= initialAvatar.level ? existingAvatar : initialAvatar);
+        } else {
+            // 如果 id 不同，直接加入
+            avatarMap.set(initialAvatar.id, initialAvatar);
+        }
+    });
+
+    // 将合并后的结果转换为数组并返回
+    mergedAvatars = Array.from(avatarMap.values());
+
+    // 排序
+    let sortKey = 'level,star,aeq,cons,weapon.level,weapon.star,weapon.affix,fetter'.split(',')
+    mergedAvatars = lodash.orderBy(mergedAvatars, sortKey)
+    mergedAvatars = mergedAvatars.reverse()
+
+    return mergedAvatars;
   },
 
   // 渲染
