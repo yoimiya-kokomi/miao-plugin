@@ -2,18 +2,16 @@ import { Common } from '#miao'
 import { MysApi, Player, Character } from '#miao.models'
 import moment from 'moment'
 import lodash from 'lodash'
+import axios from 'axios'
+import cheerio from 'cheerio'
 
 const ProfileStat = {
   async stat (e) {
-    // Get filter function
-    let filterFunc = ProfileStat.getFilterFunc(e)
-    return ProfileStat.render(e, 'stat', filterFunc)
+    return ProfileStat.render(e, 'stat', false)
   },
 
   async roleStat(e) {
-    // Get filter function
-    let roleFilterFunc = ProfileStat.getRoleFilterFunc(e)
-    return ProfileStat.render(e, 'stat', roleFilterFunc)
+    return ProfileStat.render(e, 'stat', true)
   },
 
   async avatarList (e) {
@@ -53,6 +51,14 @@ const ProfileStat = {
     return starFilter
   },
 
+  getElementFilerFromElements(requiredElements) {
+    return ds => requiredElements.includes(ds.elem)
+  },
+
+  getIdFilterFunc(requiredIds) {
+    return ds => requiredIds.includes(ds.id)
+  },
+
   getElementFilterFunc(e) {
     let msg = e.msg.replace(/#星铁|#/, '').trim()
 
@@ -81,7 +87,7 @@ const ProfileStat = {
     }
     let elementFilter = ds => true;
     if (requiredElements.length > 0) {
-      elementFilter = ds => requiredElements.some(elem => ds.elem.includes(elem))
+      elementFilter = ProfileStat.getElementFilerFromElements(requiredElements)
     }
     return elementFilter
   },
@@ -95,18 +101,152 @@ const ProfileStat = {
     return combinedFilter
   },
 
-  getRoleFilterFunc(e) {
-    let specialCharacterFilter = (x) => true
-    let elementFilter = ProfileStat.getElementFilterFunc(e)
+  getRoleFilterFunc(e, elements, invitationCharacterIds) {
+    let invitationCharacterFilter = ProfileStat.getIdFilterFunc(invitationCharacterIds)
+    let elementFilter = ProfileStat.getElementFilerFromElements(elements)
     
     // 组合函数
-    let combinedFilter = lodash.overSome([specialCharacterFilter, elementFilter])
+    let combinedFilter = lodash.overSome([invitationCharacterFilter, elementFilter])
+    let levelFilter = ProfileStat.getLevelFilterFunc()
+    combinedFilter = lodash.overEvery([combinedFilter, levelFilter])
     return combinedFilter
+  },
+
+  getLevelFilterFunc() {
+    return ds => ds.level >= 70
+  },
+
+  async getOverallMazeData() {
+    const request_url = 'https://homdgcat.wiki/gi/CH/maze.js'
+    let resData = false
+    try {
+        const response = await axios.get(request_url, {timeout: 5000})
+        resData = response.data
+    } catch (error) {
+        logger.error('请求失败:', error)
+        return false // 直接返回以停止后续逻辑
+    }
+    const match = /var _overall = (.*?)var/s.exec(resData)
+    let overallMazeInfo = []
+    if (match) {
+      overallMazeInfo = JSON.parse(match[1])
+    } else {
+      logger.error('响应内容格式不对劲')
+      return false
+    }
+
+    return overallMazeInfo
+  },
+
+  async getOverallMazeLinkFromBWiki() {
+    const request_url = 'https://wiki.biligame.com/ys/%E5%B9%BB%E6%83%B3%E7%9C%9F%E5%A2%83%E5%89%A7%E8%AF%97'
+    try {
+      // 发送 GET 请求
+      const response = await axios.get(request_url, {timeout: 5000});
+      const html = response.data;
+
+      // 加载 HTML
+      const $ = cheerio.load(html);
+
+      // 存储 href 属性的数组
+      const links = [];
+
+      // 查找 id="每期详情" 下的所有 <a> 标签
+      $('#每期详情').closest('h2').next('p').find('a').each((index, element) => {
+          const href = $(element).attr('href');
+          if (href) {
+              links.push(href);
+          }
+      });
+
+      return links
+    } catch (error) {
+      console.error('Error fetching the URL:', error.message);
+    }
+  },
+
+  async getRequestedMazeDataFromBWiki(e, links) {
+    const mazeId = ProfileStat.getMazeId(e)
+    if (mazeId >= 0 && mazeId < overallMazeData.length) {
+      const request_url = `https://wiki.biligame.com/${links[mazeId]}`
+
+      // 发送 GET 请求
+      const response = await axios.get(request_url, {timeout: 5000});
+      const html = response.data;
+
+      // 加载 HTML
+      const $ = cheerio.load(html);
+
+      // 存储 href 属性的数组
+      const elements = [];
+
+      $('#限定元素').closest('h2').next('p').find('img').each((index, element) => {
+          const alt = $(element).attr('alt');
+          const match = /卡牌UI\-元素\-(.*?)\.png/.exec(alt);
+          if (match) {
+              elements.push(match[1]);
+          }
+      });
+      // TODO: 剩下的解析，并且转换成和 HomDGCat 相同的格式
+      return elements;
+
+    } else {
+      return false
+    }
+  },
+
+  getMazeId(e) {
+    const match = /202(\d{3})/.exec(e.msg)
+    if (!match) {
+      return false
+    }
+    const num = +match[1]
+    const numYear = Math.floor(num / 100)
+    const numMonth = num % 100
+    const newNum = numYear * 12 + numMonth - 1
+    const mazeId = newNum - (4 * 12 + 7 - 1)
+    return mazeId
+  },
+
+  extractRequestedMazeData(e, overallMazeData) {
+    const mazeId = ProfileStat.getMazeId(e)
+    if (mazeId >= 0 && mazeId < overallMazeData.length) {
+      return overallMazeData[mazeId]
+    } else {
+      return false
+    }
+  },
+
+  extractInitialCharacterIds(mazeData) {
+    return lodash.map(mazeData.Initial, item => item.ID + 10000000);
+  },
+
+  extractInvitationCharacterIds(mazeData) {
+    return lodash.map(mazeData.Invitation, item => item.ID + 10000000);
+  },
+
+  extractElements(mazeData) {
+    const elementMap = {
+      'Wind': 'anemo',
+      'Rock': 'geo',
+      'Elec': 'electro',
+      'Grass': 'dendro',
+      'Water': 'hydro',
+      'Fire': 'pyro',
+      'Ice': 'cryo'
+    }
+    return lodash.map(mazeData.Elem, item => elementMap[item]);
+  },
+
+  mergeStart (avatars, initialAvatarIds) {
+    let initialAvatars = []
+    // TODO: Build a fake one
+    return [...avatars, ...initialAvatars]
   },
 
   // 渲染
   // mode stat:练度统计 avatar:角色列表 talent:天赋统计
-  async render (e, mode = 'stat', filterFunc = (x) => true) {
+  async render (e, mode = 'stat', isRole = false) {
     let game = /星铁/.test(e.msg) ? 'sr' : 'gs'
     e.isSr = game === 'sr'
     e.game = game
@@ -144,6 +284,27 @@ const ProfileStat = {
       return true
     }
 
+    
+    let filterFunc = (x) => true
+    if (isRole) {
+      let overallMazeData = await ProfileStat.getOverallMazeData()
+      if (!overallMazeData) {
+        e.reply(`请求 HomDGCat 数据库出错`)
+        return false
+      }
+      let currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
+      if (!currentMazeData) {
+        return false
+      }
+      let initialCharacterIds = ProfileStat.extractInitialCharacterIds(currentMazeData)
+      let invitationCharacterIds = ProfileStat.extractInvitationCharacterIds(currentMazeData)
+      let elements = ProfileStat.extractElements(currentMazeData)
+      
+      avatarRet = ProfileStat.mergeStart(avatarRet, initialCharacterIds)
+      filterFunc = ProfileStat.getRoleFilterFunc(e, elements, invitationCharacterIds)
+    } else {
+      filterFunc = ProfileStat.getFilterFunc(e)
+    }
     avatarRet = lodash.filter(avatarRet, filterFunc)
 
     let now = moment(new Date())
