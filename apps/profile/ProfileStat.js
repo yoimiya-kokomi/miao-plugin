@@ -252,6 +252,20 @@ const ProfileStat = {
           face: char.face,
           level: 80,
           cons: 0,
+          talent: {
+            a: {
+              level: 8,
+              original: 8
+            },
+            e: {
+              level: 8,
+              original: 8
+            },
+            q: {
+              level: 8,
+              original: 8
+            }
+          }
         })
       }
     })
@@ -346,6 +360,7 @@ const ProfileStat = {
       }
       let currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
       if (!currentMazeData) {
+        e.reply(`当前月份不在 HomDGCat 数据库中`)
         return false
       }
       let initialCharacterIds = ProfileStat.extractInitialCharacterIds(currentMazeData)
