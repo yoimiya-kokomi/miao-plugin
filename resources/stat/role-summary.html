@@ -7,7 +7,7 @@
 {{/block}}
 
 {{block 'main'}}
-{{ set difficultyName = {1:'简单', 2:'普通', 3:'困难'} }}
+{{ set difficultyName = {1:'简单', 2:'普通', 3:'困难', 4:'卓越'} }}
 <div class="head-box type">
   <div class="title">#幻想真境剧诗<span>{{role.month}}月 · {{difficultyName[role.stat.difficulty_id]}}模式</span></div>
   <div class="uid">UID:{{uid}}</div>
@@ -29,6 +29,14 @@
             {{/if}}
           </div>
           {{/each}}
+        </div>
+      </div>
+      <div class="cont" style="width:120px">
+        <div class="stat-title">
+          <span>总耗时</span>
+        </div>
+        <div class="stat-msg">
+          <strong>{{role.stat.total_use_time}} 秒</strong>
         </div>
       </div>
       <div class="cont">
@@ -56,6 +64,8 @@
         </div>
       </div>
     </div>
+  </div>
+      
 
   </div>
   {{set cardTypes={1:['wide wide2'],2:['wide','wide'],3:['wide','mini','mini'],4:['mini','mini','mini','mini']} }}
@@ -80,26 +90,54 @@
         </div>
         <div class="line"></div>
         <div class="role-buff">
-          {{set buffs=round?.buffs }}
-          <div class="role-choice-cards-container">
-            <div class="role-choice-cards-header">奇妙助益</div>
-            <div class="role-choice-cards-content">
-              {{each buffs buff}}
+          <div class="role-buff-line">
+            {{set enemies=round?.enemies }}
+            <div class="role-enemy-container">
+              <div class="role-choice-cards-header">选择敌人</div>
+              <div class="role-choice-cards-content">
+                {{set display_enemy = enemies?.[0]}}
+                <div class="role-content-container">
+                  <div class="role-content-icon" style="background-image:url({{display_enemy.icon}})"></div>
+                </div>
+              </div>
+            </div>
+            {{set splendour_summary=round?.splendour_buff?.summary}}
+            <div class="role-splendour-container">
+              <div class="role-choice-cards-header">辉彩祝福</div>
+              <div class="role-choice-cards-content" style="flex-direction: column">
+                  <div style="color: #0D0D0D">等级 {{splendour_summary?.total_level}}</div>
+                  <div style="color: #0D0DFF">生命值 +{{splendour_summary?.hp_increase}}
+                    <span style="color: #FD0D0D">攻击力 +{{splendour_summary?.atk_increase}}</span>
+                  </div>
+                  <div style="color: #A0A00D">防御力 +{{splendour_summary?.def_increase}}
+                    <span style="color: #00A000">元素精通 +{{splendour_summary?.em_increase}}</span>
+                  </div>
+              </div>
+            </div>
+            {{set buffs=round?.splendour_buff?.buffs}}
+            <div class="role-splendour-buff-container">
+              <div class="role-choice-cards-header">辉彩祝福 buff</div>
+              <div class="role-choice-cards-content">
+                {{each buffs buff}}             
                 <div class="role-content-container">
                   <div class="role-content-icon" style="background-image:url({{buff.icon}})"></div>
+                  <div style="color: black">Lv. {{buff.level}}</div>
                 </div>
-              {{/each}}
+                {{/each}}
+              </div>
             </div>
           </div>
-          {{set choice_cards=round?.choice_cards }}
-          <div class="role-choice-cards-container">
-            <div class="role-choice-cards-header">神秘收获</div>
-            <div class="role-choice-cards-content">
-              {{each choice_cards choice_card}}
-                <div class="role-content-container">
-                  <div class="role-content-icon" style="background-image:url({{choice_card.icon}})"></div>
-                </div>
-              {{/each}}
+          <div class="role-buff-line">
+            {{set choice_cards=round?.choice_cards }}
+            <div class="role-choice-cards-container">
+              <div class="role-choice-cards-header">神秘收获</div>
+              <div class="role-choice-cards-content">
+                {{each choice_cards choice_card}}
+                  <div class="role-content-container">
+                    <div class="role-content-icon" style="background-image:url({{choice_card.icon}})"></div>
+                  </div>
+                {{/each}}
+              </div>
             </div>
           </div>
         </div>
