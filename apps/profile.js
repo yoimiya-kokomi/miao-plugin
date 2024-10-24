@@ -77,6 +77,14 @@ app.reg({
     yzCheck: () => Cfg.get('profileStat', false)
   },
 
+  profileRoleStat: {
+    name: '幻想真境剧诗入门角色统计',
+    fn: ProfileStat.roleStat,
+    rule: /^#202\d{3}(幻想|真境|剧诗|幻想真境剧诗)练度统计$/,
+    yzRule: /^#202\d{3}(幻想|真境|剧诗|幻想真境剧诗)(角色|练度)(汇总|统计|列表)[ |0-9]*$/,
+    yzCheck: () => Cfg.get('profileStat', false)
+  },
+
   talentStat: {
     name: '天赋统计',
     fn: ProfileStat.stat,
