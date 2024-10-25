@@ -138,7 +138,16 @@ const ProfileStat = {
     return overallMazeInfo
   },
 
-  sendElementInfo(e, elements) {
+  sendRoleCombatInfo(e, elements, initialCharacterIds, invitationCharacterIds) {
+    const response = [
+      ProfileStat.getElementInfo(elements),
+      ProfileStat.getInitialCharacterInfo(initialCharacterIds),
+      ProfileStat.getInvitationCharacterInfo(invitationCharacterIds),
+    ].join('\n')
+    e.reply(response)
+  },
+
+  getElementInfo(elements) {
     // 让我们说中文！
     const englishToChineseElements = {
       'anemo': '风',
@@ -151,19 +160,19 @@ const ProfileStat = {
     }
     // 使用 lodash 将元素转换为中文名称，并用'、'组合成'风、岩'
     const chineseElements = lodash.map(elements, (element) => englishToChineseElements[element]).join('、');
-    e.reply(`限制元素：${chineseElements}`)
+    return `限制元素：${chineseElements}`
   },
 
-  sendInitialCharacterInfo(e, initialCharacterIds) {
+  getInitialCharacterInfo(initialCharacterIds) {
     let characters = lodash.compact(lodash.map(initialCharacterIds, (id) => Character.get(id)))
     let characterNames = lodash.map(characters, (character) => character.name).join('、')
-    e.reply(`开幕角色：${characterNames}`)
+    return `开幕角色：${characterNames}`
   },
 
-  sendInvitationCharacterInfo(e, invitationCharacterIds) {
+  getInvitationCharacterInfo(invitationCharacterIds) {
     let characters = lodash.compact(lodash.map(invitationCharacterIds, (id) => Character.get(id)))
     let characterNames = lodash.map(characters, (character) => character.name).join('、')
-    e.reply(`特邀角色：${characterNames}`)
+    return `特邀角色：${characterNames}`
   },
 
   // TODO: BWiki 源的数据暂时没弄完，没接入逻辑中，暂时没啥必要？
@@ -390,12 +399,15 @@ const ProfileStat = {
       }
       let currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
       if (!currentMazeData) {
-        e.reply(`当前月份不在 HomDGCat 数据库中`)
         const n = overallMazeData.length + 4 * 12 + 7 - 1
         const maxYear = Math.floor(n / 12)
         const maxMonth = n % 12 + 1
         const formattedMonth = String(maxMonth).padStart(2, '0'); // 将月份格式化为两位数
-        e.reply(`可供查询的月份：202407 - 202${maxYear}${formattedMonth}`)
+        const response = [
+          `当前月份不在 HomDGCat 数据库中`,
+          `可供查询的月份：202407 - 202${maxYear}${formattedMonth}`
+        ].join('\n')
+        e.reply(response)
         return false
       }
       let initialCharacterIds = ProfileStat.extractInitialCharacterIds(currentMazeData)
@@ -403,9 +415,7 @@ const ProfileStat = {
       let elements = ProfileStat.extractElements(currentMazeData)
       
       // 发送简要的信息
-      ProfileStat.sendElementInfo(e, elements)
-      ProfileStat.sendInitialCharacterInfo(e, initialCharacterIds)
-      ProfileStat.sendInvitationCharacterInfo(e, invitationCharacterIds)
+      ProfileStat.sendRoleCombatInfo(e, elements, initialCharacterIds, invitationCharacterIds)
 
       avatarRet = ProfileStat.mergeStart(avatarRet, initialCharacterIds)
       filterFunc = ProfileStat.getRoleFilterFunc(e, elements, invitationCharacterIds)
