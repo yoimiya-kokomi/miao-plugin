@@ -399,7 +399,7 @@ const ProfileStat = {
       }
       let currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
       if (!currentMazeData) {
-        const n = overallMazeData.length + 4 * 12 + 7 - 1
+        const n = overallMazeData.length - 1 + 4 * 12 + 7 - 1
         const maxYear = Math.floor(n / 12)
         const maxMonth = n % 12 + 1
         const formattedMonth = String(maxMonth).padStart(2, '0'); // 将月份格式化为两位数
