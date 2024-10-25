@@ -391,6 +391,11 @@ const ProfileStat = {
       let currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
       if (!currentMazeData) {
         e.reply(`当前月份不在 HomDGCat 数据库中`)
+        const n = overallMazeData.length + 4 * 12 + 7 - 1
+        const maxYear = Math.floor(n / 12)
+        const maxMonth = n % 12 + 1
+        const formattedMonth = String(maxMonth).padStart(2, '0'); // 将月份格式化为两位数
+        e.reply(`可供查询的月份：202407 - 202${maxYear}${formattedMonth}`)
         return false
       }
       let initialCharacterIds = ProfileStat.extractInitialCharacterIds(currentMazeData)
