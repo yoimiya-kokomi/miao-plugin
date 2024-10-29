@@ -2,8 +2,8 @@ import { Common } from '#miao'
 import { MysApi, Player, Character } from '#miao.models'
 import moment from 'moment'
 import lodash from 'lodash'
-import cheerio from 'cheerio'
 import fetch from 'node-fetch'
+import * as cheerio from 'cheerio'
 
 const ProfileStat = {
   async stat (e) {
