@@ -4,14 +4,12 @@
   "author": "Yoimiya-Kokomi",
   "description": "miao-plugin",
   "type": "module",
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
-    "image-size": "^1.0.2",
-    "axios": "^1.7.7"
+    "image-size": "^1.1.1"
   },
   "devDependencies": {
-    "cheerio": "1.0.0-rc.12",
+    "cheerio": "1.0.0",
     "request": "^2.88.2"
   },
   "imports": {

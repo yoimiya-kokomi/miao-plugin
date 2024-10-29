@@ -2,8 +2,8 @@ import { Common } from '#miao'
 import { MysApi, Player, Character } from '#miao.models'
 import moment from 'moment'
 import lodash from 'lodash'
-import axios from 'axios'
 import cheerio from 'cheerio'
+import fetch from 'node-fetch'
 
 const ProfileStat = {
   async stat (e) {
@@ -120,8 +120,7 @@ const ProfileStat = {
     const request_url = 'https://homdgcat.wiki/gi/CH/maze.js'
     let resData = false
     try {
-        const response = await axios.get(request_url, {timeout: 5000})
-        resData = response.data
+        resData = await (await fetch(request_url)).text()
     } catch (error) {
         logger.error('请求失败:', error)
         return false // 直接返回以停止后续逻辑
@@ -180,8 +179,7 @@ const ProfileStat = {
     const request_url = 'https://wiki.biligame.com/ys/%E5%B9%BB%E6%83%B3%E7%9C%9F%E5%A2%83%E5%89%A7%E8%AF%97'
     try {
       // 发送 GET 请求
-      const response = await axios.get(request_url, {timeout: 5000});
-      const html = response.data;
+      const html = await (await fetch(request_url)).text()
 
       // 加载 HTML
       const $ = cheerio.load(html);
@@ -209,8 +207,7 @@ const ProfileStat = {
       const request_url = `https://wiki.biligame.com/${links[mazeId]}`
 
       // 发送 GET 请求
-      const response = await axios.get(request_url, {timeout: 5000});
-      const html = response.data;
+      const html = await (await fetch(request_url)).text()
 
       // 加载 HTML
       const $ = cheerio.load(html);
