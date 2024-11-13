@@ -2,8 +2,8 @@ import { Common } from '#miao'
 import { MysApi, Player, Character } from '#miao.models'
 import moment from 'moment'
 import lodash from 'lodash'
-import axios from 'axios'
-import cheerio from 'cheerio'
+import fetch from 'node-fetch'
+import * as cheerio from 'cheerio'
 
 const ProfileStat = {
   async stat (e) {
@@ -120,8 +120,7 @@ const ProfileStat = {
     const request_url = 'https://homdgcat.wiki/gi/CH/maze.js'
     let resData = false
     try {
-        const response = await axios.get(request_url, {timeout: 5000})
-        resData = response.data
+        resData = await (await fetch(request_url)).text()
     } catch (error) {
         logger.error('请求失败:', error)
         return false // 直接返回以停止后续逻辑
@@ -138,12 +137,49 @@ const ProfileStat = {
     return overallMazeInfo
   },
 
+  sendRoleCombatInfo(e, elements, initialCharacterIds, invitationCharacterIds) {
+    const response = [
+      ProfileStat.getElementInfo(elements),
+      ProfileStat.getInitialCharacterInfo(initialCharacterIds),
+      ProfileStat.getInvitationCharacterInfo(invitationCharacterIds),
+    ].join('\n')
+    e.reply(response)
+  },
+
+  getElementInfo(elements) {
+    // 让我们说中文！
+    const englishToChineseElements = {
+      'anemo': '风',
+      'geo': '岩',
+      'electro': '雷',
+      'dendro': '草',
+      'hydro': '水',
+      'pyro': '火',
+      'cryo': '冰'
+    }
+    // 使用 lodash 将元素转换为中文名称，并用'、'组合成'风、岩'
+    const chineseElements = lodash.map(elements, (element) => englishToChineseElements[element]).join('、');
+    return `限制元素：${chineseElements}`
+  },
+
+  getInitialCharacterInfo(initialCharacterIds) {
+    let characters = lodash.compact(lodash.map(initialCharacterIds, (id) => Character.get(id)))
+    let characterNames = lodash.map(characters, (character) => character.name).join('、')
+    return `开幕角色：${characterNames}`
+  },
+
+  getInvitationCharacterInfo(invitationCharacterIds) {
+    let characters = lodash.compact(lodash.map(invitationCharacterIds, (id) => Character.get(id)))
+    let characterNames = lodash.map(characters, (character) => character.name).join('、')
+    return `特邀角色：${characterNames}`
+  },
+
+  // TODO: BWiki 源的数据暂时没弄完，没接入逻辑中，暂时没啥必要？
   async getOverallMazeLinkFromBWiki() {
     const request_url = 'https://wiki.biligame.com/ys/%E5%B9%BB%E6%83%B3%E7%9C%9F%E5%A2%83%E5%89%A7%E8%AF%97'
     try {
       // 发送 GET 请求
-      const response = await axios.get(request_url, {timeout: 5000});
-      const html = response.data;
+      const html = await (await fetch(request_url)).text()
 
       // 加载 HTML
       const $ = cheerio.load(html);
@@ -171,8 +207,7 @@ const ProfileStat = {
       const request_url = `https://wiki.biligame.com/${links[mazeId]}`
 
       // 发送 GET 请求
-      const response = await axios.get(request_url, {timeout: 5000});
-      const html = response.data;
+      const html = await (await fetch(request_url)).text()
 
       // 加载 HTML
       const $ = cheerio.load(html);
@@ -303,7 +338,8 @@ const ProfileStat = {
     mergedAvatars = Array.from(avatarMap.values());
 
     // 排序
-    let sortKey = 'level,star,aeq,cons,weapon.level,weapon.star,weapon.affix,fetter'.split(',')
+    // 按照元素进行区分
+    let sortKey = 'elem,level,star,aeq,cons,weapon.level,weapon.star,weapon.affix,fetter'.split(',')
     mergedAvatars = lodash.orderBy(mergedAvatars, sortKey)
     mergedAvatars = mergedAvatars.reverse()
 
@@ -360,13 +396,24 @@ const ProfileStat = {
       }
       let currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
       if (!currentMazeData) {
-        e.reply(`当前月份不在 HomDGCat 数据库中`)
+        const n = overallMazeData.length - 1 + 4 * 12 + 7 - 1
+        const maxYear = Math.floor(n / 12)
+        const maxMonth = n % 12 + 1
+        const formattedMonth = String(maxMonth).padStart(2, '0'); // 将月份格式化为两位数
+        const response = [
+          `当前月份不在 HomDGCat 数据库中`,
+          `可供查询的月份：202407 - 202${maxYear}${formattedMonth}`
+        ].join('\n')
+        e.reply(response)
         return false
       }
       let initialCharacterIds = ProfileStat.extractInitialCharacterIds(currentMazeData)
       let invitationCharacterIds = ProfileStat.extractInvitationCharacterIds(currentMazeData)
       let elements = ProfileStat.extractElements(currentMazeData)
       
+      // 发送简要的信息
+      ProfileStat.sendRoleCombatInfo(e, elements, initialCharacterIds, invitationCharacterIds)
+
       avatarRet = ProfileStat.mergeStart(avatarRet, initialCharacterIds)
       filterFunc = ProfileStat.getRoleFilterFunc(e, elements, invitationCharacterIds)
     } else {
