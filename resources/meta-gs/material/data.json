@@ -2957,5 +2957,49 @@
     "name": "灼灼彩菊",
     "type": "specialty",
     "star": 1
+  },
+  "深邃纠缠的凝视": {
+    "id": "n113067",
+    "name": "深邃纠缠的凝视",
+    "type": "boss",
+    "star": 4
+  },
+  "枯叶紫英": {
+    "id": "n101253",
+    "name": "枯叶紫英",
+    "type": "specialty",
+    "star": 1
+  },
+  "微光角菌": {
+    "id": "n101252",
+    "name": "微光角菌",
+    "type": "specialty",
+    "star": 1
+  },
+  "迷光的蜷叶之心": {
+    "id": 112118,
+    "name": "迷光的蜷叶之心",
+    "type": "monster",
+    "star": 4,
+    "items": {
+      "折光的胚芽": {
+        "id": 112116,
+        "name": "折光的胚芽",
+        "type": "monster",
+        "star": 2
+      },
+      "惑光的阔叶": {
+        "id": 112117,
+        "name": "惑光的阔叶",
+        "type": "monster",
+        "star": 3
+      },
+      "迷光的蜷叶之心": {
+        "id": 112118,
+        "name": "迷光的蜷叶之心",
+        "type": "monster",
+        "star": 4
+      }
+    }
   }
 }
