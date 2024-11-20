@@ -206,6 +206,12 @@ export default function (step, staticStep) {
       data: {
         aDmg: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) / 1000) * step(0.6, 0.1)[refine], step(16)[refine])
       }
+    },
+    乘浪的回旋: {
+      title: '施放元素战技后，生命值上限提升[hpPct]%',
+      refine: {
+        hpPct: step(44)
+      }
     }
   }
 }

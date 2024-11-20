@@ -124,14 +124,19 @@ export default function (step, staticStep) {
       }
     },
 
-    掠食者: {
+    掠食者: [{
       check: ({ element }) => element === '冰',
-      title: '满Buff普攻与重击伤害提高[aDmg]%，埃洛伊攻击力提升66',
+      title: '满Buff普攻与重击伤害提高[aDmg]%',
       refine: {
-        aDmg: [20],
+        aDmg: [20]
+      }
+    }, {
+      check: ({ characterName }) => characterName === '埃洛伊',
+      title: '攻击力提升66点',
+      refine: {
         atkPlus: 66
       }
-    },
+    }],
 
     曚云之月: {
       title: '满层元素爆发伤害提高[qDmg]%',
@@ -275,6 +280,25 @@ export default function (step, staticStep) {
       refine: {
         atkPct: [4.8 * 3, 6 * 3, 7.2 * 3, 8.4 * 3, 9.6 * 3],
         mastery: step(24)
+      }
+    },
+    星鹫赤羽: [{
+      check: ({ element }) => !['草', '岩'].includes(element),
+      title: '触发扩散反应后，攻击力提高[atkPct]%',
+      refine: {
+        atkPct: step(24)
+      }
+    }, {
+      title: '存在至少2名元素类型不同的角色，重击造成的伤害提高[a2Dmg]%,元素爆发伤害提高[qDmg]%',
+      refine: {
+        a2Dmg: step(48),
+        qDmg: step(24)
+      }
+    }],
+    缀花之翎: {
+      title: '重击造成的伤害提升[a2Dmg]%',
+      refine: {
+        a2Dmg: step(6 * 6)
       }
     }
   }
