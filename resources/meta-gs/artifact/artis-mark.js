@@ -22,7 +22,7 @@ export const usefulAttr = {
   温迪: { hp: 0, atk: 75, def: 0, cpct: 80, cdmg: 80, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   珊瑚宫心海: { hp: 100, atk: 50, def: 0, cpct: 0, cdmg: 0, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 100 },
   莫娜: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 75, heal: 0 },
-  阿贝多: { hp: 0, atk: 0, def: 100, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },
+  阿贝多: { hp: 0, atk: 0, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },
   迪奥娜: { hp: 100, atk: 50, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 90, heal: 100 },
   优菈: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 40, phy: 100, recharge: 55, heal: 0 },
   达达利亚: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
@@ -91,5 +91,7 @@ export const usefulAttr = {
   卡齐娜: { hp: 0, atk: 0, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   玛拉妮: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 85, dmg: 100, phy: 0, recharge: 45, heal: 0 },
   基尼奇: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 50, heal: 0 },
-  希诺宁: { hp: 0, atk: 0, def: 100, cpct: 30, cdmg: 30, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 100 }
+  希诺宁: { hp: 0, atk: 0, def: 100, cpct: 30, cdmg: 30, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 100 },
+  恰斯卡: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 80, phy: 0, recharge: 40, heal: 0 },
+  欧洛伦: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, phy: 0, recharge: 75, heal: 0 }
 }
