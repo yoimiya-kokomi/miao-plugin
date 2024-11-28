@@ -95,7 +95,10 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    '忍事录•音律狩猎': [
+      staticIdx(1, 'hpPct'),
+      keyIdx('损失或回复自身生命值，暴击伤害提高[cdmg]%', 'cdmg', 2)
     ]
-
   }
 }
