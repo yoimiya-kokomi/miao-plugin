@@ -46,10 +46,8 @@ let DmgCalc = {
     if (ele === 'phy') {
       dmgNum = (1 + phy.base / 100 + phy.plus / 100 + dynamicPhy / 100)
     }
-    else if (game === 'gs' && talent) 
-      for (let key of ['pyro', 'hydro', 'electro', 'cryo']) 
-        if (talent.includes(key)) 
-          dmgNum = 1
+
+    if (/pyro|hydro|electro|cryo/.test(talent)) dmgNum = 1
 
     // 易伤区
     let enemydmgNum = 1
@@ -137,7 +135,7 @@ let DmgCalc = {
       let reactionElement = attr.element
       const eleMap = { pyro: '火', hydro: '水', electro: '雷', cryo: '冰' }
       Object.keys(eleMap).forEach(key => {
-        if (talent.includes(key)) reactionElement = eleMap[key];        
+        if (new RegExp(key).test(talent)) reactionElement = eleMap[key];        
       })
 
       eleNum = isEle ? DmgMastery.getBasePct(ele, reactionElement) : 1
@@ -277,7 +275,7 @@ let DmgCalc = {
         // 星铁meta数据天赋为百分比前数字
         pctNum = pctNum * 100
       }
-      if (game === 'gs' && talent.includes('color')) {
+      if (game === 'gs' && /color/.test(talent)) {
         let dmgRet = { max: 1e8, avg: 1e8 }
         for (let key of ['pyro', 'hydro', 'electro', 'cryo']) {
           let newTalent = talent.replace('color', key)
