@@ -227,7 +227,7 @@ export default class Artis extends Base {
     let mainAttr = this.getMainAttr()
     let check = true
     pos = pos || (this.isGs ? '3,4,5' : '3,4,5,6')
-    let dmgIdx = this.isGs ? 4 : 5
+    let dmgIdx = this.isGs ? '4' : '5'
     let attrs = attr.split(',')
     Data.eachStr(pos.toString(), (p) => {
       let posAttr = mainAttr[p]

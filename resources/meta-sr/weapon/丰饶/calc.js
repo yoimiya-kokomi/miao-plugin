@@ -50,6 +50,9 @@ export default function (staticIdx, keyIdx) {
         }
       }
     ],
+    何物为真: [
+      staticIdx(1, 'stance')
+    ],
     唯有香如故: [
       staticIdx(1, 'stance'),
       (tables) => {
@@ -61,6 +64,9 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    梦的蒙太奇: [
+      staticIdx(1, 'speedPct')
     ]
   }
 }
