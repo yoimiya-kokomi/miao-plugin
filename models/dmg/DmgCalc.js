@@ -47,8 +47,6 @@ let DmgCalc = {
       dmgNum = (1 + phy.base / 100 + phy.plus / 100 + dynamicPhy / 100)
     }
 
-    if (/pyro|hydro|electro|cryo/.test(talent)) dmgNum = 1
-
     // 易伤区
     let enemydmgNum = 1
     if (game === 'sr') {

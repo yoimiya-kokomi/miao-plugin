@@ -95,6 +95,17 @@ let DmgBuffs = {
             title: `${sets.name}${num}：${buff.elem}` + elebuff.title
           })
         }
+        else if (game === 'gs' && buff.elem === '风') {
+          let elebuff = lodash.cloneDeep(buff)
+          elebuff.data.pyroDmg = elebuff.data.hydroDmg = elebuff.data.cryoDmg = elebuff.data.electroDmg = -buff.data.dmg
+          delete elebuff.isStatic
+          delete elebuff.data.dmg
+          delete elebuff.elem
+          retBuffs.push({
+            ...elebuff,
+            title: `${sets.name}${num}：${buff.elem}` + elebuff.title
+          })
+        }
       })
     })
     return retBuffs
