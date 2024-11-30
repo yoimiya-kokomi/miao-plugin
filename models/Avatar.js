@@ -323,6 +323,9 @@ export default class Avatar extends Base {
           this.attr[key] = artisMain.value
         else      
           this.attr[key] = 0
+      if (artisMain.key === 'anemo')
+        for (let key of ['pyro', 'hydro', 'electro', 'cryo'])
+          this.attr[key] = -artisMain.value
     }
     this.base = attr.getBase()
   }
