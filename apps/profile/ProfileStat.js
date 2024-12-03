@@ -252,32 +252,32 @@ const ProfileStat = {
       const convertedElements = lodash.map(elements, (element) => elementConvertingMapping[element])
 
       // 存储开幕角色的数组
-      const initialAvatars = [];
+      const initialAvatarIds = [];
 
       $('#开幕角色').closest('h2').next('p').children('a').each((index, element) => {
           const avatarName = $(element).text();
           const avatarId = Character.get(avatarName).id 
-          initialAvatars.push(avatarId);
+          initialAvatarIds.push(avatarId);
       });
 
       // 转换成和 HomDGCat 相同的格式
-      const convertedInitialAvatars = lodash.map(initialAvatars, (id) => ({'ID': id - 10000000}))
+      const convertedInitialAvatarIds = lodash.map(initialAvatarIds, (id) => ({'ID': id - 10000000}))
 
       // 存储特邀角色的数组
-      const invitationAvatars = [];
+      const invitationAvatarIds = [];
 
       $('#特邀角色').closest('h2').next('p').children('a').each((index, element) => {
           const avatarName = $(element).text();
           const avatarId = Character.get(avatarName).id 
-          invitationAvatars.push(avatarId);
+          invitationAvatarIds.push(avatarId);
       });
 
       // 转换成和 HomDGCat 相同的格式
-      const convertedInvitationAvatars = lodash.map(invitationAvatars, (id) => ({'ID': id - 10000000}))
+      const convertedInvitationAvatarIds = lodash.map(invitationAvatarIds, (id) => ({'ID': id - 10000000}))
 
       return {
-        'Initial': convertedInitialAvatars,
-        'Invitation': convertedInvitationAvatars,
+        'Initial': convertedInitialAvatarIds,
+        'Invitation': convertedInvitationAvatarIds,
         'Elem': convertedElements
       }
     } else {
