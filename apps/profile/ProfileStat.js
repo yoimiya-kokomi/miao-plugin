@@ -1,4 +1,4 @@
-import { Common } from '#miao'
+import { Common, Cfg } from '#miao'
 import { MysApi, Player, Character } from '#miao.models'
 import moment from 'moment'
 import lodash from 'lodash'
@@ -203,7 +203,7 @@ const ProfileStat = {
 
   async getRequestedMazeDataFromBWiki(e, links) {
     const mazeId = ProfileStat.getMazeId(e)
-    if (mazeId >= 0 && mazeId < overallMazeData.length) {
+    if (mazeId >= 0 && mazeId < links.length) {
       const request_url = `https://wiki.biligame.com/${links[mazeId]}`
 
       // 发送 GET 请求
@@ -222,9 +222,48 @@ const ProfileStat = {
               elements.push(match[1]);
           }
       });
-      // TODO: 剩下的解析，并且转换成和 HomDGCat 相同的格式
-      return elements;
+      
+      // 转换成和 HomDGCat 相同的格式
+      const elementConvertingMapping = {
+        '风': 'Wind',
+        '岩': 'Rock',
+        '雷': 'Elec',
+        '草': 'Grass',
+        '水': 'Water',
+        '火': 'Fire',
+        '冰': 'Ice'
+      }
+      const convertedElements = lodash.map(elements, (element) => elementConvertingMapping[element])
 
+      // 存储开幕角色的数组
+      const initialAvatars = [];
+
+      $('#开幕角色').closest('h2').next('p').children('a').each((index, element) => {
+          const avatarName = $(element).text();
+          const avatarId = Character.get(avatarName).id 
+          initialAvatars.push(avatarId);
+      });
+
+      // 转换成和 HomDGCat 相同的格式
+      const convertedInitialAvatars = lodash.map(initialAvatars, (id) => ({'ID': id - 10000000}))
+
+      // 存储特邀角色的数组
+      const invitationAvatars = [];
+
+      $('#特邀角色').closest('h2').next('p').children('a').each((index, element) => {
+          const avatarName = $(element).text();
+          const avatarId = Character.get(avatarName).id 
+          invitationAvatars.push(avatarId);
+      });
+
+      // 转换成和 HomDGCat 相同的格式
+      const convertedInvitationAvatars = lodash.map(invitationAvatars, (id) => ({'ID': id - 10000000}))
+
+      return {
+        'Initial': convertedInitialAvatars,
+        'Invitation': convertedInvitationAvatars,
+        'Elem': convertedElements
+      }
     } else {
       return false
     }
@@ -389,20 +428,35 @@ const ProfileStat = {
     
     let filterFunc = (x) => true
     if (isRole) {
-      let overallMazeData = await ProfileStat.getOverallMazeData()
+      let c = Cfg.get('roleCharInfoSource', 1)
+      let datasetName
+      let overallMazeData
+      if (c == 1) {
+        datasetName = 'HomDGCat'
+        overallMazeData = await ProfileStat.getOverallMazeData() // data
+      } else if (c == 2) {
+        datasetName = 'BWiki'
+        overallMazeData = await ProfileStat.getOverallMazeLinkFromBWiki() // links
+      }
       if (!overallMazeData) {
-        e.reply(`请求 HomDGCat 数据库出错`)
+        e.reply(`请求 ${datasetName} 数据库出错`)
         return false
       }
-      let currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
+      let currentMazeData
+      if (c == 1) {
+        currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
+      } else if (c == 2) {
+        currentMazeData = await ProfileStat.getRequestedMazeDataFromBWiki(e, overallMazeData)
+      }
+      logger.info('currentMazeData', currentMazeData)
       if (!currentMazeData) {
         const n = overallMazeData.length - 1 + 4 * 12 + 7 - 1
         const maxYear = Math.floor(n / 12)
         const maxMonth = n % 12 + 1
         const formattedMonth = String(maxMonth).padStart(2, '0'); // 将月份格式化为两位数
         const response = [
-          `当前月份不在 HomDGCat 数据库中`,
-          `可供查询的月份：202407 - 202${maxYear}${formattedMonth}`
+          `当前月份不在 ${datasetName} 数据库中，请考虑在设置中更换幻想数据库`,
+          `${datasetName} 数据库目前可供查询的月份：202407 - 202${maxYear}${formattedMonth}`
         ].join('\n')
         e.reply(response)
         return false
