@@ -116,11 +116,27 @@ const ProfileStat = {
     return ds => ds.level >= 70
   },
 
+  async fetchWithTimeout(url, options = {}) {
+    const { timeout = 5000 } = options; // 默认超时时间为 5 秒
+  
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+  
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+  
+    clearTimeout(id);
+  
+    return response;
+  },
+
   async getOverallMazeData() {
     const request_url = 'https://homdgcat.wiki/gi/CH/maze.js'
     let resData = false
     try {
-        resData = await (await fetch(request_url)).text()
+        resData = await (await ProfileStat.fetchWithTimeout(request_url)).text()
     } catch (error) {
         logger.error('请求失败:', error)
         return false // 直接返回以停止后续逻辑
@@ -179,7 +195,7 @@ const ProfileStat = {
     const request_url = 'https://wiki.biligame.com/ys/%E5%B9%BB%E6%83%B3%E7%9C%9F%E5%A2%83%E5%89%A7%E8%AF%97'
     try {
       // 发送 GET 请求
-      const html = await (await fetch(request_url)).text()
+      const html = await (await ProfileStat.fetchWithTimeout(request_url)).text()
 
       // 加载 HTML
       const $ = cheerio.load(html);
@@ -207,7 +223,7 @@ const ProfileStat = {
       const request_url = `https://wiki.biligame.com/${links[mazeId]}`
 
       // 发送 GET 请求
-      const html = await (await fetch(request_url)).text()
+      const html = await (await ProfileStat.fetchWithTimeout(request_url)).text()
 
       // 加载 HTML
       const $ = cheerio.load(html);
@@ -448,7 +464,6 @@ const ProfileStat = {
       } else if (c == 2) {
         currentMazeData = await ProfileStat.getRequestedMazeDataFromBWiki(e, overallMazeData)
       }
-      logger.info('currentMazeData', currentMazeData)
       if (!currentMazeData) {
         const n = overallMazeData.length - 1 + 4 * 12 + 7 - 1
         const maxYear = Math.floor(n / 12)
