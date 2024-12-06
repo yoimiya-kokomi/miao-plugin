@@ -1,4 +1,4 @@
-import { Common } from '#miao'
+import { Common, Cfg } from '#miao'
 import { MysApi, Player, Character } from '#miao.models'
 import moment from 'moment'
 import lodash from 'lodash'
@@ -116,11 +116,27 @@ const ProfileStat = {
     return ds => ds.level >= 70
   },
 
+  async fetchWithTimeout(url, options = {}) {
+    const { timeout = 5000 } = options; // 默认超时时间为 5 秒
+  
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+  
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+  
+    clearTimeout(id);
+  
+    return response;
+  },
+
   async getOverallMazeData() {
     const request_url = 'https://homdgcat.wiki/gi/CH/maze.js'
     let resData = false
     try {
-        resData = await (await fetch(request_url)).text()
+        resData = await (await ProfileStat.fetchWithTimeout(request_url)).text()
     } catch (error) {
         logger.error('请求失败:', error)
         return false // 直接返回以停止后续逻辑
@@ -179,7 +195,7 @@ const ProfileStat = {
     const request_url = 'https://wiki.biligame.com/ys/%E5%B9%BB%E6%83%B3%E7%9C%9F%E5%A2%83%E5%89%A7%E8%AF%97'
     try {
       // 发送 GET 请求
-      const html = await (await fetch(request_url)).text()
+      const html = await (await ProfileStat.fetchWithTimeout(request_url)).text()
 
       // 加载 HTML
       const $ = cheerio.load(html);
@@ -203,11 +219,11 @@ const ProfileStat = {
 
   async getRequestedMazeDataFromBWiki(e, links) {
     const mazeId = ProfileStat.getMazeId(e)
-    if (mazeId >= 0 && mazeId < overallMazeData.length) {
+    if (mazeId >= 0 && mazeId < links.length) {
       const request_url = `https://wiki.biligame.com/${links[mazeId]}`
 
       // 发送 GET 请求
-      const html = await (await fetch(request_url)).text()
+      const html = await (await ProfileStat.fetchWithTimeout(request_url)).text()
 
       // 加载 HTML
       const $ = cheerio.load(html);
@@ -222,9 +238,48 @@ const ProfileStat = {
               elements.push(match[1]);
           }
       });
-      // TODO: 剩下的解析，并且转换成和 HomDGCat 相同的格式
-      return elements;
+      
+      // 转换成和 HomDGCat 相同的格式
+      const elementConvertingMapping = {
+        '风': 'Wind',
+        '岩': 'Rock',
+        '雷': 'Elec',
+        '草': 'Grass',
+        '水': 'Water',
+        '火': 'Fire',
+        '冰': 'Ice'
+      }
+      const convertedElements = lodash.map(elements, (element) => elementConvertingMapping[element])
 
+      // 存储开幕角色的数组
+      const initialAvatarIds = [];
+
+      $('#开幕角色').closest('h2').next('p').children('a').each((index, element) => {
+          const avatarName = $(element).text();
+          const avatarId = Character.get(avatarName).id 
+          initialAvatarIds.push(avatarId);
+      });
+
+      // 转换成和 HomDGCat 相同的格式
+      const convertedInitialAvatarIds = lodash.map(initialAvatarIds, (id) => ({'ID': id - 10000000}))
+
+      // 存储特邀角色的数组
+      const invitationAvatarIds = [];
+
+      $('#特邀角色').closest('h2').next('p').children('a').each((index, element) => {
+          const avatarName = $(element).text();
+          const avatarId = Character.get(avatarName).id 
+          invitationAvatarIds.push(avatarId);
+      });
+
+      // 转换成和 HomDGCat 相同的格式
+      const convertedInvitationAvatarIds = lodash.map(invitationAvatarIds, (id) => ({'ID': id - 10000000}))
+
+      return {
+        'Initial': convertedInitialAvatarIds,
+        'Invitation': convertedInvitationAvatarIds,
+        'Elem': convertedElements
+      }
     } else {
       return false
     }
@@ -389,20 +444,34 @@ const ProfileStat = {
     
     let filterFunc = (x) => true
     if (isRole) {
-      let overallMazeData = await ProfileStat.getOverallMazeData()
+      let c = Cfg.get('roleCharInfoSource', 1)
+      let datasetName
+      let overallMazeData
+      if (c == 1) {
+        datasetName = 'HomDGCat'
+        overallMazeData = await ProfileStat.getOverallMazeData() // data
+      } else if (c == 2) {
+        datasetName = 'BWiki'
+        overallMazeData = await ProfileStat.getOverallMazeLinkFromBWiki() // links
+      }
       if (!overallMazeData) {
-        e.reply(`请求 HomDGCat 数据库出错`)
+        e.reply(`请求 ${datasetName} 数据库出错`)
         return false
       }
-      let currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
+      let currentMazeData
+      if (c == 1) {
+        currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
+      } else if (c == 2) {
+        currentMazeData = await ProfileStat.getRequestedMazeDataFromBWiki(e, overallMazeData)
+      }
       if (!currentMazeData) {
         const n = overallMazeData.length - 1 + 4 * 12 + 7 - 1
         const maxYear = Math.floor(n / 12)
         const maxMonth = n % 12 + 1
         const formattedMonth = String(maxMonth).padStart(2, '0'); // 将月份格式化为两位数
         const response = [
-          `当前月份不在 HomDGCat 数据库中`,
-          `可供查询的月份：202407 - 202${maxYear}${formattedMonth}`
+          `当前月份不在 ${datasetName} 数据库中，请考虑在设置中更换幻想数据库`,
+          `${datasetName} 数据库目前可供查询的月份：202407 - 202${maxYear}${formattedMonth}`
         ].join('\n')
         e.reply(response)
         return false

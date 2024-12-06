@@ -6,10 +6,10 @@
   "type": "module",
   "scripts": {},
   "dependencies": {
+    "cheerio": "^1.0.0",
     "image-size": "^1.1.1"
   },
   "devDependencies": {
-    "cheerio": "1.0.0",
     "request": "^2.88.2"
   },
   "imports": {
