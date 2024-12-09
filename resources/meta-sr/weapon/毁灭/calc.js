@@ -81,6 +81,17 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'stance'),
       keyIdx('释放终结技时，暴击率提高[cpct]%', 'cpct', 2)
     ],
+    // 适配中文圆点和英文圆点，然后直接分开写效果了
+    '忍事录·音律狩猎': [
+      staticIdx(1, 'hpPct'),
+      keyIdx('生命上限提高[hpPct]%', 'hpPct', 1),
+      keyIdx('损失或回复生命值后，暴击伤害提高[cdmg]%', 'cdmg', 2)
+    ],
+    '忍事录•音律狩猎': [
+      staticIdx(1, 'hpPct'),
+      keyIdx('生命上限提高[hpPct]%', 'hpPct', 1),
+      keyIdx('损失或回复生命值后，暴击伤害提高[cdmg]%', 'cdmg', 2)
+    ],
     梦应归于何处: [
       staticIdx(1, 'stance'),
       keyIdx('敌方受到装备者造成的击破伤害提高[breakEnemydmg]%', 'breakEnemydmg', 2)
