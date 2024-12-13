@@ -120,9 +120,11 @@ const ProfileList = {
       chars.push(tmp)
     }
 
-    if (newCount > 0) {
-      hasNew = newCount <= 12
-    }
+    // mys 更新不是通过橱窗展柜，可能突破此限制
+    // if (newCount > 0) {
+    //   hasNew = newCount <= 12
+    // }
+    hasNew = newCount > 0
 
     chars = lodash.sortBy(chars, ['isNew', 'star', 'level', 'id'])
     chars = chars.reverse()
