@@ -11,6 +11,7 @@ import hutaoApi from './api/HutaoApi.js'
 import homoApi from './api/HomoApi.js'
 import avocadoApi from './api/AvocadoApi.js'
 import enkaHSRApi from './api/EnkaHSRApi.js'
+import mysApi from './api/MysApi.js'
 
 const apis = {
   miao: miaoApi,
@@ -18,8 +19,10 @@ const apis = {
   enka: enkaApi,
   hutao: hutaoApi,
   homo: homoApi,
+  mys: mysApi,
   avocado: avocadoApi,
-  enkaHSR: enkaHSRApi
+  enkaHSR: enkaHSRApi,
+  mysHSR: null // TODO
 }
 
 const servs = {}
@@ -45,16 +48,18 @@ const Serv = {
     }
 
     // 如果指定了序号，则返回对应服务。0和1已前置判断
-    // 原神：0自动，1喵，2Enka，3Mgg, 4:Hutao
-    // 星铁：0自动，1喵，2Mihomo，3Avocado, 4EnkaHSR
+    // 原神：0自动，1喵，2Enka，3Mgg，4:Hutao，5:米游社
+    // 星铁：0自动，1喵，2Mihomo，3Avocado，4EnkaHSR，5:米游社
     let servKey = isGs ? {
       2: 'enka',
       3: 'mgg',
-      4: 'hutao'
+      4: 'hutao',
+      5: 'mys'
     } : {
       2: 'homo',
       3: 'avocado',
-      4: 'enkaHSR'
+      4: 'enkaHSR',
+      5: 'mysHSR'
     }
     if (servKey[servIdx]) {
       return Serv.serv(servKey[servIdx])
@@ -83,7 +88,7 @@ const Serv = {
     let { uid } = player
     try {
       player._update = []
-      await req.requestProfile(player, serv, player.game)
+      await req.requestProfile(player, serv)
       return player._update?.length || 0
     } catch (err) {
       if (!e._isReplyed) {
