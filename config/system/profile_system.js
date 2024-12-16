@@ -45,7 +45,7 @@ export const homoApi = {
 }
 
 // 米游社，仅用于占位，并不实际走这边的 url 请求
-export const mysApi = {
+export const mysPanelApi = {
   url: '',
   listApi: ({ url, uid, diyCfg }) => {
     return ''

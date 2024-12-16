@@ -309,8 +309,8 @@ export default class Player extends Base {
   }
 
   // 更新面板
-  async refreshProfile (force = 2) {
-    return await ProfileAvatar.refreshProfile(this, force)
+  async refreshProfile (force = 2, fromMys = false) {
+    return await ProfileAvatar.refreshProfile(this, force, fromMys)
   }
 
   // 更新米游社数据

@@ -1,8 +1,8 @@
 import { Character, Artifact, Weapon } from '#miao.models'
-import { artifactMainIdMapping, artifactAttrIdsMapping } from './MysMappings.js'
+import { artifactMainIdMapping, artifactAttrIdsMapping } from './MysPanelMappings.js'
 import lodash from 'lodash'
 
-let MysData = {
+let MysPanelData = {
   setAvatar (player, ds) {
     let char = Character.get(ds.base.id)
     let avatar = player.getAvatar(ds.base.id, true)
@@ -16,10 +16,22 @@ let MysData = {
       fetter: ds.base.fetter,
       // ds.costumes 是个数组，暂时不知道怎么用
       elem: ds.base.elem,
-      weapon: MysData.getWeapon(ds.weapon),
-      talent: MysData.getTalent(char, ds.skills),
-      artis: MysData.getArtifact(ds.relics)
-    }, 'mys')
+      weapon: MysPanelData.getWeapon(ds.weapon),
+      talent: MysPanelData.getTalent(char, ds.skills),
+      artis: MysPanelData.getArtifact(ds.relics)
+    }, 'mysPanel')
+
+
+    let wtf = {
+      level: ds.base.level,
+      cons: ds.base.actived_constellation_num,
+      fetter: ds.base.fetter,
+      // ds.costumes 是个数组，暂时不知道怎么用
+      elem: ds.base.elem,
+      weapon: MysPanelData.getWeapon(ds.weapon),
+      talent: MysPanelData.getTalent(char, ds.skills),
+      artis: MysPanelData.getArtifact(ds.relics)
+    }
     return avatar
   },
 
@@ -39,13 +51,15 @@ let MysData = {
     let elem = ''
     let idx = 0
     let ret = {}
-    lodash.forEach(ds, (lv, id) => {
+    lodash.forEach(ds, (talent_data) => {
+      const id = talent_data.skill_id
+      const lv = talent_data.level
       let key
       if (talentId[id]) {
         let key = talentId[id]
         elem = elem || talentElem[id]
         ret[key] = lv
-      } else {
+      } else if (talent_data.skill_type == 1) { // 1 主动技能；2 被动技能
         key = ['a', 'e', 'q'][idx++]
         ret[key] = ret[key] || lv
       }
@@ -72,17 +86,17 @@ let MysData = {
       // 因此只能后期“拼凑”出一个大概的强化过程
       ret[idx] = {
         name: arti.name,
-        level: Math.min(20, ((ds.level) || 1) - 1),
+        level: Math.min(20, (ds.level) || 0),
         star: ds.rarity || 5,
-        mainId: MysData.getArtifactMainId(ds.rarity, ds.main_property),
-        attrIds: MysData.getArtifactAttrIds(ds.rarity, ds.sub_property_list)
+        mainId: MysPanelData.getArtifactMainId(ds.rarity, ds.main_property),
+        attrIds: MysPanelData.getArtifactAttrIds(ds.rarity, ds.sub_property_list)
       }
     })
     return ret
   },
 
   getArtifactMainId(rarity, main_property) {
-    return artifactMainIdMapping[main_property] 
+    return artifactMainIdMapping[main_property.property_type]
   },
 
   getArtifactAttrIds(rarity, sub_property_list) {
@@ -90,9 +104,18 @@ let MysData = {
     lodash.forEach(sub_property_list, (sub_property) => {
       const { property_type, value, times} = sub_property
       const combination = artifactAttrIdsMapping[rarity][times][property_type][value]
-      attrIds = [ ...attrIds, combination ]
+      if (combination === undefined) {
+        logger.error(`[米游社更新面板] 圣遗物强化原始数据转换发生错误`)
+        logger.error(`[米游社更新面板] 请复制以下数据汇报至 github miao-plugin 仓库的 issue 处，感谢您的合作`)
+        logger.error(`[米游社更新面板] [rarity = ${rarity}]`)
+        logger.error(`[米游社更新面板] [times = ${times}]`)
+        logger.error(`[米游社更新面板] [property_type = ${property_type}]`)
+        logger.error(`[米游社更新面板] [value = ${value}]`)
+        throw new Error('Invalid combination')
+      }
+      attrIds = [ ...attrIds, ...combination ]
     })
     return attrIds
   }
 }
-export default MysData
+export default MysPanelData
