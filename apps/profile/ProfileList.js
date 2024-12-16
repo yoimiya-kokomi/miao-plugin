@@ -5,11 +5,12 @@ import { Button, ProfileRank, Player, Character } from '#miao.models'
 
 const ProfileList = {
   /**
-   * 刷新面板
+   * 实际的刷新面板逻辑
    * @param e
+   * @param fromMys
    * @returns {Promise<boolean|*>}
    */
-  async refresh (e) {
+  async doRefresh (e, fromMys = false) {
     let uid = await getTargetUid(e)
     if (!uid) {
       e._replyNeedUid || e.reply(['请先发送【#绑定+你的UID】来绑定查询目标\n星铁请使用【#星铁绑定+UID】', new Button(e).bindUid()])
@@ -18,7 +19,7 @@ const ProfileList = {
 
     // 数据更新
     let player = Player.create(e)
-    await player.refreshProfile(2)
+    await player.refreshProfile(2, fromMys)    
 
     if (!player?._update?.length) {
       e._isReplyed || e.reply(['获取角色面板数据失败，请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~', new Button(e).profileList(uid)])
@@ -36,10 +37,29 @@ const ProfileList = {
         e._isReplyed = true
       } else {
         e.newChar = ret
+        e.isNewCharFromMys = fromMys
         return await ProfileList.render(e)
       }
     }
     return true
+  },
+
+  /**
+   * 刷新面板
+   * @param e
+   * @returns {Promise<boolean|*>}
+   */
+  async refresh (e) {
+    return await ProfileList.doRefresh(e, false)
+  },
+
+  /**
+   * 米游社刷新面板
+   * @param e
+   * @returns {Promise<boolean|*>}
+   */
+  async refreshMys (e) {
+    return await ProfileList.doRefresh(e, true)
   },
 
   /**
@@ -81,7 +101,7 @@ const ProfileList = {
     const cfg = await Data.importCfg('cfg')
     // 获取面板数据
     let player = Player.create(e)
-    let servName = Player.getProfileServName(uid, player.game)
+    let servName = e.isNewCharFromMys ? '米游社' : Player.getProfileServName(uid, player.game)
     if (!player.hasProfile) {
       await player.refresh({ profile: true })
     }
@@ -120,9 +140,11 @@ const ProfileList = {
       chars.push(tmp)
     }
 
-    if (newCount > 0) {
-      hasNew = newCount <= 12
-    }
+    // mys 更新不是通过橱窗展柜，可能突破此限制
+    // if (newCount > 0) {
+    //   hasNew = newCount <= 12
+    // }
+    hasNew = newCount > 0
 
     chars = lodash.sortBy(chars, ['isNew', 'star', 'level', 'id'])
     chars = chars.reverse()
