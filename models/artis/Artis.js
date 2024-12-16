@@ -120,12 +120,14 @@ export default class Artis extends Base {
       arti.id = artiObj.id || ds.id || arti.id || ''
       arti.name = artiObj.name || arti.name || ''
       arti.set = artiObj.setName || arti.set || ''
-      arti.level = ds.level || arti.level || 1
+      arti.level = ds.level ?? arti.level ?? 0
       arti.star = artiObj.getStarById(ds.id) || arti.star || 5
     } else {
       arti.name = ds.name || arti.name || ''
       arti.set = ds.set || Artifact.getSetNameByArti(arti.name) || ''
-      arti.level = ds.level || 1
+      // 如果 ds.level 有值的话就赋值为 ds.level，否则就用默认值
+      // 也就是说 ds.level = 0 的话，arti.level 就用 0，而非右边的默认值
+      arti.level = ds.level ?? 0
       arti.star = ds.star || 5
     }
   }

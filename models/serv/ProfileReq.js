@@ -91,11 +91,13 @@ export default class ProfileReq extends Base {
       let params = reqParam.params || {}
       params.timeout = params.timeout || 1000 * 20
       self._isReq = true
-      if (['mys', 'mysHSR'].includes(serv._cfg.id)) {
+      if (['mysPanel', 'mysPanelHSR'].includes(serv._cfg.id)) {
         let mys = await MysApi.init(player.e)
         // 获取所有的 Character ID
         // TODO: 要不要从 player._avatars 里面直接提取所有键作为 character_ids？
         //       不这样做主要是不知道 player._avatars 角色是否为最新
+        //
+        // TODO: 加入仅利用米游社更新部分角色面板，其中部分角色是所有角色的子集
         const character = await mys.getCharacter()
         
         const character_ids = lodash.map(character.list, (c) => c.id) // .toString() // .slice(0, 2)

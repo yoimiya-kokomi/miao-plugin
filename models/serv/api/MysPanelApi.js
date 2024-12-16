@@ -1,10 +1,10 @@
 import lodash from 'lodash'
-import MysData from './MysData.js'
+import MysPanelData from './MysPanelData.js'
 
 export default {
-  id: 'mys',
+  id: 'mysPanel',
   name: '米游社',
-  cfgKey: 'mysApi',
+  cfgKey: 'mysPanelApi',
   // 处理请求参数
   async request (api) {
     let params = {
@@ -23,7 +23,7 @@ export default {
 
   updatePlayer (player, data) {
     lodash.forEach(data.list, (ds) => {
-      let ret = MysData.setAvatar(player, ds)
+      let ret = MysPanelData.setAvatar(player, ds)
       if (ret) {
         player._update.push(ret.id)
       }
