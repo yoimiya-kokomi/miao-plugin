@@ -10,14 +10,6 @@ const ignoreIds = [
   242, // 防沉迷系统公告
   307, // 米游社《绝区零》专属工具一览
   532, // 已知问题及游戏优化说明
-  //257, // 保密测试参与意愿调研
-  //194, // 有奖问卷
-  //203, // 《崩坏：星穹铁道》社媒聚合页上线
-  //567, // 家庭活动日历
-  //183, // 官方社群一览
-  //187, // 《崩坏：星穹铁道》防沉迷系统公告
-  //185, // 《崩坏：星穹铁道》公平运营声明
-  //171  // 《崩坏：星穹铁道》社区专属工具一览
 ]
 
 const ignoreReg = /(测试1|测试2|养成指南|签到福利|绘画征集|活动日历|新品情报|更新说明|预约活动|云·绝区零|新剧情|丽都殊荣)/
@@ -36,12 +28,12 @@ let CalZZZ = {
     let gachaImgs
     let gachaImgsCache = await redis.get('miao:calendarZZZ:gachaImgs')
     if (timeMapCache && gachaImgsCache) {
-      logger.info(`正在使用离线时间表`)
+      //logger.info(`正在使用离线时间表`)
       timeMap = JSON.parse(timeMapCache) || {}
       gachaImgs = JSON.parse(gachaImgsCache) || {}
     } else {
       
-      logger.info(`正在获取在线时间表`)
+      //logger.info(`正在获取在线时间表`)
       let detailApi =`https://announcement-static.mihoyo.com/common/nap_cn/announcement/api/getAnnContent?game=nap&game_biz=nap_cn&lang=zh-cn&bundle_id=nap_cn&platform=pc&region=prod_gf_cn&level=70&channel_id=1`
       let request2 = await fetch(detailApi)
       let detailData = await request2.json()
@@ -55,49 +47,49 @@ let CalZZZ = {
           ds.title = ds.title.replace(/(&amp;)/g, '&')
           ds.content = ds.content.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\),\\.]+(>|&gt;)/g, '')
           ds.content = ds.content.replace(/(（服务器时间）|【|】)/g, '')
-          logger.info(`detail标题读取：${ds.title}`)
+          //logger.info(`detail标题读取：${ds.title}`)
           //从版本更新公告获取版本时间
           let vRet = /(\d\.\d)版本更新(?:概览|说明)/.exec(ds.subtitle)
           if (vRet && vRet[1]) {
-            logger.info(`版本更新：${ds.subtitle}`)
+            //logger.info(`版本更新：${ds.subtitle}`)
             let contentTime = /(?:更新开始时间)(([0-9\\/\\: ]){19,})/.exec(ds.content)
             if (contentTime && contentTime[1]) {
-            logger.info(`读取到更新开始时间：`)
-            logger.info(`${contentTime[1]}`)
+            //logger.info(`读取到更新开始时间：`)
+            //logger.info(`${contentTime[1]}`)
             contentTime[1]= contentTime[1].replace(/\//g, '-')
               let tRet = /(([0-9\\/\\: -]){19,})/.exec(contentTime[1])
               if (tRet && tRet[0]) {
-                logger.info(`读取到的版本时间：${tRet}`)
+                //logger.info(`读取到的版本时间：${tRet}`)
                 versionTime[vRet[1]] = versionTime[vRet[1]] || tRet[0].replace('06:00', '11:00')
-                logger.info(`写入的的版本时间：${versionTime[vRet[1]]}`)
+                //logger.info(`写入的的版本时间：${versionTime[vRet[1]]}`)
               }
             }else{
-              logger.info(`content中未找到版本时间信息`)
+              //logger.info(`content中未找到版本时间信息`)
             }
           }else if(!vRet){
-            logger.info(`title中未找到版本信息`)
+            //logger.info(`title中未找到版本信息`)
           }
           //版本交接时候，从预下载公告获取下版本时间
           let preDLRet = /(\d\.\d)版本「(?:.*?)」预下载/.exec(ds.title)
           if (preDLRet && preDLRet[1]) {
-            logger.info(`版本预下载：${ds.subtitle}`)
+            //logger.info(`版本预下载：${ds.subtitle}`)
             let contentTime = /(?:预下载时间)(([0-9\\/\\: ~]){19,})/.exec(ds.content)
             if (contentTime && contentTime[1]) {
-            logger.info(`读取到预下载时间：`)
-            logger.info(`${contentTime[1]}`)
+            //logger.info(`读取到预下载时间：`)
+            //logger.info(`${contentTime[1]}`)
             contentTime[1]= contentTime[1].replace(/\//g, '-')
             let splitTime= contentTime[1].split('~')
               let tRet = /(([0-9\\/\\: -]){9,})/.exec(splitTime[1])
               if (tRet && tRet[1]) {
-                logger.info(`读取到的版本预下载时间：${tRet}`)
+                //logger.info(`读取到的版本预下载时间：${tRet}`)
                 versionTime[preDLRet[1]] = versionTime[preDLRet[1]] || tRet[1].replace('5:50', '11:00:00')
-                logger.info(`写入的预下载版本时间：${versionTime[preDLRet[1]]}`)
+                //logger.info(`写入的预下载版本时间：${versionTime[preDLRet[1]]}`)
               }
             }else{
-              logger.info(`content中未找到预下载版本时间信息`)
+              //logger.info(`content中未找到预下载版本时间信息`)
             }
           }else if(!preDLRet){
-            logger.info(`title中未找到预下载版本信息`)
+            //logger.info(`title中未找到预下载版本信息`)
           }
         })
 
@@ -106,7 +98,7 @@ let CalZZZ = {
           let { ann_id: annId, content, title } = ds
           title = title.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\),\\.]+(>|&gt;)/g, '')
           if (ignoreReg.test(title)) {
-            logger.info(`标题关键词排除：${title}`)
+            //logger.info(`标题关键词排除：${title}`)
             return true
           }
           //content = content.replaceAll('\u003ch1 style=\"\"\u003e', '※')
@@ -118,22 +110,22 @@ let CalZZZ = {
           
           /*
           if (testReg.test(content)) {
-            logger.info(`内容关键词检测：${title}`)
+            //logger.info(`内容关键词检测：${title}`)
           }
           */
           
           
           if (!contentexec || !contentexec[1]) {
-            //logger.info(`无 contentexec 返回：${annId},${title}`)
+            ////logger.info(`无 contentexec 返回：${annId},${title}`)
             //return true
           }else{
-            logger.info(`有 contentexec 返回：${annId},${title}`)
+            //logger.info(`有 contentexec 返回：${annId},${title}`)
           }
 
           
           //
           if (/调频/.test(content)) {
-            logger.info(`调频：${annId},${title}`)
+            //logger.info(`调频：${annId},${title}`)
             gachaImgs.push(ds.banner)
           }
           //contentexec = contentexec[1]
@@ -143,19 +135,19 @@ let CalZZZ = {
           // 第一种简单格式
           let timeRet = /(?:活动时间)(?:※|\s|：)*([0-9\\/\\: ~]{6,})/.exec(content)
           if (/\d\.\d版本更新后/.test(content)) {
-            logger.info(`${annId},${title}检测到 版本更新后`)
+            //logger.info(`${annId},${title}检测到 版本更新后`)
             let vRet = /(\d\.\d)版本更新后/.exec(content)
             let vTime = ''
             if (vRet && vRet[1] && versionTime[vRet[1]]) {
               vTime = versionTime[vRet[1]]
-              logger.info(`vTime:获取版本时间`)
+              //logger.info(`vTime:获取版本时间`)
             }
             if (!vTime) {
-              logger.info(`vTime:缺少版本时间`)
+              //logger.info(`vTime:缺少版本时间`)
               return true
             }
             if (/永久/.test(content)) {
-              logger.info(`${annId},${title}检测到 永久`)
+              //logger.info(`${annId},${title}检测到 永久`)
               annTime = [vTime, '2099/01/01 00:00:00']
             } else {
               timeRet = /([0-9\\/\\: ]){9,}/.exec(content)
@@ -164,32 +156,32 @@ let CalZZZ = {
               }
             }
           } else if (/预下载/.test(content)) {
-            logger.info(`${annId},${title}检测到 预下载`)
+            //logger.info(`${annId},${title}检测到 预下载`)
             timeRet = /([0-9\\/\\: ~]){9,}/.exec(content)
             annTime = timeRet[0].split('~')
             annTime[0]=moment(annTime[0]).subtract(5, 'days').format('YYYY-MM-DD HH:mm:ss')
           } else if (/调频/.test(content)) {
-            logger.info(`${annId},${title}检测到 调频`)
+            //logger.info(`${annId},${title}检测到 调频`)
             timeRet = /(?:活动时间限定)(?:.*?)((?:[0-9\\/\\: ~]){9,})/.exec(content)
             annTime = timeRet[1].split('~')
           } else if (/卓越搭档/.test(content)) {
-            logger.info(`${annId},${title}检测到 卓越搭档`)
+            //logger.info(`${annId},${title}检测到 卓越搭档`)
             timeRet = /(?:活动时间限定)(?:.*?)((?:[0-9\\/\\: ~]){9,})/.exec(content)
             annTime = timeRet[1].split('~')
           } else if (timeRet && timeRet[1]) {
-            logger.info(`${annId},${title}检测到 活动时间`)
-            logger.info(`${timeRet[1]}`)
+            //logger.info(`${annId},${title}检测到 活动时间`)
+            //logger.info(`${timeRet[1]}`)
             annTime = timeRet[1].split('~')
           }
 
           if (annTime.length === 2) {
-            logger.info(`当前时间映射表公告id:${annId}`)
-            logger.info(`${annTime[0]},${annTime[1]}`)
+            //logger.info(`当前时间映射表公告id:${annId}`)
+            //logger.info(`${annTime[0]},${annTime[1]}`)
             timeMap[annId] = {
               start: annTime[0].trim().replace(/\//g, '-'),
               end: annTime[1].trim().replace(/\//g, '-')
             }
-            logger.info(`时间映射表：${timeMap[annId].start},${timeMap[annId].end}`)
+            //logger.info(`时间映射表：${timeMap[annId].start},${timeMap[annId].end}`)
           }
         }
         lodash.forEach(detailData.data.list, (ds) => ret(ds))
@@ -274,7 +266,7 @@ let CalZZZ = {
     let detail = timeMap[id] || {}
     //也就是说，这里的detail是从timeMap里边来的
     //试试输出title，看看里面有什么
-    logger.info(`getList输出:${ds.subtitle}`)
+    //logger.info(`getList输出:${ds.subtitle}`)
 
     //去掉标签
     title = title.replace(/(<|&lt;)[\w "%:;=\-\\/\\(\\),\\.]+(>|&gt;)/g, '')
@@ -452,6 +444,11 @@ let CalZZZ = {
   },
 
   async render(e) {
+    //是否启用此日历
+    let calEnable = true
+    if (!calEnable) {
+      return false;
+    }
     let calData = await CalZZZ.get()
     let mode = 'calendar'
     if (/(日历列表|活动)$/.test(e.msg)) {
