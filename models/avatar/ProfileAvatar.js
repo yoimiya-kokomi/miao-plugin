@@ -13,7 +13,7 @@ const ProfileAvatar = {
    * @param force
    * @returns {Promise<boolean|number>}
    */
-  async refreshProfile (player, force = 2) {
+  async refreshProfile (player, force = 2, fromMys = false) {
     if (!AvatarUtil.needRefresh(player._profile, force, { 0: 24, 1: 2, 2: 0 })) {
       return false
     }
@@ -21,7 +21,7 @@ const ProfileAvatar = {
     if (![9, 10].includes(uid.toString().length) || !e) {
       return false
     }
-    let ret = await Serv.req(e, player)
+    let ret = await Serv.req(e, player, fromMys)
     if (ret) {
       player._profile = new Date() * 1
       player.save()
@@ -34,7 +34,7 @@ const ProfileAvatar = {
       return true
     }
     // 检查数据源
-    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'homo'].includes(avatar._source)) {
+    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'homo', 'mysPanel'].includes(avatar._source)) {
       return false
     }
     // 检查武器及天赋
