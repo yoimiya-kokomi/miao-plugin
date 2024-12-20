@@ -92,7 +92,7 @@ export default class ProfileReq extends Base {
       params.timeout = params.timeout || 1000 * 20
       self._isReq = true
       if (['mysPanel', 'mysPanelHSR'].includes(serv._cfg.id)) {
-        let mys = await MysApi.init(player.e)
+        let mys = await MysApi.init(player.e, 'cookie')
         // 获取所有的 Character ID
         // TODO: 要不要从 player._avatars 里面直接提取所有键作为 character_ids？
         //       不这样做主要是不知道 player._avatars 角色是否为最新
