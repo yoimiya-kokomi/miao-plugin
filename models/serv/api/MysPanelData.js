@@ -1,5 +1,6 @@
+import { Meta } from '#miao'
 import { Character, Artifact, Weapon } from '#miao.models'
-import { artifactMainIdMapping, artifactAttrIdsMapping } from './MysPanelMappings.js'
+import { artifactMainIdMapping, propertyType2attrName, fixedAttrNames } from './MysPanelMappings.js'
 import lodash from 'lodash'
 
 let MysPanelData = {
@@ -20,18 +21,6 @@ let MysPanelData = {
       talent: MysPanelData.getTalent(char, ds.skills),
       artis: MysPanelData.getArtifact(ds.relics)
     }, 'mysPanel')
-
-
-    let wtf = {
-      level: ds.base.level,
-      cons: ds.base.actived_constellation_num,
-      fetter: ds.base.fetter,
-      // ds.costumes 是个数组，暂时不知道怎么用
-      elem: ds.base.elem,
-      weapon: MysPanelData.getWeapon(ds.weapon),
-      talent: MysPanelData.getTalent(char, ds.skills),
-      artis: MysPanelData.getArtifact(ds.relics)
-    }
     return avatar
   },
 
@@ -99,20 +88,58 @@ let MysPanelData = {
     return artifactMainIdMapping[main_property.property_type]
   },
 
+  getArtifactAttrIdCombination(rarity, curTime, propertyType, valueStr) {
+    const attrName = propertyType2attrName[propertyType];
+    let destValueSum;
+
+    if (fixedAttrNames.includes(attrName)) {
+      destValueSum = parseFloat(valueStr);
+    } else {
+      destValueSum = parseFloat(valueStr.slice(0, -1)) * 0.01;
+    }
+
+    const { attrIdMap, attrMap } = Meta.getMeta('gs', 'arti')
+    const curValues = Object.entries(attrIdMap)
+        .filter(([k, v]) => k.startsWith(rarity) && v.key === attrName)
+        .map(([k, v]) => [v.value, k]);
+
+    let bestErr = 1e6;
+    let bestArr = [];
+
+    // 使用递归实现 itertools.product
+    function product(arrays, repeat) {
+      if (repeat === 0) return [[]];
+      const result = [];
+      const subProduct = product(arrays, repeat - 1);
+      for (const array of arrays) {
+        for (const sub of subProduct) {
+          result.push([array, ...sub]);
+        }
+      }
+      return result;
+    }
+
+    const combinations = product(curValues, curTime + 1);
+
+    for (const curValuesCombination of combinations) {
+      const curValueSum = curValuesCombination.reduce((sum, [v]) => sum + v, 0);
+      const curArr = curValuesCombination.map(([, attrId]) => attrId);
+
+      const err = Math.abs(destValueSum - curValueSum);
+      if (err < bestErr) {
+        bestErr = err;
+        bestArr = curArr;
+      }
+    }
+
+    return bestArr;
+  },
+
   getArtifactAttrIds(rarity, sub_property_list) {
     let attrIds = []
     lodash.forEach(sub_property_list, (sub_property) => {
       const { property_type, value, times} = sub_property
-      const combination = artifactAttrIdsMapping[rarity][times][property_type][value]
-      if (combination === undefined) {
-        logger.error(`[米游社更新面板] 圣遗物强化原始数据转换发生错误`)
-        logger.error(`[米游社更新面板] 请复制以下数据汇报至 github miao-plugin 仓库的 issue 处，感谢您的合作`)
-        logger.error(`[米游社更新面板] [rarity = ${rarity}]`)
-        logger.error(`[米游社更新面板] [times = ${times}]`)
-        logger.error(`[米游社更新面板] [property_type = ${property_type}]`)
-        logger.error(`[米游社更新面板] [value = ${value}]`)
-        throw new Error('Invalid combination')
-      }
+      const combination = MysPanelData.getArtifactAttrIdCombination(rarity, times, property_type, value)
       attrIds = [ ...attrIds, ...combination ]
     })
     return attrIds
