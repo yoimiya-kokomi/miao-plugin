@@ -103,7 +103,14 @@ export default function (staticIdx, keyIdx) {
     ],
     那无数个春天: [
       staticIdx(1, 'effPct'),
-      keyIdx('敌人受到提高[enemydmg]%', 'enemydmg', 3)
+      (tables) => {
+        return {
+          title: '【穷寇】状态下，敌方目标受到的伤害提高[enemydmg]%',
+          data: {
+            enemydmg: tables[2] + tables[3]
+          }
+        }
+      }
     ]
   }
 }

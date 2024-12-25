@@ -224,7 +224,7 @@ export async function profileImgList (e) {
   if (!char || !char.name) {
     return false
   }
-  if ([1, 0].includes(Cfg.get('originalPic') * 1)) {
+  if ([1, 0, 4].includes(Cfg.get('originalPic') * 1)) {
     e.reply('已禁止获取面板图列表')
     return true
   }

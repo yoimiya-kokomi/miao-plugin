@@ -131,6 +131,10 @@ const ProfileChange = {
       let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])(精炼?|叠影?)|(精炼?|叠影?)([1-5一二三四五]))?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
       if (wRet && wRet[7]) {
         let weaponName = lodash.trim(wRet[7])
+        if (/专武/.test(weaponName)) {
+          let char = Character.get(weaponName.replace('专武', '') || lodash.trim(regRet[2]).replace(/\d{9,10}/g, ''), ret.char.game)
+          weaponName = `${char.name}专武`
+        }
         let weapon = Weapon.get(weaponName, game, ret.char.game)
         if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {
           let affix = wRet[2] || wRet[5]

@@ -140,6 +140,14 @@ export const cfgSchema = {
         showDesc: false,
         desc: '#刻晴天赋/#刻晴命座 的天赋信息'
       },
+      roleCharInfoSource: {
+        title: '角色图鉴-幻想真境剧诗角色数据库',
+        key: '幻想数据库',
+        type: 'num',
+        def: 1,
+        input: (n) => Math.min(2, Math.max(1, (n * 1 || 1))),
+        desc: '#202407幻想角色列表 所采用的数据库源。1:HomDGCat数据库，2:BWiki数据库'
+      },
       notReleasedData: {
         title: '未实装角色数据',
         key: '未实装',
@@ -181,8 +189,8 @@ export const cfgSchema = {
         key: '原图',
         type: 'num',
         def: 3,
-        input: (n) => Math.min(3, Math.max(n * 1 || 0, 0)),
-        desc: '允许获取原图，0:不允许, 1:仅允许角色图, 2:仅允许面板图, 3:开启'
+        input: (n) => Math.min(4, Math.max(n * 1 || 0, 0)),
+        desc: '允许获取原图，0:不允许, 1:仅允许角色图, 2:仅允许面板图, 3:开启, 4:仅不允许获取面板图列表'
       },
       commaGroup: {
         title: '数字逗号分组',

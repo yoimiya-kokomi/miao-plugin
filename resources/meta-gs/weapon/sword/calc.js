@@ -15,7 +15,8 @@ export default function (step, staticStep) {
       }
     },
     降临之剑: {
-      title: '旅行者攻击力提高[atkPlus]',
+      check: ({ characterName }) => ['空', '荧'].includes(characterName),
+      title: '攻击力提高[atkPlus]点',
       data: {
         atkPlus: 66
       }
@@ -265,6 +266,34 @@ export default function (step, staticStep) {
       title: "施放元素战技时，防御力提升[defPct]%",
       refine: {
         defPct: step(16)
+      }
+    },
+    弥坚骨: {
+      title: "冲刺或替代冲刺的能力后，普通攻击造成的伤害提高[aPlus]%",
+      data: {
+        aPlus: ({ attr, calc , refine }) => calc(attr.atk) * step(16)[refine] / 100
+      }
+    },
+    岩峰巡歌: [{
+      title: '2层buff使防御力提高[defPct]%所有元素伤害加成提高[dmg]%',
+      refine: {
+        defPct: step(8 * 2),
+        dmg: step(10 * 2)
+      }
+    }, {
+      title: '基于防御力,使队伍中附近所有角色的所有元素伤害加成提高[dmg]%',
+      sort: 9,
+      data: {
+        dmg: ({ attr, calc, refine }) => Math.min(calc(attr.def) / 1000 * step(8)[refine], step(25.6)[refine])
+      }
+    }],
+    厄水之祸: {
+      title: '处于护盾庇护下,普攻和重击造成伤害提升[aDmg]%暴击率提升[aCpct]%',
+      refine: {
+        aDmg: step(20),
+        a2Dmg: step(20),
+        aCpct: step(8),
+        a2Cpct: step(8)
       }
     }
   }

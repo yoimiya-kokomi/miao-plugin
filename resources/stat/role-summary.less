@@ -47,12 +47,12 @@ body,
   .cont {
     // position: relative;
     margin: 5px 10px 5px 5px;
-    width: 175px;
-    height: 90px;
+    width: 150px;
+    height: 82px;
   }
 
   .cont.star-display {
-    width: 230px;
+    width: 300px;
   }
 
   strong {
@@ -71,7 +71,7 @@ body,
       display: block;
       font-weight: normal;
       .font-NZBZ;
-      font-size: 24px;
+      font-size: 20px;
     }
 
     strong {
@@ -94,8 +94,7 @@ body,
     justify-content: flex-start;
 
     .stat-star-container {
-      flex: 0 0 11%;
-      /* 23% 是为了在有间隙的情况下，四个元素一行 */
+      flex: 0 0 10%;
       margin-bottom: 10px;
 
       .stat-star {
@@ -156,47 +155,84 @@ body,
 
   .role-choice-cards-container {
     width: 100%;
-    height: 46%;
+    height: 100%;
     background-color: rgb(231, 229, 217);
     display: flex;
     border-radius: 10px;
     overflow: hidden;
     flex-direction: column;
+  }
 
-    .role-choice-cards-header {
-      width: 100%;
-      height: 30px;
-      background-color: rgb(139, 139, 131);
-      padding: 5px;
-      font-size: 18px;
+  .role-enemy-container {
+    width: 20%;
+    height: 100%;
+    background-color: rgb(231, 229, 217);
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .role-splendour-container {
+    width: 40%;
+    height: 100%;
+    background-color: rgb(231, 229, 217);
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .role-splendour-buff-container {
+    width: 40%;
+    height: 100%;
+    background-color: rgb(231, 229, 217);
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .role-choice-cards-header {
+    width: 100%;
+    height: 30px;
+    background-color: rgb(139, 139, 131);
+    padding: 5px;
+    font-size: 18px;
+  }
+
+  .role-choice-cards-content {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+
+    .role-content-container {
+      width: 40px;
+      display: flex;
+      margin-top: 5px;
+      margin-left: 5px;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 5px
     }
 
-    .role-choice-cards-content {
-      width: 100%;
-      padding: 5px;
-      display: flex;
-
-      .role-content-container {
-        width: 40px;
-        display: flex;
-        margin-top: 5px;
-        margin-left: 5px;
-        flex-direction: column;
-        align-items: center;
-        margin-right: 5px
-      }
-
-      .role-content-icon {
-        width: 40px;
-        height: 40px;
-        background-size: cover;
-        background-color: black;
-        border-radius: 50%;
-      }
+    .role-content-icon {
+      width: 40px;
+      height: 40px;
+      background-size: cover;
+      background-color: black;
+      border-radius: 50%;
     }
   }
 
-  .role-choice-cards-container + .role-choice-cards-container {
+  .role-buff-line {
+    width: 100%;
+    height: 46%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .role-buff-line + .role-buff-line {
     margin-top: 4%;
     /* 两个子元素之间的间距4% */
   }

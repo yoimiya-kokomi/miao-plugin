@@ -250,6 +250,7 @@ let CalSr = {
 
     lodash.forEach(listData.data.list[0].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap, gachaImgs }))
     lodash.forEach(listData.data.pic_list[0].type_list[0].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap, gachaImgs }))
+    lodash.forEach(listData.data.pic_list[0].type_list[1].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap, gachaImgs }))
 
     let versionStartTime
     lodash.forEach(listData.data.list[0].list, (ds) => {
