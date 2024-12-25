@@ -67,6 +67,15 @@ export const enkaHSRApi = {
     return `${url}api/hsr/uid/${uid}/`
   }
 }
+
+// 米游社星铁，仅用于占位，并不实际走这边的 url 请求
+export const mysPanelHSRApi = {
+  url: '',
+  listApi: ({ url, uid, diyCfg }) => {
+    return ''
+  }
+}
+
 export const requestInterval = 3
 
 export const isSys = true

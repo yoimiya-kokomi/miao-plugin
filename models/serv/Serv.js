@@ -12,6 +12,7 @@ import homoApi from './api/HomoApi.js'
 import avocadoApi from './api/AvocadoApi.js'
 import enkaHSRApi from './api/EnkaHSRApi.js'
 import mysPanelApi from './api/MysPanelApi.js'
+import mysPanelHSRApi from './api/MysPanelHSRApi.js'
 
 const apis = {
   miao: miaoApi,
@@ -22,7 +23,7 @@ const apis = {
   mysPanel: mysPanelApi,
   avocado: avocadoApi,
   enkaHSR: enkaHSRApi,
-  mysHSR: null // TODO
+  mysPanelHSR: mysPanelHSRApi
 }
 
 const servs = {}
