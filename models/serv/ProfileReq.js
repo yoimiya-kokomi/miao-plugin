@@ -1,5 +1,7 @@
+import { MysApi } from '#miao.models'
 import Base from '../Base.js'
 import fetch from 'node-fetch'
+import lodash from 'lodash'
 
 export default class ProfileReq extends Base {
   constructor (e, game = 'gs') {
@@ -89,8 +91,29 @@ export default class ProfileReq extends Base {
       let params = reqParam.params || {}
       params.timeout = params.timeout || 1000 * 20
       self._isReq = true
-      let req = await fetch(reqParam.url, params)
-      data = await req.text()
+      let mys
+      switch (serv._cfg.id) {
+        case 'mysPanel':
+          mys = await MysApi.init(player.e, 'cookie')
+          // 获取所有的 Character ID
+          // TODO: 要不要从 player._avatars 里面直接提取所有键作为 character_ids？
+          //       不这样做主要是不知道 player._avatars 角色是否为最新
+          //
+          // TODO: 加入仅利用米游社更新部分角色面板，其中部分角色是所有角色的子集
+          const character = await mys.getCharacter()
+          const character_ids = lodash.map(character.list, (c) => c.id) // .toString() // .slice(0, 2)
+          data = JSON.stringify(await mys.getCharacterDetail(character_ids)) // 跟下面的保持一致
+          break
+        case 'mysPanelHSR':
+          mys = await MysApi.init(player.e, 'cookie')
+          // 这里的 MysApi 没有完成对星铁 API 的封装，所以暂时先直接使用 getData 调用获取角色面板
+          // 值得注意的是原神的角色面板 API 是需要传带查询角色列表的；但是星铁的角色面板 API 是不需要传待查询角色列表的
+          data = JSON.stringify(await mys.getData('avatarInfo')) // 跟下面的保持一致
+          break
+        default:
+          let req = await fetch(reqParam.url, params)
+          data = await req.text()
+      }
       self._isReq = false
       const reqTime = new Date() * 1 - startTime
       this.log(`${logger.green(`请求结束，请求用时${reqTime}ms`)}，面板服务：${serv.name}...`)
@@ -105,7 +128,7 @@ export default class ProfileReq extends Base {
         data = JSON.parse(data)
       }
     } catch (e) {
-      console.log('面板请求错误', e)
+      logger.error('面板请求错误', e)
       self._isReq = false
       data = {}
     }
