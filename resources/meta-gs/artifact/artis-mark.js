@@ -95,6 +95,6 @@ export const usefulAttr = {
   恰斯卡: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 80, phy: 0, recharge: 40, heal: 0 },
   欧洛伦: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   玛薇卡: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
-  茜特菈莉: { hp: 0, atk: 50, def: 0, cpct: 50, cdmg: 50, mastery: 100, dmg: 80, phy: 0, recharge: 75, heal: 0 },
+  茜特菈莉: { hp: 0, atk: 30, def: 0, cpct: 30, cdmg: 30, mastery: 100, dmg: 80, phy: 0, recharge: 100, heal: 0 },
   蓝砚: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 30, dmg: 80, phy: 0, recharge: 75, heal: 0 }
 }
