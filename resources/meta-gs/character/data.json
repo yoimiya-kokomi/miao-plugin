@@ -1628,6 +1628,48 @@
       "q": 3
     }
   },
+  "10000106": {
+    "id": 10000106,
+    "name": "玛薇卡",
+    "abbr": "玛薇卡",
+    "star": 5,
+    "elem": "pyro",
+    "weapon": "claymore",
+    "talentId": {},
+    "talentCons": {
+      "a": 0,
+      "e": 5,
+      "q": 3
+    }
+  },
+  "10000107": {
+    "id": 10000107,
+    "name": "茜特菈莉",
+    "abbr": "茜特菈莉",
+    "star": 5,
+    "elem": "cryo",
+    "weapon": "catalyst",
+    "talentId": {},
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 0
+    }
+  },
+  "10000108": {
+    "id": 10000108,
+    "name": "蓝砚",
+    "abbr": "蓝砚",
+    "star": 4,
+    "elem": "anemo",
+    "weapon": "catalyst",
+    "talentId": {},
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
   "20000000": {
     "id": 20000000,
     "name": "旅行者",

@@ -99,8 +99,4 @@ pnpm install -P
 
 * [Enka.Network](https://enka.network/): 感谢Enka提供的面板服务
 * [Snap.Hutao](https://hut.ao/) : 感谢 DGP Studio 开发的 [胡桃 API](https://github.com/DGP-Studio/Snap.Hutao.Server)
-* QQ群（暂时停止新加入，请见谅）
-    * Yunzai-Bot 官方QQ群：213938015
-    * 喵喵Miao-Plugin QQ群：607710456
-* [爱发电](https://afdian.net/@kokomi) :欢迎老板打赏，喵~
 
