@@ -1499,8 +1499,7 @@
       "a": 0,
       "e": 3,
       "q": 5
-    },
-    "eta": 1717552800000
+    }
   },
   "10000099": {
     "id": 10000099,
@@ -1564,9 +1563,9 @@
     "elem": "hydro",
     "weapon": "catalyst",
     "talentId": {
-      "30000": "a",
-      "30002": "e",
-      "30007": "q"
+      "11021": "a",
+      "11022": "e",
+      "11025": "q"
     },
     "talentCons": {
       "a": 0,
@@ -1635,7 +1634,11 @@
     "star": 5,
     "elem": "pyro",
     "weapon": "claymore",
-    "talentId": {},
+    "talentId": {
+      "11061": "a",
+      "11062": "e",
+      "11065": "q"
+    },
     "talentCons": {
       "a": 0,
       "e": 5,
@@ -1649,11 +1652,15 @@
     "star": 5,
     "elem": "cryo",
     "weapon": "catalyst",
-    "talentId": {},
+    "talentId": {
+      "11071": "a",
+      "11072": "e",
+      "11075": "q"
+    },
     "talentCons": {
       "a": 0,
       "e": 3,
-      "q": 0
+      "q": 5
     }
   },
   "10000108": {
@@ -1663,7 +1670,11 @@
     "star": 4,
     "elem": "anemo",
     "weapon": "catalyst",
-    "talentId": {},
+    "talentId": {
+      "11081": "a",
+      "11082": "e",
+      "11085": "q"
+    },
     "talentCons": {
       "a": 0,
       "e": 3,
