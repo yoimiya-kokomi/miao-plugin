@@ -93,7 +93,7 @@ let Trans = {
     lodash.forEach(artis, (ds, idx) => {
       if (ds.mainId && ds.attrIds) {
         profile[idx] = {
-          level: ds._level || ds.level || 1,
+          level: ds._level ?? ds.level ?? 0,
           star: ds._star || ds.star || 1,
           name: ds._name || ds.name || '',
           mainId: ds.mainId,

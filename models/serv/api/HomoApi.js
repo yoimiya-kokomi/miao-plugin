@@ -91,7 +91,7 @@ const HomoData = {
     lodash.forEach(artis, (ds) => {
       let tmp = {
         id: ds.tid,
-        level: ds.level || 1,
+        level: ds.level ?? 0,
         mainId: ds.mainAffixId,
         attrIds: []
       }

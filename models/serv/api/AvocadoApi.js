@@ -95,7 +95,7 @@ const AvocadoData = {
     lodash.forEach(artis, (ds) => {
       let tmp = {
         id: ds.id,
-        level: ds.level || 1,
+        level: ds.level ?? 0,
         mainId: ds.main_affix_id,
         attrIds: []
       }
