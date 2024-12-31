@@ -219,6 +219,20 @@ export default function (step, staticStep) {
         a2Dmg: step(16),
         a3Dmg: step(16)
       }
-    }
+    },
+    焚曜千阳: [{
+      title: '暴击伤害提高[cdmg]%,攻击力提升[atkPct]%',
+      refine: {
+        cdmg: [20,25,30,35,40],
+        atkPct: [28,35,42,49,56]
+      }
+    }, {
+      check: ({ params }) => params.Nightsoul === true,
+      title: '夜魂加持状态-暴击伤害额外提高[cdmg]%,攻击力额外提升[atkPct]%',
+      refine: {
+        cdmg: [15,18.75,22.5,26.25,30],
+        atkPct: [21,26.25,31.5,36.75,42]
+      }
+    }]
   }
 }

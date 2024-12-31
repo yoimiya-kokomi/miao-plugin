@@ -212,6 +212,13 @@ export default function (step, staticStep) {
       refine: {
         hpPct: step(44)
       }
+    },
+    祭星者之望: {
+      title: '元素精通提升[mastery]点，造成的伤害提升[dmg]%',
+      refine: {
+        mastery: [100,125,150,175,200],
+        dmg: [28,35,42,49,56]
+      }
     }
   }
 }
