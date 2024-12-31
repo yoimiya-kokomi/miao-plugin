@@ -23,7 +23,11 @@
     "key": "atkPct",
     "value": 24
   },
-  "talentId": {},
+  "talentId": {
+    "11081": "a",
+    "11082": "e",
+    "11085": "q"
+  },
   "talentCons": {
     "a": 0,
     "e": 3,
