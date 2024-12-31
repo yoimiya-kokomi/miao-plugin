@@ -82,7 +82,7 @@ export default class Artis extends Base {
         }
         let tmp = {
           ...artis?.getData('img,name,set'),
-          level: ds.level || 1
+          level: ds.level ?? 0
         }
         if (ds.main && ds.attrs) {
           tmp.main = ds.main || null
@@ -163,7 +163,7 @@ export default class Artis extends Base {
     this.eachIdx((ds, idx) => {
       let key = this.isGs ? 'name' : 'id'
       let tmp = {
-        level: ds.level || 1
+        level: ds.level ?? 0
       }
       if (!ds[key]) {
         return true

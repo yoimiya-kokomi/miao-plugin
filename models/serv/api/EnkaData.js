@@ -93,7 +93,7 @@ let EnkaData = {
       }
       ret[idx] = {
         name: arti.name,
-        level: Math.min(20, ((re.level) || 1) - 1),
+        level: Math.min(20, ((re.level) ?? 0) - 1),
         star: flat.rankLevel || 5,
         mainId: re.mainPropId,
         attrIds: re.appendPropIdList
