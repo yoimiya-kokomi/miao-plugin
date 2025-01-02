@@ -298,6 +298,14 @@ body {
   color: #d3bc8d;
   background-image: linear-gradient(to right, #333465, #333465 80%, rgba(51, 52, 101, 0) 100%);
 }
+.cal-abyss-cont .type-newAbyss {
+  background: url("imgs/newAbyss.jpg") #1a3061 top right no-repeat;
+}
+.cal-abyss-cont .type-newAbyss .info {
+  background: none;
+  color: #d3bc8d;
+  background-image: linear-gradient(to right, #1a3061, #1a3061 80%, rgba(26, 48, 97, 0) 100%);
+}
 .cal-abyss-cont .type-abyss-1 {
   background: url("imgs/abyss-1.jpg") #0f0829 top right no-repeat;
 }

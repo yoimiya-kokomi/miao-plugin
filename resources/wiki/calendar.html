@@ -51,31 +51,17 @@
     </table>
   </div>
   <div class="cal-list {{charMode}} char-num-{{charNum}}">
-    {{if game === 'gs'}}
+    {{each abyss li}}
     <div class="cal-abyss-cont">
-      {{each abyss li}}
-        <div class="cal-item type-abyss" style="{{`left:${li.left}%;width:${li.width}%;`}}">
-          <div class="info">
-            <img src="{{_res_path}}/wiki/imgs/abyss-icon.png" class="cal-icon"/>
-            <strong>{{li.title}}</strong>
-            <span>{{li.label}}</span>
-          </div>
-        </div>
-      {{/each}}
-    </div>
-    {{else}}
-      {{each abyss li}}
-      <div class="cal-abyss-cont">
-        <div class="cal-item type-{{li.type}}" style="{{`left:${li.left}%;width:${li.width}%;`}}">
-          <div class="info">
-            <img src="{{_res_path}}/wiki/imgs/{{li.type}}-icon.png" class="cal-icon" />
-            <strong>{{li.title}}</strong>
-            <span>{{li.label}}</span>
-          </div>
+      <div class="cal-item type-{{li.type}}" style="{{`left:${li.left}%;width:${li.width}%;`}}">
+        <div class="info">
+          <img src="{{_res_path}}/wiki/imgs/{{li.type}}-icon.png" class="cal-icon" />
+          <strong>{{li.title}}</strong>
+          <span>{{li.label}}</span>
         </div>
       </div>
-      {{/each}}
-    {{/if}}
+    </div>
+    {{/each}}
     {{each list lis}}
     {{each lis li idx}}
     <div
