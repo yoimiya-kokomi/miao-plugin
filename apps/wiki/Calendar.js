@@ -191,9 +191,12 @@ let Cal = {
     let currM = now.format('MMMM')
     let next = now.add(1, 'M').format(f)
     let nextM = now.format('MMMM')
+    let title = [ `「幻想真境剧诗」· ${lastM}`, `「幻想真境剧诗」· ${currM}`, `「深境螺旋」· ${lastM}`, `「深境螺旋」· ${currM}` ]
 
-    check.push([moment(`${last}-16 04:00:00`), moment(`${curr}-16 03:59:59`), lastM])
-    check.push([moment(`${curr}-16 04:00:00`), moment(`${next}-16 03:59:59`), currM])
+    check.push([ moment(`${last}-01 04:00:00`), moment(`${curr}-01 03:59:59`), title[0] ])
+    check.push([ moment(`${curr}-01 04:00:00`), moment(`${next}-01 03:59:59`), title[1] ])
+    check.push([ moment(`${last}-16 04:00:00`), moment(`${curr}-16 03:59:59`), title[2] ])
+    check.push([ moment(`${curr}-16 04:00:00`), moment(`${next}-16 03:59:59`), title[3] ])
 
     let ret = []
     lodash.forEach(check, (ds) => {
@@ -267,7 +270,7 @@ let Cal = {
    * @returns {boolean}
    */
   getList (ds, target, { startTime, endTime, totalRange, now, timeMap = {} }, isAct = false) {
-    let type = isAct ? 'activity' : 'normal'
+    let type = ds.abyssType ? ds.abyssType : isAct ? "activity" : "normal"
     let id = ds.ann_id
     let title = ds.title
     let banner = isAct ? ds.banner : ''
@@ -367,7 +370,8 @@ let Cal = {
     let abyssCal = Cal.getAbyssCal(dl.startTime, dl.endTime)
     lodash.forEach(abyssCal, (t) => {
       Cal.getList({
-        title: `「深境螺旋」· ${t[2]}`,
+        title: t[2],
+        abyssType: /「幻想真境剧诗」/.test(t[2]) ? "newAbyss" : "abyss",
         start_time: t[0].format('YYYY-MM-DD HH:mm'),
         end_time: t[1].format('YYYY-MM-DD HH:mm')
       }, abyss, { ...dl, now }, true)

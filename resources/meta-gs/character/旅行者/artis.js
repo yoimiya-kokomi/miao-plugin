@@ -10,5 +10,9 @@ export default function ({ elem, attr, weapon, rule, def }) {
       return rule('草主', { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 })
     case 'hydro':
       return rule('水主', { hp: 75, atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 55 })
+    case 'pyro':
+      return rule('火主', { hp: 75, atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 55 })
+    default:
+      return rule('旅行者', { hp: 75, atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 55 })
   }
 }
