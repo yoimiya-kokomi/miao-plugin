@@ -15,7 +15,7 @@ export default function (step, staticStep) {
       }
     },
     降临之剑: {
-      check: ({ characterName }) => ['空', '荧'].includes(characterName),
+      check: ({ characterName }) => ['空', '荧', '旅行者'].includes(characterName),
       title: '攻击力提高[atkPlus]点',
       data: {
         atkPlus: 66
