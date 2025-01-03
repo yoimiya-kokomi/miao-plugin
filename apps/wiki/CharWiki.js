@@ -14,6 +14,7 @@ const CharWiki = {
     if (!e.msg) {
       return false
     }
+    e.game = /星铁|开拓者/.test(e.msg) ? 'sr' : e.game ?? 'gs'
     let ret = wikiReg.exec(msg)
     if (!ret || !ret[1] || !ret[2]) {
       return false
