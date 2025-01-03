@@ -176,6 +176,12 @@ export default function (step, staticStep) {
       refine: {
         eDmg: step(12 * 2)
       }
+    },
+    且住亭御咄: {
+      title: '释放元素战技时，攻击力提升[atkPct]%',
+      refine: {
+        atkPct: step(20)
+      }
     }
   }
 }
