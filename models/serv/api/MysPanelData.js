@@ -7,6 +7,7 @@ let MysPanelData = {
   setAvatar (player, ds) {
     let char = Character.get(ds.base.id)
     let avatar = player.getAvatar(ds.base.id, true)
+    let talentRet = MysPanelData.getTalent(char, ds.skills)
     if (!char) {
       return false
     }
@@ -18,7 +19,7 @@ let MysPanelData = {
       // ds.costumes 是个数组，暂时不知道怎么用
       elem: ds.base.elem,
       weapon: MysPanelData.getWeapon(ds.weapon),
-      talent: MysPanelData.getTalent(char, ds.skills),
+      talent: talentRet.talent,
       artis: MysPanelData.getArtifact(ds.relics)
     }, 'mysPanel')
     return avatar
