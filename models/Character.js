@@ -32,7 +32,9 @@ class Character extends Base {
     this.name = name
     this.game = game
     if (!this.isCustom) {
-      let meta = Meta.getData(game, 'char', CharId.isTraveler(id) ? `${name}:${elem}` : name)
+      let meta = Meta.getData(game, 'char', name)
+      // 是主角就删除meta._detail
+      if (CharId.isTraveler(id)) delete meta?._detail
       this.meta = meta || {}
       if (this.isGs) {
         this.elem = Format.elem(elem || meta.elem, 'anemo')
@@ -166,7 +168,7 @@ class Character extends Base {
       return this.meta?.talentCons || {}
     }
     if (this.isTraveler) {
-      return this.elem === 'dendro' ? { e: 3, q: 5 } : { e: 5, q: 3 }
+      return ['dendro', 'hydro', 'pyro'].includes(this.elem) ? { e: 3, q: 5 } : { e: 5, q: 3 }
     }
     return this.meta?.talentCons || {}
   }
