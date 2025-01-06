@@ -18,7 +18,7 @@ let MysPanelData = {
       costume: ds.costumes?.[0]?.id || 0,
       elem: Format.elem(ds.base.element),
       weapon: MysPanelData.getWeapon(ds.weapon),
-      talent: MysPanelData.getTalent(char, ds.skills),
+      talent: MysPanelData.getTalent(ds.skills),
       artis: MysPanelData.getArtifact(ds.relics)
     }, 'mysPanel')
     return avatar
@@ -34,7 +34,7 @@ let MysPanelData = {
     }
   },
 
-  getTalent (char, ds = {}) {
+  getTalent (ds = {}) {
     let idx = 0
     let ret = {}
     lodash.forEach(ds, (talent_data) => {
