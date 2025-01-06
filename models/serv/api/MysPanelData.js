@@ -1,4 +1,4 @@
-import { Meta } from '#miao'
+import { Format, Meta } from '#miao'
 import { Character, Artifact, Weapon } from '#miao.models'
 import { artifactMainIdMapping, propertyType2attrName, fixedAttrNames } from './MysPanelMappings.js'
 import lodash from 'lodash'
@@ -15,10 +15,10 @@ let MysPanelData = {
       level: ds.base.level,
       cons: ds.base.actived_constellation_num,
       fetter: ds.base.fetter,
-      // ds.costumes 是个数组，暂时不知道怎么用
-      elem: ds.base.elem,
+      costume: ds.costumes?.[0]?.id || 0,
+      elem: Format.elem(ds.base.element),
       weapon: MysPanelData.getWeapon(ds.weapon),
-      talent: MysPanelData.getTalent(char, ds.skills),
+      talent: MysPanelData.getTalent(ds.skills),
       artis: MysPanelData.getArtifact(ds.relics)
     }, 'mysPanel')
     return avatar
@@ -34,29 +34,18 @@ let MysPanelData = {
     }
   },
 
-  getTalent (char, ds = {}) {
-    // 照抄 EnkaData 实现
-    let { talentId = {}, talentElem = {} } = char.meta
-    let elem = ''
+  getTalent (ds = {}) {
     let idx = 0
     let ret = {}
     lodash.forEach(ds, (talent_data) => {
-      const id = talent_data.skill_id
       const lv = talent_data.level
       let key
-      if (talentId[id]) {
-        let key = talentId[id]
-        elem = elem || talentElem[id]
-        ret[key] = lv
-      } else if (talent_data.skill_type == 1) { // 1 主动技能；2 被动技能
+      if (talent_data.skill_type == 1) { // 1 主动技能；2 被动技能
         key = ['a', 'e', 'q'][idx++]
         ret[key] = ret[key] || lv
       }
     })
-    return {
-      elem: elem,
-      talent: ret
-    }
+    return ret
   },
 
   getArtifact (data) {
