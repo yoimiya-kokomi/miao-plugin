@@ -23,7 +23,11 @@
     "key": "cdmg",
     "value": 38.4
   },
-  "talentId": {},
+  "talentId": {
+    "10961": "a",
+    "10962": "e",
+    "10965": "q"
+  },
   "talentCons": {
     "a": 3,
     "e": 0,

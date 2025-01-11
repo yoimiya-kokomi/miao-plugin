@@ -23,7 +23,11 @@
     "key": "cpct",
     "value": 19.2
   },
-  "talentId": {},
+  "talentId": {
+    "10941": "a",
+    "10942": "e",
+    "10945": "q"
+  },
   "talentCons": {
     "a": 0,
     "e": 3,

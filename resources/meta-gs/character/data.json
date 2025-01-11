@@ -1434,7 +1434,11 @@
     "star": 5,
     "elem": "geo",
     "weapon": "sword",
-    "talentId": {},
+    "talentId": {
+      "10941": "a",
+      "10942": "e",
+      "10945": "q"
+    },
     "talentCons": {
       "a": 0,
       "e": 3,
@@ -1468,7 +1472,11 @@
     "star": 5,
     "elem": "pyro",
     "weapon": "polearm",
-    "talentId": {},
+    "talentId": {
+      "10961": "a",
+      "10962": "e",
+      "10965": "q"
+    },
     "talentCons": {
       "a": 3,
       "e": 0,
@@ -1575,9 +1583,9 @@
     "elem": "hydro",
     "weapon": "catalyst",
     "talentId": {
-      "11021": "a",
-      "11022": "e",
-      "11025": "q"
+      "30000": "a",
+      "30002": "e",
+      "30007": "q"
     },
     "talentCons": {
       "a": 0,
@@ -1629,9 +1637,9 @@
     "elem": "electro",
     "weapon": "bow",
     "talentId": {
-      "11051": "a",
-      "11052": "e",
-      "11055": "q"
+      "30501": "a",
+      "30502": "e",
+      "30505": "q"
     },
     "talentCons": {
       "a": 0,
