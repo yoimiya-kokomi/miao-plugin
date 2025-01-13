@@ -195,9 +195,9 @@ export default function (step, staticStep) {
       }
     }],
     冲浪时光: [staticStep('hpPct', 20), {
-      title: '施放元素战技后，普通攻击造成的伤害提升[dmg]%',
+      title: '施放元素战技后，普通攻击造成的伤害提升[aDmg]%',
       refine: {
-        dmg: step(12 * 4)
+        aDmg: step(12 * 4)
       }
     }],
     木棉之环: {
