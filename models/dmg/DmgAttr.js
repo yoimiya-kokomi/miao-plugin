@@ -91,6 +91,7 @@ let DmgAttr = {
         ret.aggravate = 0 // 超激化
         ret.spread = 0 // 蔓激化
         ret.fykx = 0 // 敌人反应抗性降低
+        ret.fyplus = 0 // 反应伤害值提升
       } else if (game === 'sr') {
         ret.sp = char.sp * 1
         // 超击破
@@ -198,7 +199,7 @@ let DmgAttr = {
         title = title.replace(`[${key}]`, Format.comma(val, 1))
 
         // 技能提高
-        let tRet = /^(a|a2|a3|e|q|t|dot|break)(Def|Ignore|Dmg|Enemydmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key)
+        let tRet = /^(a|a2|a3|e|q|t|dot|break|nightsoul)(Def|Ignore|Dmg|Enemydmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key)
         if (tRet) {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0
           return
@@ -217,7 +218,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx', 'multi'].includes(key)) {
+        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx', 'multi', 'fyplus'].includes(key)) {
           attr[key] += val * 1 || 0
           return
         }

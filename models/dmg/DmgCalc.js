@@ -39,6 +39,7 @@ let DmgCalc = {
 
     // 倍率独立乘区
     let multiNum = attr.multi / 100
+    let fyplus = attr.fyplus
 
     // 增伤区
     let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100 + dynamicDmg / 100)
@@ -189,7 +190,7 @@ let DmgCalc = {
       case 'burgeon':
       case 'hyperBloom': {
         eleBase *= eleBaseDmg[level]
-        ret = { avg: eleBase * eleNum * kNum }
+        ret = { avg: (eleBase + fyplus) * eleNum * kNum }
         break
       }
 

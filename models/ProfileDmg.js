@@ -44,6 +44,7 @@ export default class ProfileDmg extends Base {
     let profile = this.profile
     let ret = {}
     let talentData = profile.talent || {}
+    ret.talentLevel = talentData
     let detail = char.detail
     let { isSr, isGs } = this
     lodash.forEach((isSr ? 'a,a2,e,e2,q,q2,t' : 'a,e,q').split(','), (key) => {

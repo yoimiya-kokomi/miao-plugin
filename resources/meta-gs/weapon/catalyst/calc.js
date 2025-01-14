@@ -97,8 +97,7 @@ export default function (step, staticStep) {
       title: '护盾+满层情况下攻击力提高[atkPct]%',
       buffCount: 10,
       refine: {
-        atkPct: step(4),
-        shield: step(20)
+        atkPct: step(4)
       }
     }],
     不灭月华: [staticStep('heal', 10, 2.5), {
