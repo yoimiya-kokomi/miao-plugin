@@ -139,10 +139,10 @@ const CharImg = {
     add('qFace', 'imgs/face', 'imgs/face-q')
     add('splash', 'imgs/splash')
     add('preview', 'imgs/preview')
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 5; i++) {
       add(`tree${i}`, `imgs/tree-${i}`)
     }
-    for (let key of ['a', 'e', 'q', 't', 'z', 'a2', 'e2', 'q2']) {
+    for (let key of ['a', 'e', 'q', 't', 'z', 'a2', 'e2', 'q2', 'me', 'mt']) {
       add(key, `imgs/talent-${key}`)
     }
     for (let i = 1; i <= 6; i++) {
