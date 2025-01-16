@@ -270,7 +270,9 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
       穹·存护: '开拓者·存护',
       星·存护: '开拓者·存护',
       穹·同谐: '开拓者·同谐',
-      星·同谐: '开拓者·同谐'
+      星·同谐: '开拓者·同谐',
+      穹·记忆: '开拓者·记忆',
+      星·记忆: '开拓者·记忆'
     }
     if (titleName[char.name]) {
       title = `${e.isSr ? '*' : '#'}${titleName[char.name]}${modeTitleMap[mode]}排行`
