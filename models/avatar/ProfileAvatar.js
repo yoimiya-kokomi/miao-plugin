@@ -76,7 +76,7 @@ const ProfileAvatar = {
       isSuper = true
     }
 
-    let treeSet = ['101', '102', '103', '201', '202', '203', '204', '205', '206', '207', '208', '209', '210']
+    let treeSet = ['101', '102', '103', '201', '202', '203', '204', '205', '206', '207', '208', '209', '210','301','302']
     let treeSuper = false
     if (!isGs && profile.trees) {
       treeSuper = true

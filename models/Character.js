@@ -261,7 +261,9 @@ class Character extends Base {
         '002': 'e',
         '003': 'q',
         '004': 't',
-        '007': 'z'
+        '007': 'z',
+        "301": "me",
+        "302": "mt"
       }[id]
     }
     return false

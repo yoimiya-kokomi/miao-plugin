@@ -15,7 +15,7 @@ let MysPanelHSRData = {
       level: ds.level,
       cons: ds.rank,
       weapon: ds.equip ? MysPanelHSRData.getWeapon(ds.equip) : null,
-      talent: MysPanelHSRData.getTalent(char, ds.skills),
+      talent: MysPanelHSRData.getTalent(char, ds.rank, ds.skills),
       trees: MysPanelHSRData.getTrees(ds.skills),
       artis: MysPanelHSRData.getArtifact([...ds.relics, ...ds.ornaments])
     }, 'mysPanelHSR')
@@ -30,14 +30,9 @@ let MysPanelHSRData = {
     }
   },
 
-  getTalent (char, ds = {}) {
+  getTalent (char, cons, ds = {}) {
     // 照抄 EnkaData 实现
-    let { talentId = {}, talentElem = {} } = char.meta
-    // 这里编号有出入，需要先洗一下
-    // e.g. 800501 -> 8005001
-    talentId = lodash.mapKeys(talentId, (value, key) => {
-      return key.substring(0, 4) + '0' + key.substring(4)
-    })
+    let { talentId = {}, talentCons = {} } = char.meta
     let idx = 0
     let ret = {}
     lodash.forEach(ds, (talent_data) => {
@@ -48,10 +43,16 @@ let MysPanelHSRData = {
         let key = talentId[id]
         ret[key] = lv
       } else if (talent_data.point_type == 2) { // 1 属性加成；2 aeqtz；3 额外能力
-        key = ['a', 'e', 'q', 't', 'z'][idx++]
+        key = ['a', 'e', 'q', 't', 'z', 'me', 'mt'][idx++]
         ret[key] = ret[key] || lv
       }
     })
+    if (cons >= 3) {
+      lodash.forEach(talentCons, (lv, key) => {
+        let addTalent = { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1 }
+        if (lv != 0 && ret[key] && cons >= lv) ret[key] = Math.max(1, ret[key] - addTalent[key])
+      })
+    }
     return ret
   },
 
