@@ -10,7 +10,7 @@ const CharTalent = {
     let ret = {}
     let addTalent = {
       gs: { a: 3, e: 3, q: 3 },
-      sr: { a: 1, e: 2, q: 2, t: 2 }
+      sr: { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1}
     }
     lodash.forEach(addTalent[game], (addNum, key) => {
       let ds = talent[key]
