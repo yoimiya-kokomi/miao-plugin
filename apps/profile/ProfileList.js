@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { getTargetUid } from './ProfileCommon.js'
-import { Common, Data } from '#miao'
+import { Cfg, Common, Data } from '#miao'
 import { Button, ProfileRank, Player, Character } from '#miao.models'
 
 const ProfileList = {
@@ -50,7 +50,8 @@ const ProfileList = {
    * @returns {Promise<boolean|*>}
    */
   async refresh (e) {
-    return await ProfileList.doRefresh(e, false)
+    let hasCk = e.user.hasCk && e.user.getUid(e.game) == e.user.getMysUser(e).getUid(e.game)
+    return await ProfileList.doRefresh(e, Cfg.get('mysServer') && hasCk)
   },
 
   /**

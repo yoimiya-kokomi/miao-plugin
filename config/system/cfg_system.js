@@ -101,6 +101,12 @@ export const cfgSchema = {
         input: (n) => /[0-4]{1,3}/.test(n) ? n : '0',
         desc: '星铁面板服务选择：0:自动，1:喵Api(需具备Token)，2:Mihomo，3:Avocado(鳄梨)，4:EnkaHSR。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如114代表国服B服Miao,国外Enka'
       },
+      mysServer: {
+        title: '米游社更新面板',
+        key: '米游社更新面板',
+        def: false,
+        desc: '用户有ck时，默认调用米游社更新面板数据'
+      },
       costumeSplash: {
         title: '使用自定义面板插图',
         key: '面板图',
