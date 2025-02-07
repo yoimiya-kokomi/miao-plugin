@@ -336,5 +336,14 @@ export default {
         qDmg: 20
       }
     }
+  },
+  凯歌祝捷的英豪: {
+    2: attr('atkPct', 12),
+    4: [attr('speedPct', 6), {
+      title: '装备者的忆灵攻击时，装备者和忆灵的暴击伤害提高[cdmg]%',
+      data: {
+        cdmg: 30
+      }
+    }]
   }
 }
