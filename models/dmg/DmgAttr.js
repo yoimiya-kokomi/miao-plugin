@@ -75,6 +75,7 @@ let DmgAttr = {
       ret.refine = ((weapon.affix || ret.refine || 1) * 1 - 1) || 0 // 武器精炼
       ret.multi = 0 // 倍率独立乘区
       ret.kx = 0 // 敌人抗性降低
+      ret.staticAttrPct = attr.staticAttrPct
       if (game === 'gs') {
         ret.vaporize = 0 // 蒸发
         ret.melt = 0 // 融化
@@ -209,6 +210,14 @@ let DmgAttr = {
           attr[aRet[1]][aRet[2] ? aRet[2].toLowerCase() : 'plus'] += val * 1 || 0
           return
         }
+
+        // hp、atk、def的基础值增加时（例如玛薇卡2命在夜魂加持状态下时，基础攻击力提高200）
+        let bRet = /^(hp|atk|def)(Base)$/.exec(key)
+        if (bRet) {
+          attr[bRet[1]][bRet[2].toLowerCase()] += val * 1 || 0
+          attr[bRet[1]]['plus'] += val * attr['staticAttrPct'][bRet[1] + 'Pct'] / 100 || 0
+        }
+        
         if (key === 'enemyDef') {
           attr.enemy.def += val * 1 || 0
           return
