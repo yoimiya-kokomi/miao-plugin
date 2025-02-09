@@ -107,6 +107,10 @@ export default function (staticIdx, keyIdx) {
     ],
     '忍法帖•缭乱破魔': [
       staticIdx(1, 'stance')
+    ],
+    '向着不可追问处': [
+      staticIdx(1,'cpct'),
+      keyIdx('战技和终结技造成的伤害提高[eDmg]%', { eDmg: 2, qDmg: 2 })
     ]
   }
 }
