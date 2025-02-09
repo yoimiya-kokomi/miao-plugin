@@ -36,4 +36,13 @@ export const buffs = [{
   data: {
     dmg: ({ talent }) => talent.q['风元素伤害加成']
   }
+}, {
+  title: '珐露珊天赋：处于「祈风之赐」效果下角色的普通攻击、重击、下落攻击、元素战技或元素爆发对敌人造成风元素伤害时，基于珐露珊基础攻击力的32%，提高造成的伤害。',
+  data: {
+    aPlus: ({ attr }) => attr.atk.base * 32 / 100 ,
+    a2Plus: ({ attr }) => attr.atk.base * 32 / 100 ,
+    a3Plus: ({ attr }) => attr.atk.base * 32 / 100 ,
+    ePlus: ({ attr }) => attr.atk.base * 32 / 100 ,
+    qPlus: ({ attr }) => attr.atk.base * 32 / 100
+  }
 }]
