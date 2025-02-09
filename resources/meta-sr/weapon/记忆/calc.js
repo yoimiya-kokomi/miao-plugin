@@ -15,7 +15,7 @@ export default function (staticIdx, keyIdx) {
     ],
     天才们的问候: [
       staticIdx(1, 'atkPct'),
-      keyIdx('普攻伤害提高[admg]%', 'admg', 2)
+      keyIdx('普攻伤害提高[aDmg]%', 'aDmg', 2)
     ],
     胜利只在朝夕间: [
       staticIdx(1, 'cdmg'),
@@ -25,10 +25,10 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'speed'),
       (tables) => {
         return {
-          title: '暴击伤害提高[cdmg]%，普攻伤害提高[admg]%',
+          title: '暴击伤害提高[cdmg]%，普攻伤害提高[aDmg]%',
           data: {
             cdmg: tables[2] * 6,
-            admg: tables[3] * 6
+            aDmg: tables[3] * 6
           }
         }
       }
