@@ -150,13 +150,15 @@ class AttrData extends Base {
     let staticAttrPct = {
       atkPct: 0,
       defPct: 0,
-      hpPct: 0
+      hpPct: 0,
+      dmgPct: 0
     }
     let _attr = this._attr
     if (_attr) {
       lodash.forEach(['atk', 'def', 'hp'], (key) => {
         staticAttrPct[key + 'Pct'] += _attr[key]['pct']
       })
+      staticAttrPct.dmgPct += _attr.dmg.plus
     }
     ret.staticAttrPct = staticAttrPct
     
