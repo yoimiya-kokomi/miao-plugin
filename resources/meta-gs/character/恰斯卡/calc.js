@@ -8,6 +8,22 @@ export const details = [{
   params: { ShadowSpirit: true, AllShadowhuntShell: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['焕光追影弹伤害'], 'a2,nightsoul', 'scene')
 },{
+  title: 'E焕光追影弹最低增幅伤害',
+  dmgKey: 'z',
+  params: { ShadowSpirit: true, AllShadowhuntShell: true },
+  dmg: ({ talent }, dmg) => dmg(talent.e['焕光追影弹伤害'], 'a2,nightsoul', 'scene,vaporize')
+},{
+  title: 'E焕光追影弹最高增幅伤害',
+  dmgKey: 'z',
+  params: { ShadowSpirit: true, AllShadowhuntShell: true },
+  dmg: ({ talent }, dmg) => {
+    let ret = dmg(talent.e['焕光追影弹伤害'], 'a2,nightsoul', 'scene,vaporize')
+    return {
+      dmg: ret.dmg * 2 / 1.5,
+      avg: ret.avg * 2 / 1.5
+    }
+  }
+},{
   title: 'Q裂风索魂弹伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['裂风索魂弹伤害'], 'q,nightsoul')
 },{
@@ -30,7 +46,7 @@ export const details = [{
 }]
 
 export const defParams = { Nightsoul: true }
-export const defDmgIdx = 1
+export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
