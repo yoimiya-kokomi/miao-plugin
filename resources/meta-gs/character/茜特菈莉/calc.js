@@ -17,6 +17,10 @@ export const details = [{
   params: { windstorm: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['冰风暴伤害'], 'q,nightsoul', 'melt')
 }, {
+  title: '双火班希Q融化伤害',
+  params: { windstorm: true, team: true },
+  dmg: ({ talent }, dmg) => dmg(talent.q['冰风暴伤害'], 'q,nightsoul', 'melt')
+}, {
   check: ({ cons }) => cons >= 1,
   title: '「星刃」基础伤害提升值',
   dmg: ({ calc, attr }) => {
@@ -49,6 +53,14 @@ export const buffs = [{
   cons: 6,
   data: {
     dmg: 2.5 * 40
+  }
+}, {
+  check: ({ params }) => params.team === true,
+  title: '双火班希：班尼特6命风鹰剑宗室4，希诺宁0+0',
+  data: {
+    atkPlus: 1203,
+    atkPct: 25 + 20,
+    kx: 36,
   }
 }]
 

@@ -16,7 +16,7 @@ export const enkaApi = {
   url: 'https://enka.network/',
   userAgent: 'Miao-Plugin/3.1',
   listApi: ({ url, uid, diyCfg }) => {
-    return `${url}api/uid/${uid}/`
+    return `${url}api/uid/${uid}`
   }
 }
 
@@ -64,7 +64,7 @@ export const enkaHSRApi = {
   url: 'https://enka.network/',
   userAgent: 'Miao-Plugin/3.1',
   listApi: ({ url, uid, diyCfg }) => {
-    return `${url}api/hsr/uid/${uid}/`
+    return `${url}api/hsr/uid/${uid}`
   }
 }
 
