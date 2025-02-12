@@ -193,7 +193,7 @@ let DmgCalc = {
       case 'burgeon':
       case 'hyperBloom': {
         eleBase *= eleBaseDmg[level]
-        ret = { avg: (eleBase + fyplus) * eleNum * kNum }
+        ret = { avg: (eleBase * eleNum + fyplus) * kNum }
         break
       }
 

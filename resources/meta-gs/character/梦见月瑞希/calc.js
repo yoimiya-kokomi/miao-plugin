@@ -45,7 +45,7 @@ export const buffs = [{
   cons: 1,
   sort: 9,
   data: {
-    fyplus: ({ attr, calc }) => calc(attr.mastery) * 900 / 100
+    fyplus: ({ attr, calc }) => calc(attr.mastery) * 1100 / 100
   }
 }, {
   title: '瑞希被动：其他的火、水、冰雷、元素角色的攻击命中敌人时,元素精通提升[mastery]点',
