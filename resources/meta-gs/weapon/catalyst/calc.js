@@ -225,6 +225,12 @@ export default function (step, staticStep) {
         _buff: ({ element, refine }) => !['草', '岩'].includes(element) ? 3 : 2,
         mastery: ({ element, refine }) => !['草', '岩'].includes(element) ? step(120 + 96 + 32)[refine] : step(96 + 32)[refine]
       }
-    }
+    },
+    溢彩心念: [staticStep('atkPct', 28), {
+      title: '施放元素战技或元素爆发后进行下落攻击造成的暴击伤害提升[a3Cdmg]',
+      data: {
+        a3Cdmg: step(28 + 40)
+      }
+    }]
   }
 }
