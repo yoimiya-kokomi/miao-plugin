@@ -141,6 +141,7 @@ let ProfileDetail = {
     if (!profile) {
       return true
     }
+    profile.uid = e.uid
     char = profile.char || char
     let a = profile.attr
     let base = profile.base

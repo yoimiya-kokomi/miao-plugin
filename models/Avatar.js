@@ -339,9 +339,9 @@ export default class Avatar extends Base {
   // 计算当前profileData的伤害信息
   async calcDmg ({ enemyLv = 103, mode = 'profile', dmgIdx = 0, idxIsInput = false }) {
     if (!this.dmg || this.dmg._update !== this._update) {
-      let ds = this.getData('id,level,elem,attr,cons,artis:artis.sets,trees')
+      let ds = this.getData('id,level,elem,attr,cons,artis:artis.sets,trees,uid')
       ds.talent = lodash.mapValues(this.talent, 'level')
-      ds.weapon = Data.getData(this.weapon, 'name,affix')
+      ds.weapon = Data.getData(this.weapon, 'name,affix,level')
       ds._update = this._update
       this.dmg = new ProfileDmg(ds, this.game)
     }

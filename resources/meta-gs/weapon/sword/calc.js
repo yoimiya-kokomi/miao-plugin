@@ -113,24 +113,14 @@ export default function (step, staticStep) {
         recharge: ({ attr, calc, refine }) => calc(attr.mastery) * step(0.036)[refine]
       }
     },
-    波乱月白经津: [{
-      title: '元素伤害加成[dmg]%',
-      refine: {
-        dmg: step(12)
-      }
-    }, {
+    波乱月白经津: [staticStep('dmg', 12), {
       title: '满层提高普攻[aDmg]%',
       buffCount: 2,
       refine: {
         aDmg: step(20)
       }
     }],
-    雾切之回光: [{
-      title: '元素伤害加成[dmg]%',
-      refine: {
-        dmg: step(12)
-      }
-    }, {
+    雾切之回光: [staticStep('dmg', 12), {
       title: '满层获得伤害加成[dmg]%',
       refine: {
         dmg: step(28)
@@ -165,12 +155,7 @@ export default function (step, staticStep) {
         ePlus: ({ attr, calc, refine }) => calc(attr.mastery) * step(120)[refine] / 100
       }
     }],
-    斫峰之刃: [{
-      title: '护盾强效提升[shield]%',
-      refine: {
-        shield: step(20)
-      }
-    }, {
+    斫峰之刃: [staticStep('shield', 20), {
       title: '满Buff提高攻击力[atkPct]%',
       buffCount: 10,
       refine: {

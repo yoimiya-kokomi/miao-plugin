@@ -87,12 +87,7 @@ export default function (step, staticStep) {
         dmg: step(8)
       }
     },
-    天空之卷: {
-      title: '元素伤害加成提升[dmg]%',
-      refine: {
-        dmg: step(12)
-      }
-    },
+    天空之卷: staticStep('dmg', 12),
     尘世之锁: [staticStep('shield', 20), {
       title: '护盾+满层情况下攻击力提高[atkPct]%',
       buffCount: 10,
@@ -228,7 +223,7 @@ export default function (step, staticStep) {
     },
     溢彩心念: [staticStep('atkPct', 28), {
       title: '施放元素战技或元素爆发后进行下落攻击造成的暴击伤害提升[a3Cdmg]',
-      data: {
+      refine: {
         a3Cdmg: step(28 + 40)
       }
     }]
