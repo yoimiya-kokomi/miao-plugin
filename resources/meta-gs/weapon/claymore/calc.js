@@ -105,12 +105,7 @@ export default function (step, staticStep) {
         atkPct: step(40)
       }
     }],
-    无工之剑: [{
-      title: '护盾强效提高[shield]%',
-      refine: {
-        shield: step(20)
-      }
-    }, {
+    无工之剑: [staticStep('shield', 20), {
       title: '满Buff护盾下攻击力提高[atkPct]%',
       buffCount: 10,
       refine: {

@@ -64,16 +64,11 @@ export default function (step, staticStep) {
       title: '满层元素爆发伤害提高[qDmg]%',
       refine: { qDmg: step(40) }
     },
-    贯虹之槊: [{
+    贯虹之槊: [staticStep('shield', 20), {
       title: '护盾满层状态提高攻击力[atkPct]%',
       buffCount: 10,
       refine: {
         atkPct: step(4)
-      }
-    }, {
-      title: '护盾强效提高[shield]%',
-      refine: {
-        shield: step(20)
       }
     }],
     和璞鸢: {
@@ -110,13 +105,12 @@ export default function (step, staticStep) {
         }
       }
     }],
-    息灾: {
-      title: '获得[dmg]%元素伤害加成，满Buff提供[atkPct]%攻击力加成',
+    息灾: [staticStep('dmg', 12), {
+      title: '满Buff提供[atkPct]%攻击力加成',
       data: {
-        dmg: ({ refine }) => step(12)[refine],
         atkPct: ({ refine, params }) => step(3.2 * 6)[refine] * (params.off_field === true ? 2 : 1)
       }
-    },
+    }],
     贯月矢: {
       title: '拾取苏生之叶的角色攻击力提升[atkPct]%',
       refine: {
