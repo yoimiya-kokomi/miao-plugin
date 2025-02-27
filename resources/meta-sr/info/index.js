@@ -31,7 +31,7 @@ export const poolNameSr = {
   大黑塔: '视界来信',
   阿格莱雅: '裁酌天命',
   缇宝: '径复原初',
-  万敌: '血炬狮心',
+  万敌: '血炬狮心'
 }
 
 export const poolDetailSr = [{
