@@ -2,7 +2,7 @@ export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
-  title: '满层【解读】强化战技伤害·主目标',
+  title: '强化战技伤害·主目标',
   params: { Enhanced_Skill: true },
   dmg: ({ talent, cons }, dmg) => {
     let num = cons < 1 ? 42 : 63
@@ -13,22 +13,22 @@ export const details = [{
     }
   }
 }, {
-  title: '满层【谜底】终结技伤害',
+  title: '终结技伤害',
   params: { Ultimate: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
-  title: '6命满层【谜底】终结技伤害·1名敌人',
+  title: '6命终结技伤害·1名敌人',
   params: { Ultimate: true },
   cons: 6,
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + 400 / 100, 'q')
 }, {
-  title: '6命满层【谜底】终结技伤害·3名敌人',
+  title: '6命终结技伤害·3名敌人',
   params: { Ultimate: true },
   cons: 6,
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + 140 / 100, 'q')
 }]
 
-export const defDmgIdx = 2
+export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [ {
