@@ -345,5 +345,16 @@ export default {
         cdmg: 30
       }
     }]
+  },
+  哀歌覆国的诗人: {
+    2: attr('quantum', 10),
+    4: [attr('speedPct', -8), {
+      title: '装备者速度小于[_speed]时，暴击率提高[cpct]%',
+      check: ({ attr }) => attr.speed < 110,
+      data: {
+        _speed: ({ attr }) => attr.speed < 95 ? 95 : 110,
+        cpct: ({ attr }) => attr.speed < 95 ? 32 : 20
+      }
+    }]
   }
 }
