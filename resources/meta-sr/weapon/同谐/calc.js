@@ -58,7 +58,10 @@ export default function (staticIdx, keyIdx) {
     芳华待灼: [
       staticIdx(1, 'atkPct'),
       keyIdx('有两名及以上相同命途我方角色，暴击伤害提高[cdmg]%', 'cdmg', 2)
+    ],
+    如果时间是一朵花: [
+      staticIdx(1, 'cdmg'),
+      keyIdx('当装备者持有【谕示】时，我方全体目标的暴击伤害提高[cdmg]%', 'cdmg', 2)
     ]
-
   }
 }
