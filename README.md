@@ -26,6 +26,18 @@ pnpm install -P
 
 进行安装。安装完毕后，管理员只需发送 `#喵喵更新` 即可自动更新 miao-plugin。
 
+注：目前gitee源因为不可阻挡的原因无法使用，需要切换到github源请在 Yunzai-Bot 根目录夹打开终端执行以下指令
+
+```
+git -C plugins/miao-plugin remote set-url origin https://github.com/yoimiya-kokomi/miao-plugin
+```
+
+如果网络较差可使用代理加速服务
+
+```
+git -C plugins/miao-plugin remote set-url origin https://ghfast.top/https://github.com/yoimiya-kokomi/miao-plugin
+```
+
 ### 手工下载安装（不推荐）
 
 手工下载安装包，解压后将`miao-plugin-master`更名为`miao-plugin`，然后放置在Yunzai的plugins目录内
