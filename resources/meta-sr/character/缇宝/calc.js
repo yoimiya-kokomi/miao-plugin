@@ -27,7 +27,7 @@ export const buffs = [{
 }, {
   title: '缇宝终结技：敌方目标受到的伤害提高[dmg]%',
   data: {
-    dmg: ({ talent }) => talent.q['受到的伤害提高'] * 100
+    enemydmg: ({ talent }) => talent.q['受到的伤害提高'] * 100
   }
 }, {
   title: '缇宝额外能力：施放天赋的追加攻击后，缇宝造成的伤害提高72%，该效果最多叠加3层',
@@ -39,7 +39,7 @@ export const buffs = [{
   title: '缇宝额外能力：缇宝的生命上限提高，提高数值等同于我方全体角色生命上限之和的9%',
   tree: 2,
   data: {
-    hpPct: 9
+    hpPlus: ({ calc, attr }) => calc(attr.hp) * 9 / 100
   }
 }, {
   title: '缇宝4魂：【神启】持续期间，我方全体造成伤害时无视目标[ignore]%的防御',
