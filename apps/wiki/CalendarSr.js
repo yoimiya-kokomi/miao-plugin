@@ -182,7 +182,7 @@ let CalSr = {
       type = 'weapon'
       extra.sort = 2
       banner = gachaImgs.shift()
-    } else if (/角色活动跃迁/.test(title)) {
+    } else if (/活动跃迁/.test(title)) {
       type = 'character'
       extra.sort = 1
       banner = gachaImgs.shift()
