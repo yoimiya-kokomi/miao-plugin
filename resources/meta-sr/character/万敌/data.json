@@ -236,7 +236,7 @@
       "desc": "消耗<nobr>150</nobr>点充能，对敌方单体造成等同于万敌<nobr>$1[i]%</nobr>生命上限的<span>虚数</span>属性伤害，同时对其相邻目标造成等同于万敌<nobr>$2[i]%</nobr>生命上限的<span>虚数</span>属性伤害。<br />该技能会自动施放。此技能期间无法积攒充能。",
       "tables": {
         "1": {
-          "name": "TODO",
+          "name": "技能伤害",
           "isSame": false,
           "values": [
             1.4,
@@ -257,7 +257,7 @@
           ]
         },
         "2": {
-          "name": "TODO",
+          "name": "相邻目标伤害",
           "isSame": false,
           "values": [
             0.84,
