@@ -345,5 +345,35 @@ export default {
         cdmg: 30
       }
     }]
+  },
+  哀歌覆国的诗人: {
+    2: attr('quantum', 10),
+    4: [attr('speedPct', -8), {
+      title: '装备者速度小于[_speed]时，暴击率提高[cpct]%',
+      check: ({ attr }) => attr.speed < 110,
+      data: {
+        _speed: ({ attr }) => attr.speed < 95 ? 95 : 110,
+        cpct: ({ attr }) => attr.speed < 95 ? 32 : 20
+      }
+    }]
+  },
+  谧宁拾骨地: {
+    2: [attr('hpPct', 12), {
+      title: '生命值大于等于5000时暴击伤害提升28%',
+      check: ({ calc, attr }) => calc(attr.hp) >= 5000,
+      data: {
+        cdmg: 28
+      }
+    }]
+  },
+  渊思寂虑的巨树: {
+    2: [attr('speedPct', 6), {
+      title: '速度大于等于[_speed]时，治疗量提高[heal]%',
+      check: ({attr }) => attr.speed >= 135,
+      data: {
+        _speed: ({ attr }) => attr.speed >= 180 ? 180 : 135,
+        heal: ({ attr }) => attr.speed >= 180 ? 20 : 12
+      }
+    }]
   }
 }

@@ -82,6 +82,12 @@ const ArtisMarkCfg = {
         if (artis.is('绝缘4') && check('recharge', maxWeight, 75, false)) {
           title.push('绝缘4')
         }
+
+        // 西风系列武器判定。如果携带西风系列武器，则暴击权重强制提高至 100
+        if (/^西风(长枪|大剑|剑|猎弓|秘典)$/.test(wn) && weight.cpct < 100) {
+          weight['cpct'] = 100
+          title.push('西风')
+        }
       }
 
       title = title.length > 0 ? title.join('') : '通用'

@@ -176,6 +176,12 @@ export default function (step, staticStep) {
       refine: {
         atkPct: step(20)
       }
-    }
+    },
+    香韵奏者: [staticStep('atkPct', 12), {
+      title: '处于后台时进行治疗，攻击力提升[atkPct]%',
+      refine: {
+        atkPct: step(12 + 32)
+      }
+    }]
   }
 }
