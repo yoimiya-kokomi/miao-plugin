@@ -12,7 +12,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: '天赋持续伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.t['持续伤害'], 't')
+  dmg: ({ talent }, dmg) => dmg(talent.t['持续伤害'], 'dot', 'skillDot')
 }]
 
 export const defDmgIdx = 4
@@ -51,10 +51,10 @@ export const buffs = [{
     dmg: 40
   }
 }, {
-  title: '椒丘2命：敌方目标处于【烬煨】状态时，【烬煨】对其造成的火属性持续伤害倍率提高[tPct]%',
+  title: '椒丘2命：敌方目标处于【烬煨】状态时，【烬煨】对其造成的火属性持续伤害倍率提高[dotPct]%',
   cons: 2,
   data: {
-    tPct: 300
+    dotPct: 300
   }
 }, {
   title: '椒丘6命：满层【烬煨】会使目标的全属性抗性降低[kx]%',
