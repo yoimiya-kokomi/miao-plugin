@@ -49,7 +49,7 @@ let DmgCalc = {
     }
 
     if (/^scene,.*/.test(ele) || /.*,scene$/.test(ele) || ele === 'scene') {
-      let dmgPct = attr.staticAttrPct.dmgPct / 100
+      let dmgPct = attr.staticAttr.dmg.plus / 100
       if (dmgPct > 0) {
         dmgNum = (dmgNum - dmgPct) < 1 ? 1 : (dmgNum - dmgPct)
       }

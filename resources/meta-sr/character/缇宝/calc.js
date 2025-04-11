@@ -48,11 +48,10 @@ export const buffs = [{
     ignore: 18
   }
 }, {
-  check: ({ params }) => params.cons6 === true,
-  title: '缇宝6魂：天赋的追加攻击造成的伤害提高[dmg]%',
+  title: '缇宝6魂：天赋的追加攻击造成的伤害提高[tDmg]%',
   cons: 6,
   data: {
-    dmg: 729
+    tDmg: 729
   }
 }]
 
