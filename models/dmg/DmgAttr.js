@@ -75,7 +75,7 @@ let DmgAttr = {
       ret.refine = ((weapon.affix || ret.refine || 1) * 1 - 1) || 0 // 武器精炼
       ret.multi = 0 // 倍率独立乘区
       ret.kx = 0 // 敌人抗性降低
-      ret.staticAttrPct = attr.staticAttrPct
+      ret.staticAttr = attr.staticAttr
       if (game === 'gs') {
         ret.vaporize = 0 // 蒸发
         ret.melt = 0 // 融化
@@ -131,7 +131,7 @@ let DmgAttr = {
       let aCfg = attrMap[reduceAttr]
       attr[reduceAttr][aCfg.calc] -= aCfg.value
     }
-    
+
     lodash.forEach(buffs, (buff) => {
       meta.mastery = meta.mastery || buff.mastery // 先反应
     })
@@ -205,19 +205,20 @@ let DmgAttr = {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0
           return
         }
-        let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|enemydmg|phy|shield|speed|stance)(Plus|Pct|Inc)?$/.exec(key)
+
+        let aRet = /^(mastery|cpct|cdmg|heal|recharge|dmg|enemydmg|phy|shield|speed|stance)(Plus|Pct|Inc)?$/.exec(key)
         if (aRet) {
           attr[aRet[1]][aRet[2] ? aRet[2].toLowerCase() : 'plus'] += val * 1 || 0
           return
         }
-
-        // hp、atk、def的基础值增加时（例如玛薇卡2命在夜魂加持状态下时，基础攻击力提高200）
-        let bRet = /^(hp|atk|def)(Base)$/.exec(key)
+        let bRet = /^(hp|def|atk)(Base|Plus|Pct|Inc)?$/.exec(key)
         if (bRet) {
-          attr[bRet[1]][bRet[2].toLowerCase()] += val * 1 || 0
-          attr[bRet[1]]['plus'] += val * attr['staticAttrPct'][bRet[1] + 'Pct'] / 100 || 0
+          bRet[bRet[1]][bRet[2] ? bRet[2].toLowerCase() : 'plus'] += val * 1 || 0
+          // hp、atk、def的基础值增加时（例如玛薇卡2命在夜魂加持状态下时，基础攻击力提高200）
+          if (bRet[2] === 'Base') attr[bRet[1]].plus += val * attr.staticAttr[bRet[1]].pct / 100 || 0
+          return
         }
-        
+
         if (key === 'enemyDef') {
           attr.enemy.def += val * 1 || 0
           return

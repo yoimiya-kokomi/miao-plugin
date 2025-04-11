@@ -349,11 +349,11 @@ export default {
   哀歌覆国的诗人: {
     2: attr('quantum', 10),
     4: [attr('speedPct', -8), {
-      title: '装备者速度小于[_speed]时，暴击率提高[cpct]%',
-      check: ({ attr }) => attr.speed < 110,
+      check: ({ attr, calc }) => calc(attr.staticAttr.speed) < 110,
+      title: '进入战斗时，若装备者的速度小于[_speed]，使装备者的暴击率提高[cpct]%',
       data: {
-        _speed: ({ attr }) => attr.speed < 95 ? 95 : 110,
-        cpct: ({ attr }) => attr.speed < 95 ? 32 : 20
+        _speed: ({ attr, calc }) => calc(attr.staticAttr.speed) < 95 ? 95 : 110,
+        cpct: ({ attr, calc }) => calc(attr.staticAttr.speed) < 95 ? 32 : 20
       }
     }]
   },
@@ -369,7 +369,7 @@ export default {
   渊思寂虑的巨树: {
     2: [attr('speedPct', 6), {
       title: '速度大于等于[_speed]时，治疗量提高[heal]%',
-      check: ({attr }) => attr.speed >= 135,
+      check: ({ attr }) => attr.speed >= 135,
       data: {
         _speed: ({ attr }) => attr.speed >= 180 ? 180 : 135,
         heal: ({ attr }) => attr.speed >= 180 ? 20 : 12

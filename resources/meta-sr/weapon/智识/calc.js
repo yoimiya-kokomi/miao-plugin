@@ -108,8 +108,8 @@ export default function (staticIdx, keyIdx) {
     '忍法帖•缭乱破魔': [
       staticIdx(1, 'stance')
     ],
-    '向着不可追问处': [
-      staticIdx(1,'cpct'),
+    向着不可追问处: [
+      staticIdx(1, 'cpct'),
       keyIdx('战技和终结技造成的伤害提高[eDmg]%', { eDmg: 2, qDmg: 2 })
     ],
     宇宙大生意: [
@@ -123,16 +123,8 @@ export default function (staticIdx, keyIdx) {
         }
       }
     ],
-    '生命当付之一炬': [
-      (tables) => {
-        return {
-          title: '装备者对其造成的伤害提高[dmg]%, 装备者使其防御力降低[enemyDef]%',
-          data: {
-            dmg: tables[1],
-            enemyDef: tables[2],
-          }
-        }
-      }
+    生命当付之一炬: [
+      keyIdx('装备者对其造成的伤害提高[dmg]%，装备者使其防御力降低[ignore]%', { dmg: 1, ignore: 2 })
     ]
   }
 }

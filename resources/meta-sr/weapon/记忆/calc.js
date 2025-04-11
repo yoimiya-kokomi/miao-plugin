@@ -35,25 +35,11 @@ export default function (staticIdx, keyIdx) {
     ],
     记忆永不落幕: [
       staticIdx(1, 'speedPct'),
-      (tables) => {
-        return {
-          title: '装备者施放战技后，使我方全体造成的伤害提高[dmg]％',
-          data: {
-            dmg: tables[2],
-          }
-        }
-      }
+      keyIdx('装备者施放战技后，使我方全体造成的伤害提高[dmg]%', 'dmg', 2)
     ],
     '让告别，更美一些': [
       staticIdx(1, 'hpPct'),
-      (tables) => {
-        return {
-          title: '无视目标[breakignore]％的防御力',
-          data: {
-            breakignore: tables[2],
-          }
-        }
-      }
+      keyIdx('无视目标[ignore]%的防御力', 'ignore', 2)
     ]
   }
 }
