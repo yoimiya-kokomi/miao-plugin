@@ -112,7 +112,7 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1,'cpct'),
       keyIdx('战技和终结技造成的伤害提高[eDmg]%', { eDmg: 2, qDmg: 2 })
     ],
-    宇宙大生意:: [
+    宇宙大生意: [
       staticIdx(1, 'atkPct'),
       (tables) => {
         return {
