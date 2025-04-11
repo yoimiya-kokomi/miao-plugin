@@ -213,7 +213,7 @@ let DmgAttr = {
         }
         let bRet = /^(hp|def|atk)(Base|Plus|Pct|Inc)?$/.exec(key)
         if (bRet) {
-          bRet[bRet[1]][bRet[2] ? bRet[2].toLowerCase() : 'plus'] += val * 1 || 0
+          attr[bRet[1]][bRet[2] ? bRet[2].toLowerCase() : 'plus'] += val * 1 || 0
           // hp、atk、def的基础值增加时（例如玛薇卡2命在夜魂加持状态下时，基础攻击力提高200）
           if (bRet[2] === 'Base') attr[bRet[1]].plus += val * attr.staticAttr[bRet[1]].pct / 100 || 0
           return
