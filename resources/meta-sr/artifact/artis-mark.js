@@ -4,7 +4,7 @@
  */
 export const usefulAttr = {
   那刻夏: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
-  瑕蝶: { hp: 100, atk: 0, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 30, dmg: 100 },
+  遐蝶: { hp: 100, atk: 0, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 30, dmg: 100 },
   万敌: { hp: 100, atk: 0, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 30, dmg: 100 },
   缇宝: { hp: 100, atk: 0, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
   阿格莱雅: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 100 },
