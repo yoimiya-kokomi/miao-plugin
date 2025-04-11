@@ -32,6 +32,17 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    '让告别，更美一些': [
+      staticIdx(1, 'hpPct'),
+      (tables) => {
+        return {
+          title: '无视目标[breakignore]％的防御力',
+          data: {
+            breakignore: tables[2],
+          }
+        }
+      }
     ]
   }
 }
