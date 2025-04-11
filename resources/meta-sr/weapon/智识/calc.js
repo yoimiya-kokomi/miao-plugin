@@ -111,6 +111,28 @@ export default function (staticIdx, keyIdx) {
     '向着不可追问处': [
       staticIdx(1,'cpct'),
       keyIdx('战技和终结技造成的伤害提高[eDmg]%', { eDmg: 2, qDmg: 2 })
+    ],
+    宇宙大生意:: [
+      staticIdx(1, 'atkPct'),
+      (tables) => {
+        return {
+          title: '造成的伤害提高[dmg]%',
+          data: {
+            dmg: tables[2] * 7
+          }
+        }
+      }
+    ],
+    '生命当付之一炬': [
+      (tables) => {
+        return {
+          title: '装备者对其造成的伤害提高[dmg]%, 装备者使其防御力降低[enemyDef]%',
+          data: {
+            dmg: tables[1],
+            enemyDef: tables[2],
+          }
+        }
+      }
     ]
   }
 }
