@@ -15,27 +15,25 @@
 请使用 git 进行安装，以方便后续升级。在 Yunzai-Bot 根目录夹打开终端，运行下述指令之一
 
 ```
-// 使用gitee
-git clone --depth=1 https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+// 使用 GitCode
+git clone --depth=1 https://gitcode.com/TimeRainStarSky/miao-plugin.git plugins/miao-plugin
 pnpm install -P
 
-// 使用github
-git clone --depth=1 https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+// 使用 GitHub
+git clone --depth=1 https://github.com/yoimiya-kokomi/miao-plugin plugins/miao-plugin
 pnpm install -P
 ```
 
 进行安装。安装完毕后，管理员只需发送 `#喵喵更新` 即可自动更新 miao-plugin。
 
-注：目前gitee源因为不可阻挡的原因无法使用，需要切换到github源请在 Yunzai-Bot 根目录夹打开终端执行以下指令
+注：目前 Gitee 源无法使用，需要换源，在云崽目录执行
 
 ```
+// 使用 GitCode
+git -C plugins/miao-plugin remote set-url origin https://gitcode.com/TimeRainStarSky/miao-plugin.git
+
+// 使用 GitHub
 git -C plugins/miao-plugin remote set-url origin https://github.com/yoimiya-kokomi/miao-plugin
-```
-
-如果网络较差可使用代理加速服务
-
-```
-git -C plugins/miao-plugin remote set-url origin https://ghfast.top/https://github.com/yoimiya-kokomi/miao-plugin
 ```
 
 ### 手工下载安装（不推荐）
