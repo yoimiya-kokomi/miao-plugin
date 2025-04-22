@@ -379,7 +379,6 @@ body {
 .dmg-cont .tr.thead > div {
   color: #d3bc8e;
   background: rgba(0, 0, 0, 0.4);
-  line-height: 40px;
   height: 40px;
   font-size: 15px;
 }
