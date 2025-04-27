@@ -55,13 +55,13 @@
 {{if detail.talent[type]}}
 <div class="talent-box elem-bg">
   <div class="talent-detail cont {{detail.talent[type+2]?'talent-merge':''}}">
-    {{ set minLv = game === 'gs' ? 6 : (type === 'a' || type === 'a2' ? 1 : (type === 'me' || type === 'mt' ? 4 : 6)) }}
-    {{set maxLv = game === 'gs' ? 13 : (type==='a' || type ==='a2' ? 7 : (type === 'me' || type === 'mt' ? 10 : 12 ))}}
+    {{ set minLv = game === 'gs' ? 6 : (type === 'a' || type === 'a2' || type === 'me' || type === 'mt' ? 1 : 6) }}
+    {{ set maxLv = game === 'gs' ? 13 : (type === 'a' || type === 'a2' || type === 'me' || type === 'mt' ? 7 : 12 )}}
     <% include(_tpl_path+'/talent-detail.html', [detail.talent[type], {_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
 
     {{if detail.talent[type+2]}}
-      {{ set minLv = game === 'gs' ? 6 : (type === 'a' || type === 'a2' ? 1 : (type === 'me' || type === 'mt' ? 4 : 6)) }}
-      {{set maxLv = game === 'gs' ? 13 : (type==='a' || type ==='a2' ? 7 : (type === 'me' || type === 'mt' ? 10 : 12 ))}}
+      {{ set minLv = game === 'gs' ? 6 : (type === 'a' || type === 'a2' || type === 'me' || type === 'mt' ? 1 : 6) }}
+      {{ set maxLv = game === 'gs' ? 13 : (type === 'a' || type === 'a2' || type === 'me' || type === 'mt' ? 7 : 12 )}}
       <% include(_tpl_path+'/talent-detail.html', [detail.talent[type+2], {_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
     {{/if}}
   </div>
