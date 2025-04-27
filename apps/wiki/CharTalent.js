@@ -13,7 +13,7 @@ const CharTalent = {
         lodash.forEach(detail[key], (ds, idx) => {
           if (ds.desc) {
             if (key === 'talent' && ds.desc.split) {
-              let desc = CharTalent.getDesc(ds.desc, ds.tables, idx === 'a' || idx === 'a2' ? 5 : 8)
+              let desc = CharTalent.getDesc(ds.desc, ds.tables, idx === 'a' || idx === 'a2' || idx === 'me' || idx === 'mt' ? 5 : 8)
               ds.desc = desc.desc
               ds.tables = desc.tables
             } else if (ds.desc.split) {
