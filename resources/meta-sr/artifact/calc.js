@@ -339,12 +339,13 @@ export default {
   },
   凯歌祝捷的英豪: {
     2: attr('atkPct', 12),
-    4: [attr('speedPct', 6), {
-      title: '装备者的忆灵攻击时，装备者和忆灵的暴击伤害提高[cdmg]%',
+    4: {
+      title: '装备者的忆灵在场时，装备者的速度提高[speedPct]%。装备者的忆灵攻击时，装备者和忆灵的暴击伤害提高[cdmg]%',
       data: {
+        speedPct: 6,
         cdmg: 30
       }
-    }]
+    }
   },
   哀歌覆国的诗人: {
     2: attr('quantum', 10),
