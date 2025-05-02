@@ -106,7 +106,7 @@ export async function resetRank (e) {
   let name = msg.replace(/(#|星铁|重置|重设|排名|排行|群|群内|面板|详情|面版)/g, '').trim()
   let charId = ''
   let charName = '全部角色'
-  let char 
+  let char
   if (name) {
     char = Character.get(name, game)
     if (!char) {
@@ -285,11 +285,15 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
     list = lodash.sortBy(list, ['uid', '_star', 'id'])
   }
 
+  const isMemosprite = e.isSr && char.weaponType === '记忆'
+  const bodyContainerStyle = `<style>body .container {width: ${isMemosprite ? 970 : e.isSr ? 900 : 820}px;}</style>`
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
   // 渲染图像
   return e.reply([await Common.render('character/rank-profile-list', {
     save_id: char.id,
     game: e.isSr ? 'sr' : 'gs',
+    isMemosprite,
+    bodyContainerStyle,
     list,
     title,
     elem: char.elem,
