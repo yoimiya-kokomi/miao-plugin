@@ -15,7 +15,7 @@ export const details = [{
 }, {
   title: '6命额外秘药弹伤害',
   cons: 6,
-  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 160 / 100, 'a,nightsoul')
+  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 120 / 100, 'a,nightsoul')
 }]
 
 export const defParams = { Nightsoul: true }

@@ -20,10 +20,7 @@ export const details = [{
 }, {
   title: 'Q后天赋附加伤害',
   params: { Supreme_Stance: true },
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let num = talent.t['附加伤害']
-    return basic(calc(attr.atk) * num)
-  }
+  dmg: ({ talent }, dmg) => dmg(talent.t['附加伤害'])
 }]
 
 export const defDmgIdx = 1
