@@ -170,7 +170,7 @@ let DmgCalc = {
       }
     }
 
-    let dmgBase = (mode === 'basic') ? basicNum + plusNum : atkNum * pctNum * (1 + multiNum) + plusNum
+    let dmgBase = (mode === 'basic') ? basicNum * (1 + multiNum) + plusNum : atkNum * pctNum * (1 + multiNum) + plusNum
     let ret = {}
 
     switch (ele) {
