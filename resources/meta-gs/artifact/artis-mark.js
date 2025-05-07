@@ -100,6 +100,6 @@ export const usefulAttr = {
   梦见月瑞希: { hp: 0, atk: 30, def: 0, cpct: 30, cdmg: 30, mastery: 100, dmg: 80, phy: 0, recharge: 45, heal: 95 },
   伊安珊: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 0 },
   瓦雷莎: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 40, heal: 0 },
-  爱可菲: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 45, heal: 95 },
+  爱可菲: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 95, phy: 0, recharge: 75, heal: 95 },
   伊法: { hp: 0, atk: 75, def: 0, cpct: 50, cdmg: 50, mastery: 100, dmg: 80, phy: 0, recharge: 35, heal: 0 }
 }
