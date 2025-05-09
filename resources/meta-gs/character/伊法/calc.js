@@ -10,12 +10,15 @@ export const details = [{
   title: 'Q技能伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q,nightsoul')
 }, {
+  title: "Q镇静标记伤害",
+  dmg: ({ talent }, dmg) => dmg(talent.q['镇静标记伤害'], 'q,nightsoul')
+}, {
   title: '扩散反应伤害',
   dmg: ({}, { reaction }) => reaction('swirl')
 }, {
   title: '6命额外秘药弹伤害',
   cons: 6,
-  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 120 / 100, 'a,nightsoul')
+  dmg: ({}, dmg) => dmg(120, 'a,nightsoul')
 }]
 
 export const defParams = { Nightsoul: true }
