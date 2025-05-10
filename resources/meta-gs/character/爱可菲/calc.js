@@ -1,12 +1,12 @@
 export const details = [{
   title: 'E技能伤害',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['技能伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: 'E「冻霜芭菲」伤害',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['冻霜芭菲伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['冻霜芭菲伤害'], 'e')
 }, {
   title: 'Q技能伤害',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['技能伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: 'Q释放治疗量',
   dmg: ({ talent, attr, calc }, { heal }) => heal(talent.q['治疗量2'][0] / 100 * calc(attr.atk) + talent.q['治疗量2'][1])
@@ -14,9 +14,9 @@ export const details = [{
   title: '天赋每跳治疗',
   dmg: ({ attr, calc }, { heal }) => heal(138.24 / 100 * calc(attr.atk))
 }, {
-  title: '6命额外「特级冻霜芭菲」伤害',
+  title: '6命「特级冻霜芭菲」伤害',
   cons: 6,
-  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 500 / 100, 'e')
+  dmg: ({}, dmg) => dmg(500, 'e')
 }]
 
 export const defDmgIdx = 1
