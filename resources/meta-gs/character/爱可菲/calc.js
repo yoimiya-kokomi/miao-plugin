@@ -14,7 +14,7 @@ export const details = [{
   title: '天赋每跳治疗',
   dmg: ({ attr, calc }, { heal }) => heal(138.24 / 100 * calc(attr.atk))
 }, {
-  title: '6命额外「特级冻霜芭菲」伤害',
+  title: '6命「特级冻霜芭菲」伤害',
   cons: 6,
   dmg: ({}, dmg) => dmg(500, 'e')
 }]
