@@ -42,11 +42,14 @@ export default class Button {
 
   profileList(uid = "", charList = {}) {
     const button = [[]]
+    let count = 0
     for (const name in charList) {
+      if (count >= 10) break 
       const array = button[button.length-1]
       array.push({ text: `${name}面板`, callback: `${this.prefix}${name}面板${uid}` })
       if (array.length > 1)
         button.push([])
+      count++
     }
     if (!button[0].length)
       button[0] = [
