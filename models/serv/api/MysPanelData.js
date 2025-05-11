@@ -79,15 +79,15 @@ let MysPanelData = {
         name: arti.name,
         level: Math.min(20, (ds.level) || 0),
         star: ds.rarity || 5,
-        mainId: MysPanelData.getArtifactMainId(ds.rarity, ds.main_property),
+        mainId: MysPanelData.getArtifactMainId(idx, ds.main_property),
         attrIds: MysPanelData.getArtifactAttrIds(ds.rarity, ds.sub_property_list)
       }
     })
     return ret
   },
 
-  getArtifactMainId(rarity, main_property) {
-    return artifactMainIdMapping[main_property.property_type]
+  getArtifactMainId(idx, main_property) {
+    return artifactMainIdMapping[idx][main_property.property_type]
   },
 
   getArtifactAttrIdCombination(rarity, curTime, propertyType, valueStr) {
