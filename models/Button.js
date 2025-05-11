@@ -40,14 +40,14 @@ export default class Button {
     ])
   }
 
-  profileList(uid = "", charList = {}) {
+  profileList(uid = "", charList = []) {
     const button = [[]]
-    for (const name in charList) {
+    charList.forEach((ds) => {
       const array = button[button.length-1]
-      array.push({ text: `${name}面板`, callback: `${this.prefix}${name}面板${uid}` })
+      array.push({ text: `${ds.abbr}面板`, callback: `${this.prefix}${ds.name}面板${uid}` })
       if (array.length > 1)
         button.push([])
-    }
+    })
     if (!button[0].length)
       button[0] = [
         { text: "更新面板", callback: `${this.prefix}更新面板${uid}` },

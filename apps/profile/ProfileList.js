@@ -163,7 +163,7 @@ const ProfileList = {
       allowRank: rank && rank.allowRank,
       rankCfg,
       elem: player.isGs ? 'hydro' : 'sr'
-    }, { e, scale: 1.6, retType: 'base64' }), new Button(e).profileList(uid, newChar)])
+    }, { e, scale: 1.6, retType: 'base64' }), new Button(e).profileList(uid, chars.slice(0, 10).filter(i => i.isNew !== 0).map(i => ({ name: i.name, abbr: i.abbr || i.name })))])
   },
 
   /**
