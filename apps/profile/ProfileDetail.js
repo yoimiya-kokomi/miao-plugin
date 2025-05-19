@@ -245,7 +245,7 @@ let ProfileDetail = {
       data,
       attr,
       elem: char.elem,
-      path: char.weapon,
+      hsr_paths: char.weapon,
       dmgCalc,
       artisDetail,
       artisKeyTitle,
