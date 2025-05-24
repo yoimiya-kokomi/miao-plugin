@@ -3,6 +3,7 @@
  * 如character/${name}/artis.js下有角色自定义规则优先使用自定义
  */
 export const usefulAttr = {
+  风堇: { hp: 100, atk: 0, def: 0, speed: 100, cpct: 0, cdmg: 75, stance: 0, heal: 100, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
   那刻夏: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
   遐蝶: { hp: 100, atk: 0, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 30, dmg: 100 },
   万敌: { hp: 100, atk: 0, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 30, dmg: 100 },
