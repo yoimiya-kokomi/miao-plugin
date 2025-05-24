@@ -376,5 +376,24 @@ export default {
         heal: ({ attr }) => attr.speed >= 180 ? 20 : 12
       }
     }]
+  },
+  烈阳惊雷的女武神: {
+    2: attr('speedPct', 6),
+    4: {
+      title: '当装备者及其忆灵为装备者及其忆灵以外的我方目标提供治疗后，速度提高[speedPct]%，我方全体暴击伤害提高[cdmg]%',
+      data: {
+        speedPct: 6,
+        cdmg: 15
+      }
+    }
+  },
+  恶海逐波的船长: {
+    2: attr('cdmg', 16),
+    4: {
+      title: '消耗2层【助力】，使装备者攻击力提高[atkPct]%',
+      data: {
+        atkPct: 48
+      }
+    }
   }
 }
