@@ -111,7 +111,7 @@ class AttrData extends Base {
    */
   setAttr (data, withBase = false) {
     if (withBase) {
-      lodash.forEach(['hp', 'def', 'atk'], (key) => {
+      lodash.forEach(['hp', 'def', 'atk', 'speed'], (key) => {
         let base = `${key}Base`
         if (data[key] && data[base]) {
           data[`${key}Plus`] = data[key] - data[base]
