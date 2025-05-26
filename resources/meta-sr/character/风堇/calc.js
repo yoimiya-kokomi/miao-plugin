@@ -18,11 +18,50 @@ export const details = [{
   params: { AfterRain: true },
   dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.hp) * 0.08)
 }, {
-  title: '忆灵技对单参考伤害-我方6目标-无烧血C',
+  title: '忆灵技对单伤害-我方6目标-无烧血C',
   params: { AfterRain: true , ServantDmg: true},
-  dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.hp) * 0.08)
+  dmg: ({ talent, attr, calc }, { heal }) => {
+    let dmg = 0
+    let avg = 0 
+    // 小伊卡治疗单个其他单位治疗量
+    let perHeal = heal(calc(attr.hp) * talent.mt['治疗·百分比生命'] + talent.mt['治疗·固定值'])
+    let HealServant = perHeal.avg
+    // 有专武情况下算上风堇放技能全队烧血治疗
+    let cureDelta = 0
+    if ( attr.weapon.name === '愿虹光永驻天空') {
+      cureDelta += 11 * HealServant   // 11是因为, 我方一共6个目标的前提下, 天赋5次, 雨过天晴全体算6次
+    }
+    // 释放e
+    let healE = heal(5*(calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值']) + 1 * (calc(attr.hp)*talent.e['小伊卡治疗·百分比生命']+talent.e['小伊卡治疗·固定值'])) 
+    let nume = healE.avg + cureDelta
+    // 释放q
+    let healQ = heal(5*(calc(attr.hp) * talent.q['治疗·百分比生命'] + talent.q['治疗·固定值']) + 1 * (calc(attr.hp)*talent.q['小伊卡治疗·百分比生命']+talent.q['小伊卡治疗·固定值'])) 
+    let numq = healQ.avg + cureDelta 
+    // 风堇技能平均治疗
+    let numEQ = (nume*2+numq*1)/3
+    // 受击治疗量
+    let numHit = 6 * HealServant
+    // 队友主动烧血治疗量
+    let numConsume = 0
+    // 1魂攻击附加治疗量
+    let HealCon1 = cons > 0 ? heal(calc(attr.hp)*0.08) : {avg: 0}
+    let numCon1 = 9 * HealCon1.avg
+    // 治疗累积值
+    let cureAmount = numEQ + numHit + numConsume + numCon1 
+    // 计算稳定累积治疗值并乘0.8以参考 (经验值, 以代替等比数列的循环求和计算, 可改)
+    let exprVal = 0.8
+    let cureMaxRate = cons === 6 ? 8.33 : 2    // 6 ? 1/(1-0.88) : １/(1-0.5)
+    cureAmount *= (exprVal * cureMaxRate)
+    // 计算伤害
+    let tmp = basic(cureAmount * talent.me['技能伤害'], 'me')
+    dmg += tmp.dmg, avg += tmp.avg
+    return {
+      dmg: dmg,
+      avg: avg
+    }
+  }
 }, {
-  title: '忆灵技对单参考伤害-我方7目标-有烧血C',
+  title: '忆灵技对单伤害-我方7目标-有烧血C',
   params: { AfterRain: true , ServantDmg: true },
   dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.hp) * 0.08)
 }, {
