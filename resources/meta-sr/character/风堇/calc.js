@@ -7,7 +7,7 @@ export const details = [{
   params: { AfterRain: true },
   dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值'])
 }, {
-  title: '终结技生命回复量',
+  title: '首次终结技生命回复量',
   dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.hp) * talent.q['治疗·百分比生命'] + talent.q['治疗·固定值'])
 }, {
   title: '【雨过天晴】状态忆灵天赋生命回复量',
@@ -104,7 +104,7 @@ export const details = [{
     }
   }
 }, {
-  title: '【雨过天晴】状态战技回复遐蝶新蕊保守量',
+  title: '【雨过天晴】状态战技回复遐蝶新蕊百分点',
   params: { AfterRain: true },
   dmg: ({ talent, attr, calc }, { heal }) => {
     let perHeal = heal(calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值'])
