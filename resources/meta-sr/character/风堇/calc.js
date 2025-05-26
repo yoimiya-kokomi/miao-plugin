@@ -17,6 +17,29 @@ export const details = [{
   title: '【雨过天晴】状态1魂额外条件回复量',
   params: { AfterRain: true },
   dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.hp) * 0.08)
+}, {
+  title: '忆灵技对单参考伤害-我方6目标-无烧血C',
+  params: { AfterRain: true , ServantDmg: true},
+  dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.hp) * 0.08)
+}, {
+  title: '忆灵技对单参考伤害-我方7目标-有烧血C',
+  params: { AfterRain: true , ServantDmg: true },
+  dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.hp) * 0.08)
+}, {
+  title: '【雨过天晴】状态战技回复遐蝶新蕊保守量',
+  params: { AfterRain: true },
+  dmg: ({ talent, attr, calc }, { heal }) => {
+    let perHeal = heal(calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值'])
+    let num = 6 * perHeal.avg
+    if ( attr.weapon.name === '愿虹光永驻天空') {
+      let servantHeal = heal(calc(attr.hp) * talent.mt['治疗·百分比生命'] + talent.mt['治疗·固定值'])
+      num += 11 * servantHeal.avg
+    }
+    num = Math.floor( num / 340 )
+    return {
+      avg: num
+    }
+  }
 }]
 
 export const mainAttr = 'hp,cpct,cdmg'
