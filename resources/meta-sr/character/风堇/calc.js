@@ -65,4 +65,4 @@ export const buffs = [{
   }
 }]
 
-export const createdBy = '冰翼'
+export const createdBy = '冰翼 & 77惨惨77'
