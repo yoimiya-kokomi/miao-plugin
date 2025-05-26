@@ -121,7 +121,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'hp,cpct,cdmg'
-export const defDmgIdx = 2
+export const defDmgIdx = 5
 
 export const buffs = [{
   check: ({ params }) => params.AfterRain === true,
