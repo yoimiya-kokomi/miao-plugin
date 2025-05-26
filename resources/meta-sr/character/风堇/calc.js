@@ -20,7 +20,7 @@ export const details = [{
 }, {
   title: '忆灵技对单伤害-我方6目标-无烧血C',
   params: { AfterRain: true , ServantDmg: true},
-  dmg: ({ talent, attr, calc }, { heal }) => {
+  dmg: ({ talent, attr, cons, calc }, { heal, basic }) => {
     let dmg = 0
     let avg = 0 
     // 小伊卡治疗单个其他单位治疗量
@@ -63,7 +63,7 @@ export const details = [{
 }, {
   title: '忆灵技对单伤害-我方7目标-有烧血C',
   params: { AfterRain: true , ServantDmg: true },
-  dmg: ({ talent, attr, calc }, { heal }) => {
+  dmg: ({ talent, attr, cons, calc }, { heal, basic }) => {
     let dmg = 0
     let avg = 0 
     // 小伊卡治疗单个其他单位治疗量
