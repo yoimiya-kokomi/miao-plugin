@@ -40,18 +40,18 @@ export const details = [{
     // 风堇技能平均治疗
     let numEQ = (nume*2+numq*1)/3
     // 受击治疗量
-    let numHit = 6 * HealServant
+    let numHit = 7 * HealServant
     // 队友主动烧血治疗量
     let numConsume = 0
     // 1魂攻击附加治疗量
     let HealCon1 = cons > 0 ? heal(calc(attr.hp)*0.08) : {avg: 0}
-    let numCon1 = 9 * HealCon1.avg
+    let numCon1 = 6 * HealCon1.avg
     // 治疗累积值
     let cureAmount = numEQ + numHit + numConsume + numCon1 
     // 计算稳定累积治疗值并乘0.8以参考 (经验值, 以代替等比数列的循环求和计算, 可改)
-    let exprVal = 0.8
-    let cureMaxRate = cons === 6 ? 8.33 : 2    // 6 ? 1/(1-0.88) : １/(1-0.5)
-    cureAmount *= (exprVal * cureMaxRate)
+    //let exprVal = cons === 6 ? 0.8 : 0.4
+    //let cureMaxRate = cons === 6 ? 8.33 : 2    // 6 ? 1/(1-0.88) : １/(1-0.5)
+    cureAmount *= (cons === 6 ? 3.4 : 1.6)
     // 计算伤害
     let tmp = basic(cureAmount * talent.me['技能伤害'], 'me')
     dmg += tmp.dmg, avg += tmp.avg
@@ -83,18 +83,18 @@ export const details = [{
     // 风堇技能平均治疗
     let numEQ = (nume*2+numq*1)/3
     // 受击治疗量
-    let numHit = 6 * HealServant
+    let numHit = 7 * HealServant
     // 队友主动烧血治疗量
-    let numConsume = 18 * HealServant
+    let numConsume = 11 * HealServant
     // 1魂攻击附加治疗量
     let HealCon1 = cons > 0 ? heal(calc(attr.hp)*0.08) : {avg: 0}
-    let numCon1 = 9 * HealCon1.avg
+    let numCon1 = 6 * HealCon1.avg
     // 治疗累积值
     let cureAmount = numEQ + numHit + numConsume + numCon1 
     // 计算稳定累积治疗值并乘0.8以参考 (经验值, 以代替等比数列的循环求和计算, 可改)
-    let exprVal = 0.8
-    let cureMaxRate = cons === 6 ? 8.33 : 2    // 6 ? 1/(1-0.88) : １/(1-0.5)
-    cureAmount *= (exprVal * cureMaxRate)
+    //let exprVal = cons === 6 ? 0.8 : 0.4
+    //let cureMaxRate = cons === 6 ? 8.33 : 2    // 6 ? 1/(1-0.88) : １/(1-0.5)
+    cureAmount *= (cons === 6 ? 3.4 : 1.6)
     // 计算伤害
     let tmp = basic(cureAmount * talent.me['技能伤害'], 'me')
     dmg += tmp.dmg, avg += tmp.avg
