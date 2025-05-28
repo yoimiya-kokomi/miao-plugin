@@ -32,19 +32,19 @@ export const details = [{
       cureDelta += 11 * HealServant   // 11是因为, 我方一共6个目标的前提下, 天赋5次, 雨过天晴全体算6次
     }
     // 释放e
-    let healE = heal(5*(calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值']) + 1 * (calc(attr.hp)*talent.e['小伊卡治疗·百分比生命']+talent.e['小伊卡治疗·固定值'])) 
+    let healE = heal(5 * (calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值']) + 1 * (calc(attr.hp) * talent.e['小伊卡治疗·百分比生命'] + talent.e['小伊卡治疗·固定值'])) 
     let nume = healE.avg + cureDelta
     // 释放q
-    let healQ = heal(5*(calc(attr.hp) * talent.q['治疗·百分比生命'] + talent.q['治疗·固定值']) + 1 * (calc(attr.hp)*talent.q['小伊卡治疗·百分比生命']+talent.q['小伊卡治疗·固定值'])) 
+    let healQ = heal(5 * (calc(attr.hp) * talent.q['治疗·百分比生命'] + talent.q['治疗·固定值']) + 1 * (calc(attr.hp) * talent.q['小伊卡治疗·百分比生命'] + talent.q['小伊卡治疗·固定值'])) 
     let numq = healQ.avg + cureDelta 
     // 风堇技能平均治疗
-    let numEQ = (nume*2+numq*1)/3
+    let numEQ = (nume * 2 + numq * 1) / 3
     // 受击治疗量
     let numHit = 7 * HealServant
     // 队友主动烧血治疗量
     let numConsume = 0
     // 1魂攻击附加治疗量
-    let HealCon1 = cons > 0 ? heal(calc(attr.hp)*0.08) : {avg: 0}
+    let HealCon1 = cons > 0 ? heal(calc(attr.hp) * 0.08) : {avg: 0}
     let numCon1 = 6 * HealCon1.avg
     // 治疗累积值
     let cureAmount = numEQ + numHit + numConsume + numCon1 
@@ -75,19 +75,19 @@ export const details = [{
       cureDelta += 13 * HealServant   // 13是因为, 我方一共7个目标的前提下, 天赋6次, 雨过天晴全体算7次
     }
     // 释放e
-    let healE = heal(6*(calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值']) + 1 * (calc(attr.hp)*talent.e['小伊卡治疗·百分比生命']+talent.e['小伊卡治疗·固定值'])) 
+    let healE = heal(6 * (calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值']) + 1 * (calc(attr.hp) * talent.e['小伊卡治疗·百分比生命'] + talent.e['小伊卡治疗·固定值'])) 
     let nume = healE.avg + cureDelta
     // 释放q
-    let healQ = heal(6*(calc(attr.hp) * talent.q['治疗·百分比生命'] + talent.q['治疗·固定值']) + 1 * (calc(attr.hp)*talent.q['小伊卡治疗·百分比生命']+talent.q['小伊卡治疗·固定值'])) 
+    let healQ = heal(6 * (calc(attr.hp) * talent.q['治疗·百分比生命'] + talent.q['治疗·固定值']) + 1 * (calc(attr.hp) * talent.q['小伊卡治疗·百分比生命'] + talent.q['小伊卡治疗·固定值'])) 
     let numq = healQ.avg + cureDelta 
     // 风堇技能平均治疗
-    let numEQ = (nume*2+numq*1)/3
+    let numEQ = (nume * 2+numq * 1) / 3
     // 受击治疗量
     let numHit = 7 * HealServant
     // 队友主动烧血治疗量
     let numConsume = 11 * HealServant
     // 1魂攻击附加治疗量
-    let HealCon1 = cons > 0 ? heal(calc(attr.hp)*0.08) : {avg: 0}
+    let HealCon1 = cons > 0 ? heal(calc(attr.hp) * 0.08) : {avg: 0}
     let numCon1 = 6 * HealCon1.avg
     // 治疗累积值
     let cureAmount = numEQ + numHit + numConsume + numCon1 
@@ -134,7 +134,7 @@ export const buffs = [{
   }
 }, {
   check: ({ params }) => params.ServantDmg === true,
-  title: '忆灵小伊卡初始拥有等同于风堇 50% 生命上限的生命上限。风堇或小伊卡提供治疗时，小伊卡造成的伤害提高 [_dmmgup]% ，持续 2 回合，最多可叠加 3 层至 [dmg]。', 
+  title: '风堇天赋：风堇或小伊卡提供治疗时，小伊卡造成的伤害提高 [_dmmgup]% ，最多可叠加 3 层至 [dmg]%。', 
   data: {
     dmg: ({ talent }) => talent.t['伤害提高'] * 100 * 3, 
     _dmmgup: ({talent}) => talent.t['伤害提高'] * 100
