@@ -77,4 +77,4 @@ export const buffs = [{
   }
 }]
 
-export const createdBy = '冰翼'
+export const createdBy = '冰翼 & 其实雨很好'
