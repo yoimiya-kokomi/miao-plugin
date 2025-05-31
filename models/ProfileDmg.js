@@ -182,18 +182,19 @@ export default class ProfileDmg extends Base {
         let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
         detail = detail({ ...ds, attr, profile })
       }
-      let params = lodash.merge({}, defParams, lodash.isFunction(detail?.params) ? detail?.params(meta) : detail?.params || {})
-      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params, talent: detail.talent || '', game })
       if (detail.isStatic) {
         return
       }
+      if (detail.cons && meta.cons < detail.cons * 1) {
+        return
+      }
+
+      let params = lodash.merge({}, defParams, lodash.isFunction(detail?.params) ? detail?.params(meta) : detail?.params || {})
+      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params, talent: detail.talent || '', game })
 
       let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
       ds.artis = artis
       if (detail.check && !detail.check(ds)) {
-        return
-      }
-      if (detail.cons && meta.cons < detail.cons * 1) {
         return
       }
 
