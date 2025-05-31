@@ -115,6 +115,19 @@ export default function (staticIdx, keyIdx) {
     长路终有归途: [
       staticIdx(1, 'stance'),
       keyIdx('【焚灼】状态下，敌方目标受到的击破伤害提高[breakEnemydmg]%', 'breakEnemydmg', 2)
+    ],
+    谎言在风中飘扬: [
+      staticIdx(1, 'speedPct'),
+      keyIdx('装备者施放攻击后，有120%的基础概率使敌方每个单体目标的防御力降低[enemyDef]%', 'enemyDef', 2),
+      (tables) => {
+        return {
+          title: '若装备者的速度大于等于170，有120%的基础概率使敌方每个单体目标的防御力降低[enemyDef]%',
+          check: ({ attr, calc }) => calc(attr.speed) >= 170,
+          data: {
+            enemyDef: tables[3]
+          }
+        }
+      }
     ]
   }
 }
