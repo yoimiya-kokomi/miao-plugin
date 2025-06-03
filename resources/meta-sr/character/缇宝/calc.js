@@ -2,7 +2,7 @@ export const details = [{
   title: '普攻伤害',
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.a['技能伤害'], 'a')
 }, {
-  title: '天赋追加伤害',
+  title: '天赋追加攻击伤害',
   params: { cons6: true },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.t['追加攻击伤害'], 't')
 }, {
