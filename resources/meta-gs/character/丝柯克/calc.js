@@ -35,7 +35,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(150 * 3, 'a2')
 }]
 
-export const defDmgKey = 1
+export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
