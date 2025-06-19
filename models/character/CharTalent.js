@@ -12,6 +12,10 @@ const CharTalent = {
       gs: { a: 3, e: 3, q: 3 },
       sr: { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1}
     }
+    let maxTalent = {
+      gs: { a: 15, e: 15, q: 15 },
+      sr: { a: 10, e: 15, q: 15, t: 15, me: 10, mt: 10 }
+    }
     lodash.forEach(addTalent[game], (addNum, key) => {
       let ds = talent[key]
       if (!ds) {
@@ -20,7 +24,8 @@ const CharTalent = {
       let value
       let level
       let original
-      let aPlus = id === 10000033
+      let aPlus = id === 10000033   // 达达利亚: a+1
+      let ePlus = id === 10000114   // 丝柯克: e+1
       if (lodash.isNumber(ds)) {
         value = ds
       }
@@ -31,21 +36,22 @@ const CharTalent = {
           mode = 'level'
         } else {
           original = value
-          if (key === 'a' && isGs) {
-            level = aPlus ? value + 1 : value
-          }
-          level = (talentCons[key] > 0 && cons >= talentCons[key]) ? (value + addNum) : value
+          level = value
+          if (key === 'a' && isGs && aPlus) level += 1
+          if (key === 'e' && isGs && ePlus) level += 1
+          if (talentCons[key] > 0 && cons >= talentCons[key]) level += addNum
         }
       }
       if (mode === 'level') {
         // 基于level计算original
         value = value || ds.level || ds.level_current || ds.original || ds.level_original
         level = value
-        if (key === 'a' && isGs) {
-          original = aPlus ? value - 1 : value
-        }
-        original = (talentCons[key] > 0 && cons >= talentCons[key]) ? (value - addNum) : value
+        original = value
+        if (key === 'a' && isGs && aPlus) original -= 1
+        if (key === 'e' && isGs && ePlus) original -= 1
+        if (talentCons[key] > 0 && cons >= talentCons[key]) original -= addNum
       }
+      if (level > maxTalent[game][key]) level = maxTalent[game][key]
       ret[key] = { level, original }
     })
     if (lodash.isEmpty(ret)) {
