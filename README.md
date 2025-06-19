@@ -15,16 +15,26 @@
 请使用 git 进行安装，以方便后续升级。在 Yunzai-Bot 根目录夹打开终端，运行下述指令之一
 
 ```
-// 使用gitee
-git clone --depth=1 https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+// 使用 GitCode
+git clone --depth=1 https://gitcode.com/TimeRainStarSky/miao-plugin.git plugins/miao-plugin
 pnpm install -P
 
-// 使用github
-git clone --depth=1 https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+// 使用 GitHub
+git clone --depth=1 https://github.com/yoimiya-kokomi/miao-plugin plugins/miao-plugin
 pnpm install -P
 ```
 
 进行安装。安装完毕后，管理员只需发送 `#喵喵更新` 即可自动更新 miao-plugin。
+
+注：目前 Gitee 源无法使用，需要换源，在云崽目录执行
+
+```
+// 使用 GitCode
+git -C plugins/miao-plugin remote set-url origin https://gitcode.com/TimeRainStarSky/miao-plugin.git
+
+// 使用 GitHub
+git -C plugins/miao-plugin remote set-url origin https://github.com/yoimiya-kokomi/miao-plugin
+```
 
 ### 手工下载安装（不推荐）
 
@@ -99,8 +109,4 @@ pnpm install -P
 
 * [Enka.Network](https://enka.network/): 感谢Enka提供的面板服务
 * [Snap.Hutao](https://hut.ao/) : 感谢 DGP Studio 开发的 [胡桃 API](https://github.com/DGP-Studio/Snap.Hutao.Server)
-* QQ群（暂时停止新加入，请见谅）
-    * Yunzai-Bot 官方QQ群：213938015
-    * 喵喵Miao-Plugin QQ群：607710456
-* [爱发电](https://afdian.net/@kokomi) :欢迎老板打赏，喵~
 

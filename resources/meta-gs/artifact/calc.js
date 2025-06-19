@@ -253,6 +253,8 @@ const buffs = {
     2: attr('dmg', 15, '岩'),
     4: {
       title: '获得元素反应晶片，对应元素伤害提高35%',
+      check: ({ element }) => ['水', '火', '冰', '雷'].includes(element),
+      //拾取幼岩龙蜥产生的岩元素晶片盾不能获得35%岩元素伤害加成
       data: {
         dmg: 35
       }
@@ -329,10 +331,10 @@ const buffs = {
   华馆梦醒形骸记: {
     2: attr('defPct', 30),
     4: {
-      title: '满层获得24%防御及24%岩伤加成',
+      title: '满层获得[defPct]%防御及[dmg]%岩伤加成',
       data: {
         defPct: 24,
-        dmg: 24
+        dmg: ({ element }) => ['岩'].includes(element) ? 24 : 0
       }
     }
   },
@@ -413,10 +415,10 @@ const buffs = {
   水仙之梦: {
     2: attr('dmg', 15, '水'),
     4: {
-      title: '3层Buff下提高攻击力25%，水伤15%',
+      title: '3层Buff下提高攻击力[atkPct]%，水伤[dmg]%',
       data: {
         atkPct: 25,
-        dmg: 15
+        dmg: ({ element }) => ['水'].includes(element) ? 15 : 0
       }
     }
   },
@@ -531,6 +533,32 @@ const buffs = {
       title: '在场上消耗夜魂值后，暴击率提高[cpct]%',
       data: {
         cpct: 40
+      }
+    }
+  },
+
+  长夜之誓: {
+    2: {
+      title: '下落攻击造成的伤害提升[a3Dmg]%',
+      data: {
+        a3Dmg: 25
+      }
+    },
+    4: {
+      title: '5层buff,下落攻击伤害提升[a3Dmg]%',
+      data: {
+        a3Dmg: 15 * 5
+      }
+    }
+  },
+
+  深廊终曲: {
+    2: attr('dmg', 15, '冰'),
+    4: {
+      title: '元素能量为0时普攻与元素爆发伤害提高[aDmg]%',
+      data: {
+        aDmg: 60,
+        qDmg: 60
       }
     }
   }

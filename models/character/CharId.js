@@ -81,7 +81,7 @@ const CharId = {
 
   isTrailblazer (id) {
     if (id) {
-      return [8001, 8002, 8003, 8004, 8005, 8006].includes(id * 1)
+      return [8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008].includes(id * 1)
     }
     return false
   }

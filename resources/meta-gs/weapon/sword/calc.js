@@ -15,7 +15,8 @@ export default function (step, staticStep) {
       }
     },
     降临之剑: {
-      title: '旅行者攻击力提高[atkPlus]',
+      check: ({ characterName }) => ['空', '荧', '旅行者'].includes(characterName),
+      title: '攻击力提高[atkPlus]点',
       data: {
         atkPlus: 66
       }
@@ -112,24 +113,14 @@ export default function (step, staticStep) {
         recharge: ({ attr, calc, refine }) => calc(attr.mastery) * step(0.036)[refine]
       }
     },
-    波乱月白经津: [{
-      title: '元素伤害加成[dmg]%',
-      refine: {
-        dmg: step(12)
-      }
-    }, {
+    波乱月白经津: [staticStep('dmg', 12), {
       title: '满层提高普攻[aDmg]%',
       buffCount: 2,
       refine: {
         aDmg: step(20)
       }
     }],
-    雾切之回光: [{
-      title: '元素伤害加成[dmg]%',
-      refine: {
-        dmg: step(12)
-      }
-    }, {
+    雾切之回光: [staticStep('dmg', 12), {
       title: '满层获得伤害加成[dmg]%',
       refine: {
         dmg: step(28)
@@ -164,12 +155,7 @@ export default function (step, staticStep) {
         ePlus: ({ attr, calc, refine }) => calc(attr.mastery) * step(120)[refine] / 100
       }
     }],
-    斫峰之刃: [{
-      title: '护盾强效提升[shield]%',
-      refine: {
-        shield: step(20)
-      }
-    }, {
+    斫峰之刃: [staticStep('shield', 20), {
       title: '满Buff提高攻击力[atkPct]%',
       buffCount: 10,
       refine: {
@@ -285,6 +271,22 @@ export default function (step, staticStep) {
       data: {
         dmg: ({ attr, calc, refine }) => Math.min(calc(attr.def) / 1000 * step(8)[refine], step(25.6)[refine])
       }
-    }]
+    }],
+    厄水之祸: {
+      title: '处于护盾庇护下,普攻和重击造成伤害提升[aDmg]%暴击率提升[aCpct]%',
+      refine: {
+        aDmg: step(20),
+        a2Dmg: step(20),
+        aCpct: step(8),
+        a2Cpct: step(8)
+      }
+    },
+    苍耀: {
+      title: '元素能量为0时攻击力提升[atkPct]%,暴击伤害提升[cdmg]%',
+      refine: {
+        atkPct: step(48),
+        cdmg: step(40)
+      }
+    }
   }
 }

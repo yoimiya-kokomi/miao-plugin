@@ -133,6 +133,11 @@ export default class MysApi {
     return await this.getData('character')
   }
 
+  // 获取角色面板
+  async getCharacterDetail (character_ids) {
+    return await this.getData('characterDetail', { character_ids: character_ids })
+  }
+
   // 获取角色详情
   async getAvatar (id) {
     return await this.getData('detail', { avatar_id: id })

@@ -2,7 +2,7 @@ import { Data, Meta } from '#miao'
 import lodash from 'lodash'
 import { abbr, aliasCfg } from './alias.js'
 
-const types = '存护,丰饶,毁灭,同谐,虚无,巡猎,智识'.split(',')
+const types = '存护,丰饶,毁灭,记忆,同谐,虚无,巡猎,智识'.split(',')
 let data = Data.readJSON('/resources/meta-sr/weapon/data.json', 'miao')
 
 const meta = Meta.create('sr', 'weapon')

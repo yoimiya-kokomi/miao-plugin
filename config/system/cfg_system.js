@@ -91,7 +91,7 @@ export const cfgSchema = {
         def: '0',
         type: 'str',
         input: (n) => /[0-4]{1,3}/.test(n) ? n : '0',
-        desc: '面板服务选择：0:自动，1:喵Api(需具备Token)， 2:Enka-API， 3:MiniGG-Api, 4:Hutao-Enka代理。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如112代表国服B服Miao,国外Enka'
+        desc: '面板服务选择：0:自动，1:喵Api(需具备Token)，2:Enka-API，3:MiniGG-Api，4:Hutao-Enka代理。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如112代表国服B服Miao,国外Enka'
       },
       srProfileServer: {
         title: '星铁面板服务',
@@ -99,7 +99,7 @@ export const cfgSchema = {
         def: '0',
         type: 'str',
         input: (n) => /[0-4]{1,3}/.test(n) ? n : '0',
-        desc: '星铁面板服务选择：0:自动，1:喵Api(需具备Token)， 2:Mihomo， 3:Avocado(鳄梨), 4:EnkaHSR。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如114代表国服B服Miao,国外Enka'
+        desc: '星铁面板服务选择：0:自动，1:喵Api(需具备Token)，2:Mihomo，3:Avocado(鳄梨)，4:EnkaHSR。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如114代表国服B服Miao,国外Enka'
       },
       costumeSplash: {
         title: '使用自定义面板插图',
@@ -139,6 +139,14 @@ export const cfgSchema = {
         def: true,
         showDesc: false,
         desc: '#刻晴天赋/#刻晴命座 的天赋信息'
+      },
+      roleCharInfoSource: {
+        title: '角色图鉴-幻想真境剧诗角色数据库',
+        key: '幻想数据库',
+        type: 'num',
+        def: 1,
+        input: (n) => Math.min(2, Math.max(1, (n * 1 || 1))),
+        desc: '#202407幻想角色列表 所采用的数据库源。1:HomDGCat数据库，2:BWiki数据库'
       },
       notReleasedData: {
         title: '未实装角色数据',

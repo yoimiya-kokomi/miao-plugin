@@ -33,6 +33,7 @@ const ProfileChange = {
     let ret = {}
     let change = {}
     let char = Character.get(lodash.trim(regRet[2]).replace(/\d{9,10}/g, ''), game)
+    if (char.isTraveler) this.isTraveler = true
     game = char.isSr ? 'sr' : 'gs'
     if (!char) {
       return false
@@ -131,6 +132,10 @@ const ProfileChange = {
       let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])(精炼?|叠影?)|(精炼?|叠影?)([1-5一二三四五]))?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
       if (wRet && wRet[7]) {
         let weaponName = lodash.trim(wRet[7])
+        if (/专武/.test(weaponName)) {
+          let char = Character.get(weaponName.replace('专武', '') || lodash.trim(regRet[2]).replace(/\d{9,10}/g, ''), ret.char.game)
+          weaponName = `${char.name}专武`
+        }
         let weapon = Weapon.get(weaponName, game, ret.char.game)
         if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {
           let affix = wRet[2] || wRet[5]
@@ -158,7 +163,7 @@ const ProfileChange = {
       // 行迹树匹配
       let treeRet = /满行迹/.exec(txt)
       if (!isGs && treeRet) {
-        char.trees = ['101', '102', '103', '201', '202', '203', '204', '205', '206', '207', '208', '209', '210']
+        char.trees = ['101', '102', '103', '201', '202', '203', '204', '205', '206', '207', '208', '209', '210', '301', '302']
         txt = txt.replace(treeRet[0], '')
       }
 
@@ -181,9 +186,11 @@ const ProfileChange = {
       }
       txt = lodash.trim(txt)
       if (txt) {
+        if (this.isTraveler) txt = txt.replace(/元素/, '主')
         let chars = Character.get(txt, game)
         if (chars) {
           char.char = chars.id
+          char.elem = chars.elem
         }
       }
       if (!lodash.isEmpty(char)) {
@@ -217,7 +224,7 @@ const ProfileChange = {
       source = {}
     }
 
-    let char = Character.get(dc?.char || source.id || charid)
+    let char = Character.get({ id: dc?.char || source.id || charid, elem: dc?.elem })
     if (!char) {
       return false
     }
@@ -249,7 +256,7 @@ const ProfileChange = {
       level,
       cons: Data.def(dc.cons, source.cons, 0),
       fetter: source.fetter || 10,
-      elem: source.char?.elem || char.elem,
+      elem: char.elem || source.char?.elem,
       dataSource: 'change',
       _source: 'change',
       promote,

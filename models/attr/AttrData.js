@@ -111,7 +111,7 @@ class AttrData extends Base {
    */
   setAttr (data, withBase = false) {
     if (withBase) {
-      lodash.forEach(['hp', 'def', 'atk'], (key) => {
+      lodash.forEach(['hp', 'def', 'atk', 'speed'], (key) => {
         let base = `${key}Base`
         if (data[key] && data[base]) {
           data[`${key}Plus`] = data[key] - data[base]
@@ -139,6 +139,16 @@ class AttrData extends Base {
       }
     })
     ret._calc = true
+
+    /**
+     * 提取并赋值角色静态基础数值
+     * 包括但不限于圣遗物主副词条之和
+     * 圣遗物常驻加成，如追忆2、角斗士2等
+     * 武器副词条
+     * 角色突破加成等等
+     */
+    ret.staticAttr = this._attr
+
     return ret
   }
 

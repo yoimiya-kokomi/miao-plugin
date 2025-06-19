@@ -22,7 +22,7 @@ let DmgAttr = {
     }
 
     // 基础属性
-    lodash.forEach('atk,def,hp'.split(','), (key) => {
+    lodash.forEach('atk,def,hp,speed'.split(','), (key) => {
       ret[key] = AttrItem.create(originalAttr?.[key] || {
         base: attr[`${key}Base`] * 1 || 0,
         plus: attr[key] * 1 - attr[`${key}Base`] * 1 || 0,
@@ -30,7 +30,7 @@ let DmgAttr = {
       })
     })
 
-    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'speed,recharge,cpct,cdmg,heal,dmg,enemydmg,effPct,effDef,stance').split(','), (key) => {
+    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'recharge,cpct,cdmg,heal,dmg,enemydmg,effPct,effDef,stance').split(','), (key) => {
       ret[key] = AttrItem.create(originalAttr?.[key] || {
         base: attr[key] * 1 || 0, // 基础值
         plus: 0, // 加成值
@@ -75,6 +75,7 @@ let DmgAttr = {
       ret.refine = ((weapon.affix || ret.refine || 1) * 1 - 1) || 0 // 武器精炼
       ret.multi = 0 // 倍率独立乘区
       ret.kx = 0 // 敌人抗性降低
+      ret.staticAttr = attr.staticAttr
       if (game === 'gs') {
         ret.vaporize = 0 // 蒸发
         ret.melt = 0 // 融化
@@ -91,6 +92,7 @@ let DmgAttr = {
         ret.aggravate = 0 // 超激化
         ret.spread = 0 // 蔓激化
         ret.fykx = 0 // 敌人反应抗性降低
+        ret.fyplus = 0 // 反应伤害值提升
       } else if (game === 'sr') {
         ret.sp = char.sp * 1
         // 超击破
@@ -118,6 +120,7 @@ let DmgAttr = {
   // 计算属性
   calcAttr ({ originalAttr, buffs, meta, artis, params = {}, incAttr = '', reduceAttr = '', talent = '', game = 'gs' }) {
     let attr = DmgAttr.getAttr({ originalAttr, game })
+    attr.characterName = meta.characterName
     let msg = []
     let { attrMap } = Meta.getMeta(game, 'arti')
 
@@ -129,7 +132,7 @@ let DmgAttr = {
       let aCfg = attrMap[reduceAttr]
       attr[reduceAttr][aCfg.calc] -= aCfg.value
     }
-    
+
     lodash.forEach(buffs, (buff) => {
       meta.mastery = meta.mastery || buff.mastery // 先反应
     })
@@ -198,16 +201,25 @@ let DmgAttr = {
         title = title.replace(`[${key}]`, Format.comma(val, 1))
 
         // 技能提高
-        let tRet = /^(a|a2|a3|e|q|t|dot|break)(Def|Ignore|Dmg|Enemydmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key)
+        let tRet = /^(a|a2|a3|e|q|t|dot|break|nightsoul)(Def|Ignore|Dmg|Enemydmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key)
         if (tRet) {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0
           return
         }
-        let aRet = /^(hp|def|atk|mastery|cpct|cdmg|heal|recharge|dmg|enemydmg|phy|shield|speed|stance)(Plus|Pct|Inc)?$/.exec(key)
+
+        let aRet = /^(mastery|cpct|cdmg|heal|recharge|dmg|enemydmg|phy|shield|speed|stance)(Plus|Pct|Inc)?$/.exec(key)
         if (aRet) {
           attr[aRet[1]][aRet[2] ? aRet[2].toLowerCase() : 'plus'] += val * 1 || 0
           return
         }
+        let bRet = /^(hp|def|atk)(Base|Plus|Pct|Inc)?$/.exec(key)
+        if (bRet) {
+          attr[bRet[1]][bRet[2] ? bRet[2].toLowerCase() : 'plus'] += val * 1 || 0
+          // hp、atk、def的基础值增加时（例如玛薇卡2命在夜魂加持状态下时，基础攻击力提高200）
+          if (bRet[2] === 'Base') attr[bRet[1]].plus += val * attr.staticAttr[bRet[1]].pct / 100 || 0
+          return
+        }
+
         if (key === 'enemyDef') {
           attr.enemy.def += val * 1 || 0
           return
@@ -217,7 +229,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx', 'multi'].includes(key)) {
+        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx', 'multi', 'fyplus'].includes(key)) {
           attr[key] += val * 1 || 0
           return
         }

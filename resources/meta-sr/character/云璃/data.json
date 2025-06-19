@@ -73,7 +73,7 @@
       "desc": "回复等同于云璃<nobr>$1[f1]%</nobr>攻击力+<nobr>$2[i]</nobr>的生命值，并对指定敌方单体造成等同于云璃<nobr>$3[i]%</nobr>攻击力的<span>物理</span>属性伤害，对其相邻目标造成等同于云璃<nobr>$4[i]%</nobr>攻击力的<span>物理</span>属性伤害。",
       "tables": {
         "1": {
-          "name": "回复·百分比生命",
+          "name": "回复·百分比攻击",
           "isSame": false,
           "values": [
             0.2,

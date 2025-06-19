@@ -33,6 +33,8 @@ class Character extends Base {
     this.game = game
     if (!this.isCustom) {
       let meta = Meta.getData(game, 'char', name)
+      // 是主角就删除meta._detail
+      if (CharId.isTraveler(id)) delete meta?._detail
       this.meta = meta || {}
       if (this.isGs) {
         this.elem = Format.elem(elem || meta.elem, 'anemo')
@@ -166,7 +168,7 @@ class Character extends Base {
       return this.meta?.talentCons || {}
     }
     if (this.isTraveler) {
-      return this.elem === 'dendro' ? { e: 3, q: 5 } : { e: 5, q: 3 }
+      return ['dendro', 'hydro', 'pyro'].includes(this.elem) ? { e: 3, q: 5 } : { e: 5, q: 3 }
     }
     return this.meta?.talentCons || {}
   }
@@ -183,6 +185,13 @@ class Character extends Base {
 
   // 基于角色名获取Character
   static get (val, game = 'gs') {
+    if (lodash.isString(val)) {
+      let travelerName = /旅行者|主角?|空|荧|爷/g
+      if (travelerName.test(val) && game === 'gs') {
+        let elem = Format.elem(val.replace(travelerName, ''), '')
+        if (elem) val = { id: 20000000, elem }
+      }
+    }
     let id = CharId.getId(val, game)
     if (!id) {
       return false
@@ -252,7 +261,9 @@ class Character extends Base {
         '002': 'e',
         '003': 'q',
         '004': 't',
-        '007': 'z'
+        '007': 'z',
+        "301": "me",
+        "302": "mt"
       }[id]
     }
     return false

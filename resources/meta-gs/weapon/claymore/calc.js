@@ -105,12 +105,7 @@ export default function (step, staticStep) {
         atkPct: step(40)
       }
     }],
-    无工之剑: [{
-      title: '护盾强效提高[shield]%',
-      refine: {
-        shield: step(20)
-      }
-    }, {
+    无工之剑: [staticStep('shield', 20), {
       title: '满Buff护盾下攻击力提高[atkPct]%',
       buffCount: 10,
       refine: {
@@ -218,6 +213,13 @@ export default function (step, staticStep) {
         aDmg: step(16),
         a2Dmg: step(16),
         a3Dmg: step(16)
+      }
+    },
+    焚曜千阳: {
+      title: '施放元素战技或元素爆发时，暴击伤害提高[cdmg]%，攻击力提升[atkPct]%',
+      data: {
+        cdmg: ({ params, refine }) => params.Nightsoul === true ? (step(20)[refine] * 1.75) : step(20)[refine],
+        atkPct: ({ params, refine }) => params.Nightsoul === true ? (step(28)[refine] * 1.75) : step(28)[refine]
       }
     }
   }

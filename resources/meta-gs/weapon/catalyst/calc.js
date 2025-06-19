@@ -87,18 +87,12 @@ export default function (step, staticStep) {
         dmg: step(8)
       }
     },
-    天空之卷: {
-      title: '元素伤害加成提升[dmg]%',
-      refine: {
-        dmg: step(12)
-      }
-    },
+    天空之卷: staticStep('dmg', 12),
     尘世之锁: [staticStep('shield', 20), {
       title: '护盾+满层情况下攻击力提高[atkPct]%',
       buffCount: 10,
       refine: {
-        atkPct: step(4),
-        shield: step(20)
+        atkPct: step(4)
       }
     }],
     不灭月华: [staticStep('heal', 10, 2.5), {
@@ -195,9 +189,9 @@ export default function (step, staticStep) {
       }
     }],
     冲浪时光: [staticStep('hpPct', 20), {
-      title: '施放元素战技后，普通攻击造成的伤害提升[dmg]%',
+      title: '施放元素战技后，普通攻击造成的伤害提升[aDmg]%',
       refine: {
-        dmg: step(12 * 4)
+        aDmg: step(12 * 4)
       }
     }],
     木棉之环: {
@@ -206,6 +200,32 @@ export default function (step, staticStep) {
       data: {
         aDmg: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.hp) / 1000) * step(0.6, 0.1)[refine], step(16)[refine])
       }
-    }
+    },
+    乘浪的回旋: {
+      title: '施放元素战技后，生命值上限提升[hpPct]%',
+      refine: {
+        hpPct: step(44)
+      }
+    },
+    祭星者之望: [staticStep('mastery', 100), {
+      title: '创造护盾后造成的伤害提升[dmg]%',
+      refine: {
+        dmg: step(28)
+      }
+    }],
+    寝正月初晴: {
+      title: '触发[_buff]种方式，元素精通提升[mastery]',
+      //扩散作为无序元素反应，冰雷火水后手也可触发扩散反应
+      data: {
+        _buff: ({ element, refine }) => !['草', '岩'].includes(element) ? 3 : 2,
+        mastery: ({ element, refine }) => !['草', '岩'].includes(element) ? step(120 + 96 + 32)[refine] : step(96 + 32)[refine]
+      }
+    },
+    溢彩心念: [staticStep('atkPct', 28), {
+      title: '施放元素战技或元素爆发后进行下落攻击造成的暴击伤害提升[a3Cdmg]',
+      refine: {
+        a3Cdmg: step(28 + 40)
+      }
+    }]
   }
 }

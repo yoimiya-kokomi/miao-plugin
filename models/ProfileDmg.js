@@ -44,11 +44,12 @@ export default class ProfileDmg extends Base {
     let profile = this.profile
     let ret = {}
     let talentData = profile.talent || {}
+    ret.talentLevel = talentData
     let detail = char.detail
     let { isSr, isGs } = this
-    lodash.forEach((isSr ? 'a,a2,e,e2,q,q2,t' : 'a,e,q').split(','), (key) => {
+    lodash.forEach((isSr ? 'a,a2,e,e1,e2,q,q2,t,t2,me,me2,mt,mt1,mt2' : 'a,e,q').split(','), (key) => {
       let level = lodash.isNumber(talentData[key]) ? talentData[key] : (talentData[key]?.level || 1)
-      let keyRet = /^(a|e|q)2$/.exec(key)
+      let keyRet = /^(a|e|q|me|mt)(1|2)$/.exec(key)
       if (keyRet) {
         let tmpKey = keyRet[1]
         level = lodash.isNumber(talentData[tmpKey]) ? talentData[tmpKey] : (talentData[tmpKey]?.level || 1)
@@ -87,7 +88,7 @@ export default class ProfileDmg extends Base {
 
   async getCalcRule () {
     let ruleName = this.char?.name
-    if ([10000005, 10000007].includes(this.char.id * 1)) {
+    if ([10000005, 10000007, 20000000].includes(this.char.id * 1)) {
       ruleName = `旅行者/${this.profile.elem}`
     }
     const cfgPath = ProfileDmg.dmgRulePath(ruleName, this.char?.game)
@@ -128,6 +129,8 @@ export default class ProfileDmg extends Base {
     let talent = this.talent()
 
     let meta = {
+      characterName: this.char?.name,
+      uid: profile.uid,
       level: profile.level,
       cons: profile.cons * 1,
       talent,
@@ -179,18 +182,19 @@ export default class ProfileDmg extends Base {
         let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
         detail = detail({ ...ds, attr, profile })
       }
-      let params = lodash.merge({}, defParams, lodash.isFunction(detail?.params) ? detail?.params(meta) : detail?.params || {})
-      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params, talent: detail.talent || '', game })
       if (detail.isStatic) {
         return
       }
+      if (detail.cons && meta.cons < detail.cons * 1) {
+        return
+      }
+
+      let params = lodash.merge({}, defParams, lodash.isFunction(detail?.params) ? detail?.params(meta) : detail?.params || {})
+      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params, talent: detail.talent || '', game })
 
       let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
       ds.artis = artis
       if (detail.check && !detail.check(ds)) {
-        return
-      }
-      if (detail.cons && meta.cons < detail.cons * 1) {
         return
       }
 

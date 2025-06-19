@@ -24,7 +24,7 @@ app.reg({
   profileDetail: {
     name: '角色面板',
     fn: ProfileDetail.detail,
-    rule: /^#*([^#]+)\s*(详细|详情|面板|面版|圣遗物|武器[1-7]?|伤害([1-9]+\d*)?)\s*(\d{9,10})*(.*[换变改].*)?$/
+    rule: /^#*([^#]+)\s*(详细|详情|面板|面版|圣遗物|遗器|武器[1-7]?|伤害([1-9]+\d*)?)\s*(\d{9,10})*(.*[换变改].*)?$/
   },
 
   profileChange: {
@@ -123,6 +123,13 @@ app.reg({
     describe: '【#角色】 获取游戏橱窗详情数据',
     fn: ProfileList.refresh,
     rule: /^#(星铁|原神)?(全部面板更新|更新全部面板|获取游戏角色详情|更新面板|面板更新)\s*(\d{9,10})?$/
+  },
+
+  profileRefreshMys: {
+    name: '米游社面板更新',
+    describe: '【#角色】 获取游戏橱窗详情数据',
+    fn: ProfileList.refreshMys,
+    rule: /^#(星铁|原神)?(米游社|mys)(全部面板更新|更新全部面板|获取游戏角色详情|更新面板|面板更新)(\d{9,10})?$/
   },
 
   uploadImg: {

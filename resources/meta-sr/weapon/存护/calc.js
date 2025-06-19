@@ -38,9 +38,6 @@ export default function (staticIdx, keyIdx) {
       staticIdx(2, 'recharge'),
       keyIdx('装备者生命降低时，使我方全体造成的伤害提高[dmg]%', 'dmg', 3)
     ],
-    何物为真: [
-      staticIdx(1, 'stance')
-    ],
     织造命运之线: [
       staticIdx(1, 'effDef'),
       (tables) => {

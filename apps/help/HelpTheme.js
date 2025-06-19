@@ -54,6 +54,7 @@ let HelpTheme = {
     css('.help-title,.help-group', 'color', 'fontColor', '#ceb78b')
     css('.help-title,.help-group', 'text-shadow', 'fontShadow', 'none')
     css('.help-desc', 'color', 'descColor', '#eee')
+    css('.help-desc', 'text-shadow', 'descShadow', 'none')
     css('.cont-box', 'background', 'contBgColor', 'rgba(43, 52, 61, 0.8)')
     css('.cont-box', 'backdrop-filter', 'contBgBlur', 3, (n) => diyStyle.bgBlur === false ? 'none' : `blur(${n}px)`)
     css('.help-group', 'background', 'headerBgColor', 'rgba(34, 41, 51, .4)')
