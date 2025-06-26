@@ -26,6 +26,12 @@ export const cfgSchema = {
         def: false,
         miao: true
       },
+      hardChallenge: {
+        title: '#幽境',
+        key: '幽境危战',
+        def: false,
+        miao: true
+      },
       profileStat: {
         title: '#练度统计',
         key: '练度统计',
