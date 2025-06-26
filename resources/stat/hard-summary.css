@@ -114,10 +114,10 @@ body,
   height: 20px;
   background-size: cover;
 }
-.hard-floor-team {
+.hard-chall-team {
   display: flex;
 }
-.hard-floor-team .line {
+.hard-chall-team .line {
   width: 1px;
   background: rgba(255, 255, 255, 0.5);
   height: 80px;
@@ -129,14 +129,14 @@ body,
   margin-right: -5px;
   margin-left: -5px;
 }
-.hard-buff {
+.hard-info {
   display: flex;
   margin-right: -5px;
   margin-left: -5px;
   flex-direction: column;
   width: 50%;
 }
-.hard-buff .hard-choice-cards-container {
+.hard-info .hard-choice-cards-container {
   width: 100%;
   height: 100%;
   background-color: #e7e5d9;
@@ -145,7 +145,7 @@ body,
   overflow: hidden;
   flex-direction: column;
 }
-.hard-buff .hard-enemy-container {
+.hard-info .hard-enemy-container {
   width: 40%;
   height: 100%;
   background-color: #e7e5d9;
@@ -154,7 +154,7 @@ body,
   overflow: hidden;
   flex-direction: column;
 }
-.hard-buff .hard-splendour-container {
+.hard-info .hard-best-container {
   width: 30%;
   height: 100%;
   background-color: #e7e5d9;
@@ -163,24 +163,24 @@ body,
   overflow: hidden;
   flex-direction: column;
 }
-.hard-buff .hard-splendour-container .avatar-banner {
+.hard-info .hard-best-container .avatar-banner {
   width: 130px;
   height: 130px;
   background-size: 150px 150px;
   background-position: center;
   overflow: hidden;
 }
-.hard-buff .hard-splendour-container .best-number-container {
+.hard-info .hard-best-container .best-number-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 24px;
 }
-.hard-buff .hard-splendour-container .best-number-container .best-number {
+.hard-info .hard-best-container .best-number-container .best-number {
   font-size: 20px;
   color: #0D0D0D;
 }
-.hard-buff .hard-splendour-buff-container {
+.hard-info .hard-splendour-buff-container {
   width: 40%;
   height: 100%;
   background-color: #e7e5d9;
@@ -189,39 +189,39 @@ body,
   overflow: hidden;
   flex-direction: column;
 }
-.hard-buff .hard-choice-cards-header {
+.hard-info .hard-best-header {
   width: 100%;
   height: 30px;
   background-color: #8b8b83;
   padding: 5px;
   font-size: 18px;
 }
-.hard-buff .hard-choice-cards-content {
+.hard-info .hard-best-content {
   width: 100%;
   padding: 5px;
   display: flex;
 }
-.hard-buff .hard-choice-cards-content .hard-content-container {
+.hard-info .hard-best-content .hard-content-container {
   width: 100%;
   display: flex;
   margin-top: 5px;
   flex-direction: column;
   align-items: center;
 }
-.hard-buff .hard-choice-cards-content .hard-content-icon {
+.hard-info .hard-best-content .hard-content-icon {
   width: 140px;
   height: 140px;
   background-size: 220px 220px;
   background-position: center;
   overflow: hidden;
 }
-.hard-buff .hard-buff-line {
+.hard-info .hard-info-line {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
 }
-.hard-buff .hard-buff-line + .hard-buff-line {
+.hard-info .hard-info-line + .hard-info-line {
   margin-top: 4%;
   /* 两个子元素之间的间距4% */
 }

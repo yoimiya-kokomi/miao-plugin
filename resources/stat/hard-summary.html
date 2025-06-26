@@ -43,7 +43,7 @@
       <div class="hard-title">
         <strong>{{chall.name}}</strong>
       </div>
-      <div class="hard-floor-team">
+      <div class="hard-chall-team">
         <div class="hard-team">
           {{set current_avatars=chall?.avatars||[] }}
           {{each current_avatars avatar idx}}
@@ -51,21 +51,21 @@
           {{/each}}
         </div>
         <div class="line"></div>
-        <div class="hard-buff">
-          <div class="hard-buff-line">
+        <div class="hard-info">
+          <div class="hard-info-line">
             {{set monster=chall?.monster }}
             <div class="hard-enemy-container">
-              <div class="hard-choice-cards-header">Lv. {{monster.level}}</div>
-              <div class="hard-choice-cards-content">
+              <div class="hard-best-header">Lv. {{monster.level}}</div>
+              <div class="hard-best-content">
                 <div class="hard-content-container">
                   <div class="hard-content-icon" style="background-image:url({{monster.icon}})"></div>
                 </div>
               </div>
             </div>
             {{set greatest_onehit=chall?.best_avatars[0]}}
-            <div class="hard-splendour-container">
-              <div class="hard-choice-cards-header">最强一击</div>
-              <div class="hard-choice-cards-content" style="flex-direction: column">
+            <div class="hard-best-container">
+              <div class="hard-best-header">最强一击</div>
+              <div class="hard-best-content" style="flex-direction: column">
                   <div class="best-avatar-container">
                     {{set avatar=avatars[greatest_onehit.avatar_id]}}
                     <div class="avatar-banner avatar-{{avatar.name}}"
@@ -77,9 +77,9 @@
               </div>
             </div>
             {{set greatest_total=chall?.best_avatars[1]}}
-            <div class="hard-splendour-container">
-              <div class="hard-choice-cards-header">最高总伤害</div>
-              <div class="hard-choice-cards-content" style="flex-direction: column">
+            <div class="hard-best-container">
+              <div class="hard-best-header">最高总伤害</div>
+              <div class="hard-best-content" style="flex-direction: column">
                   <div class="best-avatar-container">
                     {{set avatar=avatars[greatest_total.avatar_id]}}
                     <div class="avatar-banner avatar-{{avatar.name}}"
