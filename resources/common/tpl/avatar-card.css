@@ -38,6 +38,16 @@
 .avatar-card .avatar-face .avatar-level span {
   font-size: 12px;
 }
+.avatar-card .popularity {
+  border-radius: 0 0 7.5px 0;
+  padding: 3px 7.5px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 16px;
+  text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, 0.8);
+  background-color: #C00000;
+}
 .avatar-card .cons {
   border-radius: 0 0 0 7.5px;
   padding: 3px 7.5px;

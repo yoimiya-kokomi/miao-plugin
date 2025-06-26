@@ -158,6 +158,16 @@ export default class MysApi {
     return await this.getData('role_combat', { need_detail: need_detail })
   }
 
+  // 获取幽境危战信息
+  async getHardChallenge () {
+    return await this.getData('hard_challenge')
+  }
+
+  // 获取幽境危战赋光之人信息
+  async getHardChallengePopularity () {
+    return await this.getData('hard_challenge_popularity')
+  }
+
   async getDetail (id) {
     if (this.e.isSr) { return await this.getData('detail', { avatar_id: id, tab_from: 'TabOwned' }) }
     return await this.getData('detail', { avatar_id: id })

@@ -5,6 +5,7 @@ import Artifact from './Artifact.js'
 import ArtifactSet from './ArtifactSet.js'
 import Abyss from './Abyss.js'
 import RoleCombat from './RoleCombat.js'
+import HardChallenge from './HardChallenge.js'
 import Player from './Player.js'
 import Avatar from './Avatar.js'
 import ProfileDmg from './ProfileDmg.js'
@@ -32,6 +33,7 @@ export {
   Base,
   Abyss,
   RoleCombat,
+  HardChallenge,
   Button,
   Character,
   Artifact,

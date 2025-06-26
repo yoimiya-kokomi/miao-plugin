@@ -45,7 +45,7 @@ export async function RoleCombatSummary (e) {
   player.setMysCharData(resDetail)
 
   if (resRole.data.length === 0) {
-    e.reply('暂未获得本期深渊挑战数据...')
+    e.reply('暂未获得本期幻想真境剧诗挑战数据...')
     return true
   }
   let role = new RoleCombat(resRole.data[0])
