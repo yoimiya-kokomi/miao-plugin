@@ -21,8 +21,8 @@ export async function HardChallengeSummary (e) {
   try {
     hardChallenge = await mys.getHardChallenge()
     hardChallengePopularity = await mys.getHardChallengePopularity()
-    logger.mark('hardchallenge')
-    logger.mark(JSON.stringify(hardChallenge, null, 2))
+    // logger.mark('hardchallenge')
+    // logger.mark(JSON.stringify(hardChallenge, null, 2))
     let lvs = Data.getVal(hardChallenge, 'data.0')
     // 检查是否查询到了幽境危战信息
     // TODO: 查询结果是一个长度为 2 的数组，猜测可能是本期和上期的数据，待后续验证
