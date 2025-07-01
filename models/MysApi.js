@@ -113,7 +113,7 @@ export default class MysApi {
     e._reqCount++
     let ret = await mys.getData(api, data)
     if (mysInfo && mysInfo.checkCode) {
-      ret = await mysInfo.checkCode(ret, api, this.mys)
+      ret = await mysInfo.checkCode(ret, api, this.mys, data)
     }
     e._reqCount--
     if (e._reqCount === 0) {
