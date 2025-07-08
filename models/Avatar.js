@@ -177,7 +177,7 @@ export default class Avatar extends Base {
     let prefix = ''
     let map = {}
     lodash.forEach(this.char?.detail?.tree || {}, (ds, key) => {
-      let ret = /(\d{4})(\d{3})/.exec(key)
+      let ret = /1?(\d{4})(\d{3})/.exec(key)
       if (ret && ret[1] && ret[2]) {
         prefix = prefix || ret[1]
         map[ret[2]] = key
@@ -189,7 +189,7 @@ export default class Avatar extends Base {
       }
     }
     lodash.forEach(ds, (id) => {
-      let ret = /\d{4}(\d{3})/.exec(id)
+      let ret = /1?\d{4}(\d{3})/.exec(id)
       this.trees.push(map[ret?.[1] || id] || id)
     })
   }
