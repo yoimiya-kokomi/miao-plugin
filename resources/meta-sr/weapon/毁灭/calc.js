@@ -115,6 +115,18 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    黎明恰如此燃烧: [
+      staticIdx(1, 'speed'),
+      keyIdx('造成伤害时无视目标[ignore]%的防御力', 'ignore', 2),
+      (tables) => {
+        return {
+          title: '装备者施放终结技后，持有【烈阳】时，装备者造成的伤害提高[dmg]%',
+          data: {
+            dmg: tables[3]
+          }
+        }
+      }
     ]
   }
 }
