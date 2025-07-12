@@ -127,6 +127,17 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    "没有回报的加冕": [
+      staticIdx(1, "cdmg"),
+      (tables) => {
+        return {
+          title: "攻击力提高[atkPct]%",
+          data: {
+            atkPct: tables[2] + tables[3]
+          }
+        }
+      }
     ]
   }
 }
