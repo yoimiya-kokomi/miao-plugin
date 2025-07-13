@@ -398,9 +398,9 @@ export default {
   },
   妖精织梦的乐园: {
     2: {
-      title: '造成的伤害提高36%',
+      title: '造成的伤害提高[dmg]%',
       data: {
-        Dmg: 36
+        dmg: 36
       }
     }
   },
