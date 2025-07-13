@@ -125,6 +125,17 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    理想燃烧的地狱: [
+      staticIdx(1, 'cpct'),
+      (tables) => {
+        return {
+          title: '攻击力提高[atkPct]%',
+          data: {
+            atkPct: tables[2] + tables[3] * 4
+          }
+        }
+      }
     ]
   }
 }
