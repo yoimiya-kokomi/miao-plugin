@@ -18,21 +18,21 @@ export const details = [{
   title: '七相一闪1命晶刃单次伤害',
   params: { cons_2 : true },
   cons: 1,
-  dmg: ({ talent }, dmg) => dmg(500, 'a2')
+  dmg: ({}, dmg) => dmg(500, 'a2')
 }, {
   title: '6命1层极恶技·斩协同攻击伤害',
   cons: 6,
-  dmg: ({ talent }, dmg) => dmg(600, 'q')
+  dmg: ({}, dmg) => dmg(600, 'q')
 }, {
   title: '6命七相一闪3次协同攻击总伤害',
   params: { cons_2 : true },
   cons: 6,
-  dmg: ({ talent }, dmg) => dmg(150 * 3, 'a')
+  dmg: ({}, dmg) => dmg(150 * 3, 'a')
 }, {
   title: '受到伤害时6命七相一闪3次协同攻击总伤害',
   params: { cons_2 : true },
   cons: 6,
-  dmg: ({ talent }, dmg) => dmg(150 * 3, 'a2')
+  dmg: ({}, dmg) => dmg(150 * 3, 'a2')
 }]
 
 export const defDmgIdx = 1
@@ -43,7 +43,7 @@ export const buffs = [{
   title: '丝柯克元素爆发：依据施放时丝柯克拥有的蛇之狡谋超过50点的部分，Q极恶技·灭最多可获得[qPct]%的倍率提升',
   data: {
     qPct: ({ talent, cons }) => {
-      let num = cons > 1 ? 24 : 12
+      let num = cons > 1 ? 22 : 12
       return num * talent.q['蛇之狡谋加成'] * 6
     }
   }
