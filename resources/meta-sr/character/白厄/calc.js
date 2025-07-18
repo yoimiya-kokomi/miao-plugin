@@ -18,11 +18,11 @@ export const details = [{
 }, {
   title: '4层[弑魂之炽]强化战技【弑魂焚诏】总伤害',
   params: ({ qBuff: true, Khaslana: true }),
-  dmg: ({ cons, talent }, dmg) => dmg(talent.e1['技能伤害'] + talent.e1['随机伤害'] * 4 + 0.2 * 4, 'e2')
+  dmg: ({ talent }, dmg) => dmg(talent.e1['技能伤害'] + talent.e1['随机伤害'] * 4 + 0.2 * 4, 'e2')
 }, {
   title: '4点[毁伤]强化战技【死星天裁】总伤害',
   params: ({ qBuff: true, Khaslana: true }),
-  dmg: ({ cons, talent }, dmg) => dmg(talent.e2['技能伤害'], 'e2')
+  dmg: ({ talent }, dmg) => dmg(talent.e2['技能伤害'], 'e2')
 }, {
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
