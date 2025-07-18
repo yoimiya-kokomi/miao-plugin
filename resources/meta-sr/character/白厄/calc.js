@@ -22,7 +22,7 @@ export const details = [{
 }, {
   title: '4点[毁伤]强化战技【死星天裁】总伤害',
   params: ({ qBuff: true, Khaslana: true }),
-  dmg: ({ cons, talent }, dmg) => dmg(talent.e2['技能伤害'] + talent.e2['随机伤害'] * 4 + talent.e2['额外伤害'], 'e2')
+  dmg: ({ cons, talent }, dmg) => dmg(talent.e2['技能伤害'], 'e2')
 }, {
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
