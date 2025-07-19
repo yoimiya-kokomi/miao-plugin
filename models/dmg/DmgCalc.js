@@ -40,6 +40,8 @@ let DmgCalc = {
     // 倍率独立乘区
     let multiNum = attr.multi / 100
     let fyplus = attr.fyplus
+    let fypct = attr. fypct / 100
+    let fybase = attr.fybase
 
     // 增伤区
     let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100 + dynamicDmg / 100)
@@ -192,8 +194,17 @@ let DmgCalc = {
       case 'bloom':
       case 'burgeon':
       case 'hyperBloom': {
-        eleBase *= eleBaseDmg[level]
-        ret = { avg: (eleBase * eleNum + fyplus) * kNum }
+        ret = { avg: ((eleBaseDmg[level] * (1 + fypct) + fybase) * eleBase * eleNum + fyplus) * kNum }
+        break
+      }
+
+      case 'lunarCharged': {
+        let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
+        eleNum = dmgBase ? 3 : eleNum
+        ret = {
+          avg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + fyplus) * kNum * (1 + cpctNum * cdmgNum),
+          dmg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + fyplus) * kNum * (1 + cdmgNum)
+        }
         break
       }
 

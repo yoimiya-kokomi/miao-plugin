@@ -91,8 +91,11 @@ let DmgAttr = {
         ret.hyperBloom = 0 // 超绽放
         ret.aggravate = 0 // 超激化
         ret.spread = 0 // 蔓激化
+        ret.lunarCharged = 0 // 月感电
         ret.fykx = 0 // 敌人反应抗性降低
         ret.fyplus = 0 // 反应伤害值提升
+        ret.fypct = 0 // 反应基础伤害加成
+        ret.fybase = 0 // 反应基础伤害值提升
       } else if (game === 'sr') {
         ret.sp = char.sp * 1
         // 超击破
@@ -229,7 +232,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx', 'multi', 'fyplus'].includes(key)) {
+        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'lunarCharged', 'kx', 'fykx', 'multi', 'fyplus', 'fypct', 'fybase'].includes(key)) {
           attr[key] += val * 1 || 0
           return
         }

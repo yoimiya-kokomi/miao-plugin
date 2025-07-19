@@ -182,6 +182,13 @@ export default function (step, staticStep) {
       refine: {
         atkPct: step(12 + 32)
       }
-    }]
+    }],
+    支离轮光: {
+      title: '施放元素战技或元素爆发后攻击力提升[atkPct]%,创造护盾后月感电伤害提升[lunarCharged]',
+      refine: {
+        atkPct: step(24),
+        lunarCharged: step(40)
+      }
+    }
   }
 }

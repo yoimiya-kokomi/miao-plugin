@@ -221,6 +221,13 @@ export default function (step, staticStep) {
         cdmg: ({ params, refine }) => params.Nightsoul === true ? (step(20)[refine] * 1.75) : step(20)[refine],
         atkPct: ({ params, refine }) => params.Nightsoul === true ? (step(28)[refine] * 1.75) : step(28)[refine]
       }
+    },
+    拾慧铸熔: {
+      check: ({ element }) => ['风', '水', '雷', '草'].includes(element),
+      title: '触发感电、月感电或绽放反应时，元素精通提升[mastery]',
+      refine: {
+        mastery: step(60)
+      }
     }
   }
 }

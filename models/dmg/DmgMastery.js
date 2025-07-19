@@ -7,6 +7,8 @@ let DmgMastery = {
       return (25 / 9) * mastery / (mastery + 1400)
     } else if (typeCfg.type === 'fusion') {
       return 16 * mastery / (mastery + 2000)
+    } else if (typeCfg.type === 'lunar') {
+      return 6 * mastery / (mastery + 2000)
     } else if (typeCfg.type === 'bonus') {
       return 5 * mastery / (mastery + 1200)
     } else if (typeCfg.type === 'shield') {
