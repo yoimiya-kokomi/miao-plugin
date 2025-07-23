@@ -23,6 +23,11 @@ export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
+  title: '双冰共鸣：攻击冰元素附着或冻结状态下的敌人时，暴击率提高[cpct]%',
+  data: {
+    cpct: 15
+  }
+}, {
   title: '爱可菲天赋：当队伍中存在4名水/冰元素角色时，爱可菲的元素战技或元素爆发命中敌人后，将使该敌人的水元素抗性与冰元素抗性降低[kx]%',
   data: {
     kx: 55
