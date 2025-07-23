@@ -39,6 +39,11 @@ export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
+  title: '双冰共鸣：攻击冰元素附着或冻结状态下的敌人时，暴击率提高[cpct]%',
+  data: {
+    cpct: 15
+  }
+}, {
   check: ({ params }) => params.Havoc_Ruin === true,
   title: '丝柯克元素爆发：依据施放时丝柯克拥有的蛇之狡谋超过50点的部分，Q极恶技·灭最多可获得[qPct]%的倍率提升',
   data: {
