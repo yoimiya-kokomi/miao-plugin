@@ -80,12 +80,22 @@ export default function (step, staticStep) {
       }
     },
     护摩之杖: [staticStep('hpPct', 20), {
-      title: '角色生命低于50%时额外获得[atkPlus]攻击力',
+      title: '基于生命值上限，获得[atkPlus]的攻击力提升',
       sort: 9,
       data: {
         atkPlus: ({ attr, refine, calc }) => {
           let totalHp = calc(attr.hp)
-          return totalHp * ([0.8, 1, 1.2, 1.4, 1.6][refine] + [1, 1.2, 1.4, 1.6, 1.8][refine]) / 100
+          return totalHp * ([0.8, 1, 1.2, 1.4, 1.6][refine]) / 100
+        }
+      }
+    }, {
+      check: ({ attr }) => attr.characterName === '胡桃',
+      title: '角色生命低于50%时额外获得[atkPlus]攻击力（默认仅胡桃触发）',
+      sort: 9,
+      data: {
+        atkPlus: ({ attr, refine, calc }) => {
+          let totalHp = calc(attr.hp)
+          return totalHp * ([1, 1.2, 1.4, 1.6, 1.8][refine]) / 100
         }
       }
     }],
@@ -184,7 +194,7 @@ export default function (step, staticStep) {
       }
     }],
     支离轮光: {
-      title: '施放元素战技或元素爆发后攻击力提升[atkPct]%,创造护盾后月感电伤害提升[lunarCharged]',
+      title: '施放元素战技或元素爆发后攻击力提升[atkPct]%，创造护盾后月感电伤害提升[lunarCharged]%',
       refine: {
         atkPct: step(24),
         lunarCharged: step(40)
