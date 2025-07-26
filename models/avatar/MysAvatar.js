@@ -237,20 +237,13 @@ const MysAvatar = {
       let game = avatar.game
       if (game === 'gs' && talentRes && talentRes.skill_list) {
         let talentList = lodash.orderBy(talentRes.skill_list, ['id'], ['asc'])
-        for (let val of talentList) {
-          let { max_level: maxLv, level_current: lv } = val
-          if (val.name.includes('普通攻击')) {
-            talent.a = lv
-            continue
-          }
-          if (maxLv >= 10 && !talent.e) {
-            talent.e = lv
-            continue
-          }
-          if (maxLv >= 10 && !talent.q) {
-            talent.q = lv
-          }
+        talentList = talentList.filter(val => val.max_level >= 10 && val.level_current > 0)
+        if (talentList.length < 3) {
+          return false
         }
+        talent.a = talentList[0].level_current
+        talent.e = talentList[1].level_current
+        talent.q = talentList[2].level_current
       } else if (game === 'sr' && talentRes && talentRes.skills) {
         let talentList = lodash.orderBy(talentRes.skills, ['point_id'], ['asc'])
         for (let val of talentList) {
