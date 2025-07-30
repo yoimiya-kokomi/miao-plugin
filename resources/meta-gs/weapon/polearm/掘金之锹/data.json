@@ -21,7 +21,7 @@
       "70+": 413.66,
       "80+": 474.58
     },
-    "bonusKey": "Attack %",
+    "bonusKey": "atkPct",
     "bonusData": {
       "1": 9.0,
       "20": 15.9,
