@@ -40,7 +40,7 @@ let DmgCalc = {
     // 倍率独立乘区
     let multiNum = attr.multi / 100
     let fyplus = attr.fyplus
-    let fypct = attr. fypct / 100
+    let fypct = attr.fypct / 100
     let fybase = attr.fybase
 
     // 增伤区

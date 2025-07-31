@@ -15,6 +15,10 @@ export const details = [{
   params: { Lunar: true },
   dmg: ({ calc, attr }, { basic }) => basic(calc(attr.atk) * 65 / 100, '', 'lunarCharged')
 }, {
+  title: '单人月感电伤害',
+  params: { Lunar: true },
+  dmg: ({}, { reaction }) => reaction('lunarCharged')
+}, {
   check: ({ cons }) => cons >= 2,
   title: `单人2命附加伤害`,
   params: { Lunar: true },
@@ -24,13 +28,9 @@ export const details = [{
   title: `单人6命附加伤害`,
   params: { Lunar: true },
   dmg: ({ calc, attr }, { basic }) => basic(calc(attr.atk) * 135 / 100, '', 'lunarCharged')
-}, {
-  title: '单人月感电伤害',
-  params: { Lunar: true },
-  dmg: ({}, { reaction }) => reaction('lunarCharged')
 }]
 
-export const defDmgIdx = 2
+export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
@@ -52,3 +52,5 @@ export const buffs = [{
     lunarCharged: ({ attr, calc }) => Math.min((calc(attr.atk) / 100 * 2.5), 50)
   }
 }]
+
+export const createdBy = 'liangshi'
