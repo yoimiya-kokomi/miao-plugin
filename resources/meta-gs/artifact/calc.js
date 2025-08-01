@@ -561,6 +561,30 @@ const buffs = {
         qDmg: 60
       }
     }
+  },
+
+  穹境示现之夜: {
+    2: attr('mastery', 80),
+    4: {
+      title: '依据队伍的月兆与月辉明光效果，暴击率提升[cpct]%,月曜反应造成的伤害提升[lunarBloom]%',
+      data: {
+        cpct: ({ params }) => Math.min(((params.Moonsign || 0) * 15), 30),
+        lunarCharged: ({ params }) => (params["月辉明光"] || 1) * 10,
+        lunarBloom: ({ params }) => (params["月辉明光"] || 1) * 10
+      }
+    }
+  },
+
+  纺月的夜歌: {
+    2: attr('recharge', 20),
+    4: {
+      title: '依据队伍的月兆与月辉明光效果，元素精通提升[mastery],月曜反应造成的伤害提升[lunarBloom]%',
+      data: {
+        mastery: ({ params }) => Math.min(((params.Moonsign || 0) * 60), 120),
+        lunarCharged: ({ params }) => (params["月辉明光"] || 1) * 10,
+        lunarBloom: ({ params }) => (params["月辉明光"] || 1) * 10
+      }
+    }
   }
 
 }

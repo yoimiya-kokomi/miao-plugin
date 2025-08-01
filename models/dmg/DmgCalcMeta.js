@@ -21,6 +21,7 @@ export const erType = {
   aggravate: { type: 'bonus', num: () => 4.6, title: '超激化' },
   spread: { type: 'bonus', num: () => 5.0, title: '蔓激化' },
   // 月反应
+  lunarBloom: { type: 'lunar', num: () => 8, title: '月绽放' },
   lunarCharged: { type: 'lunar', num: () => 7.2, title: '月感电' },
   // 击破持续伤害
   shock: { type: 'breakDot', num: () => 2.0, title: '触电' },

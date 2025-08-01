@@ -287,6 +287,18 @@ export default function (step, staticStep) {
         atkPct: step(48),
         cdmg: step(40)
       }
+    },
+    谧音吹哨: {
+      title: '触发反应后生命值上限提高[hpPct]%',
+      data: {
+        hpPct: ({ params, refine }) => step(16)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+      }
+    },
+    织月者的曙色: {
+      title: '元素爆发造成的伤害提高[qDmg]%',
+      data: {
+        qDmg: ({ talent, refine }) => step(20)[refine] + (talent.q['元素能量'] > 60 ? 0 : step(16)[refine]) + (talent.q['元素能量'] > 40 ? 0 : step(12)[refine])
+      }
     }
   }
 }

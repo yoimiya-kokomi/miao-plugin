@@ -199,6 +199,20 @@ export default function (step, staticStep) {
         atkPct: step(24),
         lunarCharged: step(40)
       }
+    },
+    掘金之锹: {
+      title: '感电反应造成的伤害提升[electroCharged]%，月感电反应造成的伤害提升[lunarCharged]%',
+      data: {
+        electroCharged: ({ refine }) => step(48)[refine],
+        lunarCharged: ({ params, refine }) => step(12)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+      }
+    },
+    血染荒城: {
+      title: '施放元素爆发后月感电反应伤害提高[lunarCharged]%,触发月感电反应后暴击伤害提高[cdmg]%',
+      data: {
+        lunarCharged: ({ refine }) => step(36)[refine],
+        cdmg: ({ element, refine }) => ['水', '雷', '草'].includes(element) ? step(28)[refine] : 0
+      }
     }
   }
 }

@@ -223,6 +223,12 @@ export default function (step, staticStep) {
       refine: {
         mastery: step(60)
       }
+    },
+    万能钥匙: {
+      title: '触发元素反应后元素精通提升[mastery]',
+      data: {
+        mastery: ({ params, refine }) => step(60)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+      }
     }
   }
 }

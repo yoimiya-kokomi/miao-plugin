@@ -51,6 +51,8 @@ let DmgAttr = {
         cpct: 0, // 暴击提高
         cdmg: 0, // 爆伤提高
 
+        elevated: 0, // 擢升
+
         def: 0, // 防御降低
         ignore: 0 // 无视防御
       }
@@ -77,6 +79,7 @@ let DmgAttr = {
       ret.kx = 0 // 敌人抗性降低
       ret.staticAttr = attr.staticAttr
       if (game === 'gs') {
+        ret.elevated = 0 // 擢升
         ret.vaporize = 0 // 蒸发
         ret.melt = 0 // 融化
         ret.burning = 0 // 燃烧
@@ -92,6 +95,7 @@ let DmgAttr = {
         ret.aggravate = 0 // 超激化
         ret.spread = 0 // 蔓激化
         ret.lunarCharged = 0 // 月感电
+        ret.lunarBloom = 0 // 月绽放
         ret.fykx = 0 // 敌人反应抗性降低
         ret.fyplus = 0 // 反应伤害值提升
         ret.fypct = 0 // 反应基础伤害加成
@@ -204,7 +208,7 @@ let DmgAttr = {
         title = title.replace(`[${key}]`, Format.comma(val, 1))
 
         // 技能提高
-        let tRet = /^(a|a2|a3|e|q|t|dot|break|nightsoul)(Def|Ignore|Dmg|Enemydmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key)
+        let tRet = /^(a|a2|a3|e|q|t|dot|break|nightsoul)(Def|Ignore|Dmg|Enemydmg|Plus|Pct|Cpct|Cdmg|Multi|Elevated)$/.exec(key)
         if (tRet) {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0
           return
@@ -232,7 +236,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'lunarCharged', 'kx', 'fykx', 'multi', 'fyplus', 'fypct', 'fybase'].includes(key)) {
+        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'elevated', 'lunarCharged', 'lunarBloom', 'kx', 'fykx', 'multi', 'fyplus', 'fypct', 'fybase'].includes(key)) {
           attr[key] += val * 1 || 0
           return
         }
