@@ -71,6 +71,8 @@ export const alias = {
   Archer: 'Archer,红A,红a,ARCHER',
   海瑟音: '海色音',
   刻律德菈: '克律得拉',
+  "刻律德菈": "cerydra",
+  "海瑟音": "hysilens",
 }
 
 export const abbr = {
