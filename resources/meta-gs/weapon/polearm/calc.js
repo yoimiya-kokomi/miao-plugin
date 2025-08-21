@@ -211,7 +211,7 @@ export default function (step, staticStep) {
       title: '施放元素爆发后月感电反应伤害提高[lunarCharged]%,触发月感电反应后暴击伤害提高[cdmg]%',
       data: {
         lunarCharged: ({ refine }) => step(36)[refine],
-        cdmg: ({ element, refine }) => ['水', '雷', '草'].includes(element) ? step(28)[refine] : 0
+        cdmg: ({ element, refine }) => ['水', '雷', '风'].includes(element) ? step(28)[refine] : 0
       }
     }
   }

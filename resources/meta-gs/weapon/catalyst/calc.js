@@ -217,7 +217,7 @@ export default function (step, staticStep) {
       title: '触发[_buff]种方式，元素精通提升[mastery]',
       //扩散作为无序元素反应，冰雷火水后手也可触发扩散反应
       data: {
-        _buff: ({ element, refine }) => !['草', '岩'].includes(element) ? 3 : 2,
+        _buff: ({ element }) => !['草', '岩'].includes(element) ? 3 : 2,
         mastery: ({ element, refine }) => !['草', '岩'].includes(element) ? step(120 + 96 + 32)[refine] : step(96 + 32)[refine]
       }
     },
@@ -230,7 +230,7 @@ export default function (step, staticStep) {
     天光的纺琴: {
       title: '施放元素战技后元素精通提升[mastery]',
       refine: {
-        mastery: step(120)
+        mastery: step(100)
       }
     },
     乌髓孑灯: {

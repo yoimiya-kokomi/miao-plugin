@@ -10,7 +10,7 @@ export const details = [{
   {
     title: 'Q单段伤害',
     params: { Lunar: true, Moonsign: 3 },
-    dmg: ({ calc, attr, talent }, { basic }) => basic(calc(attr.atk) * talent.q['每段月感电伤害'] / 100, '', 'lunarCharged')
+    dmg: ({ calc, attr, talent }, { basic }) => basic(calc(attr.atk) * talent.q['中间段月感电伤害'] / 100, '', 'lunarCharged')
   },
   {
     title: 'Q尾段伤害',
@@ -83,7 +83,7 @@ export const buffs = [
     title: '菲林斯6命：对敌人造成的月感电反应伤害擢升[lunarChargedEle]%',
     cons: 6,
     data: {
-      elevated: 40
+      elevated: 45
     }
   }
 ]

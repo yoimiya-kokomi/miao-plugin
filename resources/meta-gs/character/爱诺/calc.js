@@ -12,7 +12,7 @@ export const details = [
     check: ({ cons }) => cons >= 2,
     title: '二命额外伤害',
     params: { Lunar: true },
-    dmg: ({ calc, attr, talent }, { basic }) => basic(calc(attr.mastery) + 300, 'q')
+    dmg: ({ calc, attr, talent }, { basic }) => basic(calc(attr.mastery) + calc(attr.atk) * 25 / 100, 'q')
   }, {
     title: '满辉月感电伤害',
     params: { Lunar: true, Moonsign: 3 },

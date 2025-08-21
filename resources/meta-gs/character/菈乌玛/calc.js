@@ -45,13 +45,13 @@ export const details = [{
     check: ({ cons }) => cons >= 6,
     title: '六命满辉E附加伤害',
     params: { Lunar: true, Moonsign: 3 },
-    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 320 / 100, '', 'lunarBloom')
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 185 / 100, '', 'lunarBloom')
   },
   {
     check: ({ cons }) => cons >= 6,
     title: '六命满辉普攻附加伤害',
     params: { Lunar: true, Pale_Hymn: true, Moonsign: 3 },
-    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 200 / 100, '', 'lunarBloom')
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 150 / 100, '', 'lunarBloom')
   }
 ]
 
@@ -86,17 +86,17 @@ export const buffs = [{
     }
   }, {
     check: ({ params }) => params.Pale_Hymn === true,
-    title: '菈乌玛元素爆发：绽放、超绽放、烈绽放、月绽放反应造成的伤害提升[fybase]',
+    title: '菈乌玛元素爆发：绽放、超绽放、烈绽放、月绽放反应造成的伤害提升[fyplus]',
     sort: 9,
     data: {
       fyplus: ({ attr, calc, talent, params }) => calc(attr.mastery) * (params.Lunar === true ? talent.q['月绽放反应伤害提升'] : talent.q['绽放、超绽放、烈绽放反应伤害提升']) / 100
     }
   }, {
-    title: '菈乌玛2命：绽放、超绽放、烈绽放、月绽放伤害额外提升[fybase],处于满辉时月绽放反应伤害提升[lunarBloom]%',
+    title: '菈乌玛2命：绽放、超绽放、烈绽放、月绽放伤害额外提升[fyplus],处于满辉时月绽放反应伤害提升[lunarBloom]%',
     sort: 9,
     cons: 2,
     data: {
-      fyplus: ({ attr, calc, params }) => params.Pale_Hymn === true ? (calc(attr.mastery) * (params.Lunar === true ? 250 : 500) / 100) : 0,
+      fyplus: ({ attr, calc, params }) => params.Pale_Hymn === true ? (calc(attr.mastery) * (params.Lunar === true ? 400 : 500) / 100) : 0,
       lunarBloom: ({ params }) => ((params.Moonsign || 0) >= 2 ? 40 : 0)
     }
   }, {
