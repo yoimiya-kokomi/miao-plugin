@@ -71,10 +71,13 @@ export const alias = {
   Archer: 'Archer,红A,红a,ARCHER',
   海瑟音: '海色音',
   刻律德菈: '克律得拉',
+  '丹恒•腾荒': 'danhengpt,腾荒,腾荒君,丹恒腾荒,丹恒·腾荒',
+  长夜月: 'evernight,长野月',
 }
 
 export const abbr = {
   '丹恒•饮月': '饮月君',
+  '丹恒•腾荒': '腾荒君',
   '托帕&账账': '托帕',
   '阮•梅': '阮梅',
   真理医生: '真理',
