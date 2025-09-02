@@ -140,6 +140,10 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
-    ]
+    ],
+    假日浴场大冒险: [
+      staticIdx(1, "dmg"),
+      keyIdx("使受到攻击的目标陷入易伤状态，受到的伤害提高[enemydmg]%", "enemydmg", 2)
+    ],
   }
 }

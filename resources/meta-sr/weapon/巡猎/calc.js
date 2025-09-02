@@ -136,6 +136,10 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    于那终点再见: [
+      staticIdx(1, "cdmg"),
+      keyIdx("装备者战技和追加攻击造成的伤害提高[eDmg]%", { eDmg: 2, tDmg: 2 })
     ]
   }
 }

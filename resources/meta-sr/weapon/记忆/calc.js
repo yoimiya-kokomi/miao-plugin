@@ -44,6 +44,30 @@ export default function (staticIdx, keyIdx) {
     愿虹光永驻天空: [
       staticIdx(1, 'speedPct'),
       keyIdx('装备者的忆灵施放忆灵技时，使敌方全体受到的伤害提高[enemydmg]%', 'enemydmg', 4)
+    ],
+    故事的下一页: [
+      staticIdx(1, "hpPct"),
+      (tables) => {
+        return {
+          check: ({ params }) => params.Memosprite,
+          title: "装备者的忆灵攻击后，使装备者与忆灵的治疗量提高[heal]%",
+          data: {
+            heal: tables[2]
+          }
+        }
+      }
+    ],
+    花儿不会忘记: [
+      staticIdx(1, "cdmg"),
+      (tables) => {
+        return {
+          check: ({ params }) => params.Memosprite,
+          title: "装备者忆灵造成的暴击伤害额外提高[meCdmg]%",
+          data: {
+            meCdmg: tables[2]
+          }
+        }
+      }
     ]
   }
 }
