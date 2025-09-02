@@ -15,7 +15,7 @@ export const details = [{
   params: { isDot: true },
   dmg: ({ talent, attr, cons, calc }, { basic }) => {
     let other = basic((cons>0 ? 6 : 3) * talent.t['持续伤害'] * calc(attr.atk),'dot','skillDot',{ dynamicDmg: -attr.staticAttr.dmg.plus })
-    let phy = basic((cons>0 ? 2 : 1) * talent.t['攻击百分比'] * calc(attr.atk),'dot','skillDot') 
+    let phy = basic((cons>0 ? 2 : 1) * talent.t['持续伤害上限'] * calc(attr.atk),'dot','skillDot') 
     let td = talent.q['持续伤害'] + (cons===6 ? 0.2 : 0)
     let trig = basic((cons===6 ? 12 : (cons>0 ? 8 : 5)) * td * calc(attr.atk), 'dot', 'skillDot')
     logger.info(`\n单个非物理dot:${other.avg/3}\n物理dot:${phy.avg}\n`)
@@ -27,7 +27,7 @@ export const details = [{
   params: { isDot: true, Ultimate: true },
   dmg: ({ talent, attr, cons, calc }, { basic }) => {
     let other = basic((cons>0 ? 6 : 3) * talent.t['持续伤害'] * calc(attr.atk),'dot','skillDot',{ dynamicDmg: -attr.staticAttr.dmg.plus })
-    let phy = basic((cons>0 ? 2 : 1) * talent.t['攻击百分比'] * calc(attr.atk),'dot','skillDot') 
+    let phy = basic((cons>0 ? 2 : 1) * talent.t['持续伤害上限'] * calc(attr.atk),'dot','skillDot') 
     let td = talent.q['持续伤害'] + (cons===6 ? 0.2 : 0)
     let trig = basic((cons===6 ? 12 : (cons>0 ? 8 : 5)) * td * calc(attr.atk), 'dot', 'skillDot')
     return {avg: 1.5*(other.avg + phy.avg + trig.avg)}
