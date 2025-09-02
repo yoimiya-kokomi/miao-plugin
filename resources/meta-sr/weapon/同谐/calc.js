@@ -62,6 +62,7 @@ export default function (staticIdx, keyIdx) {
     如果时间是一朵花: [
       staticIdx(1, 'cdmg'),
       keyIdx('当装备者持有【谕示】时，我方全体目标的暴击伤害提高[cdmg]%', 'cdmg', 2)
-    ]
+    ],
+    金血铭刻的时代: [staticIdx(1, 'atkPct')]
   }
 }

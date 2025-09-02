@@ -128,6 +128,18 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    海洋为何而歌: [
+      staticIdx(1, 'effPct'),
+      (tables) => {
+        return {
+          title: '【魂迷】状态下，有6个装备者施加的负面效果，受到的持续伤害提高[dotEnemydmg]%，受到我方目标攻击时，使攻击者速度提高[speedPct]%，持续3回合',
+          data: {
+            dotEnemydmg: tables[2] * 6,
+            speedPct: tables[3]
+          }
+        }
+      }
     ]
   }
 }
