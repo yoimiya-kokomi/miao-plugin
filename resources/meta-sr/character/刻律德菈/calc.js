@@ -24,7 +24,7 @@ export const details = [{
   title: '【军功】角色攻击力提升',
   dmg: ({ talent, calc, attr }) => {
     return {
-      avg: `${ Math.floor(calc(attr.atk) * talent.t['攻击百分比']) }点`,
+      avg: `${ Math.floor(calc(attr.atk) * talent.t['攻击力提高上限']) }点`,
       type: 'text',
     }
   }
