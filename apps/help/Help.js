@@ -34,7 +34,7 @@ const Help = {
       custom = help
     }
 
-    let helpConfig = lodash.defaults(diyCfg.helpCfg || {}, custom.helpCfg || {}, sysCfg.helpCfg || {})
+    let helpConfig = lodash.defaults(diyCfg.helpCfg || {}, custom.helpCfg, sysCfg.helpCfg)
     let helpList = diyCfg.helpList || custom.helpList || sysCfg.helpList
 
     let helpGroup = []
