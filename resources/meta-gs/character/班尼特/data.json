@@ -12,7 +12,9 @@
   "desc": "蒙德的冒险家少年，拥有与他的善良毫不相称的霉运。",
   "cncv": "穆雪婷",
   "jpcv": "逢坂良太",
-  "costume": false,
+  "costume": [
+    203201
+  ],
   "ver": 1,
   "baseAttr": {
     "hp": 13255,
