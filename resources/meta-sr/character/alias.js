@@ -68,9 +68,9 @@ export const alias = {
   赛飞儿: '贼星,赛法利娅,侠盗,赛菲儿,赛非儿,帕朵,猫猫,大猫猫,大猫咪',
   白厄: '卡厄斯兰那',
   Saber: 'Saber,SABER,Sb,SB,吾王,军刀,亚瑟,亚瑟王,金毛,黄毛,呆毛,呆毛王',
-  Archer: 'Archer,红A,红a,ARCHER',
-  海瑟音: '海色音',
-  刻律德菈: '克律得拉',
+  Archer: 'Archer,红A,红a,ARCHER,拉矢人',
+  海瑟音: '海色音,拉琴女子,拉琴女,音鲸女子,音鲸',
+  刻律德菈: '克律得拉,刻律,凯撒,女皇',
 }
 
 export const abbr = {

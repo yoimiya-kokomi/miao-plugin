@@ -71,6 +71,7 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
-    ]
+    ],
+    愿旅途永远坦然: [ keyIdx("我方目标持有护盾时，造成的伤害提高[dmg]%", "dmg", 2) ]
   }
 }

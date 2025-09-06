@@ -138,6 +138,7 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
-    ]
+    ],
+    一行往日的血: [ keyIdx("暴击率提高[cpct]%,战技伤害提高[eDmg]%,终结技伤害提高[qDmg]%", { cpct: 1, eDmg: 2, qDmg: 2 }) ],
   }
 }
