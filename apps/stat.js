@@ -41,7 +41,7 @@ app.reg({
     desc: '幻想真境剧诗'
   },
   HardChallengeSummary: {
-    rule: /^#*(喵喵)*(幽境|危战|幽境危战)[ |0-9]*(数据)?$/,
+    rule: /^#*(喵喵)*(本期|上期)?(幽境|危战|幽境危战)[ |0-9]*(数据)?$/,
     fn: HardChallengeSummary,
     desc: '幽境危战'
   }

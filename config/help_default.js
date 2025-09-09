@@ -75,7 +75,7 @@ export const helpList = [{
     desc: '幻想真境剧诗入场角色查询'
   }, {
     icon: 64,
-    title: '#幽境 #幽境危战',
+    title: '#幽境 #幽境危战 #上期幽境',
     desc: '幽境危战数据'
   }, {
     icon: 67,

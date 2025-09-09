@@ -3,10 +3,13 @@ import { Cfg, Common, Data } from '#miao'
 import { HardChallenge, MysApi, Player } from '#miao.models'
 
 export async function HardChallengeSummary (e) {
-  let isMatch = /^#(喵喵)(幽境|危战|幽境危战)(数据)?$/.test(e.original_msg || e.msg || '')
+  let rawMsg = e.original_msg || e.msg || ''
+  let isMatch = /^#(喵喵)(本期|上期)?(幽境|危战|幽境危战)(数据)?$/.test(rawMsg)
   if (!Cfg.get('hardChallenge', false) && !isMatch) {
     return false
   }
+  let isCurrent = !(/上期/.test(rawMsg))
+  let periodText = isCurrent ? '本期' : '上期'
   // 需要自身 ck 查询
   let mys = await MysApi.init(e, 'cookie')
   if (!mys || !mys.uid) {
@@ -18,19 +21,25 @@ export async function HardChallengeSummary (e) {
   let uid = mys.uid
   let player = Player.create(e)
   let resDetail, hardChallenge, hardChallengePopularity
+  let lvs
   try {
     hardChallenge = await mys.getHardChallenge()
     hardChallengePopularity = await mys.getHardChallengePopularity()
     // logger.mark('hardchallenge')
     // logger.mark(JSON.stringify(hardChallenge, null, 2))
-    let lvs = Data.getVal(hardChallenge, 'data.0')
+    
+    if (isCurrent) {
+      lvs = Data.getVal(hardChallenge, 'data.0')
+    } else {
+      lvs = Data.getVal(hardChallenge, 'data.1')
+    }
     // 检查是否查询到了幽境危战信息
-    // TODO: 查询结果是一个长度为 2 的数组，猜测可能是本期和上期的数据，待后续验证
-    // TODO: 有单人挑战的 single，有多人挑战的 mp
+    // 查询结果是一个长度为 2 的数组，猜测可能是本期和上期的数据，待后续验证
+    // 有单人挑战的 single，有多人挑战的 mp
     // 先仅适配 single，mp 真会来查这玩意儿吗……
     // 等个有缘人之后再来看吧
     if (!lvs || !lvs.single.has_data) {
-      e.reply('暂未获得本期幽境危战挑战数据...')
+      e.reply(`暂未获得${periodText}幽境危战挑战数据...`)
       return true
     }
 
@@ -49,11 +58,7 @@ export async function HardChallengeSummary (e) {
   // 更新player信息
   player.setMysCharData(resDetail)
 
-  if (hardChallenge.data.length === 0) {
-    e.reply('暂未获得本期幽境危战挑战数据...')
-    return true
-  }
-  let hc = new HardChallenge(hardChallenge.data[0], hardChallengePopularity.avatar_list)
+  let hc = new HardChallenge(lvs, hardChallengePopularity.avatar_list)
   let hcData = hc.getData()
   let avatarIds = hc.getAvatars()
   let rawAvatarData = player.getAvatarData(avatarIds)
