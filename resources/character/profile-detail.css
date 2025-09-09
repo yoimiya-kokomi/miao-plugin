@@ -1052,10 +1052,16 @@ body {
   height: 72px;
   padding: 8px 10px;
 }
+.sr-talent.memosprite {
+  height: 72px;
+}
 .sr-talent .char-talents {
   transform-origin: center left;
   margin: 0;
   width: 260px;
+}
+.sr-talent.memosprite .char-talents.left {
+  width: auto;
 }
 .sr-talent .char-talents .talent-item {
   margin: 0 -3px;
@@ -1064,6 +1070,10 @@ body {
   width: 60px;
   height: 60px;
 }
+.sr-talent.memosprite .char-talents .talent-item .talent-icon {
+  width: 55px;
+  height: 55px;
+}
 .sr-talent .char-talents .talent-icon strong {
   font-size: 13px;
   width: 22px;
@@ -1071,6 +1081,13 @@ body {
   line-height: 20px;
   margin-left: -11px;
   border-radius: 4px;
+}
+.sr-talent.memosprite .char-talents .talent-icon strong {
+  font-size: 10px;
+  width: 18px;
+  height: 16px;
+  line-height: 16px;
+  margin-left: -9px;
 }
 .sr-talent .char-talents .talent-icon span {
   position: absolute;
@@ -1127,6 +1144,9 @@ body {
 .sr-talent .char-trees .tree-item .talent-icon {
   width: 30px;
   height: 30px;
+  margin: 0 -5px;
+}
+.sr-talent.memosprite .char-trees .talent-icon {
   margin: 0 -5px;
 }
 .copyright.ad {

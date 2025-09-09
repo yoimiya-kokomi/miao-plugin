@@ -47,9 +47,9 @@ export default class ProfileDmg extends Base {
     ret.talentLevel = talentData
     let detail = char.detail
     let { isSr, isGs } = this
-    lodash.forEach((isSr ? 'a,a2,e,e2,q,q2,t' : 'a,e,q').split(','), (key) => {
+    lodash.forEach((isSr ? 'a,a2,e,e1,e2,q,q2,t,t2,me,me2,mt,mt1,mt2' : 'a,e,q').split(','), (key) => {
       let level = lodash.isNumber(talentData[key]) ? talentData[key] : (talentData[key]?.level || 1)
-      let keyRet = /^(a|e|q)2$/.exec(key)
+      let keyRet = /^(a|e|q|t|me|mt)(1|2)$/.exec(key)
       if (keyRet) {
         let tmpKey = keyRet[1]
         level = lodash.isNumber(talentData[tmpKey]) ? talentData[tmpKey] : (talentData[tmpKey]?.level || 1)
@@ -71,7 +71,7 @@ export default class ProfileDmg extends Base {
 
   trees () {
     let ret = {}
-    let reg = /\d{4}(\d{3})/
+    let reg = /1?\d{4}(\d{3})/
     lodash.forEach(this.profile.trees, (t) => {
       let regRet = reg.exec(t)
       if (regRet && regRet[1]) {
@@ -182,18 +182,19 @@ export default class ProfileDmg extends Base {
         let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
         detail = detail({ ...ds, attr, profile })
       }
-      let params = lodash.merge({}, defParams, lodash.isFunction(detail?.params) ? detail?.params(meta) : detail?.params || {})
-      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params, talent: detail.talent || '', game })
       if (detail.isStatic) {
         return
       }
+      if (detail.cons && meta.cons < detail.cons * 1) {
+        return
+      }
+
+      let params = lodash.merge({}, defParams, lodash.isFunction(detail?.params) ? detail?.params(meta) : detail?.params || {})
+      let { attr, msg } = DmgAttr.calcAttr({ originalAttr, buffs, artis, meta, params, talent: detail.talent || '', game })
 
       let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
       ds.artis = artis
       if (detail.check && !detail.check(ds)) {
-        return
-      }
-      if (detail.cons && meta.cons < detail.cons * 1) {
         return
       }
 

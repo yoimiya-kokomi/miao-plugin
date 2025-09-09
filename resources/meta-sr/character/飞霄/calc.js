@@ -28,10 +28,10 @@ export const buffs = [{
     dmg: ({ talent }) => talent.t['造成伤害提高'] * 100
  }
 }, {
-  title: '解形：追加攻击的暴击伤害提高[tCpct]%',
+  title: '解形：追加攻击的暴击伤害提高[tCdmg]%',
   tree: 2,
   data: {
-    tCpct: 36
+    tCdmg: 36
   }
 }, {
   title: '电举：施放战技时，攻击力提高[atkPct]%',

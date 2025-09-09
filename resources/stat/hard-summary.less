@@ -1,0 +1,254 @@
+@import "../common/base.less";
+
+@scale: 1.4;
+
+body,
+.container {
+  width: 970px;
+}
+
+.container {
+  padding: 5px 0 10px 5px;
+}
+
+.head-box {
+  display: flex;
+  width: 100%;
+
+  .title {
+    font-size: 45px;
+    padding-bottom: 10px;
+    width: 70%;
+
+    .difficulty{
+      font-size: 30px;
+      margin-left: 10px;
+      color: #d3bc8e;
+    }
+
+    .time {
+      font-size: 18px;
+      margin-left: 10px;
+      color: #ffffff;
+    }
+  }
+
+  .uid {
+    text-align: right;
+    width: 30%;
+    padding-top: 25px;
+    padding-right: 10px;
+    font-size: 25px;
+  }
+}
+
+.hard-stat-cont {
+  display: flex;
+  padding: 5px;
+}
+
+.hard-stat {
+  display: flex;
+
+  .cont {
+    // position: relative;
+    margin: 5px 10px 5px 5px;
+    width: 150px;
+    height: 82px;
+  }
+
+  .cont.star-display {
+    width: 300px;
+  }
+
+  strong {
+    text-shadow: 0 0 3px #000;
+  }
+
+  .stat-title {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    width: 100%;
+    text-shadow: 0 0 1px #000;
+
+    span {
+      display: block;
+      font-weight: normal;
+      .font-NZBZ;
+      font-size: 20px;
+    }
+
+    strong {
+      display: block;
+      font-size: 30px;
+    }
+  }
+
+  .stat-msg {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+    padding: 5px 10px;
+    width: 100%;
+    text-shadow: 0 0 1px #000;
+    font-size: 30px;
+    height: 45px;
+    display: flex;
+    justify-content: flex-start;
+
+    .stat-star-container {
+      flex: 0 0 10%;
+      margin-bottom: 10px;
+
+      .stat-star {
+        width: 25px;
+        height: 25px;
+        background-size: cover;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+.hard-title {
+  margin: -3px 0 8px;
+  display: flex;
+  align-items: flex-end;
+
+  strong {
+    margin-left: 3px;
+    color: #d3bc8e;
+    font-size: 18px;
+    .font-NZBZ;
+    font-weight: normal;
+    margin-right: 10px;
+  }
+
+  .hard-star {
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+  }
+}
+
+.hard-chall-team {
+  display: flex;
+
+  .line {
+    width: 1px;
+    background: rgba(255, 255, 255, .5);
+    height: 80px;
+    vertical-align: middle;
+    margin: 15px 8px 0;
+  }
+}
+
+.hard-team {
+  display: flex;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.hard-info {
+  display: flex;
+  margin-right: -5px;
+  margin-left: -5px;
+  flex-direction: column;
+  width: 50%;
+
+  .hard-choice-cards-container {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(231, 229, 217);
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .hard-enemy-container {
+    width: 40%;
+    height: 100%;
+    background-color: rgb(231, 229, 217);
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .hard-best-container {
+    width: 30%;
+    height: 100%;
+    background-color: rgb(231, 229, 217);
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+
+    .avatar-banner {
+      width: 130px;
+      height: 130px;
+      background-size: 150px 150px;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .best-number-container {
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+      height: 24px;
+
+      .best-number {
+        font-size: 20px;
+        color: #0D0D0D;
+      }
+    }
+    
+  }
+
+  .hard-best-header {
+    width: 100%;
+    height: 30px;
+    background-color: rgb(139, 139, 131);
+    padding: 5px;
+    font-size: 18px;
+  }
+
+  .hard-best-content {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+
+    .hard-content-container {
+      width: 100%;
+      display: flex;
+      margin-top: 5px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hard-content-icon {
+      width: 140px;
+      height: 140px;
+      background-size: 220px 220px;
+      background-position: center;
+      overflow: hidden;
+    }
+  }
+
+  .hard-info-line {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .hard-info-line + .hard-info-line {
+    margin-top: 4%;
+    /* 两个子元素之间的间距4% */
+  }
+}

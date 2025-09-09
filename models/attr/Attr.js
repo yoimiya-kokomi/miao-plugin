@@ -25,7 +25,7 @@ class Attr extends Base {
   }
 
   static calcPromote (lv, game = 'gs') {
-    let lvs = game === 'gs' ? [1, 20, 40, 50, 60, 70, 80, 90] : [1, 20, 30, 40, 50, 60, 70, 80]
+    let lvs = game === 'gs' ? [1, 20, 40, 50, 60, 70, 80, 90, 100] : [1, 20, 30, 40, 50, 60, 70, 80]
     let promote = 0
     for (let idx = 0; idx <= lvs.length - 1; idx++) {
       if (lv >= lvs[idx] && lv <= lvs[idx + 1]) {
@@ -92,7 +92,7 @@ class Attr extends Base {
     let { keys = {}, details = {} } = metaAttr
     let lvLeft = 0
     let lvRight = 0
-    let lvStep = [1, 20, 40, 50, 60, 70, 80, 90]
+    let lvStep = [1, 20, 40, 50, 60, 70, 80, 90, 100]
     let currPromote = 0
     for (let idx = 0; idx < lvStep.length - 1; idx++) {
       if (currPromote === promote) {

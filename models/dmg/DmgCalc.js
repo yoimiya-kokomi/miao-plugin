@@ -40,8 +40,12 @@ let DmgCalc = {
     // 倍率独立乘区
     let multiNum = attr.multi / 100
     let fyplus = attr.fyplus
+    let fypct = attr.fypct / 100
+    let fybase = attr.fybase
+    let fyinc = attr.fyinc / 100
 
     // 增伤区
+    let elevatedNum = attr.elevated / 100
     let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100 + dynamicDmg / 100)
 
     if (ele === 'phy') {
@@ -170,7 +174,7 @@ let DmgCalc = {
       }
     }
 
-    let dmgBase = (mode === 'basic') ? basicNum + plusNum : atkNum * pctNum * (1 + multiNum) + plusNum
+    let dmgBase = (mode === 'basic') ? basicNum * (1 + multiNum) + plusNum : atkNum * pctNum * (1 + multiNum) + plusNum
     let ret = {}
 
     switch (ele) {
@@ -192,8 +196,22 @@ let DmgCalc = {
       case 'bloom':
       case 'burgeon':
       case 'hyperBloom': {
-        eleBase *= eleBaseDmg[level]
-        ret = { avg: (eleBase * eleNum + fyplus) * kNum }
+        ret = { avg: ((eleBaseDmg[level] * (1 + fypct) + fybase) * eleBase * eleNum + (eleBaseDmg[level] * fyinc) + fyplus) * kNum }
+        break
+      }
+
+      case 'lunarBloom':
+      case 'lunarCharged': {
+        let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
+        if (ele === "lunarCharged") {
+          eleNum = dmgBase ? 3 : eleNum
+        } else {
+          eleNum = 1
+        }
+        ret = {
+          avg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + (lunarBase * fyinc) + fyplus) * (1 + elevatedNum) * kNum * (1 + cpctNum * cdmgNum),
+          dmg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + (lunarBase * fyinc) + fyplus) * (1 + elevatedNum) * kNum * (1 + cdmgNum)
+        }
         break
       }
 

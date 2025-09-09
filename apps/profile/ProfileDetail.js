@@ -245,6 +245,7 @@ let ProfileDetail = {
       data,
       attr,
       elem: char.elem,
+      hsr_paths: char.weapon,
       dmgCalc,
       artisDetail,
       artisKeyTitle,
@@ -290,7 +291,7 @@ let ProfileDetail = {
         dmgData.push(ds)
       })
       lodash.forEach(dmgCalc.msg, (msg) => {
-        msg.replace(':', '：')
+        msg = msg.replace(':', '：')
         dmgMsg.push(msg.split('：'))
       })
 

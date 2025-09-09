@@ -1,5 +1,6 @@
 *.psd
 .idea
+.vscode
 /tools/char-data-sprider.js
 /components/cfg.json
 /resources/miao-res-plus/

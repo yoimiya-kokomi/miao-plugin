@@ -1727,9 +1727,9 @@
     "elem": "electro",
     "weapon": "polearm",
     "talentId": {
-      "11031": "a",
-      "11032": "e",
-      "11039": "q"
+      "11101": "a",
+      "11102": "e",
+      "11105": "q"
     },
     "talentCons": {
       "a": 0,
@@ -1745,13 +1745,157 @@
     "elem": "electro",
     "weapon": "catalyst",
     "talentId": {
-      "11131": "a",
-      "11132": "e",
-      "11139": "q"
+      "11111": "a",
+      "11112": "e",
+      "11115": "q"
     },
     "talentCons": {
       "a": 5,
       "e": 0,
+      "q": 3
+    }
+  },
+  "10000112": {
+    "id": 10000112,
+    "name": "爱可菲",
+    "abbr": "爱可菲",
+    "star": 5,
+    "elem": "cryo",
+    "weapon": "polearm",
+    "talentId": {
+      "11121": "a",
+      "11122": "e",
+      "11125": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000113": {
+    "id": 10000113,
+    "name": "伊法",
+    "abbr": "伊法",
+    "star": 4,
+    "elem": "anemo",
+    "weapon": "catalyst",
+    "talentId": {
+      "11131": "a",
+      "11132": "e",
+      "11135": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000114": {
+    "id": 10000114,
+    "name": "丝柯克",
+    "abbr": "丝柯克",
+    "star": 5,
+    "elem": "cryo",
+    "weapon": "sword",
+    "talentId": {
+      "11141": "a",
+      "11142": "e",
+      "11145": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 5,
+      "q": 3
+    }
+  },
+  "10000115": {
+    "id": 10000115,
+    "name": "塔利雅",
+    "abbr": "塔利雅",
+    "star": 4,
+    "elem": "hydro",
+    "weapon": "sword",
+    "talentId": {
+      "11151": "a",
+      "11152": "e",
+      "11155": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 5,
+      "q": 3
+    }
+  },
+  "10000116": {
+    "id": 10000116,
+    "name": "伊涅芙",
+    "abbr": "伊涅芙",
+    "star": 5,
+    "elem": "electro",
+    "weapon": "polearm",
+    "talentId": {
+      "11161": "a",
+      "11162": "e",
+      "11165": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000119": {
+    "id": 10000119,
+    "name": "菈乌玛",
+    "abbr": "菈乌玛",
+    "star": 5,
+    "elem": "dendro",
+    "weapon": "catalyst",
+    "talentId": {
+      "11191": "a",
+      "11192": "e",
+      "11195": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 5,
+      "q": 3
+    }
+  },
+  "10000120": {
+    "id": 10000120,
+    "name": "菲林斯",
+    "abbr": "菲林斯",
+    "star": 5,
+    "elem": "electro",
+    "weapon": "polearm",
+    "talentId": {
+      "11201": "a",
+      "11202": "e",
+      "11205": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 5,
+      "q": 3
+    }
+  },
+  "10000121": {
+    "id": 10000121,
+    "name": "爱诺",
+    "abbr": "爱诺",
+    "star": 4,
+    "elem": "hydro",
+    "weapon": "claymore",
+    "talentId": {
+      "11211": "a",
+      "11212": "e",
+      "11215": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 5,
       "q": 3
     }
   },

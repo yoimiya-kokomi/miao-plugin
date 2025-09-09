@@ -255,7 +255,9 @@ class Character extends Base {
       return this.talentId[id]
     }
     if (this.isSr) {
-      id = (id + '').replace(this.id, '')
+      // 正常天赋id前是否存在1可判断是否为加强状态，暂时忽略1的存在
+      let reg = new RegExp(`^1?${this.id}`)
+      id = (id + '').replace(reg, '')
       return {
         '001': 'a',
         '002': 'e',

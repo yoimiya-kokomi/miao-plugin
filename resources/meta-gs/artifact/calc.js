@@ -193,15 +193,28 @@ const buffs = {
     }
   },
 
+  冰之川与雪之砂: {
+    2: attr('dmg', 15, '冰'),
+    4: {
+      title: '超导反应造成的伤害提升[superConduct]%，融化反应的加成系数提高[melt]%。施放元素爆发后伤害加成额外提升[dmg]%',
+      data: {
+        superConduct: 100,
+        melt: 15,
+        dmg: ({ element }) => element === "冰" ? 30 : 0
+      }
+    }
+  },
+
   如雷的盛怒: {
     2: attr('dmg', 15, '雷'),
     4: {
-      title: '超载、感电、超导反应造成的伤害提升40%，超激化反应带来的伤害提升提高20%',
+      title: '超载、感电、超导反应造成的伤害提升40%，超激化反应带来的伤害提升提高20%，月感电反应造成的伤害提升[lunarCharged]%',
       data: {
         overloaded: 40,
         electroCharged: 40,
         superConduct: 40,
-        aggravate: 20
+        aggravate: 20,
+        lunarCharged: 20
       }
     }
   },
@@ -403,11 +416,12 @@ const buffs = {
   乐园遗落之花: {
     2: attr('mastery', 80),
     4: {
-      title: '满层提高绽放、超绽放、烈绽放反应造成的伤害提升80%',
+      title: '满层提高绽放、超绽放、烈绽放反应造成的伤害提升80%,月绽放反应伤害提升[lunarBloom]%',
       data: {
         bloom: 80,
         burgeon: 80,
-        hyperBloom: 80
+        hyperBloom: 80,
+        lunarBloom: 20
       }
     }
   },
@@ -559,6 +573,30 @@ const buffs = {
       data: {
         aDmg: 60,
         qDmg: 60
+      }
+    }
+  },
+
+  穹境示现之夜: {
+    2: attr('mastery', 80),
+    4: {
+      title: '依据队伍的月兆与月辉明光效果，暴击率提升[cpct]%,月曜反应造成的伤害提升[lunarBloom]%',
+      data: {
+        cpct: ({ params }) => Math.min(((params.Moonsign || 0) * 15), 30),
+        lunarCharged: ({ params }) => (params["月辉明光"] || 1) * 10,
+        lunarBloom: ({ params }) => (params["月辉明光"] || 1) * 10
+      }
+    }
+  },
+
+  纺月的夜歌: {
+    2: attr('recharge', 20),
+    4: {
+      title: '依据队伍的月兆与月辉明光效果，元素精通提升[mastery],月曜反应造成的伤害提升[lunarBloom]%',
+      data: {
+        mastery: ({ params }) => Math.min(((params.Moonsign || 0) * 60), 120),
+        lunarCharged: ({ params }) => (params["月辉明光"] || 1) * 10,
+        lunarBloom: ({ params }) => (params["月辉明光"] || 1) * 10
       }
     }
   }

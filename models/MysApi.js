@@ -113,7 +113,7 @@ export default class MysApi {
     e._reqCount++
     let ret = await mys.getData(api, data)
     if (mysInfo && mysInfo.checkCode) {
-      ret = await mysInfo.checkCode(ret, api, this.mys)
+      ret = await mysInfo.checkCode(ret, api, this.mys, data)
     }
     e._reqCount--
     if (e._reqCount === 0) {
@@ -156,6 +156,16 @@ export default class MysApi {
   // 获取幻想真境剧诗信息
   async getRoleCombat (need_detail = false) {
     return await this.getData('role_combat', { need_detail: need_detail })
+  }
+
+  // 获取幽境危战信息
+  async getHardChallenge () {
+    return await this.getData('hard_challenge')
+  }
+
+  // 获取幽境危战赋光之人信息
+  async getHardChallengePopularity () {
+    return await this.getData('hard_challenge_popularity')
   }
 
   async getDetail (id) {

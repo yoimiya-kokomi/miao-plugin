@@ -80,12 +80,22 @@ export default function (step, staticStep) {
       }
     },
     护摩之杖: [staticStep('hpPct', 20), {
-      title: '角色生命低于50%时额外获得[atkPlus]攻击力',
+      title: '基于生命值上限，获得[atkPlus]的攻击力提升',
       sort: 9,
       data: {
         atkPlus: ({ attr, refine, calc }) => {
           let totalHp = calc(attr.hp)
-          return totalHp * ([0.8, 1, 1.2, 1.4, 1.6][refine] + [1, 1.2, 1.4, 1.6, 1.8][refine]) / 100
+          return totalHp * ([0.8, 1, 1.2, 1.4, 1.6][refine]) / 100
+        }
+      }
+    }, {
+      check: ({ attr }) => attr.characterName === '胡桃',
+      title: '角色生命低于50%时额外获得[atkPlus]攻击力（默认仅胡桃触发）',
+      sort: 9,
+      data: {
+        atkPlus: ({ attr, refine, calc }) => {
+          let totalHp = calc(attr.hp)
+          return totalHp * ([1, 1.2, 1.4, 1.6, 1.8][refine]) / 100
         }
       }
     }],
@@ -182,6 +192,27 @@ export default function (step, staticStep) {
       refine: {
         atkPct: step(12 + 32)
       }
-    }]
+    }],
+    支离轮光: {
+      title: '施放元素战技或元素爆发后攻击力提升[atkPct]%，创造护盾后月感电伤害提升[lunarCharged]%',
+      refine: {
+        atkPct: step(24),
+        lunarCharged: step(40)
+      }
+    },
+    掘金之锹: {
+      title: '感电反应造成的伤害提升[electroCharged]%，月感电反应造成的伤害提升[lunarCharged]%',
+      data: {
+        electroCharged: ({ refine }) => step(48)[refine],
+        lunarCharged: ({ params, refine }) => step(12)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+      }
+    },
+    血染荒城: {
+      title: '施放元素爆发后月感电反应伤害提高[lunarCharged]%,触发月感电反应后暴击伤害提高[cdmg]%',
+      data: {
+        lunarCharged: ({ refine }) => step(36)[refine],
+        cdmg: ({ element, refine }) => ['水', '雷', '风'].includes(element) ? step(28)[refine] : 0
+      }
+    }
   }
 }

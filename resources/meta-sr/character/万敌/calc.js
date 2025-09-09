@@ -36,7 +36,7 @@ export const buffs = [{
     hpPlus: ({ calc, attr }) => calc(attr.hp) * 50 / 100
   }
 }, {
-  title: '万敌额外能力：若万敌的生命上限高于4000点，每超过100点生命值可使自身暴击率提高1.2%',
+  title: '行迹-血祥罩衫：若万敌的生命上限高于4000点，每超过100点生命值可使自身暴击率提高1.2%',
   tree: 3,
   data: {
     cpct: ({ calc, attr }) => {

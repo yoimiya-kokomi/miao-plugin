@@ -28,7 +28,7 @@
   </div>
   {{ if line[0]?.num !== 'NaN'}}
   <div class="data-box">
-    <div class="tab-label">{{game === 'gs' ? '90' : '80'}}级基础数据</div>
+    <div class="tab-label">{{game === 'gs' ? '100' : '80'}}级基础数据</div>
     <div class="data-line">
       {{each line item}}
       <div class="data_line_item">
@@ -40,7 +40,7 @@
   </div>
   {{else}}
   <div class="data-box">
-    <div class="tab-label">90级基础数据</div>
+    <div class="tab-label">100级基础数据</div>
     <div class="data-line">
       暂无详细数据
     </div>
@@ -49,30 +49,28 @@
 </div>
 
 
-{{if mode == "talent"}}
-{{set talentKey = game === 'gs' ? ['a','e','q']:['a','e','q','t','me','mt'] }}
-{{each talentKey type}}
-{{if detail.talent[type]}}
-<div class="talent-box elem-bg">
-  <div class="talent-detail cont {{detail.talent[type+2]?'talent-merge':''}}">
-    {{ set minLv = game === 'gs' ? 6 : (type === 'a' || type === 'a2' ? 1 : (type === 'me' || type === 'mt' ? 4 : 6)) }}
-    {{set maxLv = game === 'gs' ? 13 : (type==='a' || type ==='a2' ? 7 : (type === 'me' || type === 'mt' ? 10 : 12 ))}}
-    <% include(_tpl_path+'/talent-detail.html', [detail.talent[type], {_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
+  {{if mode == "talent"}}
+  {{set talentKey = game === 'gs' ? ['a','e','q']:['a','e','q','t','z','me','mt'] }}
+  {{each talentKey type}}
+  {{if detail.talent[type]}}
+  <div class="talent-box elem-bg">
+    <div class="talent-detail cont {{detail.talent[type+2]?'talent-merge':''}}">
+      {{set minLv = game === 'gs' ? 6 : (type==='a' || type ==='me' || type==='mt' ? 1 : 6) }}
+      {{set maxLv = game === 'gs' ? 13 : (type==='a' || type ==='me' || type==='mt' ? 7 : 12 )}}
+      <% include(_tpl_path+'/talent-detail.html', [detail.talent[type], {_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
 
-    {{if detail.talent[type+2]}}
-      {{ set minLv = game === 'gs' ? 6 : (type === 'a' || type === 'a2' ? 1 : (type === 'me' || type === 'mt' ? 4 : 6)) }}
-      {{set maxLv = game === 'gs' ? 13 : (type==='a' || type ==='a2' ? 7 : (type === 'me' || type === 'mt' ? 10 : 12 ))}}
-      <% include(_tpl_path+'/talent-detail.html', [detail.talent[type+2], {_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
-    {{/if}}
+      {{set nums = ['1','2'] }}
+      {{each nums num}}
+      {{if detail.talent[type+num]}}
+      {{set minLv = game === 'gs' ? 6 : (type==='a' || type ==='a2' || type ==='me' || type ==='me2' || type==='mt' || type ==='mt1' || type ==='mt2' ? 1 : 6 )}}
+      {{set maxLv = game === 'gs' ? 13 : (type==='a' || type ==='a2' || type ==='me' || type ==='me2' || type==='mt' || type ==='mt1' || type ==='mt2' ? 7 : 12 )}}
+      <% include(_tpl_path+'/talent-detail.html', [detail.talent[type+num], {_res_path,lvs,type,icon:imgs[type+num],minLv,maxLv,game}]) %>
+      {{/if}}
+      {{/each}}
+    </div>
   </div>
-
-
-
-
-</div>
-{{/if}}
-
-{{/each}}
+  {{/if}}
+  {{/each}}
 
 <div class="talent-box elem-bg">
   <div class="talent-detail passive-talent">

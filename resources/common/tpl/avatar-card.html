@@ -9,7 +9,11 @@
     <div class="avatar-face item-icon star{{avatar.star==4?4:5}}">
       <div class="img mini" style="background-image:url({{_res_path}}{{avatar.face}})"></div>
       <div class="img wide avatar-{{avatar.name}}" style="background-image:url({{_res_path}}{{avatar.gacha}})"></div>
+      {{if avatar.is_popularity}}
+        <span class="popularity">UP!</span>
+      {{/if}}
       <span class="cons cons-{{avatar.cons}} mini">{{avatar.cons}}</span>
+      
       <div class="avatar-level"><span>Lv</span>{{avatar.level}} {{avatar.abbr}}</div>
     </div>
     <div class="avatar-info">

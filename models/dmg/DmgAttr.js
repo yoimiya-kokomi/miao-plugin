@@ -22,7 +22,7 @@ let DmgAttr = {
     }
 
     // 基础属性
-    lodash.forEach('atk,def,hp'.split(','), (key) => {
+    lodash.forEach('atk,def,hp,speed'.split(','), (key) => {
       ret[key] = AttrItem.create(originalAttr?.[key] || {
         base: attr[`${key}Base`] * 1 || 0,
         plus: attr[key] * 1 - attr[`${key}Base`] * 1 || 0,
@@ -30,7 +30,7 @@ let DmgAttr = {
       })
     })
 
-    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'speed,recharge,cpct,cdmg,heal,dmg,enemydmg,effPct,effDef,stance').split(','), (key) => {
+    lodash.forEach((game === 'gs' ? 'mastery,recharge,cpct,cdmg,heal,dmg,phy' : 'recharge,cpct,cdmg,heal,dmg,enemydmg,effPct,effDef,stance').split(','), (key) => {
       ret[key] = AttrItem.create(originalAttr?.[key] || {
         base: attr[key] * 1 || 0, // 基础值
         plus: 0, // 加成值
@@ -50,6 +50,8 @@ let DmgAttr = {
         enemydmg: 0, // 承受伤害提高
         cpct: 0, // 暴击提高
         cdmg: 0, // 爆伤提高
+
+        elevated: 0, // 擢升
 
         def: 0, // 防御降低
         ignore: 0 // 无视防御
@@ -77,6 +79,7 @@ let DmgAttr = {
       ret.kx = 0 // 敌人抗性降低
       ret.staticAttr = attr.staticAttr
       if (game === 'gs') {
+        ret.elevated = 0 // 擢升
         ret.vaporize = 0 // 蒸发
         ret.melt = 0 // 融化
         ret.burning = 0 // 燃烧
@@ -91,8 +94,13 @@ let DmgAttr = {
         ret.hyperBloom = 0 // 超绽放
         ret.aggravate = 0 // 超激化
         ret.spread = 0 // 蔓激化
+        ret.lunarCharged = 0 // 月感电
+        ret.lunarBloom = 0 // 月绽放
         ret.fykx = 0 // 敌人反应抗性降低
-        ret.fyplus = 0 // 反应伤害值提升
+        ret.fyinc = 0 // 反应伤害值提升（百分比/不受精通加成）
+        ret.fyplus = 0 // 反应伤害值提升（数值/不受精通加成）
+        ret.fypct = 0 // 反应基础伤害值提升（百分比/受精通加成）
+        ret.fybase = 0 // 反应基础伤害值提升（数值/受精通加成）
       } else if (game === 'sr') {
         ret.sp = char.sp * 1
         // 超击破
@@ -120,6 +128,7 @@ let DmgAttr = {
   // 计算属性
   calcAttr ({ originalAttr, buffs, meta, artis, params = {}, incAttr = '', reduceAttr = '', talent = '', game = 'gs' }) {
     let attr = DmgAttr.getAttr({ originalAttr, game })
+    attr.characterName = meta.characterName
     let msg = []
     let { attrMap } = Meta.getMeta(game, 'arti')
 
@@ -200,7 +209,7 @@ let DmgAttr = {
         title = title.replace(`[${key}]`, Format.comma(val, 1))
 
         // 技能提高
-        let tRet = /^(a|a2|a3|e|q|t|dot|break|nightsoul)(Def|Ignore|Dmg|Enemydmg|Plus|Pct|Cpct|Cdmg|Multi)$/.exec(key)
+        let tRet = /^(a|a2|a3|e|q|t|dot|break|nightsoul)(Def|Ignore|Dmg|Enemydmg|Plus|Pct|Cpct|Cdmg|Multi|Elevated)$/.exec(key)
         if (tRet) {
           attr[tRet[1]][tRet[2].toLowerCase()] += val * 1 || 0
           return
@@ -228,7 +237,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'kx', 'fykx', 'multi', 'fyplus'].includes(key)) {
+        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'elevated', 'lunarCharged', 'lunarBloom', 'kx', 'fykx', 'multi', 'fyplus', 'fypct', 'fybase', 'fyinc'].includes(key)) {
           attr[key] += val * 1 || 0
           return
         }

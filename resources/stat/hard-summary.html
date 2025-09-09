@@ -1,0 +1,108 @@
+<script src="../../../../../Yunzai-Botconfig/miao-diy/app/main.js"></script>{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/hard-summary.css?v=1.0"/>
+{{/block}}
+
+{{block 'main'}}
+{{ set difficultyName = {1:'普通', 2:'进阶', 3:'困难', 4:'险恶', 5: '无畏', 6: '绝境'} }}
+<div class="head-box type">
+  <div class="title">#幽境危战<span class="time">{{hard.start_time}} - {{hard.end_time}}</span></div>
+  <div class="uid">UID:{{uid}}</div>
+</div>
+<div class="info_box">
+  <div class="hard-stat-cont">
+    <div class="hard-stat">
+      <div class="cont" style="width:200px">
+        <div class="stat-title">
+          <span>难度</span>
+        </div>
+        <div class="stat-msg">
+          <strong>{{hard.best.difficulty}} · {{difficultyName[hard.best.difficulty]}}</strong>
+        </div>
+      </div>
+      <div class="cont" style="width:120px">
+        <div class="stat-title">
+          <span>总耗时</span>
+        </div>
+        <div class="stat-msg">
+          <strong>{{hard.best.second}} 秒</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+
+  </div>
+  {{set cardTypes={1:['wide wide2'],2:['wide','wide'],3:['wide','mini','mini'],4:['mini','mini','mini','mini']} }}
+  {{each hard?.challs chall chall_index}}
+  <div class="cont">
+    <div class="cont-body">
+      <div class="hard-title">
+        <strong>{{chall.name}}</strong>
+      </div>
+      <div class="hard-chall-team">
+        <div class="hard-team">
+          {{set current_avatars=chall?.avatars||[] }}
+          {{each current_avatars avatar idx}}
+          <% include(_tpl_path+'/avatar-card.html', [avatars[avatar.avatar_id],{_res_path, cardType:cardTypes[current_avatars.length][idx]}]) %>
+          {{/each}}
+        </div>
+        <div class="line"></div>
+        <div class="hard-info">
+          <div class="hard-info-line">
+            {{set monster=chall?.monster }}
+            <div class="hard-enemy-container">
+              <div class="hard-best-header">Lv. {{monster.level}}</div>
+              <div class="hard-best-content">
+                <div class="hard-content-container">
+                  <div class="hard-content-icon" style="background-image:url({{monster.icon}})"></div>
+                </div>
+              </div>
+            </div>
+            {{set greatest_onehit=chall?.best_avatars[0]}}
+            <div class="hard-best-container">
+              <div class="hard-best-header">最强一击</div>
+              <div class="hard-best-content" style="flex-direction: column">
+                  <div class="best-avatar-container">
+                    {{set avatar=avatars[greatest_onehit.avatar_id]}}
+                    <div class="avatar-banner avatar-{{avatar.name}}"
+                          style="background-image:url({{_res_path}}{{avatar.face}})"></div>
+                  </div>
+                  <div class="best-number-container">
+                    <p class="best-number">{{greatest_onehit.dps}}</p>
+                  </div>
+              </div>
+            </div>
+            {{set greatest_total=chall?.best_avatars[1]}}
+            <div class="hard-best-container">
+              <div class="hard-best-header">最高总伤害</div>
+              <div class="hard-best-content" style="flex-direction: column">
+                  <div class="best-avatar-container">
+                    {{set avatar=avatars[greatest_total.avatar_id]}}
+                    <div class="avatar-banner avatar-{{avatar.name}}"
+                          style="background-image:url({{_res_path}}{{avatar.face}})"></div>
+                  </div>
+                  <div class="best-number-container">
+                    <p class="best-number">{{greatest_total.dps}}</p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+
+  <div class="cont hard-notice">
+    <div class="cont-body">
+      <ul class="cont-msg">
+        <li>角色装备与圣遗物为当前最新状态</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{{/block}}

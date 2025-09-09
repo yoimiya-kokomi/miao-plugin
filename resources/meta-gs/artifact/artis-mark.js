@@ -8,7 +8,7 @@ export const usefulAttr = {
   雷电将军: { atk: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 75, recharge: 90 },
   神里绫人: { hp: 50, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   八重神子: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 75, phy: 0, recharge: 55, heal: 0 },
-  申鹤: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 75, heal: 0 },
+  申鹤: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 0 },
   云堇: { hp: 0, atk: 75, def: 100, cpct: 80, cdmg: 80, mastery: 0, dmg: 80, phy: 0, recharge: 80, heal: 0 },
   荒泷一斗: { hp: 0, atk: 50, def: 100, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   五郎: { hp: 0, atk: 75, def: 100, cpct: 50, cdmg: 50, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 0 },
@@ -46,7 +46,7 @@ export const usefulAttr = {
   烟绯: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   早柚: { hp: 0, atk: 75, def: 0, cpct: 50, cdmg: 50, mastery: 100, dmg: 100, phy: 0, recharge: 55, heal: 100 },
   安柏: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 100, recharge: 0, heal: 0 },
-  丽莎: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
+  丽莎: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   埃洛伊: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },
   辛焱: { hp: 0, atk: 75, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 100, recharge: 0, heal: 0 },
   砂糖: { hp: 0, atk: 50, def: 0, cpct: 50, cdmg: 50, mastery: 100, dmg: 80, phy: 0, recharge: 75, heal: 0 },
@@ -80,7 +80,7 @@ export const usefulAttr = {
   夏洛蒂: { hp: 0, atk: 85, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 100 },
   娜维娅: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   夏沃蕾: { hp: 100, atk: 0, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 55, heal: 55 },
-  闲云: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 75, heal: 75 },
+  闲云: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 75 },
   嘉明: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   千织: { hp: 0, atk: 50, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   阿蕾奇诺: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
@@ -99,5 +99,10 @@ export const usefulAttr = {
   蓝砚: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 30, dmg: 80, phy: 0, recharge: 75, heal: 0 },
   梦见月瑞希: { hp: 0, atk: 30, def: 0, cpct: 30, cdmg: 30, mastery: 100, dmg: 80, phy: 0, recharge: 45, heal: 95 },
   伊安珊: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 0 },
-  瓦雷莎: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 40, heal: 0 }
+  瓦雷莎: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 40, heal: 0 },
+  爱可菲: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 95, phy: 0, recharge: 75, heal: 95 },
+  伊法: { hp: 0, atk: 75, def: 0, cpct: 50, cdmg: 50, mastery: 100, dmg: 80, phy: 0, recharge: 35, heal: 0 },
+  丝柯克: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },
+  塔利雅: { hp: 100, atk: 50, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 0 },
+  伊涅芙: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 0, phy: 0, recharge: 40, heal: 0 }
 }
