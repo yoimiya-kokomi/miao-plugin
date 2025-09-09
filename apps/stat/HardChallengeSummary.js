@@ -9,6 +9,7 @@ export async function HardChallengeSummary (e) {
     return false
   }
   let isCurrent = !(/上期/.test(rawMsg))
+  let queryKey = isCurrent ? 'data.0' : 'data.1'
   let periodText = isCurrent ? '本期' : '上期'
   // 需要自身 ck 查询
   let mys = await MysApi.init(e, 'cookie')
@@ -27,12 +28,8 @@ export async function HardChallengeSummary (e) {
     hardChallengePopularity = await mys.getHardChallengePopularity()
     // logger.mark('hardchallenge')
     // logger.mark(JSON.stringify(hardChallenge, null, 2))
-    
-    if (isCurrent) {
-      lvs = Data.getVal(hardChallenge, 'data.0')
-    } else {
-      lvs = Data.getVal(hardChallenge, 'data.1')
-    }
+
+    lvs = Data.getVal(hardChallenge, queryKey)
     // 检查是否查询到了幽境危战信息
     // 查询结果是一个长度为 2 的数组，猜测可能是本期和上期的数据，待后续验证
     // 有单人挑战的 single，有多人挑战的 mp
