@@ -15,7 +15,7 @@
 <div class="info_box">
   <div class="hard-stat-cont">
     <div class="hard-stat">
-      <div class="cont" style="width:200px">
+      <div class="cont">
         <div class="stat-title">
           <span>难度</span>
         </div>
@@ -23,11 +23,11 @@
           <strong>{{hard.best.difficulty}} · {{difficultyName[hard.best.difficulty]}}</strong>
         </div>
       </div>
-      <div class="cont" style="width:120px">
-        <div class="stat-title">
-          <span>总耗时</span>
+      <div class="cont">
+        <div class="stat-title time">
+          <span>总用时</span>
         </div>
-        <div class="stat-msg">
+        <div class="stat-msg time">
           <strong>{{hard.best.second}} 秒</strong>
         </div>
       </div>
@@ -42,7 +42,9 @@
     <div class="cont-body">
       <div class="hard-title">
         <strong>{{chall.name}}</strong>
+        <span>用时 {{chall.second}} 秒</span>
       </div>
+      {{set monster=chall?.monster }}
       <div class="hard-chall-team">
         <div class="hard-team">
           {{set current_avatars=chall?.avatars||[] }}
@@ -53,7 +55,6 @@
         <div class="line"></div>
         <div class="hard-info">
           <div class="hard-info-line">
-            {{set monster=chall?.monster }}
             <div class="hard-enemy-container">
               <div class="hard-best-header">Lv. {{monster.level}}</div>
               <div class="hard-best-content">
@@ -92,6 +93,13 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="hard-chall-desc">
+        <ul>
+          {{each monster.desc desc}}
+            <li class="hard-chall-desc-item">{{@desc}}</li>
+          {{/each}}
+        </ul>
       </div>
     </div>
   </div>

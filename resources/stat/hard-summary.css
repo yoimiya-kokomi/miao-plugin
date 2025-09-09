@@ -43,14 +43,16 @@ body,
 }
 .hard-stat {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 .hard-stat .cont {
   margin: 5px 10px 5px 5px;
-  width: 150px;
+  width: 30%;
   height: 82px;
 }
-.hard-stat .cont.star-display {
-  width: 300px;
+.hard-stat .time {
+  text-align: right;
 }
 .hard-stat strong {
   text-shadow: 0 0 3px #000;
@@ -83,23 +85,12 @@ body,
   text-shadow: 0 0 1px #000;
   font-size: 30px;
   height: 45px;
-  display: flex;
-  justify-content: flex-start;
-}
-.hard-stat .stat-msg .stat-star-container {
-  flex: 0 0 10%;
-  margin-bottom: 10px;
-}
-.hard-stat .stat-msg .stat-star-container .stat-star {
-  width: 25px;
-  height: 25px;
-  background-size: cover;
-  margin-top: 4px;
 }
 .hard-title {
   margin: -3px 0 8px;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
 }
 .hard-title strong {
   margin-left: 3px;
@@ -109,10 +100,9 @@ body,
   font-weight: normal;
   margin-right: 10px;
 }
-.hard-title .hard-star {
-  width: 20px;
-  height: 20px;
-  background-size: cover;
+.hard-title span {
+  text-align: right;
+  font-size: 15px;
 }
 .hard-chall-team {
   display: flex;
@@ -123,6 +113,15 @@ body,
   height: 80px;
   vertical-align: middle;
   margin: 15px 8px 0;
+}
+.hard-chall-desc {
+  margin: 3px 0;
+}
+.hard-chall-desc ul {
+  list-style-position: inside;
+}
+.hard-chall-desc ul li {
+  font-size: 15px;
 }
 .hard-team {
   display: flex;
@@ -179,15 +178,6 @@ body,
 .hard-info .hard-best-container .best-number-container .best-number {
   font-size: 20px;
   color: #0D0D0D;
-}
-.hard-info .hard-splendour-buff-container {
-  width: 40%;
-  height: 100%;
-  background-color: #e7e5d9;
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-direction: column;
 }
 .hard-info .hard-best-header {
   width: 100%;

@@ -49,16 +49,18 @@ body,
 
 .hard-stat {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 
   .cont {
     // position: relative;
     margin: 5px 10px 5px 5px;
-    width: 150px;
+    width: 30%;
     height: 82px;
   }
 
-  .cont.star-display {
-    width: 300px;
+  .time {
+    text-align: right;
   }
 
   strong {
@@ -96,20 +98,6 @@ body,
     text-shadow: 0 0 1px #000;
     font-size: 30px;
     height: 45px;
-    display: flex;
-    justify-content: flex-start;
-
-    .stat-star-container {
-      flex: 0 0 10%;
-      margin-bottom: 10px;
-
-      .stat-star {
-        width: 25px;
-        height: 25px;
-        background-size: cover;
-        margin-top: 4px;
-      }
-    }
   }
 }
 
@@ -117,6 +105,7 @@ body,
   margin: -3px 0 8px;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
 
   strong {
     margin-left: 3px;
@@ -127,10 +116,9 @@ body,
     margin-right: 10px;
   }
 
-  .hard-star {
-    width: 20px;
-    height: 20px;
-    background-size: cover;
+  span {
+    text-align: right;
+    font-size: 15px;
   }
 }
 
@@ -143,6 +131,18 @@ body,
     height: 80px;
     vertical-align: middle;
     margin: 15px 8px 0;
+  }
+}
+
+.hard-chall-desc {
+  margin: 3px 0;
+
+  ul {
+    list-style-position: inside;
+
+    li {
+      font-size: 15px;
+    }
   }
 }
 
