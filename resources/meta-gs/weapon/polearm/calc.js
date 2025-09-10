@@ -213,6 +213,13 @@ export default function (step, staticStep) {
         lunarCharged: ({ refine }) => step(36)[refine],
         cdmg: ({ element, refine }) => ['水', '雷', '风'].includes(element) ? step(28)[refine] : 0
       }
+    },
+    圣祭者的辉杖: {
+      title: '攻击力提升[atkPct]%，元素充能效率提升[recharge]%',
+      refine: {
+        atkPct: step(8 * 3),
+        recharge: step(12 * 3)
+      }
     }
   }
 }

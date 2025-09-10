@@ -101,7 +101,7 @@ export const buffs = [{
     }
   }, {
     check: ({ params }) => params.Lunar === true,
-    title: '菈乌玛6命：[「我愿将这血与泪奉予月明」] 处于满辉时月绽放反应伤害擢升[elevated]%',
+    title: '菈乌玛6命：处于满辉时月绽放反应伤害擢升[elevated]%',
     cons: 6,
     data: {
       elevated: ({ params }) => ((params.Moonsign || 0) >= 2 ? 25 : 0)
