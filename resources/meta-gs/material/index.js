@@ -8,7 +8,7 @@ let data = Data.readJSON('resources/meta-gs/material/data.json', 'miao')
 let ret = {}
 let abbr2 = {}
 
-let citys = ['蒙德', '璃月', '稻妻', '须弥', '枫丹', '纳塔']
+let citys = ['蒙德', '璃月', '稻妻', '须弥', '枫丹', '纳塔', '挪德卡莱']
 
 lodash.forEach(data, (ds) => {
   let { type, name } = ds
