@@ -20,7 +20,13 @@ export default class HardChallenge extends Base {
     lodash.forEach(data.single.challenge, (chall) => {
       let tmp = {
         name: chall.name,
-        monster: chall.monster,
+        monster: {
+          ...chall.monster,
+          desc: chall.monster.desc
+            .filter(d => d !== '')
+            .map(d => d.replace(/<color=([^>]+)>/g, '<span style="color:$1">')
+                       .replace(/<\/color>/g, '</span>'))
+        },
         second: chall.second,
       }
       let avatars = []
