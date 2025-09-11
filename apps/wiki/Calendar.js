@@ -33,7 +33,7 @@ let Cal = {
       if (detailData && detailData.data && detailData.data.list) {
         let versionTime = {}
         lodash.forEach(detailData.data.list, (ds) => {
-          let vRet = /(\d\.\d)版本更新(通知|说明|维护预告)/.exec(ds.title)
+          let vRet = /(\d\.\d|「[^」]+」)版本更新(通知|说明|维护预告)/.exec(ds.title)
           if (vRet && vRet[1]) {
             let content = /(?:更新时间)\s*〓([^〓]+)(?:〓|$)/.exec(ds.content)
             if (content && content[1]) {
@@ -71,7 +71,7 @@ let Cal = {
           if (timeRet && timeRet[1]) {
             annTime = timeRet[1].split('~')
           }
-          if (/\d\.\d版本更新(?:完成)?后/.test(content)) {
+          if (/(?:\d\.\d|「[^」]+」)版本更新(?:完成)?后/.test(content)) {
             let vRet = /(\d\.\d)版本更新(?:完成)?后/.exec(content)
             let vTime = ''
             if (vRet && vRet[1] && versionTime[vRet[1]]) {
@@ -88,8 +88,8 @@ let Cal = {
                 annTime = [vTime, timeRet[0]]
               }
             }
-          } else if (/\d\.\d版本期间持续开放/.test(content)) {
-            let vRet = /(\d\.\d)版本期间持续开放/.exec(content)
+          } else if (/(?:\d\.\d|「[^」]+」)版本期间持续开放/.test(content)) {
+            let vRet = /(\d\.\d|「[^」]+」)版本期间持续开放/.exec(content)
             let vTime = ''
             if (vRet && vRet[1] && versionTime[vRet[1]]) {
               vTime = versionTime[vRet[1]]
