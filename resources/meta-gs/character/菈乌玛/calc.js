@@ -3,16 +3,10 @@ export const details = [{
     dmg: ({ talent }, dmg) => dmg(talent.a['唤灵之祷伤害'], 'a2')
   },
   {
-    title: `满辉长按E二段3枚`,
+    title: '满辉长按E二段3枚',
     dmgKey: 'e',
     params: { Moonsign: 3 },
-    dmg: ({ talent, calc, attr }, { basic }) => {
-      let e = basic(calc(attr.mastery) * talent.e['长按二段伤害'] / 100, '', 'lunarBloom')
-      return {
-        dmg: e.dmg * 3,
-        avg: e.avg * 3
-      }
-    }
+    dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.mastery) * talent.e['长按二段伤害'] * 3 / 100, '', 'lunarBloom')
   },
   {
     title: 'E圣域伤害',
@@ -56,7 +50,7 @@ export const details = [{
 ]
 
 export const defDmgIdx = 1
-export const mainAttr = 'atk,cpct,cdmg,mastery'
+export const mainAttr = 'atk,cpct,cdmg,dmg,mastery'
 
 export const buffs = [{
     check: ({ params }) => (params.Moonsign || 0) >= 2,
@@ -92,18 +86,25 @@ export const buffs = [{
       fyplus: ({ attr, calc, talent, params }) => calc(attr.mastery) * (params.Lunar === true ? talent.q['月绽放反应伤害提升'] : talent.q['绽放、超绽放、烈绽放反应伤害提升']) / 100
     }
   }, {
-    title: '菈乌玛2命：绽放、超绽放、烈绽放、月绽放伤害额外提升[fyplus],处于满辉时月绽放反应伤害提升[lunarBloom]%',
+    check: ({ params }) => params.Pale_Hymn === true,
+    title: '菈乌玛2命：绽放、超绽放、烈绽放、月绽放伤害额外提升[fyplus]',
     sort: 9,
     cons: 2,
     data: {
-      fyplus: ({ attr, calc, params }) => params.Pale_Hymn === true ? (calc(attr.mastery) * (params.Lunar === true ? 400 : 500) / 100) : 0,
-      lunarBloom: ({ params }) => ((params.Moonsign || 0) >= 2 ? 40 : 0)
+      fyplus: ({ attr, calc, params }) => calc(attr.mastery) * (params.Lunar === true ? 400 : 500) / 100
     }
   }, {
-    check: ({ params }) => params.Lunar === true,
+    check: ({ params }) => params.Lunar === true && (params.Moonsign || 0) >= 2,
+    title: '菈乌玛2命：处于满辉时月绽放反应伤害提升[lunarBloom]%',
+    cons: 2,
+    data: {
+      lunarBloom: 40
+    }
+  }, {
+    check: ({ params }) => params.Lunar === true && (params.Moonsign || 0) >= 2,
     title: '菈乌玛6命：处于满辉时月绽放反应伤害擢升[elevated]%',
     cons: 6,
     data: {
-      elevated: ({ params }) => ((params.Moonsign || 0) >= 2 ? 25 : 0)
+      elevated: 25
     }
   }]
