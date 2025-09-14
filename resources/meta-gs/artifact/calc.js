@@ -193,18 +193,6 @@ const buffs = {
     }
   },
 
-  冰之川与雪之砂: {
-    2: attr('dmg', 15, '冰'),
-    4: {
-      title: '超导反应造成的伤害提升[superConduct]%，融化反应的加成系数提高[melt]%。施放元素爆发后伤害加成额外提升[dmg]%',
-      data: {
-        superConduct: 100,
-        melt: 15,
-        dmg: ({ element }) => element === "冰" ? 30 : 0
-      }
-    }
-  },
-
   如雷的盛怒: {
     2: attr('dmg', 15, '雷'),
     4: {
