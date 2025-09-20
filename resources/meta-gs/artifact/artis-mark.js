@@ -89,7 +89,7 @@ export const usefulAttr = {
   希格雯: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 95, phy: 0, recharge: 30, heal: 100 },
   艾梅莉埃: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 55, heal: 0 },
   卡齐娜: { hp: 0, atk: 0, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 75, heal: 0 },
-  玛拉妮: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 85, dmg: 100, phy: 0, recharge: 45, heal: 0 },
+  玛拉妮: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 45, heal: 0 },
   基尼奇: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 50, heal: 0 },
   希诺宁: { hp: 0, atk: 0, def: 100, cpct: 30, cdmg: 30, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 100 },
   恰斯卡: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 80, phy: 0, recharge: 40, heal: 0 },
