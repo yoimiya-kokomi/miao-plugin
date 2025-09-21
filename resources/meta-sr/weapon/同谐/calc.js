@@ -64,7 +64,7 @@ export default function (staticIdx, keyIdx) {
       keyIdx('当装备者持有【谕示】时，我方全体目标的暴击伤害提高[cdmg]%', 'cdmg', 2)
     ],
     永远的迷境饭: [
-      staticIdx(1, 'cdmg'),
+      staticIdx(1, 'atkPct'),
       (tables) => {
         return {
           title: '3层buff使装备者攻击力提高[atkPct]%',
