@@ -121,6 +121,21 @@ class Attr extends Base {
     this.addAttr('defBase', getLvData(2), true)
     this.addAttr(keys[3], getLvData(3, true), !/(hp|atk|def)/.test(keys[3]))
 
+    // 特有角色自带属性
+    const Characters = [
+      { id: 10000119, attrs: { mastery: 200 } }, // 菈乌玛: +200 元素精通
+      { id: 10000122, attrs: { mastery: 200 } }, // 奈芙尔: +200 元素精通
+      // 后续角色兼容
+    ]
+
+    const charBuff = Characters.find(c => c.id === char.id)
+
+    if (charBuff) {
+      for (const key in charBuff.attrs) {
+        this.addAttr(key, charBuff.attrs[key], true)
+      }
+    }
+
     let charBuffs = char.getCalcRule()
     lodash.forEach(charBuffs.buffs, (buff) => {
       if (!buff.isStatic) {
