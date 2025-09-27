@@ -413,5 +413,25 @@ export default {
         dotDmg: ({ attr }) => attr.atk < 3600 ? 12 : 24
       }
     }]
+  },
+  自匿星芒的隐士: {
+    2: attr('shield', 10),
+    4: {
+      title: '护盾量提高[shield]%',
+      data: {
+        shield: 12
+      }
+    }
+  },
+  再创天地的救世主: {
+    2: attr('cpct', 8),
+    4: {
+      check: ({ params }) => params.Memosprite,
+      title: '若装备者的忆灵在场，使装备者及其忆灵生命上限提高[hpPct]% ，我方全体造成的伤害提高[dmg]]%',
+      data: {
+        hpPct: 24,
+        dmg: 15
+      }
+    }
   }
 }

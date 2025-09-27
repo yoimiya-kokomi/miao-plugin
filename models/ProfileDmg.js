@@ -206,7 +206,7 @@ export default class ProfileDmg extends Base {
         detail.userIdx = detailMap.length
         detailMap.push(detail)
         ret.push({
-          title: detail.title,
+          title: typeof detail.title === 'function' ? detail.title(ds) : detail.title,
           ...basicDmgRet
         })
       }

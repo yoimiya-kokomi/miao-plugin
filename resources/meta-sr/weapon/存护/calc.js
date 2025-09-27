@@ -72,6 +72,17 @@ export default function (staticIdx, keyIdx) {
         }
       }
     ],
-    愿旅途永远坦然: [ keyIdx("我方目标持有护盾时，造成的伤害提高[dmg]%", "dmg", 2) ]
+    愿旅途永远坦然: [keyIdx("我方目标持有护盾时，造成的伤害提高[dmg]%", "dmg", 2)],
+    纵然山河万程: [
+      staticIdx(1, "atkPct"),
+      (tables) => {
+        return {
+          title: "终结技后【卫戍】状态：造成的伤害提高[dmg]%",
+          data: {
+            dmg: tables[4]
+          }
+        }
+      }
+    ]
   }
 }

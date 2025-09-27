@@ -121,6 +121,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'hp,cpct,cdmg'
+export const defParams = { Memosprite: true }
 export const defDmgIdx = 5
 
 export const buffs = [{

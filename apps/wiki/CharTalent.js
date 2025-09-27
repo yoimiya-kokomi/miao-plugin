@@ -72,7 +72,7 @@ const CharTalent = {
   },
   // 获取精炼描述
   getDesc (desc, tables, lv = 5) {
-    let reg = /\$(\d)\[(i|f1|f2)](%?)/g
+    let reg = /\$(\d+)\[(i|f1|f2)](%?)/g
 
     let ret
 
