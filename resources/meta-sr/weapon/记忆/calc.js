@@ -68,6 +68,19 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
-    ]
+    ],
+    致长夜的星光: [
+      staticIdx(1, "hpPct"),
+      (tables) => {
+        return {
+          check: ({ params }) => params.Memosprite,
+          title: "【夜色】状态：忆灵无视[meIgnore]%防御，自身与忆灵增伤[dmg]%",
+          data: {
+            meIgnore: tables[2],
+            dmg: tables[3]
+          }
+        }
+      }
+    ],
   }
 }
