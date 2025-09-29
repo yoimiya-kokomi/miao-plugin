@@ -24,6 +24,7 @@ export const details = [{
 }]
 
 export const defDmgIdx = 1
+export const defParams = { Memosprite: true }
 export const mainAttr = 'atk,cpct,cdmg,speed'
 
 export const buffs = [ {
