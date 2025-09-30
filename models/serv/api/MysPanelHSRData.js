@@ -11,6 +11,10 @@ let MysPanelHSRData = {
       return false
     }
 
+    if (String(ds.id).startsWith('2')) {
+        ds.name = char.name
+    }
+
     avatar.setAvatar({
       level: ds.level,
       cons: ds.rank,
