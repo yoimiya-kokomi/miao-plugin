@@ -173,7 +173,7 @@ let DmgAttr = {
         }
       }
 
-      let title = buff.title
+      let title = typeof buff.title === "function" ? buff.title(ds) : buff.title
 
       if (buff.mastery) {
         let mKey = {
