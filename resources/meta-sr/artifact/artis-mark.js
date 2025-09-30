@@ -43,7 +43,7 @@ export const usefulAttr = {
   桂乃芬: { hp: 0, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 50, heal: 0, recharge: 50, effPct: 75, effDef: 0, dmg: 100 },
   '托帕&账账': { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   镜流: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
-  镜流Pro: { hp: 75, atk: 0, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
+  镜流Pro: { hp: 100, atk: 0, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   玲可: { hp: 100, atk: 0, def: 50, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 100, recharge: 75, effPct: 0, effDef: 50, dmg: 0 },
   符玄: { hp: 100, atk: 0, def: 50, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 50, dmg: 100 },
   驭空: { hp: 50, atk: 75, def: 50, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 50, dmg: 100 },
