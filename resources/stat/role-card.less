@@ -42,13 +42,11 @@ body,
 }
 
 .role-stat {
-  display: flex;
+  width: 100%;
 
   .cont {
     // position: relative;
-    margin: 5px 10px 5px 5px;
-    width: 140px;
-    height: 82px;
+    margin: 10px;
   }
 
   .cont.star-display {
@@ -64,11 +62,10 @@ body,
 
   strong {
     text-shadow: 0 0 3px #000;
+    text-align: center;
   }
 
-  .stat-title {
-    position: absolute;
-    top: 0;
+  .title {
     background: rgba(0, 0, 0, 0.5);
     padding: 5px 10px;
     width: 100%;
@@ -113,133 +110,43 @@ body,
   }
 }
 
-.role-title {
-  margin: -3px 0 8px;
+.cards-container {
   display: flex;
-  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 5px; // 统一的水平和垂直间距
 
-  strong {
-    margin-left: 3px;
-    color: #d3bc8e;
-    font-size: 18px;
-    .font-NZBZ;
-    font-weight: normal;
-    margin-right: 10px;
-  }
+  .card-container {
+    width: calc((100% - 25px) / 6); // 总宽度减去3个间距后平分
 
-  .role-star {
-    width: 20px;
-    height: 20px;
-    background-size: cover;
-  }
-}
+    .card-image-container {
+      margin: 10px;
+      height: 395px;
 
-.role-floor-team {
-  display: flex;
+      .card-image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+      }
 
-  .line {
-    width: 1px;
-    background: rgba(255, 255, 255, .5);
-    height: 80px;
-    vertical-align: middle;
-    margin: 15px 8px 0;
-  }
-}
-
-.role-team {
-  display: flex;
-  margin-right: -5px;
-  margin-left: -5px;
-}
-
-.role-buff {
-  display: flex;
-  margin-right: -5px;
-  margin-left: -5px;
-  flex-direction: column;
-  width: 50%;
-
-  .role-choice-cards-container {
-    width: 100%;
-    height: 100%;
-    background-color: rgb(231, 229, 217);
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .role-enemy-container {
-    width: 20%;
-    height: 100%;
-    background-color: rgb(231, 229, 217);
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .role-splendour-container {
-    width: 40%;
-    height: 100%;
-    background-color: rgb(231, 229, 217);
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .role-splendour-buff-container {
-    width: 40%;
-    height: 100%;
-    background-color: rgb(231, 229, 217);
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .role-choice-cards-header {
-    width: 100%;
-    height: 30px;
-    background-color: rgb(139, 139, 131);
-    padding: 5px;
-    font-size: 18px;
-  }
-
-  .role-choice-cards-content {
-    width: 100%;
-    padding: 5px;
-    display: flex;
-
-    .role-content-container {
-      width: 40px;
-      display: flex;
-      margin-top: 5px;
-      margin-left: 5px;
-      flex-direction: column;
-      align-items: center;
-      margin-right: 5px
+      .empty-image {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: relative;
+        
+        strong {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 48px;
+        }
+      }
     }
 
-    .role-content-icon {
-      width: 40px;
-      height: 40px;
-      background-size: cover;
-      background-color: black;
-      border-radius: 50%;
+    .card-info {
+      margin: 5px;
+      font-size: 20px;
+      text-align: center;
     }
-  }
-
-  .role-buff-line {
-    width: 100%;
-    height: 48%;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .role-buff-line + .role-buff-line {
-    margin-top: 4%;
-    /* 两个子元素之间的间距4% */
   }
 }

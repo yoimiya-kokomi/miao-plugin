@@ -37,12 +37,10 @@ body,
   padding: 5px;
 }
 .role-stat {
-  display: flex;
+  width: 100%;
 }
 .role-stat .cont {
-  margin: 5px 10px 5px 5px;
-  width: 140px;
-  height: 82px;
+  margin: 10px;
 }
 .role-stat .cont.star-display {
   width: 330px;
@@ -56,22 +54,21 @@ body,
 }
 .role-stat strong {
   text-shadow: 0 0 3px #000;
+  text-align: center;
 }
-.role-stat .stat-title {
-  position: absolute;
-  top: 0;
+.role-stat .title {
   background: rgba(0, 0, 0, 0.5);
   padding: 5px 10px;
   width: 100%;
   text-shadow: 0 0 1px #000;
 }
-.role-stat .stat-title span {
+.role-stat .title span {
   display: block;
   font-weight: normal;
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   font-size: 20px;
 }
-.role-stat .stat-title strong {
+.role-stat .title strong {
   display: block;
   font-size: 30px;
 }
@@ -97,117 +94,37 @@ body,
   background-size: cover;
   margin-top: 4px;
 }
-.role-title {
-  margin: -3px 0 8px;
+.cards-container {
   display: flex;
-  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 5px;
 }
-.role-title strong {
-  margin-left: 3px;
-  color: #d3bc8e;
-  font-size: 18px;
-  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
-  font-weight: normal;
-  margin-right: 10px;
+.cards-container .card-container {
+  width: calc((100% - 25px) / 6);
 }
-.role-title .role-star {
-  width: 20px;
-  height: 20px;
+.cards-container .card-container .card-image-container {
+  margin: 10px;
+  height: 395px;
+}
+.cards-container .card-container .card-image-container .card-image {
+  width: 100%;
+  height: 100%;
   background-size: cover;
+  background-position: center;
 }
-.role-floor-team {
-  display: flex;
+.cards-container .card-container .card-image-container .empty-image {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
 }
-.role-floor-team .line {
-  width: 1px;
-  background: rgba(255, 255, 255, 0.5);
-  height: 80px;
-  vertical-align: middle;
-  margin: 15px 8px 0;
+.cards-container .card-container .card-image-container .empty-image strong {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
 }
-.role-team {
-  display: flex;
-  margin-right: -5px;
-  margin-left: -5px;
-}
-.role-buff {
-  display: flex;
-  margin-right: -5px;
-  margin-left: -5px;
-  flex-direction: column;
-  width: 50%;
-}
-.role-buff .role-choice-cards-container {
-  width: 100%;
-  height: 100%;
-  background-color: #e7e5d9;
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-direction: column;
-}
-.role-buff .role-enemy-container {
-  width: 20%;
-  height: 100%;
-  background-color: #e7e5d9;
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-direction: column;
-}
-.role-buff .role-splendour-container {
-  width: 40%;
-  height: 100%;
-  background-color: #e7e5d9;
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-direction: column;
-}
-.role-buff .role-splendour-buff-container {
-  width: 40%;
-  height: 100%;
-  background-color: #e7e5d9;
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-direction: column;
-}
-.role-buff .role-choice-cards-header {
-  width: 100%;
-  height: 30px;
-  background-color: #8b8b83;
-  padding: 5px;
-  font-size: 18px;
-}
-.role-buff .role-choice-cards-content {
-  width: 100%;
-  padding: 5px;
-  display: flex;
-}
-.role-buff .role-choice-cards-content .role-content-container {
-  width: 40px;
-  display: flex;
-  margin-top: 5px;
-  margin-left: 5px;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 5px;
-}
-.role-buff .role-choice-cards-content .role-content-icon {
-  width: 40px;
-  height: 40px;
-  background-size: cover;
-  background-color: black;
-  border-radius: 50%;
-}
-.role-buff .role-buff-line {
-  width: 100%;
-  height: 48%;
-  display: flex;
-  flex-direction: row;
-}
-.role-buff .role-buff-line + .role-buff-line {
-  margin-top: 4%;
-  /* 两个子元素之间的间距4% */
+.cards-container .card-container .card-info {
+  margin: 5px;
+  font-size: 20px;
+  text-align: center;
 }
