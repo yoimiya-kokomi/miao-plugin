@@ -1,5 +1,6 @@
 import lodash from 'lodash'
 import MysPanelHSRData from './MysPanelHSRData.js'
+import { Character } from '#miao.models'
 
 export default {
   id: 'mysPanelHSR',
@@ -23,7 +24,34 @@ export default {
 
   updatePlayer (player, data) {
     lodash.forEach(data.avatar_list, (ds) => {
-      let ret = MysPanelHSRData.setAvatar(player, ds)
+      let dsToProcess = ds
+      let isEnhanced = false
+      if (Character.enhancedCharIds.includes(ds.id) && ds.skills) {
+          const originalIdStr = String(ds.id)
+          const enhancedPrefix = '1' + originalIdStr
+          isEnhanced = ds.skills.some(skill => String(skill.point_id).startsWith(enhancedPrefix))
+      }
+
+      if (isEnhanced) {
+        dsToProcess = lodash.cloneDeep(ds)
+        const originalIdStr = String(dsToProcess.id)
+        const newId = parseInt('2' + originalIdStr.substring(1))
+        dsToProcess.id = newId
+
+        if (dsToProcess.skills) {
+          dsToProcess.skills.forEach(skill => {
+            const originalSkillIdStr = String(skill.point_id)
+            const oldPrefix = '1' + originalIdStr
+            const newPrefix = String(newId)
+
+            if (originalSkillIdStr.startsWith(oldPrefix)) {
+              skill.point_id = parseInt(originalSkillIdStr.replace(oldPrefix, newPrefix))
+            }
+          })
+        }
+      }
+
+      let ret = MysPanelHSRData.setAvatar(player, dsToProcess)
       if (ret) {
         player._update.push(ret.id)
       }

@@ -39,17 +39,37 @@ export default {
     return ds
   },
 
-  updatePlayer (player, data) {
+  updatePlayer(player, data) {
     try {
-      player.setBasicData(Data.getData(data, 'name:nickname,face:headIconID,level:level,word:level,sign:signature'))
+      player.setBasicData(Data.getData(data, "name:nickname,face:headIconID,level:level,word:level,sign:signature"))
       lodash.forEach(data.avatars, (ds, id) => {
-        let ret = AvocadoData.setAvatar(player, ds)
-        if (ret) {
-          player._update.push(ds.avatarId)
+
+        let dsToProcess = ds
+
+        if (ds.enhancedId === 1 && Character.enhancedCharIds.includes(ds.avatarId)) {
+          dsToProcess = lodash.cloneDeep(ds)
+          const originalIdStr = String(dsToProcess.avatarId)
+          const newId = parseInt('2' + originalIdStr.substring(1))
+          dsToProcess.avatarId = newId
+
+          if (dsToProcess.skillTreeList) {
+            dsToProcess.skillTreeList.forEach(skill => {
+              const originalSkillIdStr = String(skill.pointId)
+              const oldPrefix = '1' + originalIdStr
+              const newPrefix = String(newId)
+
+              if (originalSkillIdStr.startsWith(oldPrefix)) {
+                skill.pointId = parseInt(originalSkillIdStr.replace(oldPrefix, newPrefix))
+              }
+            })
+          }
         }
+
+        let ret = AvocadoData.setAvatar(player, dsToProcess)
+        if (ret) player._update.push(dsToProcess.avatarId)
       })
     } catch (e) {
-      console.log(e)
+      logger.error(e)
     }
   },
 
