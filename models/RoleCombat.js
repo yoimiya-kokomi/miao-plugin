@@ -28,7 +28,7 @@ export default class RoleCombat extends Base {
       let tmp = {
         is_get_medal: round.is_get_medal,
         choice_cards: round.choice_cards,
-        buffs: round.buffs, // TODO: 改版之后这个 buffs 似乎都返回一个空的 list 了
+        // buffs: round.buffs, // TODO: 改版之后这个 buffs 似乎都返回一个空的 list 了
         enemies: round.enemies,
         splendour_buff: {
           summary: getSplendourBuffSummary(round.splendour_buff.summary.total_level),
@@ -52,7 +52,20 @@ export default class RoleCombat extends Base {
       })
 
       tmp.avatars = avatars
-      this.rounds[round.round_id] = tmp
+      if (round.is_tarot) {
+        if (round.tarot_serial_no == 1) tmp.name = '圣牌挑战I'
+        else if (round.tarot_serial_no == 2) tmp.name = '圣牌挑战II'
+        this.rounds[10 + round.tarot_serial_no] = tmp
+      }
+      else {
+        tmp.name = `第${round.round_id}幕`
+        this.rounds[round.round_id] = tmp
+      }
+    })
+    lodash.forEach(this.rounds, (v, k) => {
+      if (!v) {
+        delete this.rounds[k]
+      }
     })
     this.stat = data.stat
     this.month = data.schedule.start_date_time.month

@@ -45,7 +45,7 @@ body,
   height: 82px;
 }
 .role-stat .cont.star-display {
-  width: 300px;
+  width: 360px;
 }
 .role-stat strong {
   text-shadow: 0 0 3px #000;
@@ -82,7 +82,7 @@ body,
   justify-content: flex-start;
 }
 .role-stat .stat-msg .stat-star-container {
-  flex: 0 0 10%;
+  flex: 0 0 8.4%;
   margin-bottom: 10px;
 }
 .role-stat .stat-msg .stat-star-container .stat-star {
