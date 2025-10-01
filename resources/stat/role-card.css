@@ -32,67 +32,33 @@ body,
   padding-right: 10px;
   font-size: 25px;
 }
-.role-stat-cont {
+.card-stat-cont {
   display: flex;
   padding: 5px;
 }
-.role-stat {
+.card-stat {
   width: 100%;
 }
-.role-stat .cont {
+.card-stat .cont {
   margin: 10px;
 }
-.role-stat .cont.star-display {
-  width: 330px;
-}
-.role-stat .cont.star-display .line {
-  width: 1px;
-  background: rgba(255, 255, 255, 0.5);
-  height: 25px;
-  vertical-align: middle;
-  margin: 5px 3px 0;
-}
-.role-stat strong {
-  text-shadow: 0 0 3px #000;
-  text-align: center;
-}
-.role-stat .title {
+.card-stat .title {
   background: rgba(0, 0, 0, 0.5);
   padding: 5px 10px;
   width: 100%;
   text-shadow: 0 0 1px #000;
 }
-.role-stat .title span {
+.card-stat .title span {
   display: block;
   font-weight: normal;
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
   font-size: 20px;
 }
-.role-stat .title strong {
+.card-stat .title strong {
   display: block;
   font-size: 30px;
-}
-.role-stat .stat-msg {
-  position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(2px);
-  padding: 5px 10px;
-  width: 100%;
-  text-shadow: 0 0 1px #000;
-  font-size: 30px;
-  height: 45px;
-  display: flex;
-  justify-content: flex-start;
-}
-.role-stat .stat-msg .stat-star-container {
-  margin-bottom: 10px;
-}
-.role-stat .stat-msg .stat-star-container .stat-star {
-  width: 25px;
-  height: 25px;
-  background-size: cover;
-  margin-top: 4px;
+  text-shadow: 0 0 3px #000;
+  text-align: center;
 }
 .cards-container {
   display: flex;

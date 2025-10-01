@@ -36,33 +36,17 @@ body,
   }
 }
 
-.role-stat-cont {
+.card-stat-cont {
   display: flex;
   padding: 5px;
 }
 
-.role-stat {
+.card-stat {
   width: 100%;
 
   .cont {
     // position: relative;
     margin: 10px;
-  }
-
-  .cont.star-display {
-    width: 330px;
-    .line {
-      width: 1px;
-      background: rgba(255, 255, 255, 0.5);
-      height: 25px;
-      vertical-align: middle;
-      margin: 5px 3px 0;
-    }
-  }
-
-  strong {
-    text-shadow: 0 0 3px #000;
-    text-align: center;
   }
 
   .title {
@@ -81,31 +65,8 @@ body,
     strong {
       display: block;
       font-size: 30px;
-    }
-  }
-
-  .stat-msg {
-    position: absolute;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(2px);
-    padding: 5px 10px;
-    width: 100%;
-    text-shadow: 0 0 1px #000;
-    font-size: 30px;
-    height: 45px;
-    display: flex;
-    justify-content: flex-start;
-
-    .stat-star-container {
-      margin-bottom: 10px;
-
-      .stat-star {
-        width: 25px;
-        height: 25px;
-        background-size: cover;
-        margin-top: 4px;
-      }
+      text-shadow: 0 0 3px #000;
+      text-align: center;
     }
   }
 }
