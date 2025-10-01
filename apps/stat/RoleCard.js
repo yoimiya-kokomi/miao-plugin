@@ -4,7 +4,7 @@ import { RoleCombat, MysApi, Player } from '#miao.models'
 
 export async function RoleCard (e) {
   let rawMsg = e.original_msg || e.msg || ''
-  let isMatch = /^#(喵喵)(幻想|幻境|剧诗|幻想真境剧诗)(圣牌|卡片|卡牌|塔罗牌|card|tarot)(收集)?$/.test(rawMsg)
+  let isMatch = /^#(喵喵)(月谕|幻想|幻境|剧诗|幻想真境剧诗)(圣牌|卡片|卡牌|塔罗牌|card|tarot)(收藏|收集)?$/.test(rawMsg)
   if (!Cfg.get('roleCombat', false) && !isMatch) {
     return false
   }
@@ -24,7 +24,7 @@ export async function RoleCard (e) {
     lvs = Data.getVal(resRole, 'tarot_card_state')
     // 检查是否查询到了幻想真境剧诗信息
     if (!lvs) {
-      e.reply(`暂未获得幻想真境剧诗圣牌数据...`)
+      e.reply(`暂未获得「月谕圣牌」收藏数据...`)
       return true
     }
     delete resRole._res

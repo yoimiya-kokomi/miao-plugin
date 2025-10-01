@@ -27,8 +27,8 @@ export const cfgSchema = {
         miao: true
       },
       roleCombat: {
-        title: '#幻想圣牌',
-        key: '幻想真境剧诗圣牌收集',
+        title: '#月谕圣牌',
+        key: '「月谕圣牌」收藏',
         def: false,
         miao: true
       },
