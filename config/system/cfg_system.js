@@ -26,6 +26,12 @@ export const cfgSchema = {
         def: false,
         miao: true
       },
+      roleCombat: {
+        title: '#幻想圣牌',
+        key: '幻想真境剧诗圣牌收集',
+        def: false,
+        miao: true
+      },
       hardChallenge: {
         title: '#幽境',
         key: '幽境危战',
