@@ -50,7 +50,7 @@ export default class RoleCombat extends Base {
           buffs: round.splendour_buff.buffs
         },
         is_tarot: round.is_tarot,
-        round_id: round.is_tarot ? intToRoman(round.tarot_serial_no) : round.round_id
+        title: round.is_tarot ? `圣牌挑战 ${intToRoman(round.tarot_serial_no)}` : `第 ${round.round_id} 幕`
       }
       let time = moment(new Date(round.finish_time * 1000))
       tmp.finish_time = time.format('MM-DD HH:mm:ss')

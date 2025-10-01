@@ -81,11 +81,7 @@
         {{else}}
         <div class="role-star" style="background-image:url({{_res_path}}/stat/imgs/nomedal.png)"></div>
         {{/if}}
-        {{if round.is_tarot}}
-        <strong>圣牌挑战 {{round.round_id}}</strong>
-        {{else}}
-        <strong>第 {{round.round_id}} 幕</strong>
-        {{/if}}
+        <strong>{{round.title}}</strong>
         <span>{{round?.finish_time}}</span>
       </div>
       <div class="role-floor-team">
