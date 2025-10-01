@@ -14,10 +14,10 @@ moment.locale('zh-cn')
 export default class HardChallenge extends Base {
   constructor (data, popularity) {
     super()
-    this.best = data.single.best
+    this.best = data.best.best
     this.challs = []
     this.popularity_avatar_ids = new Set(lodash.map(popularity, (item) => item.avatar_id.toString()))
-    lodash.forEach(data.single.challenge, (chall) => {
+    lodash.forEach(data.best.challenge, (chall) => {
       let tmp = {
         name: chall.name,
         monster: {
@@ -35,7 +35,8 @@ export default class HardChallenge extends Base {
           avatar_id: avatar.avatar_id.toString(),
           name: avatar.name,
           level: avatar.level,
-          
+          rarity: avatar.rarity,
+          rank: avatar.rank
         })
       })
       let best_avatars = []
@@ -71,6 +72,58 @@ export default class HardChallenge extends Base {
       })
     })
     return lodash.keys(ret)
+  }
+
+  addFakeCharacters (avatarData) {
+    // 组队模式下，将请求数据与自己角色的数据进行比对
+    // 如果
+    // 1. 自己没有该角色
+    // 2. 请求数据角色等级比自己的角色要高
+    // 3. 请求数据角色命座比自己的角色要高
+    // 若至少满足上述其一，就认为组队模式下该角色是别人的角色
+    // （请求数据中没有字段来区分是自己的角色还是别人的角色，所以只能看个大概就是）
+    let ret = {}
+    lodash.forEach(this.challs, (chall) => {
+      lodash.forEach(chall.avatars || [], (avatar) => {
+        if (avatar.avatar_id) {
+          let chall_avatar_id = avatar.avatar_id
+          let buildFakeCharacters = false
+          if (!(chall_avatar_id in ret)) {
+            if (chall_avatar_id in avatarData) {
+              let own_avatar = avatarData[chall_avatar_id]
+              if ((own_avatar.cons < avatar.rank) || (own_avatar.level < avatar.level)) {
+                buildFakeCharacters = true
+              }
+            } else {
+              buildFakeCharacters = true
+            }
+          }
+          if (buildFakeCharacters) {
+            let fakeCharacter = new Character({
+              id: +chall_avatar_id,
+              name: avatar.name
+            })
+            let detailInfo = fakeCharacter.getDetail()
+            ret[chall_avatar_id] = {
+              id: +chall_avatar_id,
+              name: avatar.name,
+              level: avatar.level,
+              star: detailInfo.star,
+              cons: avatar.rank,
+              elem: detailInfo.elem,
+              abbr: detailInfo.abbr,
+              face: fakeCharacter.face,
+              qFace: fakeCharacter.qFace,
+              side: fakeCharacter.side,
+              gacha: fakeCharacter.gacha
+            }
+          } else {
+            ret[chall_avatar_id] = avatarData[chall_avatar_id]
+          }
+        }
+      })
+    })
+    return ret
   }
 
   applyPopularity (rawAvatarData) {
