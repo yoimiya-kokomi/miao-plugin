@@ -1,0 +1,113 @@
+@import "../common/base.less";
+
+@scale: 1.4;
+
+body,
+.container {
+  width: 970px;
+}
+
+.container {
+  padding: 5px 0 10px 5px;
+}
+
+.head-box {
+  display: flex;
+  width: 100%;
+
+  .title {
+    font-size: 45px;
+    padding-bottom: 10px;
+    width: 70%;
+
+    span {
+      font-size: 30px;
+      margin-left: 10px;
+      color: #d3bc8e;
+    }
+  }
+
+  .uid {
+    text-align: right;
+    width: 30%;
+    padding-top: 25px;
+    padding-right: 10px;
+    font-size: 25px;
+  }
+}
+
+.card-stat-cont {
+  display: flex;
+  padding: 5px;
+}
+
+.card-stat {
+  width: 100%;
+
+  .cont {
+    // position: relative;
+    margin: 10px;
+  }
+
+  .title {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    width: 100%;
+    text-shadow: 0 0 1px #000;
+
+    span {
+      display: block;
+      font-weight: normal;
+      .font-NZBZ;
+      font-size: 20px;
+    }
+
+    strong {
+      display: block;
+      font-size: 30px;
+      text-shadow: 0 0 3px #000;
+      text-align: center;
+    }
+  }
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px; // 统一的水平和垂直间距
+
+  .card-container {
+    width: calc((100% - 25px) / 6); // 总宽度减去3个间距后平分
+
+    .card-image-container {
+      margin: 10px;
+      height: 395px;
+
+      .card-image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .empty-image {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: relative;
+        
+        strong {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 48px;
+        }
+      }
+    }
+
+    .card-info {
+      margin: 5px;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+}

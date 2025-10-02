@@ -1,0 +1,45 @@
+<script src="../../../../../Yunzai-Botconfig/miao-diy/app/main.js"></script>{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/role-card.css?v=1.0"/>
+{{/block}}
+
+{{block 'main'}}
+<div class="head-box type">
+  <div class="title">#月谕圣牌</div>
+  <div class="uid">UID:{{uid}}</div>
+</div>
+<div class="info_box">
+  <div class="card-stat-cont">
+    <div class="card-stat">
+      <div class="cont">
+        <div class="title">
+          <strong>已收集 {{tarot_card_state.curr_num}} / {{tarot_card_state.total_num}}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cont">
+  <div class="cont-body">
+    <div class="cards-container">
+      {{each tarot_card_state.list card}}
+        <div class="card-container">
+          <div class="card-image-container">
+            {{if card.is_unlock}}
+            <div class="card-image" style="background-image:url({{card.icon}})"></div>
+            {{else}}
+            <div class="card-image empty-image"><strong>???</strong></div>
+            {{/if}}
+          </div>
+          <div class="card-info">
+            {{card.name}} x {{card.unlock_num}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+{{/block}}

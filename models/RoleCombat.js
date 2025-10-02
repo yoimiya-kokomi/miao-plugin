@@ -14,7 +14,7 @@ moment.locale('zh-cn')
 export default class RoleCombat extends Base {
   constructor (data) {
     super()
-    this.rounds = {}
+    this.rounds = []
     function getSplendourBuffSummary(level) {
       return {
         'total_level': level,
@@ -23,6 +23,21 @@ export default class RoleCombat extends Base {
         'def_increase': level * 50,
         'em_increase': level * 20
       }
+    }
+    function intToRoman(num) {
+      if (num < 1 || num > 3999) {
+        throw new Error('输入数字必须在 1-3999 范围内');
+      }
+      
+      const thousands = ['', 'M', 'MM', 'MMM'];
+      const hundreds = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
+      const tens = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
+      const ones = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+      
+      return thousands[Math.floor(num / 1000)] +
+             hundreds[Math.floor((num % 1000) / 100)] +
+             tens[Math.floor((num % 100) / 10)] +
+             ones[num % 10];
     }
     lodash.forEach(data.detail.rounds_data, (round) => {
       let tmp = {
@@ -33,7 +48,9 @@ export default class RoleCombat extends Base {
         splendour_buff: {
           summary: getSplendourBuffSummary(round.splendour_buff.summary.total_level),
           buffs: round.splendour_buff.buffs
-        }
+        },
+        is_tarot: round.is_tarot,
+        title: round.is_tarot ? `圣牌挑战 ${intToRoman(round.tarot_serial_no)}` : `第 ${round.round_id} 幕`
       }
       let time = moment(new Date(round.finish_time * 1000))
       tmp.finish_time = time.format('MM-DD HH:mm:ss')
@@ -52,7 +69,7 @@ export default class RoleCombat extends Base {
       })
 
       tmp.avatars = avatars
-      this.rounds[round.round_id] = tmp
+      this.rounds.push(tmp)
     })
     this.stat = data.stat
     this.month = data.schedule.start_date_time.month

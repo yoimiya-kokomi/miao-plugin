@@ -6,6 +6,7 @@ import { ConsStat, AbyssPct } from './stat/AbyssStat.js'
 import { AbyssTeam } from './stat/AbyssTeam.js'
 import { AbyssSummary } from './stat/AbyssSummary.js'
 import { RoleCombatSummary } from './stat/RoleCombatSummary.js'
+import { RoleCard } from './stat/RoleCard.js'
 import { HardChallengeSummary } from './stat/HardChallengeSummary.js'
 import { App } from '#miao'
 
@@ -40,8 +41,13 @@ app.reg({
     fn: RoleCombatSummary,
     desc: '幻想真境剧诗'
   },
+  RoleCard: {
+    rule: /^#*(喵喵)*(月谕|越狱|幻想|幻境|剧诗|幻想真境剧诗)(圣牌|卡片|卡牌|塔罗牌|card|tarot)(收藏|收集)?[ |0-9]*(数据)?$/,
+    fn: RoleCard,
+    desc: '「月谕圣牌」收藏'
+  },
   HardChallengeSummary: {
-    rule: /^#*(喵喵)*(本期|上期)?(幽境|危战|幽境危战)[ |0-9]*(数据)?$/,
+    rule: /^#*(喵喵)*(本期|上期)?(幽境|危战|幽境危战)(单人|单挑|组队|多人|合作|最佳)?[ |0-9]*(数据)?$/,
     fn: HardChallengeSummary,
     desc: '幽境危战'
   }

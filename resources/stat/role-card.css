@@ -1,0 +1,96 @@
+.font-YS {
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.font-NZBZ {
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+body,
+.container {
+  width: 970px;
+}
+.container {
+  padding: 5px 0 10px 5px;
+}
+.head-box {
+  display: flex;
+  width: 100%;
+}
+.head-box .title {
+  font-size: 45px;
+  padding-bottom: 10px;
+  width: 70%;
+}
+.head-box .title span {
+  font-size: 30px;
+  margin-left: 10px;
+  color: #d3bc8e;
+}
+.head-box .uid {
+  text-align: right;
+  width: 30%;
+  padding-top: 25px;
+  padding-right: 10px;
+  font-size: 25px;
+}
+.card-stat-cont {
+  display: flex;
+  padding: 5px;
+}
+.card-stat {
+  width: 100%;
+}
+.card-stat .cont {
+  margin: 10px;
+}
+.card-stat .title {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  width: 100%;
+  text-shadow: 0 0 1px #000;
+}
+.card-stat .title span {
+  display: block;
+  font-weight: normal;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+  font-size: 20px;
+}
+.card-stat .title strong {
+  display: block;
+  font-size: 30px;
+  text-shadow: 0 0 3px #000;
+  text-align: center;
+}
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.cards-container .card-container {
+  width: calc((100% - 25px) / 6);
+}
+.cards-container .card-container .card-image-container {
+  margin: 10px;
+  height: 395px;
+}
+.cards-container .card-container .card-image-container .card-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+.cards-container .card-container .card-image-container .empty-image {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+.cards-container .card-container .card-image-container .empty-image strong {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+}
+.cards-container .card-container .card-info {
+  margin: 5px;
+  font-size: 20px;
+  text-align: center;
+}

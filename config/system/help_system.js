@@ -58,6 +58,10 @@ export const helpList = [{
     title: '#202407幻想角色列表',
     desc: '幻想真境剧诗入场角色查询'
   }, {
+    icon: 35,
+    title: '#月谕圣牌',
+    desc: '「月谕圣牌」收藏查询'
+  }, {
     icon: 64,
     title: '#幽境 #幽境危战 #上期幽境',
     desc: '幽境危战数据'

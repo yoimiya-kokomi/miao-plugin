@@ -7,7 +7,7 @@
 {{/block}}
 
 {{block 'main'}}
-{{ set difficultyName = {1:'简单', 2:'普通', 3:'困难', 4:'卓越'} }}
+{{ set difficultyName = {1: '简单', 2: '普通', 3: '困难', 4: '卓越', 5: '月谕'} }}
 <div class="head-box type">
   <div class="title">#幻想真境剧诗<span>{{role.month}}月 · {{difficultyName[role.stat.difficulty_id]}}模式</span></div>
   <div class="uid">UID:{{uid}}</div>
@@ -20,7 +20,10 @@
           <span>明星挑战星章</span>
         </div>
         <div class="stat-msg">
-          {{each role.stat.get_medal_round_list star}}
+          {{each role.stat.get_medal_round_list star star_id}}
+          {{if star_id == 10}}
+          <div class="line"></div>
+          {{/if}}
           <div class="stat-star-container">
             {{if star == 1}}
             <div class="stat-star" style="background-image:url({{_res_path}}/stat/imgs/medal.png)"></div>
@@ -69,7 +72,7 @@
 
   </div>
   {{set cardTypes={1:['wide wide2'],2:['wide','wide'],3:['wide','mini','mini'],4:['mini','mini','mini','mini']} }}
-  {{each role?.rounds round round_index}}
+  {{each role?.rounds round}}
   <div class="cont">
     <div class="cont-body">
       <div class="role-title">
@@ -78,7 +81,7 @@
         {{else}}
         <div class="role-star" style="background-image:url({{_res_path}}/stat/imgs/nomedal.png)"></div>
         {{/if}}
-        <strong>第 {{round_index}} 幕</strong>
+        <strong>{{round.title}}</strong>
         <span>{{round?.finish_time}}</span>
       </div>
       <div class="role-floor-team">
@@ -130,7 +133,7 @@
           <div class="role-buff-line">
             {{set choice_cards=round?.choice_cards }}
             <div class="role-choice-cards-container">
-              <div class="role-choice-cards-header">神秘收获</div>
+              <div class="role-choice-cards-header">神秘收获 x {{choice_cards.length}}</div>
               <div class="role-choice-cards-content">
                 {{each choice_cards choice_card}}
                   <div class="role-content-container">
@@ -150,6 +153,8 @@
     <div class="cont-body">
       <ul class="cont-msg">
         <li><strong>明星挑战星章</strong>不仅作为展示用，<strong>也会</strong>影响挑战的奖励领取~</li>
+        <li>各关卡按照<strong>挑战时间顺序</strong>展示</li>
+        <li>仅展示<strong>已挑战成功</strong>的<strong>圣牌挑战</strong>，未挑战成功的<strong>圣牌挑战</strong>不会被展示</li>
         <li>角色装备与圣遗物为当前最新状态</li>
       </ul>
     </div>
