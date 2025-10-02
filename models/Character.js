@@ -60,7 +60,7 @@ class Character extends Base {
     if (this.eta) {
       return this.eta * 1 < new Date() * 1
     }
-    return true
+    return false
   }
 
   // 是否为自定义角色
