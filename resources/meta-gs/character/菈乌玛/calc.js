@@ -5,7 +5,7 @@ export const details = [{
   {
     title: '满辉长按E二段3枚',
     dmgKey: 'e',
-    params: { Moonsign: 3 },
+    params: { Lunar: true, Moonsign: 2 },
     dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.mastery) * talent.e['长按二段伤害'] * 3 / 100, '', 'lunarBloom')
   },
   {
@@ -68,7 +68,7 @@ export const buffs = [{
     }
   }, {
     check: ({ params }) => params.Lunar === true,
-    title: '菈乌玛天赋：触发绽放反应时转为触发月绽放反应，基础伤害提升[fypct]',
+    title: '菈乌玛天赋：触发绽放反应时转为触发月绽放反应，基础伤害提升[fypct]%',
     sort: 9,
     data: {
       fypct: ({ attr, calc }) => Math.min((calc(attr.mastery) * 0.0175), 14)
@@ -108,3 +108,5 @@ export const buffs = [{
       elevated: 25
     }
   }]
+
+export const createdBy = 'liangshi'
