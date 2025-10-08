@@ -291,7 +291,7 @@ export default function (step, staticStep) {
     谧音吹哨: {
       title: '触发反应后生命值上限提高[hpPct]%',
       data: {
-        hpPct: ({ params, refine }) => step(16)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+        hpPct: ({ params, refine }) => step(16)[refine] * ((params.Moonsign || 0) >= 2 ? 2 : 1)
       }
     },
     织月者的曙色: {
