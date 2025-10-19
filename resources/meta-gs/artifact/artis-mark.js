@@ -107,5 +107,6 @@ export const usefulAttr = {
   伊涅芙: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 0, phy: 0, recharge: 40, heal: 0 },
   菈乌玛: { hp: 0, atk: 25, def: 0, cpct: 50, cdmg: 50, mastery: 100, dmg: 0, phy: 0, recharge: 100, heal: 0 },
   爱诺: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 40, heal: 0 },
-  菲林斯: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 0, phy: 0, recharge: 50, heal: 0 }
+  菲林斯: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 0, phy: 0, recharge: 50, heal: 0 },
+  奈芙尔: { hp: 0, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 0, phy: 0, recharge: 35, heal: 0 }
 }
