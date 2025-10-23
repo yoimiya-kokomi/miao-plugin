@@ -124,7 +124,7 @@ class Attr extends Base {
     // 特有角色自带属性
     const Characters = [
       { id: 10000119, attrs: { mastery: 200 } }, // 菈乌玛: +200 元素精通
-      { id: 10000122, attrs: { mastery: 200 } }, // 奈芙尔: +200 元素精通
+      { id: 10000122, attrs: { mastery: 100 } }, // 奈芙尔: +100 元素精通
       // 后续角色兼容
     ]
 
