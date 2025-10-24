@@ -112,10 +112,12 @@ export const alias = {
   丝柯克: 'Skirk,丝柯可,斯柯克',
   塔利雅: 'Dahlia,塔利亚,塔丽雅,主祭,助祭',
   伊涅芙: 'Ineffa,机器人,机娘',
-  菈乌玛: 'Lauma',
+
+  // 6.0
+  菈乌玛: 'Lauma,鹿女',
   菲林斯: 'Flins',
   爱诺: 'Aino',
-  奈芙尔: 'Nefer',
+  奈芙尔: 'Nefer,奈芙儿',
   杜林: 'Durin',
   雅珂达: 'Jahoda',
   哥伦比娅: 'Columbina'
