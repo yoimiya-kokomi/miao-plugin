@@ -2,13 +2,13 @@ export const details = [
   {
     title: '满层满辉E后幻戏自身一段',
     params: { Phantasm_Performance: true },
-    dmg: ({ talent, calc, attr, cons, params }, { basic }) => basic(((calc(attr.atk) * talent.e['幻戏自身一段伤害2'][0] + calc(attr.mastery) * talent.e['幻戏自身一段伤害2'][1]) / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) / 10), 'a2')
+    dmg: ({ talent, calc, attr, cons, params }, { basic }) => basic(((calc(attr.atk) * talent.e['幻戏自身一段伤害2'][0] + calc(attr.mastery) * talent.e['幻戏自身一段伤害2'][1]) / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) * 0.08), 'a2')
   },
   {
     title: '满层满辉E后幻戏自身二段',
     params: { Phantasm_Performance: true },
     dmg: ({ talent, calc, attr, cons, params }, { basic }) => {
-      let c0 = basic(((calc(attr.atk) * talent.e['幻戏自身二段伤害2'][0] + calc(attr.mastery) * talent.e['幻戏自身二段伤害2'][1]) / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) / 10), 'a2')
+      let c0 = basic(((calc(attr.atk) * talent.e['幻戏自身二段伤害2'][0] + calc(attr.mastery) * talent.e['幻戏自身二段伤害2'][1]) / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) * 0.08), 'a2')
       let c6 = basic((calc(attr.mastery) * 85 / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) / 10), '', 'lunarBloom')
       return {
         dmg: cons >= 6 ? c6.dmg : c0.dmg,
@@ -19,17 +19,17 @@ export const details = [
   {
     title: '满层满辉E后幻戏协同一段',
     params: { Lunar: true, Phantasm_Performance: true },
-    dmg: ({ talent, calc, attr, cons, params }, { basic }) => basic((calc(attr.mastery) * talent.e['幻戏虚影一段'] / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) / 10), '', 'lunarBloom')
+    dmg: ({ talent, calc, attr, cons, params }, { basic }) => basic((calc(attr.mastery) * talent.e['幻戏虚影一段'] / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) * 0.08), '', 'lunarBloom')
   },
   {
     title: '满层满辉E后幻戏协同二段',
     params: { Lunar: true, Phantasm_Performance: true },
-    dmg: ({ talent, calc, attr, cons, params }, { basic }) => basic((calc(attr.mastery) * talent.e['幻戏虚影二段'] / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) / 10), '', 'lunarBloom')
+    dmg: ({ talent, calc, attr, cons, params }, { basic }) => basic((calc(attr.mastery) * talent.e['幻戏虚影二段'] / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) * 0.08), '', 'lunarBloom')
   },
   {
     title: '满层满辉E后幻戏协同三段',
     params: { Lunar: true, Phantasm_Performance: true },
-    dmg: ({ talent, calc, attr, cons, params }, { basic }) => basic((calc(attr.mastery) * talent.e['幻戏虚影三段'] / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) / 10), '', 'lunarBloom')
+    dmg: ({ talent, calc, attr, cons, params }, { basic }) => basic((calc(attr.mastery) * talent.e['幻戏虚影三段'] / 100) * (1 + Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)) * 0.08), '', 'lunarBloom')
   },
   {
     title: 'Q一段伤害',
@@ -58,13 +58,6 @@ export const buffs = [
     }
   },
   {
-    title: '奈芙尔天赋：基于元素精通攻击力提升[atkPlus]',
-    sort: 9,
-    data: {
-      atkPlus: ({ attr, calc }) => Math.max((Math.min((calc(attr.mastery) * 0.4), 200)), 0)
-    }
-  },
-  {
     check: ({ params }) => params.Lunar === true,
     title: '奈芙尔天赋：[月兆祝赐 · 廊下暮影] 触发绽放反应时转为触发月绽放反应,基础伤害提升[fypct]',
     sort: 9,
@@ -83,7 +76,7 @@ export const buffs = [
     title: '奈芙尔1命：幻戏造成的月绽放反应基础伤害提升[fyplus]',
     cons: 1,
     data: {
-      fyplus: ({ attr, calc, cons, params }) => (calc(attr.mastery) * 60 / 100) * Math.min((1 + (params.Veil_of_Falsehood || 99) / 10), (cons >= 2 ? 1.5 : 1.3))
+      fyplus: ({ attr, calc, cons, params }) => (calc(attr.mastery) * 60 / 100) * Math.min((1 + (params.Veil_of_Falsehood || 99) / 10), (cons >= 2 ? 1.4 : 1.24))
     }
   },
   {
