@@ -433,5 +433,23 @@ export default {
         dmg: 15
       }
     }
+  },
+  永恒之地翁法罗斯: {
+    2: [
+      attr("cpct", 8), {
+        check: ({ params }) => params.Memosprite,
+        title: "装备者的忆灵在场时，我方全体速度提高[speedPct]%",
+        data: {
+          speedPct: 8
+        }
+      }]
+  },
+  "天国@直播间": {
+    2: [attr("cdmg", 16), {
+      title: "暴击伤害额外提高[cdmg]%",
+      data: {
+        cdmg: 32
+      }
+    }]
   }
 }
