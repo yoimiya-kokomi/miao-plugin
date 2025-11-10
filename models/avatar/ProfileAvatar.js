@@ -81,9 +81,7 @@ const ProfileAvatar = {
     if (!isGs && profile.trees) {
       treeSuper = true
       lodash.forEach(profile.trees, (tree, idx) => {
-        if (!tree.includes(treeSet[idx])) {
-          treeSuper = false
-        }
+        if (!String(tree.pointId).includes(treeSet[idx])) treeSuper = false
       })
     }
     if (!isGs && (

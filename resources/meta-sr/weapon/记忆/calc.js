@@ -77,10 +77,37 @@ export default function (staticIdx, keyIdx) {
           title: "【夜色】状态：忆灵无视[meIgnore]%防御，自身与忆灵增伤[dmg]%",
           data: {
             meIgnore: tables[2],
+            mtIgnore: tables[2],
             dmg: tables[3]
           }
         }
       }
     ],
+    "爱如此刻永恒": [
+      staticIdx(1, "speedPct"),
+      (tables) => {
+        return {
+          check: ({ params }) => params.Memosprite,
+          title: "敌方全体受到的伤害提高[enemydmg]%，我方全体的暴击伤害提高[cdmg]%",
+          data: {
+            enemydmg: tables[3] * (100 + tables[4]) / 100,
+            cdmg: tables[2] * (100 + tables[4]) / 100
+          }
+        }
+      }
+    ],
+    "飞向粉色的明天": [
+      staticIdx(1, "cdmg"),
+      (tables) => {
+        return {
+          check: ({ charId }) => [8007, 8008].includes(charId * 1),
+          title: "开拓者•记忆装备时：我方全体增伤[dmg]%，强化普攻增伤[a2Dmg]%",
+          data: {
+            dmg: tables[2],
+            a2Dmg: tables[3]
+          }
+        }
+      }
+    ]
   }
 }
