@@ -87,3 +87,5 @@ export const buffs = [
     }
   }
 ]
+
+export const createdBy = 'liangshi'
