@@ -24,7 +24,8 @@ export const details = [{
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['黑蚀之龙伤害'], 'q', 'melt')
 }]
 
-export const defDmgIdx = 1
+export const defParams = { Hexenzirkel: true } // 魔女会成员
+export const defDmgIdx = 5
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
