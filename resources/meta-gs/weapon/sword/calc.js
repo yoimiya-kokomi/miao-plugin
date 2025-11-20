@@ -299,6 +299,13 @@ export default function (step, staticStep) {
       data: {
         qDmg: ({ talent, refine }) => step(20)[refine] + (talent.q['元素能量'] > 60 ? 0 : step(16)[refine]) + (talent.q['元素能量'] > 40 ? 0 : step(12)[refine])
       }
+    },
+    黑蚀: {
+      title: '元素爆发造成的暴击伤害提升[qCdmg]%，攻击力提升[atkPct]%',
+      data: {
+        qCdmg: ({ refine }) => step(16)[refine],
+        atkPct: ({ params, refine }) => step(20)[refine] * (params.Hexenzirkel ? 1.75 : 1)
+      }
     }
   }
 }

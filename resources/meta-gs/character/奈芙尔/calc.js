@@ -103,3 +103,4 @@ export const buffs = [
   }
 ]
 
+export const createdBy = 'kvcfdd'
