@@ -19,7 +19,7 @@ export const usefulAttr = {
   神里绫华: { hp: 0, atk: 85, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 45, heal: 0 },
   香菱: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   胡桃: { hp: 80, atk: 50, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 0, heal: 0 },
-  温迪: { hp: 0, atk: 75, def: 0, cpct: 80, cdmg: 80, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 0 },
+  温迪: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, phy: 0, recharge: 45, heal: 0 },
   珊瑚宫心海: { hp: 100, atk: 50, def: 0, cpct: 0, cdmg: 0, mastery: 75, dmg: 100, phy: 0, recharge: 55, heal: 100 },
   莫娜: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 75, heal: 0 },
   阿贝多: { hp: 0, atk: 0, def: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 0, heal: 0 },

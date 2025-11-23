@@ -26,7 +26,7 @@ export const details = [{
 
 export const defParams = { Hexenzirkel: true } // 魔女会成员
 export const defDmgIdx = 5
-export const mainAttr = 'atk,cpct,cdmg'
+export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
   check: ({ params }) => params.LightShifts === true,
@@ -44,6 +44,7 @@ export const buffs = [{
   }
 }, {
   title: '杜林天赋：施放元素爆发后，白焰之龙与黑蚀之龙的间歇性攻击造成伤害时，每100点攻击力都将额外造成相当于原本3%的伤害，至多通过这种方式额外造成相当于原本75%的伤害。',
+  sort: 9,
   data: {
     multi: ({ calc, attr }) => Math.min(calc(attr.atk) / 100 * 3, 75)
   }
