@@ -305,6 +305,20 @@ export default function (step, staticStep) {
       data: {
         mastery: ({ params, refine }) => step(60)[refine] * ((params.Moonsign || 0) >= 2 ? 2 : 1)
       }
+    },
+    虹蛇的雨弦: {
+      title: '装备者处于队伍后台时，装备者的攻击命中敌人后的8秒内，攻击力提升[atkPct]%',
+      refine: {
+        atkPct: step(28)
+      }
+    },
+    黎明破晓之史: {
+      title: '普通攻击、元素战技和元素爆发造成的伤害提升[aDmg]%',
+      refine: {
+        aDmg: step(60),
+        eDmg: step(60),
+        qDmg: step(60)
+      }
     }
   }
 }
