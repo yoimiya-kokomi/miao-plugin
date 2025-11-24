@@ -10,6 +10,13 @@ export const details = [{
 }, {
   title: 'Q协同攻击首段',
   dmg: ({ talent }, dmg) => dmg(talent.q['狼魂伤害'] * talent.a['一段伤害'] / 100, 'q')
+}, {
+  title: '【魔导·秘仪】落雷伤害',
+  dmg: ({ talent }, dmg) => dmg(150)
+}, {
+  title: '6命落雷伤害',
+  cons: 6,
+  dmg: ({ talent }, dmg) => dmg(100)
 }]
 
 export const buffs = [{
@@ -20,15 +27,16 @@ export const buffs = [{
     phy: 10
   }
 }, {
-  title: '雷泽2命：攻击生命值低于30%的敌人暴击率提高10%',
-  cons: 2,
-  data: {
-    cpct: 10
-  }
-}, {
   title: '雷泽4命：E点按降低敌人防御力15%',
   cons: 4,
   data: {
     enemyDef: 15
+  }
+}, {
+  title: '雷泽6命：消耗雷之印后的15秒内，雷泽的暴击率提升[cpct]%，暴击伤害提升[cdmg]%。',
+  cons: 6,
+  data: {
+    cpct: 10,
+    cdmg: 50
   }
 }]
