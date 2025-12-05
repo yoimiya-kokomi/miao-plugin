@@ -51,7 +51,8 @@ export const poolName = {
   伊涅芙: '聚星源动',
   菈乌玛: "苍林月祷",
   菲林斯: "孤灯夜访",
-  奈芙尔: "赤砂的诱言"
+  奈芙尔: "赤砂的诱言",
+  杜林: "白礜赤成"
 }
 
 export const poolDetail = [{

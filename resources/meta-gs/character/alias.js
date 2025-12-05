@@ -120,5 +120,7 @@ export const alias = {
   奈芙尔: 'Nefer,奈芙儿',
   杜林: 'Durin',
   雅珂达: 'Jahoda',
-  哥伦比娅: 'Columbina'
+  哥伦比娅: 'Columbina',
+  兹白: 'Zibai',
+  叶洛亚: 'Illuga'
 }

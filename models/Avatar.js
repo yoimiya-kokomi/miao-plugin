@@ -73,7 +73,9 @@ export default class Avatar extends Base {
       mgg: 'MiniGG-Api',
       hutao: 'Hutao-Enka',
       mys: '米游社',
-      homo: 'Mihomo'
+      homo: 'Mihomo',
+      customize: '预设面板',
+      share: '外部导入'
     }[this._source] || this._source
   }
 

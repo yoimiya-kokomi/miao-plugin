@@ -34,7 +34,7 @@ const ProfileAvatar = {
       return true
     }
     // 检查数据源
-    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'homo', 'mysPanel'].includes(avatar._source)) {
+    if (!avatar._source || !['enka', 'change', 'miao', 'mgg', 'hutao', 'homo', 'mysPanel', 'customize', 'share'].includes(avatar._source)) {
       return false
     }
     // 检查武器及天赋
