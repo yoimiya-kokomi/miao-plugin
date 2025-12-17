@@ -55,7 +55,7 @@ export const details = [
   }
 ]
 
-export const defDmgIdx = 7
+export const defDmgIdx = 6
 export const mainAttr = "atk,cpct,cdmg,stance"
 
 export const buffs = [
