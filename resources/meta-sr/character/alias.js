@@ -78,6 +78,7 @@ export const alias = {
   '丹恒•腾荒': 'danhengpt,腾荒,腾荒君,腾荒丹恒,丹恒腾荒,丹恒·腾荒,丹恒腾荒君,丹荒,蛋黄,盾丹,丹腾',
   长夜月: 'evernight,长夜,长野月',
   昔涟: 'cyrene,喜莲,希莲,希涟,西莲,西涟,昔莲,艾莉,爱莉',
+  "大丽花": "dahlia,大力花",
 }
 
 export const abbr = {
