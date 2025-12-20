@@ -58,7 +58,7 @@ let Avatar = {
       data = avatar.getDetail()
       data.imgs = char.imgs
       data.source = avatar._source
-      data.artis = avatar.getArtisDetail(true)
+      data.artis = avatar.getArtisDetail(!avatar.hasArtis())
       data.updateTime = moment(new Date(avatar._time)).format('MM-DD HH:mm')
       if (data.hasTalent) {
         data.talent = avatar.talent

@@ -145,5 +145,9 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, "dmg"),
       keyIdx("使受到攻击的目标陷入易伤状态，受到的伤害提高[enemydmg]%", "enemydmg", 2)
     ],
+    勿忘她的火焰: [
+      staticIdx(1, "stance"),
+      keyIdx("装备者造成的击破伤害提高[breakEnemydmg]%", "breakEnemydmg", 2)
+    ]
   }
 }

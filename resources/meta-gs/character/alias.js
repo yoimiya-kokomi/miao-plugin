@@ -118,9 +118,9 @@ export const alias = {
   菲林斯: 'Flins',
   爱诺: 'Aino',
   奈芙尔: 'Nefer,奈芙儿',
-  杜林: 'Durin',
+  杜林: 'Durin,小杜林',
   雅珂达: 'Jahoda',
-  哥伦比娅: 'Columbina',
+  哥伦比娅: 'Columbina,少女',
   兹白: 'Zibai',
   叶洛亚: 'Illuga'
 }
