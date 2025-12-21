@@ -43,12 +43,12 @@ body,
   display: inline-block;
   width: 8px;
   height: 8px;
-  background: #90e800;
+  background: #2be800;
   border-radius: 50%;
   margin-right: 3px;
 }
 .char-item.new-char.status-1 .name:before {
-  background: #f5ab80;
+  background: #518cf9;
 }
 .char-item .group-rank {
   position: absolute;
@@ -131,7 +131,7 @@ body,
   display: inline-block;
   width: 8px;
   height: 8px;
-  background: #90e800;
+  background: #2be800;
   border-radius: 50%;
   margin-right: 3px;
 }
@@ -140,7 +140,7 @@ body,
   display: inline-block;
   width: 8px;
   height: 8px;
-  background: #f5ab80;
+  background: #518cf9;
   border-radius: 50%;
   margin-right: 3px;
 }
