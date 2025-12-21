@@ -54,6 +54,10 @@ export default {
       let ret = MysPanelHSRData.setAvatar(player, dsToProcess)
       if (ret) {
         player._update.push(ret.id)
+        if (ret._hasChangedTemp) {
+          player._changed.push(ret.id)
+          delete ret._hasChangedTemp
+        }
       }
     })
   },

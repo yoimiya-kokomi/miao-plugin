@@ -37,7 +37,7 @@
   <div class="cont {{groupRank?'has-rank':'no-rank'}}">
     <div class="char-list">
       {{each chars char}}
-      <div class="char-item {{char.isNew&&hasNew ?'new-char':''}}">
+      <div class="char-item {{if hasNew && char.isNew}}new-char status-{{char.isNew}}{{/if}}">
         <div class="item-icon char-icon star{{char.star}}">
        <span class="img"
              style="background-image:url({{_res_path}}{{char.face}})"></span>
@@ -55,7 +55,10 @@
     </div>
     <div class="cont-footer">
       {{if hasNew}}
-      <span class="new-tip">本次更新角色</span>
+      <div class="status-tips">
+        <span class="new-tip">本次更新角色</span>
+        <span class="unchanged-tip">本次获取角色</span>
+      </div>
       {{else}}
       <span>{{if updateTime.profile }} 更新时间：{{updateTime.profile }} {{/if}}</span>
       {{/if}}

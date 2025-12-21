@@ -13,7 +13,7 @@ let MysPanelData = {
       return false
     }
 
-    avatar.setAvatar({
+    avatar._hasChangedTemp = avatar.setAvatar({
       level,
       elem,
       fetter,

@@ -9,13 +9,13 @@ let MiaoData = {
       return false
     }
     if (player.isSr) {
-      avatar.setAvatar({
+      avatar._hasChangedTemp = avatar.setAvatar({
         ...ds,
         ...MiaoData.getTalentSR(char, ds.talent)
       }, 'miao')
     } else {
       let talentRet = MiaoData.getTalent(char, ds.talent)
-      avatar.setAvatar({
+      avatar._hasChangedTemp = avatar.setAvatar({
         ...ds,
         elem: talentRet.elem,
         talent: talentRet.talent

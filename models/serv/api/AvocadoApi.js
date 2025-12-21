@@ -66,7 +66,13 @@ export default {
         }
 
         let ret = AvocadoData.setAvatar(player, dsToProcess)
-        if (ret) player._update.push(dsToProcess.avatarId)
+        if (ret) {
+          player._update.push(dsToProcess.avatarId)
+          if (ret._hasChangedTemp) {
+            player._changed.push(dsToProcess.avatarId)
+            delete ret._hasChangedTemp
+          }
+        }
       })
     } catch (e) {
       logger.error(e)
@@ -94,7 +100,7 @@ const AvocadoData = {
       ...AvocadoData.getTalent(data.behaviorList, char),
       artis: AvocadoData.getArtis(data.relics)
     }
-    avatar.setAvatar(setData, 'avocado.wiki')
+    avatar._hasChangedTemp = avatar.setAvatar(setData, 'avocado.wiki')
     return avatar
   },
   getTalent (ds, char) {

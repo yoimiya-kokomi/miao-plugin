@@ -47,6 +47,9 @@ body,
   border-radius: 50%;
   margin-right: 3px;
 }
+.char-item.new-char.status-1 .name:before {
+  background: #f5ab80;
+}
 .char-item .group-rank {
   position: absolute;
   background: url('./imgs/dmg-rank-bg.png') left top no-repeat;
@@ -114,12 +117,30 @@ body,
 .cont-footer .serv {
   text-align: right;
 }
+.cont-footer .status-tips {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.cont-footer .status-tips span {
+  width: auto;
+  margin-right: 15px;
+}
 .cont-footer .new-tip:before {
   content: "";
   display: inline-block;
   width: 8px;
   height: 8px;
   background: #90e800;
+  border-radius: 50%;
+  margin-right: 3px;
+}
+.cont-footer .unchanged-tip:before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #f5ab80;
   border-radius: 50%;
   margin-right: 3px;
 }

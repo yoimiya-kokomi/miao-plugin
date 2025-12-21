@@ -62,7 +62,13 @@ export default {
         }
 
         let ret = HomoData.setAvatar(player, dsToProcess)
-        if (ret) player._update.push(dsToProcess.avatarId)
+        if (ret) {
+          player._update.push(dsToProcess.avatarId)
+          if (ret._hasChangedTemp) {
+            player._changed.push(dsToProcess.avatarId)
+            delete ret._hasChangedTemp
+          }
+        }
       })
     } catch (e) {
       logger.error(e)
@@ -90,7 +96,7 @@ const HomoData = {
       ...HomoData.getTalent(data.skillTreeList, char),
       artis: HomoData.getArtis(data.relicList)
     }
-    avatar.setAvatar(setData, 'homo')
+    avatar._hasChangedTemp = avatar.setAvatar(setData, "homo")
     return avatar
   },
   getTalent (ds, char) {

@@ -15,7 +15,7 @@ let MysPanelHSRData = {
         ds.name = char.name
     }
 
-    avatar.setAvatar({
+    avatar._hasChangedTemp = avatar.setAvatar({
       level: ds.level,
       cons: ds.rank,
       weapon: ds.equip ? MysPanelHSRData.getWeapon(ds.equip) : null,

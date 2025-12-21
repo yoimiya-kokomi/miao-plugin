@@ -23,7 +23,7 @@ let EnkaData = {
     }
     let avatar = player.getAvatar(char.id, true)
     let talentRet = EnkaData.getTalent(char.id, data.skillLevelMap)
-    avatar.setAvatar({
+    avatar._hasChangedTemp = avatar.setAvatar({
       level: data.propMap['4001'].val * 1,
       promote: data.propMap['1002'].val * 1,
       cons: data.talentIdList ? data.talentIdList.length : 0,

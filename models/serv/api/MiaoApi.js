@@ -34,6 +34,10 @@ export default {
       let ret = MiaoData.setAvatar(player, avatar)
       if (ret) {
         player._update.push(ret.id)
+        if (ret._hasChangedTemp) {
+          player._changed.push(ret.id)
+          delete ret._hasChangedTemp
+        }
       }
     })
   },

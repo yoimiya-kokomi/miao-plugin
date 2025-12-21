@@ -26,6 +26,10 @@ export default {
       let ret = MysPanelData.setAvatar(player, ds)
       if (ret) {
         player._update.push(ret.id)
+        if (ret._hasChangedTemp) {
+          player._changed.push(ret.id)
+          delete ret._hasChangedTemp
+        }
       }
     })
   },

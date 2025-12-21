@@ -32,11 +32,19 @@ const ProfileList = {
           ret[char.name] = true
         }
       })
+	    let changed = {}
+      if (player._changed) {
+        lodash.forEach(player._changed, (id) => {
+          let char = Character.get(id)
+          if (char) changed[char.name] = true
+        })
+      }
       if (lodash.isEmpty(ret)) {
         e._isReplyed || e.reply(['获取角色面板数据失败，未能请求到角色数据。请确认角色已在游戏内橱窗展示，并开放了查看详情。设置完毕后请5分钟后再进行请求~', new Button(e).profileList(uid)])
         e._isReplyed = true
       } else {
         e.newChar = ret
+        e.changedChar = changed
         e.isNewCharFromMys = fromMys
         return await ProfileList.render(e)
       }
@@ -94,9 +102,11 @@ const ProfileList = {
     let chars = []
     let msg = ''
     let newChar = {}
+    let changedChar = {}
     if (e.newChar) {
       msg = '获取角色面板数据成功'
       newChar = e.newChar
+      changedChar = e.changedChar || {}
     }
     const cfg = await Data.importCfg('cfg')
     // 获取面板数据
@@ -130,7 +140,10 @@ const ProfileList = {
       tmp.level = profile.level || 1
       tmp.cons = profile.cons
       tmp.isNew = 0
-      if (newChar[char.name]) {
+      if (changedChar[char.name]) {
+        tmp.isNew = 2
+        newCount++
+      } else if (newChar[char.name]) {
         tmp.isNew = 1
         newCount++
       }

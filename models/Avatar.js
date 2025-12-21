@@ -305,11 +305,22 @@ export default class Avatar extends Base {
   }
 
   setAvatar (ds, source = '') {
+	  let old = this.toJSON()
+    delete old._time
+    delete old._update
+    delete old._talent
+    delete old._source
     this.setAvatarBase(ds, source)
     if (ds.artis && source !== 'mys') {
       this._artis.setArtisData(ds.artis)
     }
     this.calcAttr()
+	  let now = this.toJSON()
+    delete now._time
+    delete now._update
+    delete now._talent
+    delete now._source
+    return JSON.stringify(old) !== JSON.stringify(now)
   }
 
   calcAttr () {
