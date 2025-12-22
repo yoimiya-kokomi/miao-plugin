@@ -304,7 +304,7 @@ const ProfileChange = {
       if (artis[idx] && ds.artisSet && ds.artisSet[artisIdx]) {
         let as = ArtifactSet.get(ds.artisSet[artisIdx], game)
         if (as) {
-          artis[idx].id = as.getArti(idx)?.getIdByStar(artis[idx].star || 5)
+          artis[idx].id = as.getArti(idx) && as.getArti(idx).getIdByStar(artis[idx].star || 5)
           artis[idx].name = as.getArtiName(idx)
           artis[idx].set = as.name
         }
