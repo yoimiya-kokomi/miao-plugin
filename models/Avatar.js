@@ -305,7 +305,9 @@ export default class Avatar extends Base {
   }
 
   setAvatar (ds, source = '') {
+    let oldSource = this._source || ""
 	  let old = this.toJSON()
+    let oldArtisData = this.artis.toJSON()
     delete old._time
     delete old._update
     delete old._talent
@@ -320,7 +322,30 @@ export default class Avatar extends Base {
     delete now._update
     delete now._talent
     delete now._source
-    return JSON.stringify(old) !== JSON.stringify(now)
+    if (JSON.stringify(old) === JSON.stringify(now)) return false
+
+    // 检查是否为米游社面板与其他面板的切换
+    let newSource = this._source || ""
+    const isMys = (src) => [ "mysPanel", "mysPanelHSR" ].includes(src)
+    if (oldSource && newSource && isMys(oldSource) !== isMys(newSource)) {
+      let oldCopy = { ...old }
+      let nowCopy = { ...now }
+      delete oldCopy.artis
+      delete oldCopy.mysArtis
+      delete nowCopy.artis
+      delete nowCopy.mysArtis
+
+      // 如果除去圣遗物外的属性一致
+      if (JSON.stringify(oldCopy) === JSON.stringify(nowCopy)) {
+        let oldArtisInstance = new Artis(this.game, true)
+        oldArtisInstance.setArtisData(oldArtisData)
+        // 且圣遗物数值一致
+        if (this.artis.isSameArtisByValue(oldArtisInstance)) {
+          return false
+        }
+      }
+    }
+    return true
   }
 
   calcAttr () {

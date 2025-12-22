@@ -257,6 +257,70 @@ export default class Artis extends Base {
     return ret
   }
 
+  isSameArtisByValue(target) {
+    let ret = true
+    this.eachIdx((ds, idx) => {
+      let other = target.artis[idx] || {}
+      // 基础信息对比
+      if (this.isGs) {
+        if ((ds.name || "") !== (other.name || "")) {
+          ret = false
+          return false
+        }
+      } else {
+        if ((ds.id || "") != (other.id || "")) {
+          ret = false
+          return false
+        }
+      }
+      if (!ds.name && !ds.id) return true
+
+      if (ds.level !== other.level || ds.star !== other.star) {
+        ret = false
+        return false
+      }
+
+      // 主属性对比
+      if (ds.main?.key !== other.main?.key) {
+        ret = false
+        return false
+      }
+      // 允许0.5的误差                                                                           │
+      if (Math.abs((ds.main?.value || 0) - (other.main?.value || 0)) > 0.5) {
+        ret = false
+        return false
+      }
+
+      // 副属性对比
+      let myAttrs = lodash.sortBy(ds.attrs || [], "key")
+      let otherAttrs = lodash.sortBy(other.attrs || [], "key")
+
+      if (myAttrs.length !== otherAttrs.length) {
+        ret = false
+        return false
+      }
+
+      for (let i = 0; i < myAttrs.length; i++) {
+        let a = myAttrs[i]
+        let b = otherAttrs[i]
+        if (a.key !== b.key) {
+          ret = false
+          return false
+        }
+        let diff = 0.5
+        // 超的mhy能把4.9约成4
+        if (this.isSr && a.key === "speed") {
+          diff = 1
+        }
+        if (Math.abs(a.value - b.value) > diff) {
+          ret = false
+          return false
+        }
+      }
+    })
+    return ret
+  }
+
   getAllAttr () {
     let ret = {}
     let add = (ds) => {
