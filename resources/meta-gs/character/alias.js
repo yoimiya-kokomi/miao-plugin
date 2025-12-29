@@ -118,6 +118,8 @@ export const alias = {
   菲林斯: 'Flins',
   爱诺: 'Aino',
   奈芙尔: 'Nefer,奈芙儿',
+  '奇偶·男性': '奇偶男',
+  '奇偶·女性': '奇偶女',
   杜林: 'Durin,小杜林',
   雅珂达: 'Jahoda',
   哥伦比娅: 'Columbina,少女',
