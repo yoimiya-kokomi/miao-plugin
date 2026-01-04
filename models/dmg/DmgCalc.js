@@ -201,10 +201,13 @@ let DmgCalc = {
       }
 
       case 'lunarBloom':
-      case 'lunarCharged': {
+      case 'lunarCharged':
+      case 'lunarCrystallize': {
         let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
         if (ele === "lunarCharged") {
           eleNum = dmgBase ? 3 : eleNum
+        } else if (ele === "lunarCrystallize") {
+          eleNum = dmgBase ? 1.6 : eleNum
         } else {
           eleNum = 1
         }
