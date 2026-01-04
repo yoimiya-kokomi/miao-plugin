@@ -64,3 +64,5 @@ export const buffs = [{
     qPlus: ({ calc, attr }) => calc(attr.def) * 240 / 100
   }
 }]
+
+export const createdBy = '喵喵 & 冰翼'

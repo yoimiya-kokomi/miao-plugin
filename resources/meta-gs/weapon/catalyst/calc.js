@@ -262,6 +262,13 @@ export default function (step, staticStep) {
         mastery: ({ params, refine }) => ((params.Moonsign || 0) >= 1 ? 1.5 : 1) * step(80)[refine],
         cdmg: ({ params, refine }) => ((params.Moonsign || 0) >= 1 ? 1.5 : 1) * step(24)[refine]
       }
+    }],
+    帷间夜曲: [staticStep('hp', 10), {
+      title: '装备者触发月曜反应或对敌人造成月曜反应伤害时，生命值上限进一步提高[hp]%，月曜反应伤害的暴击伤害提升[cdmg]%',
+      data: {
+        hp: ({ params, refine }) => ((params.Moonsign || 0) > 0 ? 1 : 0) * step(14)[refine],
+        cdmg: ({ params, refine }) => ((params.Moonsign || 0) > 0 ? 1 : 0) * step(60)[refine]
+      }
     }]
   }
 }

@@ -572,7 +572,8 @@ const buffs = {
       data: {
         cpct: ({ params }) => Math.min(((params.Moonsign || 0) * 15), 30),
         lunarCharged: ({ params }) => (params["月辉明光"] || 1) * 10,
-        lunarBloom: ({ params }) => (params["月辉明光"] || 1) * 10
+        lunarBloom: ({params}) => (params["月辉明光"] || 1) * 10,
+        lunarCrystallize: ({ params }) => (params["月辉明光"] || 1) * 10
       }
     }
   },
@@ -584,7 +585,31 @@ const buffs = {
       data: {
         mastery: ({ params }) => Math.min(((params.Moonsign || 0) * 60), 120),
         lunarCharged: ({ params }) => (params["月辉明光"] || 1) * 10,
-        lunarBloom: ({ params }) => (params["月辉明光"] || 1) * 10
+        lunarBloom: ({params}) => (params["月辉明光"] || 1) * 10,
+        lunarCrystallize: ({ params }) => (params["月辉明光"] || 1) * 10
+      }
+    }
+  },
+
+  晨星与月的晓歌: {
+    2: attr('mastery', 80),
+    4: {
+      title: '装备者处于队伍后台时，造成的月曜反应伤害提升20%；队伍的月兆等级至少为满辉时，造成的月曜反应伤害进一步提升40%',
+      data: {
+        lunarCharged: ({ params }) => (params.Moonsign || 0) > 1 ? 60 : 20,
+        lunarBloom: ({params}) => (params.Moonsign || 0) > 1 ? 60 : 20,
+        lunarCrystallize: ({ params }) => (params.Moonsign || 0) > 1 ? 60 : 20
+      }
+    }
+  },
+
+  风起之日: {
+    2: attr('atkPct', 18),
+    4: {
+      title: '普通攻击、重击、元素战技或元素爆发命中敌人后，攻击力提高[atkPct]%。若装备者已经完成了「魔女的课业」，则额外使装备者的暴击率提升[cpct]%',
+      data: {
+        atkPct: 25,
+        cpct: ({params}) => params.Hexenzirkel ? 20 : 0
       }
     }
   }

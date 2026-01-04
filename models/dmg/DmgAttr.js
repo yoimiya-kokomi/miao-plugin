@@ -96,6 +96,7 @@ let DmgAttr = {
         ret.spread = 0 // 蔓激化
         ret.lunarCharged = 0 // 月感电
         ret.lunarBloom = 0 // 月绽放
+        ret.lunarCrystallize = 0 // 月结晶
         ret.fykx = 0 // 敌人反应抗性降低
         ret.fyinc = 0 // 反应伤害值提升（百分比/不受精通加成）
         ret.fyplus = 0 // 反应伤害值提升（数值/不受精通加成）
@@ -237,7 +238,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'elevated', 'lunarCharged', 'lunarBloom', 'kx', 'fykx', 'multi', 'fyplus', 'fypct', 'fybase', 'fyinc'].includes(key)) {
+        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'elevated', 'lunarCharged', 'lunarBloom', 'lunarCrystallize', 'kx', 'fykx', 'multi', 'fyplus', 'fypct', 'fybase', 'fyinc'].includes(key)) {
           attr[key] += val * 1 || 0
           return
         }
