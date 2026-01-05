@@ -122,7 +122,7 @@ export const alias = {
   '奇偶·女性': '奇偶女',
   杜林: 'Durin,小杜林',
   雅珂达: 'Jahoda',
-  哥伦比娅: 'Columbina,少女',
-  兹白: 'Zibai',
-  叶洛亚: 'Illuga'
+  哥伦比娅: 'Columbina,少女,月神',
+  兹白: 'Zibai,白马仙人,白马',
+  叶洛亚: 'Illuga,少爷,小少爷'
 }
