@@ -1,6 +1,6 @@
 export const details = [
   {
-    params: { Gravity_Interference: true },
+    params: { Gravity_Interference: true, cons_2: true },
     title: '满buff 特殊重击「月露涤荡」三段总伤害',
     dmg: ({ attr, calc, talent } , { basic }) => basic(calc(attr.hp) * talent.a['月露涤荡伤害'] / 100, '', 'lunarBloom')
   },
@@ -93,6 +93,15 @@ export const buffs = [
     }
   },
   {
+    check: ({ params }) => params.cons_2 === true,
+    title: '哥伦比娅2命：【月兆·满辉】触发引力干涉时，队伍中自己的当前场上角色元素精通基于哥伦比娅的生命值上限提升，当前提升值为[mastery]',
+    sort: 9,
+    cons: 2,
+    data: {
+      mastery: ({ attr, calc }) => calc(attr.hp) * 0.35 / 100
+    }
+  },
+  {
     title: '哥伦比娅3命：月曜反应伤害擢升[elevated]%',
     cons: 3,
     data: {
@@ -108,7 +117,7 @@ export const buffs = [
   },
   {
     check: ({ params }) => params.cons_4 != null,
-    title: '哥伦比娅4命：触发引力干涉时，造成的月曜反应伤害提升，提升值为[fyplus]%',
+    title: '哥伦比娅4命：触发引力干涉时，造成的月曜反应伤害基于哥伦比娅的生命值上限提升，提升值为[fyplus]%',
     cons: 4,
     data: {
       fyplus: ({ attr, calc, params }) => calc(attr.hp) * (params.cons_4 === 'lunarCharged' ? 12.5 : 2.5) / 100
