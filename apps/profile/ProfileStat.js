@@ -108,12 +108,17 @@ const ProfileStat = {
     // 组合函数
     let combinedFilter = lodash.overSome([invitationCharacterFilter, elementFilter])
     let levelFilter = ProfileStat.getLevelFilterFunc()
-    combinedFilter = lodash.overEvery([combinedFilter, levelFilter])
+    let notManekinFilter = ProfileStat.getNotManekinFilterFunc()
+    combinedFilter = lodash.overEvery([combinedFilter, levelFilter, notManekinFilter])
     return combinedFilter
   },
 
   getLevelFilterFunc() {
     return ds => ds.level >= 70
+  },
+
+  getNotManekinFilterFunc() {
+    return ds => ds.id !== 10000117 && ds.id !== 10000118
   },
 
   async fetchWithTimeout(url, options = {}) {
