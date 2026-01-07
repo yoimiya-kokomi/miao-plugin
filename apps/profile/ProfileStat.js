@@ -351,6 +351,83 @@ const ProfileStat = {
     }
   },
 
+  async getOverallMazeDataFromHakushIn() {
+    const request_url = 'https://api.hakush.in/gi/data/rolecombat.json'
+    let overallMazeData = false
+    try {
+        overallMazeData = await (await ProfileStat.fetchWithTimeout(request_url)).json()
+    } catch (error) {
+        logger.error('请求失败:', error)
+        return false // 直接返回以停止后续逻辑
+    }
+    return Object.values(overallMazeData) // 乱序，不直接用
+  },
+
+  async getRequestedMazeDataFromHakushIn(e, overallMazeData) {
+    const mazeId = ProfileStat.getMazeId(e)
+    if (mazeId >= 0 && mazeId < overallMazeData.length) {
+      const request_url = `https://api.hakush.in/gi/data/zh/rolecombat/${mazeId + 3}.json`
+      let currentRawMazeData = false
+      try {
+          currentRawMazeData = await (await ProfileStat.fetchWithTimeout(request_url)).json()
+      } catch (error) {
+          logger.error('请求失败:', error)
+          return false // 直接返回以停止后续逻辑
+      }
+      // 转换成和 HomDGCat 相同的格式
+      const convertedInitialAvatarIds = lodash.map(
+        currentRawMazeData.AvatarConfig.BuffAvatarList, (item) => ({'ID': item.Id - 10000000}))
+      const convertedInvitationAvatarIds = lodash.map(
+        currentRawMazeData.AvatarConfig.InviteAvatarList, (id) => ({'ID': id - 10000000}))
+      const elementConvertingMapping = {
+        0: null,
+        2: 'Fire',
+        3: 'Water',
+        4: 'Grass',
+        5: 'Elec',
+        6: 'Ice',
+        7: 'Wind',
+        8: 'Rock'
+      }
+      
+      const convertedElem = lodash
+        .map(currentRawMazeData.AvatarConfig.ElementList, (item) => elementConvertingMapping[item])
+        .filter(item => item !== null)
+
+      const currentMazeData = {
+        'Initial': convertedInitialAvatarIds,
+        'Invitation': convertedInvitationAvatarIds,
+        'Elem': convertedElem,
+        'RawData': currentRawMazeData
+      }
+      return currentMazeData
+    } else {
+      return false
+    }
+  },
+
+  getMonsterInfoFromHakushIn(currentMazeData) {
+    const DifficultyConfig = lodash.get(currentMazeData, 'RawData.DifficultyConfig')
+    const roomInfo = lodash.get(lodash.last(Object.values(DifficultyConfig)), 'Room')
+    const bossIndex = {
+      '第三幕': '3', '第六幕': '6', '第八幕': '8', '第十幕': '10'
+    }
+    let monsterInfo = []
+    for (const [k, v] of Object.entries(bossIndex)) {
+      const MonsterList = lodash.get(roomInfo, `${v}.MonsterPreviewList`)
+      if (MonsterList) {
+        let currentMonsterInfo = `${k}：`
+        let monsterNames = []
+        for (const monster of MonsterList) {
+          monsterNames.push(monster.Name)
+        }
+        currentMonsterInfo += monsterNames.join(' 、')
+        monsterInfo.push(currentMonsterInfo)
+      }
+    }
+    return monsterInfo.join('\n')
+  },
+
   getMazeId(e) {
     const match = /202(\d{3})/.exec(e.msg)
     if (!match) {
@@ -510,19 +587,22 @@ const ProfileStat = {
     
     let filterFunc = (x) => true
     if (isRole) {
-      let c = Cfg.get('roleCharInfoSource', 1)
+      let infoSource = Cfg.get('roleCharInfoSource', 1)
       let datasetName
       let overallMazeData
       let levelMapping, monsterMapping
-      if (c == 1) {
+      if (infoSource == 1) {
         datasetName = 'HomDGCat'
         const mazeData = await ProfileStat.getOverallMazeData() // data
         overallMazeData = mazeData.overallMazeData
         levelMapping = mazeData.levelMapping
         monsterMapping = mazeData.monsterMapping
-      } else if (c == 2) {
+      } else if (infoSource == 2) {
         datasetName = 'BWiki'
         overallMazeData = await ProfileStat.getOverallMazeLinkFromBWiki() // links
+      } else if (infoSource == 3) {
+        datasetName = 'hakush.in'
+        overallMazeData = await ProfileStat.getOverallMazeDataFromHakushIn() // data
       }
       if (!overallMazeData) {
         e.reply(`请求 ${datasetName} 数据库出错`)
@@ -530,10 +610,12 @@ const ProfileStat = {
       }
       let currentMazeData
       let monsterInfo = null
-      if (c == 1) {
+      if (infoSource == 1) {
         currentMazeData = ProfileStat.extractRequestedMazeData(e, overallMazeData)
-      } else if (c == 2) {
+      } else if (infoSource == 2) {
         currentMazeData = await ProfileStat.getRequestedMazeDataFromBWiki(e, overallMazeData)
+      } else if (infoSource == 3) {
+        currentMazeData = await ProfileStat.getRequestedMazeDataFromHakushIn(e, overallMazeData)
       }
       if (!currentMazeData) {
         const n = overallMazeData.length - 1 + 4 * 12 + 7 - 1
@@ -548,8 +630,12 @@ const ProfileStat = {
         return false
       }
       // 获取怪物信息
-      if (c == 1) {
+      if (infoSource == 1) {
         monsterInfo = ProfileStat.getMonsterInfo(currentMazeData, levelMapping, monsterMapping)
+      } else if (infoSource == 2) {
+        // TODO
+      } else if (infoSource == 3) {
+        monsterInfo = ProfileStat.getMonsterInfoFromHakushIn(currentMazeData)
       }
       // 筛选角色
       let initialCharacterIds = ProfileStat.extractInitialCharacterIds(currentMazeData)
