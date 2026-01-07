@@ -270,13 +270,13 @@ const ProfileStat = {
       const links = [];
 
       // 查找 id="每期详情" 下的所有 <a> 标签
-      $('#每期详情').closest('h2').next('p').find('a').each((index, element) => {
-          const href = $(element).attr('href');
-          if (href) {
-              links.push(href);
-          }
+      $('#每期详情').closest('h2').next('div').find('a').each((index, element) => {
+        const href = $(element).attr('href');
+        // 包含两个“第三期”，做一个去重
+        if (href && !href.includes('action=edit') && !links.includes(href)) {
+          links.push(href);
+        }
       });
-
       return links
     } catch (error) {
       console.error('Error fetching the URL:', error.message);
@@ -344,11 +344,20 @@ const ProfileStat = {
       return {
         'Initial': convertedInitialAvatarIds,
         'Invitation': convertedInvitationAvatarIds,
-        'Elem': convertedElements
+        'Elem': convertedElements,
+        'RawData': html
       }
     } else {
       return false
     }
+  },
+
+  getMonsterInfoFromBWiki(currentMazeData) {
+    const $ = cheerio.load(currentMazeData.RawData);
+    const monsterInfo = ['第三幕', '第六幕', '第八幕', '第十幕', '圣牌挑战 I', '圣牌挑战 II']
+    // 这个标签页之后的所有<center>标签，
+    // $('#首领关卡怪物').closest('h2')
+    // BWiki 的数据格式连自己内部都不统一，这还解析啥呢，别操蛋了
   },
 
   async getOverallMazeDataFromHakushIn() {
