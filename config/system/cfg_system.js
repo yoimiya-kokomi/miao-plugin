@@ -157,8 +157,8 @@ export const cfgSchema = {
         key: '幻想数据库',
         type: 'num',
         def: 1,
-        input: (n) => Math.min(2, Math.max(1, (n * 1 || 1))),
-        desc: '#202407幻想角色列表 所采用的数据库源。1:HomDGCat数据库，2:BWiki数据库'
+        input: (n) => Math.min(3, Math.max(1, (n * 1 || 1))),
+        desc: '#202407幻想角色列表 所采用的数据库源。1:HomDGCat数据库，2:BWiki数据库（不建议使用），3:hakush.in数据库'
       },
       notReleasedData: {
         title: '未实装角色数据',
