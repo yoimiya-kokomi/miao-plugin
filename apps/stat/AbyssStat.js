@@ -3,14 +3,10 @@ import lodash from 'lodash'
 import { Common } from '#miao'
 import { Character } from '#miao.models'
 
-export async function ConsStat (e) {
+export async function ConsStat(e) {
   let consData = await HutaoApi.getCons()
-  let overview = await HutaoApi.getOverview()
 
-  if (!consData) {
-    e.reply('角色持有数据获取失败，请稍后重试~')
-    return true
-  }
+  if (!consData || !consData.data) return e.reply("角色持有数据获取失败，请稍后重试~")
 
   let msg = e.msg
 
@@ -26,10 +22,6 @@ export async function ConsStat (e) {
     })
   }
 
-  if (!consData && !consData.data) {
-    return true
-  }
-
   let data = consData.data
 
   let Lumine = lodash.filter(data, (ds) => ds.avatar === 10000007)[0] || {}
@@ -41,6 +33,7 @@ export async function ConsStat (e) {
 
   lodash.forEach(data, (ds) => {
     let char = Character.get(ds.avatar)
+    if (!char) return
 
     let data = {
       name: char.name || ds.avatar,
@@ -74,7 +67,7 @@ export async function ConsStat (e) {
     chars: ret,
     mode,
     conNum,
-    totalCount: overview?.data?.totalPlayerCount || 0,
+    totalCount: consData.totalCount || 0,
     lastUpdate: consData.lastUpdate,
     pct: function (num) {
       return (num * 100).toFixed(2)
@@ -82,36 +75,30 @@ export async function ConsStat (e) {
   }, { e, scale: 1.5 })
 }
 
-export async function AbyssPct (e) {
-  let mode = /使用/.test(e.msg) ? 'use' : 'pct'
-  let modeName
+export async function AbyssPct(e) {
+  let modeName = "使用率"
+  
+  let isHard = /(幽境|危战)/.test(e.msg)
+  let abyssName = isHard ? "幽境危战" : "深渊"
+  
   let abyssData
-  let modeMulti = 1
-
-  if (mode === 'use') {
-    modeName = '使用率'
-    abyssData = await HutaoApi.getAbyssUse()
+  if (isHard) {
+    abyssData = await HutaoApi.getLelaerAbyssRank2()
   } else {
-    modeName = '出场率'
-    abyssData = await HutaoApi.getAbyssPct()
-    modeMulti = 8
+    abyssData = await HutaoApi.getYshelperAbyssRank()
   }
-  let overview = await HutaoApi.getOverview()
 
-  if (!abyssData) {
-    e.reply(`深渊${modeName}数据获取失败，请稍后重试~`)
-    return true
-  }
+  if (!abyssData) return e.reply(`${abyssName}${modeName}数据获取失败，请稍后重试~`)
 
   let ret = []
   let chooseFloor = -1
   let msg = e.msg
 
-  const floorName = {
-    12: '十二层',
-    11: '十一层',
-    10: '十层',
-    9: '九层'
+  let floorName = {}
+  if (isHard) {
+    floorName = { 12: "5&6层" }
+  } else {
+    floorName = { 12: "十二层" }
   }
 
   // 匹配深渊楼层信息
@@ -123,42 +110,45 @@ export async function AbyssPct (e) {
     }
   })
 
-  let data = abyssData.data
-  data = lodash.sortBy(data, 'floor')
-  data = data.reverse()
-
-  lodash.forEach(data, (floorData) => {
-    let avatars = []
-    lodash.forEach(floorData.avatarUsage, (ds) => {
-      let char = Character.get(ds.id)
-      if (char) {
-        avatars.push({
-          name: char.name,
-          star: char.star,
-          value: ds.value * modeMulti,
-          face: char.face
-        })
-      }
+  let avatars = []
+  if (abyssData.result && abyssData.result.length > 0) {
+    lodash.forEach(abyssData.result, (groupList) => {
+      lodash.forEach(groupList, (group) => {
+        if (group.list) {
+          lodash.forEach(group.list, (charData) => {
+            let name = charData.name ? charData.name.trim() : ""
+            let char = Character.get(name)
+            if (char && charData.use_rate > 0) {
+              avatars.push({
+                name: char.name,
+                star: char.star,
+                value: charData.use_rate / 100,
+                face: char.face
+              })
+            }
+          })
+        }
+      })
     })
-    avatars = lodash.sortBy(avatars, 'value', ['asc'])
-    avatars.reverse()
-    if (chooseFloor === -1) {
-      avatars = avatars.slice(0, 14)
-    }
+  }
 
+  avatars = lodash.sortBy(avatars, "value").reverse()
+
+  if (chooseFloor === -1 || chooseFloor === 12 || chooseFloor === "12") {
     ret.push({
-      floor: floorData.floor,
+      floor: 12,
       avatars
     })
-  })
+  }
 
-  return await Common.render('stat/abyss-pct', {
+  return await Common.render("stat/abyss-pct", {
     abyss: ret,
     floorName,
     chooseFloor,
-    mode,
+    mode: "use",
     modeName,
-    totalCount: overview?.data?.collectedPlayerCount || 0,
-    lastUpdate: abyssData.lastUpdate
+    abyssName,
+    totalCount: abyssData.top_own || 0,
+    lastUpdate: abyssData.last_update
   }, { e, scale: 1.5 })
 }
