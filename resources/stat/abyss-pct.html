@@ -9,21 +9,19 @@
 <div class="info_box">
   <div class="head-box type{{bgType}}">
     {{if chooseFloor == -1}}
-    <div class="title">#深渊{{modeName}}</div>
+    <div class="title">#{{abyssName}}{{modeName}}</div>
     {{else}}
-    <div class="title">#深渊第{{floorName[chooseFloor]}}{{modeName}}</div>
+    <div class="title">#{{abyssName}}第{{floorName[chooseFloor]}}{{modeName}}</div>
     {{/if}}
-    <div class="label">【#深渊出场率】出场总数/总记录数</div>
-    <div class="label">【#深渊使用率】出场总数/持有该角色的记录数</div>
+    <div class="label">【#{{abyssName}}{{modeName}}】出场总数/持有该角色的记录数</div>
     <div class="genshin-logo"></div>
   </div>
   <div class="cont msg-cont">
-    <div class="cont-title">深渊出场率统计</div>
+    <div class="cont-title">{{abyssName}}{{modeName}}统计</div>
     <div class="cont-body">
       <ul class="cont-msg">
-        <li>数据来自DGP-Studio<strong>胡桃API</strong>，为Snap Hutao / Miao-Plugin 用户自主上传的角色池信息</li>
-        <li>您可以通过<strong>#上传深渊数据</strong>命令来上传挑战记录，来帮助我们统计的更加及时准确。（上传命令仅会上传您的角色列表及当期深渊挑战数据，不会上传其他额外信息）</li>
-        <li>可通过 <strong>#深渊{{modeName}}</strong>/<strong>#深渊12层{{modeName}}</strong>来查看整体或指定层的{{modeName}}数据</li>
+        <li>数据来自<strong>提瓦特小助手API</strong>，统计结果仅供参考</li>
+        <li>目前仅支持查看 <strong>#{{abyssName}}{{modeName}}</strong> 数据</li>
         <li>由于是用户自主上传，数据可能有一定滞后，数据会在深渊开启后一段时间逐步稳定</li>
         <li>统计数据为本期深渊数据，{{if totalCount}}本期已提交用户数：<strong>{{totalCount}}</strong>，{{/if}}数据更新时间：{{lastUpdate}}</li>
       </ul>

@@ -286,13 +286,15 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
   }
 
   const isMemosprite = e.isSr && char.weaponType === '记忆'
-  const bodyContainerStyle = `<style>body .container {width: ${isMemosprite ? 970 : e.isSr ? 900 : 820}px;}</style>`
+  const isJoy = e.isSr && char.weaponType === "欢愉"
+  const bodyContainerStyle = `<style>body .container {width: ${isMemosprite || isJoy ? 970 : e.isSr ? 900 : 820}px;}</style>`
   const rankCfg = await ProfileRank.getGroupCfg(groupId)
   // 渲染图像
   return e.reply([await Common.render('character/rank-profile-list', {
     save_id: char.id,
     game: e.isSr ? 'sr' : 'gs',
-    isMemosprite,
+    isMemosprite ,
+    isJoy,
     bodyContainerStyle,
     list,
     title,

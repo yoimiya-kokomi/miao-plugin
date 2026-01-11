@@ -79,6 +79,12 @@ export const alias = {
   长夜月: 'evernight,长夜,长野月',
   昔涟: 'cyrene,喜莲,希莲,希涟,西莲,西涟,昔莲,艾莉,爱莉',
   "大丽花": "dahlia,大力花",
+  "火花": "Sparxie",
+  "爻光": "yaoguang",
+  "花火": "sparkle",
+  "花火Pro": "sparkle2,花火pro,花火加强版,加强版花火",
+  "黑天鹅": "blackswan",
+  "黑天鹅Pro": "blackswan2,黑天鹅pro,黑天鹅加强版,加强版黑天鹅",
 }
 
 export const abbr = {
