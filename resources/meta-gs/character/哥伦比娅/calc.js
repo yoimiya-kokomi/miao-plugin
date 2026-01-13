@@ -49,7 +49,7 @@ export const details = [
 ]
 
 export const defDmgIdx = 4
-export const mainAttr = 'atk,cpct,cdmg,mastery'
+export const mainAttr = 'hp,cpct,cdmg,mastery'
 export const defParams = { Moonsign: 2 }
 
 export const buffs = [
@@ -98,7 +98,7 @@ export const buffs = [
     sort: 9,
     cons: 2,
     data: {
-      mastery: ({ attr, calc }) => calc(attr.hp) * 0.35 / 100
+      mastery: ({ attr, calc, params }) => ((params.Moonsign || 0) >= 2 ? calc(attr.hp) * 0.35 / 100 : 0)
     }
   },
   {
