@@ -115,6 +115,9 @@
     {{if hsr_paths === '记忆'}}
     {{set talentMap = {a: '普攻', e: '战技', t:'天赋', q: '爆发', me: '忆灵技', mt: '忆灵天赋'} }}
     <div class="sr-talent memosprite">
+    {{else if hsr_paths === '欢愉'}}
+    {{set talentMap = {a: '普攻', e: '战技', t:'天赋', q: '爆发', xe: '欢愉技'} }}
+    <div class="sr-talent memosprite">
     {{else}}
     {{set talentMap = {a: '普攻', e: '战技', t:'天赋', q: '爆发'} }}
     <div class="sr-talent">

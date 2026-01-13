@@ -40,8 +40,8 @@ let CharWikiData = {
     }
     ud = ud[id]
     return {
-      weapons: CharWikiData.getWeaponsData(ud.weapons),
-      artis: CharWikiData.getArtisData(ud.artis)
+      weapons: CharWikiData.getWeaponsData(ud.weapon),
+      artis: CharWikiData.getArtisData(ud.artifacts_set)
     }
   },
 
@@ -54,10 +54,10 @@ let CharWikiData = {
     let weapons = []
 
     lodash.forEach(data, (ds) => {
-      let weapon = Weapon.get(ds.item) || {}
+      let weapon = Weapon.get(ds.name) || {}
       weapons.push({
         ...weapon.getData('name,abbr,img,star'),
-        value: ds.rate
+        value: ds.rate / 100
       })
     })
 
@@ -80,21 +80,33 @@ let CharWikiData = {
     lodash.forEach(data, (ds) => {
       let imgs = []
       let abbrs = []
-      let ss = ds.item.split(',')
-      lodash.forEach(ss, (t) => {
-        t = t.split(':')
-        let artiSet = ArtifactSet.get(t[0])
-        if (artiSet) {
-          imgs.push(artiSet.img)
-          abbrs.push(artiSet.abbr + (ss.length === 1 ? t[1] : ''))
+      let sets = ds.name.split("+")
+      
+      lodash.forEach(sets, (t) => {
+        let ret = /(.*?)(4|2)$/.exec(t)
+        if (ret) {
+          let name = ret[1]
+          let count = ret[2]
+          let artiSet = ArtifactSet.get(name)
+          if (artiSet) {
+            imgs.push(artiSet.img)
+            abbrs.push(artiSet.abbr + count)
+          }
+        } else {
+           // 处理"暂无套装"等情况
+           if (t === "暂无套装") {
+             abbrs.push("其它")
+           }
         }
       })
 
-      artis.push({
-        imgs,
-        title: abbrs.join('+'),
-        value: ds.rate
-      })
+      if (abbrs.length > 0) {
+        artis.push({
+          imgs,
+          title: abbrs.join("+"),
+          value: ds.rate / 100
+        })
+      }
     })
 
     artis = lodash.sortBy(artis, 'value')
