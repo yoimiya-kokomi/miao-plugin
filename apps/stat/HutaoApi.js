@@ -75,27 +75,41 @@ let HutaoApi = {
 
   /** 获取角色持有率及命座分布 */
   async getCons() {
-    let lelaerData = await HutaoApi.getLelaerData()
-    if (!lelaerData) return {}
+    let abyssData = await HutaoApi.getYshelperAbyssRank()
+    if (!abyssData || !abyssData.result) return {}
 
     let ret = []
-    let totalCount = lelaerData.totalCount || 0
+    let totalCount = abyssData.top_own || 0
 
-    lodash.forEach(lelaerData.data, (ds, charId) => {
+    let list = []
+    lodash.forEach(abyssData.result, (floorData) => {
+      if (lodash.isArray(floorData)) {
+        lodash.forEach(floorData, (rankGroup) => {
+          if (rankGroup && rankGroup.list) {
+            list = list.concat(rankGroup.list)
+          }
+        })
+      }
+    })
+
+    lodash.forEach(list, (ds) => {
+      let char = Character.get(ds.name)
+      if (!char) return
+
       let rate = []
       for (let i = 0; i <= 6; i++) {
-        rate.push({ id: i, value: (ds[`c${i}`] || 0) / 100 })
+        rate.push({ id: i, value: (ds[`c${i}_rate`] || 0) / 100 })
       }
-      
+
       ret.push({
-        avatar: Number(charId),
-        holdingRate: totalCount > 0 ? (ds.role_sum / totalCount) : 0,
+        avatar: char.id,
+        holdingRate: (ds.own_rate || 0) / 100,
         rate
       })
     })
 
     return {
-      lastUpdate: lelaerData.lastUpdate,
+      lastUpdate: abyssData.last_update,
       totalCount,
       data: ret
     }
