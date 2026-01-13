@@ -10,16 +10,16 @@ const CharTalent = {
     let ret = {}
     let addTalent = {
       gs: { a: 3, e: 3, q: 3 },
-      sr: { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1}
+      sr: { a: 1, e: 2, q: 2, t: 2, xe: 1, me: 1, mt: 1}
     }
     let maxTalent = {
       gs: { a: 15, e: 15, q: 15 },
-      sr: { a: 10, e: 15, q: 15, t: 15, me: 10, mt: 10 }
+      sr: { a: 10, e: 15, q: 15, t: 15, xe: 15, me: 10, mt: 10 }
     }
     lodash.forEach(addTalent[game], (addNum, key) => {
       let ds = talent[key]
       if (!ds) {
-        return false
+        return
       }
       let value
       let level
@@ -39,7 +39,17 @@ const CharTalent = {
           level = value
           if (key === 'a' && isGs && aPlus) level += 1
           if (key === 'e' && isGs && ePlus) level += 1
-          if (talentCons[key] > 0 && cons >= talentCons[key]) level += addNum
+
+          let consUp = talentCons[key]
+          if (consUp) {
+            if (lodash.isArray(consUp)) {
+              for (const consLvl of consUp) {
+                if (cons >= consLvl) level += addNum
+              }
+            } else if (cons >= consUp) {
+              level += addNum
+            }
+          }
         }
       }
       if (mode === 'level') {
@@ -49,7 +59,16 @@ const CharTalent = {
         original = value
         if (key === 'a' && isGs && aPlus) original -= 1
         if (key === 'e' && isGs && ePlus) original -= 1
-        if (talentCons[key] > 0 && cons >= talentCons[key]) original -= addNum
+        let consUp = talentCons[key]
+        if (consUp) {
+          if (lodash.isArray(consUp)) {
+            for (const consLvl of consUp) {
+              if (cons >= consLvl) original -= addNum
+            }
+          } else if (cons >= consUp) {
+            original -= addNum
+          }
+        }
       }
       if (level > maxTalent[game][key]) level = maxTalent[game][key]
       ret[key] = { level, original }
