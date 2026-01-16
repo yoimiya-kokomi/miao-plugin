@@ -73,14 +73,14 @@ return (num * 100).toFixed(2);
             </div>
           </div>
         </div>
-        <div class="pct">{{pct(char.hold)}}</div>
+        <div class="pct">{{char.hold === null ? "未知" : pct(char.hold)}}</div>
         <div class="char-cons">
           <div class="cons-pct">
             {{each char.cons con idx}}
             <div>{{pct(con.value)}}</div>
             {{/each}}
             {{if mode ==="char"}}
-            <div>{{pct(1-char.hold)}}</div>
+            <div>{{char.hold === null ? "未知" : pct(1-char.hold)}}</div>
             {{/if}}
           </div>
           <div class="cons-bg">

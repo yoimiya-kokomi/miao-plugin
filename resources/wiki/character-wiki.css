@@ -228,4 +228,51 @@ body {
   top: 0;
   transform-origin: right bottom;
 }
+.avg-stats {
+  position: relative;
+  height: 80px;
+  width: 100%;
+  margin-top: 5px;
+}
+.avg-line {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  background: linear-gradient(to bottom right, transparent calc(50% - 0.5px), rgba(255, 255, 255, 0.6) calc(50% - 0.5px), rgba(255, 255, 255, 0.6) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+}
+.avg-label-level, .avg-label-cons {
+  position: absolute;
+  font-size: 12px;
+  color: #d3bc8e;
+  text-shadow: 0 0 2px #000;
+  line-height: 1;
+}
+.avg-level, .avg-cons {
+  position: absolute;
+  font-size: 20px;
+  color: #fff;
+  text-shadow: 0 0 1px #000, 1px 1px 2px #000;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.avg-label-level {
+  top: 5px;
+  left: 5px;
+}
+.avg-level {
+  top: 22px;
+  left: 10px;
+}
+
+.avg-cons {
+  bottom: 22px;
+  right: 10px;
+}
+.avg-label-cons {
+  bottom: 5px;
+  right: 5px;
+}
 /*# sourceMappingURL=character-wiki.css.map */

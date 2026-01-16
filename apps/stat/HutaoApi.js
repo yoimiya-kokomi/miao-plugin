@@ -75,41 +75,45 @@ let HutaoApi = {
 
   /** 获取角色持有率及命座分布 */
   async getCons() {
+    let lelaerData = await HutaoApi.getLelaerData()
+    if (!lelaerData) return {}
+
     let abyssData = await HutaoApi.getYshelperAbyssRank()
-    if (!abyssData || !abyssData.result) return {}
+    let ownMap = {}
+    if (abyssData && abyssData.has_list) {
+      lodash.forEach(abyssData.has_list, (ds) => {
+        let char = Character.get(ds.name)
+        if (char) ownMap[char.id] = ds.own_rate
+      })
+    }
 
     let ret = []
-    let totalCount = abyssData.top_own || 0
+    let totalCount = lelaerData.totalCount || 0
 
-    let list = []
-    lodash.forEach(abyssData.result, (floorData) => {
-      if (lodash.isArray(floorData)) {
-        lodash.forEach(floorData, (rankGroup) => {
-          if (rankGroup && rankGroup.list) {
-            list = list.concat(rankGroup.list)
-          }
-        })
-      }
-    })
-
-    lodash.forEach(list, (ds) => {
-      let char = Character.get(ds.name)
-      if (!char) return
-
+    lodash.forEach(lelaerData.data, (ds, charId) => {
       let rate = []
       for (let i = 0; i <= 6; i++) {
-        rate.push({ id: i, value: (ds[`c${i}_rate`] || 0) / 100 })
+        rate.push({ id: i, value: (ds[`c${i}`] || 0) / 100 })
+      }
+      
+      let holdingRate = ownMap[charId]
+      if (holdingRate) {
+        holdingRate = holdingRate / 100
+      } else {
+        holdingRate = null
       }
 
       ret.push({
-        avatar: char.id,
-        holdingRate: (ds.own_rate || 0) / 100,
+        avatar: Number(charId),
+        holdingRate,
+        avgLevel: ds.avg_level,
+        avgCons: ds.avg_class,
         rate
       })
     })
 
     return {
-      lastUpdate: abyssData.last_update,
+      lastUpdate: lelaerData.lastUpdate,
       totalCount,
       data: ret
     }

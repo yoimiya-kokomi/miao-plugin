@@ -34,6 +34,7 @@ export async function ConsStat(e) {
   lodash.forEach(data, (ds) => {
     let char = Character.get(ds.avatar)
     if (!char) return
+    if ([ 10000005, 10000007, 20000000 ].includes(ds.avatar)) return
 
     let data = {
       name: char.name || ds.avatar,
@@ -45,7 +46,7 @@ export async function ConsStat(e) {
 
     if (mode === 'char') {
       data.cons = lodash.map(ds.rate, (c) => {
-        c.value = c.value * ds.holdingRate
+        c.value = c.value * (ds.holdingRate || 0)
         return c
       })
     } else {
@@ -60,7 +61,7 @@ export async function ConsStat(e) {
     ret = lodash.sortBy(ret, [`cons[${conNum}].value`])
     ret.reverse()
   } else {
-    ret = lodash.sortBy(ret, ['hold'])
+    ret = lodash.sortBy(ret, [ (d) => d.hold === null ? -1 : d.hold ])
   }
   // 渲染图像
   return await Common.render('stat/character', {
