@@ -78,6 +78,15 @@ let HutaoApi = {
     let lelaerData = await HutaoApi.getLelaerData()
     if (!lelaerData) return {}
 
+    let abyssData = await HutaoApi.getYshelperAbyssRank()
+    let ownMap = {}
+    if (abyssData && abyssData.has_list) {
+      lodash.forEach(abyssData.has_list, (ds) => {
+        let char = Character.get(ds.name)
+        if (char) ownMap[char.id] = ds.own_rate
+      })
+    }
+
     let ret = []
     let totalCount = lelaerData.totalCount || 0
 
@@ -87,9 +96,18 @@ let HutaoApi = {
         rate.push({ id: i, value: (ds[`c${i}`] || 0) / 100 })
       }
       
+      let holdingRate = ownMap[charId]
+      if (holdingRate) {
+        holdingRate = holdingRate / 100
+      } else {
+        holdingRate = null
+      }
+
       ret.push({
         avatar: Number(charId),
-        holdingRate: totalCount > 0 ? (ds.role_sum / totalCount) : 0,
+        holdingRate,
+        avgLevel: ds.avg_level,
+        avgCons: ds.avg_class,
         rate
       })
     })

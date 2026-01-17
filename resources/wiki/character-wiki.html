@@ -61,8 +61,13 @@
   <div class="cont cont-bg">
     <div class="char-holding">
       <div class="char-pct">
-        <strong>{{holding.num}}</strong>
-        <div class="cons-title">角色持有率</div>
+        <div class="avg-stats">
+          <div class="avg-label-level">平均等级</div>
+          <div class="avg-level">{{holding.avgLevel}}</div>
+          <div class="avg-line"></div>
+          <div class="avg-cons">{{holding.avgCons}}</div>
+          <div class="avg-label-cons">平均命座</div>
+        </div>
       </div>
       <div class="char-cons">
         {{each holding.cons cons}}

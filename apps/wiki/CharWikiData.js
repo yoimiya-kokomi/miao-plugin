@@ -14,9 +14,11 @@ let CharWikiData = {
     consData = lodash.find(consData, (ds) => ds.avatar === id)
     let holding = {}
     if (consData) {
-      let { holdingRate, rate } = consData
+      let { holdingRate, rate, avgLevel, avgCons } = consData
       rate = lodash.sortBy(rate, 'id')
       holding.num = Format.percent(holdingRate)
+	    holding.avgLevel = avgLevel ? Number(avgLevel).toFixed(1) : "0.0"
+      holding.avgCons = avgCons ? Number(avgCons).toFixed(2) : "0.00"
       holding.cons = []
       lodash.forEach(rate, (ds) => {
         holding.cons.push({

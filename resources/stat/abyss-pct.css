@@ -77,4 +77,24 @@
   background-color: #ebebeb;
   margin: 0px 10px;
 }
+.rank-group {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+}
+
+.rank-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-align: left;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  border-left: 5px solid #fff;
+}
+
+.rank-group .card-list {
+  padding-top: 5px;
+}
 /*# sourceMappingURL=abyss-pct.css.map */

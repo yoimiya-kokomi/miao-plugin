@@ -38,14 +38,19 @@
       <span class="text">第{{floorName[ds.floor]}}</span>
       <span class="line"></span>
     </div>
-    <div class="card-list">
-      {{each ds.avatars char}}
-      <div class="item star{{char.star == 4? 4:5}}">
-        <img class="role" src="{{_res_path}}{{char.face}}"/>
-        <div class="num_name">{{pct(char.value)}}%</div>
+    {{each ds.ranks rank}}
+    <div class="rank-group">
+      <div class="rank-title">{{rank.rank_name}}</div>
+      <div class="card-list">
+        {{each rank.avatars char}}
+        <div class="item star{{char.star == 4? 4:5}}">
+          <img class="role" src="{{_res_path}}{{char.face}}"/>
+          <div class="num_name">{{pct(char.value)}}%</div>
+        </div>
+        {{/each}}
       </div>
-      {{/each}}
     </div>
+    {{/each}}
   </div>
   {{/if}}
   {{/each}}
