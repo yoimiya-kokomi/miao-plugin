@@ -5,7 +5,7 @@ import lodash from "lodash"
 import Attr from "../../attr/Attr.js"
 
 let MysPanelHSRData = {
-  setAvatar (player, ds) {
+  setAvatar(player, ds) {
     let char = Character.get(ds.id)
     let avatar = player.getAvatar(ds.id, true)
     if (!char) {
@@ -13,14 +13,14 @@ let MysPanelHSRData = {
     }
 
     if (String(ds.id).startsWith("2")) {
-        ds.name = char.name
+      ds.name = char.name
     }
 
     let level = ds.level
     let promote = Attr.calcPromote(level, "sr")
     let weaponPromote = ds.equip ? Attr.calcPromote(ds.equip.level, "sr") : null
 
-    if ([ 20, 30, 40, 50, 60, 70 ].includes(level) || (ds.equip && [ 20, 30, 40, 50, 60, 70 ].includes(ds.equip.level))) {
+    if ([20, 30, 40, 50, 60, 70].includes(level) || (ds.equip && [20, 30, 40, 50, 60, 70].includes(ds.equip.level))) {
       let baseHp = 0
       lodash.forEach(ds.properties, (p) => {
         if (p.property_type === 1) baseHp = p.base * 1
@@ -35,17 +35,17 @@ let MysPanelHSRData = {
         }
 
         if (check) {
-          let charPromotes = [ promote ]
-          if ([ 20, 30, 40, 50, 60, 70 ].includes(level)) charPromotes.push(promote + 1)
+          let charPromotes = [promote]
+          if ([20, 30, 40, 50, 60, 70].includes(level)) charPromotes.push(promote + 1)
 
           let weaponPromotes = []
           if (w) {
             let wLv = ds.equip.level
             let wPromote = weaponPromote
-            weaponPromotes = [ wPromote ]
-            if ([ 20, 30, 40, 50, 60, 70 ].includes(wLv)) weaponPromotes.push(wPromote + 1)
+            weaponPromotes = [wPromote]
+            if ([20, 30, 40, 50, 60, 70].includes(wLv)) weaponPromotes.push(wPromote + 1)
           } else {
-            weaponPromotes = [ null ]
+            weaponPromotes = [null]
           }
 
           let minDiff = Infinity
@@ -73,7 +73,7 @@ let MysPanelHSRData = {
     }
     promote = Math.min(promote, 6)
 
-    avatar.setAvatar({
+    const setData = {
       level,
       promote,
       cons: ds.rank,
@@ -86,11 +86,49 @@ let MysPanelHSRData = {
       ),
       trees: MysPanelHSRData.getTrees(ds.skills),
       artis: MysPanelHSRData.getArtifact([...ds.relics, ...ds.ornaments])
-    }, "mysPanelHSR")
+    }
+    avatar.setAvatar(setData, "mysPanelHSR")
+
+    // 速度修正，整数对齐
+    const speedProp = lodash.find(ds.properties, p => [4].includes(p.property_type))
+    if (speedProp && avatar.attr?.speed) {
+      const targetSpeed = parseFloat(speedProp.final)
+      const currentSpeed = avatar.attr.speed
+      let speedDiff = targetSpeed - currentSpeed
+      if (speedDiff > 0.2) {
+        let fixed = false
+        // 尝试分散修正，遍历所有圣遗物，每个速度词条加1步，直到补足差额
+        let loopCount = 0
+        while (speedDiff > 0.05 && loopCount < 20) {
+          let hasSpeed = false
+          lodash.forEach(setData.artis, (arti) => {
+            if (speedDiff <= 0.05) return false
+            lodash.forEach(arti.attrIds, (attr, idx) => {
+              if (speedDiff <= 0.05) return false
+              if (attr.startsWith("7,")) {
+                let [id, count, step] = attr.split(",")
+                step = parseInt(step) + 1
+                arti.attrIds[idx] = `${id},${count},${step}`
+                speedDiff -= (arti.star || 5) >= 5 ? 0.3 : 0.2
+                fixed = true
+                hasSpeed = true
+              }
+            })
+          })
+          if (!hasSpeed) break
+          loopCount++
+        }
+
+        if (fixed) {
+          avatar.setAvatar(setData, "mysPanelHSR")
+        }
+      }
+    }
+
     return avatar
   },
 
-  getWeapon (data, promote) {
+  getWeapon(data, promote) {
     return {
       id: data.id,
       promote: Math.min(promote || 0, 6), // 突破
@@ -99,7 +137,7 @@ let MysPanelHSRData = {
     }
   },
 
-  getTalent (char, cons, ds = {}, servant_skills = []) {
+  getTalent(char, cons, ds = {}, servant_skills = []) {
     let { talentId = {}, talentCons = {} } = char.meta
     let idx = 0
     let ret = {}
@@ -132,13 +170,13 @@ let MysPanelHSRData = {
     return ret
   },
 
-  getTrees (data) {
+  getTrees(data) {
     return lodash.map(lodash.filter(data,
       skill => skill.point_type !== 2 && skill.is_activated
     ), "point_id")
   },
 
-  getArtifact (data) {
+  getArtifact(data) {
     let ret = {}
     lodash.forEach(data, (ds) => {
       let idx = ds.pos
@@ -176,7 +214,7 @@ let MysPanelHSRData = {
     const propertyId = lodash.findKey(subAttrInfo, obj => obj.key === propertyName);
     // base: 最大取值
     // step: 减去的多少
-    const {base, step} = subAttrInfo[propertyId]
+    const { base, step } = subAttrInfo[propertyId]
     // Is valueStr a fixed value or a percentage?
     let destValueSum
     if (valueStr.substring(-1) == "%") {
@@ -191,9 +229,9 @@ let MysPanelHSRData = {
   getArtifactAttrIds(rarity, sub_property_list) {
     let attrIds = []
     lodash.forEach(sub_property_list, (sub_property) => {
-      const { property_type, value, times} = sub_property
+      const { property_type, value, times } = sub_property
       const combination = MysPanelHSRData.getArtifactAttrId(rarity, times, property_type, value)
-      attrIds = [ ...attrIds, combination ]
+      attrIds = [...attrIds, combination]
     })
     return attrIds
   }
