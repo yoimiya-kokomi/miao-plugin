@@ -1,7 +1,8 @@
-import { Meta } from '#miao'
-import { Character, Artifact, Weapon } from '#miao.models'
-import { propertyType2attrName } from './MysPanelHSRMappings.js'
-import lodash from 'lodash'
+import { Meta } from "#miao"
+import { Character, Artifact, Weapon } from "#miao.models"
+import { propertyType2attrName } from "./MysPanelHSRMappings.js"
+import lodash from "lodash"
+import Attr from "../../attr/Attr.js"
 
 let MysPanelHSRData = {
   setAvatar (player, ds) {
@@ -11,14 +12,62 @@ let MysPanelHSRData = {
       return false
     }
 
-    if (String(ds.id).startsWith('2')) {
+    if (String(ds.id).startsWith("2")) {
         ds.name = char.name
     }
 
+	  let level = ds.level
+    let promote = Attr.calcPromote(level, "sr")
+    let weaponPromote = ds.equip ? Attr.calcPromote(ds.equip.level, "sr") : null
+
+    if ([ 20, 30, 40, 50, 60, 70 ].includes(level) || (ds.equip && [ 20, 30, 40, 50, 60, 70 ].includes(ds.equip.level))) {
+      let baseHp = 0
+      lodash.forEach(ds.properties, (p) => {
+        if (p.property_type === 1) baseHp = p.base * 1
+      })
+
+      if (baseHp > 0 && ds.equip) {
+        let w = Weapon.get(ds.equip.id, "sr")
+        if (w) {
+          let wLv = ds.equip.level
+          let wPromote = weaponPromote
+          
+          let charPromotes = [ promote ]
+          if ([ 20, 30, 40, 50, 60, 70 ].includes(level)) charPromotes.push(promote + 1)
+          
+          let weaponPromotes = [ wPromote ]
+          if ([ 20, 30, 40, 50, 60, 70 ].includes(wLv)) weaponPromotes.push(wPromote + 1)
+
+          let minDiff = Infinity
+          let bestCP = promote
+          let bestWP = wPromote
+
+          for (let cp of charPromotes) {
+            for (let wp of weaponPromotes) {
+               let charAttr = char.getLvAttr(level, cp)
+               let wAttr = w.calcAttr(wLv, wp)
+               if (charAttr && wAttr) {
+                 let diff = Math.abs(baseHp - (charAttr.hp + wAttr.hp))
+                 if (diff < minDiff) {
+                   minDiff = diff
+                   bestCP = cp
+                   bestWP = wp
+                 }
+               }
+            }
+          }
+          promote = bestCP
+          weaponPromote = bestWP
+        }
+      }
+    }
+    promote = Math.min(promote, 6)
+
     avatar.setAvatar({
-      level: ds.level,
+      level,
+      promote,
       cons: ds.rank,
-      weapon: ds.equip ? MysPanelHSRData.getWeapon(ds.equip) : null,
+      weapon: ds.equip ? MysPanelHSRData.getWeapon(ds.equip, weaponPromote) : null,
       talent: MysPanelHSRData.getTalent(
         char,
         ds.rank,
@@ -27,13 +76,14 @@ let MysPanelHSRData = {
       ),
       trees: MysPanelHSRData.getTrees(ds.skills),
       artis: MysPanelHSRData.getArtifact([...ds.relics, ...ds.ornaments])
-    }, 'mysPanelHSR')
+    }, "mysPanelHSR")
     return avatar
   },
 
-  getWeapon (data) {
+  getWeapon (data, promote) {
     return {
       id: data.id,
+      promote: Math.min(promote || 0, 6), // 突破
       level: data.level, // 等级
       affix: data.rank // 叠影
     }
@@ -43,7 +93,7 @@ let MysPanelHSRData = {
     let { talentId = {}, talentCons = {} } = char.meta
     let idx = 0
     let ret = {}
-    const skillKeys = ['a', 'e', 'q', 't', 'z', 'me', 'mt']
+    const skillKeys = ["a", "e", "q", "t", "z", "me", "mt"]
     lodash.forEach(ds, (talent_data) => {
       const id = talent_data.point_id
       const lv = talent_data.level
@@ -60,8 +110,8 @@ let MysPanelHSRData = {
     if (Array.isArray(servant_skills) && servant_skills.length !== 0) {
       let me = servant_skills[0]?.level ?? 0
       let mt = servant_skills[1]?.level ?? 0
-      ret['me'] = me
-      ret['mt'] = mt
+      ret["me"] = me
+      ret["mt"] = mt
     }
     if (cons >= 3) {
       lodash.forEach(talentCons, (lv, key) => {
@@ -75,7 +125,7 @@ let MysPanelHSRData = {
   getTrees (data) {
     return lodash.map(lodash.filter(data,
       skill => skill.point_type !== 2 && skill.is_activated
-    ), 'point_id')
+    ), "point_id")
   },
 
   getArtifact (data) {
@@ -85,7 +135,7 @@ let MysPanelHSRData = {
       if (!idx) {
         return
       }
-      let arti = Artifact.get(ds.id, 'sr')
+      let arti = Artifact.get(ds.id, "sr")
       if (!arti) {
         return true
       }
@@ -102,24 +152,24 @@ let MysPanelHSRData = {
   },
 
   getArtifactMainId(pos, main_property) {
-    const { metaData } = Meta.getMeta('sr', 'arti')
+    const { metaData } = Meta.getMeta("sr", "arti")
     const propertyName = propertyType2attrName[main_property.property_type]
-    const propertyName2Id = lodash.invert(metaData['mainIdx'][pos])
+    const propertyName2Id = lodash.invert(metaData["mainIdx"][pos])
     const ret = +propertyName2Id[propertyName]
     return ret
   },
 
   getArtifactAttrId(rarity, curTime, propertyType, valueStr) {
-    const { metaData } = Meta.getMeta('sr', 'arti')
+    const { metaData } = Meta.getMeta("sr", "arti")
     const propertyName = propertyType2attrName[propertyType]
-    const subAttrInfo = metaData['starData'][rarity]['sub']
+    const subAttrInfo = metaData["starData"][rarity]["sub"]
     const propertyId = lodash.findKey(subAttrInfo, obj => obj.key === propertyName);
     // base: 最大取值
     // step: 减去的多少
     const {base, step} = subAttrInfo[propertyId]
     // Is valueStr a fixed value or a percentage?
     let destValueSum
-    if (valueStr.substring(-1) == '%') {
+    if (valueStr.substring(-1) == "%") {
       destValueSum = parseFloat(valueStr.slice(0, -1))
     } else {
       destValueSum = parseFloat(valueStr);

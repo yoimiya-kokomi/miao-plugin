@@ -1,32 +1,73 @@
-import { Format, Meta } from '#miao'
-import { Character, Artifact, Weapon } from '#miao.models'
-import { artifactMainIdMapping, propertyType2attrName, fixedAttrNames } from './MysPanelMappings.js'
-import lodash from 'lodash'
+import { Format, Meta } from "#miao"
+import { Character, Artifact, Weapon } from "#miao.models"
+import { artifactMainIdMapping, propertyType2attrName, fixedAttrNames } from "./MysPanelMappings.js"
+import lodash from "lodash"
+import Attr from "../../attr/Attr.js"
 
 let MysPanelData = {
-  setAvatar (player, ds) {
+  setAvatar(player, ds) {
     let { id, element, level, fetter, actived_constellation_num } = ds.base
     let elem = Format.elem(element)
     let char = Character.get({ id, elem })
     let avatar = player.getAvatar(id, true)
-    if (!char) {
-      return false
+    if (!char) return false
+
+    let promote = Attr.calcPromote(level, "gs")
+    if ([ 20, 40, 50, 60, 70, 80 ].includes(level)) {
+      let charHp = 0
+      lodash.forEach(ds.selected_properties, (p) => {
+        if (p.property_type === 2000) charHp = p.base * 1
+      })
+
+      if (charHp > 0) {
+        let getCharHp = (promote) => {
+          let { details = {} } = char.detail?.attr || {}
+          let lvStep = [ 1, 20, 40, 50, 60, 70, 80, 90, 100 ]
+          let lvLeft = 0
+          let lvRight = 0
+          let currPromote = 0
+          for (let idx = 0; idx < lvStep.length - 1; idx++) {
+            if (currPromote === promote) {
+              if (level >= lvStep[idx] && level <= lvStep[idx + 1]) {
+                lvLeft = lvStep[idx]
+                lvRight = lvStep[idx + 1]
+                break
+              }
+            }
+            currPromote++
+          }
+          let detailLeft = details[lvLeft + "+"] || details[lvLeft] || {}
+          let detailRight = details[lvRight] || {}
+          let hpLeft = detailLeft[0]
+          let hpRight = detailRight[0]
+          return hpLeft * 1 + ((hpRight - hpLeft) * (level - lvLeft) / (lvRight - lvLeft))
+        }
+
+        let hp1 = getCharHp(promote)
+        let hp2 = getCharHp(promote + 1)
+
+        if (Math.abs(charHp - hp2) < Math.abs(charHp - hp1)) {
+          promote = promote + 1
+        }
+      }
     }
+    promote = Math.min(promote, 6)
 
     avatar.setAvatar({
       level,
       elem,
       fetter,
+      promote,
       cons: actived_constellation_num,
       costume: ds.costumes?.[0]?.id || 0,
       weapon: MysPanelData.getWeapon(ds.weapon),
       talent: MysPanelData.getTalent(char, actived_constellation_num, ds.skills),
       artis: MysPanelData.getArtifact(ds.relics)
-    }, 'mysPanel')
+    }, "mysPanel")
     return avatar
   },
 
-  getWeapon (data) {
+  getWeapon(data) {
     let w = Weapon.get(data.id)
     return {
       name: w ? w.name : data.name,
@@ -46,7 +87,7 @@ let MysPanelData = {
         let key = talentId[talent_data.skill_id]
         ret[key] = talent_data.level
       } else if (talent_data.skill_type == 1) { // 1 主动技能；2 被动技能
-        key = ['a', 'e', 'q'][idx++]
+        key = ["a", "e", "q"][idx++]
         ret[key] = ret[key] || talent_data.level
       }
     })
@@ -61,7 +102,7 @@ let MysPanelData = {
     return ret
   },
 
-  getArtifact (data) {
+  getArtifact(data) {
     let ret = {}
     lodash.forEach(data, (ds) => {
       let idx = ds.pos
@@ -100,10 +141,10 @@ let MysPanelData = {
       destValueSum = parseFloat(valueStr.slice(0, -1)) * 0.01;
     }
 
-    const { attrIdMap, attrMap } = Meta.getMeta('gs', 'arti')
+    const { attrIdMap, attrMap } = Meta.getMeta("gs", "arti")
     const curValues = Object.entries(attrIdMap)
-        .filter(([k, v]) => k.startsWith(rarity) && v.key === attrName)
-        .map(([k, v]) => [v.value, k]);
+      .filter(([k, v]) => k.startsWith(rarity) && v.key === attrName)
+      .map(([k, v]) => [v.value, k]);
 
     let bestErr = 1e6;
     let bestArr = [];
@@ -140,9 +181,9 @@ let MysPanelData = {
   getArtifactAttrIds(rarity, sub_property_list) {
     let attrIds = []
     lodash.forEach(sub_property_list, (sub_property) => {
-      const { property_type, value, times} = sub_property
+      const { property_type, value, times } = sub_property
       const combination = MysPanelData.getArtifactAttrIdCombination(rarity, times, property_type, value)
-      attrIds = [ ...attrIds, ...combination ]
+      attrIds = [...attrIds, ...combination]
     })
     return attrIds
   }
