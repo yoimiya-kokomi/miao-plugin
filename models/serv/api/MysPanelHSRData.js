@@ -16,7 +16,7 @@ let MysPanelHSRData = {
         ds.name = char.name
     }
 
-	  let level = ds.level
+    let level = ds.level
     let promote = Attr.calcPromote(level, "sr")
     let weaponPromote = ds.equip ? Attr.calcPromote(ds.equip.level, "sr") : null
 
@@ -26,38 +26,48 @@ let MysPanelHSRData = {
         if (p.property_type === 1) baseHp = p.base * 1
       })
 
-      if (baseHp > 0 && ds.equip) {
-        let w = Weapon.get(ds.equip.id, "sr")
-        if (w) {
-          let wLv = ds.equip.level
-          let wPromote = weaponPromote
-          
+      if (baseHp > 0) {
+        let w = null
+        let check = true
+        if (ds.equip) {
+          w = Weapon.get(ds.equip.id, "sr")
+          if (!w) check = false
+        }
+
+        if (check) {
           let charPromotes = [ promote ]
           if ([ 20, 30, 40, 50, 60, 70 ].includes(level)) charPromotes.push(promote + 1)
-          
-          let weaponPromotes = [ wPromote ]
-          if ([ 20, 30, 40, 50, 60, 70 ].includes(wLv)) weaponPromotes.push(wPromote + 1)
+
+          let weaponPromotes = []
+          if (w) {
+            let wLv = ds.equip.level
+            let wPromote = weaponPromote
+            weaponPromotes = [ wPromote ]
+            if ([ 20, 30, 40, 50, 60, 70 ].includes(wLv)) weaponPromotes.push(wPromote + 1)
+          } else {
+            weaponPromotes = [ null ]
+          }
 
           let minDiff = Infinity
           let bestCP = promote
-          let bestWP = wPromote
+          let bestWP = weaponPromote
 
           for (let cp of charPromotes) {
             for (let wp of weaponPromotes) {
-               let charAttr = char.getLvAttr(level, cp)
-               let wAttr = w.calcAttr(wLv, wp)
-               if (charAttr && wAttr) {
-                 let diff = Math.abs(baseHp - (charAttr.hp + wAttr.hp))
-                 if (diff < minDiff) {
-                   minDiff = diff
-                   bestCP = cp
-                   bestWP = wp
-                 }
-               }
+              let charAttr = char.getLvAttr(level, cp)
+              let wAttr = w ? w.calcAttr(ds.equip.level, wp) : { hp: 0 }
+              if (charAttr && wAttr) {
+                let diff = Math.abs(baseHp - (charAttr.hp + wAttr.hp))
+                if (diff < minDiff) {
+                  minDiff = diff
+                  bestCP = cp
+                  if (w) bestWP = wp
+                }
+              }
             }
           }
           promote = bestCP
-          weaponPromote = bestWP
+          if (w) weaponPromote = bestWP
         }
       }
     }
