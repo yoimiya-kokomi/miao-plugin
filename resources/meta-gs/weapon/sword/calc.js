@@ -306,6 +306,12 @@ export default function (step, staticStep) {
         qCdmg: ({ refine }) => step(16)[refine],
         atkPct: ({ params, refine }) => step(20)[refine] * (params.Hexenzirkel ? 1.75 : 1)
       }
-    }
+    },
+    朏魄含光: [staticStep('defPct', 20), {
+      title: '装备者施放元素战技后的5秒内，月结晶反应伤害提升[lunarCrystallize]%',
+      refine: {
+        lunarCrystallize: step(64)
+      }
+    }]
   }
 }
