@@ -312,6 +312,6 @@ export default function (step, staticStep) {
       refine: {
         lunarCrystallize: step(64)
       }
-    }],
+    }]
   }
 }
