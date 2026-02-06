@@ -15,15 +15,15 @@ export const details = [
     title: '(3名水/岩角色)岩元素伤害增加',
     dmg: ({ attr, calc, talent }) => {
       return {
-        avg: calc(attr.mastery) * talent.q['岩元素伤害增加'] / 100 + 24
-      }
+        avg: calc(attr.mastery) * (talent.q['岩元素伤害增加'] + 24) / 100
+       }
     }
   },
   {
     title: '(3名水/岩角色)月结晶反应伤害增加',
     dmg: ({ attr, calc, talent }) => {
       return {
-        avg: calc(attr.mastery) * talent.q['月结晶反应伤害增加'] / 100 + 160
+        avg: calc(attr.mastery) * (talent.q['月结晶反应伤害增加'] + 160) / 100
       }
     }
   },
