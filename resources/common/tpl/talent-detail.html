@@ -8,13 +8,18 @@
   <div class="talent-info">
     <div class="talent-name">{{ds.name}}</div>
     <div class="talent-desc">
-      {{each ds.desc d}}
-      {{ if d[0] === "<" || game==='sr' }}
-      {{@d}}
-      {{else if d!=""}}
-      <p>{{d}}</p>
+      {{if ds && ds.desc}}
+        {{if ds.desc.join}}
+          {{each ds.desc line idx}}
+            {{@ line}}
+            {{if idx < ds.desc.length - 1 && !((line.startsWith('<h3>') && line.endsWith('</h3>')) || (line.startsWith('<i>') && line.endsWith('</i>')))}}
+              <br>
+            {{/if}}
+          {{/each}}
+        {{else}}
+          {{@ ds.desc }}
+        {{/if}}
       {{/if}}
-      {{/each}}
     </div>
   </div>
 
