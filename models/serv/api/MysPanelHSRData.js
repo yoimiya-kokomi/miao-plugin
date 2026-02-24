@@ -141,7 +141,7 @@ let MysPanelHSRData = {
     let { talentId = {}, talentCons = {} } = char.meta
     let idx = 0
     let ret = {}
-    const skillKeys = ["a", "e", "q", "t", "z", "me", "mt"]
+    const skillKeys = ["a", "e", "q", "t", "z", "me", "mt"] // 没有欢愉角色，暂不知格式
     lodash.forEach(ds, (talent_data) => {
       const id = talent_data.point_id
       const lv = talent_data.level
@@ -161,12 +161,19 @@ let MysPanelHSRData = {
       ret["me"] = me
       ret["mt"] = mt
     }
-    if (cons >= 3) {
-      lodash.forEach(talentCons, (lv, key) => {
-        let addTalent = { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1 }
-        if (lv != 0 && ret[key] && cons >= lv) ret[key] = Math.max(1, ret[key] - addTalent[key])
-      })
-    }
+    lodash.forEach(talentCons, (lv, key) => {
+      let step = { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1, xe: 1 }
+      let addNum = step[key] || 0
+      let plus = 0
+      if (lodash.isArray(lv)) {
+        plus = lv.filter(c => cons >= c).length * addNum
+      } else if (lv > 0 && cons >= lv) {
+        plus = addNum
+      }
+      if (plus > 0 && ret[key]) {
+        ret[key] = Math.max(1, ret[key] - plus)
+      }
+    })
     return ret
   },
 
