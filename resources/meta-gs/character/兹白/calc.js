@@ -29,6 +29,7 @@ export const details = [
   {
     params: { skills_1: true, Moonsign_Benediction: true, cons_1: true, cons_6: true },
     title: '1命「灵驹飞踏」初次第二段伤害',
+    cons: 1,
     dmg: ({ attr, calc, talent } , { basic }) => basic(calc(attr.def) * talent.e['灵驹飞踏第二段伤害'] / 100, '', 'lunarCrystallize')
   }
 ]
@@ -57,7 +58,7 @@ export const buffs = [
     title: '兹白天赋：基于兹白的防御力，对队伍中角色造成的月曜反应提升[fypct]%的基础伤害',
     sort: 9,
     data: {
-      fypct: ({ attr, calc }) => Math.min(Math.floor(calc(attr.def) / 100) * 0.7, 14)
+      fypct: ({ attr, calc }) => Math.min(calc(attr.def) / 100 * 0.7, 14)
     }
   },
   {
