@@ -74,7 +74,7 @@ export const buffs = [
     title: '哥伦比娅天赋：基于哥伦比娅的生命值上限，对队伍中角色造成的月曜反应提升[fypct]%的基础伤害',
     sort: 9,
     data: {
-      fypct: ({ attr, calc }) => Math.min(Math.floor(calc(attr.hp) / 1000) * 0.2, 7)
+      fypct: ({ attr, calc }) => Math.min(calc(attr.hp) / 1000 * 0.2, 7)
     }
   },
   {

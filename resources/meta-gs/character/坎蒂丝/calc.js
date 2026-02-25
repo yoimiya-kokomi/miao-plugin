@@ -9,7 +9,7 @@ export const details = [{
   title: 'Q提升普攻伤害',
   dmg: ({ attr, calc }) => {
     return {
-      avg: 20 + Math.floor(calc(attr.hp) / 1000) * 0.5,
+      avg: 20 + calc(attr.hp) / 1000 * 0.5,
       unit: '%'
     }
   }

@@ -47,8 +47,8 @@ export const buffs = [{
   title: '阿贝多天赋：获得【魔导·秘仪】效果时，炼成阳华和瑰银后的20秒内，提升元素战技和元素爆发造成的伤害，每1000点防御力都将提升14%伤害。当前共提升[eDmg]%',
   sort: 9,
   data: {
-    eDmg: ({ calc, attr }) => Math.min(Math.floor(calc(attr.def) / 1000) * 14, 42),
-    qDmg: ({ calc, attr }) => Math.min(Math.floor(calc(attr.def) / 1000) * 14, 42)
+    eDmg: ({ calc, attr }) => Math.min(calc(attr.def) / 1000 * 14, 42),
+    qDmg: ({ calc, attr }) => Math.min(calc(attr.def) / 1000 * 14, 42)
   }
 }, {
   title: '阿贝多1命：施放元素战技后的20秒内，自身的防御力提升[defPct]%',

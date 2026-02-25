@@ -14,7 +14,7 @@ export const details = [{
   dmg: ({ cons, attr, calc }) => {
     let num = cons == 6 ? 0.1 : 0
     return {
-      avg: Format.percent(Math.min(Math.floor(calc(attr.hp) / 1000) * 0.005, 0.2) + num),
+      avg: Format.percent(Math.min(calc(attr.hp) / 1000 * 0.005, 0.2) + num),
       type: 'text'
     }
   }
