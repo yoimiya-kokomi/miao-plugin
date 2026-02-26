@@ -19,6 +19,9 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(100)
 }]
 
+export const defParams = { Hexenzirkel: true } // 魔女会成员
+export const mainAttr = 'atk,cpct,cdmg'
+
 export const buffs = [{
   title: '雷泽1命：获得元素球后8秒伤害提高10%',
   cons: 1,

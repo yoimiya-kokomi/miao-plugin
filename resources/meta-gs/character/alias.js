@@ -125,5 +125,5 @@ export const alias = {
   哥伦比娅: 'Columbina,少女,月神',
   兹白: 'Zibai,白马仙人,白马',
   叶洛亚: 'Illuga,少爷,小少爷',
-  法尔伽: '大团长,法尔加',
+  法尔伽: 'Varka,大团长,法尔加',
 }

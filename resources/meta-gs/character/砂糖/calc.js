@@ -16,6 +16,7 @@ export const details = [{
   dmg: ({}, { reaction }) => reaction('swirl')
 }]
 
+export const defParams = { Hexenzirkel: true } // 魔女会成员
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = ['swirl']

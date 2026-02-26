@@ -253,8 +253,12 @@ class Attr extends Base {
       return false
     }
     let key = ds.key
-    if (Format.isElem(key) && char.elem === key) {
-      key = 'dmg'
+    if (Format.isElem(key)) {
+      if (char.elem === key) {
+        key = 'dmg'
+      } else if (['electro', 'pyro', 'hydro', 'cryo'].includes(key)) {
+        key = 'coloringDmg'
+      }
     }
     if (!key) {
       return false
