@@ -27,12 +27,12 @@ let DmgCalc = {
       attr, // 属性
       level, // 面板数据
       enemyLv, // 敌人等级
-      showDetail = false, // 是否展示详情
+      showDetail = true, // 是否展示详情
       game
     } = data
     let calc = ds.calc
 
-    let { atk, dmg, phy, cdmg, cpct, enemydmg } = attr
+    let { atk, dmg, phy, coloringDmg, cdmg, cpct, enemydmg } = attr
 
     // 攻击区
     let atkNum = calc(atk)
@@ -50,6 +50,10 @@ let DmgCalc = {
 
     if (ele === 'phy') {
       dmgNum = (1 + phy.base / 100 + phy.plus / 100 + dynamicPhy / 100)
+    }
+
+    if (ele === 'coloringDmg') {
+      dmgNum = (1 + coloringDmg.base / 100 + coloringDmg.plus / 100 + coloringDmg / 100)
     }
 
     if (/^scene,.*/.test(ele) || /.*,scene$/.test(ele) || ele === 'scene') {
@@ -140,7 +144,7 @@ let DmgCalc = {
       cdmgNum = 0
     }
 
-    const isEle = ele !== false && ele !== 'phy' && ele !== 'scene'
+    const isEle = ele !== false && ele !== 'phy' && ele !== 'scene' && ele !== 'coloringDmg'
     // 反应区
     let eleNum = 1
     let eleBase = 1

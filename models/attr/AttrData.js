@@ -3,7 +3,7 @@ import Base from '../Base.js'
 import { Format } from '#miao'
 
 const baseAttr = {
-  gs: 'atk,def,hp,mastery,recharge,cpct,cdmg,dmg,phy,heal,shield'.split(','),
+  gs: 'atk,def,hp,mastery,recharge,cpct,cdmg,dmg,phy,heal,shield,coloringDmg'.split(','),
   sr: 'atk,def,hp,speed,recharge,cpct,cdmg,dmg,heal,stance,effPct,effDef'.split(',')
 }
 let attrReg = {

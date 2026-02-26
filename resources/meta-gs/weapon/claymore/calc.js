@@ -229,6 +229,13 @@ export default function (step, staticStep) {
       data: {
         mastery: ({ params, refine }) => step(60)[refine] * ((params.Moonsign || 0) >= 2 ? 2 : 1)
       }
+    },
+    狼的武功歌: {
+      title: '满层「四风诗系」造成的伤害提升[dmg]%。队伍拥有「魔导·秘仪」效果时，暴击伤害提高[cdmg]%',
+      data: {
+        dmg: ({ refine }) => step(7.5, 2)[refine] * 4,
+        cdmg: ({ params, refine }) => (params.Hexenzirkel ? step(7.5, 2)[refine] * 4 : 0)
+      }
     }
   }
 }
