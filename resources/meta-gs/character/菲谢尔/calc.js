@@ -13,6 +13,7 @@ export const details = [{
   dmg: ({ talent, cons }, dmg) => dmg(talent.q['落雷伤害'], 'q')
 }]
 
+export const defParams = { Hexenzirkel: true } // 魔女会成员
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
