@@ -27,7 +27,7 @@ let DmgCalc = {
       attr, // 属性
       level, // 面板数据
       enemyLv, // 敌人等级
-      showDetail = true, // 是否展示详情
+      showDetail = false, // 是否展示详情
       game
     } = data
     let calc = ds.calc
