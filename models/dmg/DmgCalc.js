@@ -53,7 +53,11 @@ let DmgCalc = {
     }
 
     if (ele === 'coloringDmg') {
-      dmgNum = (1 + coloringDmg.base / 100 + coloringDmg.plus / 100 + coloringDmg / 100)
+      let dmgPct = attr.staticAttr.dmg.plus / 100
+      if (dmgPct > 0) {
+        dmgNum = (dmgNum - dmgPct) < 1 ? 1 : (dmgNum - dmgPct)
+      }
+      dmgNum += (coloringDmg.base / 100 + coloringDmg.plus / 100)
     }
 
     if (/^scene,.*/.test(ele) || /.*,scene$/.test(ele) || ele === 'scene') {
