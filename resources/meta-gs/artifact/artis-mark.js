@@ -107,12 +107,12 @@ export const usefulAttr = {
   伊涅芙: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 0, phy: 0, recharge: 40, heal: 0 },
   菈乌玛: { hp: 0, atk: 25, def: 0, cpct: 50, cdmg: 50, mastery: 100, dmg: 0, phy: 0, recharge: 100, heal: 0 },
   爱诺: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 40, heal: 0 },
-  菲林斯: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 0, phy: 0, recharge: 50, heal: 0 },
+  菲林斯: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 50, dmg: 0, phy: 0, recharge: 50, heal: 0 },
   奈芙尔: { hp: 0, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 100, dmg: 0, phy: 0, recharge: 35, heal: 0 },
   杜林: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 20, heal: 0 },
   雅珂达: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 80, phy: 0, recharge: 100, heal: 100 },
   哥伦比娅: { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 0, phy: 0, recharge: 100, heal: 0 },
-  兹白: { hp: 0, atk: 0, def: 100, cpct: 100, cdmg: 100, mastery: 85, dmg: 0, phy: 0, recharge: 40, heal: 0 },
+  兹白: { hp: 0, atk: 0, def: 100, cpct: 100, cdmg: 100, mastery: 70, dmg: 0, phy: 0, recharge: 40, heal: 0 },
   叶洛亚: { hp: 0, atk: 0, def: 50, cpct: 50, cdmg: 50, mastery: 100, dmg: 80, phy: 0, recharge: 100, heal: 0 },
-  法尔伽: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 60, phy: 0, recharge: 30, heal: 0 }
+  法尔伽: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 99, phy: 0, recharge: 30, heal: 0 }
 }

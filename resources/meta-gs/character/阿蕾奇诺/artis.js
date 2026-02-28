@@ -5,6 +5,7 @@ export default function ({attr, rule, def}) {
   let particularAttr = {...usefulAttr['阿蕾奇诺']}
   if (attr.mastery < 50) {
     title.push('纯火')
+    particularAttr.atk = 85
     particularAttr.mastery = 0
   }
   if (title.length > 0) {

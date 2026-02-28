@@ -47,7 +47,7 @@ export const details = [
     }
   },
   {
-    title: '1命「歌中的佳酿」「四风将起」总伤害',
+    title: '1命强化后「四风将起」总伤害',
     cons: 1,
     params: { skills_1: true, skills_2: true, cons_1: true, cons_6: true },
     dmg: ({ attr, talent } , dmg) => {
@@ -60,7 +60,7 @@ export const details = [
     }
   },
   {
-    title: '1命「歌中的佳酿」「苍噬」总伤害',
+    title: '1命强化后「苍噬」总伤害',
     cons: 1,
     params: { skills_1: true, skills_2: true, cons_1: true, cons_6: true },
     dmg: ({ attr, talent } , dmg) => {
@@ -102,8 +102,7 @@ export const buffs = [
     title: '法尔伽天赋：队伍中存在火/水/雷/冰元素角色时，每1000点攻击力都将使法尔伽获得10%风元素伤害加成与对应元素伤害加成。当前共获得[dmg]%元素伤害加成。',
     sort: 9,
     data: {
-      dmg: ({ attr, calc }) => Math.min(calc(attr.atk) / 1000 * 10, 25),
-      coloringDmg: ({ attr, calc }) => Math.min(calc(attr.atk) / 1000 * 10, 25),
+      dmg: ({ attr, calc }) => Math.min(calc(attr.atk) / 1000 * 10, 25)
     }
   },
   {
@@ -118,8 +117,7 @@ export const buffs = [
     title: '法尔伽4命：法尔伽触发扩散反应时，使队伍中附近的所有角色分别获得[dmg]%风元素伤害加成与对应元素伤害加成',
     cons: 4,
     data: {
-      dmg: 20,
-      coloringDmg: 20
+      dmg: 20
     }
   },
   {
