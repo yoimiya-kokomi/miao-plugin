@@ -101,7 +101,7 @@ let ArtisMark = {
   },
 
   // 获取位置分数
-  getMark ({ charCfg, idx, arti, elem = '', game = 'gs' }) {
+  getMark ({ charCfg, idx, arti, elem = '', game = 'gs', id }) {
     let ret = 0
     let mAttr = arti.main
     let sAttr = arti.attrs
@@ -116,8 +116,11 @@ let ArtisMark = {
       let mainKey = key
       if (key !== 'recharge') {
         let dmgIdx = { gs: 4, sr: 5 }
-        if (idx === dmgIdx[game] && Format.sameElem(elem, key, game)) {
-          mainKey = 'dmg'
+        if (idx === dmgIdx[game]) {
+          // 对法尔伽做特殊处理————所有异色属伤杯，在圣遗物评分时，均视为风伤杯
+          if (Format.sameElem(elem, key, game) || id === 10000128) {
+            mainKey = 'dmg'
+          }
         }
         fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + idx])))
         if (game === 'gs') {
@@ -186,9 +189,9 @@ let ArtisMark = {
     let artisRet = {}
     let setCount = {}
     let totalMark = 0
-    let { game, artis, elem } = profile
+    let { game, artis, elem, id } = profile
     artis.forEach((arti, idx) => {
-      let mark = ArtisMark.getMark({ charCfg, idx, arti, elem, game })
+      let mark = ArtisMark.getMark({ charCfg, idx, arti, elem, game, id })
       totalMark += mark
       setCount[arti.set] = (setCount[arti.set] || 0) + 1
       artisRet[idx] = {
