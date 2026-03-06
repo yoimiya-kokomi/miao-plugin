@@ -6,6 +6,8 @@ export default function ({cons, rule, def, artis}) {
   if (cons > 0 && artis.artis['4'].main && artis.artis['4'].main.key === 'atk') {
     title.push('辅助')
     particularAttr.atk = 100
+    particularAttr.mastery = 30
+    particularAttr.dmg = 80
   }
   if (title.length > 0) {
     return rule(`杜林-${title.join('')}`, particularAttr)
