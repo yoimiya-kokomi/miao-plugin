@@ -55,8 +55,8 @@ class Character extends Base {
   // 是否为实装官方角色
   get isRelease () {
     if (this.isCustom) return false
-    if (Cfg.get('notReleasedData')) return true
     if (this.eta) return this.eta * 1 < new Date() * 1
+    if (Cfg.get('notReleasedData')) return true
     return false
   }
 
