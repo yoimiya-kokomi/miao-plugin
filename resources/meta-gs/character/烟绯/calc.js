@@ -33,6 +33,6 @@ export const buffs = [{
 }, {
   title: '烟绯被动：开Q后提高重击伤害[a2Dmg]%',
   data: {
-    a2Dmg: ({ talent }) => talent.q['重击伤害额外加成']
+    a2Dmg: ({ talent }) => talent.q['重击伤害提升']
   }
 }, 'vaporize']
