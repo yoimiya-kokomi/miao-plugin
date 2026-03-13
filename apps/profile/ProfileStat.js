@@ -430,8 +430,98 @@ const ProfileStat = {
         for (const monster of MonsterList) {
           monsterNames.push(monster.Name)
         }
-        currentMonsterInfo += monsterNames.join(' 、')
+        currentMonsterInfo += monsterNames.join('、')
         monsterInfo.push(currentMonsterInfo)
+      }
+    }
+    return monsterInfo.join('\n')
+  },
+
+  async getOverallMazeDataFromNanokaCc() {
+    const manifest_url = 'https://static.nanoka.cc/manifest.json'
+    let manifestData = false
+    try {
+        manifestData = await (await ProfileStat.fetchWithTimeout(manifest_url)).json()
+    } catch (error) {
+        logger.error('请求失败:', error)
+        return false // 直接返回以停止后续逻辑
+    }
+    const version = manifestData.gi.latest
+    const overallMazeDataUrl = `https://static.nanoka.cc/gi/${version}/rolecombat.json`
+    let overallMazeData = false
+    try {
+        overallMazeData = await (await ProfileStat.fetchWithTimeout(overallMazeDataUrl)).json()
+    } catch (error) {
+        logger.error('请求失败:', error)
+        return false // 直接返回以停止后续逻辑
+    }
+    return {
+      version: version,
+      data: Object.values(overallMazeData) // 乱序，不直接用
+    }
+  },
+
+  async getRequestedMazeDataFromNanokaCc(e, overallMazeData) {
+    const mazeId = ProfileStat.getMazeId(e)
+    if (mazeId >= 0 && mazeId < overallMazeData.data.length) {
+      const request_url = `https://static.nanoka.cc/gi/${overallMazeData.version}/zh/rolecombat/${mazeId + 4}.json`
+      let currentRawMazeData = false
+      try {
+          currentRawMazeData = await (await ProfileStat.fetchWithTimeout(request_url)).json()
+      } catch (error) {
+          logger.error('请求失败:', error)
+          return false // 直接返回以停止后续逻辑
+      }
+      // 转换成和 HomDGCat 相同的格式
+      const convertedInitialAvatarIds = lodash.map(
+        currentRawMazeData.avatar_config.buff_avatar_list, (item) => ({'ID': item.id - 10000000}))
+      const convertedInvitationAvatarIds = lodash.map(
+        currentRawMazeData.avatar_config.invite_avatar_list, (id) => ({'ID': id - 10000000}))
+      const elementConvertingMapping = {
+        0: null,
+        2: 'Fire',
+        3: 'Water',
+        4: 'Grass',
+        5: 'Elec',
+        6: 'Ice',
+        7: 'Wind',
+        8: 'Rock'
+      }
+      
+      const convertedElem = lodash
+        .map(currentRawMazeData.avatar_config.element_list, (item) => elementConvertingMapping[item])
+        .filter(item => item !== null)
+
+      const currentMazeData = {
+        'Initial': convertedInitialAvatarIds,
+        'Invitation': convertedInvitationAvatarIds,
+        'Elem': convertedElem,
+        'RawData': currentRawMazeData
+      }
+      return currentMazeData
+    }
+  },
+
+  getMonsterInfoFromNanokaCc(currentMazeData) {
+    const DifficultyConfig = lodash.get(currentMazeData, 'RawData.difficulty_config')
+    const bossIndex = {
+      'room': { '第三幕': '3', '第六幕': '6', '第八幕': '8', '第十幕': '10' },
+      'hard_room': {'圣牌挑战 I': '4', '圣牌挑战 II': '7'}
+    }
+    let monsterInfo = []
+    for (const room_name of ['room', 'hard_room']) {
+      const roomInfo = lodash.get(lodash.last(Object.values(DifficultyConfig)), room_name)
+      for (const [k, v] of Object.entries(bossIndex[room_name])) {
+        const MonsterList = lodash.get(roomInfo, `${v}.monster_preview_list`)
+        if (MonsterList) {
+          let currentMonsterInfo = `${k}：`
+          let monsterNames = []
+          for (const monster of MonsterList) {
+            monsterNames.push(monster.name)
+          }
+          currentMonsterInfo += monsterNames.join('、')
+          monsterInfo.push(currentMonsterInfo)
+        }
       }
     }
     return monsterInfo.join('\n')
@@ -612,6 +702,9 @@ const ProfileStat = {
       } else if (infoSource == 3) {
         datasetName = 'hakush.in'
         overallMazeData = await ProfileStat.getOverallMazeDataFromHakushIn() // data
+      } else if (infoSource == 4) {
+        datasetName = 'nanoka.cc'
+        overallMazeData = await ProfileStat.getOverallMazeDataFromNanokaCc() // version & data
       }
       if (!overallMazeData) {
         e.reply(`请求 ${datasetName} 数据库出错`)
@@ -625,9 +718,12 @@ const ProfileStat = {
         currentMazeData = await ProfileStat.getRequestedMazeDataFromBWiki(e, overallMazeData)
       } else if (infoSource == 3) {
         currentMazeData = await ProfileStat.getRequestedMazeDataFromHakushIn(e, overallMazeData)
+      } else if (infoSource == 4) {
+        currentMazeData = await ProfileStat.getRequestedMazeDataFromNanokaCc(e, overallMazeData)
       }
       if (!currentMazeData) {
-        const n = overallMazeData.length - 1 + 4 * 12 + 7 - 1
+        const numMonths = infoSource == 4 ? Object.keys(overallMazeData.data).length : overallMazeData.length
+        const n = numMonths - 1 + 4 * 12 + 7 - 1
         const maxYear = Math.floor(n / 12)
         const maxMonth = n % 12 + 1
         const formattedMonth = String(maxMonth).padStart(2, '0'); // 将月份格式化为两位数
@@ -638,6 +734,10 @@ const ProfileStat = {
         e.reply(response)
         return false
       }
+      if (currentMazeData.Initial.length === 0 || currentMazeData.Invitation.length === 0 || currentMazeData.Elem.length === 0) {
+        e.reply(`在 ${datasetName} 数据库中查询当前月份未获取到开幕角色、特邀角色、限制元素，请考虑联系管理员更换数据源`)
+        return false
+      }
       // 获取怪物信息
       if (infoSource == 1) {
         monsterInfo = ProfileStat.getMonsterInfo(currentMazeData, levelMapping, monsterMapping)
@@ -645,6 +745,8 @@ const ProfileStat = {
         // TODO
       } else if (infoSource == 3) {
         monsterInfo = ProfileStat.getMonsterInfoFromHakushIn(currentMazeData)
+      } else if (infoSource == 4) {
+        monsterInfo = ProfileStat.getMonsterInfoFromNanokaCc(currentMazeData)
       }
       // 筛选角色
       let initialCharacterIds = ProfileStat.extractInitialCharacterIds(currentMazeData)
