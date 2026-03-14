@@ -464,7 +464,7 @@ const ProfileStat = {
   async getRequestedMazeDataFromNanokaCc(e, overallMazeData) {
     const mazeId = ProfileStat.getMazeId(e)
     if (mazeId >= 0 && mazeId < overallMazeData.data.length) {
-      const request_url = `https://static.nanoka.cc/gi/${overallMazeData.version}/zh/rolecombat/${mazeId + 4}.json`
+      const request_url = `https://static.nanoka.cc/gi/${overallMazeData.version}/zh/rolecombat/${mazeId + 3}.json`
       let currentRawMazeData = false
       try {
           currentRawMazeData = await (await ProfileStat.fetchWithTimeout(request_url)).json()
