@@ -113,7 +113,7 @@ const CharImg = {
     for (let i = 1; i <= 6; i++) {
       tAdd(`cons${i}`, `icons/cons-${i}`)
     }
-    for (let i = 0; i <= 3; i++) {
+    for (let i = 0; i <= 4; i++) {
       tAdd(`passive${i}`, `icons/passive-${i}`)
     }
     imgs.a = `/common/item/atk-${weaponType}.webp`
