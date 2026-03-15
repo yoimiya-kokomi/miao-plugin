@@ -97,6 +97,7 @@ let CharWikiData = {
         } else {
            // 处理"暂无套装"等情况
            if (t === "暂无套装") {
+	   imgs.push("common/item/artifact-icon.webp")
              abbrs.push("其它")
            }
         }
