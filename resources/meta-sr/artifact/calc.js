@@ -452,7 +452,7 @@ export default {
       }
     }]
   },
-  "闪耀功勋的魔法少女": {
+  闪耀功勋的魔法少女: {
     2: attr("cdmg", 16),
     4: [attr("ignore", 10),{
       title: '计算[_buffCount]层，造成的欢愉伤害额外无视目标[ignore]%的防御力',
@@ -462,7 +462,7 @@ export default {
       }
     }
     }],
-  "应天涉远的卜者": {
+  应天涉远的卜者: {
     2: attr("speedPct", 6),
     4: {
       title: '进入战斗时，若装备者的速度大于等于[_speed]，使装备者的暴击率提高[cpct]%',
