@@ -9,6 +9,6 @@ export default function (staticIdx, keyIdx) {
     ],
     今日好手气: [
       staticIdx(1, 'cpct')
-    ],
+    ]
   }
 }

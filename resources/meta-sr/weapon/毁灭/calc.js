@@ -128,17 +128,21 @@ export default function (staticIdx, keyIdx) {
         }
       }
     ],
-    "没有回报的加冕": [
-      staticIdx(1, "cdmg"),
+    没有回报的加冕: [
+      staticIdx(1, 'cdmg'),
       (tables) => {
         return {
-          title: "攻击力提高[atkPct]%",
+          title: '攻击力提高[atkPct]%',
           data: {
             atkPct: tables[2] + tables[3]
           }
         }
       }
     ],
-    一行往日的血: [ keyIdx("暴击率提高[cpct]%,战技伤害提高[eDmg]%,终结技伤害提高[qDmg]%", { cpct: 1, eDmg: 2, qDmg: 2 }) ],
+    一行往日的血: [
+      keyIdx('暴击率提高[cpct]%,战技伤害提高[eDmg]%,终结技伤害提高[qDmg]%', {
+        cpct: 1, eDmg: 2, qDmg: 2
+      })
+    ]
   }
 }
