@@ -28,6 +28,7 @@ export const details = [{
   dmg: ({ cons, calc, attr }, { basic }) => basic(3 * calc(attr.def) * (cons < 6 ? 300 : 550) / 100, 'q')
 }]
 
+export const defParams = { Hexenzirkel: true } // 魔女会成员
 export const defDmgIdx = 1
 export const mainAttr = 'def,atk,cpct,cdmg'
 
