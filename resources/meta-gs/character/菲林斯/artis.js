@@ -8,10 +8,6 @@ export default function ({cons, weapon, rule, def}) {
     title.push('专武')
     recharge -= 5
   }
-  if (cons > 0) {
-    title.push('高命')
-    recharge -= 5
-  }
   if (title.length > 0) {
     particularAttr.recharge = recharge
     return rule(`菲林斯-${title.join('')}`, particularAttr)
