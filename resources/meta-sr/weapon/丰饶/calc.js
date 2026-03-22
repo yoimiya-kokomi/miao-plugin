@@ -69,8 +69,8 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'speedPct')
     ],
     直到明天的明天: [
-      staticIdx(1, "heal"),
-      keyIdx("造成的伤害提高[dmg]%", "dmg", 2)
+      staticIdx(1, 'heal'),
+      keyIdx('造成的伤害提高[dmg]%', 'dmg', 2)
     ]
   }
 }
