@@ -137,32 +137,42 @@ let MysPanelHSRData = {
     }
   },
 
-  getTalent(char, cons, ds = {}, servant_skills = []) {
-    let { talentId = {}, talentCons = {} } = char.meta
-    let idx = 0
+getTalent(char, cons, ds = [], servant_skills = []) {
+    let { talentCons = {} } = char?.meta || {}
     let ret = {}
-    const skillKeys = ["a", "e", "q", "t", "z", "me", "mt"] // 没有欢愉角色，暂不知格式
-    lodash.forEach(ds, (talent_data) => {
-      const id = talent_data.point_id
-      const lv = talent_data.level
-      let key
-      if (talentId[id]) {
-        key = talentId[id]
-        ret[key] = lv
-      } else if (talent_data.point_type == 2) {
-        key = skillKeys[idx] || `unk${idx}`
-        idx++
-        ret[key] = ret[key] || lv
+
+    // remake到内部key的映射字典
+    const remakeMap = {
+      "普攻": "a",
+      "战技": "e",
+      "终结技": "q",
+      "天赋": "t",
+      "秘技": "z",
+      "欢愉技": "xe",
+      "忆灵技": "me",
+      "忆灵天赋": "mt"
+    }
+
+    // 遍历本体技能列表进行提取
+    lodash.forEach(ds, (skill) => {
+      let key = remakeMap[skill.remake]
+      if (key) {
+        ret[key] = skill.level
       }
     })
-    if (Array.isArray(servant_skills) && servant_skills.length !== 0) {
-      let me = servant_skills[0]?.level ?? 0
-      let mt = servant_skills[1]?.level ?? 0
-      ret["me"] = me
-      ret["mt"] = mt
+
+    // 遍历忆灵技能列表进行提取
+    if (Array.isArray(servant_skills)) {
+      lodash.forEach(servant_skills, (skill) => {
+        let key = remakeMap[skill.remake]
+        if (key) {
+          ret[key] = skill.level
+        }
+      })
     }
+
+    const step = { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1, xe: 1 } 
     lodash.forEach(talentCons, (lv, key) => {
-      let step = { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1, xe: 1 }
       let addNum = step[key] || 0
       let plus = 0
       if (lodash.isArray(lv)) {
