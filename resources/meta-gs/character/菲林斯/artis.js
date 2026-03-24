@@ -1,6 +1,6 @@
 import {usefulAttr} from "../../artifact/artis-mark.js"
 
-export default function ({cons, weapon, rule, def}) {
+export default function ({weapon, rule, def}) {
   let title = []
   let particularAttr = {...usefulAttr['菲林斯']}
   let recharge = particularAttr.recharge
