@@ -188,6 +188,9 @@ body {
 .i-effDef {
   background-position: -192px 0;
 }
+.i-joy {
+  background-position: -208px 0;
+}
 .detail.attr li:nth-child(even) {
   background: rgba(0, 0, 0, 0.4);
 }
