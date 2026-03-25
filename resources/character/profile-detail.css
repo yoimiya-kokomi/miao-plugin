@@ -903,6 +903,16 @@ body {
 .game-sr .char-attr .icon i {
   background-image: url('./imgs/icon-sr.png');
 }
+.game-sr .main-pic {
+  width: 1400px;
+  height: 520px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: -545px;
+  position: relative;
+  z-index: 2;
+}
 .artis .item.arti {
   overflow: visible;
 }
