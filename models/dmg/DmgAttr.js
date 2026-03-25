@@ -108,7 +108,6 @@ let DmgAttr = {
         ret.superBreak = {
           ignore: 0 // 无视防御
         }
-        ret.joy = 0
       }
     }
     return ret
@@ -175,7 +174,7 @@ let DmgAttr = {
         }
       }
 
-      let title = typeof buff.title === "function" ? buff.title(ds) : buff.title
+      let title = typeof buff.title === 'function' ? buff.title(ds) : buff.title
 
       if (buff.mastery) {
         let mKey = {
