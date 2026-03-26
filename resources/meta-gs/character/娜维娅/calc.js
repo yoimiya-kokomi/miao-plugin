@@ -18,9 +18,6 @@ export const details = [{
 },{
   title: '支援炮击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['支援炮击伤害'], 'q')
-},{
-  title: '结晶护盾吸收量',
-  dmg: ({}, { reaction }) => reaction('crystallize')
 }]
 
 export const defDmgIdx = 3

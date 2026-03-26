@@ -7,6 +7,9 @@ export default function ({cons, rule, def}) {
   if (cons >= 1) {
     title.push('高命')
     recharge -= 10
+    if (cons == 6) {
+      particularAttr.atk = 100
+    }
   }
   if (title.length > 0) {
     particularAttr.recharge = recharge
