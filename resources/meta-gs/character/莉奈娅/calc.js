@@ -27,7 +27,7 @@ export const details = [
   }
 ]
 
-export const defDmgIdx = 3
+export const defDmgIdx = 2
 export const mainAttr = 'def,cpct,cdmg,mastery'
 export const defParams = { Moonsign: 2 }
 
