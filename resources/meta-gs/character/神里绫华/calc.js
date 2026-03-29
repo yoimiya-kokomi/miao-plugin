@@ -37,4 +37,9 @@ export const buffs = [{
   data: {
     a2Dmg: 298
   }
+}, {
+  title: '双冰共鸣：攻击冰元素附着或冻结状态下的敌人时，暴击率提高[cpct]%',
+  data: {
+    cpct: 15
+  }
 }]
