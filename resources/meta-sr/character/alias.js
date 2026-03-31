@@ -83,6 +83,7 @@ export const alias = {
   爻光: 'yaoguang',
   花火Pro: 'sparkle2,花火pro,花火加强版,加强版花火',
   黑天鹅Pro: 'blackswan2,黑天鹅pro,黑天鹅加强版,加强版黑天鹅',
+  不死途: 'ashveil,侦探,不死徒'
 }
 
 export const abbr = {
