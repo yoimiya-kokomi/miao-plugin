@@ -6,11 +6,11 @@ export default function ({cons, weapon, rule, def}) {
   let recharge = particularAttr.recharge
   if (weapon.name === '帷间夜曲') {
     title.push('专武')
-    recharge -= 20
+    recharge -= 15
   }
   if (cons >= 4) {
     title.push('高命')
-    recharge -= 20
+    recharge -= 15
   }
   if (title.length > 0) {
     particularAttr.recharge = recharge
