@@ -475,7 +475,7 @@ export default {
   },
   零号关卡朋克洛德: {
     2: [attr('joyPct', 8), {
-      check: ({ attr }) => attr.joy + attr.joy.pct >= 40,
+      check: ({ attr }) => attr.joy.base + attr.joy.pct >= 40,
       title: '战斗中欢愉度首次达到[_joy]%时，使装备者暴击伤害提高[cdmg]%',
       data: {
         _joy: ({ attr, calc }) => {
