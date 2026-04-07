@@ -319,6 +319,14 @@ export default function (step, staticStep) {
         eDmg: step(60),
         qDmg: step(60)
       }
-    }
+    },
+    霜结的誓金枝: [staticStep('defPct', 16), {
+      check: ({ element }) => element === '岩',
+      title: '装备者的元素战技或月结晶攻击命中敌人时，造成的岩元素伤害提升[dmg]%，月结晶反应伤害提升[lunarCrystallize]%',
+      refine: {
+        dmg: step(40),
+        lunarCrystallize: step(40)
+      }
+    }]
   }
 }
