@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 计算伤害
 * */
-import { eleBaseDmg, erTitle, breakBaseDmg, cryBaseDmg, elationBaseDmg } from './DmgCalcMeta.js'
+import { eleBaseDmg, erTitle, breakBaseDmg, cryBaseDmg } from './DmgCalcMeta.js'
 import DmgMastery from './DmgMastery.js'
 import lodash from 'lodash'
 
@@ -48,13 +48,6 @@ let DmgCalc = {
     let elevatedNum = attr.elevated / 100
     let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100 + dynamicDmg / 100)
 
-    // 增笑
-    let merrymakesNum = 1 + attr.merrymakes / 100
-    // 笑点
-    let punchlineNum = attr.punchline
-    // 欢愉度
-    let joyNum = 1 + attr.joy.base / 100 + attr.joy.pct / 100
-
     if (ele === 'phy') {
       dmgNum = (1 + phy.base / 100 + phy.plus / 100 + dynamicPhy / 100)
     }
@@ -73,7 +66,7 @@ let DmgCalc = {
         dmgNum = (dmgNum - dmgPct) < 1 ? 1 : (dmgNum - dmgPct)
       }
       if (ele !== 'scene') {
-        ele = ele.replace(/(,)?scene(,)?/g, '')
+        ele = ele.replace(/(,)?scene(,)?/g, "")
       }
     }
 
@@ -219,9 +212,9 @@ let DmgCalc = {
       case 'lunarCharged':
       case 'lunarCrystallize': {
         let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
-        if (ele === 'lunarCharged') {
+        if (ele === "lunarCharged") {
           eleNum = dmgBase ? 3 : eleNum
-        } else if (ele === 'lunarCrystallize') {
+        } else if (ele === "lunarCrystallize") {
           eleNum = dmgBase ? 1.6 : eleNum
         } else {
           eleNum = 1
@@ -282,16 +275,6 @@ let DmgCalc = {
         breakBase *= breakBaseDmg[level]
         ret = {
           avg: breakBase * eleNum * stanceNum * enemydmgNum * defNum * kNum * dmgReduceNum
-        }
-        break
-      }
-      case 'elation': {
-        let elationBase = 1 * elationBaseDmg[level]
-        pctNum += multiNum
-        let punchlineCals = 1 + punchlineNum * 5 / (punchlineNum + 240)
-        ret = {
-          avg: elationBase * pctNum * merrymakesNum * joyNum * punchlineCals * (1 + cpctNum * cdmgNum) * defNum * kNum * dmgReduceNum * enemydmgNum,
-          dmg: elationBase * pctNum * merrymakesNum * joyNum * punchlineCals * (1 + cdmgNum) * defNum * kNum * dmgReduceNum * enemydmgNum
         }
         break
       }
