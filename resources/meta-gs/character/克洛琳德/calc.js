@@ -1,9 +1,10 @@
 export const details = [{
     title: 'E后普通攻击',
+    params: { BondOfLifeGet: 3 },
     dmg: ({ talent }, dmg) => dmg(talent.e['驰猎伤害2'][0], 'a')
 }, {
     title: 'E后穿透射击',
-    params: { blPct: 0.5 },
+    params: { blPct: 0.5, BondOfLifeGet: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['驰猎伤害2'][1], 'a')
 }, {
     title: 'E剑击伤害',
@@ -11,16 +12,19 @@ export const details = [{
     dmg: ({ talent }, dmg) => dmg(talent.e['贯夜伤害2'][0], 'a')
 }, {
     title: 'E强化剑击伤害',
-    params: { blPct: 0.5 },
+    params: { blPct: 0.5, BondOfLifeGet: 2, DecreasedBondOfLife: 1, HealNumber: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['贯夜伤害2'][1], 'a')
 }, {
     title: 'E贯夜·契令伤害',
+    params: { BondOfLifeGet: 3, DecreasedBondOfLife: 1, HealNumber: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'a')
 }, {
     title: 'Q单段伤害',
+    params: { BondOfLifeGet: 4, DecreasedBondOfLife: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害2'][0], 'q')
 }, {
     title: 'Q完整伤害',
+    params: { BondOfLifeGet: 4, DecreasedBondOfLife: 1 },
     dmg: ({ talent }, dmg) => {
     let q1 = dmg(talent.q['技能伤害2'][0], 'q')
     return {

@@ -1,31 +1,35 @@
 export const details = [{
   title: 'E后普攻首段伤害',
+  params: { BondOfLifeGet: 1, DecreasedBondOfLife: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 }, {
   check: ({ cons }) => cons >= 2,
   title: '2命血偿勒令回收伤害',
+  params: { BondOfLifeGet: 1 },
   dmg: ({ attr }, { basic }) => basic(attr.atk * 900 / 100, '')
 }, {
   title: 'Q伤害',
+  params: { BondOfLifeGet: 1, DecreasedBondOfLife: 8, HealNumber: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: 'Q蒸发伤害',
+  params: { BondOfLifeGet: 1, DecreasedBondOfLife: 8, HealNumber: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
 }, {
   title: '仆万班钟·普攻首段',
-  params: { team1: true, BondOfLife: 200 },
+  params: { team1: true, BondOfLife: 200, BondOfLifeGet: 1, DecreasedBondOfLife: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 }, {
   title: '仆万班钟·Q伤害',
-  params: { team1: true, BondOfLife: 200 },
+  params: { team1: true, BondOfLife: 200, BondOfLifeGet: 1, DecreasedBondOfLife: 8, HealNumber: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: '仆夜万班·普攻首段蒸发',
-  params: { team2: true, BondOfLife: 200 },
+  params: { team2: true, BondOfLife: 200, BondOfLifeGet: 1, DecreasedBondOfLife: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'vaporize')
 }, {
   title: '仆夜万班·Q蒸发',
-  params: { team2: true, BondOfLife: 200 },
+  params: { team2: true, BondOfLife: 200, BondOfLifeGet: 1, DecreasedBondOfLife: 8, HealNumber: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
 }]
 
