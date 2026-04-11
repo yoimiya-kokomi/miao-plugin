@@ -49,11 +49,16 @@ let DmgCalc = {
     let dmgNum = (1 + dmg.base / 100 + dmg.plus / 100 + dynamicDmg / 100)
 
     // 增笑
-    let merrymakesNum = 1 + attr.merrymakes / 100
+    let merrymakesNum = 1
     // 笑点
-    let punchlineNum = attr.punchline
+    let punchlineNum = 0
     // 欢愉度
-    let joyNum = 1 + attr.joy.base / 100 + attr.joy.pct / 100
+    let joyNum = 1
+    if (game === 'sr') {
+      merrymakesNum = 1 + attr.merrymakes / 100
+      punchlineNum = attr.punchline
+      joyNum = 1 + attr.joy.base / 100 + attr.joy.pct / 100
+    }
 
     if (ele === 'phy') {
       dmgNum = (1 + phy.base / 100 + phy.plus / 100 + dynamicPhy / 100)
@@ -218,7 +223,7 @@ let DmgCalc = {
       case 'lunarBloom':
       case 'lunarCharged':
       case 'lunarCrystallize': {
-        let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
+        let lunarBase = dmgBase || eleBaseDmg[level]
         if (ele === 'lunarCharged') {
           eleNum = dmgBase ? 3 : eleNum
         } else if (ele === 'lunarCrystallize') {
