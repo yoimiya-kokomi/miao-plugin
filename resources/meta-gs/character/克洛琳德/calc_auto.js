@@ -1,19 +1,22 @@
 export const details = [{
     title: 'E后穿透射击',
-    params: { blPct: 0.5 },
+    params: { blPct: 0.5, BondOfLifeGet: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['驰猎伤害2'][1], 'a')
 }, {
     title: 'E后穿透射击激化',
-    params: { blPct: 0.5 },
+    params: { blPct: 0.5, BondOfLifeGet: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['驰猎伤害2'][1], 'a', 'aggravate')
 }, {
     title: 'E贯夜·契令伤害',
+    params: { BondOfLifeGet: 3, DecreasedBondOfLife: 1, HealNumber: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'a')
 }, {
     title: 'E贯夜·契令激化',
+    params: { BondOfLifeGet: 3, DecreasedBondOfLife: 1, HealNumber: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'a', 'aggravate')
 }, {
     title: 'Q完整伤害',
+    params: { BondOfLifeGet: 4, DecreasedBondOfLife: 1 },
     dmg: ({ talent }, dmg) => {
     let q1 = dmg(talent.q['技能伤害2'][0], 'q')
     return {
@@ -23,7 +26,7 @@ export const details = [{
   }
 }, {
     title: '克皇 AAAE一轮激化',
-    params: { team: true,  blPct: 0.5 },
+    params: { team: true,  blPct: 0.5, BondOfLifeGet: 3, DecreasedBondOfLife: 1, HealNumber: 1 },
     dmg: ({ talent }, dmg) => {
     let a1 = dmg(talent.e['驰猎伤害2'][1], 'a')
     let a2 = dmg(talent.e['驰猎伤害2'][1], 'a', 'aggravate')
@@ -35,7 +38,7 @@ export const details = [{
   }
 }, {
     title: '克皇 Q完整激化',
-    params: { team: true },
+    params: { team: true, BondOfLifeGet: 3, DecreasedBondOfLife: 1, HealNumber: 1 },
     dmg: ({ talent }, dmg) => {
     let q1 = dmg(talent.q['技能伤害2'][0], 'q')
     let q2 = dmg(talent.q['技能伤害2'][0], 'q', 'aggravate')

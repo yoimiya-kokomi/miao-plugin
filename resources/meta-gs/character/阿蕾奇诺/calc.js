@@ -1,19 +1,23 @@
 export const details = [{
   title: 'E后普攻首段伤害',
+  params: { BondOfLifeGet: 1, DecreasedBondOfLife: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 }, {
   check: ({ cons }) => cons >= 2,
   title: '2命血偿勒令回收伤害',
+  params: { BondOfLifeGet: 1 },
   dmg: ({ attr }, { basic }) => basic(attr.atk * 900 / 100, '')
 }, {
   title: 'Q伤害',
+  params: { BondOfLifeGet: 1, DecreasedBondOfLife: 8, HealNumber: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: 'Q蒸发伤害',
+  params: { BondOfLifeGet: 1, DecreasedBondOfLife: 8, HealNumber: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
 }, {
   title: 'Q治疗量',
-  params: { BondOfLife: 145 },
+  params: { BondOfLife: 145, BondOfLifeGet: 1, DecreasedBondOfLife: 8, HealNumber: 1 },
   dmg: ({ attr, weapon }, { heal }) => heal(150 / 100 * ((weapon.name === '赤月之形' ? 170 : 145) / 100) * attr.hp + 150 / 100 * attr.atk)
 }]
 

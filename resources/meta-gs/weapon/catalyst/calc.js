@@ -269,6 +269,12 @@ export default function (step, staticStep) {
         hpPct: ({ params, refine }) => ((params.Moonsign || 0) > 0 ? 1 : 0) * step(14, 2)[refine],
         cdmg: ({ params, refine }) => ((params.Moonsign || 0) > 0 ? 1 : 0) * step(60, 20)[refine]
       }
+    }],
+    尘光七谕: [staticStep('atkPct', 12, 3), {
+      title: '装备者创造护盾后[hpPct]%，使当前场上角色造成的伤害提升[dmg]%',
+      data: {
+        dmg: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.atk) / 1000) * step(10, 3)[refine], step(26, 8)[refine])
+      }
     }]
   }
 }

@@ -9,15 +9,19 @@ export const details = [{
 	}
 }, {
 	title: '长按E弹跳伤害',
+	params: { BondOfLifeGet: 2 },
 	dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.e['激愈水球伤害'] / 100, 'e')
 }, {
 	title: '长按E弹跳治疗',
+	params: { BondOfLifeGet: 2 },
 	dmg: ({ talent, attr }, { heal }) => heal((attr.hp * talent.e['激愈水球治疗量2'][0] / 100 + talent.e['激愈水球治疗量2'][1]) * 1.4)
 }, {
 	title: 'Q单段伤害',
+	params: { BondOfLifeGet: 2, HealNumber: 1 },
 	dmg: ({ talent, attr }, { basic }) => basic(attr.hp * talent.q['技能伤害'] / 100, 'q')
 }, {
 	title: 'Q完整伤害',
+	params: { BondOfLifeGet: 2, HealNumber: 1 },
 	dmg: ({ talent, attr , cons }, { basic }) => {
 	  let q1 = basic(attr.hp * talent.q['技能伤害'] / 100, 'q')
 	  let cons4 = cons >= 4 ? 13 : 6
@@ -28,7 +32,7 @@ export const details = [{
 	}
 }, {
 	title: '希芙双水 完整Q',
-	params: { team: true },
+	params: { team: true, BondOfLifeGet: 2, HealNumber: 1 },
 	dmg: ({ talent, attr , cons }, { basic }) => {
 	  let q1 = basic(attr.hp * talent.q['技能伤害'] / 100, 'q')
 	  let cons4 = cons >= 4 ? 13 : 6

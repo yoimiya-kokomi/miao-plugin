@@ -220,6 +220,15 @@ export default function (step, staticStep) {
         atkPct: step(8 * 3),
         recharge: step(12 * 3)
       }
+    },
+    灾悔: {
+      title: '装备者施放元素战技后普攻,重击,元素战技与元素爆发造成的伤害提升[aDmg]%',
+      data: {
+        aDmg: ({ params, refine }) => (params.Hexenzirkel ? 1.75 : 1) * step(40)[refine],
+        a2Dmg: ({ params, refine }) => (params.Hexenzirkel ? 1.75 : 1) * step(40)[refine],
+        eDmg: ({ params, refine }) => (params.Hexenzirkel ? 1.75 : 1) * step(40)[refine],
+        qDmg: ({ params, refine }) => (params.Hexenzirkel ? 1.75 : 1) * step(40)[refine]
+      }
     }
   }
 }

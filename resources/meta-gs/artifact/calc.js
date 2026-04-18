@@ -496,9 +496,10 @@ const buffs = {
   谐律异想断章: {
     2: attr('atkPct', 18),
     4: {
-      title: '生命之契的数值提升或降低时，角色造成的伤害提升[dmg]%',
+      title: '生命之契的数值提升或降低[buff]次，角色造成的伤害提升[dmg]%',
       data: {
-        dmg: ({ attr }) => (attr.characterName === '阿蕾奇诺' || attr.characterName === '克洛琳德') ? 18 * 3 : 0
+        buff: ({ params, weapon }) => (params.BondOfLifeGet || 0) + (params.DecreasedBondOfLife || 0) + (['纯水流华', '海渊终曲'].includes(weapon.name) ? ((params.SkillsUse || 1) >= 1 ? ((params.HealNumber || 0) + 1) : 0) : 0) + (weapon.name === "赤月之形" ? ((params.HealNumber || 0) + 1) : 0),
+        dmg: ({ params, weapon }) => Math.min(((params.BondOfLifeGet || 0) + (params.DecreasedBondOfLife || 0) + (['纯水流华', '海渊终曲'].includes(weapon.name) ? ((params.SkillsUse || 1) >= 1 ? ((params.HealNumber || 0) + 1) : 0) : 0) + (weapon.name === "赤月之形" ? ((params.HealNumber || 0) + 1) : 0)), 3) * 18
       }
     }
   },
@@ -610,6 +611,27 @@ const buffs = {
       data: {
         atkPct: 25,
         cpct: ({ params }) => params.Hexenzirkel ? 20 : 0
+      }
+    }
+  },
+
+  天之美赐: {
+    2: attr('recharge', 20),
+    4: {
+      title: '依据魔导效果，施放元素战技后附近的所有角色获得[dmg]%元素伤害加成',
+      data: {
+        dmg: ({ params }) => params.Hexenzirkel ? 40 : 0
+      }
+    }
+  },
+
+  影中沉凝的幻灭: {
+    2: attr('atkPct', 18),
+    4: {
+      title: '超导反应造成的伤害提升[superConduct]%；攻击受到超导反应影响的敌人暴击率提高[cpct]%',
+      data: {
+        superConduct: 40,
+        cpct: 16
       }
     }
   }
