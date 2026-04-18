@@ -223,7 +223,7 @@ let DmgCalc = {
       case 'lunarBloom':
       case 'lunarCharged':
       case 'lunarCrystallize': {
-        let lunarBase = dmgBase || eleBaseDmg[level]
+        let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
         if (ele === 'lunarCharged') {
           eleNum = dmgBase ? 3 : eleNum
         } else if (ele === 'lunarCrystallize') {

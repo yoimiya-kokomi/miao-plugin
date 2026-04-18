@@ -1,9 +1,9 @@
 export const details = [{
-  title: 'Q欢愉伤害',
+  title: '大招欢愉伤害',
   params: { punchline: 20 },
   dmg: ({ talent }, dmg) => dmg(talent.xe['欢愉群攻'] + talent.xe['欢愉弹射'] * 5, 'xe', 'elation')
 }, {
-  title: '80笑点欢愉伤害',
+  title: '80笑点欢愉技伤害',
   params: { punchline: 80 },
   dmg: ({ talent }, dmg) => dmg(talent.xe['欢愉群攻'] + talent.xe['欢愉弹射'] * 5, 'xe', 'elation')
 }, {
@@ -21,7 +21,7 @@ export const buffs = [{
     enemydmg: 16
   }
 }, {
-  title: '开屏有礼：提高欢愉度[joyPct]%',
+  title: '行迹-开屏有礼：提高欢愉度[joyPct]%',
   tree: 1,
   data: {
     joyPct: ({ attr }) => attr.speed >= 120 ? Math.min(attr.speed - 120 + 30, 230) : 0
@@ -32,7 +32,7 @@ export const buffs = [{
     joyPct: ({ attr }) => (attr.joy.base + attr.joy.pct) * 0.2
   }
 }, {
-  title: '神闲意满：提升[cdmg]%暴击伤害',
+  title: '行迹-神闲意满：提升[cdmg]%暴击伤害',
   tree: 2,
   data: {
     cdmg: 80
@@ -45,7 +45,7 @@ export const buffs = [{
 }, {
   title: '笑点计算：计算笑点用',
   data: {
-    punchline: ({ params }) => params.punchline === 100 ? 100 : params.punchline
+    punchline: ({ params }) => params.punchline
   }
 }, {
   title: '爻光1魂：终结技阿哈时刻计入笑点数提高至40个。我方全体目标造成欢愉伤害时无视目标[ignore]%防御力',

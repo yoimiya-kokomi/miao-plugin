@@ -40,7 +40,14 @@ export default function (staticIdx, keyIdx) {
     ],
     邂逅于下一个花季: [
       staticIdx(1, 'cdmg'),
-      staticIdx(2, 'recharge'),
+      (tables) => {
+        return {
+          title: '能量恢复效率提高[recharge]%',
+          data: {
+            recharge: ({ attr }) => tables[2] + (Math.min(attr.sp, 480) - 120) / 10 * 0.3
+          }
+        }
+      },
       keyIdx('施放欢愉技时，使敌方目标受到的伤害提高[enemydmg]%', 'enemydmg', 3)
     ]
   }

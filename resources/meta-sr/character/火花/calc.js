@@ -21,8 +21,8 @@ export const details = [{
     }
   }
 }, {
-  title: '100笑点欢愉伤害',
-  params: { punchline: 100 },
+  title: '80笑点欢愉技伤害',
+  params: { punchline: 80 },
   dmg: ({ talent }, dmg) => dmg(talent.xe['群攻'] + talent.xe['弹射'] * 20, 'xe', 'elation')
 }]
 
@@ -30,19 +30,19 @@ export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
-  title: '甜蜜！笑点签售会：使自身欢愉度提高[joyPct]%',
+  title: '行迹-甜蜜！笑点签售会：使自身欢愉度提高[joyPct]%',
   tree: 1,
   data: {
     joyPct: ({ attr }) => Math.min(Math.trunc((attr.atk - 2000) / 100 * 5), 80)
   }
 }, {
-  title: '沸腾！真伪调色盘：我方全体暴击伤害提高[cdmg]%',
+  title: '行迹-沸腾！真伪调色盘：我方全体暴击伤害提高[cdmg]%',
   tree: 3,
   data: {
     cdmg: 80
   }
 }, {
-  title: '神闲意满：提升[cdmg]%暴击伤害',
+  title: '行迹-神闲意满：提升[cdmg]%暴击伤害',
   tree: 2,
   data: {
     cdmg: 60
@@ -50,7 +50,7 @@ export const buffs = [{
 }, {
   title: '笑点计算：计算笑点用',
   data: {
-    punchline: ({ params }) => params.punchline === 100 ? 100 : params.punchline
+    punchline: ({ params }) => params.punchline
   }
 }, {
   title: '火花1魂：我方全体全属性抗性穿透提高[kx]%',
