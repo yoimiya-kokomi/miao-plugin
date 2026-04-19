@@ -85,7 +85,7 @@ export const alias = {
   花火Pro: 'sparkle2,花火pro,花火加强版,加强版花火',
   黑天鹅Pro: 'blackswan2,黑天鹅pro,黑天鹅加强版,加强版黑天鹅',
   不死途: 'ashveil,侦探,不死徒',
-  流萤Pro: 'firefly2,sam2,小女友Pro,萨姆Pro,萨缪尔Pro,流莹加强,流荧加强',
+  流萤Pro: 'firefly2,sam2,小女友Pro,萨姆Pro,萨缪尔Pro,流莹加强,流荧加强,流萤加强',
   瓦尔特Pro: 'welt2,老杨加强,杨叔加强,瓦尔特杨Pro,第一律者Pro,手搓黑洞Pro,加强版瓦尔特杨，加强版老杨',
   藿藿Pro: 'huohuo2,尾巴Pro,藿香Pro,藿去病Pro,霍去病Pro,尾巴小跟班Pro,小怂包Pro,霍霍加强,嚯嚯加强，加强版霍霍',
   希儿Pro: 'seele2,希尔加强,蝴蝶加强,云天明,加强版希尔，加强版希儿',
