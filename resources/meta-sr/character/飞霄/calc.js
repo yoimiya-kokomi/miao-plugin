@@ -26,7 +26,7 @@ export const buffs = [{
   title: '雷狩：发动天赋攻击时使自身造成的伤害提高[dmg]%',
   data: {
     dmg: ({ talent }) => talent.t['造成伤害提高'] * 100
- }
+  }
 }, {
   title: '解形：追加攻击的暴击伤害提高[tCdmg]%',
   tree: 2,
@@ -45,20 +45,20 @@ export const buffs = [{
   cons: 1,
   data: {
     qPlus: ({ talent, attr, calc }) => calc(attr.atk) * talent.q['最后造成伤害'] * 10 / 100 * 5
- }
+  }
 }, {
   title: '飞霄4魂：发动天赋的追加攻击时速度提高[speedPct]%',
   cons: 4,
   data: {
     speedPct: 8
- }
+  }
 }, {
   title: '飞霄6魂：终结技抗性穿透提高[qKx]%,天赋的追加攻击伤害同时视为终结技伤害，并且伤害提高[tPlus]',
   cons: 6,
   data: {
     qKx: 20,
     tPlus: ({ attr, calc }) => calc(attr.atk) * 140 / 100
- }
+  }
 }]
 
 export const createdBy = 'liangshi'
