@@ -7,7 +7,6 @@ export const details = [{
       avg: dmg(talent.a['技能伤害'], 'a').avg + dmg(talent.t['普攻战技技能伤害'], 'xe', 'elation').avg
     }
   }
-    
 }, {
   title: '战技对单60好活伤害',
   params: { punchline: 60 },
