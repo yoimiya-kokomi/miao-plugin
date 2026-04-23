@@ -21,27 +21,13 @@ export const details = [{
   params: { punchline: 120, q: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['盲盒伤害'], 'xe', 'elation')
 }, {
-  title: '120好活超超超大剑',
-  params: { punchline: 120, q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['盲盒伤害'] * 0.2, 'xe', 'elation')
-}, {
   title: '120好活强化普攻',
   params: { punchline: 120, a2: true, q: true },
-  dmg: ({ talent }, dmg) => {
-    return {
-      dmg: dmg(talent.a2['弹射伤害'], 'xe', 'elation').dmg + dmg(talent.a2['均分伤害'], 'xe', 'elation').dmg,
-      avg: dmg(talent.a2['弹射伤害'], 'xe', 'elation').avg + dmg(talent.a2['均分伤害'], 'xe', 'elation').avg
-    }
-  }
+  dmg: ({ talent }, dmg) => dmg((talent.a2['弹射伤害'] + talent.q['盲盒伤害'] + talent.a2['均分伤害']) * 1.3, 'xe', 'elation')
 }, {
   title: '120好活强化普攻加3次超超超大剑',
   params: { punchline: 120, a2: true, q: true },
-  dmg: ({ talent }, dmg) => {
-    return {
-      dmg: dmg(talent.a2['弹射伤害'] * 1.2, 'xe', 'elation').dmg + dmg(talent.a2['均分伤害'], 'xe', 'elation').dmg,
-      avg: dmg(talent.a2['弹射伤害'] * 1.2, 'xe', 'elation').avg + dmg(talent.a2['均分伤害'], 'xe', 'elation').avg
-    }
-  }
+  dmg: ({ talent }, dmg) => dmg(((talent.a2['弹射伤害'] + talent.q['盲盒伤害']) * 1.2 + talent.a2['均分伤害']) * 1.3, 'xe', 'elation')
 }, {
   title: '100笑点欢愉技伤害',
   params: { punchline: 100, xe: true, q: true },
@@ -58,11 +44,7 @@ export const buffs = [{
     joy: ({ attr }) => attr.speed >= 160 ? 50 + Math.min(Math.trunc((attr.speed - 160) * 2), 200) : 0
   }
 }, {
-  title: '强化普攻加成：强化普攻期间造成的伤害提高原伤害的30%',
-  check: ({ params }) => params.a2 === true,
-  data: {
-    multi: 30
-  }
+  title: '强化普攻加成：强化普攻期间造成的伤害提高原伤害的30%'
 }, {
   title: '笑点计算：计算笑点用',
   data: {
