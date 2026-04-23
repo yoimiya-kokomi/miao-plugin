@@ -30,10 +30,10 @@ export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
-  title: '行迹-甜蜜！笑点签售会：使自身欢愉度提高[joyPct]%',
+  title: '行迹-甜蜜！笑点签售会：使自身欢愉度提高[joy]%',
   tree: 1,
   data: {
-    joyPct: ({ attr }) => Math.min(Math.trunc((attr.atk - 2000) / 100 * 5), 80)
+    joy: ({ attr }) => Math.min(Math.trunc((attr.atk - 2000) / 100 * 5), 80)
   }
 }, {
   title: '行迹-沸腾！真伪调色盘：我方全体暴击伤害提高[cdmg]%',
@@ -65,10 +65,10 @@ export const buffs = [{
     cdmg: 40
   }
 }, {
-  title: '火花4魂：施放终结技时使自身欢愉度提高[joyPct]%',
+  title: '火花4魂：施放终结技时使自身欢愉度提高[joy]%',
   cons: 4,
   data: {
-    joyPct: 36
+    joy: 36
   }
 }, {
   title: '火花6魂：全属性抗性穿透提高[kx]%。欢愉技每计入1个笑点使其造成的额外伤害次数增加1次，最多增加至40次',

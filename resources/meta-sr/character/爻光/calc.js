@@ -21,15 +21,15 @@ export const buffs = [{
     enemydmg: 16
   }
 }, {
-  title: '行迹-开屏有礼：提高欢愉度[joyPct]%',
+  title: '行迹-开屏有礼：提高欢愉度[joy]%',
   tree: 1,
   data: {
-    joyPct: ({ attr }) => attr.speed >= 120 ? Math.min(attr.speed - 120 + 30, 230) : 0
+    joy: ({ attr }) => attr.speed >= 120 ? Math.min(attr.speed - 120 + 30, 230) : 0
   }
 }, {
-  title: '战技：提高欢愉度[joyPct]%',
+  title: '战技：提高欢愉度[joy]%',
   data: {
-    joyPct: ({ attr }) => (attr.joy.base + attr.joy.pct) * 0.2
+    joy: ({ attr }) => (attr.joy.base + attr.joy.pct) * 0.2
   }
 }, {
   title: '行迹-神闲意满：提升[cdmg]%暴击伤害',
@@ -55,11 +55,11 @@ export const buffs = [{
     punchline: 20
   }
 }, {
-  title: '爻光2魂：我方全体目标速度提高[speedPct]%，欢愉度额外提高[joyPct]%',
+  title: '爻光2魂：我方全体目标速度提高[speedPct]%，欢愉度额外提高[joy]%',
   cons: 2,
   data: {
     speedPct: 12,
-    joyPct: 16
+    joy: 16
   }
 }, {
   title: '爻光4魂：我方全体角色欢愉技造成的伤害为原伤害的150%',
