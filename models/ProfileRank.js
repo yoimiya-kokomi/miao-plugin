@@ -74,7 +74,8 @@ export default class ProfileRank {
       8002: 8001,
       8004: 8003,
       8006: 8005,
-      8008: 8007
+      8008: 8007,
+      8010: 8009
     }
     let uids = charIdMap[charId] ? await redis.zRangeWithScores(`miao:rank:${groupId}:${type}:${charIdMap[charId]}`, -`${number}`, -1) : await redis.zRangeWithScores(`miao:rank:${groupId}:${type}:${charId}`, -`${number}`, -1)
     return uids ? uids.reverse() : false
