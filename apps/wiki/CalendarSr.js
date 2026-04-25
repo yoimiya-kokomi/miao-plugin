@@ -110,51 +110,45 @@ let CalSr = {
   },
 
   // 深渊日历信息
-  getAbyssCal (s1, e1, versionStartTime) {
+  getAbyssCal (s1, e1, versionStartTime, versionEndTime) {
     let check = []
     let f = 'YYYY-MM-DD HH:mm:ss'
-    let newAbyssStart = moment('2023-12-25 04:00:00')
-
-    let abyss1Start = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
-
-    let diff0 = Math.abs(newAbyssStart.diff(abyss1Start, 'days') % 14)
-    if (diff0 !== 0) {
-      abyss1Start = moment(abyss1Start).subtract(diff0, 'days').format(f)
+    let baseMazeAbyssStart = moment('2026-04-13 04:00:00')
+    let mazeStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
+    let diffmaze = Math.abs(baseMazeAbyssStart.diff(mazeStartTime, 'days') % 42)
+    if (diffmaze !== 0) {
+      mazeStartTime = moment(mazeStartTime).subtract(diffmaze, 'days').hours(4).format(f)
     }
+    let mazeEndTime = moment(mazeStartTime).add(42, 'days').format(f)
 
-    let abyss1End = moment(abyss1Start).add(42, 'days').format(f)
-    let abyss2Start = moment(abyss1Start).add(14, 'days').format(f)
-    let abyss2End = moment(abyss2Start).add(42, 'days').format(f)
-    let abyss3Start = moment(abyss2Start).add(14, 'days').format(f)
-    let abyss3End = moment(abyss3Start).add(42, 'days').format(f)
-    let abyss4Start = moment(abyss3Start).add(14, 'days').format(f)
-    let abyss4End = moment(abyss4Start).add(42, 'days').format(f)
-    let abyss5Start = moment(abyss4Start).add(14, 'days').format(f)
-    let abyss5End = moment(abyss5Start).add(42, 'days').format(f)
+    let baseStoryAbyssStart = moment('2026-03-30 04:00:00')
+    let storyStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
+    let diffstory = Math.abs(baseStoryAbyssStart.diff(storyStartTime, 'days') % 42)
+    if (diffstory !== 0) {
+      storyStartTime = moment(storyStartTime).subtract(diffstory, 'days').hours(4).format(f)
+    }
+    let storyEndTime = moment(storyStartTime).add(42, 'days').format(f)
 
-    let abyss0Start = moment(abyss1Start).subtract(14, 'days').format(f)
-    let abyss0End = moment(abyss0Start).add(42, 'days').format(f)
-    let abyssB1Start = moment(abyss0Start).subtract(14, 'days').format(f)
-    let abyssB1End = moment(abyssB1Start).add(42, 'days').format(f)
+    let baseShadowAbyssStart = moment('2026-03-16 04:00:00')
+    let shadowStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
+    let diffboss = Math.abs(baseShadowAbyssStart.diff(shadowStartTime, 'days') % 42)
+    if (diffboss !== 0) {
+      shadowStartTime = moment(shadowStartTime).subtract(diffboss, 'days').hours(4).format(f)
+    }
+    let shadowEndTime = moment(shadowStartTime).add(42, 'days').format(f)
+
+    let peakStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').hours(11).format(f)
+    let peakEndTime = moment(versionEndTime, 'YYYY-MM-DD HH:mm:ss').hours(4).format(f)
 
     let title1 = '「混沌回忆」'
     let title2 = '「虚构叙事」'
-    let exchange = false
-    let diff = newAbyssStart.diff(abyss0Start, 'days')
-    if (diff % 28 === 0) {
-      exchange = true
-    }
-    if (exchange) {
-      [title1, title2] = [title2, title1]
-    }
+    let title3 = '「末日幻影」'
+    let title4 = '「异相仲裁」'
 
-    check.push([moment(abyssB1Start), moment(abyssB1End), title1])
-    check.push([moment(abyss0Start), moment(abyss0End), title2])
-    check.push([moment(abyss1Start), moment(abyss1End), title1])
-    check.push([moment(abyss2Start), moment(abyss2End), title2])
-    check.push([moment(abyss3Start), moment(abyss3End), title1])
-    check.push([moment(abyss4Start), moment(abyss4End), title2])
-    check.push([moment(abyss5Start), moment(abyss5End), title1])
+    check.push([moment(mazeStartTime), moment(mazeEndTime), title1])
+    check.push([moment(storyStartTime), moment(storyEndTime), title2])
+    check.push([moment(shadowStartTime), moment(shadowEndTime), title3])
+    check.push([moment(peakStartTime), moment(peakEndTime), title4])
 
     let ret = []
     lodash.forEach(check, (ds) => {
@@ -252,20 +246,32 @@ let CalSr = {
     lodash.forEach(listData.data.pic_list[0].type_list[0].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap, gachaImgs }))
     lodash.forEach(listData.data.pic_list[0].type_list[1].list, (ds) => CalSr.getList(ds, resultList, { ...dateList, now, timeMap, gachaImgs }))
 
-    let versionStartTime
+    let versionStartTime, versionEndTime
     lodash.forEach(listData.data.list[0].list, (ds) => {
       if (/版本更新(概览|说明)/.test(ds.title)) {
         versionStartTime = ds.start_time
+        versionEndTime = ds.end_time
       }
     })
 
-    let abyssCal = CalSr.getAbyssCal(dateList.startTime, dateList.endTime, versionStartTime)
+    let abyssCal = CalSr.getAbyssCal(dateList.startTime, dateList.endTime, versionStartTime, versionEndTime)
     lodash.forEach(abyssCal, (t) => {
       CalSr.getList({
         title: t[2],
         start_time: t[0].format('YYYY-MM-DD HH:mm'),
         end_time: t[1].format('YYYY-MM-DD HH:mm'),
-        abyssType: t[2] === '「混沌回忆」' ? 'abyss-1' : 'abyss-2'
+        abyssType: () => {
+          switch (t[2]) {
+            case '「混沌回忆」':
+              return 'abyss-1'
+            case '「虚构叙事」':
+              return 'abyss-2'
+            case '「末日幻影」':
+              return 'abyss-3'
+            case '「异相仲裁」':
+              return 'abyss-4'
+          }
+        }
       }, abyss, { ...dateList, now })
     })
 
