@@ -4,19 +4,47 @@ export const details = [{
 }, {
   title: '战技对单80好活伤害',
   params: { punchline: 80 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e') + dmg(talent.t['技能伤害'], 'xe', 'elation')
+  dmg: ({ talent }, dmg) => {
+    let a = dmg(talent.e['技能伤害'], 'e')
+    let b = dmg(talent.t['技能伤害'], 'xe', 'elation')
+    return {
+      dmg: a.dmg + b.dmg,
+      avg: a.avg + b.avg,
+    }
+  }
 }, {
   title: '战技对三80好活伤害',
   params: { punchline: 80 },
-  dmg: ({ talent }, dmg) => (dmg(talent.e['技能伤害'], 'e') + dmg(talent.t['技能伤害'], 'xe', 'elation')) * 3
+  dmg: ({ talent }, dmg) => {
+    let a = dmg(talent.e['技能伤害'], 'e')
+    let b = dmg(talent.t['技能伤害'], 'xe', 'elation')
+    return {
+      dmg: a.dmg + b.dmg * 3,
+      avg: a.avg + b.avg * 3,
+    }
+  }
 }, {
   title: '战技对单900好活伤害',
   params: { punchline: 900 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e') + dmg(talent.t['技能伤害'], 'xe', 'elation')
+  dmg: ({ talent }, dmg) => {
+    let a = dmg(talent.e['技能伤害'], 'e')
+    let b = dmg(talent.t['技能伤害'], 'xe', 'elation')
+    return {
+      dmg: a.dmg + b.dmg,
+      avg: a.avg + b.avg,
+    }
+  }
 }, {
   title: '战技对三900好活伤害',
   params: { punchline: 900 },
-  dmg: ({ talent }, dmg) => (dmg(talent.e['技能伤害'], 'e') + dmg(talent.t['技能伤害'], 'xe', 'elation')) * 3
+  dmg: ({ talent }, dmg) => {
+    let a = dmg(talent.e['技能伤害'], 'e')
+    let b = dmg(talent.t['技能伤害'], 'xe', 'elation')
+    return {
+      dmg: a.dmg + b.dmg * 3,
+      avg: a.avg + b.avg * 3,
+    }
+  }
 }, {
   title: '50笑点欢愉技伤害',
   params: { punchline: 50 },
