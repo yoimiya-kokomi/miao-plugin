@@ -93,15 +93,29 @@ const ProfileAvatar = {
     }
     // 特殊处理开拓者的情况
     if (char.isTrailblazer) {
+      // 一劳永逸
+      // name = id % 2 === 0 ? '星' : '穹'
       switch (id) {
         case 8001:
         case 8003:
         case 8005:
+        case 8007:
+        case 8009:
+        case 8011:
+        case 8013:
+        case 8015:
+        case 8017:
           name = '穹'
           break
         case 8002:
         case 8004:
         case 8006:
+        case 8008:
+        case 8010:
+        case 8012:
+        case 8014:
+        case 8016:
+        case 8018:
           name = '星'
           break
       }
