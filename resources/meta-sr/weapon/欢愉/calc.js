@@ -4,10 +4,10 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'cdmg'),
       (tables) => {
         return {
-          title: '无视对方防御力[ignore]%，欢愉度提升[joyPct]%',
+          title: '无视对方防御力[ignore]%，欢愉度提升[joy]%',
           data: {
             ignore: tables[2] * 4,
-            joyPct: tables[3]
+            joy: tables[3]
           }
         }
       }
@@ -27,7 +27,7 @@ export default function (staticIdx, keyIdx) {
     ],
     '未来，有我们一起': [
       staticIdx(1, 'cdmg'),
-      keyIdx('施放终结技后，使我方全体欢愉度提高[joyPct]%', 'joyPct', 2)
+      keyIdx('施放终结技后，使我方全体欢愉度提高[joy]%', 'joy', 2)
     ],
     欢愉满溢祝福: [
       staticIdx(1, 'atkPct')

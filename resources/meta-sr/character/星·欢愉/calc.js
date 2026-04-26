@@ -4,19 +4,39 @@ export const details = [{
 }, {
   title: '战技对单80好活伤害',
   params: { punchline: 80 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e') + dmg(talent.t['技能伤害'], 'xe', 'elation')
+  dmg: ({ talent }, dmg) => {
+    return {
+      dmg: dmg(talent.e['技能伤害'], 'e').dmg + dmg(talent.t['技能伤害'], 'xe', 'elation').dmg,
+      avg: dmg(talent.e['技能伤害'], 'e').avg + dmg(talent.t['技能伤害'], 'xe', 'elation').avg
+    }
+  }
 }, {
   title: '战技对三80好活伤害',
   params: { punchline: 80 },
-  dmg: ({ talent }, dmg) => (dmg(talent.e['技能伤害'], 'e') + dmg(talent.t['技能伤害'], 'xe', 'elation')) * 3
+  dmg: ({ talent }, dmg) => {
+    return {
+      dmg: dmg(talent.e['技能伤害'] * 3, 'e').dmg + dmg(talent.t['技能伤害'] * 3, 'xe', 'elation').dmg,
+      avg: dmg(talent.e['技能伤害'] * 3, 'e').avg + dmg(talent.t['技能伤害'] * 3, 'xe', 'elation').avg
+    }
+  }
 }, {
   title: '战技对单900好活伤害',
   params: { punchline: 900 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e') + dmg(talent.t['技能伤害'], 'xe', 'elation')
+  dmg: ({ talent }, dmg) => {
+    return {
+      dmg: dmg(talent.e['技能伤害'], 'e').dmg + dmg(talent.t['技能伤害'], 'xe', 'elation').dmg,
+      avg: dmg(talent.e['技能伤害'], 'e').avg + dmg(talent.t['技能伤害'], 'xe', 'elation').avg
+    }
+  }
 }, {
   title: '战技对三900好活伤害',
   params: { punchline: 900 },
-  dmg: ({ talent }, dmg) => (dmg(talent.e['技能伤害'], 'e') + dmg(talent.t['技能伤害'], 'xe', 'elation')) * 3
+  dmg: ({ talent }, dmg) => {
+    return {
+      dmg: dmg(talent.e['技能伤害'] * 3, 'e').dmg + dmg(talent.t['技能伤害'] * 3, 'xe', 'elation').dmg,
+      avg: dmg(talent.e['技能伤害'] * 3, 'e').avg + dmg(talent.t['技能伤害'] * 3, 'xe', 'elation').avg
+    }
+  }
 }, {
   title: '50笑点欢愉技伤害',
   params: { punchline: 50 },
@@ -30,7 +50,7 @@ export const buffs = [{
   title: '行迹-快哉快哉：若开拓者的攻击力高于1000点，每超过200点攻击力可使自身欢愉度提高10%，最多提高60%',
   tree: 1,
   data: {
-    joyPct: ({ attr }) => Math.min(Math.trunc((attr.atk - 1000) / 200 * 10), 60)
+    joy: ({ attr }) => Math.min(Math.trunc((attr.atk - 1000) / 200 * 10), 60)
   }
 }, {
   title: '行迹-跟你爆了：自身暴击率提高[cpct]%',

@@ -30,7 +30,7 @@ export const buffs = [{
   title: '行迹-快哉快哉：若开拓者的攻击力高于1000点，每超过200点攻击力可使自身欢愉度提高10%，最多提高60%',
   tree: 1,
   data: {
-    joyPct: ({ attr }) => Math.min(Math.trunc((attr.atk - 1000) / 200 * 10), 60)
+    joy: ({ attr }) => Math.min(Math.trunc((attr.atk - 1000) / 200 * 10), 60)
   }
 }, {
   title: '行迹-跟你爆了：自身暴击率提高[cpct]%',
