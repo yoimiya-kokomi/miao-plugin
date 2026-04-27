@@ -18,7 +18,7 @@ const detailKey = 'title,allegiance,birth,astro,desc,cncv,jpcv,costume,baseAttr,
 
 class Character extends Base {
   // 含加强数据的角色id
-  static enhancedCharIds = [1212, 1205, 1005, 1006]
+  static enhancedCharIds = [1212, 1205, 1005, 1006, 1004, 1102, 1217, 1310, 1306, 1307]
   // 默认获取的数据
   static _dataKey = 'id,name,abbr,title,star,elem,allegiance,weapon,birthday,astro,cncv,jpcv,desc,talentCons'
 

@@ -455,38 +455,45 @@ export default {
   闪耀功勋的魔法少女: {
     2: attr('cdmg', 16),
     4: [attr('ignore', 10), {
-      title: '计算[_buffCount]层，造成的欢愉伤害额外无视目标[ignore]%的防御力',
+      title: '计算[_buffCount]层，造成的欢愉伤害额外无视目标[xeIgnore]%的防御力',
       data: {
         _buffCount: ({ params }) => params.tArtisBuffCount || 10,
-        ignore: ({ params }) => (params.tArtisBuffCount || 10) * 1
+        xeIgnore: ({ params }) => (params.tArtisBuffCount || 10) * 1
       }
     }]
   },
   应天涉远的卜者: {
     2: attr('speedPct', 6),
     4: {
-      title: '进入战斗前，若装备者的速度大于等于[_speed]，使装备者的暴击率提高[cpct]%',
+      title: '进入战斗前，若装备者的速度大于等于[_speed]，使装备者的暴击率提高[cpct]%。装备者施放欢愉技时，使我方全体欢愉度提高[joy]%',
       data: {
         _speed: ({ attr, calc }) => calc(attr.staticAttr.speed) < 160 ? calc(attr.staticAttr.speed) < 120 ? 0 : 120 : 160,
-        cpct: ({ attr, calc }) => calc(attr.staticAttr.speed) < 160 ? calc(attr.staticAttr.speed) < 120 ? 0 : 10 : 18
+        cpct: ({ attr, calc }) => calc(attr.staticAttr.speed) < 160 ? calc(attr.staticAttr.speed) < 120 ? 0 : 10 : 18,
+        joy: 10
       }
     }
   },
   零号关卡朋克洛德: {
     2: [attr('joy', 8), {
-      check: ({ calc, attr }) => calc(attr.joy) >= 40,
-      title: '战斗中欢愉度首次达到[_joy]%时，使装备者暴击伤害提高[cdmg]%',
+      check: ({ attr }) => attr.joy.base>= 40,
+      title: '战斗中欢愉度首次达到[joy]%时，使装备者暴击伤害提高[cdmg]%',
       data: {
-        _joy: ({ attr }) => attr.joy < 40 ? attr.joy : attr.joy < 80 ? 40 : 80,
-        cdmg: ({ attr }) => attr.joy < 40 ? 0 : attr.joy < 80 ? 20 : 32
+        joy: ({ attr, calc }) => {
+          let _joy = calc(attr.joy)
+          return _joy < 80 ? 40 : 80
+        },
+        cdmg: ({ attr, calc }) => {
+          let joy = calc(attr.joy)
+          return joy < 80 ? 20 : 32
+        }
       }
     }]
   },
   千星荟萃之城: {
     2: [{
-      title: '装备者施放追加攻击时，攻击力提高[atk]%。当敌方目标被消灭时，我方全体在本场战斗中暴击伤害提高[cdmg]%',
+      title: '装备者施放追加攻击时，攻击力提高[atkPct]%。当敌方目标被消灭时，我方全体在本场战斗中暴击伤害提高[cdmg]%',
       data: {
-        atk: 24,
+        atkPct: 24,
         cdmg: 12
       }
     }]

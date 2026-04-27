@@ -3,6 +3,11 @@
  * 如character/${name}/artis.js下有角色自定义规则优先使用自定义
  */
 export const usefulAttr = {
+  绯英: { hp: 0, atk: 100, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
+  '银狼LV.999': { hp: 10, atk: 0, def: 10, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 0 },
+  不死途: { hp: 0, atk: 100, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 100 },
+  火花: { hp: 0, atk: 75, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 0 },
+  爻光: { hp: 75, atk: 0, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 0 },
   大丽花: { hp: 20, atk: 100, def: 20, speed: 100, cpct: 0, cdmg: 0, stance: 100, heal: 0, recharge: 30, effPct: 0, effDef: 30, dmg: 0 },
   昔涟: { hp: 100, atk: 0, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   '丹恒•腾荒': { hp: 0, atk: 100, def: 0, speed: 100, cpct: 50, cdmg: 50, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 50 },
@@ -28,6 +33,7 @@ export const usefulAttr = {
   椒丘: { hp: 75, atk: 50, def: 75, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 0, effPct: 100, effDef: 50, dmg: 0 },
   翡翠: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   流萤: { hp: 30, atk: 100, def: 30, speed: 100, cpct: 0, cdmg: 0, stance: 100, heal: 0, recharge: 0, effPct: 0, effDef: 30, dmg: 0 },
+  流萤Pro: { hp: 10, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 100, heal: 0, recharge: 0, effPct: 0, effDef: 30, dmg: 0 },
   波提欧: { hp: 50, atk: 50, def: 50, speed: 100, cpct: 50, cdmg: 50, stance: 100, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 50 },
   知更鸟: { hp: 75, atk: 100, def: 75, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
   砂金: { hp: 0, atk: 0, def: 100, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 75, effPct: 0, effDef: 50, dmg: 100 },
@@ -42,6 +48,7 @@ export const usefulAttr = {
   寒鸦: { hp: 75, atk: 0, def: 75, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
   银枝: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 75, effPct: 0, effDef: 0, dmg: 100 },
   藿藿: { hp: 100, atk: 0, def: 50, speed: 75, cpct: 0, cdmg: 0, stance: 0, heal: 100, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
+  藿藿Pro: { hp: 100, atk: 0, def: 50, speed: 75, cpct: 0, cdmg: 0, stance: 0, heal: 100, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
   桂乃芬: { hp: 0, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 50, heal: 0, recharge: 50, effPct: 75, effDef: 0, dmg: 100 },
   '托帕&账账': { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   镜流: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
@@ -60,10 +67,12 @@ export const usefulAttr = {
   银狼Pro: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 75, effPct: 100, effDef: 0, dmg: 100 },
   景元: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   希儿: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
+  希儿Pro: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   布洛妮娅: { hp: 75, atk: 0, def: 75, speed: 100, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
   杰帕德: { hp: 50, atk: 0, def: 100, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 100, effPct: 50, effDef: 50, dmg: 0 },
   姬子: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 50, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   瓦尔特: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 100, effDef: 0, dmg: 100 },
+  瓦尔特Pro: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 100, effDef: 0, dmg: 100 },
   彦卿: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 75, effPct: 0, effDef: 0, dmg: 100 },
   白露: { hp: 100, atk: 0, def: 50, speed: 75, cpct: 0, cdmg: 0, stance: 0, heal: 100, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
   克拉拉: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
@@ -81,9 +90,6 @@ export const usefulAttr = {
   停云: { hp: 50, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 0 },
   素裳: { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 50, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   '三月七·巡猎': { hp: 0, atk: 100, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 100 },
-  爻光: { hp: 75, atk: 0, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 0 },
-  火花: { hp: 0, atk: 75, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 0 },
-  不死途: { hp: 0, atk: 100, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 100 },
   // 主角
   '穹·同谐': { hp: 75, atk: 0, def: 75, speed: 100, cpct: 0, cdmg: 0, stance: 100, heal: 0, recharge: 75, effPct: 0, effDef: 0, dmg: 0 },
   '星·同谐': { hp: 75, atk: 0, def: 75, speed: 100, cpct: 0, cdmg: 0, stance: 100, heal: 0, recharge: 75, effPct: 0, effDef: 0, dmg: 0 },
@@ -92,5 +98,7 @@ export const usefulAttr = {
   '穹·毁灭': { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   '星·毁灭': { hp: 0, atk: 75, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   '穹·记忆': { hp: 0, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 0 },
-  '星·记忆': { hp: 0, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 0 }
+  '星·记忆': { hp: 0, atk: 100, def: 0, speed: 100, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 0 },
+  '穹·欢愉': { hp: 0, atk: 100, def: 0, speed: 75, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 0 },
+  '星·欢愉': { hp: 0, atk: 100, def: 0, speed: 75, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 0 }
 }

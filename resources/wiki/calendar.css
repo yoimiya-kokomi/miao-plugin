@@ -322,6 +322,22 @@ body {
   color: #d3bc8d;
   background-image: linear-gradient(to right, #16202a, #16202a 80%, rgba(22, 32, 42, 0) 100%);
 }
+.cal-abyss-cont .type-abyss-3 {
+  background: url("imgs/abyss-1.jpg") #0f0829 top right no-repeat;
+}
+.cal-abyss-cont .type-abyss-3 .info {
+  background: none;
+  color: #d3bc8d;
+  background-image: linear-gradient(to right, #0f0829, #0f0829 80%, rgba(15, 8, 41, 0) 100%);
+}
+.cal-abyss-cont .type-abyss-4 {
+  background: url("imgs/abyss-4.jpg") #16202a top right no-repeat;
+}
+.cal-abyss-cont .type-abyss-4 .info {
+  background: none;
+  color: #d3bc8d;
+  background-image: linear-gradient(to right, #16202a, #16202a 80%, rgba(22, 32, 42, 0) 100%);
+}
 .cal-abyss-cont .cal-item {
   border-radius: 0;
   position: absolute;
