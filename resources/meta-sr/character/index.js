@@ -14,7 +14,8 @@ meta.addAbbr(abbr)
 
 // 老婆设置同样设置到gs下，通用数据
 let gsMeta = Meta.create('gs', 'char')
-let { wifeData } = gsMeta.getMeta()
+let metaData = gsMeta.getMeta() || {}
+let wifeData = metaData.wifeData || {}
 lodash.forEach(wifeCfg, (txt, type) => {
   wifeData[type] = wifeData[type] || {}
   Data.eachStr(txt, (name) => {
