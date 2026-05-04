@@ -21,12 +21,12 @@ export const details = [{
   params: { punchline: 120, q: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['盲盒伤害'], 'xe', 'elation')
 }, {
-  title: '120好活强化普攻',
-  params: { punchline: 120, a2: true, q: true },
+  title: '150好活强普',
+  params: { punchline: 150, a2: true, q: true },
   dmg: ({ talent }, dmg) => dmg((talent.a2['弹射伤害'] + talent.q['盲盒伤害'] + talent.a2['均分伤害']) * 1.3, 'xe', 'elation')
 }, {
-  title: '120好活强普加3次超大剑',
-  params: { punchline: 120, a2: true, q: true },
+  title: '150好活强普加3次超大剑',
+  params: { punchline: 150, a2: true, q: true },
   dmg: ({ talent }, dmg) => dmg(((talent.a2['弹射伤害'] + talent.q['盲盒伤害']) * 1.2 + talent.a2['均分伤害']) * 1.3, 'xe', 'elation')
 }, {
   title: '100笑点欢愉技伤害',
@@ -38,6 +38,11 @@ export const defDmgIdx = 5
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
+  title: '藿藿1魂：我方全体目标速度提高[speedPct]%',
+  data: {
+    speedPct: 12
+  }
+}, {
   title: '行迹-假结局速通攻略：速度大于等于160时，使自身欢愉度提高50%，之后每超过1点速度使自身欢愉度提高2%',
   tree: 1,
   data: {
@@ -71,6 +76,38 @@ export const buffs = [{
   data: {
     merrymakes: 50,
     kx: 20
+  }
+}, {
+  title: '爻光大招：我方全体目标全属性抗性穿透提高[kx]%',
+  data: {
+    kx: 20
+  }
+}, {
+  title: '爻光天赋：【凶星低语】状态下的敌方目标受到的伤害提高[ememydmg]%',
+  data: {
+    ememydmg: 16
+  }
+}, {
+  title: '爻光专武：我方全体暴击率提高[cpct]%，暴击伤害提高[cdmg]%',
+  data: {
+    cpct: 10,
+    cdmg: 30
+  }
+}, {
+  title: '爻光1魂：全体目标造成欢愉伤害时无视目标[ignore]%防御力',
+  data: {
+    ignore: 20
+  }
+}, {
+  title: '火花行迹：我方全体暴击伤害提高[cdmg]%',
+  data: {
+    cdmg: 80
+  }
+}, {
+  title: '狼尊隐藏分：240',
+  data: {
+    cpct: ({ attr }) => attr.cpct >= 100 ? 0 : 100 - attr.cpct,
+    cdmg: ({ attr }) => { return 140 + attr.cpct }
   }
 }]
 

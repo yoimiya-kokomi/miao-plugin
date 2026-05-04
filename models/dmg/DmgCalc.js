@@ -57,7 +57,7 @@ let DmgCalc = {
     if (game === 'sr') {
       merrymakesNum = 1 + attr.merrymakes / 100
       punchlineNum = attr.punchline
-      joyNum = 1 + attr.joy.base / 100 + attr.joy.pct / 100
+      joyNum = 1 + attr.joy.base / 100 + attr.joy.plus / 100
     }
 
     if (ele === 'phy') {
