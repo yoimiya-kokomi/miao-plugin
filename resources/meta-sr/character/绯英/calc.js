@@ -3,8 +3,8 @@ export const details = [{
   params: { punchline: 1000 },
   dmg: ({ talent }, dmg) => {
     return {
-      dmg: dmg(talent.e['目标技能伤害'] * 2, 'e').dmg + dmg(talent.t['战技欢愉伤害'], 'xe', 'elation').dmg,
-      avg: dmg(talent.e['目标技能伤害'] * 2, 'e').avg + dmg(talent.t['战技欢愉伤害'], 'xe', 'elation').avg
+      dmg: dmg(talent.e['目标技能伤害'] * 2, 'e').dmg + dmg(talent.t['战技欢愉伤害'] * 3, 't', 'elation').dmg,
+      avg: dmg(talent.e['目标技能伤害'] * 2, 'e').avg + dmg(talent.t['战技欢愉伤害'] * 3, 't', 'elation').avg
     }
   }
 }, {
@@ -13,9 +13,9 @@ export const details = [{
   dmg: ({ talent }, dmg) => {
     return {
       dmg: dmg(talent.q['技能伤害'] + talent.q['技能弹射伤害'] * 9, 'q').dmg +
-        dmg(talent.t['大招欢愉伤害'] + talent.t['大招欢愉弹射伤害'] * 9, 'xe', 'elation').dmg,
+        dmg(talent.t['大招欢愉伤害'] + talent.t['大招欢愉弹射伤害'] * 9, 't', 'elation').dmg,
       avg: dmg(talent.q['技能伤害'] + talent.q['技能弹射伤害'] * 9, 'q').avg +
-        dmg(talent.t['大招欢愉伤害'] + talent.t['大招欢愉弹射伤害'] * 9, 'xe', 'elation').avg
+        dmg(talent.t['大招欢愉伤害'] + talent.t['大招欢愉弹射伤害'] * 9, 't', 'elation').avg
     }
   }
 }, {
@@ -23,28 +23,28 @@ export const details = [{
   params: { punchline: 1000 },
   dmg: ({ talent }, dmg) => {
     return {
-      dmg: dmg(talent.q['技能伤害'] + talent.q['技能弹射伤害'] * 6, 'q').dmg +
-        dmg(talent.t['大招欢愉伤害'] + talent.t['大招欢愉弹射伤害'] * 6, 'xe', 'elation').dmg,
-      avg: dmg(talent.q['技能伤害'] + talent.q['技能弹射伤害'] * 6, 'q').avg +
-        dmg(talent.t['大招欢愉伤害'] + talent.t['大招欢愉弹射伤害'] * 6, 'xe', 'elation').avg
+      dmg: dmg(talent.q['技能伤害'] * 3 + talent.q['技能弹射伤害'] * 6, 'q').dmg +
+        dmg(talent.t['大招欢愉伤害'] * 3 + talent.t['大招欢愉弹射伤害'] * 6, 't', 'elation').dmg,
+      avg: dmg(talent.q['技能伤害'] * 3 + talent.q['技能弹射伤害'] * 6, 'q').avg +
+        dmg(talent.t['大招欢愉伤害'] * 3 + talent.t['大招欢愉弹射伤害'] * 6, 't', 'elation').avg
     }
   }
 }, {
-  title: '狐狸老师千活追击伤害对单',
-  params: { punchline: 1000 },
+  title: '狐狸老师50笑点对单',
+  params: { punchline: 50 },
   dmg: ({ talent }, dmg) => {
     return {
-      dmg: dmg(talent.t['追加攻击伤害'], 't').dmg + dmg(talent.t['追加攻击欢愉伤害'], 'xe', 'elation').dmg,
-      avg: dmg(talent.t['追加攻击伤害'], 't').avg + dmg(talent.t['追加攻击欢愉伤害'], 'xe', 'elation').avg
+      dmg: dmg(talent.t['追加攻击伤害'], 't').dmg + dmg(talent.t['追加攻击欢愉伤害'], 't', 'elation').dmg,
+      avg: dmg(talent.t['追加攻击伤害'], 't').avg + dmg(talent.t['追加攻击欢愉伤害'], 't', 'elation').avg
     }
   }
 }, {
-  title: '狐狸老师千活追击伤害对三',
-  params: { punchline: 1000 },
+  title: '狐狸老师50笑点对三',
+  params: { punchline: 50 },
   dmg: ({ talent }, dmg) => {
     return {
-      dmg: dmg(talent.t['追加攻击伤害'] * 3, 't').dmg + dmg(talent.t['追加攻击欢愉伤害'] * 3, 'xe', 'elation').dmg,
-      avg: dmg(talent.t['追加攻击伤害'] * 3, 't').avg + dmg(talent.t['追加攻击欢愉伤害'] * 3, 'xe', 'elation').avg
+      dmg: dmg(talent.t['追加攻击伤害'] * 3, 't').dmg + dmg(talent.t['追加攻击欢愉伤害'] * 3, 't', 'elation').dmg,
+      avg: dmg(talent.t['追加攻击伤害'] * 3, 't').avg + dmg(talent.t['追加攻击欢愉伤害'] * 3, 't', 'elation').avg
     }
   }
 }, {
@@ -59,7 +59,7 @@ export const mainAttr = 'atk,cpct,cdmg,recharge'
 export const buffs = [{
   title: '天赋：绯英获得等同于暴击伤害20%的欢愉度',
   data: {
-    joy: ({ attr }) => attr.cdmg * 20
+    joy: ({ attr }) => attr.cdmg * 0.2
   }
 }, {
   title: '行迹-瞰众乐：绯英的暴击率提高30%',
