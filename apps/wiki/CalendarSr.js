@@ -111,7 +111,7 @@ let CalSr = {
 
   // 深渊日历信息
   getAbyssCal (s1, e1, versionStartTime, versionEndTime) {
-    let check = []    
+    let check = []
     let f = 'YYYY-MM-DD HH:mm:ss'
     let now = moment().day(1).hours(4).minutes(0).seconds(0).format(f)
 
@@ -120,7 +120,7 @@ let CalSr = {
     let diffmaze = Math.abs(baseMazeAbyssStart.diff(mazeStartTime, 'days') % 42)
     if (diffmaze !== 0) {
       mazeStartTime = moment(mazeStartTime).subtract(diffmaze, 'days').hours(4).format(f)
-    }    
+    }
     let mazeEndTime = moment(mazeStartTime).add(42, 'days').format(f)
 
     let baseStoryAbyssStart = moment('2026-03-30 04:00:00')
@@ -128,7 +128,7 @@ let CalSr = {
     let diffstory = Math.abs(baseStoryAbyssStart.diff(storyStartTime, 'days') % 42)
     if (diffstory !== 0) {
       storyStartTime = moment(storyStartTime).subtract(diffstory, 'days').hours(4).format(f)
-    }   
+    }
     let storyEndTime = moment(storyStartTime).add(42, 'days').format(f)
 
     let baseShadowAbyssStart = moment('2026-03-16 04:00:00')
@@ -136,7 +136,7 @@ let CalSr = {
     let diffboss = Math.abs(baseShadowAbyssStart.diff(shadowStartTime, 'days') % 42)
     if (diffboss !== 0) {
       shadowStartTime = moment(shadowStartTime).subtract(diffboss, 'days').hours(4).format(f)
-    }    
+    }
     let shadowEndTime = moment(shadowStartTime).add(42, 'days').format(f)
 
     let peakStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').hours(11).format(f)

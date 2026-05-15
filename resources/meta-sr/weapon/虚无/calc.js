@@ -142,12 +142,23 @@ export default function (staticIdx, keyIdx) {
       }
     ],
     假日浴场大冒险: [
-      staticIdx(1, "dmg"),
-      keyIdx("使受到攻击的目标陷入易伤状态，受到的伤害提高[enemydmg]%", "enemydmg", 2)
+      staticIdx(1, 'dmg'),
+      keyIdx('使受到攻击的目标陷入易伤状态，受到的伤害提高[enemydmg]%', 'enemydmg', 2)
     ],
     勿忘她的火焰: [
-      staticIdx(1, "stance"),
-      keyIdx("装备者造成的击破伤害提高[breakEnemydmg]%", "breakEnemydmg", 2)
+      staticIdx(1, 'stance'),
+      keyIdx('装备者造成的击破伤害提高[breakEnemydmg]%', 'breakEnemydmg', 2)
+    ],
+    灼尽炼狱的新骸: [
+      staticIdx(1, 'hpPct'),
+      (tables) => {
+        return {
+          title: '【炼狱】状态下目标受到的暴击伤害提高30%，受到来自装备者的暴击伤害额外提高30%',
+          data: {
+            cpct: tables[2] * 2
+          }
+        }
+      }
     ]
   }
 }

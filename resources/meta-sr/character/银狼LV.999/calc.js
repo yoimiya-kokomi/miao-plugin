@@ -25,22 +25,22 @@ export const details = [{
   params: { punchline: 120, a2: true, q: true },
   dmg: ({ talent }, dmg) => {
     return {
-      dmg: (dmg(talent.a2['弹射伤害'], 'a2', 'elation').dmg + dmg(talent.q['盲盒伤害'], 'q', 'elation').dmg
-      + dmg(talent.a2['均分伤害'], 'a2', 'elation').dmg) * 1.3,
-      avg: (dmg(talent.a2['弹射伤害'], 'a2', 'elation').avg + dmg(talent.q['盲盒伤害'], 'q', 'elation').avg
-      + dmg(talent.a2['均分伤害'], 'a2', 'elation').avg) * 1.3
-    }    
+      dmg: (dmg(talent.a2['弹射伤害'], 'a2', 'elation').dmg + dmg(talent.q['盲盒伤害'], 'q', 'elation').dmg +
+      dmg(talent.a2['均分伤害'], 'a2', 'elation').dmg) * 1.3,
+      avg: (dmg(talent.a2['弹射伤害'], 'a2', 'elation').avg + dmg(talent.q['盲盒伤害'], 'q', 'elation').avg +
+      dmg(talent.a2['均分伤害'], 'a2', 'elation').avg) * 1.3
+    }
   }
 }, {
   title: '120好活强普加3次超大剑',
   params: { punchline: 120, a2: true, q: true },
   dmg: ({ talent }, dmg) => {
     return {
-      dmg: (dmg(talent.a2['弹射伤害'] * 1.2, 'a2', 'elation').dmg + dmg(talent.q['盲盒伤害'] * 1.2, 'q', 'elation').dmg
-      + dmg(talent.a2['均分伤害'], 'a2', 'elation').dmg) * 1.3,
-      avg: (dmg(talent.a2['弹射伤害'] * 1.2, 'a2', 'elation').avg + dmg(talent.q['盲盒伤害'] * 1.2, 'q', 'elation').avg
-      + dmg(talent.a2['均分伤害'], 'a2', 'elation').avg) * 1.3
-    }    
+      dmg: (dmg(talent.a2['弹射伤害'] * 1.2, 'a2', 'elation').dmg + dmg(talent.q['盲盒伤害'] * 1.2, 'q', 'elation').dmg +
+      dmg(talent.a2['均分伤害'], 'a2', 'elation').dmg) * 1.3,
+      avg: (dmg(talent.a2['弹射伤害'] * 1.2, 'a2', 'elation').avg + dmg(talent.q['盲盒伤害'] * 1.2, 'q', 'elation').avg +
+      dmg(talent.a2['均分伤害'], 'a2', 'elation').avg) * 1.3
+    }
   }
 }, {
   title: '100笑点欢愉技伤害',
