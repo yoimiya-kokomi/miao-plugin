@@ -3,8 +3,8 @@ export const details = [{
   params: { punchline: 60 },
   dmg: ({ talent }, dmg) => {
     return {
-      dmg: dmg(talent.a['技能伤害'], 'a').dmg + dmg(talent.t['普攻战技技能伤害'], 'xe', 'elation').dmg,
-      avg: dmg(talent.a['技能伤害'], 'a').avg + dmg(talent.t['普攻战技技能伤害'], 'xe', 'elation').avg
+      dmg: dmg(talent.a['技能伤害'], 'a').dmg + dmg(talent.t['普攻战技技能伤害'], 't', 'elation').dmg,
+      avg: dmg(talent.a['技能伤害'], 'a').avg + dmg(talent.t['普攻战技技能伤害'], 't', 'elation').avg
     }
   }
 }, {
@@ -12,26 +12,40 @@ export const details = [{
   params: { punchline: 60 },
   dmg: ({ talent }, dmg) => {
     return {
-      dmg: dmg(talent.e['技能伤害'], 'e').dmg + dmg(talent.t['普攻战技技能伤害'], 'xe', 'elation').dmg,
-      avg: dmg(talent.e['技能伤害'], 'e').avg + dmg(talent.t['普攻战技技能伤害'], 'xe', 'elation').avg
+      dmg: dmg(talent.e['技能伤害'], 'e').dmg + dmg(talent.t['普攻战技技能伤害'], 't', 'elation').dmg,
+      avg: dmg(talent.e['技能伤害'], 'e').avg + dmg(talent.t['普攻战技技能伤害'], 't', 'elation').avg
     }
   }
 }, {
   title: '120好活盲盒伤害',
   params: { punchline: 120, q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['盲盒伤害'], 'xe', 'elation')
+  dmg: ({ talent }, dmg) => dmg(talent.q['盲盒伤害'], 'q', 'elation')
 }, {
   title: '120好活强化普攻',
   params: { punchline: 120, a2: true, q: true },
-  dmg: ({ talent }, dmg) => dmg((talent.a2['弹射伤害'] + talent.q['盲盒伤害'] + talent.a2['均分伤害']) * 1.3, 'xe', 'elation')
+  dmg: ({ talent }, dmg) => {
+    return {
+      dmg: (dmg(talent.a2['弹射伤害'], 'a2', 'elation').dmg + dmg(talent.q['盲盒伤害'], 'q', 'elation').dmg +
+      dmg(talent.a2['均分伤害'], 'a2', 'elation').dmg) * 1.3,
+      avg: (dmg(talent.a2['弹射伤害'], 'a2', 'elation').avg + dmg(talent.q['盲盒伤害'], 'q', 'elation').avg +
+      dmg(talent.a2['均分伤害'], 'a2', 'elation').avg) * 1.3
+    }
+  }
 }, {
   title: '120好活强普加3次超大剑',
   params: { punchline: 120, a2: true, q: true },
-  dmg: ({ talent }, dmg) => dmg(((talent.a2['弹射伤害'] + talent.q['盲盒伤害']) * 1.2 + talent.a2['均分伤害']) * 1.3, 'xe', 'elation')
+  dmg: ({ talent }, dmg) => {
+    return {
+      dmg: (dmg(talent.a2['弹射伤害'] * 1.2, 'a2', 'elation').dmg + dmg(talent.q['盲盒伤害'] * 1.2, 'q', 'elation').dmg +
+      dmg(talent.a2['均分伤害'], 'a2', 'elation').dmg) * 1.3,
+      avg: (dmg(talent.a2['弹射伤害'] * 1.2, 'a2', 'elation').avg + dmg(talent.q['盲盒伤害'] * 1.2, 'q', 'elation').avg +
+      dmg(talent.a2['均分伤害'], 'a2', 'elation').avg) * 1.3
+    }
+  }
 }, {
   title: '100笑点欢愉技伤害',
   params: { punchline: 100, xe: true, q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.xe2['弹射伤害'] * 6, 'xe', 'elation')
+  dmg: ({ talent }, dmg) => dmg(talent.xe2['弹射伤害'] * 6, 'xe2', 'elation')
 }]
 
 export const defDmgIdx = 5

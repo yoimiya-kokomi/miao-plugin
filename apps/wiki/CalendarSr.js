@@ -113,8 +113,10 @@ let CalSr = {
   getAbyssCal (s1, e1, versionStartTime, versionEndTime) {
     let check = []
     let f = 'YYYY-MM-DD HH:mm:ss'
+    let now = moment().day(1).hours(4).minutes(0).seconds(0).format(f)
+
     let baseMazeAbyssStart = moment('2026-04-13 04:00:00')
-    let mazeStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
+    let mazeStartTime = now
     let diffmaze = Math.abs(baseMazeAbyssStart.diff(mazeStartTime, 'days') % 42)
     if (diffmaze !== 0) {
       mazeStartTime = moment(mazeStartTime).subtract(diffmaze, 'days').hours(4).format(f)
@@ -122,7 +124,7 @@ let CalSr = {
     let mazeEndTime = moment(mazeStartTime).add(42, 'days').format(f)
 
     let baseStoryAbyssStart = moment('2026-03-30 04:00:00')
-    let storyStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
+    let storyStartTime = now
     let diffstory = Math.abs(baseStoryAbyssStart.diff(storyStartTime, 'days') % 42)
     if (diffstory !== 0) {
       storyStartTime = moment(storyStartTime).subtract(diffstory, 'days').hours(4).format(f)
@@ -130,7 +132,7 @@ let CalSr = {
     let storyEndTime = moment(storyStartTime).add(42, 'days').format(f)
 
     let baseShadowAbyssStart = moment('2026-03-16 04:00:00')
-    let shadowStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').day(1).hours(4).format(f)
+    let shadowStartTime = now
     let diffboss = Math.abs(baseShadowAbyssStart.diff(shadowStartTime, 'days') % 42)
     if (diffboss !== 0) {
       shadowStartTime = moment(shadowStartTime).subtract(diffboss, 'days').hours(4).format(f)
@@ -138,7 +140,7 @@ let CalSr = {
     let shadowEndTime = moment(shadowStartTime).add(42, 'days').format(f)
 
     let peakStartTime = moment(versionStartTime, 'YYYY-MM-DD HH:mm:ss').hours(11).format(f)
-    let peakEndTime = moment(versionEndTime, 'YYYY-MM-DD HH:mm:ss').hours(4).format(f)
+    let peakEndTime = moment(versionEndTime, 'YYYY-MM-DD HH:mm:ss').hours(3).minutes(59).format(f)
 
     let title1 = '「混沌回忆」'
     let title2 = '「虚构叙事」'
