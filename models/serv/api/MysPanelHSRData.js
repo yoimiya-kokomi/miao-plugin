@@ -137,7 +137,7 @@ let MysPanelHSRData = {
     }
   },
 
-getTalent(char, cons, ds = [], servant_skills = []) {
+  getTalent(char, cons, ds = [], servant_skills = []) {
     let { talentCons = {} } = char?.meta || {}
     let ret = {}
 
@@ -171,7 +171,7 @@ getTalent(char, cons, ds = [], servant_skills = []) {
       })
     }
 
-    const step = { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1, xe: 1 } 
+    const step = { a: 1, e: 2, q: 2, t: 2, me: 1, mt: 1, xe: 1 }
     lodash.forEach(talentCons, (lv, key) => {
       let addNum = step[key] || 0
       let plus = 0
@@ -246,6 +246,7 @@ getTalent(char, cons, ds = [], servant_skills = []) {
   getArtifactAttrIds(rarity, sub_property_list) {
     let attrIds = []
     lodash.forEach(sub_property_list, (sub_property) => {
+      if (sub_property.is_preview) return
       const { property_type, value, times } = sub_property
       const combination = MysPanelHSRData.getArtifactAttrId(rarity, times, property_type, value)
       attrIds = [...attrIds, combination]
