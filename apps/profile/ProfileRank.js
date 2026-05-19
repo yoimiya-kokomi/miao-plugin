@@ -3,7 +3,7 @@ import { Data, Common, Format, Cfg } from '#miao'
 import { Button, Character, ProfileRank, ProfileDmg, Player } from '#miao.models'
 import lodash from 'lodash'
 
-export async function groupRank (e) {
+export async function groupRank(e) {
   const groupRank = Common.cfg('groupRank')
   let msg = e.original_msg || e.msg
   let type = ''
@@ -92,7 +92,7 @@ export async function groupRank (e) {
   }
 }
 
-export async function resetRank (e) {
+export async function resetRank(e) {
   let groupId = e.group_id
   if (!groupId) {
     return true
@@ -125,7 +125,7 @@ export async function resetRank (e) {
  * @param e
  * @returns {Promise<boolean>}
  */
-export async function refreshRank (e) {
+export async function refreshRank(e) {
   let groupId = e.group_id || ''
   if (!groupId) {
     return true
@@ -160,7 +160,7 @@ export async function refreshRank (e) {
   e.reply(`本群排名已刷新，共刷新${count}个UID数据...`)
 }
 
-export async function manageRank (e) {
+export async function manageRank(e) {
   let groupId = e.group_id
   if (!groupId) {
     return true
@@ -178,7 +178,7 @@ export async function manageRank (e) {
   }
 }
 
-async function renderCharRankList ({ e, uids, char, mode, groupId }) {
+async function renderCharRankList({ e, uids, char, mode, groupId }) {
   let list = []
   for (let ds of uids) {
     let uid = ds.uid || ds.value
@@ -272,7 +272,9 @@ async function renderCharRankList ({ e, uids, char, mode, groupId }) {
       穹·同谐: '开拓者·同谐',
       星·同谐: '开拓者·同谐',
       穹·记忆: '开拓者·记忆',
-      星·记忆: '开拓者·记忆'
+      星·记忆: '开拓者·记忆',
+      穹·欢愉: '开拓者·欢愉',
+      星·欢愉: '开拓者·欢愉'
     }
     if (titleName[char.name]) {
       title = `${e.isSr ? '*' : '#'}${titleName[char.name]}${modeTitleMap[mode]}排行`
