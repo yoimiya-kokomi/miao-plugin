@@ -26,7 +26,7 @@ export const details = [{
 
 export const defParams = { "虚己之赐": true, "圣祝之引": true, Hexenzirkel: true }
 export const defDmgIdx = 2
-export const mainAttr = 'atk,cpct,cdmg,mastery,dmg'
+export const mainAttr = 'atk,cpct,cdmg,dmg'
 
 export const buffs = [{
   check: ({ params }) => params["圣祝之引"] === true,
@@ -64,3 +64,5 @@ export const buffs = [{
     ignore: 40
   }
 }]
+
+export const createdBy = 'liangshi'

@@ -115,5 +115,7 @@ export const usefulAttr = {
   兹白: { hp: 0, atk: 0, def: 100, cpct: 100, cdmg: 100, mastery: 60, dmg: 0, phy: 0, recharge: 40, heal: 0 },
   叶洛亚: { hp: 0, atk: 0, def: 50, cpct: 50, cdmg: 50, mastery: 100, dmg: 80, phy: 0, recharge: 100, heal: 0 },
   法尔伽: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 99, phy: 0, recharge: 30, heal: 0 },
-  莉奈娅: { hp: 0, atk: 0, def: 100, cpct: 100, cdmg: 100, mastery: 50, dmg: 0, phy: 0, recharge: 50, heal: 99 }
+  莉奈娅: { hp: 0, atk: 0, def: 100, cpct: 100, cdmg: 100, mastery: 50, dmg: 0, phy: 0, recharge: 50, heal: 99 },
+  尼可: { hp: 0, atk: 100, def: 0, cpct: 50, cdmg: 50, mastery: 0, dmg: 0, phy: 0, recharge: 30, heal: 0 },
+  布伦妮: { hp: 0, atk: 100, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 99, phy: 0, recharge: 100, heal: 0 }
 }
