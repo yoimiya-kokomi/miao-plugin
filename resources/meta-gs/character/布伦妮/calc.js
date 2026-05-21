@@ -2,7 +2,7 @@ export const details = [{
   title: "「狩灾誓锤」提升队友伤害",
   dmg: ({ calc, attr }) => {
     return {
-      avg: Math.round(Math.min((calc(attr.atk) - 1000) * 0.01, 35) * 100) / 100 + "%",
+      avg: Math.round(Math.min((calc(attr.atk) - 2000) * 0.025, 50) * 100) / 100 + "%",
       type: "text"
     }
   }
@@ -27,7 +27,7 @@ export const defParams = { Hexenzirkel: true }
 export const buffs = [{
   title: "布伦妮天赋：队伍中魔导角色触发扩散反应，攻击力提升[atkPct]%",
   data: {
-    atkPct: 65
+    atkPct: 90
   }
 }, {
   title: "布伦妮2命：「诱巫饵铃」和经过元素转化的「狩灾誓锤」命中敌人时，攻击力提升[atkPct]%",
