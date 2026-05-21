@@ -630,7 +630,7 @@ const buffs = {
     4: {
       title: '超导反应造成的伤害提升[superConduct]%；攻击受到超导反应影响的敌人暴击率提高[cpct]%',
       data: {
-        superConduct: 40,
+        superConduct: 80,
         cpct: 16
       }
     }

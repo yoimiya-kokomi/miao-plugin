@@ -12,10 +12,6 @@ let MysPanelHSRData = {
       return false
     }
 
-    if (String(ds.id).startsWith("2")) {
-      ds.name = char.name
-    }
-
     let level = ds.level
     let promote = Attr.calcPromote(level, "sr")
     let weaponPromote = ds.equip ? Attr.calcPromote(ds.equip.level, "sr") : null
