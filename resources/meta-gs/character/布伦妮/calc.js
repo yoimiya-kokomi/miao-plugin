@@ -2,16 +2,16 @@ export const details = [{
   title: "「狩灾誓锤」提升队友伤害",
   dmg: ({ calc, attr }) => {
     return {
-      avg: Math.round(Math.min((calc(attr.atk) - 2000) * 0.025, 50) * 100) / 100 + "%",
+      avg: Math.round(Math.min(Math.max((calc(attr.atk) - 2000) * 0.025, 0), 50) * 100) / 100 + "%",
       type: "text"
     }
   }
 }, {
   title: "E一段伤害",
-  dmg: ({ talent }, dmg) => dmg(talent.e["技能一段伤害"], "e")
+  dmg: ({ talent }, dmg) => dmg(talent.e["叮铃铃·猎魔之音伤害"], "e")
 }, {
   title: "E二段伤害",
-  dmg: ({ talent }, dmg) => dmg(talent.e["技能二段伤害"], "e")
+  dmg: ({ talent }, dmg) => dmg(talent.e["咚锵锵·裁魔之惩伤害"], "e")
 }, {
   title: "Q释放伤害",
   dmg: ({ talent }, dmg) => dmg(talent.q["技能伤害"], "q")
