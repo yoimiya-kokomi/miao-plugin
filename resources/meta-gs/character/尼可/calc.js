@@ -25,7 +25,7 @@ export const details = [{
 }]
 
 export const defParams = { "虚己之赐": true, "圣祝之引": true, Hexenzirkel: true }
-export const defDmgIdx = 2
+export const defDmgIdx = 1
 export const mainAttr = "atk,cpct,cdmg,dmg"
 
 export const buffs = [{
