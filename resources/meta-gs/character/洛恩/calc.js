@@ -1,10 +1,10 @@
 export const details = [
   {
-    title: "EQ后普攻首段伤害",
+    title: "满buff EQ后普攻首段伤害",
     dmg: ({ talent }, dmg) => dmg(talent.e["一段伤害"], "a")
   },
   {
-    title: "EQ后普攻尾段伤害",
+    title: "满buff EQ后普攻尾段伤害",
     dmg: ({ talent }, dmg) => {
       let a = dmg(talent.a["五段伤害2"][0], "a")
       let a2 = dmg(talent.a["五段伤害2"][1], "a")
@@ -27,8 +27,8 @@ export const details = [
   {
     title: "零层强化E伤害",
     params: { "争胜": 0 },
-    dmg: ({ talent, params }, dmg) => {
-      let e = dmg(talent.e["镂骨彻心伤害2"][0] * (1 + 0.004 * params["争胜"]), "e")
+    dmg: ({ talent }, dmg) => {
+      let e = dmg(talent.e["镂骨彻心伤害2"][0], "e")
       return {
         dmg: e.dmg * 4,
         avg: e.avg * 4
@@ -36,9 +36,9 @@ export const details = [
     }
   }, {
     title: "满层强化E伤害",
-    params: ({ cons }) => ({ "争胜": cons >= 1 ? 250 : 100 }),
-    dmg: ({ talent, params }, dmg) => {
-      let e = dmg(talent.e["镂骨彻心伤害2"][0] * (1 + 0.004 * params["争胜"]), "e")
+    params: ({ cons }) => ({ "争胜": cons >= 1 ? 300 : 100 }),
+    dmg: ({ cons, talent }, dmg) => {
+      let e = dmg(talent.e["镂骨彻心伤害2"][0] * (1 + 0.004 * (cons >= 1 ? 300 : 100)), "e")
       return {
         dmg: e.dmg * 4,
         avg: e.avg * 4
@@ -48,8 +48,8 @@ export const details = [
   {
     title: "零层Q伤害",
     params: { "争胜": 0 },
-    dmg: ({ talent, params }, dmg) => {
-      let q = dmg(talent.q["技能伤害2"][0] * (1 + 0.004 * params["争胜"]), "q")
+    dmg: ({ talent }, dmg) => {
+      let q = dmg(talent.q["技能伤害2"][0], "q")
       return {
         dmg: q.dmg * 4,
         avg: q.avg * 4
@@ -57,19 +57,23 @@ export const details = [
     }
   }, {
     title: "满层Q伤害",
-    params: ({ cons }) => ({ "争胜": cons >= 1 ? 250 : 100 }),
-    dmg: ({ talent, params }, dmg) => {
-      let q = dmg(talent.q["技能伤害2"][0] * (1 + 0.004 * params["争胜"]), "q")
+    params: ({ cons }) => ({ "争胜": cons >= 1 ? 300 : 100 }),
+    dmg: ({ cons, talent }, dmg) => {
+      let q = dmg(talent.q["技能伤害2"][0] * (1 + 0.004 * (cons >= 1 ? 300 : 100)), "q")
       return {
         dmg: q.dmg * 4,
         avg: q.avg * 4
       }
     }
-  },
+  }, {
+    title: '2命额外伤害',
+    cons: 2,
+    dmg: ({}, dmg) => dmg(500)
+  }
 ]
 
 export const defParams = { "奇谋": true, Hexenzirkel: true }
-export const mainAttr = "atk,cpct,cdmg,mastery,dmg"
+export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 6
 
 export const buffs = [
@@ -77,8 +81,8 @@ export const buffs = [
     title: "洛恩技能：当前拥有[buff]层争胜，元素战技镂骨彻心造成原本[_eDmg]%的伤害,元素爆发造成原本[_qDmg]%的伤害",
     data: {
       buff: ({ params }) => params["争胜"] || 0,
-      _eDmg: ({ talent, params }) => 100 + 0.4 * params["争胜"],
-      _qDmg: ({ talent, params }) => 100 + 0.4 * params["争胜"]
+      _eDmg: ({ params }) => 100 + 0.4 * params["争胜"],
+      _qDmg: ({ params }) => 100 + 0.4 * params["争胜"]
     }
   }, {
     check: ({ params }) => params["奇谋"] === true,
@@ -87,8 +91,8 @@ export const buffs = [
       atkPct: 15
     }
   }, {
-    check: ({ params, cons }) => (params["奇谋"] === true) && ((params["争胜"] || 0) > (cons >= 1 ? 125 : 50)),
-    title: "洛恩天赋：施放强化战技或元素爆发后普通攻击与重击造成的伤害提升[aDmg]%",
+    check: ({ params }) => params["奇谋"] === true,
+    title: "洛恩天赋：施放强化战技或元素爆发时，若争胜至少为上限的50%，则普通攻击与重击造成的伤害提升[aDmg]%",
     data: {
       aDmg: 40,
       a2Dmg: 40
