@@ -153,9 +153,10 @@ export default function (staticIdx, keyIdx) {
       staticIdx(1, 'hpPct'),
       (tables) => {
         return {
-          title: '【炼狱】状态下目标受到的暴击伤害提高30%，受到来自装备者的暴击伤害额外提高30%',
+          title: '【炼狱】状态下目标受到的暴击伤害提高[cdmgName]%，受到来自装备者的暴击伤害额外提高[cdmgName]%',
           data: {
-            cpct: tables[2] * 2
+            cdmgName: tables[2],
+            cdmg: tables[2] * 2
           }
         }
       }
