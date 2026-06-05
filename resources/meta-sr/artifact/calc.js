@@ -475,7 +475,7 @@ export default {
   },
   零号关卡朋克洛德: {
     2: [attr('joy', 8), {
-      check: ({ attr }) => attr.joy.base>= 40,
+      check: ({ attr }) => attr.joy.base >= 40,
       title: '战斗中欢愉度首次达到[joy]%时，使装备者暴击伤害提高[cdmg]%',
       data: {
         joy: ({ attr, calc }) => {
@@ -497,5 +497,25 @@ export default {
         cdmg: 12
       }
     }]
+  },
+  星如我见的领航员: {
+    2: attr('atkPct', 12),
+    4: {
+      title: '使战技和终结技造成的伤害提高18%',
+      data: {
+        eDmg: 18,
+        qDmg: 18
+      }
+    }
+  },
+  叩问天工的名冶: {
+    2: attr('hpPct', 12),
+    4: {
+      title: '装备者对防御力降低状态的敌方目标造成的暴击伤害提高[cdmg]% ，持有【助燃】的我方目标造成的伤害提高[dmg]%',
+      data: {
+        cdmg: 28,
+        dmg: 15
+      }
+    }
   }
 }
