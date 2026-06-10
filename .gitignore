@@ -1,21 +1,44 @@
-*.psd
+# IDE
 .idea
 .vscode
-/tools/char-data-sprider.js
-/components/cfg.json
-/resources/miao-res-plus/
-/components/setting.json
+
+# 设计源文件
+*.psd
+
+# 运行时配置
 /config.js
-*.css.map
+/components/cfg.json
+/components/setting.json
+/config/character.js
+/config/profile.js
+/config/help.js
+/config/cfg.js
+
+# 资源缓存
+/resources/miao-res-plus/
 /resources/character-img/*/upload/
 /resources/help/help-list.js
 /resources/help/help-cfg.js
 /resources/help/theme/*
 !/resources/help/theme/default
-/config/character.js
-/config/profile.js
-/config/help.js
-/config/cfg.js
+/resources/profile/*
+!/resources/profile/super-character
+!/resources/profile/normal-character/
 /resources/profile/super-character/*
 /resources/profile/normal-character/*
+
+# 构建产物
+*.css.map
+
+# 工具脚本
+/tools/char-data-sprider.js
+
+# 依赖
 /node_modules/
+
+# Windows 缩略图
+Thumbs.db
+
+# Claude Code 工作区
+.claude/
+CLAUDE.md
