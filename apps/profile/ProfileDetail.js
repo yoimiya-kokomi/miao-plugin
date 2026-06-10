@@ -40,6 +40,8 @@ let ProfileDetail = {
         msg = `#${profileChange.char?.name}${pc.mode || '面板'}`
         e._profile = profileChange
         e._profileMsg = changeMsg
+        e._change = pc.change
+        e._changeOp = pc.op
       }
     }
     let uidRet = /(18|[1-9])[0-9]{8}/g.exec(msg)
@@ -180,7 +182,10 @@ let ProfileDetail = {
     }
 
     let enemyLv = isGs ? (await selfUser.getCfg('char.enemyLv', 103)) : 80
-    let dmgCalc = await ProfileDetail.getProfileDmgCalc({ profile, enemyLv, mode, params })
+    let dmgCalc = await ProfileDetail._getDmgCalcWithDiff(e, profile, char.id, game, enemyLv, mode, params)
+    if (!dmgCalc) {
+      dmgCalc = await ProfileDetail.getProfileDmgCalc({ profile, enemyLv, mode, params })
+    }
 
     let rank = false
     if (e.group_id && !e._profile) {
@@ -313,6 +318,67 @@ let ProfileDetail = {
     }
 
     return dmgCalc
+  },
+
+  /**
+   * 面板变换伤害差异注入
+   * 在 e._profile 存在时，计算变换前后的伤害差异并注入到 dmgData
+   * @returns {Object|null} 含 avg_diff/dmg_diff 的 dmgCalc，无变换或出错返回 null
+   */
+  async _getDmgCalcWithDiff (e, profile, charId, game, enemyLv, mode, params) {
+    if (!e._profile) return null
+    try {
+      let oldProfile = await getProfileRefresh(e, charId)
+      if (!oldProfile) return null
+
+      // statMod 含 isBase：重建 oldProfile 使基准对齐
+      const statMods = e._change?.statMods
+      if (statMods?.some(s => s.isBase)) {
+        let baseMods = statMods.filter(s => s.isBase)
+        let rebuilt = ProfileChange.getProfile(e.uid, charId, { statMods: baseMods }, game)
+        if (rebuilt) oldProfile = rebuilt
+      }
+
+      const oldCalc = await ProfileDetail.getProfileDmgCalc({ profile: oldProfile, enemyLv, mode, params })
+      const newCalc = await ProfileDetail.getProfileDmgCalc({ profile, enemyLv, mode, params })
+
+      ProfileDetail._injectDiffLines(newCalc?.dmgData, oldCalc?.dmgData)
+      return newCalc
+    } catch (err) {
+      logger?.error('[miao-plugin] 面板变换伤害差异计算失败:', err)
+      return null
+    }
+  },
+
+  /**
+   * 逐行计算差异并注入到 newData（原地修改）
+   */
+  _injectDiffLines (newData, oldData) {
+    if (!newData || !oldData) return
+    for (let i = 0; i < newData.length; i++) {
+      const ni = newData[i], oi = oldData[i]
+      if (!oi || ni.type === 'text' || oi.type === 'text') continue
+
+      const avgDiff = ProfileDetail._calcPctDiff(ni.avg, oi.avg)
+      if (avgDiff) ni.avg_diff = avgDiff
+
+      if (ni.dmg && ni.dmg !== 'NaN' && oi.dmg && oi.dmg !== 'NaN') {
+        const dmgDiff = ProfileDetail._calcPctDiff(ni.dmg, oi.dmg)
+        if (dmgDiff) ni.dmg_diff = dmgDiff
+      }
+    }
+  },
+
+  /**
+   * 计算百分比差异字符串
+   * @returns {string|null} "↑3.5%" / "↓1.2%" / null
+   */
+  _calcPctDiff (newVal, oldVal) {
+    const n = parseFloat(String(newVal).replace(/,/g, ''))
+    const o = parseFloat(String(oldVal).replace(/,/g, ''))
+    if (isNaN(n) || isNaN(o) || o === 0) return null
+    const pct = ((n - o) / o * 100)
+    return `${pct > 0 ? '↑' : '↓'}${Math.abs(pct).toFixed(1)}%`
   }
 }
 

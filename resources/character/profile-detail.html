@@ -297,11 +297,35 @@
           <div class="title dmg-idx">{{idx+1}}</div>
           <div class="title dmg-title">{{dmg.title}}</div>
           {{if !dmg.dmg || dmg.dmg === "NaN"}}
-          <div class="value value-full">{{dmg.avg}}{{dmg.unit}}</div>
+          <div class="value value-full" style="position: relative;">
+            {{if dmg.avg_diff}}
+            <span style="position: absolute; right: 32px; font-size: 12px; color: {{dmg.avg_diff.includes('↑') ? '#43ff43' : (dmg.avg_diff.includes('↓') ? '#ff4e4e' : '#999')}};">
+              {{dmg.avg_diff}}
+            </span>
+            {{/if}}
+          <span>{{dmg.avg}}{{dmg.unit}}</span></div>
+
           <div class="value value-none"></div>
           {{else}}
-          <div class="value">{{dmg.dmg}}{{dmg.unit}}</div>
-          <div class="value">{{dmg.avg}}{{dmg.unit}}</div>
+            {{if dmg.dmg_diff}}
+            <div class="value" style="text-align: left; padding-left: 15px; white-space: nowrap;">
+              <span style="float: right; font-size: 12px; opacity: 0.9; padding-right: 15px; color: {{dmg.dmg_diff.includes('↑') ? '#43ff43' : (dmg.dmg_diff.includes('↓') ? '#ff4e4e' : '#999')}};">
+                {{dmg.dmg_diff}}
+              </span>
+              <span>{{dmg.dmg}}{{dmg.unit}}</span>
+            </div>
+            <div class="value" style="text-align: left; padding-left: 15px; white-space: nowrap;">
+              {{if dmg.avg_diff}}
+              <span style="float: right; font-size: 12px; opacity: 0.9; padding-right: 15px; color: {{dmg.avg_diff.includes('↑') ? '#43ff43' : (dmg.avg_diff.includes('↓') ? '#ff4e4e' : '#999')}};">
+                {{dmg.avg_diff}}
+              </span>
+              {{/if}}
+              <span>{{dmg.avg}}{{dmg.unit}}</span>
+            </div>
+            {{else}}
+              <div class="value">{{dmg.dmg}}{{dmg.unit}}</div>
+              <div class="value">{{dmg.avg}}{{dmg.unit}}</div>
+            {{/if}}
           {{/if}}
         </div>
         {{/each}}
