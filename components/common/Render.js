@@ -12,7 +12,7 @@ const Render = {
       beforeRender ({ data }) {
         let pluginName = ''
         if (data.pluginName !== false) {
-          pluginName = ` & ${data.pluginName || 'Miao-Plugin'}`
+          pluginName = ` & ${data.pluginName || 'Miao-Plugin-fork'}`
           if (data.pluginVersion !== false) {
             pluginName += `<span class="version">${data.pluginVersion || Version.version}`
           }
