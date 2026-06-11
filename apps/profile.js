@@ -1,5 +1,5 @@
 import { profileHelp } from './profile/ProfileCommon.js'
-import { profileArtisList } from './profile/ProfileArtis.js'
+import { profileArtisList, unifiedArtisHandler } from './profile/ProfileArtis.js'
 import ProfileDetail from './profile/ProfileDetail.js'
 import ProfileStat from './profile/ProfileStat.js'
 import ProfileList from './profile/ProfileList.js'
@@ -64,9 +64,9 @@ app.reg({
   },
 
   artisList: {
-    name: '面板圣遗物列表',
-    fn: profileArtisList,
-    rule: /^#(星铁|原神)?(圣遗物|遗器)列表\s*(\d{9,10})?$/
+    name: '圣遗物列表/统计',
+    fn: unifiedArtisHandler,
+    rule: /^#(星铁|原神)?(.*?)(圣遗物|遗器)(全局)?(列表|统计)\s*(.*)$/
   },
 
   profileStat: {
