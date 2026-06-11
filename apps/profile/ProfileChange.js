@@ -26,7 +26,7 @@ const ProfileChange = {
     }
     let game = /星铁/.test(msg) ? 'sr' : 'gs'
     msg = msg.toLowerCase().replace(/uid ?:? ?/, '').replace('星铁', '')
-    let regRet = /^#*(\d{9,10})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9,10})?[变换改](.+)/.exec(msg)
+    let regRet = /^#*(\d{9,10})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9,10})?[变换改](.*)/.exec(msg)
     if (!regRet || !regRet[2]) {
       return false
     }
@@ -295,9 +295,16 @@ const ProfileChange = {
     let artis = getSource(ds.artis)?.artis?.toJSON() || {}
     for (let idx = 1; idx <= (isGs ? 5 : 6); idx++) {
       if (ds['arti' + idx]) {
-        let source = getSource(ds['arti' + idx])
-        if (source && source.artis && source.artis[idx]) {
-          artis[idx] = lodash.cloneDeep(source.artis[idx])
+        if (ds['arti' + idx].mode === 'ocr') {
+          // OCR 识别结果：直接使用，不查 source
+          let ocrData = lodash.cloneDeep(ds['arti' + idx])
+          delete ocrData.mode
+          artis[idx] = ocrData
+        } else {
+          let source = getSource(ds['arti' + idx])
+          if (source && source.artis && source.artis[idx]) {
+            artis[idx] = lodash.cloneDeep(source.artis[idx])
+          }
         }
       }
       let artisIdx = (isGs ? '00111' : '001122')[idx - 1]
@@ -313,6 +320,83 @@ const ProfileChange = {
     ret.setArtis(artis)
     ret.calcAttr()
     return ret
+  },
+
+  /**
+   * OCR 图片识别
+   * 识别用户发送的圣遗物/遗器截图，自动解析属性并应用到面板
+   * OCR API 参考 NotIvny 的 yunzai-artis-ocr-js 项目（https://github.com/NotIvny/yunzai-artis-ocr-js）
+   * 由 ProfileDetail 在 matchMsg 之后、change 块之前调用
+   * @param pc matchMsg 返回结果（会直接修改 pc.change）
+   * @param e 事件对象
+   */
+  async applyOCR (pc, e) {
+    if (!pc || !pc.char) return
+
+    // 1. 提取图片 URL
+    let imgUrls = []
+    if (e.getReply) {
+      let source = await e.getReply()
+      if (source && source.message) {
+        source.message.forEach(item => {
+          if (item.type === 'image') imgUrls.push(item.url)
+        })
+      }
+    } else if (e.source) {
+      let source
+      if (e.group?.getChatHistory) {
+        source = (await e.group.getChatHistory(e.source?.seq, 1)).pop()
+      } else if (e.friend?.getChatHistory) {
+        source = (await e.friend.getChatHistory((e.source?.time + 1), 1)).pop()
+      }
+      if (source && source.message) {
+        source.message.forEach(item => {
+          if (item.type === 'image') imgUrls.push(item.url)
+        })
+      }
+    }
+    if (e.message) {
+      e.message.forEach(item => {
+        if (item.type === 'image') imgUrls.push(item.url)
+      })
+    }
+    if (!imgUrls.length) return
+
+    // 2. 并行调 OCR API
+    let game = pc.game || (e.isSr ? 'sr' : 'gs')
+    const results = await Promise.all(imgUrls.map(async (imageUrl) => {
+      try {
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 15000)
+        const response = await fetch(`https://ark.ivny.top/ocr/profilechange/${game}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: imageUrl }),
+          signal: controller.signal
+        })
+        clearTimeout(timeout)
+        if (!response.ok) return null
+        return await response.json()
+      } catch (err) {
+        return null
+      }
+    }))
+
+    // 3. 合并 OCR 结果到 pc.change（显式标记 mode: 'ocr'）
+    for (const res of results) {
+      if (res && res.data) {
+        if (!pc.change || pc.change === false) pc.change = {}
+        if (Array.isArray(res.data)) {
+          res.data.forEach(item => {
+            if (item && item.type) {
+              pc.change[item.type] = { ...item.data, mode: 'ocr' }
+            }
+          })
+        } else {
+          pc.change[res.data.type] = { ...res.data.data, mode: 'ocr' }
+        }
+      }
+    }
   }
 }
 export default ProfileChange

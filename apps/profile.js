@@ -30,7 +30,7 @@ app.reg({
   profileChange: {
     name: '角色面板计算',
     fn: ProfileDetail.detail,
-    rule: /^#.+换.+$/
+    rule: /^#.+换/
   },
 
   groupProfile: {

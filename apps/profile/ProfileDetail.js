@@ -25,6 +25,9 @@ let ProfileDetail = {
     let changeMsg = msg
     let pc = ProfileChange.matchMsg(msg)
 
+    // OCR 图片识别
+    await ProfileChange.applyOCR(pc, e)
+
     if (pc && pc.char && pc.change) {
       if (!Cfg.get('profileChange')) {
         e.reply('面板替换功能已禁用...')
