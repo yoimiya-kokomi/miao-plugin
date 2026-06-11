@@ -5,6 +5,7 @@ import { Cfg, Common, Data, Format } from '#miao'
 import { Button, MysApi, ProfileRank, Character, Weapon, Artifact } from '#miao.models'
 
 import ProfileChange from './ProfileChange.js'
+import { profileMaxScoreBuild } from './ProfileMax.js'
 import { profileArtis } from './ProfileArtis.js'
 import { ProfileWeapon } from './ProfileWeapon.js'
 
@@ -20,6 +21,29 @@ let ProfileDetail = {
     if (!/详细|详情|面板|面版|圣遗物|遗器|伤害|武器|换|补/.test(msg)) {
       return false
     }
+
+    // 最高分面板：早期分流
+    let maxRet = /^#(?:星铁|原神)?我的(.+?)最高分面板\s*(.*)$/.exec(msg)
+    if (maxRet) {
+      let game = /星铁/.test(msg) ? 'sr' : 'gs'
+      e.game = game
+      e.isSr = game === 'sr'
+      let charInput = maxRet[1].trim()
+      let paramStr = (maxRet[2] || '').trim()
+      let char = Character.get(charInput, game)
+      if (!char) return false
+      let uid = await getTargetUid(e)
+      if (!uid) return true
+      e.uid = uid
+      e.avatar = char.id
+      let result = await profileMaxScoreBuild(e, char, paramStr, game, uid)
+      if (!result) return true
+      await e.reply(result.summary)
+      e._profile = result.profile
+      e._profileMsg = `#${char.name}最高分面板`
+      return ProfileDetail.render(e, char, 'profile', { dmgIdx: 0, idxIsInput: false })
+    }
+
     let mode = 'profile'
     let profileChange = false
     let changeMsg = msg

@@ -6,6 +6,7 @@ import ProfileList from './profile/ProfileList.js'
 import { uploadCharacterImg, delProfileImg, profileImgList } from './character/ImgUpload.js'
 import { enemyLv } from './profile/ProfileUtils.js'
 import { groupRank, resetRank, refreshRank, manageRank } from './profile/ProfileRank.js'
+import { profileMaxScoreBuild } from './profile/ProfileMax.js'
 import { App, Cfg } from '#miao'
 
 let app = App.init({
@@ -19,6 +20,12 @@ app.reg({
     desc: '查看当前已获取面板数据的角色列表',
     fn: ProfileList.render,
     rule: /^#(星铁|原神)?(面板角色|角色面板|面板)(列表)?\s*(\d{9,10})?$/
+  },
+
+  profileMaxScore: {
+    name: '最高分面板',
+    fn: ProfileDetail.detail,
+    rule: /^#(?:星铁|原神)?我的(.+?)最高分面板\s*(.*)$/
   },
 
   profileDetail: {
