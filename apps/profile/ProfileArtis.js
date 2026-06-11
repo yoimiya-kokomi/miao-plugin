@@ -207,7 +207,7 @@ export async function unifiedArtisHandler (e) {
   let artisKeyTitle = Artifact.getArtisKeyTitle(game)
   return await Common.render('character/artis-list', {
     save_id: isGlobal ? e.group_id : uid,
-    uid: isGlobal ? 'global' : uid,
+    uid: isGlobal ? 'group' : uid,
     artis: allArtis,
     artisKeyTitle
   }, { e, scale: 1.4 })
@@ -241,6 +241,8 @@ async function collectAllGroupArtisRaw (e, game) {
   if (!uidMap || Object.keys(uidMap).length === 0) return []
   let allArtis = []
   for (let uid in uidMap) {
+    // 跳过系统预留 UID（100000000–100000009：极限角色/预设数据）
+    if (/^10000000\d$/.test(uid)) continue
     let player = Player.create(uid, game)
     let profiles = player.getProfiles()
     for (let id in profiles) {
@@ -263,6 +265,8 @@ function _formatOneArti (arti, idx, profile, charWeight, uid, game) {
   if (!arti || !arti.main || !arti.attrs) return null
   let artiInfo = Artifact.get(arti, game)
   let char = profile.char || profile._char
+  let artisMark = profile.getArtisMark()
+  let preMark = artisMark?.artis?.[idx]
   return {
     name: artiInfo?.name || '',
     abbr: artiInfo?.abbr || '',
@@ -278,6 +282,9 @@ function _formatOneArti (arti, idx, profile, charWeight, uid, game) {
     idx,
     elem: char?.elem || '',
     charWeight,
+    _mark: preMark?._mark || 0,
+    mark: preMark?.mark || '0',
+    markClass: preMark?.markClass || 'D',
     _raw: { main: arti.main, attrs: arti.attrs, idx, set: artiInfo?.setName || '' }
   }
 }
