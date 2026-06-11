@@ -5,6 +5,71 @@ import lodash from 'lodash'
 import { Data, Meta } from '#miao'
 import { Character, ArtifactSet, Avatar, Weapon, Player } from '#miao.models'
 
+/** 中文属性名 → 内部 key 映射，最长前缀匹配 */
+export const ATTR_CN_TO_KEY = {
+  '暴击': 'cpct', '暴击率': 'cpct',
+  '爆伤': 'cdmg', '暴伤': 'cdmg', '暴击伤害': 'cdmg',
+  '攻击': 'atk', '大攻击': 'atk', '攻击力': 'atk', '攻击力%': 'atk', '攻击力百分比': 'atk', '百分比攻击力': 'atk',
+  '生命': 'hp', '大生命': 'hp', '生命值': 'hp', '生命值%': 'hp', '生命值百分比': 'hp', '百分比生命值': 'hp',
+  '防御': 'def', '大防御': 'def', '防御力': 'def', '防御力%': 'def', '防御力百分比': 'def', '百分比防御力': 'def',
+  '精通': 'mastery', '元素精通': 'mastery',
+  '充能': 'recharge', '充能效率': 'recharge', '元素充能': 'recharge', '元素充能效率': 'recharge',
+  '治疗': 'heal', '治疗加成': 'heal',
+  '物伤': 'phy', '物理': 'phy', '物理伤害': 'phy', '物理伤害加成': 'phy',
+  '冰伤': 'dmg', '冰元素': 'dmg', '冰元素伤害': 'dmg', '冰元素伤害加成': 'dmg',
+  '火伤': 'dmg', '火元素': 'dmg', '火元素伤害': 'dmg', '火元素伤害加成': 'dmg',
+  '雷伤': 'dmg', '雷元素': 'dmg', '雷元素伤害': 'dmg', '雷元素伤害加成': 'dmg',
+  '水伤': 'dmg', '水元素': 'dmg', '水元素伤害': 'dmg', '水元素伤害加成': 'dmg',
+  '风伤': 'dmg', '风元素': 'dmg', '风元素伤害': 'dmg', '风元素伤害加成': 'dmg',
+  '岩伤': 'dmg', '岩元素': 'dmg', '岩元素伤害': 'dmg', '岩元素伤害加成': 'dmg',
+  '草伤': 'dmg', '草元素': 'dmg', '草元素伤害': 'dmg', '草元素伤害加成': 'dmg',
+  '元素伤害': 'dmg', '元素伤害加成': 'dmg'
+}
+
+/** 中文属性名 → 内部 key，最长前缀匹配 */
+function attrNameToKey (chinese) {
+  chinese = chinese.trim()
+  let keys = Object.keys(ATTR_CN_TO_KEY).sort((a, b) => b.length - a.length)
+  for (let cn of keys) {
+    if (chinese.includes(cn)) return ATTR_CN_TO_KEY[cn]
+  }
+  return null
+}
+
+/**
+ * 解析面板变换 token
+ * "+15%暴击" → {op:'+', key:'cpct', value:15, isPct:true}
+ * "+10大攻击" → {op:'+', key:'atk', value:10, isPct:true}
+ * "+10攻击"   → {op:'+', key:'atk', value:10, isPct:false}
+ * "-100防御"  → {op:'-', key:'def', value:100, isPct:false}
+ */
+export function parseStatTransform (token) {
+  let m = /^([+\-])(\d+)(%?)(.+)$/.exec(token)
+  if (!m) return null
+  let key = attrNameToKey(m[4])
+  if (!key) return null
+  let isPct = m[3] === '%' || /[大百分比]/.test(m[4]) || /%$/.test(m[4])
+  return { op: m[1], key, value: parseFloat(m[2]), isPct }
+}
+
+/**
+ * 对 Avatar 应用面板变换（calcAttr 之后调用）
+ * isPct 仅对 atk/hp/def 三类基于 base 值计算
+ */
+export function applyStatMods (avatar, statMods) {
+  if (!avatar || !avatar.attr || !statMods || !statMods.length) return
+  let base = avatar.base || {}
+  for (let st of statMods) {
+    let current = avatar.attr[st.key]
+    if (current === undefined) continue
+    let addVal = st.value
+    if (st.isPct && ['atk', 'hp', 'def'].includes(st.key) && base[st.key]) {
+      addVal = base[st.key] * st.value / 100
+    }
+    avatar.attr[st.key] = st.op === '+' ? current + addVal : current - addVal
+  }
+}
+
 // 默认武器
 let defWeapon = {
   bow: '西风猎弓',
@@ -80,6 +145,17 @@ const ProfileChange = {
       if (!txt) {
         return true
       }
+
+      // 匹配 +/- 属性变换
+      if (/^[+\-]/.test(txt)) {
+        let sm = parseStatTransform(txt)
+        if (sm) {
+          if (!change.statMods) change.statMods = []
+          change.statMods.push(sm)
+        }
+        return true
+      }
+
       // 匹配圣遗物
       let keyRet = keyReg.exec(txt)
       if (keyRet && keyRet[4]) {
@@ -319,6 +395,10 @@ const ProfileChange = {
     }
     ret.setArtis(artis)
     ret.calcAttr()
+    // 应用面板变换（+/-属性）
+    if (ds.statMods && ds.statMods.length) {
+      applyStatMods(ret, ds.statMods)
+    }
     return ret
   },
 
