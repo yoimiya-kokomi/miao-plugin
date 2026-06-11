@@ -17,7 +17,7 @@ let ProfileDetail = {
     if (!msg) {
       return false
     }
-    if (!/详细|详情|面板|面版|圣遗物|遗器|伤害|武器|换/.test(msg)) {
+    if (!/详细|详情|面板|面版|圣遗物|遗器|伤害|武器|换|补/.test(msg)) {
       return false
     }
     let mode = 'profile'
@@ -28,7 +28,7 @@ let ProfileDetail = {
     // OCR 图片识别
     await ProfileChange.applyOCR(pc, e)
 
-    if (pc && pc.char && pc.change) {
+    if (pc && pc.char && (pc.change || pc.baseChange)) {
       if (!Cfg.get('profileChange')) {
         e.reply('面板替换功能已禁用...')
         return true
@@ -38,12 +38,26 @@ let ProfileDetail = {
       e.uid = ''
       e.msg = '#喵喵面板变换'
       e.uid = pc.uid || await getTargetUid(e)
-      profileChange = ProfileChange.getProfile(e.uid, pc.char, pc.change, pc.game)
+      // 换覆盖补，构建合并后的变更描述
+      let mergedDs = pc.change || false
+      if (pc.baseChange) {
+        e._baseChange = pc.baseChange
+        let ch = pc.change || {}
+        mergedDs = lodash.merge({}, pc.baseChange, ch)
+        // statMods 数组追加（补层和换层的属性变换均生效）
+        if (pc.baseChange.statMods || ch.statMods) {
+          mergedDs.statMods = [
+            ...(pc.baseChange.statMods || []),
+            ...(ch.statMods || [])
+          ]
+        }
+      }
+      profileChange = ProfileChange.getProfile(e.uid, pc.char, mergedDs, pc.game)
       if (profileChange && profileChange.char) {
         msg = `#${profileChange.char?.name}${pc.mode || '面板'}`
         e._profile = profileChange
         e._profileMsg = changeMsg
-        e._change = pc.change
+        e._change = mergedDs
         e._changeOp = pc.op
       }
     }
@@ -334,11 +348,9 @@ let ProfileDetail = {
       let oldProfile = await getProfileRefresh(e, charId)
       if (!oldProfile) return null
 
-      // statMod 含 isBase：重建 oldProfile 使基准对齐
-      const statMods = e._change?.statMods
-      if (statMods?.some(s => s.isBase)) {
-        let baseMods = statMods.filter(s => s.isBase)
-        let rebuilt = ProfileChange.getProfile(e.uid, charId, { statMods: baseMods }, game)
+      // 补层存在：用 baseChange 重建旧面板做 diff 基线
+      if (e._baseChange) {
+        let rebuilt = ProfileChange.getProfile(e.uid, charId, e._baseChange, game)
         if (rebuilt) oldProfile = rebuilt
       }
 

@@ -86,17 +86,18 @@ const ProfileChange = {
    * @returns {{}}
    */
   matchMsg (msg) {
-    if (!/(变|改|换)/.test(msg)) {
+    if (!/(变|改|换|补)/.test(msg)) {
       return false
     }
     let game = /星铁/.test(msg) ? 'sr' : 'gs'
     msg = msg.toLowerCase().replace(/uid ?:? ?/, '').replace('星铁', '')
-    let regRet = /^#*(\d{9,10})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9,10})?[变换改](.*)/.exec(msg)
+    let regRet = /^#*(\d{9,10})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9,10})?([变换改补])(.*)/.exec(msg)
     if (!regRet || !regRet[2]) {
       return false
     }
     let ret = {}
     let change = {}
+    let baseChange = {}
     let char = Character.get(lodash.trim(regRet[2]).replace(/\d{9,10}/g, ''), game)
     if (char.isTraveler) this.isTraveler = true
     game = char.isSr ? 'sr' : 'gs'
@@ -136,22 +137,40 @@ const ProfileChange = {
     ret.mode = regRet[3] === '换' ? '面板' : regRet[3]
     ret.uid = regRet[1] || regRet[4] || ''
     ret.game = game
-    msg = regRet[5]
+    ret.op = regRet[5]
+    msg = regRet[6]
 
     // 更换匹配
+    msg = msg.replace(/补/g, '换补')
     msg = msg.replace(/[变改]/g, '换')
+    let fragmentIdx = -1
     lodash.forEach(msg.split('换'), (txt) => {
+      fragmentIdx++
       txt = lodash.trim(txt)
       if (!txt) {
         return true
       }
 
+      // 确定归属：补 → baseChange，换 → change
+      let isBase
+      if (/^补/.test(txt)) {
+        isBase = true
+        txt = txt.replace(/^补/, '')
+      } else if (fragmentIdx === 0) {
+        isBase = (ret.op === '补')
+      } else {
+        isBase = false
+      }
+      let target = isBase ? baseChange : change
+      let char = target.char || {}
+
       // 匹配 +/- 属性变换
       if (/^[+\-]/.test(txt)) {
         let sm = parseStatTransform(txt)
         if (sm) {
-          if (!change.statMods) change.statMods = []
-          change.statMods.push(sm)
+          sm.isBase = isBase
+          if (!target.statMods) target.statMods = []
+          target.statMods.push(sm)
         }
         return true
       }
@@ -164,7 +183,7 @@ const ProfileChange = {
           lodash.forEach(keyRet[4].split('+'), (key) => {
             key = lodash.trim(key)
             let type = keyTitleMap[key]
-            change[type] = {
+            target[type] = {
               char: char.id || '',
               uid: keyRet[1] || keyRet[3] || '',
               type
@@ -186,17 +205,17 @@ const ProfileChange = {
       }
       if (asRet && asRet[1] && getSet(1)) {
         if (game === 'gs') {
-          change.artisSet = [getSet(1), getSet(2) || getSet(1)]
+          target.artisSet = [getSet(1), getSet(2) || getSet(1)]
         } else if (game === 'sr') {
           for (let idx = 1; idx <= 3; idx++) {
             let as = ArtifactSet.get(asRet[idx])
             if (as) { // 球&绳
-              change.artisSet = change.artisSet || []
-              let ca = change.artisSet
+              target.artisSet = target.artisSet || []
+              let ca = target.artisSet
               ca[as.idxs?.[1] ? (ca[0] ? 1 : 0) : 2] = as.name
             }
           }
-          let ca = change.artisSet
+          let ca = target.artisSet
           if (ca && ca[0] && !ca[1]) {
             ca[1] = ca[0]
           }
@@ -222,12 +241,12 @@ const ProfileChange = {
             level: wRet[1] * 1 || wRet[6] * 1 || ''
           }
           if (lodash.values(tmp).join('')) {
-            change.weapon = tmp
+            target.weapon = tmp
           }
           return true
         }
       }
-      let char = change.char || {}
+
       // 命座匹配
       let consRet = /([0-6零一二三四五六满])(命|魂|星魂)/.exec(txt)
       if (consRet && consRet[1]) {
@@ -270,10 +289,11 @@ const ProfileChange = {
         }
       }
       if (!lodash.isEmpty(char)) {
-        change.char = char
+        target.char = char
       }
     })
     ret.change = lodash.isEmpty(change) ? false : change
+    ret.baseChange = lodash.isEmpty(baseChange) ? false : baseChange
     return ret
   },
 
