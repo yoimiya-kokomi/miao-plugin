@@ -364,6 +364,13 @@ let ProfileDetail = {
   /**
    * 面板变换伤害差异注入
    * 在 e._profile 存在时，计算变换前后的伤害差异并注入到 dmgData
+   * @param {Object}   e        - 事件对象（含 e._profile / e._baseChange）
+   * @param {Object}   profile  - 变换后面板
+   * @param {string}   charId   - 角色 ID
+   * @param {string}   game     - 'gs' | 'sr'
+   * @param {number}   enemyLv  - 敌人等级
+   * @param {string}   mode     - 伤害模式
+   * @param {Object}   params   - 附加参数（dmgIdx 等）
    * @returns {Object|null} 含 avg_diff/dmg_diff 的 dmgCalc，无变换或出错返回 null
    */
   async _getDmgCalcWithDiff (e, profile, charId, game, enemyLv, mode, params) {
