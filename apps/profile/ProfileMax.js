@@ -572,8 +572,8 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     `「${char.name}」最高分${isSr ? '遗器' : '面板'}（${setLabel}）`
   ]
 
-  // 武器
-  let specWeapon = pc?.change?.weapon
+  // 武器（换层优先，补层次之）
+  let specWeapon = pc?.change?.weapon || pc?.baseChange?.weapon
   if (specWeapon?.weapon) {
     let wepInfo = Weapon.get(specWeapon.weapon, game, char.weaponType) || Weapon.get(specWeapon.weapon, game)
     let wParts = [wepInfo?.abbr || wepInfo?.name || specWeapon.weapon]
@@ -582,8 +582,8 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     summaryLines.push(`┃ 武器：${wParts.join(' ')}`)
   }
 
-  // 等级
-  let specLevel = pc?.change?.char?.level
+  // 等级（换层优先，补层次之）
+  let specLevel = pc?.change?.char?.level || pc?.baseChange?.char?.level
   if (specLevel) {
     summaryLines.push(`┃ 等级：${specLevel}`)
   }
@@ -670,32 +670,40 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     }
   }
 
-  // --- 9c. 角色等级/命座/天赋（取自 matchMsg 解析）---
-  if (pc?.change?.char) {
-    mergedChange.char = pc.change.char
+  // --- 9c. 角色等级/命座/天赋（补层打底，换层覆盖）---
+  let specChar = { ...(pc?.baseChange?.char || {}), ...(pc?.change?.char || {}) }
+  if (!lodash.isEmpty(specChar)) {
+    mergedChange.char = specChar
   }
 
-  // --- 9d. statMods ---
-  if (pc?.change?.statMods?.length) {
-    mergedChange.statMods = pc.change.statMods
+  // --- 9d. statMods（补层 + 换层均作用于面板）---
+  if (pc?.baseChange?.statMods?.length || pc?.change?.statMods?.length) {
+    mergedChange.statMods = [
+      ...(pc?.baseChange?.statMods || []),
+      ...(pc?.change?.statMods || [])
+    ]
   }
 
   // --- 9e. 补层 diff 基线 ---
   if (pc?.baseChange && !lodash.isEmpty(pc.baseChange)) {
-    // 构建 baseline change：baseChange 属性 + 搜索结果剩余位置（未被 baseChange 锁定）
+    // 基线不含搜索结果，getProfile 用源面板圣遗物回退
     let baseForDiff = lodash.cloneDeep(pc.baseChange)
 
-    // 补层锁定的圣遗物已是 arti1~N（含 char/uid/type/mode），
-    // 搜索结果填充其余位置
-    for (let arti of bestCombo) {
-      let pos = arti._raw.idx
-      if (!baseForDiff['arti' + pos]) {
-        baseForDiff['arti' + pos] = buildArtiChange(arti, isSr)
-      }
-    }
-    // 如果补层没有指定武器，用默认武器（让 baseline 有一份完整数据）
+    // 补层未指定武器时回退到源面板武器
     if (!baseForDiff.weapon) {
-      baseForDiff.weapon = mergedChange.weapon
+      let wSource = targetProfile?.weapon || {}
+      let wName = wSource.name || ''
+      let weaponInfo = Weapon.get(wName, game)
+      if (!weaponInfo && wName) weaponInfo = Weapon.get(wName, game, char.weaponType)
+      if (!weaponInfo) {
+        wName = DEF_WEAPON[char.weaponType] || '西风剑'
+        weaponInfo = Weapon.get(wName, game)
+      }
+      baseForDiff.weapon = {
+        weapon: weaponInfo?.name || '',
+        affix: Math.min(weaponInfo?.maxAffix || 5, wSource.affix || 5),
+        level: Math.min(weaponInfo?.maxLv || 90, wSource.level || 90)
+      }
     }
     e._baseChange = baseForDiff
   }
