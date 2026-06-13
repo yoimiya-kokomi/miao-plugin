@@ -1,6 +1,6 @@
 /**
  * 最高分面板搭配搜索
- * 指令：#我的胡桃最高分面板 魔女2+追忆2 火伤杯 +15%暴击
+ * 指令：#我的胡桃最高分面板 魔女2+追忆2 火伤杯 换护摩之杖 90级 精5 +15%暴击 补+10%大攻击
  * 路由 → ProfileDetail.detail() → profileMaxScoreBuild()
  */
 import lodash from 'lodash'
@@ -88,38 +88,159 @@ function parseMainStat (token, game) {
 }
 
 /**
- * 统一解析指令参数
- * "魔女2+追忆2 换+15%暴击 补+10%大攻击 冰伤杯"
- *   → { setConstraints:[], statMods:[], mainStats:[], dmgIdx:0 }
- *   dmgIdx 对应 #角色名伤害N 的序号（未来最强面板用）
- * statMod 统一走 matchMsg 保证与一般面板换补功能一致
+ * 判断 token 是否为武器相关片段（等级/精炼/已知武器名）
+ * 用于将连续的武器片段合并为一个 matchMsg 片段
  */
-function parseMaxParams (paramStr, game, charName) {
-  let result = { setConstraints: [], statMods: [], mainStats: [], dmgIdx: 0 }
-  let tokens = paramStr.trim().split(/\s+/)
-  let statTokens = []
-  for (let token of tokens) {
+function isWepLike (token, game, charWeaponType) {
+  if (/^\d{1,2}级$/.test(token) || /^等级\d{1,2}$/.test(token)) return true
+  if (/^精(?:炼|影)?[1-5一二三四五满]$/.test(token)) return true
+  if (/^[1-5一二三四五满]精(?:炼|影)?$/.test(token)) return true
+  if (Weapon.get(token, game, charWeaponType)) return true
+  if (Weapon.get(token, game)) return true
+  return false
+}
+
+/**
+ * 将换补令牌列表拼接为 matchMsg 可解析的伪指令
+ * "#胡桃" + restTokens → "#胡桃换90级精5护摩之杖换+15暴击补+10%大攻击"
+ * matchMsg 武器正则要求：等级/精炼在武器名之前，因此合并时做重排
+ */
+function buildMockCmd (charName, restTokens, game, charWeaponType) {
+  let mockFragments = []
+  let pendingWeapon = []
+
+  function flushWeapon () {
+    if (!pendingWeapon.length) return
+    // 重排：等级/精炼等修饰词在前，武器名在后
+    let specs = []
+    let names = []
+    for (let t of pendingWeapon) {
+      if (/^(?:\d{1,2}级|等级\d{1,2}|精(?:炼|影)?[1-5一二三四五满]|[1-5一二三四五满]精(?:炼|影)?|叠影[1-5])$/.test(t)) {
+        specs.push(t)
+      } else {
+        names.push(t)
+      }
+    }
+    mockFragments.push('换' + [...specs, ...names].join(''))
+    pendingWeapon = []
+  }
+
+  for (let token of restTokens) {
     if (!token) continue
-    // 尝试套装约束
-    let sc = parseSetConstraint(token, game)
-    if (sc.length) { result.setConstraints.push(...sc); continue }
-    // 尝试主词条
-    let ms = parseMainStat(token, game)
-    if (ms) { result.mainStats.push(ms); continue }
-    // 伤害序号（未来最强面板用，传入方式待定）
-    let dmgRet = /^伤害(\d*)$/.exec(token)
-    if (dmgRet) { result.dmgIdx = dmgRet[1] ? Number(dmgRet[1]) : 0; continue }
-    // statMod（换/补前缀）：收集后统一交 matchMsg 解析
-    if (/^[换补][+\-]/.test(token)) {
-      statTokens.push(token)
-      continue
+    let clean = token.replace(/^[换]/, '')
+
+    if (token.startsWith('补')) {
+      flushWeapon()
+      mockFragments.push(token)
+    } else if (isWepLike(clean, game, charWeaponType)) {
+      pendingWeapon.push(clean)
+    } else {
+      flushWeapon()
+      mockFragments.push('换' + clean)
     }
   }
-  // statMods: 统一走 matchMsg 保证与换补功能一致
-  if (statTokens.length && charName) {
-    let pc = ProfileChange.matchMsg(`#${charName}${statTokens.join('')}`)
-    if (pc?.change?.statMods) result.statMods.push(...pc.change.statMods)
-    if (pc?.baseChange?.statMods) result.statMods.push(...pc.baseChange.statMods)
+  flushWeapon()
+
+  if (!mockFragments.length) return ''
+  return '#' + charName + mockFragments.join('')
+}
+
+/**
+ * 解析 matchMsg 锁定的圣遗物位置，从来源面板获取原始数据
+ * @returns {Object|null} arti 原始数据（含 main/attrs/idx/set 等）
+ */
+function resolveLockedArti (lockCfg, uid, game) {
+  if (!lockCfg) return null
+  let pos = lockCfg.type ? parseInt(lockCfg.type.replace('arti', '')) : null
+  if (!pos) return null
+  let srcUid = lockCfg.uid || uid
+  let srcCharId = lockCfg.char
+  let srcPlayer = Player.create(srcUid, game)
+  let srcProfile = srcPlayer.getProfile(srcCharId)
+  if (!srcProfile?.artis || !srcProfile.artis[pos]) return null
+
+  let arti = srcProfile.artis[pos]
+  if (!arti || !arti.main || !arti.attrs) return null
+  return { arti, pos, set: arti.set || '', srcProfile }
+}
+
+/**
+ * 将来源圣遗物原始数据构建为 artsByPos 条目（供搜索/评分用）
+ */
+function buildArtiEntry (arti, pos, srcProfile, game) {
+  let rawMain = arti.main
+  let rawAttrs = arti.attrs
+  let mainDisplay = ArtisMark.formatArti(rawMain, null, true, game)
+  let attrsDisplay = ArtisMark.formatArtiAttrs(rawAttrs, null, game)
+  let artifactInfo = Artifact.get(arti, game)
+
+  return {
+    name: artifactInfo?.name || (arti.name || ''),
+    abbr: artifactInfo?.abbr || '',
+    img: artifactInfo?.img || '',
+    set: artifactInfo?.setName || arti.set || '',
+    level: arti.level || 0,
+    main: mainDisplay,
+    attrs: attrsDisplay,
+    avatar: srcProfile?.name || '',
+    charId: srcProfile?.charId || '',
+    side: srcProfile?.char?.side || '',
+    uid: srcProfile?.uid || '',
+    idx: pos,
+    elem: srcProfile?.char?.elem || '',
+    charWeight: {},
+    star: arti.star || 5,
+    _raw: {
+      main: rawMain, attrs: rawAttrs, idx: pos,
+      set: artifactInfo?.setName || arti.set || '',
+      mainId: arti.mainId, attrIds: arti.attrIds,
+      name: arti.name, artiId: arti.id
+    }
+  }
+}
+
+/**
+ * 将搜索/锁定圣遗物构建为 getProfile change 格式
+ */
+function buildArtiChange (arti, isSr) {
+  let raw = arti._raw
+  let data = { mode: 'ocr', level: arti.level, mainId: raw.mainId, attrIds: raw.attrIds }
+  if (isSr) {
+    data.id = raw.artiId || arti.name
+  } else {
+    data.name = raw.name || arti.name
+    data.star = arti.star
+  }
+  return data
+}
+
+/**
+ * 统一解析指令参数
+ * 剥离 max-score 独有令牌（套装约束/主词条/伤害序号），剩余的留给 matchMsg
+ * "魔女2+追忆2 火伤杯 换护摩之杖 90级 精5 +15暴击 补+10%大攻击"
+ *   → { setConstraints:[], mainStats:[], dmgIdx:0, restTokens:[] }
+ */
+function parseMaxParams (paramStr, game) {
+  let result = { setConstraints: [], mainStats: [], dmgIdx: 0, restTokens: [] }
+  let tokens = paramStr.trim().split(/\s+/)
+
+  for (let token of tokens) {
+    if (!token) continue
+
+    // 套装约束
+    let sc = parseSetConstraint(token, game)
+    if (sc.length) { result.setConstraints.push(...sc); continue }
+
+    // 主词条
+    let ms = parseMainStat(token, game)
+    if (ms) { result.mainStats.push(ms); continue }
+
+    // 最强面板伤害序号（未来，传入方式待定）
+    let dmgRet = /^伤害(\d*)$/.exec(token)
+    if (dmgRet) { result.dmgIdx = dmgRet[1] ? Number(dmgRet[1]) : 0; continue }
+
+    // 其余令牌 → 交 matchMsg 统一解析换补
+    result.restTokens.push(token)
   }
   return result
 }
@@ -228,6 +349,15 @@ function findBestCombination (artsByPos, constraints, scoreFn, posCount) {
   return bestCombo
 }
 
+// 默认武器回退表
+const DEF_WEAPON = {
+  bow: '西风猎弓',
+  catalyst: '西风秘典',
+  claymore: '西风大剑',
+  polearm: '西风长枪',
+  sword: '西风剑'
+}
+
 /**
  * 最高分面板搭配搜索
  * 由 ProfileDetail.detail() 调用
@@ -244,10 +374,40 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
   const POS_COUNT = isSr ? 6 : 5
   const posNames = POS_NAMES[game]
 
-  // --- 1. 解析参数 ---
-  let { setConstraints, mainStats, statMods } = parseMaxParams(paramStr, game, char.name)
+  // ============================================================
+  // 阶段 1：双层解析 — 剥离搜索独有令牌 + matchMsg 解析换补
+  // ============================================================
+  let { setConstraints, mainStats, dmgIdx, restTokens } = parseMaxParams(paramStr, game)
 
-  // --- 2. 收集该玩家全部 5 星圣遗物 ---
+  let pc = null
+  if (restTokens.length) {
+    let mockCmd = buildMockCmd(char.name, restTokens, game, char.weaponType)
+    if (mockCmd) pc = ProfileChange.matchMsg(mockCmd)
+  }
+
+  // ============================================================
+  // 阶段 2：解析锁定位置（换/补指定圣遗物位置 → 从来源取实际数据）
+  // ============================================================
+  let lockedByChange = {}    // change 层的锁定圣遗物
+  let lockedByBase = {}      // baseChange 层的锁定圣遗物（搜索时也参与锁定）
+
+  if (pc) {
+    for (let pos = 1; pos <= POS_COUNT; pos++) {
+      let key = 'arti' + pos
+      if (pc.change?.[key]) {
+        let resolved = resolveLockedArti(pc.change[key], uid, game)
+        if (resolved) lockedByChange[pos] = { ...resolved, layer: 'change' }
+      }
+      if (pc.baseChange?.[key]) {
+        let resolved = resolveLockedArti(pc.baseChange[key], uid, game)
+        if (resolved) lockedByBase[pos] = { ...resolved, layer: 'base' }
+      }
+    }
+  }
+
+  // ============================================================
+  // 阶段 3：收集该玩家全部 5 星圣遗物
+  // ============================================================
   let allArtis = []
   let player = Player.create(uid, game)
   let profiles = player.getProfiles()
@@ -295,14 +455,32 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     return null
   }
 
-  // --- 3. 按位置分组 ---
+  // ============================================================
+  // 阶段 4：按位置分组 + 注入锁定位置
+  // ============================================================
   let artsByPos = {}
   for (let i = 1; i <= POS_COUNT; i++) artsByPos[i] = []
   for (let arti of allArtis) {
     if (artsByPos[arti.idx]) artsByPos[arti.idx].push(arti)
   }
 
-  // --- 4. 主词条过滤 ---
+  // 锁定位置用来源数据覆盖（单条数组 → 搜索时该位置只有这一个选择）
+  // change 优先，baseChange 其次（change 层最终会覆盖 baseChange，但搜索空间只需一份）
+  for (let pos of Object.keys(lockedByChange)) {
+    let lk = lockedByChange[Number(pos)]
+    artsByPos[Number(pos)] = [buildArtiEntry(lk.arti, lk.pos, lk.srcProfile, game)]
+  }
+  for (let pos of Object.keys(lockedByBase)) {
+    let p = Number(pos)
+    if (!lockedByChange[p]) {
+      let lk = lockedByBase[p]
+      artsByPos[p] = [buildArtiEntry(lk.arti, lk.pos, lk.srcProfile, game)]
+    }
+  }
+
+  // ============================================================
+  // 阶段 5：主词条过滤
+  // ============================================================
   for (let ms of mainStats) {
     if (artsByPos[ms.pos]) {
       artsByPos[ms.pos] = artsByPos[ms.pos].filter(
@@ -311,7 +489,9 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     }
   }
 
-  // --- 5. 检查位置缺失 ---
+  // ============================================================
+  // 阶段 6：检查位置缺失
+  // ============================================================
   let missing = []
   for (let pos = 1; pos <= POS_COUNT; pos++) {
     if (artsByPos[pos].length === 0) missing.push(posNames[pos - 1])
@@ -322,7 +502,9 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     return null
   }
 
-  // --- 6. 枚举所有可能的评分规则 ---
+  // ============================================================
+  // 阶段 7：枚举评分规则 + 搜索
+  // ============================================================
   let targetProfile = player.getProfile(char.id)
   let baseProfile = {
     char,
@@ -353,7 +535,6 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     return null
   }
 
-  // --- 7. 搜索最优组合 ---
   let bestTotal = 0
   let bestCombo = null
   let bestCfg = null
@@ -378,24 +559,43 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
   }
 
   // ============================================================
-  // 输出阶段 1：文本摘要
+  // 阶段 8：文本摘要
   // ============================================================
   let totalMark = Math.round(bestTotal * 10) / 10
-  let setCounts = {}
-  bestCombo.forEach(a => { setCounts[a.set] = (setCounts[a.set] || 0) + 1 })
-
-  let activeSets = Object.entries(setCounts)
-    .filter(([s, c]) => c >= 2)
-    .map(([s, c]) => {
-      let aset = ArtifactSet.get(s, game)
-      return (aset?.meta?.abbr || s) + c
-    })
-
   let setLabel = setConstraints.length
     ? setConstraints.map(c => c.abbr + c.count).join('+')
     : '散件'
 
   let ruleName = bestCfg.classTitle.replace(/^[^-]+-?/, '')
+
+  let summaryLines = [
+    `「${char.name}」最高分${isSr ? '遗器' : '面板'}（${setLabel}）`
+  ]
+
+  // 武器
+  let specWeapon = pc?.change?.weapon
+  if (specWeapon?.weapon) {
+    let wepInfo = Weapon.get(specWeapon.weapon, game, char.weaponType) || Weapon.get(specWeapon.weapon, game)
+    let wParts = [wepInfo?.abbr || wepInfo?.name || specWeapon.weapon]
+    if (specWeapon.affix) wParts.push(`精${specWeapon.affix}`)
+    if (specWeapon.level) wParts.push(`${specWeapon.level}级`)
+    summaryLines.push(`┃ 武器：${wParts.join(' ')}`)
+  }
+
+  // 等级
+  let specLevel = pc?.change?.char?.level
+  if (specLevel) {
+    summaryLines.push(`┃ 等级：${specLevel}`)
+  }
+
+  summaryLines.push(`┃ 评分规则：${ruleName}`)
+  summaryLines.push(`┃ 总评分：${totalMark}`)
+
+  if (mainStats.length) {
+    summaryLines.push(`┃ 主词条限定：${mainStats.map(m => posNames[m.pos - 1] + '→' + m.rawKey).join(' ')}`)
+  }
+
+  summaryLines.push('┃ ──────────────')
 
   let artiLines = bestCombo.map((arti) => {
     let posName = posNames[arti.idx - 1]
@@ -404,56 +604,103 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     let score = Math.round((arti.score || 0) * 10) / 10
     return `┃ ${posName}·${setAbbr}  ← ${arti.avatar}  ${score}分`
   })
+  summaryLines.push(...artiLines)
 
-  let summary = [
-    `「${char.name}」最高分${isSr ? '遗器' : '面板'}（${setLabel}）`,
-    `┃ 评分规则：${ruleName}`,
-    `┃ 总评分：${totalMark}`,
-    mainStats.length ? `┃ 主词条限定：${mainStats.map(m => posNames[m.pos - 1] + '→' + m.rawKey).join(' ')}` : '',
-    activeSets.length ? `┃ 套装：${activeSets.join('、')}` : '',
-    `┃ ──────────────`,
-    ...artiLines
-  ].filter(Boolean).join('\n')
+  let summary = summaryLines.join('\n')
 
   // ============================================================
-  // 输出阶段 2：构建虚拟面板
+  // 阶段 9：构建虚拟面板 change 对象
   // ============================================================
-  let wSource = targetProfile?.weapon || {}
-  let wName = wSource.name || ''
-  let weaponInfo = Weapon.get(wName, game)
-  if (!weaponInfo && wName) {
-    weaponInfo = Weapon.get(wName, game, char.weaponType)
-  }
-  if (!weaponInfo) {
-    let defNames = { bow: '西风猎弓', catalyst: '西风秘典', claymore: '西风大剑', polearm: '西风长枪', sword: '西风剑' }
-    wName = defNames[char.weaponType] || '西风剑'
-    weaponInfo = Weapon.get(wName, game)
+
+  // --- 9a. 圣遗物（搜索结果 + 锁定覆盖）---
+  let mergedChange = {}
+
+  // 搜索结果的圣遗物
+  for (let arti of bestCombo) {
+    let pos = arti._raw.idx
+    mergedChange['arti' + pos] = buildArtiChange(arti, isSr)
   }
 
-  let change = {
-    weapon: {
+  // 锁定位置用 change 层覆盖（高于搜索结果）
+  for (let pos of Object.keys(lockedByChange)) {
+    let lk = lockedByChange[Number(pos)]
+    // 重新构建 raw 数据以匹配 getProfile OCR 分支格式
+    let arti = lk.arti
+    let rawMain = arti.main
+    let rawAttrs = arti.attrs
+    let artifactInfo = Artifact.get(arti, game)
+    let set = artifactInfo?.setName || arti.set || ''
+    let data = {
+      mode: 'ocr', level: arti.level || 0,
+      mainId: arti.mainId, attrIds: arti.attrIds
+    }
+    if (isSr) {
+      data.id = arti.id || arti.name
+    } else {
+      data.name = arti.name
+      data.star = arti.star || 5
+    }
+    mergedChange['arti' + Number(pos)] = data
+  }
+
+  // --- 9b. 武器 ---
+  if (specWeapon?.weapon) {
+    let wepInfo = Weapon.get(specWeapon.weapon, game, char.weaponType) || Weapon.get(specWeapon.weapon, game)
+    mergedChange.weapon = {
+      weapon: wepInfo?.name || specWeapon.weapon,
+      affix: Math.min(wepInfo?.maxAffix || 5, specWeapon.affix || 5),
+      level: Math.min(wepInfo?.maxLv || 90, specWeapon.level || 90)
+    }
+  } else {
+    // 回退到目标面板武器
+    let wSource = targetProfile?.weapon || {}
+    let wName = wSource.name || ''
+    let weaponInfo = Weapon.get(wName, game)
+    if (!weaponInfo && wName) {
+      weaponInfo = Weapon.get(wName, game, char.weaponType)
+    }
+    if (!weaponInfo) {
+      wName = DEF_WEAPON[char.weaponType] || '西风剑'
+      weaponInfo = Weapon.get(wName, game)
+    }
+    mergedChange.weapon = {
       weapon: weaponInfo?.name || '',
       affix: Math.min(weaponInfo?.maxAffix || 5, wSource.affix || 5),
       level: Math.min(weaponInfo?.maxLv || 90, wSource.level || 90)
     }
   }
-  // 圣遗物数据
-  for (let arti of bestCombo) {
-    let raw = arti._raw
-    let pos = raw.idx
-    let artiData = { mode: 'ocr', level: arti.level, mainId: raw.mainId, attrIds: raw.attrIds }
-    if (isSr) {
-      artiData.id = raw.artiId || arti.name
-    } else {
-      artiData.name = raw.name || arti.name
-      artiData.star = arti.star
-    }
-    change['arti' + pos] = artiData
-  }
-  // 属性增减
-  if (statMods.length) change.statMods = statMods
 
-  let virtual = ProfileChange.getProfile(uid, char.id, change, game)
+  // --- 9c. 角色等级/命座/天赋（取自 matchMsg 解析）---
+  if (pc?.change?.char) {
+    mergedChange.char = pc.change.char
+  }
+
+  // --- 9d. statMods ---
+  if (pc?.change?.statMods?.length) {
+    mergedChange.statMods = pc.change.statMods
+  }
+
+  // --- 9e. 补层 diff 基线 ---
+  if (pc?.baseChange && !lodash.isEmpty(pc.baseChange)) {
+    // 构建 baseline change：baseChange 属性 + 搜索结果剩余位置（未被 baseChange 锁定）
+    let baseForDiff = lodash.cloneDeep(pc.baseChange)
+
+    // 补层锁定的圣遗物已是 arti1~N（含 char/uid/type/mode），
+    // 搜索结果填充其余位置
+    for (let arti of bestCombo) {
+      let pos = arti._raw.idx
+      if (!baseForDiff['arti' + pos]) {
+        baseForDiff['arti' + pos] = buildArtiChange(arti, isSr)
+      }
+    }
+    // 如果补层没有指定武器，用默认武器（让 baseline 有一份完整数据）
+    if (!baseForDiff.weapon) {
+      baseForDiff.weapon = mergedChange.weapon
+    }
+    e._baseChange = baseForDiff
+  }
+
+  let virtual = ProfileChange.getProfile(uid, char.id, mergedChange, game)
   if (!virtual || !virtual.char) {
     return null
   }
