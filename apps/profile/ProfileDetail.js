@@ -5,7 +5,7 @@ import { Cfg, Common, Data, Format } from '#miao'
 import { Button, MysApi, ProfileRank, Character, Weapon, Artifact } from '#miao.models'
 
 import ProfileChange from './ProfileChange.js'
-import { profileMaxScoreBuild } from './ProfileMax.js'
+import { profileMaxScoreBuild, profileMaxDmgBuild } from './ProfileMax.js'
 import { profileArtis } from './ProfileArtis.js'
 import { ProfileWeapon } from './ProfileWeapon.js'
 
@@ -22,26 +22,33 @@ let ProfileDetail = {
       return false
     }
 
-    // 最高分面板：早期分流
-    let maxRet = /^#(?:星铁|原神)?我的(.+?)最高分面板\s*(.*)$/.exec(msg)
+    // 最高分/最强面板：早期分流
+    let maxRet = /^#(?:星铁|原神)?我的(.+?)(最高分|最强)面板(\d*)\s*(.*)$/.exec(msg)
     if (maxRet) {
       let game = /星铁/.test(msg) ? 'sr' : 'gs'
       e.game = game
       e.isSr = game === 'sr'
       let charInput = maxRet[1].trim()
-      let paramStr = (maxRet[2] || '').trim()
+      let mode = maxRet[2]
+      let routeDmgIdx = maxRet[3] ? Number(maxRet[3]) : 0
+      let paramStr = (maxRet[4] || '').trim()
       let char = Character.get(charInput, game)
       if (!char) return false
       let uid = await getTargetUid(e)
       if (!uid) return true
       e.uid = uid
       e.avatar = char.id
-      let result = await profileMaxScoreBuild(e, char, paramStr, game, uid)
+      let result = mode === '最强'
+        ? await profileMaxDmgBuild(e, char, paramStr, game, uid, routeDmgIdx)
+        : await profileMaxScoreBuild(e, char, paramStr, game, uid)
       if (!result) return true
       await e.reply(result.summary)
       e._profile = result.profile
-      e._profileMsg = `#${char.name}最高分面板`
-      return ProfileDetail.render(e, char, 'profile', { dmgIdx: 0, idxIsInput: false })
+      e._profileMsg = `#${char.name}${mode}面板`
+      return ProfileDetail.render(e, char, 'profile', {
+        dmgIdx: routeDmgIdx,
+        idxIsInput: mode === '最强' && routeDmgIdx > 0
+      })
     }
 
     let mode = 'profile'

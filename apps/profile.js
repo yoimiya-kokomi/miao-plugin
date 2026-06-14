@@ -22,10 +22,10 @@ app.reg({
     rule: /^#(星铁|原神)?(面板角色|角色面板|面板)(列表)?\s*(\d{9,10})?$/
   },
 
-  profileMaxScore: {
-    name: '最高分面板',
+  profileMax: {
+    name: '最高分/最强面板',
     fn: ProfileDetail.detail,
-    rule: /^#(?:星铁|原神)?我的(.+?)最高分面板\s*(.*)$/
+    rule: /^#(?:星铁|原神)?我的(.+?)(?:最高分|最强)面板(\d*)\s*(.*)$/
   },
 
   profileDetail: {

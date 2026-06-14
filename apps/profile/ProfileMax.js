@@ -4,7 +4,7 @@
  * 路由 → ProfileDetail.detail() → profileMaxScoreBuild()
  */
 import lodash from 'lodash'
-import { Common } from '#miao'
+import { Common, Format } from '#miao'
 import { Character, Player, Artifact, ArtifactSet, MysApi, Weapon } from '#miao.models'
 import ArtisMarkCfg from '../../models/artis/ArtisMarkCfg.js'
 import ArtisMark from '../../models/artis/ArtisMark.js'
@@ -718,4 +718,443 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
     char,
     summary
   }
+}
+
+// ──── 最强面板（全量爬山 + 真实伤害评估）────
+
+/**
+ * 评估一个圣遗物组合的实际伤害
+ * @param {Array}  combo      - 圣遗物组合 [pos1, ..., posN]
+ * @param {number} uid        - 用户 UID
+ * @param {string} charId     - 角色 ID
+ * @param {Object} mergedBase - 不含圣遗物的 change 基础（武器/等级/statMods）
+ * @param {string} game       - 'gs' | 'sr'
+ * @param {boolean} isSr      - 是否为星轨
+ * @param {number} enemyLv    - 敌人等级
+ * @param {number} dmgIdx     - 伤害序号
+ * @returns {Promise<number>} 期望伤害 avg，失败返回 -Infinity
+ */
+async function evalCombo (combo, uid, charId, mergedBase, game, isSr, enemyLv, dmgIdx) {
+  let change = lodash.cloneDeep(mergedBase)
+  for (let arti of combo) {
+    change['arti' + arti._raw.idx] = buildArtiChange(arti, isSr)
+  }
+  let profile = ProfileChange.getProfile(uid, charId, change, game)
+  if (!profile?.char) return -Infinity
+  try {
+    let calc = await profile.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
+    let avg = calc?.ret?.[dmgIdx]?.avg
+    return (avg && isFinite(avg)) ? avg : -Infinity
+  } catch (_) {
+    return -Infinity
+  }
+}
+
+/**
+ * 计算组合的套装名字计数
+ * @param {Array} combo - 圣遗物组合
+ * @returns {Object} { setName: count }
+ */
+function countSets (combo) {
+  let cnt = {}
+  for (let arti of combo) {
+    if (arti.set) cnt[arti.set] = (cnt[arti.set] || 0) + 1
+  }
+  return cnt
+}
+
+/**
+ * 最强面板搭配搜索（基于真实伤害全量爬山）
+ * 由 ProfileDetail.detail() 早期分流调用
+ * @param {Object} e          - 事件对象
+ * @param {Object} char       - 角色 Character 对象
+ * @param {string} paramStr   - 参数字符串
+ * @param {string} game       - 'gs' | 'sr'
+ * @param {number} uid        - 当前用户 UID
+ * @param {number} routeDmgIdx - 路由正则捕获的伤害序号
+ * @returns {Promise<{profile:Avatar, char:Object, summary:string}|null>}
+ */
+export async function profileMaxDmgBuild (e, char, paramStr, game, uid, routeDmgIdx = 0) {
+  const isGs = game === 'gs'
+  const isSr = !isGs
+  const POS_COUNT = isSr ? 6 : 5
+  const posNames = POS_NAMES[game]
+
+  // ============================================================
+  // 阶段 1：双层解析 — 剥离搜索独有令牌 + matchMsg 解析换补
+  // ============================================================
+  let { setConstraints, mainStats, dmgIdx: paramDmgIdx, restTokens } = parseMaxParams(paramStr, game)
+  let dmgIdx = routeDmgIdx || paramDmgIdx
+
+  let pc = null
+  if (restTokens.length) {
+    let mockCmd = buildMockCmd(char.name, restTokens, game, char.weaponType)
+    if (mockCmd) pc = ProfileChange.matchMsg(mockCmd)
+  }
+
+  // ============================================================
+  // 阶段 2：解析锁定位置
+  // ============================================================
+  let lockedByChange = {}
+  let lockedByBase = {}
+  if (pc) {
+    for (let pos = 1; pos <= POS_COUNT; pos++) {
+      let key = 'arti' + pos
+      if (pc.change?.[key]) {
+        let resolved = resolveLockedArti(pc.change[key], uid, game)
+        if (resolved) lockedByChange[pos] = { ...resolved, layer: 'change' }
+      }
+      if (pc.baseChange?.[key]) {
+        let resolved = resolveLockedArti(pc.baseChange[key], uid, game)
+        if (resolved) lockedByBase[pos] = { ...resolved, layer: 'base' }
+      }
+    }
+  }
+
+  // ============================================================
+  // 阶段 3：收集全部 5 星圣遗物
+  // ============================================================
+  let allArtis = []
+  let player = Player.create(uid, game)
+  let profiles = player.getProfiles()
+
+  for (let id in profiles) {
+    let profile = profiles[id]
+    if (!profile || !profile.hasData || !profile.hasArtis()) continue
+    let profChar = profile.char
+    let artisObj = profile.artis
+    artisObj.forEach((arti, idx) => {
+      if (!arti || !arti.main || !arti.attrs) return
+      if (arti.star !== undefined && arti.star < 5) return
+      let rawMain = arti.main
+      let rawAttrs = arti.attrs
+      let mainDisplay = ArtisMark.formatArti(rawMain, null, true, game)
+      let attrsDisplay = ArtisMark.formatArtiAttrs(rawAttrs, null, game)
+      let artifactInfo = Artifact.get(arti, game)
+      let name = artifactInfo?.name || ''
+      let abbr = artifactInfo?.abbr || name
+      let img = artifactInfo?.img || ''
+      let set = artifactInfo?.setName || ''
+      allArtis.push({
+        name, abbr, img, set,
+        level: arti.level || 0,
+        main: mainDisplay, attrs: attrsDisplay,
+        avatar: profile.name, charId: profile.charId,
+        side: profChar?.side || '', uid, idx,
+        elem: profChar?.elem || '',
+        charWeight: {}, star: arti.star || 5,
+        _raw: {
+          main: rawMain, attrs: rawAttrs, idx, set,
+          mainId: arti.mainId, attrIds: arti.attrIds,
+          name: arti.name, artiId: arti.id
+        }
+      })
+    })
+  }
+
+  if (allArtis.length === 0) {
+    e.reply(`你暂无 5 星${isSr ? '遗器' : '圣遗物'}数据，请先使用 #面板 获取角色面板后再查看。`)
+    return null
+  }
+
+  // ============================================================
+  // 阶段 4：按位置分组 + 注入锁定
+  // ============================================================
+  let artsByPos = {}
+  for (let i = 1; i <= POS_COUNT; i++) artsByPos[i] = []
+  for (let arti of allArtis) {
+    if (artsByPos[arti.idx]) artsByPos[arti.idx].push(arti)
+  }
+  for (let pos of Object.keys(lockedByChange)) {
+    let lk = lockedByChange[Number(pos)]
+    artsByPos[Number(pos)] = [buildArtiEntry(lk.arti, lk.pos, lk.srcProfile, game)]
+  }
+  for (let pos of Object.keys(lockedByBase)) {
+    let p = Number(pos)
+    if (!lockedByChange[p]) {
+      let lk = lockedByBase[p]
+      artsByPos[p] = [buildArtiEntry(lk.arti, lk.pos, lk.srcProfile, game)]
+    }
+  }
+
+  // ============================================================
+  // 阶段 5：主词条过滤
+  // ============================================================
+  for (let ms of mainStats) {
+    if (artsByPos[ms.pos]) {
+      artsByPos[ms.pos] = artsByPos[ms.pos].filter(arti => arti._raw.main.key === ms.rawKey)
+    }
+  }
+
+  // ============================================================
+  // 阶段 6：检查位置缺失
+  // ============================================================
+  let missing = []
+  for (let pos = 1; pos <= POS_COUNT; pos++) {
+    if (artsByPos[pos].length === 0) missing.push(posNames[pos - 1])
+  }
+  if (missing.length > 0) {
+    let reason = mainStats.length ? '（可能是主词条过滤导致）' : ''
+    e.reply(`你的 5 星${isSr ? '遗器' : '圣遗物'}数据不完整，缺少位置：${missing.join('、')}${reason}。请先获取角色面板。`)
+    return null
+  }
+
+  // ============================================================
+  // 阶段 7：获取敌人等级
+  // ============================================================
+  let enemyLv = 80
+  if (game === 'gs') {
+    try {
+      let selfUser = await MysApi.initUser(e)
+      if (selfUser) enemyLv = await selfUser.getCfg('char.enemyLv', 103)
+    } catch (_) { enemyLv = 103 }
+  }
+
+  // ============================================================
+  // 阶段 8：mark 评分打底，findBestCombination 拿初始解
+  // ============================================================
+  let targetProfile = player.getProfile(char.id)
+  let baseProfile = {
+    char,
+    weapon: targetProfile?.weapon || { name: '', affix: 1 },
+    artis: { is: () => false, getSetData: () => ({ sets: {}, abbrs: [] }) },
+    game, isGs, isSr,
+    attr: {}, elem: char.elem,
+    cons: targetProfile?.cons || 0, id: char.id,
+    baseAttr: char.baseAttr || { hp: 14000, atk: 230, def: 700 }
+  }
+  let probeAttrs = [
+    { mastery: 0, cpct: 0, cdmg: 0 },
+    { mastery: 600, cpct: 50, cdmg: 200 },
+    { mastery: 0, cpct: 10, cdmg: 310 }
+  ]
+
+  let seenCfg = new Map()
+  for (let pa of probeAttrs) {
+    let cfg = ArtisMarkCfg.getCfg({ ...baseProfile, attr: pa })
+    if (cfg && !seenCfg.has(cfg.classTitle)) {
+      cfg.id = char.id
+      seenCfg.set(cfg.classTitle, cfg)
+    }
+  }
+
+  if (seenCfg.size === 0) {
+    e.reply(`无法获取${char.name}的评分规则`)
+    return null
+  }
+
+  let bestTotal = 0
+  let initialCombo = null
+  for (let [title, cfg] of seenCfg) {
+    let scoreFn = (arti) => recalcArtisMark(arti, cfg, game, char.elem || '')
+    let combo = findBestCombination(artsByPos, setConstraints, scoreFn, POS_COUNT)
+    if (combo && combo.length === POS_COUNT) {
+      let total = combo.reduce((s, a) => s + (a.score || 0), 0)
+      if (total > bestTotal) {
+        bestTotal = total; initialCombo = combo
+      }
+    }
+  }
+
+  if (!initialCombo) {
+    let label = setConstraints.length
+      ? setConstraints.map(c => c.abbr + c.count).join('+')
+      : '散件'
+    e.reply(`未找到满足「${label}」约束的${isSr ? '遗器' : '圣遗物'}组合，可能对应套装数量不足`)
+    return null
+  }
+
+  // ============================================================
+  // 阶段 9：构建 mergedBase（武器 + 等级 + statMods，不含圣遗物）
+  // ============================================================
+  let specWeapon = pc?.change?.weapon || pc?.baseChange?.weapon
+  let specChar = { ...(pc?.baseChange?.char || {}), ...(pc?.change?.char || {}) }
+
+  let mergedBase = {}
+  if (specWeapon?.weapon) {
+    let wepInfo = Weapon.get(specWeapon.weapon, game, char.weaponType) || Weapon.get(specWeapon.weapon, game)
+    mergedBase.weapon = {
+      weapon: wepInfo?.name || specWeapon.weapon,
+      affix: Math.min(wepInfo?.maxAffix || 5, specWeapon.affix || 5),
+      level: Math.min(wepInfo?.maxLv || 90, specWeapon.level || 90)
+    }
+  }
+  if (!lodash.isEmpty(specChar)) mergedBase.char = specChar
+  // 换层 + 补层 statMods 均作用于最终面板，合并进 mergedBase 供 evalCombo 使用
+  if (pc?.baseChange?.statMods?.length || pc?.change?.statMods?.length) {
+    mergedBase.statMods = [
+      ...(pc?.baseChange?.statMods || []),
+      ...(pc?.change?.statMods || [])
+    ]
+  }
+
+  // ============================================================
+  // 阶段 10：全量爬山（真实 calcDmg 评估）
+  // ============================================================
+  let bestCombo = [...initialCombo]
+  let bestDmg = await evalCombo(bestCombo, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx)
+  if (!isFinite(bestDmg) || bestDmg <= 0) {
+    e.reply(`${char.name} 伤害计算失败，请检查伤害计算规则是否可用`)
+    return null
+  }
+
+  let improved = true
+  let maxIter = 2
+  for (let iter = 0; iter < maxIter && improved; iter++) {
+    improved = false
+    for (let pos = 1; pos <= POS_COUNT; pos++) {
+      // 锁定位置只有 1 候选，跳过
+      if (artsByPos[pos].length <= 1) continue
+
+      for (let arti of artsByPos[pos]) {
+        if (arti === bestCombo[pos - 1]) continue
+
+        let candidate = [...bestCombo]
+        candidate[pos - 1] = arti
+
+        // 套装约束检查
+        let setCnt = countSets(candidate)
+        if (setConstraints.length && !satisfiesConstraint(setCnt, setConstraints)) continue
+
+        let dmg = await evalCombo(candidate, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx)
+        if (dmg > bestDmg) {
+          bestCombo = candidate
+          bestDmg = dmg
+          improved = true
+          break
+        }
+      }
+      if (improved) break
+    }
+  }
+
+  // ============================================================
+  // 阶段 11：构建虚拟面板 change 对象
+  // ============================================================
+
+  // --- 11a. 圣遗物（爬山结果 + 锁定覆盖）---
+  let mergedChange = lodash.cloneDeep(mergedBase)
+  for (let arti of bestCombo) {
+    let pos = arti._raw.idx
+    mergedChange['arti' + pos] = buildArtiChange(arti, isSr)
+  }
+  for (let pos of Object.keys(lockedByChange)) {
+    let lk = lockedByChange[Number(pos)]
+    let arti = lk.arti
+    let data = { mode: 'ocr', level: arti.level || 0, mainId: arti.mainId, attrIds: arti.attrIds }
+    if (isSr) data.id = arti.id || arti.name
+    else { data.name = arti.name; data.star = arti.star || 5 }
+    mergedChange['arti' + Number(pos)] = data
+  }
+
+  // --- 11b. 武器（mergedBase 未包含时回退）---
+  if (!mergedChange.weapon) {
+    let wSource = targetProfile?.weapon || {}
+    let wName = wSource.name || ''
+    let weaponInfo = Weapon.get(wName, game)
+    if (!weaponInfo && wName) weaponInfo = Weapon.get(wName, game, char.weaponType)
+    if (!weaponInfo) {
+      wName = DEF_WEAPON[char.weaponType] || '西风剑'
+      weaponInfo = Weapon.get(wName, game)
+    }
+    mergedChange.weapon = {
+      weapon: weaponInfo?.name || '',
+      affix: Math.min(weaponInfo?.maxAffix || 5, wSource.affix || 5),
+      level: Math.min(weaponInfo?.maxLv || 90, wSource.level || 90)
+    }
+  }
+
+  // --- 11c. 补层 diff 基线 ---
+  if (pc?.baseChange && !lodash.isEmpty(pc.baseChange)) {
+    let baseForDiff = lodash.cloneDeep(pc.baseChange)
+    if (!baseForDiff.weapon) {
+      let wSource = targetProfile?.weapon || {}
+      let wName = wSource.name || ''
+      let weaponInfo = Weapon.get(wName, game)
+      if (!weaponInfo && wName) weaponInfo = Weapon.get(wName, game, char.weaponType)
+      if (!weaponInfo) {
+        wName = DEF_WEAPON[char.weaponType] || '西风剑'
+        weaponInfo = Weapon.get(wName, game)
+      }
+      baseForDiff.weapon = {
+        weapon: weaponInfo?.name || '',
+        affix: Math.min(weaponInfo?.maxAffix || 5, wSource.affix || 5),
+        level: Math.min(weaponInfo?.maxLv || 90, wSource.level || 90)
+      }
+    }
+    e._baseChange = baseForDiff
+  }
+
+  let virtual = ProfileChange.getProfile(uid, char.id, mergedChange, game)
+  if (!virtual || !virtual.char) return null
+
+  // ============================================================
+  // 阶段 12：预计算伤害及原面板对比（摘要用）
+  // ============================================================
+  let bestDmgCalc = await virtual.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
+  let bestDmgRet = bestDmgCalc?.ret?.[dmgIdx]
+  let bestAvgNum = bestDmgRet?.avg || 0
+  let dmgTitle = bestDmgRet?.title || ''
+
+  // 原面板伤害（换补后、搜索前）
+  let originalAvgNum = 0
+  try {
+    // 用 mergedBase 构建原面板（无圣遗物 → getProfile 回退源面板）
+    let origProfile = ProfileChange.getProfile(uid, char.id, mergedBase, game)
+    if (origProfile?.char) {
+      let origCalc = await origProfile.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
+      originalAvgNum = origCalc?.ret?.[dmgIdx]?.avg || 0
+    }
+  } catch (_) { /* 静默 */ }
+
+  let improvePct = ''
+  if (originalAvgNum > 0 && bestAvgNum > 0) {
+    let pct = ((bestAvgNum - originalAvgNum) / originalAvgNum * 100)
+    improvePct = pct > 0 ? `↑${pct.toFixed(1)}%` : `（${pct.toFixed(1)}%）`
+  }
+
+  // ============================================================
+  // 阶段 13：文本摘要
+  // ============================================================
+  let setLabel = setConstraints.length
+    ? setConstraints.map(c => c.abbr + c.count).join('+')
+    : '散件'
+
+  let summaryLines = [
+    `「${char.name}」最强面板（${setLabel}）`
+  ]
+
+  if (specWeapon?.weapon) {
+    let wepInfo = Weapon.get(specWeapon.weapon, game, char.weaponType) || Weapon.get(specWeapon.weapon, game)
+    let wParts = [wepInfo?.abbr || wepInfo?.name || specWeapon.weapon]
+    if (specWeapon.affix) wParts.push(`精${specWeapon.affix}`)
+    if (specWeapon.level) wParts.push(`${specWeapon.level}级`)
+    summaryLines.push(`┃ 武器：${wParts.join(' ')}`)
+  }
+
+  let specLevel = pc?.change?.char?.level || pc?.baseChange?.char?.level
+  if (specLevel) summaryLines.push(`┃ 等级：${specLevel}`)
+
+  let dmgInfo = `┃ 期望伤害：${Format.comma(bestAvgNum, 0)}`
+  if (dmgTitle) dmgInfo += `（${dmgTitle}）`
+  if (improvePct) dmgInfo += `  ${improvePct}`
+  summaryLines.push(dmgInfo)
+
+  if (mainStats.length) {
+    summaryLines.push(`┃ 主词条限定：${mainStats.map(m => posNames[m.pos - 1] + '→' + m.rawKey).join(' ')}`)
+  }
+
+  summaryLines.push('┃ ──────────────')
+
+  let artiLines = bestCombo.map((arti) => {
+    let posName = posNames[arti.idx - 1]
+    let aset = ArtifactSet.get(arti.set, game)
+    let setAbbr = aset?.meta?.abbr || arti.set
+    return `┃ ${posName}·${setAbbr}  ← ${arti.avatar}`
+  })
+  summaryLines.push(...artiLines)
+
+  let summary = summaryLines.join('\n')
+
+  return { profile: virtual, char, summary }
 }
