@@ -720,7 +720,7 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
   }
 }
 
-// ──── 最强面板（全量爬山 + 真实伤害评估）────
+// ──── 最强面板（模拟退火 + 真实伤害评估）────
 
 /**
  * 评估一个圣遗物组合的实际伤害
@@ -750,21 +750,29 @@ async function evalCombo (combo, uid, charId, mergedBase, game, isSr, enemyLv, d
   }
 }
 
-/**
- * 计算组合的套装名字计数
- * @param {Array} combo - 圣遗物组合
- * @returns {Object} { setName: count }
- */
-function countSets (combo) {
-  let cnt = {}
-  for (let arti of combo) {
-    if (arti.set) cnt[arti.set] = (cnt[arti.set] || 0) + 1
+/** 从数组中随机选一件（排除 exclude） */
+function randomSelect (arr, exclude) {
+  if (arr.length <= 1) return arr[0]
+  let idx = Math.floor(Math.random() * arr.length)
+  let arti = arr[idx]
+  if (exclude !== undefined && arti === exclude) {
+    idx = (idx + 1) % arr.length
+    arti = arr[idx]
   }
-  return cnt
+  return arti
+}
+
+/** 模拟退火参数 */
+const SA_PARAMS = {
+  T_START: 1000,
+  T_END: 1,
+  ALPHA: 0.76,
+  INNER_ITER: 16,
+  MAX_EVAL: 400
 }
 
 /**
- * 最强面板搭配搜索（基于真实伤害全量爬山）
+ * 最强面板搭配搜索（基于真实伤害模拟退火）
  * 由 ProfileDetail.detail() 早期分流调用
  * @param {Object} e          - 事件对象
  * @param {Object} char       - 角色 Character 对象
@@ -790,6 +798,12 @@ export async function profileMaxDmgBuild (e, char, paramStr, game, uid, routeDmg
   if (restTokens.length) {
     let mockCmd = buildMockCmd(char.name, restTokens, game, char.weaponType)
     if (mockCmd) pc = ProfileChange.matchMsg(mockCmd)
+  }
+
+  // 最强面板必须指定套装
+  if (!setConstraints.length) {
+    e.reply('最强面板必须指定套装（如：魔女4、绝缘2+追忆2）')
+    return null
   }
 
   // ============================================================
@@ -989,50 +1003,66 @@ export async function profileMaxDmgBuild (e, char, paramStr, game, uid, routeDmg
   }
 
   // ============================================================
-  // 阶段 10：全量爬山（真实 calcDmg 评估）
+  // 阶段 10：模拟退火搜索（真实 calcDmg 评估）
   // ============================================================
   let bestCombo = [...initialCombo]
+  let currentCombo = [...initialCombo]
   let bestDmg = await evalCombo(bestCombo, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx)
   if (!isFinite(bestDmg) || bestDmg <= 0) {
     e.reply(`${char.name} 伤害计算失败，请检查伤害计算规则是否可用`)
     return null
   }
+  let currentDmg = bestDmg
 
-  let improved = true
-  let maxIter = 2
-  for (let iter = 0; iter < maxIter && improved; iter++) {
-    improved = false
-    for (let pos = 1; pos <= POS_COUNT; pos++) {
-      // 锁定位置只有 1 候选，跳过
+  let T = SA_PARAMS.T_START
+  let evalCount = 1
+
+  while (T > SA_PARAMS.T_END && evalCount < SA_PARAMS.MAX_EVAL) {
+    for (let i = 0; i < SA_PARAMS.INNER_ITER; i++) {
+      // 随机选一个非锁定位置
+      let pos = 1 + Math.floor(Math.random() * POS_COUNT)
       if (artsByPos[pos].length <= 1) continue
 
-      for (let arti of artsByPos[pos]) {
-        if (arti === bestCombo[pos - 1]) continue
+      let arti = randomSelect(artsByPos[pos], currentCombo[pos - 1])
+      if (!arti) continue
 
-        let candidate = [...bestCombo]
-        candidate[pos - 1] = arti
+      let candidate = [...currentCombo]
+      candidate[pos - 1] = arti
 
-        // 套装约束检查
-        let setCnt = countSets(candidate)
-        if (setConstraints.length && !satisfiesConstraint(setCnt, setConstraints)) continue
+      // 套装约束检查
+      let setCnt = {}
+      for (let a of candidate) {
+        if (a.set) setCnt[a.set] = (setCnt[a.set] || 0) + 1
+      }
+      if (!satisfiesConstraint(setCnt, setConstraints)) continue
 
-        let dmg = await evalCombo(candidate, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx)
+      let dmg = await evalCombo(candidate, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx)
+      evalCount++
+      let delta = dmg - currentDmg
+
+      if (delta > 0) {
+        currentCombo = candidate
+        currentDmg = dmg
         if (dmg > bestDmg) {
           bestCombo = candidate
           bestDmg = dmg
-          improved = true
-          break
+        }
+      } else if (dmg > -Infinity) {
+        // 以概率 exp(Δ/T) 接受差解
+        if (Math.random() < Math.exp(delta / T)) {
+          currentCombo = candidate
+          currentDmg = dmg
         }
       }
-      if (improved) break
     }
+    T *= SA_PARAMS.ALPHA
   }
 
   // ============================================================
   // 阶段 11：构建虚拟面板 change 对象
   // ============================================================
 
-  // --- 11a. 圣遗物（爬山结果 + 锁定覆盖）---
+  // --- 11a. 圣遗物（搜索结果 + 锁定覆盖）---
   let mergedChange = lodash.cloneDeep(mergedBase)
   for (let arti of bestCombo) {
     let pos = arti._raw.idx
@@ -1116,9 +1146,7 @@ export async function profileMaxDmgBuild (e, char, paramStr, game, uid, routeDmg
   // ============================================================
   // 阶段 13：文本摘要
   // ============================================================
-  let setLabel = setConstraints.length
-    ? setConstraints.map(c => c.abbr + c.count).join('+')
-    : '散件'
+  let setLabel = setConstraints.map(c => c.abbr + c.count).join('+')
 
   let summaryLines = [
     `「${char.name}」最强面板（${setLabel}）`
