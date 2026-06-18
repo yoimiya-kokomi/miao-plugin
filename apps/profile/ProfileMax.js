@@ -1,7 +1,31 @@
 /**
- * 最高分面板搭配搜索
- * 指令：#我的胡桃最高分面板 魔女2+追忆2 火伤杯 换护摩之杖 90级 精5 +15%暴击 补+10%大攻击
- * 路由 → ProfileDetail.detail() → profileMaxScoreBuild()
+ * 面板搭配搜索 — 最高分 / 最强
+ *
+ * 路由：#我的胡桃最高分面板 魔女2+追忆2 火伤杯 换护摩之杖
+ *       #我的胡桃最强面板   魔女4           换护摩之杖
+ *
+ * ProfileDetail.detail() 正则捕获 "最高分" / "最强" 后分流：
+ *   - 最高分 → profileMaxScoreBuild()   mark 评分 + findBestCombination 回溯
+ *   - 最强   → profileMaxDmgBuild()     枚举散件位配置 × 坐标上升收敛（精确解）
+ *
+ * ─── 公用管线 ───
+ * parseMaxParams → stage 1：剥离套装约束/主词条，余料交 buildMockCmd → matchMsg 解析换补
+ * buildMockCmd          将换补片段拼接为 matchMsg 兼容的伪指令
+ * resolveLockedArti     解析换补锁定的圣遗物，从源面板获取原始数据
+ * buildArtiEntry        构建搜索/评分用的圣遗物条目（含 _raw 供 buildArtiChange 使用）
+ * buildArtiChange       将搜索条目转为 getProfile change 格式
+ * evalCombo             构建虚拟面板 → calcDmg 评估实际伤害
+ *
+ * ─── 最高分面板（profileMaxScoreBuild）───
+ * mark 评分打底 → findBestCombination(回溯) 搜索最高分组合
+ * 无伤害评估，纯评分最大化
+ *
+ * ─── 最强面板（profileMaxDmgBuild）───
+ * enumerateConfigs      组合分配：按约束统计递归分配位置→套装，适配 GS/SR
+ * genCombinations       生成 C(n,k) 组合
+ * coordinateAscent      坐标上升收敛：每轮遍历全位置全候选，贪心接受改进，收敛即停
+ * buildStartCombo       从 userCombo / initialCombo 就近修正到合法起点
+ * 每配置独立收敛 → 取 max，结果确定可复现
  */
 import lodash from 'lodash'
 import { Common, Format } from '#miao'
@@ -221,7 +245,7 @@ function buildArtiChange (arti, isSr) {
  *   → { setConstraints:[], mainStats:[], dmgIdx:0, restTokens:[] }
  */
 function parseMaxParams (paramStr, game) {
-  let result = { setConstraints: [], mainStats: [], dmgIdx: 0, restTokens: [] }
+  let result = { setConstraints: [], mainStats: [], dmgIdx: 0, hasUserDmgIdx: false, restTokens: [] }
   let tokens = paramStr.trim().split(/\s+/)
 
   for (let token of tokens) {
@@ -237,7 +261,7 @@ function parseMaxParams (paramStr, game) {
 
     // 最强面板伤害序号（未来，传入方式待定）
     let dmgRet = /^伤害(\d*)$/.exec(token)
-    if (dmgRet) { result.dmgIdx = dmgRet[1] ? Number(dmgRet[1]) : 0; continue }
+    if (dmgRet) { result.dmgIdx = dmgRet[1] ? Number(dmgRet[1]) : 0; result.hasUserDmgIdx = !!dmgRet[1]; continue }
 
     // 其余令牌 → 交 matchMsg 统一解析换补
     result.restTokens.push(token)
@@ -720,7 +744,7 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
   }
 }
 
-// ──── 最强面板（模拟退火 + 真实伤害评估）────
+// ──── 最强面板（枚举配置 × 坐标上升 → 精确解）────
 
 /**
  * 评估一个圣遗物组合的实际伤害
@@ -734,7 +758,7 @@ export async function profileMaxScoreBuild (e, char, paramStr, game, uid) {
  * @param {number} dmgIdx     - 伤害序号
  * @returns {Promise<number>} 期望伤害 avg，失败返回 -Infinity
  */
-async function evalCombo (combo, uid, charId, mergedBase, game, isSr, enemyLv, dmgIdx) {
+async function evalCombo (combo, uid, charId, mergedBase, game, isSr, enemyLv, dmgIdx, hasUserDmgIdx) {
   let change = lodash.cloneDeep(mergedBase)
   for (let arti of combo) {
     change['arti' + arti._raw.idx] = buildArtiChange(arti, isSr)
@@ -742,37 +766,30 @@ async function evalCombo (combo, uid, charId, mergedBase, game, isSr, enemyLv, d
   let profile = ProfileChange.getProfile(uid, charId, change, game)
   if (!profile?.char) return -Infinity
   try {
-    let calc = await profile.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
-    let avg = calc?.ret?.[dmgIdx]?.avg
+    // 用户未指定伤害序号 → mode:'single' 对齐排行榜默认伤害（defDmgIdx）
+    // 用户指定了伤害序号 → mode:'profile' + 指定 dmgIdx
+    let calc, avg
+    if (hasUserDmgIdx) {
+      calc = await profile.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
+      avg = calc?.ret?.[dmgIdx]?.avg
+    } else {
+      calc = await profile.calcDmg({ enemyLv, mode: 'single' })
+      avg = calc?.avg
+    }
     return (avg && isFinite(avg)) ? avg : -Infinity
   } catch (_) {
     return -Infinity
   }
 }
 
-/** 从数组中随机选一件（排除 exclude） */
-function randomSelect (arr, exclude) {
-  if (arr.length <= 1) return arr[0]
-  let idx = Math.floor(Math.random() * arr.length)
-  let arti = arr[idx]
-  if (exclude !== undefined && arti === exclude) {
-    idx = (idx + 1) % arr.length
-    arti = arr[idx]
-  }
-  return arti
-}
-
-/** 模拟退火参数 */
-const SA_PARAMS = {
-  T_START: 1000,
-  T_END: 1,
-  ALPHA: 0.76,
-  INNER_ITER: 16,
-  MAX_EVAL: 400
+/** 坐标上升收敛参数 */
+const CA_PARAMS = {
+  MAX_EVAL: 5000,
+  MAX_ROUNDS: 10
 }
 
 /**
- * 最强面板搭配搜索（基于真实伤害模拟退火）
+ * 最强面板搭配搜索（枚举散件位配置 × 坐标上升收敛 → 精确解）
  * 由 ProfileDetail.detail() 早期分流调用
  * @param {Object} e          - 事件对象
  * @param {Object} char       - 角色 Character 对象
@@ -791,8 +808,9 @@ export async function profileMaxDmgBuild (e, char, paramStr, game, uid, routeDmg
   // ============================================================
   // 阶段 1：双层解析 — 剥离搜索独有令牌 + matchMsg 解析换补
   // ============================================================
-  let { setConstraints, mainStats, dmgIdx: paramDmgIdx, restTokens } = parseMaxParams(paramStr, game)
+  let { setConstraints, mainStats, dmgIdx: paramDmgIdx, hasUserDmgIdx: paramHasDmgIdx, restTokens } = parseMaxParams(paramStr, game)
   let dmgIdx = routeDmgIdx || paramDmgIdx
+  let hasUserDmgIdx = routeDmgIdx > 0 || paramHasDmgIdx
 
   let pc = null
   if (restTokens.length) {
@@ -1003,59 +1021,182 @@ export async function profileMaxDmgBuild (e, char, paramStr, game, uid, routeDmg
   }
 
   // ============================================================
-  // 阶段 10：模拟退火搜索（真实 calcDmg 评估）
+  // 阶段 9b：构建用户当前面板组合（坐标上升暖启动候选）
   // ============================================================
-  let bestCombo = [...initialCombo]
-  let currentCombo = [...initialCombo]
-  let bestDmg = await evalCombo(bestCombo, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx)
-  if (!isFinite(bestDmg) || bestDmg <= 0) {
-    e.reply(`${char.name} 伤害计算失败，请检查伤害计算规则是否可用`)
-    return null
+  let userCombo = null
+  let srcProfile = player.getProfile(char.id)
+  if (srcProfile?.artis) {
+    let tmp = []
+    srcProfile.artis.forEach((arti, idx) => {
+      if (!arti || !arti.main || (arti.star !== undefined && arti.star < 5)) return
+      let artiInfo = Artifact.get(arti, game)
+      tmp.push({
+        name: artiInfo?.name || arti.name || '',
+        abbr: artiInfo?.abbr || artiInfo?.name || arti.name || '',
+        set: artiInfo?.setName || arti.set || '',
+        avatar: srcProfile.name || srcProfile.char?.name || '',
+        level: arti.level || 0, idx, star: arti.star || 5,
+        _raw: { mainId: arti.mainId, attrIds: arti.attrIds, name: arti.name, idx }
+      })
+    })
+    if (tmp.length === POS_COUNT) {
+      let usc = {}
+      for (let a of tmp) { if (a.set) usc[a.set] = (usc[a.set] || 0) + 1 }
+      if (satisfiesConstraint(usc, setConstraints)) userCombo = tmp
+    }
   }
-  let currentDmg = bestDmg
 
-  let T = SA_PARAMS.T_START
-  let evalCount = 1
-
-  while (T > SA_PARAMS.T_END && evalCount < SA_PARAMS.MAX_EVAL) {
-    for (let i = 0; i < SA_PARAMS.INNER_ITER; i++) {
-      // 随机选一个非锁定位置
-      let pos = 1 + Math.floor(Math.random() * POS_COUNT)
-      if (artsByPos[pos].length <= 1) continue
-
-      let arti = randomSelect(artsByPos[pos], currentCombo[pos - 1])
-      if (!arti) continue
-
-      let candidate = [...currentCombo]
-      candidate[pos - 1] = arti
-
-      // 套装约束检查
-      let setCnt = {}
-      for (let a of candidate) {
-        if (a.set) setCnt[a.set] = (setCnt[a.set] || 0) + 1
-      }
-      if (!satisfiesConstraint(setCnt, setConstraints)) continue
-
-      let dmg = await evalCombo(candidate, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx)
-      evalCount++
-      let delta = dmg - currentDmg
-
-      if (delta > 0) {
-        currentCombo = candidate
-        currentDmg = dmg
-        if (dmg > bestDmg) {
-          bestCombo = candidate
-          bestDmg = dmg
-        }
-      } else if (dmg > -Infinity) {
-        // 以概率 exp(Δ/T) 接受差解
-        if (Math.random() < Math.exp(delta / T)) {
-          currentCombo = candidate
-          currentDmg = dmg
-        }
+  // ============================================================
+  // 阶段 10：枚举全部散件位配置 × 坐标上升 → 精确解
+  // ============================================================
+  /**
+   * 生成所有合法的「位置→套装」分配方案（通用组合分配，适配 GS/SR）
+   * GS 4件套(5选4)=5, 2+2=C(5,2)×C(3,2)=30
+   * SR 4件套(6选4)=15, 4+2=C(6,4)=15, 2+2=C(6,2)×C(4,2)=90
+   */
+  function genCombinations (arr, k) {
+    if (k === 0) return [[]]
+    if (k > arr.length) return []
+    let result = []
+    function combine (start, chosen) {
+      if (chosen.length === k) { result.push([...chosen]); return }
+      for (let i = start; i < arr.length; i++) {
+        chosen.push(arr[i]); combine(i + 1, chosen); chosen.pop()
       }
     }
-    T *= SA_PARAMS.ALPHA
+    combine(0, [])
+    return result
+  }
+
+  function enumerateConfigs (constraints, posCount) {
+    let allPos = []
+    for (let p = 1; p <= posCount; p++) allPos.push(p)
+
+    let configs = []
+    function assign (ci, remaining, assigned) {
+      if (ci >= constraints.length) {
+        let required = { ...assigned }
+        configs.push({ free: remaining, required })
+        return
+      }
+      let c = constraints[ci]
+      let combos = genCombinations(remaining, c.count)
+      for (let chosen of combos) {
+        let nextRemaining = remaining.filter(p => !chosen.includes(p))
+        let nextAssigned = { ...assigned }
+        for (let p of chosen) nextAssigned[p] = c.set
+        assign(ci + 1, nextRemaining, nextAssigned)
+      }
+    }
+    assign(0, allPos, {})
+    return configs
+  }
+
+  /**
+   * 坐标上升收敛（每轮遍历全部位置×全部候选，贪心接受改进）
+   * @param {Array}  combo         - 起始组合
+   * @param {Map}    posFilter     - { pos → Set } 每位置允许的套装，null=全部
+   * @param {number} startEvalCount
+   * @returns {{ combo, dmg, evals }}
+   */
+  async function coordinateAscent (combo, posFilter, startEvalCount, hasUserDmgIdx) {
+    let dmg = await evalCombo(combo, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx, hasUserDmgIdx)
+    let evals = startEvalCount + 1
+
+    for (let round = 0; round < CA_PARAMS.MAX_ROUNDS && evals < CA_PARAMS.MAX_EVAL; round++) {
+      let improved = false
+      for (let pos = 1; pos <= POS_COUNT && evals < CA_PARAMS.MAX_EVAL; pos++) {
+        if (artsByPos[pos].length <= 1) continue
+        let pool = posFilter[pos]
+          ? artsByPos[pos].filter(a => posFilter[pos].has(a.set))
+          : artsByPos[pos]
+        if (!pool.length) continue
+
+        for (let arti of pool) {
+          if (evals >= CA_PARAMS.MAX_EVAL) break
+          if (arti === combo[pos - 1]) continue
+
+          let candidate = [...combo]
+          candidate[pos - 1] = arti
+
+          let setCnt = {}
+          for (let a of candidate) {
+            if (a.set) setCnt[a.set] = (setCnt[a.set] || 0) + 1
+          }
+          if (!satisfiesConstraint(setCnt, setConstraints)) continue
+
+          let candDmg = await evalCombo(candidate, uid, char.id, mergedBase, game, isSr, enemyLv, dmgIdx, hasUserDmgIdx)
+          evals++
+          if (candDmg > dmg) {
+            combo = candidate
+            dmg = candDmg
+            improved = true
+          }
+        }
+      }
+      if (!improved) break
+    }
+    return { combo, dmg, evals }
+  }
+
+  // --- 为每个配置构建起始组合（从 userCombo/initialCombo 就近修正） ---
+  function buildStartCombo (cfg, baseCombo) {
+    let combo = [...baseCombo]
+    for (let pos = 1; pos <= POS_COUNT; pos++) {
+      let requiredSet = cfg.required[pos]
+      if (!requiredSet) continue
+      if (combo[pos - 1]?.set === requiredSet) continue
+      // 当前位置不满足 → 从 pool 中取第一个 requiredSet 的件
+      let replacement = artsByPos[pos].find(a => a.set === requiredSet)
+      if (replacement) combo[pos - 1] = replacement
+    }
+    return combo
+  }
+
+  let configs = enumerateConfigs(setConstraints, POS_COUNT)
+  let bestCombo = null
+  let bestDmg = -Infinity
+  let evalCount = 0
+
+  for (let ci = 0; ci < configs.length && evalCount < CA_PARAMS.MAX_EVAL; ci++) {
+    let cfg = configs[ci]
+
+    // 构建位置→套装过滤 map
+    let posFilter = {}
+    let feasible = true
+    for (let pos = 1; pos <= POS_COUNT; pos++) {
+      if (cfg.required[pos]) {
+        posFilter[pos] = new Set([cfg.required[pos]])
+        // 检查是否有可行候选
+        if (!artsByPos[pos].some(a => a.set === cfg.required[pos])) {
+          feasible = false; break
+        }
+      } else {
+        posFilter[pos] = null
+      }
+    }
+    if (!feasible) continue
+
+    // 起始组合：优先从 userCombo 修正，否则从 initialCombo 修正
+    let startCombo = buildStartCombo(cfg, userCombo || initialCombo)
+    // 验证起始组合满足套装约束
+    let sc = {}
+    for (let a of startCombo) { if (a.set) sc[a.set] = (sc[a.set] || 0) + 1 }
+    if (!satisfiesConstraint(sc, setConstraints)) {
+      startCombo = buildStartCombo(cfg, initialCombo)
+    }
+
+    let result = await coordinateAscent(startCombo, posFilter, evalCount, hasUserDmgIdx)
+    evalCount = result.evals
+    if (result.dmg > bestDmg) {
+      bestCombo = result.combo
+      bestDmg = result.dmg
+    }
+  }
+
+  if (!bestCombo || !isFinite(bestDmg) || bestDmg <= 0) {
+    e.reply(`${char.name} 伤害计算失败，请检查伤害计算规则是否可用`)
+    return null
   }
 
   // ============================================================
@@ -1120,22 +1261,36 @@ export async function profileMaxDmgBuild (e, char, paramStr, game, uid, routeDmg
 
   // ============================================================
   // 阶段 12：预计算伤害及原面板对比（摘要用）
+  // 未指定伤害序号 → mode:'single' 对齐排行榜默认伤害（defDmgIdx）
   // ============================================================
-  let bestDmgCalc = await virtual.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
-  let bestDmgRet = bestDmgCalc?.ret?.[dmgIdx]
-  let bestAvgNum = bestDmgRet?.avg || 0
-  let dmgTitle = bestDmgRet?.title || ''
+  let bestAvgNum = 0
+  let dmgTitle = ''
+  if (hasUserDmgIdx) {
+    let bestDmgCalc = await virtual.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
+    let bestDmgRet = bestDmgCalc?.ret?.[dmgIdx]
+    bestAvgNum = bestDmgRet?.avg || 0
+    dmgTitle = bestDmgRet?.title || ''
+  } else {
+    let bestDmgCalc = await virtual.calcDmg({ enemyLv, mode: 'single' })
+    bestAvgNum = bestDmgCalc?.avg || 0
+    dmgTitle = bestDmgCalc?.title || ''
+  }
 
   // 原面板伤害（换补后、搜索前）
   let originalAvgNum = 0
   try {
-    // 用 mergedBase 构建原面板（无圣遗物 → getProfile 回退源面板）
     let origProfile = ProfileChange.getProfile(uid, char.id, mergedBase, game)
     if (origProfile?.char) {
-      let origCalc = await origProfile.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
-      originalAvgNum = origCalc?.ret?.[dmgIdx]?.avg || 0
+      if (hasUserDmgIdx) {
+        let origCalc = await origProfile.calcDmg({ enemyLv, mode: 'profile', dmgIdx })
+        originalAvgNum = origCalc?.ret?.[dmgIdx]?.avg || 0
+      } else {
+        let origCalc = await origProfile.calcDmg({ enemyLv, mode: 'single' })
+        originalAvgNum = origCalc?.avg || 0
+      }
     }
   } catch (_) { /* 静默 */ }
+
 
   let improvePct = ''
   if (originalAvgNum > 0 && bestAvgNum > 0) {
