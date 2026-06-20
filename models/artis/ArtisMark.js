@@ -122,7 +122,8 @@ let ArtisMark = {
             mainKey = 'dmg'
           }
         }
-        fixPct = Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / (posMaxMark['m' + idx])))
+        let mMax = posMaxMark['m' + idx]
+        fixPct = mMax > 0 ? Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / mMax)) : 1
         if (game === 'gs') {
           if (['atk', 'hp', 'def'].includes(mainKey) && attrs[mainKey]?.weight >= 75) {
             fixPct = 1
@@ -135,7 +136,8 @@ let ArtisMark = {
     lodash.forEach(sAttr, (ds) => {
       ret += (attrs[ds.key]?.mark || 0) * (ds.value || 0)
     })
-    return ret * (1 + fixPct) / 2 / posMaxMark[idx] * 66
+    let pMax = posMaxMark[idx]
+    return pMax > 0 ? ret * (1 + fixPct) / 2 / pMax * 66 : 0
   },
 
   // 获取位置最高分
@@ -151,9 +153,14 @@ let ArtisMark = {
       } else if (idx === 2) {
         mAttr = 'atkPlus'
       } else if (idx >= 3) {
-        mAttr = ArtisMark.getMaxAttr(attrs, mainAttr[idx])[0]
-        mMark = attrs[mAttr].fixWeight
-        totalMark += attrs[mAttr].fixWeight * 2
+        let mainCandidates = ArtisMark.getMaxAttr(attrs, mainAttr[idx])
+        if (mainCandidates.length > 0) {
+          mAttr = mainCandidates[0]
+          mMark = attrs[mAttr].fixWeight
+          totalMark += mMark * 2
+        } else {
+          mAttr = mainAttr[idx][0]
+        }
       }
 
       let sAttr = ArtisMark.getMaxAttr(attrs, subAttr, 4, mAttr)
