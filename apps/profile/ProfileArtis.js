@@ -75,6 +75,7 @@ export async function profileArtisList (e) {
     let profileArtis = profile.getArtisMark()
     lodash.forEach(profileArtis.artis, (arti, idx) => {
       arti.charWeight = profileArtis.charWeight
+      arti.idx = idx
       arti.avatar = name
       arti.side = char.side
       artis.push(arti)
@@ -87,6 +88,10 @@ export async function profileArtisList (e) {
     await profileHelp(e)
     return true
   }
+
+  // 过滤主词条命中唯一有效属性且副词条全废的圣遗物/遗器
+  artis = filterSingleEffArtis(artis)
+
   artis = lodash.sortBy(artis, '_mark')
   artis = artis.reverse()
   let number = Cfg.get('artisNumber', 28)
@@ -168,10 +173,12 @@ export async function unifiedArtisHandler (e) {
       return true
     }
     charCfg.id = char.id
+    let targetCharWeight = lodash.mapValues(charCfg.attrs, ds => ds.weight)
     lodash.forEach(allArtis, (arti) => {
       arti._mark = recalcArtisMark(arti, charCfg, game, char.elem)
       arti.mark = String(arti._mark)
       arti.markClass = ArtisMark.getMarkClass(arti._mark)
+      arti.charWeight = targetCharWeight
     })
   }
 
@@ -190,7 +197,8 @@ export async function unifiedArtisHandler (e) {
     }
   }
 
-  // === 排序 & 截断 ===
+  // === 过滤 & 排序 & 截断 ===
+  allArtis = filterSingleEffArtis(allArtis)
   allArtis = lodash.sortBy(allArtis, '_mark')
   allArtis = allArtis.reverse()
   let number = Cfg.get('artisNumber', 28)
@@ -342,4 +350,31 @@ function resolveArtifactSet (filter, game) {
     }
   }
   return null
+}
+
+/**
+ * 过滤主词条命中唯一有效属性且副词条全废的圣遗物/遗器
+ * @param {Array} artis 圣遗物列表（每项含 main.key, attrs[].key, charWeight, idx）
+ * @returns {Array} 过滤后的列表
+ */
+function filterSingleEffArtis (artis) {
+  return artis.filter(arti => {
+    // 仅过滤主词条非固定圣遗物/遗器
+    if (arti.idx != null && arti.idx < 2) return true
+
+    let keys = Object.keys(arti.charWeight || {}).filter(k => arti.charWeight[k] > 0)
+    if (keys.length === 0) return true
+
+    let count = 0
+    let mainEff = arti.main && keys.includes(arti.main.key)
+    if (mainEff) count++
+    if (arti.attrs) {
+      arti.attrs.forEach(attr => {
+        if (keys.includes(attr.key)) count++
+      })
+    }
+
+    if (mainEff && count === 1) return false
+    return true
+  })
 }
