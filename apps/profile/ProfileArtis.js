@@ -74,6 +74,7 @@ export async function profileArtisList (e) {
     let profileArtis = profile.getArtisMark()
     lodash.forEach(profileArtis.artis, (arti, idx) => {
       arti.charWeight = profileArtis.charWeight
+      arti.idx = idx
       arti.avatar = name
       arti.side = char.side
       artis.push(arti)
@@ -86,6 +87,10 @@ export async function profileArtisList (e) {
     await profileHelp(e)
     return true
   }
+
+  // 过滤主词条命中唯一有效属性且副词条全废的圣遗物/遗器
+  artis = filterSingleEffArtis(artis)
+
   artis = lodash.sortBy(artis, '_mark')
   artis = artis.reverse()
   let number = Cfg.get('artisNumber', 28)
@@ -99,4 +104,31 @@ export async function profileArtisList (e) {
     artis,
     artisKeyTitle
   }, { e, scale: 1.4 })
+}
+
+/**
+ * 过滤主词条命中唯一有效属性且副词条全废的圣遗物/遗器
+ * @param {Array} artis 圣遗物列表（每项含 main.key, attrs[].key, charWeight, idx）
+ * @returns {Array} 过滤后的列表
+ */
+function filterSingleEffArtis (artis) {
+  return artis.filter(arti => {
+    // 仅过滤主词条非固定圣遗物/遗器
+    if (arti.idx != null && arti.idx < 2) return true
+
+    let keys = Object.keys(arti.charWeight || {}).filter(k => arti.charWeight[k] > 0)
+    if (keys.length === 0) return true
+
+    let count = 0
+    let mainEff = arti.main && keys.includes(arti.main.key)
+    if (mainEff) count++
+    if (arti.attrs) {
+      arti.attrs.forEach(attr => {
+        if (keys.includes(attr.key)) count++
+      })
+    }
+
+    if (mainEff && count === 1) return false
+    return true
+  })
 }
