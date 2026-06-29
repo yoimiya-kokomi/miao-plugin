@@ -236,6 +236,12 @@ export default function (step, staticStep) {
         dmg: ({ refine }) => step(7.5, 2)[refine] * 4,
         cdmg: ({ params, refine }) => (params.Hexenzirkel ? step(7.5, 2)[refine] * 4 : 0)
       }
-    }
+    },
+    超越之匙: [staticStep('atkPct', 28), {
+      title: '装备者的重击每次命中敌人后，都会短暂达成「超越」。该效果至多叠加3层满层时，使装备者的星超导反应伤害提升[stellarConduct]%',
+      refine: {
+        stellarConduct: step(16 * 3)
+      }
+    }],
   }
 }
