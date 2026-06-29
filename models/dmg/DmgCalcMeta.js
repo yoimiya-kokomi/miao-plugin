@@ -24,6 +24,8 @@ export const erType = {
   lunarBloom: { type: 'lunar', num: () => 8, title: '月绽放' },
   lunarCharged: { type: 'lunar', num: () => 7.2, title: '月感电' },
   lunarCrystallize: { type: 'lunar', num: () => 3.84, title: '月结晶' },
+  // 星反应
+  stellarConduct: { type: 'stellar', num: () => 0, title: '星超导' },
   // 击破持续伤害
   shock: { type: 'breakDot', num: () => 2.0, title: '触电' },
   burn: { type: 'breakDot', num: () => 1.0, title: '灼烧' },

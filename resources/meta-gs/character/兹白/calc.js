@@ -55,7 +55,7 @@ export const buffs = [
   },
   {
     check: ({ params }) => params.Moonsign_Benediction === true,
-    title: '兹白天赋：基于兹白的防御力，对队伍中角色造成的月曜反应提升[fypct]%的基础伤害',
+    title: '兹白天赋：基于兹白的防御力，对队伍中角色造成的月结晶反应提升[fypct]%的基础伤害',
     sort: 9,
     data: {
       fypct: ({ attr, calc }) => Math.min(calc(attr.def) / 100 * 0.7, 14)
