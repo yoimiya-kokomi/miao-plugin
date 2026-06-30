@@ -40,8 +40,8 @@ export const details = [
   }
 ]
 
-export const defDmgIdx = 0
-export const mainAttr = 'atk,cpct,cdmg,mastery,def'
+export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [
   {
