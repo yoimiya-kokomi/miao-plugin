@@ -628,9 +628,10 @@ const buffs = {
   影中沉凝的幻灭: {
     2: attr('atkPct', 18),
     4: {
-      title: '超导反应造成的伤害提升[superConduct]%；攻击受到超导反应影响的敌人暴击率提高[cpct]%',
+      title: '超导反应造成的伤害提升[superConduct]%；星超导反应造成的伤害提升[stellarConduct]%；攻击受到超导或星超导反应影响的敌人暴击率提高[cpct]%',
       data: {
         superConduct: 80,
+        stellarConduct: 40,
         cpct: 16
       }
     }
