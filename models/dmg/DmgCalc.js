@@ -235,11 +235,6 @@ let DmgCalc = {
         } else {
           eleNum = 1
         }
-        console.log('lunarBase', lunarBase)
-        console.log('fypct', fypct)
-        console.log('eleBase', eleBase)
-        console.log('eleNum', eleNum)
-
         ret = {
           avg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + (lunarBase * fyinc) + fyplus) * (1 + elevatedNum) * kNum * (1 + cpctNum * cdmgNum),
           dmg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + (lunarBase * fyinc) + fyplus) * (1 + elevatedNum) * kNum * (1 + cdmgNum)
