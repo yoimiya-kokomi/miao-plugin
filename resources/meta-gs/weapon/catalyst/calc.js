@@ -103,10 +103,11 @@ export default function (step, staticStep) {
       }
     }],
     神乐之真意: {
-      title: '满层提高元素战技伤害[eDmg]%，元素伤害提高[dmg]%',
+      title: '满层提高元素战技伤害[eDmg]%，星超导反应伤害提升[stellarConduct]%，元素伤害提高[dmg]%',
       refine: {
         eDmg: [12 * 3, 15 * 3, 18 * 3, 21 * 3, 24 * 3],
-        dmg: step(12)
+        dmg: step(12),
+        stellarConduct: step(12 * 3)
       }
     },
     盈满之实: {
@@ -156,10 +157,11 @@ export default function (step, staticStep) {
       }
     }],
     金流监督: [staticStep('atkPct', 16), {
-      title: '满层下，普通攻击造成的伤害提升[aDmg]%，重击造成的伤害提升[a2Dmg]%',
+      title: '满层下，普通攻击造成的伤害提升[aDmg]%，星超导反应伤害提升[stellarConduct]%，重击造成的伤害提升[a2Dmg]%',
       refine: {
         aDmg: step(16 * 3),
-        a2Dmg: step(14 * 3)
+        a2Dmg: step(14 * 3),
+        stellarConduct: step(14 * 3)
       }
     }],
     遗祀玉珑: [{
