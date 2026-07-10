@@ -230,8 +230,8 @@ let DmgCalc = {
         } else if (ele === 'lunarCrystallize') {
           eleNum = dmgBase ? 1.6 : eleNum
         } else if (ele === 'stellarConduct') {
-          // 星超导根据hit数的不同，有 1/1.45/1.9 三档倍率，这里暂时默认为最大值 1.9
-          eleNum = dmgBase ? 1.9 : eleNum
+          // 星超导根据hit数的不同，有 1.45 - 2.0 不等的倍率，这里暂时默认为最大值 2.0
+          eleNum = dmgBase ? 2 : eleNum
         } else {
           eleNum = 1
         }

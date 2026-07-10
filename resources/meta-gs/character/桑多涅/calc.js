@@ -5,7 +5,7 @@ export const details = [
   },
   {
     title: '重击冷凝射线星超导伤害',
-    params: { Stellar: true },
+    params: { Stellar: true, a2: true },
     dmg: ({ attr, calc, talent }, { basic }) => basic(calc(attr.atk) * talent.a['重击冷凝射线星超导伤害'] / 100, '', 'stellarConduct')
   },
   {
@@ -45,6 +45,12 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [
   {
+    title: '双冰共鸣：攻击冰元素附着或冻结状态下的敌人时，暴击率提高[cpct]%',
+    data: {
+      cpct: 15
+    }
+  },
+  {
     check: ({ params }) => params.Stellar === true,
     title: '桑多涅天赋：基于桑多涅的攻击力，对队伍中角色造成的星超导反应提升[fypct]%的基础伤害',
     sort: 9,
@@ -67,6 +73,7 @@ export const buffs = [
     }
   },
   {
+    check: ({ params }) => params.a2 === true,
     title: '桑多涅2命：【辉映·星超导】3层状态下，重击发射的冷凝射线的暴击伤害提升[cdmg]%',
     cons: 2,
     data: {
