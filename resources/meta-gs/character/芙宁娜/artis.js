@@ -40,6 +40,17 @@ export default function ({ attr, cons, weapon, rule, def }) {
     particularAttr.recharge = 100
     particularAttr.dmg = 0
   }
+  if (weapon.name === '岩峰巡歌' && attr.recharge >= 220) {
+    title = [] 
+    title.push('岩峰纯辅')
+    particularAttr.hp = 0
+    particularAttr.def = 100
+    particularAttr.mastery = 0
+    particularAttr.cpct = 0
+    particularAttr.cdmg = 0
+    particularAttr.recharge = 100
+    particularAttr.dmg = 0
+  }
   if (title.length > 0) {
     return rule(`芙宁娜-${title.join('')}`, particularAttr)
   }
