@@ -29,14 +29,14 @@ export const details = [{
 }, {
   title: '【辉映·星超导】强化落雷命中后额外星超导伤害',
   params: { Stellar: true },
-  dmg: ({ attr, calc, talent }, { basic }) => basic(calc(attr.atk) * 200 / 100, '', 'stellarConduct')
+  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 200 / 100, '', 'stellarConduct')
 }, {
   title: 'E施放后额外雷击伤害',
   dmg: ({ talent }, dmg) => dmg(40, '')
 }, {
   title: '【辉映·星超导】E施放后额外星超导伤害',
   params: { Stellar: true },
-  dmg: ({ attr, calc, talent }, { basic }) => basic(calc(attr.atk) * 50 / 100, '', 'stellarConduct')
+  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 50 / 100, '', 'stellarConduct')
 }, {
   title: '四段Q总伤害',
   params: { Q: true },
