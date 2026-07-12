@@ -150,9 +150,9 @@ export default function (staticIdx, keyIdx) {
       }),
       (tables) => {
         return {
-          title: '终结技伤害提高[dmg]%，【王之娱乐】我方全体暴击伤害提高[cdmg]%',
+          title: '终结技伤害提高[qDmg]%，【王之娱乐】我方全体暴击伤害提高[cdmg]%',
           data: {
-            dmg: ({ attr }) => {
+            qDmg: ({ attr }) => {
               return attr.sp >= 360 ? tables[4] : tables[3] * attr.sp
             },
             cdmg: tables[5]
