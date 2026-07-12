@@ -517,5 +517,22 @@ export default {
         dmg: 15
       }
     }
+  },
+  寰宇生研院: {
+    2: [{
+      check: ({ attr }) => attr.sp >= 200,
+      title: '装备者能量上限大于等于200点，使装备者造成的伤害提高[dmg]%。',
+      data: {
+        dmg: ({attr}) => {return (attr.sp - 200) * 0.2 > 32 ? 32 : (attr.sp - 200) * 0.2}
+      }
+    }]
+  },
+  坠星启航地: {
+    2: [attr('cpct', 8), {
+      title: '使装备者的暴击伤害提高[cdmg]%',
+      data: {
+        cdmg: 32
+      }
+    }]
   }
 }

@@ -129,6 +129,22 @@ export default function (staticIdx, keyIdx) {
     氤氲麦香的梦: [
       staticIdx(1, "cpct"),
       keyIdx("装备者终结技造成的伤害提高[qDmg]%,追加攻击造成的伤害提高[tDmg]%", { qDmg: 2, tDmg: 2 })
+    ],
+    当一颗星照亮夜空: [
+      keyIdx("无视目标[ignore]%的防御力", { ignore: 2}),
+      (tables) => {
+        return {
+          title: '3层助战技伤害提高[tDmg]%，终结技伤害提高[qDmg]%',
+          data: {
+            tDmg: tables[2] * 3,
+            qDmg: tables[3] * 3
+          }
+        }
+      }
+    ],
+    星火悄然闪耀: [
+      staticIdx(1, "cpct"),
+      keyIdx("无视目标[ignore]%的防御力，战技伤害提高[eDmg]%", { ignore: 2, eDmg: 2 })
     ]
   }
 }
