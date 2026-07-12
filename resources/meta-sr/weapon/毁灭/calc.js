@@ -143,6 +143,22 @@ export default function (staticIdx, keyIdx) {
       keyIdx('暴击率提高[cpct]%,战技伤害提高[eDmg]%,终结技伤害提高[qDmg]%', {
         cpct: 1, eDmg: 2, qDmg: 2
       })
+    ],
+    所见即我: [
+      keyIdx('装备者的攻击力提高[atkPct]%，能量恢复效率提高[recharge]%', {
+        atkPct: 1, recharge: 2
+      }),
+      (tables) => {
+        return {
+          title: '终结技伤害提高[qDmg]%，【王之娱乐】我方全体暴击伤害提高[cdmg]%',
+          data: {
+            qDmg: ({ attr }) => {
+              return attr.sp >= 360 ? tables[4] : tables[3] * attr.sp
+            },
+            cdmg: tables[5]
+          }
+        }
+      }
     ]
   }
 }

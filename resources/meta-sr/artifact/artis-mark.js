@@ -3,6 +3,9 @@
  * 如character/${name}/artis.js下有角色自定义规则优先使用自定义
  */
 export const usefulAttr = {
+  远坂凛: { hp: 0, atk: 100, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 100 },
+  吉尔伽美什: { hp: 0, atk: 100, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 100 },
+  '姬子•启行': { hp: 0, atk: 100, def: 0, speed: 0, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   '千冶•刃': { hp: 100, atk: 0, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 50 },
   绯英: { hp: 0, atk: 100, def: 0, speed: 50, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 0, dmg: 100 },
   '银狼LV.999': { hp: 10, atk: 0, def: 10, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 0 },
@@ -42,7 +45,9 @@ export const usefulAttr = {
   黄泉: { hp: 0, atk: 100, def: 0, speed: 75, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 0, effPct: 0, effDef: 0, dmg: 100 },
   米沙: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 75, effPct: 0, effDef: 0, dmg: 100 },
   花火: { hp: 75, atk: 0, def: 75, speed: 100, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
+  花火Pro: { hp: 75, atk: 0, def: 75, speed: 100, cpct: 0, cdmg: 100, stance: 0, heal: 0, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
   黑天鹅: { hp: 0, atk: 100, def: 0, speed: 75, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 50, effPct: 100, effDef: 0, dmg: 100 },  
+  黑天鹅Pro: { hp: 0, atk: 100, def: 0, speed: 75, cpct: 0, cdmg: 0, stance: 0, heal: 0, recharge: 50, effPct: 100, effDef: 0, dmg: 100 },  
   真理医生: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 0, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },
   '阮•梅': { hp: 75, atk: 0, def: 75, speed: 100, cpct: 0, cdmg: 0, stance: 100, heal: 0, recharge: 100, effPct: 0, effDef: 50, dmg: 0 },
   雪衣: { hp: 0, atk: 75, def: 0, speed: 100, cpct: 100, cdmg: 100, stance: 100, heal: 0, recharge: 50, effPct: 0, effDef: 0, dmg: 100 },

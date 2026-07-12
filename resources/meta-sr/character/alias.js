@@ -93,6 +93,10 @@ export const alias = {
   不死途: 'ashveil,侦探,不死徒,名侦探,牢不,牢不死,牢途,牢不,老不死,游侠牢大,游侠老大,老不,老不死,老途',
   '银狼LV.999': 'sw999,狼尊,999,狼9,9狼,999狼,狼99,狼999,银狼lv.999,银狼lv999,银狼sp,银狼SP,银狼999,sp银狼,零号,金狼',
   绯英: 'evanescia,绯樱,八重樱,驴,樱花妹,飞鹰',
+  '千冶•刃': 'mortenaxblade,SP刃,刃SP,sp刃,刃sp,千冶刃',
+  '姬子•启行': 'himekonova,姬子SP,SP姬子,姬子sp,sp姬子',
+  远坂凛: 'tohsakarin,凛,红色恶魔',
+  吉尔伽美什: 'gilgamesh,金闪闪,闪闪,路灯王,‌金皮卡‌,英雄王‌',
 }
 
 export const abbr = {
