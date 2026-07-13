@@ -9,6 +9,10 @@ export const details = [{
   params: { showEBuff: true, eBuff: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['冥祭伤害'], 'e')
 }, {
+  title: '【辉映·星超导】渡荒之雷·星偕星超导伤害',
+  params: { cons_1: true, cons_2: true },
+  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 200 / 100 + calc(attr.mastery) * 600 / 100, '', 'stellarConduct')
+}, {
   title: 'Q状态·QTE总伤害',
   params: { showEBuff: true },
   dmg: ({ attr, calc, talent }, { basic, dynamic }) => {
@@ -105,10 +109,24 @@ export const buffs = [{
     mastery: 100
   }
 }, {
+  check: ({ params }) => params.cons_1 === true,
+  title: '赛诺1命：【辉映·星超导】进入启途誓使状态时，元素精通提升[mastery]点',
+  cons: 1,
+  data: {
+    mastery: 200
+  }
+}, {
   title: '赛诺2命：普攻后提高雷伤，满5层Buff增加50%雷元素伤害',
   cons: 2,
   data: {
     dmg: 50
+  }
+}, {
+  check: ({ params }) => params.cons_2 === true,
+  title: '赛诺2命：【辉映·星超导】处于偕日共升效果影响下的角色的普通攻击与重击命中敌人时，该角色造成的星超导反应伤害最高累计提升[stellarConduct]%',
+  cons: 2,
+  data: {
+    stellarConduct: 16 * 5
   }
 }, {
   check: ({ params }) => params.showEBuff === true,
