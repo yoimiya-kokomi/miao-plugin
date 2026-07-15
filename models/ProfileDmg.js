@@ -231,10 +231,11 @@ export default class ProfileDmg extends Base {
         let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta))
         detail = detail({ ...ds, attr, profile })
       }
+      let basicRet = lodash.merge({}, ret[detail.userIdx] || ret[defDmgIdx])
       dmgDetail = {
-        title: detail.title,
+        title: basicRet.title || detail.title,
         userIdx: detail.userIdx || defDmgIdx,
-        basicRet: lodash.merge({}, ret[detail.userIdx] || ret[defDmgIdx]),
+        basicRet,
         attr: []
       }
 
