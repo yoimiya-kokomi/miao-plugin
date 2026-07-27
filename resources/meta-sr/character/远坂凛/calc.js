@@ -6,10 +6,10 @@ export const details = [{
     dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
   }, {
     title: '30宝石能量强化战技',
-    dmg: ({ talent }, dmg) => dmg(talent.e2['群攻伤害'] + talent.e2['技能伤害'] * 10, 'e2')
+    dmg: ({ talent }, dmg) => dmg(talent.e2['群攻伤害'] + talent.e2['弹射伤害'] * 10, 'e2')
   }, {
     title: '大招对五',
-    dmg: ({ talent }, dmg) => dmg(talent.q['单体伤害'] + talent.q['群攻伤害'] * 4, 'q')
+    dmg: ({ talent }, dmg) => dmg(talent.q['目标伤害'] + talent.q['群攻伤害'] * 4, 'q')
   }, {
     title: '凛天赋合击伤害',
     dmg: ({ talent }, dmg) => dmg(talent.t2['技能伤害'], 't2')
