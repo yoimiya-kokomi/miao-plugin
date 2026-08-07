@@ -1,0 +1,82 @@
+<script src="../../../../../Yunzai-Botconfig/miao-diy/app/main.js"></script>{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/role-card-exchange.css?v=1.0"/>
+{{/block}}
+
+{{block 'main'}}
+<div class="head-box type">
+  <div class="title">#月谕圣牌交换</div>
+  <div class="uid">UID:{{uid}}</div>
+</div>
+<div class="info_box">
+  <div class="exchange-summary">
+    <strong>本群找到 {{matches.length}} 位可交换群友</strong>
+    <span>群号 {{groupId}}</span>
+  </div>
+</div>
+
+<div class="cont">
+  <div class="cont-body">
+    {{each matches item idx}}
+    <div class="exchange-user">
+      <div class="user-title">
+        <div class="rank">{{idx + 1}}</div>
+        <div class="user-info">
+          <strong>{{item.name}}</strong>
+          <span>QQ {{item.qq}}<i></i>UID {{item.uid}}</span>
+        </div>
+        <div class="match-count">可互换 <strong>{{item.score}}</strong> 种</div>
+      </div>
+      <div class="trade-lane receive">
+        <div class="trade-direction">
+          <strong>TA 给你</strong>
+          <span>你缺少的牌</span>
+        </div>
+        <div class="trade-cards">
+          <div class="card-list">
+            {{each item.otherCanGive card}}
+            <div class="trade-card">
+              <div class="card-image-container">
+                {{if card.icon}}
+                <div class="card-image" style="background-image:url({{card.icon}})"></div>
+                {{else}}
+                <div class="card-image empty-image"><strong>?</strong></div>
+                {{/if}}
+              </div>
+              <div class="card-info">{{card.name}} x {{card.num}}</div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      <div class="trade-lane provide">
+        <div class="trade-direction">
+          <strong>你给 TA</strong>
+          <span>对方缺少的牌</span>
+        </div>
+        <div class="trade-cards">
+          <div class="card-list">
+            {{each item.selfCanGive card}}
+            <div class="trade-card">
+              <div class="card-image-container">
+                {{if card.icon}}
+                <div class="card-image" style="background-image:url({{card.icon}})"></div>
+                {{else}}
+                <div class="card-image empty-image"><strong>?</strong></div>
+                {{/if}}
+              </div>
+              <div class="card-info">{{card.name}} x {{card.num}}</div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+<div class="copyright">仅匹配本群近 30 天查询过 #月谕圣牌 的用户，请双方确认交换数量。</div>
+{{/block}}
