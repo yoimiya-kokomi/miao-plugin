@@ -1,8 +1,16 @@
 import { usefulAttr } from "../../artifact/artis-mark.js"
 
 export default function ({ cons, rule, def }) {
-    if (cons === 6) {
-      return rule('妮露-满命', { hp: 100, atk: 0, def: 0, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, phy: 0, recharge: 30, heal: 0 })
-    }
-    return def(usefulAttr['妮露'])
+  let title = []
+  let particularAttr = { ...usefulAttr['妮露'] }
+  if (cons === 6) {
+    title.push('满命')
+    particularAttr.cpct = 100
+    particularAttr.cdmg = 100
+    particularAttr.dmg = 100
   }
+  if (title.length > 0) {
+    return rule(`妮露-${title.join('')}`, particularAttr)
+  }
+  return def(usefulAttr['妮露'])
+}

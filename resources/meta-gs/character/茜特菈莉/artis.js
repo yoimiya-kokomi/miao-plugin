@@ -7,10 +7,12 @@ export default function ({ attr, cons, rule, def }) {
     title.push('高命')
     particularAttr.recharge = 75
   }
-  if (attr.cpct * 2 + attr.cdmg > 200) {
+  if (attr.cpct * 2 + attr.cdmg > 240) {
     title.push('战斗')
+    particularAttr.atk = 80
     particularAttr.cpct = 100
     particularAttr.cdmg = 100
+    particularAttr.dmg = 100
   }
   if (title.length > 0) {
     return rule(`茜特菈莉-${title.join('|')}`, particularAttr)

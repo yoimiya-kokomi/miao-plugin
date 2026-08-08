@@ -1,7 +1,14 @@
+import { usefulAttr } from "../../artifact/artis-mark.js"
+
 export default function ({ attr, rule, def }) {
-  // 激化精通璃月雷神，具体数值待定
+  let title = []
+  let particularAttr = { ...usefulAttr['刻晴'] }
   if (attr.mastery >= 80) {
-    return rule('刻晴-精通', { atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100 })
+    title.push('精通')
+    particularAttr.mastery = 75
   }
-  return def({ atk: 75, cpct: 100, cdmg: 100, dmg: 100, phy: 100 })
+  if (title.length > 0) {
+    return rule(`刻晴-${title.join('')}`, particularAttr)
+  }
+  return def(usefulAttr['刻晴'])
 }

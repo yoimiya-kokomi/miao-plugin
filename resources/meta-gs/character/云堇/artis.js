@@ -1,6 +1,19 @@
+import { usefulAttr } from "../../artifact/artis-mark.js"
+
 export default function ({ attr, artis, rule, def }) {
-  if (artis.is('dmg', 4) && artis.is('cpct,cdmg,def', 5) && (attr.cpct * 2 + attr.cdmg > 180)) {
-    return rule('云堇-输出', { atk: 75, def: 100, cpct: 100, cdmg: 100, dmg: 100, recharge: 75 })
+  let title = []
+  let particularAttr = { ...usefulAttr['云堇'] }
+  if (artis.is('cpct,cdmg,def', 5) && (attr.cpct * 2 + attr.cdmg > 240)) {
+    title.push('输出')
+    particularAttr.atk = 75
+    particularAttr.def = 100
+    particularAttr.cpct = 100
+    particularAttr.cdmg = 100
+    particularAttr.dmg = 100
+    particularAttr.recharge = 75
   }
-  return def({ def: 100, cpct: 50, cdmg: 50, recharge: 90 })
+  if (title.length > 0) {
+    return rule(`云堇-${title.join('')}`, particularAttr)
+  }
+  return def(usefulAttr['云堇'])
 }

@@ -1,17 +1,22 @@
-export default function ({ attr, weapon, rule, def }) {
+import { usefulAttr } from "../../artifact/artis-mark.js"
+
+export default function ({artis, cons, attr, weapon, rule, def }) {
   let title = []
-  let mastery = 0
-  let hp = 80
+  let particularAttr = { ...usefulAttr['夜兰'] }
+  if (cons >= 1 && !artis.is('绝缘4')) {
+    title.push('高命')
+    particularAttr.recharge = 55
+  }
   if (attr.mastery > 80) {
     title.push('精通')
-    mastery = 75
+    particularAttr.mastery = 75
   }
   if (weapon.name === '若水') {
     title.push('若水')
-    hp = 100
+    particularAttr.hp = 100
   }
   if (title.length > 0) {
-    return rule(`夜兰-${title.join('')}`, { hp, cpct: 100, cdmg: 100, mastery, dmg: 100, recharge: 75 })
+    return rule(`夜兰-${title.join('')}`, particularAttr)
   }
-  return def({ hp: 80, cpct: 100, cdmg: 100, dmg: 100, recharge: 75 })
+  return def(usefulAttr['夜兰'])
 }
