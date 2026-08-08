@@ -2,18 +2,19 @@ import { usefulAttr } from "../../artifact/artis-mark.js"
 
 export default function ({ attr, rule, def }) {
   let title = []
-  let particularAttr = { ...usefulAttr['绮良良'] }
+  let particularAttr = { ...usefulAttr['北斗'] }
   if (attr.cpct * 2 + attr.cdmg > 240) {
-    title.push('战斗')
-    particularAttr.hp = 50
+    title.push('输出')
+    particularAttr.hp = 0
     particularAttr.atk = 75
     particularAttr.cpct = 100
     particularAttr.cdmg = 100
+    particularAttr.mastery = 45
     particularAttr.dmg = 100
-    particularAttr.recharge = 30
+    particularAttr.phy = 100
   }
   if (title.length > 0) {
-    return rule(`绮良良-${title.join('')}`, particularAttr)
+    return rule(`北斗-${title.join('')}`, particularAttr)
   }
-  return def(usefulAttr['绮良良'])
+  return def(usefulAttr['北斗'])
 }
