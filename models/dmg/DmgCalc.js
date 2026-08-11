@@ -138,6 +138,8 @@ let DmgCalc = {
     } else {
       if (ele === 'swirl') {
         kx = attr.fykx
+      } else if (ele === 'coloringDmg') {
+        kx = (attr.kx || 0) + (attr.fykx || 0)
       }
       kx = 10 - (kx || 0)
       if (kx >= 75) {
