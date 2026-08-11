@@ -5,6 +5,7 @@ export default function ({artis, rule, def}) {
     let particularAttr = {...usefulAttr['莱欧斯利']}
     if (artis.names.includes('影中沉凝的幻灭')) {
         title.push('星超导')
+        particularAttr.atk = 100
         particularAttr.mastery = 100
         particularAttr.dmg = 0
     }

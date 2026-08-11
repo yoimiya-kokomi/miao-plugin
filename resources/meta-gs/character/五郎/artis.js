@@ -9,8 +9,8 @@ export default function ({ attr, cons, artis, rule, def }) {
   }
   if (attr.cpct * 2 + attr.cdmg > 240) {
     title.push('输出')
-    particularAttr.atk = 80
-    particularAttr.def = 0
+    particularAttr.atk = 75
+    particularAttr.def = 100
     particularAttr.cpct = 100
     particularAttr.cdmg = 100
     particularAttr.dmg = 100

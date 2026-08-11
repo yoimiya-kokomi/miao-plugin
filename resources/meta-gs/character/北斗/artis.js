@@ -11,7 +11,6 @@ export default function ({ attr, rule, def }) {
     particularAttr.cdmg = 100
     particularAttr.mastery = 45
     particularAttr.dmg = 100
-    particularAttr.phy = 100
   }
   if (title.length > 0) {
     return rule(`北斗-${title.join('')}`, particularAttr)
