@@ -1,6 +1,6 @@
 import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({ attr, artis, rule, def }) {
+export default function ({ attr, rule, def }) {
   let title = []
   let particularAttr = { ...usefulAttr['班尼特'] }
   if (attr.cpct * 2 + attr.cdmg > 180) {

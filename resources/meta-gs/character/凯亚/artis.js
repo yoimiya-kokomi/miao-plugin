@@ -10,7 +10,6 @@ export default function ({ attr, rule, def }) {
     particularAttr.cdmg = 100
     particularAttr.mastery = 75
     particularAttr.dmg = 100
-    particularAttr.phy = 100
     particularAttr.recharge = 30
   }
   if (title.length > 0) {
