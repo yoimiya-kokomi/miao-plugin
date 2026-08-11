@@ -1266,14 +1266,17 @@
       "name": "寒苦回向",
       "desc": [
         "寒病鬼差命中被度厄真符标记的敌人时，为七七恢复2点元素能量。",
-        "<span style=\"color:#FFD780FF;\">辉映·星超导</span>：寒病鬼差的攻击与协同攻击命中敌人时，还会为七七恢复6点元素能量，该效果每6秒至多触发一次。"
+        "<span style=\"color:#FFD780FF;\"><u>辉映·星烁</u></span>：寒病鬼差的攻击与协同攻击命中敌人时，还会为七七恢复6点元素能量，该效果每6秒至多触发一次。",
+        "<h3>● 辉映·星烁</h3>",
+        "<span style=\"color:#FFD780FF;\">辉映·星超导</span>与<span style=\"color:#FFD780FF;\">辉映·星扩散</span>统称为<span style=\"color:#FFD780FF;\">辉映·星烁</span>状态。",
+        "角色同时只能受到一种辉映状态影响，且优先被<span style=\"color:#FFD780FF;\">辉映·星超导</span>影响。"
       ]
     },
     "2": {
       "name": "冰寒蚀骨",
       "desc": [
         "对受到<span style=\"color:#99FFFFFF;\">冰元素</span>影响的敌人，七七的普通攻击与重击造成的伤害提升15%。",
-        "<span style=\"color:#FFD780FF;\">辉映·星超导</span>：七七的攻击力提升50%。"
+        "<span style=\"color:#FFD780FF;\"><u>辉映·星烁</u></span>：七七的攻击力提升50%。"
       ]
     },
     "3": {
@@ -1302,7 +1305,7 @@
       "desc": [
         "施放<span style=\"color:#FFD780FF;\">仙法·救苦度厄</span>时，复苏附近队伍中所有倒下的角色，并将其生命值恢复至50%。",
         "该效果每15分钟只能触发一次。",
-        "此外，施放<span style=\"color:#FFD780FF;\">仙法·救苦度厄</span>后，七七还会获得4层<span style=\"color:#FFD780FF;\">洞玄</span>；除七七外的队伍中自己的当前场上角色造成星超导反应伤害时，将消耗1层<span style=\"color:#FFD780FF;\">洞玄</span>，提升造成的伤害，提升值相当于七七攻击力的600%。<span style=\"color:#FFD780FF;\">洞玄</span>至多持续12秒，施放<span style=\"color:#FFD780FF;\">仙法·救苦度厄</span>时刷新层数。"
+        "此外，施放<span style=\"color:#FFD780FF;\">仙法·救苦度厄</span>后，七七还会获得4层<span style=\"color:#FFD780FF;\">洞玄</span>；除七七外的队伍中自己的当前场上角色通过天赋与技能直接造成星超导或星扩散反应伤害时，将消耗1层<span style=\"color:#FFD780FF;\">洞玄</span>，提升造成的伤害，提升值相当于七七攻击力的600%。<span style=\"color:#FFD780FF;\">洞玄</span>至多持续12秒，施放<span style=\"color:#FFD780FF;\">仙法·救苦度厄</span>时刷新层数。"
       ]
     }
   },
@@ -1317,7 +1320,7 @@
       "name": "玉签偶开",
       "desc": [
         "七七的普通攻击与重击命中敌人时，有50%的几率为敌人添加一枚度厄真符，持续6秒。该效果每30秒只能触发一次。",
-        "<span style=\"color:#FFD780FF;\">辉映·星超导</span>：该效果的触发几率提升至100%，且冷却时间降低至15秒。"
+        "<span style=\"color:#FFD780FF;\"><u>辉映·星烁</u></span>：该效果的触发几率提升至100%，且冷却时间降低至15秒。"
       ]
     },
     {
@@ -1330,8 +1333,10 @@
       "name": "七宝奉真",
       "desc": [
         "元素战技<span style=\"color:#FFD780FF;\">仙法·寒病鬼差</span>的冷却时间缩短至15秒。",
-        "<span style=\"color:#FFD780FF;\">辉映·星超导</span>：寒病鬼差持续期间，队伍中自己的角色造成的超导、星超导反应伤害提升50%。",
-        "此外，处于<span style=\"color:#FFD780FF;\"><u>极星辉域</u></span>中时，七七将会进入<span style=\"color:#FFD780FF;\">辉映·星超导</span>状态。",
+        "<span style=\"color:#FFD780FF;\">辉映·星烁</span>：寒病鬼差持续期间，队伍中自己的角色造成的对应反应的伤害提高：",
+        "<span style=\"color:#FFD780FF;\">辉映·星超导</span>：超导、星超导反应伤害提升50%。",
+        "<span style=\"color:#FFD780FF;\">辉映·星扩散</span>：冰元素扩散、星扩散反应伤害提升50%。",
+        "此外，处于<span style=\"color:#FFD780FF;\"><u>极星辉域</u></span>中时/队伍中的角色在附近触发星扩散反应后的8秒内，七七将分别进入<span style=\"color:#FFD780FF;\">辉映·星超导</span>/<span style=\"color:#FFD780FF;\">辉映·星扩散</span>状态。",
         "<h3>● 极星辉域</h3>",
         "触发星超导反应时，附近的区域会短暂变化为<span style=\"color:#FFD780FF;\">极星辉域</span>；处于极星辉域中时，特定角色将会进入<span style=\"color:#FFD780FF;\">辉映·星超导</span>状态，使其不同技能分别获得对应的强化效果。"
       ]

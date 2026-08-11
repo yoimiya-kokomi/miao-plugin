@@ -993,7 +993,9 @@
         "·生命值低于或等于50%时，受治疗加成提升30%；",
         "·生命值高于50%时，元素精通提升200。",
         "此外，迪奥娜的生命值上限提升25%。",
-        "<span style=\"color:#FFD780FF;\">辉映·星超导</span>：处在<span style=\"color:#FFD780FF;\">最烈特调</span>领域内的角色造成的超导、星超导反应伤害提升40%。"
+        "<span style=\"color:#FFD780FF;\">辉映·星烁</span>：处于最烈特调领域内的角色造成的对应反应的伤害提高：",
+        "<span style=\"color:#FFD780FF;\">辉映·星超导</span>：超导、星超导反应伤害提升40%；",
+        "<span style=\"color:#FFD780FF;\">辉映·星扩散</span>：冰元素扩散、星扩散反应伤害提升40%。"
       ]
     }
   },
@@ -1019,8 +1021,8 @@
     {
       "name": "珍选秘藏",
       "desc": [
-        "施放元素战技<span style=\"color:#FFD780FF;\">猫爪冻冻</span>后的20秒内，队伍中的角色触发超导、星超导反应时，迪奥娜还会协同发射3枚<span style=\"color:#FFD780FF;\">冻冻猫猫爪</span>；通过这种方式发射的<span style=\"color:#FFD780FF;\">冻冻猫猫爪</span>无法产生元素微粒，在命中敌人时也无法产生护盾。该效果每3.5秒至多触发一次。",
-        "此外，处于<span style=\"color:#FFD780FF;\"><u>极星辉域</u></span>中时，迪奥娜将会进入<span style=\"color:#FFD780FF;\">辉映·星超导</span>状态。",
+        "施放元素战技<span style=\"color:#FFD780FF;\">猫爪冻冻</span>后的20秒内，队伍中的角色触发星超导、超导、冰元素扩散、星扩散反应时，迪奥娜还会协同发射3枚<span style=\"color:#FFD780FF;\">冻冻猫猫爪</span>；通过这种方式发射的<span style=\"color:#FFD780FF;\">冻冻猫猫爪</span>无法产生元素微粒，在命中敌人时也无法产生护盾。该效果每3.5秒至多触发一次。",
+        "此外，处于<span style=\"color:#FFD780FF;\"><u>极星辉域</u></span>中时/队伍中的角色在附近触发星扩散反应后的8秒内，迪奥娜将分别进入<span style=\"color:#FFD780FF;\">辉映·星超导</span>/<span style=\"color:#FFD780FF;\">辉映·星扩散</span>状态。",
         "<h3>● 极星辉域</h3>",
         "触发星超导反应时，附近的区域会短暂变化为<span style=\"color:#FFD780FF;\">极星辉域</span>；处于极星辉域中时，特定角色将会进入<span style=\"color:#FFD780FF;\">辉映·星超导</span>状态，使其不同技能分别获得对应的强化效果。"
       ]
