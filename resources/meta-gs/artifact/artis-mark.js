@@ -31,7 +31,7 @@ export const usefulAttr = {
   九条裟罗: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 100, heal: 0 },
   琴: { hp: 0, atk: 100, def: 0, cpct: 0, cdmg: 0, mastery: 0, dmg: 0, phy: 0, recharge: 100, heal: 100 },
   菲谢尔: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 50, heal: 0 },
-  罗莎莉亚: { hp: 0, atk: 75, def: 0, cpct: 0, cdmg: 0, mastery: 0, dmg: 0, phy: 0, recharge: 100, heal: 0 },
+  罗莎莉亚: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 0, mastery: 0, dmg: 0, phy: 0, recharge: 100, heal: 0 },
   可莉: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   凝光: { hp: 0, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 },
   北斗: { hp: 75, atk: 0, def: 0, cpct: 0, cdmg: 0, mastery: 0, dmg: 0, phy: 0, recharge: 100, heal: 0 },
