@@ -135,4 +135,6 @@ export const alias = {
   // 7.0
   阿罗夏: 'Alyosha',
   奥黛塔: 'Odette',
+  沃雅妮莎: '妮莎',
+  薇斯纳: '威斯纳'
 }
