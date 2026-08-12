@@ -198,7 +198,7 @@ export default class ProfileDmg extends Base {
         return
       }
 
-      let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, showDetail: detail.showDetail, game })
+      let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, showDetail: detail.showDetail, game, params })
       let basicDmgRet
 
       if (detail.dmg) {
@@ -265,7 +265,7 @@ export default class ProfileDmg extends Base {
             game
           })
           let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
-          let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, game })
+          let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, game, params })
           if (detail.dmg) {
             let dmgCalcRet = detail.dmg(ds, dmg)
             rowData.push({

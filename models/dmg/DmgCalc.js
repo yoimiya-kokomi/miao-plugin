@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 计算伤害
 * */
-import { eleBaseDmg, erTitle, breakBaseDmg, cryBaseDmg, elationBaseDmg } from './DmgCalcMeta.js'
+import { eleBaseDmg, erTitle, breakBaseDmg, cryBaseDmg, elationBaseDmg, stellarConductNum } from './DmgCalcMeta.js'
 import DmgMastery from './DmgMastery.js'
 import lodash from 'lodash'
 
@@ -28,7 +28,8 @@ let DmgCalc = {
       level, // 面板数据
       enemyLv, // 敌人等级
       showDetail = false, // 是否展示详情
-      game
+      game,
+      params
     } = data
     let calc = ds.calc
 
@@ -225,15 +226,17 @@ let DmgCalc = {
       case 'lunarBloom':
       case 'lunarCharged':
       case 'lunarCrystallize':
-      case 'stellarConduct': {
+      case 'stellarConduct':
+      case 'stellarVortex': {
         let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
         if (ele === 'lunarCharged') {
           eleNum = dmgBase ? 3 : eleNum
         } else if (ele === 'lunarCrystallize') {
           eleNum = dmgBase ? 1.6 : eleNum
         } else if (ele === 'stellarConduct') {
-          // 星超导根据hit数的不同，有 1.45 - 2.0 不等的倍率，这里暂时默认为最大值 2.0
-          eleNum = dmgBase ? 2 : eleNum
+          // 星超导默认层数6层，对应倍率1.7，实际计算可自行传入 params.stellarConductLV 最高12层
+          const rawHits = Number(params ? (params.stellarConductLV ?? NaN) : NaN)
+          eleNum = dmgBase ? stellarConductNum[Number.isFinite(rawHits) && rawHits >= 0 ? Math.min(rawHits, 12) : 6] : eleNum
         } else {
           eleNum = 1
         }

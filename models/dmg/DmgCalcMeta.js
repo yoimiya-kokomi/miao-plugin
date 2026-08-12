@@ -1,5 +1,9 @@
 import lodash from 'lodash'
 
+// 星超导·极星辉域：根据超导反应攻击次数hit提升星超导伤害倍率，最高12层
+// 普通冰/雷伤害3次计1层，星超导伤害1次计1层
+export const stellarConductNum = [1, 1.45, 1.5, 1.54, 1.6, 1.64, 1.7, 1.75, 1.79, 1.85, 1.89, 1.95, 2]
+
 // 元素反应类型及基数
 export const erType = {
   // 增幅反应
@@ -26,6 +30,7 @@ export const erType = {
   lunarCrystallize: { type: 'lunar', num: () => 3.84, title: '月结晶' },
   // 星反应
   stellarConduct: { type: 'stellar', num: () => 0, title: '星超导' },
+  stellarVortex: { type: 'stellar', num: () => 1, title: '星扩散' },
   // 击破持续伤害
   shock: { type: 'breakDot', num: () => 2.0, title: '触电' },
   burn: { type: 'breakDot', num: () => 1.0, title: '灼烧' },

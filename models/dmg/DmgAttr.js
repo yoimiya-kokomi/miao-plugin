@@ -87,6 +87,8 @@ let DmgAttr = {
         ret.crystallize = 0 // 结晶
         ret.superConduct = 0 // 超导
         ret.swirl = 0 // 扩散
+        ret.starSwirlAnemo = 0 // 星扩散(风)
+        ret.starSwirlCryo = 0 // 星扩散(冰)
         ret.electroCharged = 0 // 感电
         ret.shatter = 0 // 碎冰
         ret.overloaded = 0 // 超载
@@ -99,6 +101,7 @@ let DmgAttr = {
         ret.lunarBloom = 0 // 月绽放
         ret.lunarCrystallize = 0 // 月结晶
         ret.stellarConduct = 0 // 星超导
+        ret.stellarVortex = 0 // 星扩散
         ret.fykx = 0 // 敌人反应抗性降低
         ret.fyinc = 0 // 反应伤害值提升（百分比/不受精通加成）
         ret.fyplus = 0 // 反应伤害值提升（数值/不受精通加成）
@@ -242,7 +245,7 @@ let DmgAttr = {
           return
         }
 
-        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'elevated', 'lunarCharged', 'lunarBloom', 'lunarCrystallize', 'stellarConduct', 'kx', 'fykx', 'multi', 'fyplus', 'fypct', 'fybase', 'fyinc', 'merrymakes', 'punchline'].includes(key)) {
+        if (['vaporize', 'melt', 'crystallize', 'burning', 'superConduct', 'swirl', 'electroCharged', 'shatter', 'overloaded', 'bloom', 'burgeon', 'hyperBloom', 'aggravate', 'spread', 'elevated', 'lunarCharged', 'lunarBloom', 'lunarCrystallize', 'stellarConduct', 'stellarVortex', 'kx', 'fykx', 'multi', 'fyplus', 'fypct', 'fybase', 'fyinc', 'merrymakes', 'punchline'].includes(key)) {
           attr[key] += val * 1 || 0
           return
         }
