@@ -139,7 +139,7 @@ let DmgCalc = {
     } else {
       if (ele === 'swirl') {
         kx = attr.fykx
-      } else if (ele === 'coloringDmg') {
+      } else if (ele === 'coloringDmg' || ele === 'starSwirlCryo') {
         kx = (attr.kx || 0) + (attr.fykx || 0)
       }
       kx = 10 - (kx || 0)
@@ -227,8 +227,13 @@ let DmgCalc = {
       case 'lunarCharged':
       case 'lunarCrystallize':
       case 'stellarConduct':
-      case 'stellarVortex': {
+      case 'stellarVortex':
+      case 'starSwirlAnemo':
+      case 'starSwirlCryo': {
         let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
+        if (!dmgBase && (ele === 'starSwirlAnemo' || ele === 'starSwirlCryo')) {
+          lunarBase = eleBaseDmg[level] * 4
+        }
         if (ele === 'lunarCharged') {
           eleNum = dmgBase ? 3 : eleNum
         } else if (ele === 'lunarCrystallize') {
@@ -237,12 +242,25 @@ let DmgCalc = {
           // 星超导默认层数6层，对应倍率1.7，实际计算可自行传入 params.stellarConductLV 最高12层
           const rawHits = Number(params ? (params.stellarConductLV ?? NaN) : NaN)
           eleNum = dmgBase ? stellarConductNum[Number.isFinite(rawHits) && rawHits >= 0 ? Math.min(rawHits, 12) : 6] : eleNum
+        } else if (ele === 'starSwirlAnemo') {
+          eleNum = 0.75
+        } else if (ele === 'starSwirlCryo') {
+          // 反应星扩散(冰)倍率随星辉风旋等级提升：默认满层6层倍率3.0，1至2层对应倍率2.0，只划两档，0层没意义
+          const lv = Number(params ? (params.starSwirlWindLV ?? NaN) : NaN)
+          eleNum = Number.isFinite(lv) && lv <= 2 ? 2 : 3
         } else {
           eleNum = 1
         }
         ret = {
           avg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + (lunarBase * fyinc) + fyplus) * (1 + elevatedNum) * kNum * (1 + cpctNum * cdmgNum),
           dmg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + (lunarBase * fyinc) + fyplus) * (1 + elevatedNum) * kNum * (1 + cdmgNum)
+        }
+        if (!dmgBase && (ele === 'starSwirlAnemo' || ele === 'starSwirlCryo')) {
+          // 反应星扩散伤害分配占比：默认单人0.6系数，第二占比0.3，第三/第四占比0.05
+          const starShare = Number(params ? (params.starShare ?? NaN) : NaN)
+          const s = Number.isFinite(starShare) ? starShare : 0.6
+          ret.avg *= s
+          ret.dmg *= s
         }
         break
       }

@@ -174,9 +174,12 @@ const buffs = {
   翠绿之影: {
     2: attr('dmg', 15, '风'),
     4: {
-      title: '扩散反应造成的伤害提升60%，降低对应元素抗性40%',
+      title: '扩散反应伤害提升60%，降低对应元素抗性40%；星扩散反应伤害提升20%，触发星扩散时降低冰元素抗性40%',
       data: {
         swirl: 60,
+        starSwirlAnemo: 20,
+        starSwirlCryo: 20,
+        stellarVortex: 20,
         fykx: 40
       }
     }
