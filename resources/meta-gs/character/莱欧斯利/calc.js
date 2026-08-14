@@ -6,12 +6,14 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
   title: 'E后强化重击融化伤害',
+  params: { Melt: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'melt')
 }, {
   title: 'Q总伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: 'Q融化总伤害',
+  params: { Melt: true },
   dmg: ({ talent }, dmg) => {
     const td = talent.q['技能伤害2'][0]
     let normalDmg = dmg(td, 'q')
@@ -38,6 +40,7 @@ export const details = [{
   }
 }, {
   title: '一轮普攻5A接重击(融化)',
+  params: { Melt: true },
   dmg: ({ talent, cons }, dmg) => {
     let a1Dmg = dmg(talent.a['一段伤害'], 'a', 'melt')
     let a2Dmg = dmg(talent.a['二段伤害'], 'a')
@@ -142,6 +145,14 @@ export const buffs = [{
     a2Cdmg: 80
   }
 }, {
+  // 融化队通常搭配双火共鸣(+25%攻击力)
+  check: ({ params }) => params.Melt === true,
+  title: '双火共鸣：队伍中有2名火元素角色时，攻击力提升[atkPct]%',
+  data: {
+    atkPct: 25
+  }
+}, {
+  // 星超导队通常搭配双冰共鸣(+15%暴击率)
   check: ({ params }) => params.Stellar === true,
   title: '双冰共鸣：攻击冰元素附着或冻结状态下的敌人时，暴击率提高[cpct]%',
   data: {
@@ -161,6 +172,6 @@ export const buffs = [{
     aCpct: 10,
     aCdmg: 80
   }
-}, 'melt']
+}]
 
 export const createdBy = 'Aluxes'
