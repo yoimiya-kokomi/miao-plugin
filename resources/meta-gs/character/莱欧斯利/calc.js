@@ -6,12 +6,14 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
   title: 'E后强化重击融化伤害',
+  params: { Melt: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'melt')
 }, {
   title: 'Q总伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: 'Q融化总伤害',
+  params: { Melt: true },
   dmg: ({ talent }, dmg) => {
     const td = talent.q['技能伤害2'][0]
     let normalDmg = dmg(td, 'q')
@@ -38,6 +40,7 @@ export const details = [{
   }
 }, {
   title: '一轮普攻5A接重击(融化)',
+  params: { Melt: true },
   dmg: ({ talent, cons }, dmg) => {
     let a1Dmg = dmg(talent.a['一段伤害'], 'a', 'melt')
     let a2Dmg = dmg(talent.a['二段伤害'], 'a')
@@ -52,9 +55,41 @@ export const details = [{
       avg: a1Dmg.avg + a2Dmg.avg + a3Dmg.avg + a41Dmg.avg + a42Dmg.avg + a5Dmg.avg + azDmg.avg * azMeltCount
     }
   }
+}, {
+  title: '一轮普攻5A接重击(星超导)',
+  params: { Stellar: true },
+  dmg: ({ talent, cons, attr, calc }, dmg) => {
+    let a1Dmg = dmg(talent.a['一段伤害'], 'a')
+    let a2Dmg = dmg(talent.a['二段伤害'], 'a')
+    let a3Dmg = dmg(talent.a['三段伤害'], 'a')
+    let a4Dmg = dmg(talent.a['四段伤害'], 'a')
+    // 1命(星超导)：第五段斥逐拳与天辉·凌跃拳互相触发，造成的伤害提升50%
+    let c1Mult = cons >= 1 ? 1.5 : 1
+    let a5Dmg = dmg(talent.a['五段伤害'] * c1Mult, 'a')
+    // 星超导反应伤害：第三段、第五段额外造成，天辉·凌跃拳（重击）视为星超导反应伤害
+    let stellarPct3 = cons < 2 ? 60 : 90
+    let stellarPct5 = cons < 2 ? 80 : 120
+    let stellarPctZ = cons < 2 ? 100 : 150
+    let s3Dmg = dmg.basic(calc(attr.atk) * talent.a['三段伤害'] * stellarPct3 / 100, 'a', 'stellarConduct')
+    let s5Dmg = dmg.basic(calc(attr.atk) * talent.a['五段伤害'] * stellarPct5 * c1Mult / 100, 'a', 'stellarConduct')
+    let szDmg = dmg.basic(calc(attr.atk) * talent.a['重击伤害'] * stellarPctZ * c1Mult / 100, 'a2', 'stellarConduct')
+    let sDmg = s3Dmg.dmg + s5Dmg.dmg + szDmg.dmg
+    let sAvg = s3Dmg.avg + s5Dmg.avg + szDmg.avg
+    // 6命：第五段斥逐拳与天辉·凌跃拳额外生成冰锥，造成原本20%的星超导反应伤害
+    if (cons >= 6) {
+      let s5Extra = dmg.basic(calc(attr.atk) * talent.a['五段伤害'] * 20 * c1Mult / 100, 'a', 'stellarConduct')
+      let szExtra = dmg.basic(calc(attr.atk) * talent.a['重击伤害'] * 20 * c1Mult / 100, 'a2', 'stellarConduct')
+      sDmg += s5Extra.dmg + szExtra.dmg
+      sAvg += s5Extra.avg + szExtra.avg
+    }
+    return {
+      dmg: a1Dmg.dmg + a2Dmg.dmg + a3Dmg.dmg + a4Dmg.dmg + a5Dmg.dmg + sDmg,
+      avg: a1Dmg.avg + a2Dmg.avg + a3Dmg.avg + a4Dmg.avg + a5Dmg.avg + sAvg
+    }
+  }
 }]
 
-export const defDmgIdx = 6
+export const defDmgIdx = 7
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
@@ -80,10 +115,27 @@ export const buffs = [{
     a2Dmg: 150
   }
 }, {
+  check: ({ params }) => params.Stellar === true,
+  cons: 1,
+  title: '莱欧1命(星超导)：第五段斥逐拳与天辉·凌跃拳互相触发，造成的伤害提升50%',
+  data: {}
+}, {
   title: '莱欧2命：5层Buff使得Q造成的伤害提升[qDmg]%',
   cons: 2,
   data: {
     qDmg: 200
+  }
+}, {
+  check: ({ params }) => params.Stellar !== true,
+  cons: 2,
+  title: '莱欧2命：5层Buff使得普攻与重击分别造成原本125%/130%的伤害',
+  data: {
+    // 普攻：独立乘区为加算(1+multi)，E技能强化已占用 aMulti=强化斥逐拳伤害-100。
+    // 直接写25会与之加算导致结果偏低，故反推所需值：
+    // 令 (1+(S-100+m)/100) = (1+(S-100)/100)*1.25，解得 m = S*0.25（S=强化斥逐拳伤害）
+    aMulti: ({ talent }) => talent.e['强化斥逐拳伤害'] * 0.25,
+    // 重击不受E技能强化，a2无其他multi来源，可直接写30
+    a2Multi: 30
   }
 }, {
   title: '莱欧6命：重击的暴击率提升[a2Cpct]%,暴击伤害提升[a2Cdmg]%,并能够额外造成一次伤害',
@@ -92,6 +144,34 @@ export const buffs = [{
     a2Cpct: 10,
     a2Cdmg: 80
   }
-}, 'melt']
+}, {
+  // 融化队通常搭配双火共鸣(+25%攻击力)
+  check: ({ params }) => params.Melt === true,
+  title: '双火共鸣：队伍中有2名火元素角色时，攻击力提升[atkPct]%',
+  data: {
+    atkPct: 25
+  }
+}, {
+  // 星超导队通常搭配双冰共鸣(+15%暴击率)
+  check: ({ params }) => params.Stellar === true,
+  title: '双冰共鸣：攻击冰元素附着或冻结状态下的敌人时，暴击率提高[cpct]%',
+  data: {
+    cpct: 15
+  }
+}, {
+  check: ({ params }) => params.Stellar === true,
+  title: '天赋-冤苦终有显明之期：莱欧斯利造成的星超导反应伤害提升[stellarConduct]%',
+  data: {
+    stellarConduct: 30
+  }
+}, {
+  check: ({ params }) => params.Stellar === true,
+  cons: 6,
+  title: '莱欧6命(星超导)：被寒烈的惩裁强化的斥逐拳与天辉·凌跃拳的暴击率提升[aCpct]%,暴击伤害提升[aCdmg]%',
+  data: {
+    aCpct: 10,
+    aCdmg: 80
+  }
+}]
 
 export const createdBy = 'Aluxes'
