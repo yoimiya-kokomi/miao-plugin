@@ -43,7 +43,7 @@ export const details = [{
   }
 }, {
   check: ({ cons }) => cons < 6,
-  dmgKey: 'q',
+  dmgKey: 'qAggravate',
   title: 'Q状态·一轮普攻5A+QTE超激化总伤害',
   params: { showEBuff: true },
   dmg: ({ attr, calc, talent }, dmg) => {
@@ -71,7 +71,7 @@ export const details = [{
   }
 }, {
   check: ({ cons }) => cons >= 6,
-  dmgKey: 'q',
+  dmgKey: 'qAggravate',
   title: 'Q状态·一轮普攻5A+QTE超激化总伤害（消耗4层豺祭）',
   params: { showEBuff: true },
   dmg: ({ attr, calc, talent }, dmg) => {
@@ -97,9 +97,53 @@ export const details = [{
       avg: eAllDmg.avg + a1Aggrdmg.avg + a2dmg.avg + a3dmg.avg + a4Aggrdmg.avg + a4dmg.avg + a5dmg.avg + ePlusDmg.avg * 3 + ePlusAggrDmg.avg
     }
   }
+}, {
+  check: ({ cons }) => cons < 6,
+  dmgKey: 'qStellarConduct',
+  title: 'Q状态·一轮普攻5A+QTE星超导总伤害',
+  params: { showEBuff: true, cons_1: true, cons_2: true },
+  dmg: ({ attr, calc, talent }, dmg) => {
+    const em = calc(attr.mastery)
+    const atk = calc(attr.atk)
+    const stellarTd = 2.00 * atk + em * 6.0
+    let eDmg = dmg.dynamic(talent.e['冥祭伤害'], 'e', { dynamicDmg: 35 })
+    let stellarDmg = dmg.basic(stellarTd, '', 'stellarConduct')
+    let a1dmg = dmg(talent.q['一段伤害'], 'a')
+    let a2dmg = dmg(talent.q['二段伤害'], 'a')
+    let a3dmg = dmg(talent.q['三段伤害'], 'a')
+    let a4dmg1 = dmg(talent.q['四段伤害2'][0], 'a')
+    let a4dmg2 = dmg(talent.q['四段伤害2'][1], 'a')
+    let a5dmg = dmg(talent.q['五段伤害'], 'a')
+    return {
+      dmg: eDmg.dmg + stellarDmg.dmg * 3 + a1dmg.dmg + a2dmg.dmg + a3dmg.dmg + a4dmg1.dmg + a4dmg2.dmg + a5dmg.dmg,
+      avg: eDmg.avg + stellarDmg.avg * 3 + a1dmg.avg + a2dmg.avg + a3dmg.avg + a4dmg1.avg + a4dmg2.avg + a5dmg.avg
+    }
+  }
+}, {
+  check: ({ cons }) => cons >= 6,
+  dmgKey: 'qStellarConduct',
+  title: 'Q状态·一轮普攻5A+QTE星超导总伤害（消耗4层豺祭）',
+  params: { showEBuff: true, cons_1: true, cons_2: true },
+  dmg: ({ attr, calc, talent }, dmg) => {
+    const em = calc(attr.mastery)
+    const atk = calc(attr.atk)
+    const stellarTd = 2.00 * atk + em * 6.0
+    let eDmg = dmg.dynamic(talent.e['冥祭伤害'], 'e', { dynamicDmg: 35 })
+    let stellarDmg = dmg.basic(stellarTd, '', 'stellarConduct')
+    let a1dmg = dmg(talent.q['一段伤害'], 'a')
+    let a2dmg = dmg(talent.q['二段伤害'], 'a')
+    let a3dmg = dmg(talent.q['三段伤害'], 'a')
+    let a4dmg1 = dmg(talent.q['四段伤害2'][0], 'a')
+    let a4dmg2 = dmg(talent.q['四段伤害2'][1], 'a')
+    let a5dmg = dmg(talent.q['五段伤害'], 'a')
+    return {
+      dmg: eDmg.dmg + stellarDmg.dmg * 3 + a1dmg.dmg + a2dmg.dmg + a3dmg.dmg + a4dmg1.dmg + a4dmg2.dmg + a5dmg.dmg + stellarDmg.dmg * 4,
+      avg: eDmg.avg + stellarDmg.avg * 3 + a1dmg.avg + a2dmg.avg + a3dmg.avg + a4dmg1.avg + a4dmg2.avg + a5dmg.avg + stellarDmg.avg * 4
+    }
+  }
 }]
 
-export const defDmgKey = 'q'
+export const defDmgKey = 'qStellarConduct'
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const defParams = { mArtisDiffCount: 2 }
 
@@ -135,12 +179,13 @@ export const buffs = [{
     eDmg: ({ params }) => params.eBuff ? 35 : 0
   }
 }, {
-  title: '天赋-九弓的执命：基于元素精通提升普攻[aPlus]点伤害值，渡荒之雷提升[_ePlus]伤害值',
+  title: '天赋-九弓的执命：基于元素精通提升普攻[aPlus]点伤害值，渡荒之雷提升[_ePlus]伤害值，渡荒之雷·星偕提升[_stellarPlus]伤害值',
   sort: 9,
   data: {
     aPlus: ({ attr, calc }) => calc(attr.mastery) * 1.5,
-    _ePlus: ({ attr, calc }) => calc(attr.mastery) * 2.5
+    _ePlus: ({ attr, calc }) => calc(attr.mastery) * 2.5,
+    _stellarPlus: ({ attr, calc }) => calc(attr.mastery) * 6.0
   }
-}, 'aggravate']
+}]
 
 export const createdBy = 'Aluxes'
