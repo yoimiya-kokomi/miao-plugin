@@ -501,10 +501,10 @@ export default {
   星如我见的领航员: {
     2: attr('atkPct', 12),
     4: {
-      title: '使战技和终结技造成的伤害提高18%',
+      title: '3层Buff使战技造成的伤害提高[eDmg]%，终结技造成的伤害提高[qDmg]%',
       data: {
-        eDmg: 18,
-        qDmg: 18
+        eDmg: 54,
+        qDmg: 54
       }
     }
   },
