@@ -58,7 +58,7 @@ export const details = [{
 }, {
   title: '一轮普攻5A接重击(星超导)',
   params: { Stellar: true },
-  dmg: ({ talent, cons, attr, calc }, dmg) => {
+  dmg: ({ talent, cons }, dmg) => {
     let a1Dmg = dmg(talent.a['一段伤害'], 'a')
     let a2Dmg = dmg(talent.a['二段伤害'], 'a')
     let a3Dmg = dmg(talent.a['三段伤害'], 'a')
@@ -66,19 +66,23 @@ export const details = [{
     // 1命(星超导)：第五段斥逐拳与天辉·凌跃拳互相触发，造成的伤害提升50%
     let c1Mult = cons >= 1 ? 1.5 : 1
     let a5Dmg = dmg(talent.a['五段伤害'] * c1Mult, 'a')
-    // 星超导反应伤害：第三段、第五段额外造成，天辉·凌跃拳（重击）视为星超导反应伤害
+    // 星超导反应伤害（天赋-冤苦终有显明之期）：
+    //   第三段额外造成60%(2命90%)，第五段额外造成80%(2命120%)，天辉·凌跃拳(重击)造成100%(2命150%)
+    //   用 dmg() 走 stellarConduct 公式，传入 pctNum = 天赋倍率 * stellarPct / 100
+    //   （dmg() 内部会再 /100 并乘以攻击力，故只需 /100 将 stellarPct 转为小数）
+    //   注意：c1Mult 仅作用于第五段与重击（1命为二者互相触发），第三段不受影响
     let stellarPct3 = cons < 2 ? 60 : 90
     let stellarPct5 = cons < 2 ? 80 : 120
     let stellarPctZ = cons < 2 ? 100 : 150
-    let s3Dmg = dmg.basic(calc(attr.atk) * talent.a['三段伤害'] * stellarPct3 / 100, 'a', 'stellarConduct')
-    let s5Dmg = dmg.basic(calc(attr.atk) * talent.a['五段伤害'] * stellarPct5 * c1Mult / 100, 'a', 'stellarConduct')
-    let szDmg = dmg.basic(calc(attr.atk) * talent.a['重击伤害'] * stellarPctZ * c1Mult / 100, 'a2', 'stellarConduct')
+    let s3Dmg = dmg(talent.a['三段伤害'] * stellarPct3 / 100, 'a', 'stellarConduct')
+    let s5Dmg = dmg(talent.a['五段伤害'] * stellarPct5 * c1Mult / 100, 'a', 'stellarConduct')
+    let szDmg = dmg(talent.a['重击伤害'] * stellarPctZ * c1Mult / 100, 'a2', 'stellarConduct')
     let sDmg = s3Dmg.dmg + s5Dmg.dmg + szDmg.dmg
     let sAvg = s3Dmg.avg + s5Dmg.avg + szDmg.avg
-    // 6命：第五段斥逐拳与天辉·凌跃拳额外生成冰锥，造成原本20%的星超导反应伤害
+    // 6命：第五段斥逐拳与天辉·凌跃拳额外生成冰锥，造成原本20%的星超导反应伤害（同样受1命加成）
     if (cons >= 6) {
-      let s5Extra = dmg.basic(calc(attr.atk) * talent.a['五段伤害'] * 20 * c1Mult / 100, 'a', 'stellarConduct')
-      let szExtra = dmg.basic(calc(attr.atk) * talent.a['重击伤害'] * 20 * c1Mult / 100, 'a2', 'stellarConduct')
+      let s5Extra = dmg(talent.a['五段伤害'] * 20 * c1Mult / 100, 'a', 'stellarConduct')
+      let szExtra = dmg(talent.a['重击伤害'] * 20 * c1Mult / 100, 'a2', 'stellarConduct')
       sDmg += s5Extra.dmg + szExtra.dmg
       sAvg += s5Extra.avg + szExtra.avg
     }
@@ -115,6 +119,7 @@ export const buffs = [{
     a2Dmg: 150
   }
 }, {
+  // 仅展示用：1命(星超导)的伤害提升在上方detail中通过c1Mult实现，此处不设data
   check: ({ params }) => params.Stellar === true,
   cons: 1,
   title: '莱欧1命(星超导)：第五段斥逐拳与天辉·凌跃拳互相触发，造成的伤害提升50%',
