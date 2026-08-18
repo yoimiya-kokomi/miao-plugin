@@ -144,6 +144,17 @@ export default function (staticIdx, keyIdx) {
     一场谎言的终幕: [
       staticIdx(1, "cpct"),
       keyIdx("战斗开始时或施放4.0次追加攻击后攻击力提高[atkPct]%,敌方受到伤害提高[enemydmg]%", { atkPct: 2, enemydmg: 3 })
+    ],
+    向着地平线的终点: [
+      staticIdx(1, "atkPct"),
+      (tables) => {
+        return {
+          title: '使装备者的暴击伤害提高[cdmg]%',
+          data: {
+            cdmg: tables[2] * 10
+          }
+        }
+      }
     ]
   }
 }
