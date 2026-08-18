@@ -327,6 +327,19 @@ export default function (step, staticStep) {
         dmg: step(40),
         lunarCrystallize: step(40)
       }
-    }]
+    }],
+    悬黎千钧: {
+      title: '队伍中有一名角色元素类型与装备者相同，元素精通提升[mastery]点；有2名角色与装备者元素类型不同，攻击力提升[atkPct]%',
+      refine: {
+        mastery: step(64),
+        atkPct: step(12 * 2)
+      }
+    },
+    霜雪誓约: {
+      title: '施放元素战技后的12秒内，元素精通提升[mastery]点',
+      refine: {
+        mastery: step(120)
+      }
+    }
   }
 }

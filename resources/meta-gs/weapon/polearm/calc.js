@@ -229,6 +229,19 @@ export default function (step, staticStep) {
         eDmg: ({ params, refine }) => (params.Hexenzirkel ? 1.75 : 1) * step(40)[refine],
         qDmg: ({ params, refine }) => (params.Hexenzirkel ? 1.75 : 1) * step(40)[refine]
       }
+    },
+    寒息: {
+      title: '触发冰元素或水元素相关反应后，攻击力提升[atkPct]%',
+      refine: {
+        atkPct: step(20)
+      }
+    },
+    戍望谣歌: {
+      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      title: '触发星烁反应后，攻击力提升[atkPct]%',
+      refine: {
+        atkPct: step(20)
+      }
     }
   }
 }

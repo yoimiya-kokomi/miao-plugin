@@ -637,6 +637,17 @@ const buffs = {
         cpct: 16
       }
     }
+  },
+
+  炉火融炼之心: {
+    2: attr('atkPct', 18),
+    4: {
+      title: '装备者触发星烁反应或造成星烁反应伤害后的12秒内，攻击力提升[atkPct]%，队伍中附近的所有角色造成的星烁反应伤害提升[stellarConduct]%。',
+      data: {
+        atkPct: 12,
+        stellarConduct: 50
+      }
+    }
   }
 
 }

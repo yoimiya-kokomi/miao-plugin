@@ -243,5 +243,29 @@ export default function (step, staticStep) {
         stellarConduct: step(16 * 3)
       }
     }],
+    金律铸影: [{
+      title: '「谐律乐章」之一————元素精通提高[mastery]点',
+      refine: {
+        mastery: step(120)
+      }
+    }, {
+      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      title: '触发星烁反应后，元素精通提高[mastery]点',
+      refine: {
+        mastery: step(120)
+      }
+    }],
+    救赎之斩: [{
+      title: '触发元素反应后，元素精通提高[mastery]点',
+      refine: {
+        mastery: step(64)
+      }
+    }, {
+      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      title: '触发星烁反应后，攻击力提高[atkPct]%',
+      refine: {
+        atkPct: step(16)
+      }
+    }]
   }
 }
