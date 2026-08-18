@@ -134,7 +134,7 @@ export const alias = {
   
   // 7.0
   阿罗夏: 'Alyosha',
-  奥黛塔: 'Odette',
-  沃雅妮莎: '妮莎',
-  薇斯纳: '威斯纳'
+  奥黛塔: 'Odette,小天鹅,星星使者,莱莱可,跳舞小妹',
+  沃雅妮莎: 'Vodyanitsa,妮莎',
+  薇斯纳: 'Vesna,威斯纳'
 }

@@ -151,7 +151,7 @@ const ProfileList = {
 
     player.save()
     // 渲染图像
-    return e.reply([await Common.render('character/profile-list', {
+    const img = await Common.render('character/profile-list', {
       save_id: uid,
       uid,
       chars,
@@ -163,7 +163,11 @@ const ProfileList = {
       allowRank: rank && rank.allowRank,
       rankCfg,
       elem: player.isGs ? 'hydro' : 'sr'
-    }, { e, scale: 1.6, retType: 'base64' }), new Button(e).profileList(uid, newChar)])
+    }, { e, scale: 1.6, retType: 'base64' })
+    if (!img) {
+      return e.reply('面板图片生成失败，请稍后重试...')
+    }
+    return e.reply([img, new Button(e).profileList(uid, newChar)])
   },
 
   /**
