@@ -4,6 +4,7 @@ import moment from 'moment'
 import lodash from 'lodash'
 import fetch from 'node-fetch'
 import * as cheerio from 'cheerio'
+import common from '../../../../lib/common/common.js'
 
 const ProfileStat = {
   async stat (e) {
@@ -224,8 +225,7 @@ const ProfileStat = {
     if (monsterInfo) {
       response.push(monsterInfo)
     }
-    response = response.join('\n')
-    e.reply(response)
+    return response.join('\n')
   },
 
   getElementInfo(elements) {
@@ -582,7 +582,7 @@ const ProfileStat = {
           abbr: char.abbr,
           star: char.star,
           face: char.face,
-          level: 80,
+          level: 90,
           cons: 0,
           talent: {
             a: {
@@ -685,6 +685,8 @@ const ProfileStat = {
 
     
     let filterFunc = (x) => true
+    // 图片合并到同一条转发消息
+    let roleCombatText = null
     if (isRole) {
       let infoSource = Cfg.get('roleCharInfoSource', 1)
       let datasetName
@@ -753,8 +755,8 @@ const ProfileStat = {
       let invitationCharacterIds = ProfileStat.extractInvitationCharacterIds(currentMazeData)
       let elements = ProfileStat.extractElements(currentMazeData)
       
-      // 发送简要的信息
-      ProfileStat.sendRoleCombatInfo(e, elements, initialCharacterIds, invitationCharacterIds, monsterInfo)
+      // 改为收集文字
+      roleCombatText = ProfileStat.sendRoleCombatInfo(e, elements, initialCharacterIds, invitationCharacterIds, monsterInfo)
 
       avatarRet = ProfileStat.mergeStart(avatarRet, initialCharacterIds)
       filterFunc = ProfileStat.getRoleFilterFunc(e, elements, invitationCharacterIds)
@@ -806,7 +808,7 @@ const ProfileStat = {
     }
 
     let tpl = mode === 'avatar' ? 'character/avatar-list' : 'character/profile-stat'
-    return await Common.render(tpl, {
+    const imgBase64 = await Common.render(tpl, {
       save_id: uid,
       uid,
       info,
@@ -817,7 +819,20 @@ const ProfileStat = {
       week,
       avatars: avatarRet,
       game
-    }, { e, scale: 1.4 })
+    }, { e, scale: 1.4, retType: 'base64' })
+    // puppeteer.screenshot 已用 segment.image 包过
+    if (roleCombatText && imgBase64) {
+      const forwardMsgs = [
+        roleCombatText,
+        imgBase64
+      ]
+      const forwardMsg = await common.makeForwardMsg(e, forwardMsgs, `幻想真境剧诗 · 角色练度统计`)
+      await e.reply(forwardMsg)
+      return true
+    }
+
+    // 其他模式维持原行为
+    return await e.reply(imgBase64)
   }
 }
 export default ProfileStat
