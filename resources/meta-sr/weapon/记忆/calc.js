@@ -83,7 +83,7 @@ export default function (staticIdx, keyIdx) {
         }
       }
     ],
-    "爱如此刻永恒": [
+    爱如此刻永恒: [
       staticIdx(1, "speedPct"),
       (tables) => {
         return {
@@ -96,7 +96,7 @@ export default function (staticIdx, keyIdx) {
         }
       }
     ],
-    "飞向粉色的明天": [
+    飞向粉色的明天: [
       staticIdx(1, "cdmg"),
       (tables) => {
         return {
@@ -108,6 +108,9 @@ export default function (staticIdx, keyIdx) {
           }
         }
       }
+    ],
+    你将起身歌唱: [
+      staticIdx(1, "hpPct")
     ]
   }
 }

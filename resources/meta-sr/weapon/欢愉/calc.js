@@ -49,6 +49,18 @@ export default function (staticIdx, keyIdx) {
         }
       },
       keyIdx('施放欢愉技时，使敌方目标受到的伤害提高[enemydmg]%', 'enemydmg', 3)
-    ]
+    ],
+    放个短假: [
+      staticIdx(1, 'speedPct'),
+      keyIdx('造成的欢愉伤害无视目标[xeIgnore]%的防御力。装备者对自身单体施放终结技时，获得[punchline]点【笑点】', {
+        xeIgnore: 2, punchline: 3
+      })
+    ],
+    向浪花掷下盛夏: [
+      staticIdx(1, 'cpct'),
+      keyIdx('装备者的速度提高[speedPct]%，欢愉度提高[joyPct]%', {
+        speedPct: 2, joyPct: 3
+      })
+    ],
   }
 }
