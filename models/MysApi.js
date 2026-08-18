@@ -2,6 +2,88 @@ import { User } from './index.js'
 import { Version } from '#miao'
 import { Button } from '#miao.models'
 
+const PATCHED_GET_COOKIE = Symbol.for('miao-plugin.mysInfo.getCookie')
+const MAX_COOKIE_SELECTIONS = 50
+
+function getGameKey (game) {
+  if (game && typeof game === 'object') {
+    game = game.game || game.key || (game.isSr ? 'sr' : 'gs')
+  }
+  return ['sr', 'star'].includes(game) ? 'sr' : 'gs'
+}
+
+// Prevent old Yunzai runtimes from recursively selecting the same invalid CK.
+function patchMysInfoGetCookie (runtime) {
+  const MysInfo = runtime?.MysInfo
+  const MysUser = runtime?.MysUser
+  const prototype = MysInfo?.prototype
+  const original = prototype?.getCookie
+
+  if (typeof original !== 'function' || original[PATCHED_GET_COOKIE]) {
+    return false
+  }
+  if (!/this\.getCookie\s*\(/.test(Function.prototype.toString.call(original))) {
+    return false
+  }
+
+  let getCookie
+  if (typeof MysUser?.getByQueryUid !== 'function') {
+    const callDepth = new WeakMap()
+    getCookie = async function (game = 'gs', ...args) {
+      const depth = (callDepth.get(this) || 0) + 1
+      if (depth > MAX_COOKIE_SELECTIONS) {
+        return ''
+      }
+      callDepth.set(this, depth)
+      try {
+        return await original.call(this, getGameKey(game), ...args)
+      } finally {
+        if (depth === 1) {
+          callDepth.delete(this)
+        } else {
+          callDepth.set(this, depth - 1)
+        }
+      }
+    }
+  } else {
+    getCookie = async function (game = 'gs', onlySelfCk = false) {
+      game = getGameKey(game)
+      if (this.ckUser?.ck) {
+        return this.ckUser.ck
+      }
+
+      const attempted = new Set()
+      for (let count = 0; count < MAX_COOKIE_SELECTIONS; count++) {
+        const mysUser = await MysUser.getByQueryUid(this.uid, game, onlySelfCk)
+        if (!mysUser) {
+          break
+        }
+        if (mysUser.ck) {
+          this.ckInfo = mysUser.getCkInfo(game)
+          this.ckUser = mysUser
+          await mysUser.addQueryUid(this.uid, game)
+          return mysUser.ck
+        }
+
+        const ltuid = mysUser.ltuid && String(mysUser.ltuid)
+        if (!ltuid || attempted.has(ltuid)) {
+          break
+        }
+        attempted.add(ltuid)
+        await mysUser.disable(game)
+        if (onlySelfCk) {
+          break
+        }
+      }
+      return ''
+    }
+  }
+
+  Object.defineProperty(getCookie, PATCHED_GET_COOKIE, { value: true })
+  prototype.getCookie = getCookie
+  return true
+}
+
 export default class MysApi {
   constructor(e, uid, mysInfo) {
     this.e = e
@@ -42,6 +124,7 @@ export default class MysApi {
       Version.runtime()
       return false
     }
+    patchMysInfoGetCookie(e.runtime)
     let mys = await e.runtime.getMysInfo(auth)
     if (!mys) {
       return false
@@ -111,13 +194,17 @@ export default class MysApi {
       }
     }
     e._reqCount++
-    let ret = await mys.getData(api, data)
-    if (mysInfo && mysInfo.checkCode) {
-      ret = await mysInfo.checkCode(ret, api, this.mys, data)
-    }
-    e._reqCount--
-    if (e._reqCount === 0) {
-      e.reply = e._original_reply
+    let ret
+    try {
+      ret = await mys.getData(api, data)
+      if (mysInfo && mysInfo.checkCode) {
+        ret = await mysInfo.checkCode(ret, api, this.mys, data)
+      }
+    } finally {
+      e._reqCount--
+      if (e._reqCount === 0) {
+        e.reply = e._original_reply
+      }
     }
     if (!ret) {
       return false
