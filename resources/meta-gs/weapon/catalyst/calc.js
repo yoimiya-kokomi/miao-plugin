@@ -277,6 +277,25 @@ export default function (step, staticStep) {
       data: {
         dmg: ({ attr, calc, refine }) => Math.min(Math.floor(calc(attr.atk) / 1000) * step(10, 3)[refine], step(26, 8)[refine])
       }
+    }],
+    群王局戏: {
+      title: '施放元素战技后，攻击力提升[atkPct]%，元素精通提升[mastery]点',
+      refine: {
+        atkPct: step(20),
+        mastery: step(100)
+      }
+    },
+    寸心余响: [{
+      title: '触发元素反应后，元素精通提高[mastery]点',
+      refine: {
+        mastery: step(60)
+      }
+    }, {
+      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      title: '触发星烁反应后，星烁反应伤害提升[stellarConduct]%',
+      refine: {
+        stellarConduct: step(16)
+      }
     }]
   }
 }
