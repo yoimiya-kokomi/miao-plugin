@@ -582,7 +582,7 @@ const ProfileStat = {
           abbr: char.abbr,
           star: char.star,
           face: char.face,
-          level: 80,
+          level: 90,
           cons: 0,
           talent: {
             a: {
