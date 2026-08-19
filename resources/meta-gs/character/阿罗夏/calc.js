@@ -20,7 +20,7 @@ export const details = [{
 }]
 
 export const defDmgIdx = 0
-export const mainAttr = 'atk,recharge,cpct,cdmg,heal,dmg'
+export const mainAttr = 'atk,recharge,cpct,cdmg,heal'
 
 export const buffs = [{
   check: ({ params }) => params.HunterAim === true,
