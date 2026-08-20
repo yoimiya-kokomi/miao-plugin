@@ -29,6 +29,15 @@ for (let game of ['gs', 'sr']) {
     }
   }
 }
+
+// 加载自定义角色别名（config/alias_gs.cfg、config/alias_sr.cfg）并启动热更新监听
+try {
+  let { default: CustomAlias } = await import('./alias/CustomAlias.js')
+  await CustomAlias.init()
+} catch (e) {
+  console.log('miao custom alias init failed', e)
+}
+
 export {
   Base,
   Abyss,
