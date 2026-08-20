@@ -10,7 +10,8 @@
  *
  * 特性：
  *  - 启动时与预设别名（resources 目录下 meta-gs / meta-sr 的 character/alias.js）合并写入内存别名缓存
- *  - fs.watchFile 监听文件变化，0.5s 防抖后自动刷新缓存（热更新）
+ *  - fs.watch 监听 config 目录 + fs.watchFile 兜底，文件创建/修改/删除均触发
+ *    0.5s 防抖后自动刷新缓存（热更新），配置文件从「不存在」到「创建」也能立即感知
  *  - 文件损坏/读取失败时跳过该文件，不影响预设别名功能，下次变更时重试
  *  - 写入采用「临时文件 + rename」原子写，并以 Promise 链加锁避免并发冲突
  * */
@@ -132,30 +133,72 @@ function applyToMeta (game) {
 }
 
 /**
- * 监听自定义别名文件，变化后延迟 0.5s 刷新缓存（防抖，避免文件抖动）
- * 使用 fs.watchFile，文件不存在时创建也会触发
+ * 计划一次防抖刷新：0.5s 内多次触发只执行一次（避免文件抖动导致频繁刷新）
+ * */
+function scheduleReload (game) {
+  let st = state[game]
+  if (st.timer) clearTimeout(st.timer)
+  st.timer = setTimeout(() => {
+    st.timer = null
+    try {
+      if (applyToMeta(game)) {
+        log.mark(`${game} 自定义别名配置已热更新`)
+      }
+    } catch (e) {
+      log.error(`${game} 别名热更新失败，已跳过`, e)
+    }
+  }, RELOAD_DEBOUNCE)
+}
+
+/**
+ * 监听单个自定义别名文件（fs.watchFile 兜底）
  * */
 function watch (game) {
   let st = state[game]
   if (st.watching) return
   st.watching = true
   try {
-    fs.watchFile(st.path, { interval: WATCH_INTERVAL }, () => {
-      if (st.timer) clearTimeout(st.timer)
-      st.timer = setTimeout(() => {
-        st.timer = null
-        try {
-          if (applyToMeta(game)) {
-            log.mark(`${game} 自定义别名配置已热更新`)
-          }
-        } catch (e) {
-          log.error(`${game} 别名热更新失败，已跳过`, e)
-        }
-      }, RELOAD_DEBOUNCE)
-    })
+    fs.watchFile(st.path, { interval: WATCH_INTERVAL }, () => scheduleReload(game))
   } catch (e) {
     st.watching = false
     log.error(`监听 ${game} 别名文件失败`, e)
+  }
+}
+
+/**
+ * 监听 config 目录（主监听）
+ * 文件从「不存在」到「被创建」时，文件级 watchFile 可能无法及时感知，
+ * 而目录级 fs.watch 对创建/修改/删除（rename/change 事件）均会触发，
+ * 事件经 0.5s 防抖后刷新缓存，从而保证新增别名无需重启即可生效
+ * */
+let dirWatcher = null
+
+function watchCfgDir () {
+  if (dirWatcher) return
+  try {
+    const cfgDir = `${miaoPath}/config`
+    dirWatcher = fs.watch(cfgDir, { persistent: true }, (event, filename) => {
+      if (!filename) return
+      let name = filename.toString()
+      // 临时文件（.tmp）的 rename 最终会落到目标文件名，无需单独处理
+      if (name.endsWith('alias_gs.cfg')) {
+        scheduleReload('gs')
+      } else if (name.endsWith('alias_sr.cfg')) {
+        scheduleReload('sr')
+      }
+    })
+    dirWatcher.on('error', (e) => {
+      log.error('监听 config 目录失败，回退到文件级监听', e)
+      try {
+        dirWatcher.close()
+      } catch (err) {
+        // 忽略关闭异常
+      }
+      dirWatcher = null
+    })
+  } catch (e) {
+    dirWatcher = null
+    log.error('启动 config 目录监听失败，回退到文件级监听', e)
   }
 }
 
@@ -191,6 +234,24 @@ function findAlias (game, alias) {
     }
   }
   return null
+}
+
+/**
+ * 获取自定义别名文件内容（供列表命令使用）
+ * 返回 { exists, lines }：lines 为过滤空行后的原始行；文件不存在或读取失败时 exists 为 false
+ * */
+function getList (game) {
+  let st = state[game]
+  try {
+    if (!fs.existsSync(st.path)) {
+      return { exists: false, lines: [] }
+    }
+    let lines = fs.readFileSync(st.path, 'utf-8').split(/\r?\n/).filter((l) => lodash.trim(l) !== '')
+    return { exists: true, lines }
+  } catch (e) {
+    log.error(`读取 ${game} 自定义别名文件失败`, e)
+    return { exists: false, lines: [] }
+  }
 }
 
 /**
@@ -244,7 +305,8 @@ async function setAlias (game, charName, alias) {
 
   let lines = []
   if (fs.existsSync(st.path)) {
-    lines = fs.readFileSync(st.path, 'utf-8').split(/\r?\n/)
+    // 过滤空行：写入时不产生多余空行，历史文件中的多余空行也一并清理
+    lines = fs.readFileSync(st.path, 'utf-8').split(/\r?\n/).filter((l) => lodash.trim(l) !== '')
   }
   // 重建该角色的映射行，标准角色名开头，保证不出现「别名1：别名2」
   if (target) {
@@ -262,8 +324,7 @@ async function setAlias (game, charName, alias) {
   } else {
     lines.push(`${stdName}：${alias}`)
   }
-  // 清理尾部空行，保证以换行结尾
-  while (lines.length > 0 && lodash.trim(lines[lines.length - 1]) === '') lines.pop()
+  // 每行一条记录，文件以单个换行结尾，无多余空行
   let content = `${lines.join('\n')}\n`
 
   await atomicWrite(st.path, content)
@@ -310,7 +371,8 @@ async function delAlias (game, alias) {
   if (!removed) {
     return { ok: false, msg: '不存在该别名，或该别名为预设，不支持删除' }
   }
-  while (lines.length > 0 && lodash.trim(lines[lines.length - 1]) === '') lines.pop()
+  // 过滤空行：删除后同样保证每行一条记录、无多余空行
+  lines = lines.filter((l) => lodash.trim(l) !== '')
   let content = lines.length === 0 ? '' : `${lines.join('\n')}\n`
   await atomicWrite(st.path, content)
   // 立即刷新缓存，删除立即生效
@@ -338,6 +400,8 @@ async function doInit () {
     }
     watch(game)
   }
+  // 目录级监听：感知配置文件首次创建等 watchFile 可能遗漏的场景
+  watchCfgDir()
 }
 
 const CustomAlias = {
@@ -350,6 +414,7 @@ const CustomAlias = {
   setAlias,
   delAlias,
   findAlias,
+  getList,
   parseLine,
   applyToMeta
 }
