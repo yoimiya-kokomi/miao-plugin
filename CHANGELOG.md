@@ -2,6 +2,16 @@
 
 * 更新原神7.1v1、星铁4.5相关数据与资源
 
+*2026-08-20 miao-plugin 自定义角色别名功能
+* 在 miao-plugin（Yunzai 插件）实现了自定义角色别名配置 + 机器人命令，分支 `feat-custom-alias-command`，提交 `9f156e11`（基于 master 54b88fc4）。
+
+  * 新增 `apps/alias.js`：#喵喵别名设置/删除/帮助 系列命令（App.init + app.reg 模式）
+  * 新增 `models/alias/CustomAlias.js`：cfg 解析（兼容中英文冒号/逗号）、Meta 内存别名合并与回滚（恢复被覆盖的预设）、fs.watchFile 热更新（1s 轮询 + 0.5s 防抖）、临时文件+rename 原子写 + Promise 链写锁
+  * `models/index.js`：meta 加载循环后动态 import CustomAlias 并 init（幂等）
+  * `apps/index.js`：注册 alias app
+  * `.gitignore`：+config/alias_gs.cfg、config/alias_sr.cfg
+
+
 # 2.5.1 ~ 2.5.15
 
 * 面板功能升级

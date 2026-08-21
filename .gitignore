@@ -16,6 +16,8 @@
 /config/profile.js
 /config/help.js
 /config/cfg.js
+/config/alias_gs.cfg
+/config/alias_sr.cfg
 /resources/profile/super-character/*
 /resources/profile/normal-character/*
 /node_modules/
