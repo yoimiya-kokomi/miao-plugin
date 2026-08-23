@@ -225,7 +225,10 @@ let DmgCalc = {
       case 'lunarBloom':
       case 'lunarCharged':
       case 'lunarCrystallize':
-      case 'stellarConduct': {
+      case 'stellarConduct':
+      case 'stellarVortex':
+      case 'stellarSwirlAnemo':
+      case 'stellarSwirlCryo': {
         let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
         if (ele === 'lunarCharged') {
           eleNum = dmgBase ? 3 : eleNum
@@ -234,6 +237,15 @@ let DmgCalc = {
         } else if (ele === 'stellarConduct') {
           // 星超导根据hit数的不同，有 1.45 - 2.0 不等的倍率，这里暂时默认为最大值 2.0
           eleNum = dmgBase ? 2 : eleNum
+        } else if (ele === 'stellarVortex') {
+          // 所谓的1.5增益倍率已包含在角色倍率中？那反应倍率为1
+          eleNum = dmgBase ? 1 : eleNum
+        } else if (ele === 'stellarSwirlAnemo') {
+          // 星璇生成倍率
+          eleNum = dmgBase ? 0.75 : eleNum
+        } else if (ele === 'stellarSwirlCryo') {
+          // 星璇最高层数倍率
+          eleNum = dmgBase ? 3 : eleNum
         } else {
           eleNum = 1
         }

@@ -26,6 +26,9 @@ export const erType = {
   lunarCrystallize: { type: 'lunar', num: () => 3.84, title: '月结晶' },
   // 星反应
   stellarConduct: { type: 'stellar', num: () => 0, title: '星超导' },
+  stellarVortex: { type: 'stellar', num: () => 0, title: '星扩散' },
+  stellarSwirlAnemo: { type: 'stellar', num: () => 0, title: '星扩散(风/风旋)' },
+  stellarSwirlCryo: { type: 'stellar', num: () => 0, title: '星扩散(冰/风旋)' },
   // 击破持续伤害
   shock: { type: 'breakDot', num: () => 2.0, title: '触电' },
   burn: { type: 'breakDot', num: () => 1.0, title: '灼烧' },

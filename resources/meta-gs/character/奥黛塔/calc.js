@@ -40,7 +40,15 @@ export const details = [
     title: '4命后台协同星超导伤害',
     params: { cons_6: true },
     dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 66 / 100, '', 'stellarConduct')
-  }
+  },
+  {
+    title: "星璇生成伤害",
+    dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk), "", "stellarSwirlAnemo")
+  },
+  {
+    title: "星璇满层伤害",
+    dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk), "", "stellarSwirlCryo")
+  },
 ]
 
 export const defDmgIdx = 1
