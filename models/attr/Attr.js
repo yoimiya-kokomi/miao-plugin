@@ -125,6 +125,11 @@ class Attr extends Base {
     const Characters = [
       { id: 10000119, attrs: { mastery: 200 } }, // 菈乌玛: +200 元素精通
       { id: 10000122, attrs: { mastery: 100 } }, // 奈芙尔: +100 元素精通
+      { id: 10000005, attrs: { mastery: 15, hpBase: 50, atkBase: 7, cpct: 10, cdmg: 20, recharge: 20, hpPct: 20, atkPct: 20, defPct: 20 } },
+      { id: 10000007, attrs: { mastery: 15, hpBase: 50, atkBase: 7, cpct: 10, cdmg: 20, recharge: 20, hpPct: 20, atkPct: 20, defPct: 20 } }
+      // 在丝柯克传说任务磷星之章中，完成特训后，旅行者的元素精通永久增加15点
+      // 在完成魔神任务空月之歌·第八幕获得衣装复地重天后，将为各个元素的旅行者解锁全新的天赋
+      // 旅行者完成与一种元素的共鸣后，将会获得额外的强化效果，该效果对所有元素类型的旅行者生效
       // 后续角色兼容
     ]
 
@@ -132,7 +137,11 @@ class Attr extends Base {
 
     if (charBuff) {
       for (const key in charBuff.attrs) {
-        this.addAttr(key, charBuff.attrs[key], true)
+        if (key.endsWith('Pct')) {
+          this.addAttr(key, charBuff.attrs[key])
+        } else {
+          this.addAttr(key, charBuff.attrs[key], true)
+        }
       }
     }
 
