@@ -3,9 +3,9 @@ import { Format } from '#miao'
 const getHunterAimStacks = ({ cons }) => cons >= 6 ? 2 : 1
 
 export const details = [{
-  title: '长按E伤害',
+  title: '点按E伤害',
   params: { HunterAim: true },
-  dmg: ({ talent }, dmg) => dmg(talent.e['长按伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['点按伤害'], 'e')
 }, {
   title: 'Q每跳治疗量',
   params: { HunterAim: true },
@@ -17,6 +17,11 @@ export const details = [{
     avg: Format.percent(talent.e['猎者之准攻击力提升'] * getHunterAimStacks({ cons }) / 100),
     type: 'text'
   })
+}, {
+  cons: 4,
+  title: '4命追加每跳治疗',
+  params: { HunterAim: true },
+  dmg: ({ attr, calc }, { heal }) => heal(calc(attr.atk) * 60 / 100)
 }]
 
 export const defDmgIdx = 0
