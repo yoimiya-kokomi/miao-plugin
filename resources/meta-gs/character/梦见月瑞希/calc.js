@@ -55,9 +55,9 @@ export const details = [{
   cons: 4,
   title: '4命额外治疗',
   dmg: ({ attr, calc }, { heal }) => heal(calc(attr.mastery) * 266 / 100)
-}, ]
+}]
 
-export const defDmgIdx = 1
+export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [{
