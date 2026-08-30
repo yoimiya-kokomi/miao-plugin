@@ -1,3 +1,13 @@
+# 2.5.17
+
+* 新增伤害计算用的自定义参数 params
+  * 该参数为对象类型，诸如星超导层数、星辉风旋计数等，均通过此参数传入
+  * 示例1：`basic(calc(attr.atk) * talent.a['重击冷凝射线星超导伤害'] / 100, '', 'stellarConduct', '', { stellarConductCount : 12 })`
+  * 若在相关角色的calc.js未传入此参数，则默认为最大 12 层。**注意 basic 模式下时，{ stellarConductCount : 12 } 前方的''不能省略**
+  * 示例2：`reaction('lunarCharged', { stellarVortexCount : 6 })`
+  * 若在相关角色的calc.js未传入此参数，则默认为最大 6 层。。**注意 reaction 模式下时，{ stellarVortexCount : 6 } 前方没有''**
+* 优化月曜反应、星反应在计算基础倍率时的代码逻辑
+
 # 2.5.16
 
 * 更新原神7.1v1、星铁4.5相关数据与资源
