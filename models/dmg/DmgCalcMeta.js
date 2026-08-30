@@ -21,11 +21,27 @@ export const erType = {
   aggravate: { type: 'bonus', num: () => 4.6, title: '超激化' },
   spread: { type: 'bonus', num: () => 5.0, title: '蔓激化' },
   // 月反应
-  lunarBloom: { type: 'lunar', num: () => 8, title: '月绽放' },
-  lunarCharged: { type: 'lunar', num: () => 7.2, title: '月感电' },
-  lunarCrystallize: { type: 'lunar', num: () => 3.84, title: '月结晶' },
+  lunarBloom: { type: 'lunar', num: () => 1, title: '月绽放' },
+  lunarCharged: { type: 'lunar', num: ({ talent }) => talent === 'fy' ? 7.2 : 3, title: '月感电' },
+  lunarCrystallize: { type: 'lunar', num: ({ talent }) => talent === 'fy' ? 3.84 : 1.6, title: '月结晶' },
   // 星反应
-  stellarConduct: { type: 'stellar', num: () => 0, title: '星超导' },
+  stellarConduct: { type: 'stellar', num: ({ params }) => stellarConductFactor[params.stellarConductCount], title: '星超导' },
+  stellarSwirl: {
+    type: 'stellar',
+    num: ({ element, talent, params }) => {
+      let num = 1;
+      if (talent === 'fy') {
+        if (element === '风') {
+          num = 0.75
+        } else if (element === '冰') {
+          num = params.stellarVortexCount >= 3 ? 3 : 2
+        }
+        num = num * 4
+      }
+      return num
+    },
+    title: '星扩散'
+  },
   // 击破持续伤害
   shock: { type: 'breakDot', num: () => 2.0, title: '触电' },
   burn: { type: 'breakDot', num: () => 1.0, title: '灼烧' },
@@ -46,11 +62,16 @@ export const erType = {
   // 欢愉伤害
   elationDmg: { type: 'elation', num: () => 1.0, title: '欢愉' }
 }
+
 let erTmp = {}
 lodash.forEach(erType, (er, key) => {
   erTmp[er.title] = key
 })
 export const erTitle = erTmp
+
+// 星超导基础倍率，依赖叠层计数
+// 1层对应 1.45，满层12层对应 2.0
+export const stellarConductFactor = [1, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2.0]
 
 // 各等级精通基础伤害
 export const eleBaseDmg = {

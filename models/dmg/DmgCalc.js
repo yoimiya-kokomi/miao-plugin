@@ -13,8 +13,10 @@ let DmgCalc = {
       ele, // 元素反应
       basicNum, // 基础数值
       mode, // 模式
-      dynamicData // 动态伤害计算数据
+      dynamicData, // 动态伤害计算数据
+      params // 伤害计算所需额外参数
     } = fnArgs
+
     let {
       dynamicDmg = 0, // 动态增伤
       dynamicPhy = 0, // 动态物伤
@@ -22,6 +24,7 @@ let DmgCalc = {
       dynamicCdmg = 0, // 动态暴击伤害
       dynamicEnemydmg = 0 // 动态易伤
     } = dynamicData
+
     let {
       ds, // 数据集
       attr, // 属性
@@ -30,6 +33,7 @@ let DmgCalc = {
       showDetail = false, // 是否展示详情
       game
     } = data
+
     let calc = ds.calc
 
     let { atk, dmg, phy, coloringDmg, cdmg, cpct, enemydmg } = attr
@@ -41,8 +45,6 @@ let DmgCalc = {
     let multiNum = attr.multi / 100
     let fyplus = attr.fyplus
     let fypct = attr.fypct / 100
-    let fybase = attr.fybase
-    let fyinc = attr.fyinc / 100
 
     // 增伤区
     let elevatedNum = attr.elevated / 100
@@ -167,7 +169,7 @@ let DmgCalc = {
     let eleNum = 1
     let eleBase = 1
     if (game === 'gs') {
-      eleNum = isEle ? DmgMastery.getBasePct(ele, attr.element) : 1
+      eleNum = isEle ? DmgMastery.getBasePct(ele, attr.element, talent, params) : 1
       eleBase = isEle ? 1 + attr[ele] / 100 + DmgMastery.getMultiple(ele, calc(attr.mastery)) : 1
     }
 
@@ -187,7 +189,7 @@ let DmgCalc = {
         case 'imaginaryBreak':
         case 'iceBreak':
         case 'superBreak':{
-          eleNum = DmgMastery.getBasePct(ele, attr.element)
+          eleNum = DmgMastery.getBasePct(ele, attr.element, talent, params)
           stanceNum = 1 + calc(attr.stance) / 100
           break
         }
@@ -218,28 +220,19 @@ let DmgCalc = {
       case 'bloom':
       case 'burgeon':
       case 'hyperBloom': {
-        ret = { avg: ((eleBaseDmg[level] * (1 + fypct) + fybase) * eleBase * eleNum + (eleBaseDmg[level] * fyinc) + fyplus) * kNum }
+        ret = { avg: (eleBaseDmg[level] * (1 + fypct) * eleBase * eleNum + fyplus) * kNum }
         break
       }
 
       case 'lunarBloom':
       case 'lunarCharged':
       case 'lunarCrystallize':
-      case 'stellarConduct': {
-        let lunarBase = dmgBase ? dmgBase : eleBaseDmg[level]
-        if (ele === 'lunarCharged') {
-          eleNum = dmgBase ? 3 : eleNum
-        } else if (ele === 'lunarCrystallize') {
-          eleNum = dmgBase ? 1.6 : eleNum
-        } else if (ele === 'stellarConduct') {
-          // 星超导根据hit数的不同，有 1.45 - 2.0 不等的倍率，这里暂时默认为最大值 2.0
-          eleNum = dmgBase ? 2 : eleNum
-        } else {
-          eleNum = 1
-        }
+      case 'stellarConduct':
+      case 'stellarSwirl': {
+        let base = dmgBase ? dmgBase : eleBaseDmg[level]
         ret = {
-          avg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + (lunarBase * fyinc) + fyplus) * (1 + elevatedNum) * kNum * (1 + cpctNum * cdmgNum),
-          dmg: ((lunarBase * (1 + fypct) + fybase) * eleBase * eleNum + (lunarBase * fyinc) + fyplus) * (1 + elevatedNum) * kNum * (1 + cdmgNum)
+          avg: (base * (1 + fypct) * eleBase * eleNum + fyplus) * (1 + elevatedNum) * kNum * (1 + cpctNum * cdmgNum),
+          dmg: (base * (1 + fypct) * eleBase * eleNum + fyplus) * (1 + elevatedNum) * kNum * (1 + cdmgNum)
         }
         break
       }
@@ -327,7 +320,7 @@ let DmgCalc = {
     let { showDetail, attr, ds, game } = data
     let { calc } = ds
 
-    let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = 'talent', dynamicData = false) {
+    let dmgFn = function (pctNum = 0, talent = false, ele = false, basicNum = 0, mode = 'talent', dynamicData = false, params= false) {
       if (ele) {
         ele = erTitle[ele] || ele
       }
@@ -335,14 +328,14 @@ let DmgCalc = {
         // 星铁meta数据天赋为百分比前数字
         pctNum = pctNum * 100
       }
-      return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode, dynamicData }, data)
+      return DmgCalc.calcRet({ pctNum, talent, ele, basicNum, mode, dynamicData, params }, data)
     }
 
-    dmgFn.basic = function (basicNum = 0, talent = false, ele = false, dynamicData = false) {
-      return dmgFn(0, talent, ele, basicNum, 'basic', dynamicData)
+    dmgFn.basic = function (basicNum = 0, talent = false, ele = false, dynamicData = false, params= false) {
+      return dmgFn(0, talent, ele, basicNum, 'basic', dynamicData, params)
     }
 
-    dmgFn.reaction = function (ele = false, talent = 'fy') {
+    dmgFn.reaction = function (ele = false, params = false, talent = 'fy') {
       switch (ele) {
         // 击破持续伤害
         case 'shock':
@@ -367,11 +360,11 @@ let DmgCalc = {
         default:
           break
       }
-      return dmgFn(0, talent, ele, 0, 'basic')
+      return dmgFn(0, talent, ele, 0, 'basic', false, params)
     }
 
-    dmgFn.dynamic = function (pctNum = 0, talent = false, dynamicData = false, ele = false) {
-      return dmgFn(pctNum, talent, ele, 0, 'talent', dynamicData)
+    dmgFn.dynamic = function (pctNum = 0, talent = false, dynamicData = false, ele = false, params= false) {
+      return dmgFn(pctNum, talent, ele, 0, 'talent', dynamicData, params)
     }
 
     // 计算治疗
@@ -393,6 +386,7 @@ let DmgCalc = {
         avg: num * (calc(attr.shield) / 100) * (attr.shield.inc / 100)
       }
     }
+
     // 扩散方法
     dmgFn.swirl = function () {
       return dmgFn(0, 'fy', 'swirl')

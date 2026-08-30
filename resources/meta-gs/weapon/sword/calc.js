@@ -346,7 +346,7 @@ export default function (step, staticStep) {
     星锋剑: {
       check: ({ attr }) => ['空', '荧'].includes(attr.characterName),
       title: '旅行者装备时，命中敌人后，攻击力提升[atkPct]%；与7种元素共鸣过，旅行者的暴击伤害就会总共提升[cdmg]%',
-      data: {
+      refine: {
         atkPct: step(16),
         cdmg: 42
       }
