@@ -1,7 +1,7 @@
 /*
 * 伤害计算 - 计算伤害
 * */
-import { eleBaseDmg, erTitle, breakBaseDmg, cryBaseDmg, elationBaseDmg, stellarConductFactor } from './DmgCalcMeta.js'
+import { eleBaseDmg, erTitle, breakBaseDmg, cryBaseDmg, elationBaseDmg } from './DmgCalcMeta.js'
 import DmgMastery from './DmgMastery.js'
 import lodash from 'lodash'
 
