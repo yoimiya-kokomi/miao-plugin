@@ -26,22 +26,8 @@ export const erType = {
   lunarCrystallize: { type: 'lunar', num: ({ talent }) => talent === 'fy' ? 3.84 : 1.6, title: '月结晶' },
   // 星反应
   stellarConduct: { type: 'stellar', num: ({ params }) => stellarConductFactor[params.stellarConductCount], title: '星超导' },
-  stellarSwirl: {
-    type: 'stellar',
-    num: ({ element, talent, params }) => {
-      let num = 1;
-      if (talent === 'fy') {
-        if (element === '风') {
-          num = 0.75
-        } else if (element === '冰') {
-          num = params.stellarVortexCount >= 3 ? 3 : 2
-        }
-        num = num * 4
-      }
-      return num
-    },
-    title: '星扩散'
-  },
+  stellarSwirl: { type: 'stellar', num: ({ talent }) => talent === 'fy' ? 3 : 1, title: '星扩散' },
+  stellarVortex: { type: 'stellar', num: ({ params }) => params.stellarVortexCount >= 3 ? 12 : 8, title: '星辉冰旋（反应星扩散·冰）' },
   // 击破持续伤害
   shock: { type: 'breakDot', num: () => 2.0, title: '触电' },
   burn: { type: 'breakDot', num: () => 1.0, title: '灼烧' },
