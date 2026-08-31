@@ -7,7 +7,6 @@ export default function ({ artis, attr, cons, rule, def }) {
     title.push('星扩散')
     particularAttr.cpct = 100
     particularAttr.cdmg = 100
-    particularAttr.dmg = 0
     particularAttr.recharge = 50
   }
   if (cons >= 4) {
