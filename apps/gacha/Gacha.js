@@ -166,6 +166,33 @@ let Gacha = {
     return true
   },
 
+  // 卡池历史查询命令帮助：#卡池帮助 / #星铁卡池帮助 / #卡池
+  async help (e) {
+    let helpMsg = [
+      '【卡池查询命令帮助】',
+      '',
+      '📖 历史卡池查询',
+      '✅ #x.x卡池  查原神历史卡池',
+      '    #6.0卡池',
+      '    #6.7上半卡池',
+      '',
+      '✅ *x.x卡池  查星铁历史卡池',
+      '    *3.0卡池',
+      '    *4.1下半卡池',
+      '',
+      '🔍 原神/星铁角色/武器穿透查询',
+      'ℹ️ #角色/武器名卡池',
+      '    #白厄卡池',
+      '    #舞舞舞卡池',
+      '',
+      'ℹ️ #角色/武器名卡池详情|详细',
+      '    #火神卡池详情'
+
+    ]
+    e.reply(helpMsg.join('\n'))
+    return true
+  },
+
   getFace (uid, game) {
     let player = Player.create(uid, game)
     let defaultFaceChar = game === 'gs' ? 10000014 : 1005
