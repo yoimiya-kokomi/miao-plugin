@@ -1,0 +1,98 @@
+/* 卡池信息 gacha-info */
+/* 板块整体：上 padding 补偿 group-title 隐藏后丢失的高度 */
+.pool-body {
+  padding: 6px 10px 6px;
+}
+.pool-group {
+  /* 替代表题占位：让原本一行 20px 的 group-title 高度转换为板块顶部留白 */
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.pool-group + .pool-group {
+  margin-top: 6px;
+}
+/* 隐藏 group-title（按需求：保留 DOM，仅 CSS 隐藏） */
+.pool-group .group-title {
+  display: none;
+}
+/* 板块标题（卡池版本/上下半/mix 徽标/时间） */
+
+.pool-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  padding: 8px 20px;
+}
+.pool-title .pool-name {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: bold;
+  text-shadow: 0 0 2px #000;
+}
+.pool-title .mix-tag {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  color: #6f4b00;
+  background: #ffeb73;
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.pool-title .pool-time {
+  font-size: 12px;
+  line-height: 18px;
+  color: #aaa;
+  font-weight: normal;
+  margin-left: 12px;
+}
+.pool-body {
+  padding: 6px 10px 10px;
+}
+.pool-group + .pool-group {
+  margin-top: 4px;
+}
+.pool-group .group-title {
+  font-size: 13px;
+  line-height: 20px;
+  color: #d3bc8e;
+  padding-left: 5px;
+}
+/* 每行最多 8 个图标，超出由数据层拆行，此处禁用换行保证严格对齐 */
+.item-row {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 10px;
+}
+.item-row .item-card {
+  width: 76px;
+  margin: 4px;
+  text-align: center;
+}
+.item-row .item-icon {
+  border-radius: 5px 5px 12px 0;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 1;
+}
+.item-row .item-icon .item-bg {
+  position: relative;
+  z-index: 3;
+}
+.item-row .item-name {
+  font-size: 13px;
+  line-height: 20px;
+  height: 20px;
+  color: #000;
+  background: #fff;
+  margin-top: -10px;
+  border-radius: 3px;
+  padding: 0 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-shadow: none;
+  position: relative;
+  z-index: 4;
+}

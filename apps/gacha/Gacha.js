@@ -1,6 +1,7 @@
 import { Common } from '#miao'
 import { getTargetUid } from '../profile/ProfileCommon.js'
 import GachaData from './GachaData.js'
+import GachaPool from './GachaPool.js'
 import { Button, Character, Player } from '#miao.models'
 
 let Gacha = {
@@ -103,6 +104,27 @@ let Gacha = {
       game,
       elem: e.isSr ? 'sr' : 'hydro'
     }, { e, scale: 1.4, retType: 'base64' }), new Button(e).gacha()])
+  },
+
+  // 卡池信息查询：#6.7卡池 / #6.7上半卡池 / #星铁4.1下半卡池
+  async info (e) {
+    let param = GachaPool.parse(e.msg)
+    if (!param) {
+      return false
+    }
+    let { game, version, half } = param
+    let pools = GachaPool.getData(game, version, half)
+    if (!pools.length) {
+      e.reply(`未找到${game === 'sr' ? '星铁' : ''}${version}${half}的卡池信息`)
+      return true
+    }
+    e.reply(await Common.render('gacha/gacha-info', {
+      save_id: `pool-${game}-${version}-${half}`,
+      pools,
+      game,
+      elem: game === 'sr' ? 'sr' : 'hydro'
+    }, { e, scale: 1.4, retType: 'base64' }))
+    return true
   },
 
   getFace (uid, game) {
