@@ -127,6 +127,45 @@ let Gacha = {
     return true
   },
 
+  // 卡池信息穿透查询：#${name}卡池(默认精简) / #星铁${name}卡池(默认精简) / #${name}卡池详情(详细，完整)
+  async infoByItem (e) {
+    let msg = e.msg || ''
+    let ret = /^#(星铁)?(.+?)卡池(详情|详细)?$/.exec(msg)
+    if (!ret) {
+      return false
+    }
+    let isSrPrefix = !!ret[1]
+    let item = (ret[2] || '').trim()
+    // 正则回溯可能把「星铁」吞入 item，统一归一
+    if (item.startsWith('星铁')) {
+      isSrPrefix = true
+      item = item.slice(2).trim()
+    }
+    if (!item) {
+      return false
+    }
+    // 版本查询（如 #6.7卡池 / #星铁3.0卡池）交给 info 处理，避免误命中
+    if (/^(?:\d+\.)+\d+(?:上半|下半)?$/.test(item)) {
+      return false
+    }
+    // 默认精简（只显示包含查询项的那一行）；后缀「详情/详细」才显示完整卡池
+    let isDetail = !!ret[3]
+    let simple = !isDetail
+    let result = GachaPool.searchByItem(item, simple, isSrPrefix)
+    if (!result) {
+      e.reply(`未找到该${item}`)
+      return true
+    }
+    let { game, pools } = result
+    e.reply(await Common.render('gacha/gacha-info', {
+      save_id: `pool-${game}-item-${encodeURIComponent(item)}`,
+      pools,
+      game,
+      elem: game === 'sr' ? 'sr' : 'hydro'
+    }, { e, scale: 1.4, retType: 'base64' }))
+    return true
+  },
+
   getFace (uid, game) {
     let player = Player.create(uid, game)
     let defaultFaceChar = game === 'gs' ? 10000014 : 1005

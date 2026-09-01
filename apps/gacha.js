@@ -24,6 +24,11 @@ app.reg({
     name: '卡池信息',
     fn: Gacha.info,
     rule: /^#(星铁)?((?:\d+\.)+\d+)(上半|下半)?卡池$/
+  },
+  infoByItem: {
+    name: '卡池角色/武器查询',
+    fn: Gacha.infoByItem,
+    rule: /^#(星铁)?(.+?)卡池(详情|详细)?$/
   }
 })
 

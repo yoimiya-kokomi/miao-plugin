@@ -153,6 +153,99 @@ const GachaPool = {
    */
   getData (game, version, half = '') {
     return lodash.map(this.getPools(game, version, half), (pool) => this.formatPool(pool, game))
+  },
+
+  /**
+   * 按名称检索卡池（卡池信息穿透查询）
+   * @param item 角色名或武器名（支持别名，自动转换为标准名）
+   * @param simple 是否精简模式（只保留包含 item 的那一行）
+   * @param isSrPrefix 命令是否以 #星铁 开头（决定检索优先级）
+   * @returns { game, pools } 或 false
+   */
+  searchByItem (item, simple = false, isSrPrefix = false) {
+    let games = isSrPrefix ? ['sr', 'gs'] : ['gs', 'sr']
+    for (let game of games) {
+      let resolved = this.resolveItem(item, game)
+      if (!resolved) {
+        continue
+      }
+      let pools = this.findPools(resolved.game, resolved, simple)
+      if (pools.length) {
+        return { game: resolved.game, pools }
+      }
+    }
+    return false
+  },
+
+  /**
+   * 将输入（标准名或别名）解析为标准角色名/武器名
+   * 优先按角色解析，再按武器解析；返回 { type, name, game }
+   */
+  resolveItem (item, game) {
+    let char = Character.get(item, game)
+    if (char) {
+      return { type: 'char', name: char.name, game: char.game || game }
+    }
+    let weapon = Weapon.get(item, game)
+    if (weapon) {
+      return { type: 'weapon', name: weapon.name, game: weapon.game || game }
+    }
+    return false
+  },
+
+  /**
+   * 获取指定游戏的全部卡池数据（带 type 标记）
+   * 原神：poolDetail + mixPoolDetail；星铁：poolDetailSr
+   */
+  getAllPools (game) {
+    if (game === 'sr') {
+      return lodash.map(poolDetailSr, (ds) => ({ ...ds, type: 'poolDetailSr' }))
+    }
+    return lodash.map(poolDetail, (ds) => ({ ...ds, type: 'poolDetail' }))
+      .concat(lodash.map(mixPoolDetail, (ds) => ({ ...ds, type: 'mixPoolDetail' })))
+  },
+
+  /**
+   * 在指定游戏的卡池数据中查找包含 item 的记录
+   * simple 模式下每条记录仅保留包含 item 的那一行
+   */
+  findPools (game, resolved, simple) {
+    let { type, name } = resolved
+    let keys = type === 'char' ? ['char5', 'char4'] : ['weapon5', 'weapon4']
+    let all = this.getAllPools(game)
+    let matched = lodash.filter(all, (pool) => lodash.some(keys, (k) => (pool[k] || []).includes(name)))
+    if (!matched.length) {
+      return []
+    }
+    return lodash.map(matched, (pool) => {
+      return simple ? this.formatSimplePool(pool, keys, name, game) : this.formatPool(pool, game)
+    })
+  },
+
+  /**
+   * 精简模式：仅保留包含 item 的那一行（保留该行完整内容）
+   */
+  formatSimplePool (pool, keys, name, game) {
+    let ret = {
+      version: pool.version,
+      half: pool.half || '',
+      from: pool.from || '',
+      to: pool.to || '',
+      isMix: pool.type === 'mixPoolDetail',
+      groups: []
+    }
+    lodash.forEach(keys, (k) => {
+      let names = pool[k] || []
+      if (!names.includes(name)) {
+        return
+      }
+      let g = poolGroups.find((g) => g.key === k)
+      let rows = this.chunkRows(names, g.type, game)
+      if (rows.length) {
+        ret.groups.push({ title: g.title, star: g.star, rows })
+      }
+    })
+    return ret
   }
 }
 
