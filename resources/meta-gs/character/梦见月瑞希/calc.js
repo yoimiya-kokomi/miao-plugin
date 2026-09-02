@@ -69,6 +69,12 @@ export const buffs = [{
     fyplus: ({ attr, calc }) => calc(attr.mastery) * 1100 / 100
   }
 }, {
+  title: '2命效果：处于梦浮状态下时，风元素抗性降低[kx]%',
+  cons: 2,
+  data: {
+    kx: 20
+  }
+}, {
   check: ({ params }) => params.cons_6 === true,
   title: '6命效果：星扩散反应伤害暴击率提升[cpct]%，暴击伤害提升[cdmg]%',
   cons: 6,
