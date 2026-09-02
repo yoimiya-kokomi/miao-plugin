@@ -37,9 +37,7 @@ const ArtisMarkCfg = {
       }
     }
 
-    let def = function (attrWeight) {
-      let title = []
-
+    let def = function (attrWeight, title = []) {
       let weight = lodash.extend({}, attrWeight || usefulAttr[char.name] || {})
       let check = (key, max = 75, maxPlus = 75, isWeapon = true) => {
         let original = weight[key] || 0
@@ -90,7 +88,7 @@ const ArtisMarkCfg = {
         }
       }
 
-      title = title.length > 0 ? title.join('') : '通用'
+      title = title.length > 0 ? title.join('|') : '通用'
       return {
         title: `${char.abbr}-${title}`,
         attrWeight: weight

@@ -1,8 +1,8 @@
-import {usefulAttr} from "../../artifact/artis-mark.js"
+import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({attr, cons, rule, def}) {
+export default function ({ attr, cons, def }) {
   let title = []
-  let particularAttr = {...usefulAttr['申鹤']}
+  let particularAttr = { ...usefulAttr['申鹤'] }
   if (attr.cpct * 2 + attr.cdmg >= 240) {
     title.push('输出')
     particularAttr.cpct = 100
@@ -14,7 +14,7 @@ export default function ({attr, cons, rule, def}) {
     particularAttr.recharge = 75
   }
   if (title.length > 0) {
-    return rule(`申鹤-${title.join('')}`, particularAttr)
+    return def(particularAttr, title)
   }
   return def(usefulAttr['申鹤'])
 }

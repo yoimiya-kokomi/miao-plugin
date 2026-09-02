@@ -1,6 +1,6 @@
 import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({ cons, rule, def }) {
+export default function ({ cons, def }) {
   let title = []
   let particularAttr = { ...usefulAttr['基尼奇'] }
   if (cons >= 1) {
@@ -11,7 +11,7 @@ export default function ({ cons, rule, def }) {
     }
   }
   if (title.length > 0) {
-    return rule(`基尼奇-${title.join('')}`, particularAttr)
+    return def(particularAttr, title)
   }
   return def(usefulAttr['基尼奇'])
 }

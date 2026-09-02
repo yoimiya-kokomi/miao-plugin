@@ -1,8 +1,8 @@
-import {usefulAttr} from "../../artifact/artis-mark.js"
+import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({weapon, rule, def}) {
+export default function ({ weapon, def }) {
   let title = []
-  let particularAttr = {...usefulAttr['菲林斯']}
+  let particularAttr = { ...usefulAttr['菲林斯'] }
   let recharge = particularAttr.recharge
   if (weapon.name === '血染荒城') {
     title.push('专武')
@@ -10,7 +10,7 @@ export default function ({weapon, rule, def}) {
   }
   if (title.length > 0) {
     particularAttr.recharge = recharge
-    return rule(`菲林斯-${title.join('')}`, particularAttr)
+    return def(particularAttr, title)
   }
   return def(usefulAttr['菲林斯'])
 }

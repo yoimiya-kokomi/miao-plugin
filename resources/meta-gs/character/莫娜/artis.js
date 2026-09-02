@@ -1,8 +1,8 @@
-import {usefulAttr} from "../../artifact/artis-mark.js"
+import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({ rule, def, weapon }) {
+export default function ({ weapon, def }) {
   let title = []
-  let particularAttr = {...usefulAttr['莫娜']}
+  let particularAttr = { ...usefulAttr['莫娜'] }
   if (weapon.name === '西风秘典') {
     title.push('西风')
     particularAttr.atk = 0
@@ -22,7 +22,7 @@ export default function ({ rule, def, weapon }) {
     particularAttr.dmg = 0
   }
   if (title.length > 0) {
-    return rule(`莫娜-${title.join('')}`, particularAttr)
+    return def(particularAttr, title)
   }
   return def(usefulAttr['莫娜'])
 }

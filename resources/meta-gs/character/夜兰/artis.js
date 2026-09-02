@@ -1,6 +1,6 @@
 import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({artis, cons, attr, weapon, rule, def }) {
+export default function ({artis, cons, attr, weapon, def }) {
   let title = []
   let particularAttr = { ...usefulAttr['夜兰'] }
   if (cons >= 1 && !artis.is('绝缘4')) {
@@ -16,7 +16,7 @@ export default function ({artis, cons, attr, weapon, rule, def }) {
     particularAttr.hp = 100
   }
   if (title.length > 0) {
-    return rule(`夜兰-${title.join('')}`, particularAttr)
+    return def(particularAttr, title)
   }
   return def(usefulAttr['夜兰'])
 }
