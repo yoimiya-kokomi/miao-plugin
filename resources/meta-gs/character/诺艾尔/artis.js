@@ -1,9 +1,9 @@
 import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({ attr, artis, rule, def }) {
+export default function ({ attr, artis, def }) {
   let title = []
   let particularAttr = { ...usefulAttr['诺艾尔'] }
-  if (attr.cpct * 2 + attr.cdmg > 240) {
+  if (attr.cpct * 2 + attr.cdmg >= 240) {
     title.push('输出')
     particularAttr.atk = 50
     particularAttr.cpct = 100
@@ -19,7 +19,7 @@ export default function ({ attr, artis, rule, def }) {
    }
   }
   if (title.length > 0) {
-    return rule(`诺艾尔-${title.join('')}`, particularAttr)
+    return def(particularAttr, title)
   }
   return def(usefulAttr['诺艾尔'])
 }

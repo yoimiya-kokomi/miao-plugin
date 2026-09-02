@@ -1,6 +1,6 @@
 import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({ attr, rule, def }) {
+export default function ({ attr, def }) {
   let title = []
   let particularAttr = { ...usefulAttr['刻晴'] }
   if (attr.mastery >= 80) {
@@ -8,7 +8,7 @@ export default function ({ attr, rule, def }) {
     particularAttr.mastery = 75
   }
   if (title.length > 0) {
-    return rule(`刻晴-${title.join('')}`, particularAttr)
+    return def(particularAttr, title)
   }
   return def(usefulAttr['刻晴'])
 }

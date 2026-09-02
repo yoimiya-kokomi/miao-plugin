@@ -1,6 +1,6 @@
 import { usefulAttr } from "../../artifact/artis-mark.js"
 
-export default function ({ cons, rule, def }) {
+export default function ({ cons, def }) {
   let title = []
   let particularAttr = { ...usefulAttr['希格雯'] }
   if (cons === 6) {
@@ -10,7 +10,7 @@ export default function ({ cons, rule, def }) {
     particularAttr.heal = 90
   }
   if (title.length > 0) {
-    return rule(`希格雯-${title.join('')}`, particularAttr)
+    return def(particularAttr, title)
   }
   return def(usefulAttr['希格雯'])
 }

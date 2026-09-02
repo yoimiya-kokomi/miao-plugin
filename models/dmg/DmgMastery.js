@@ -21,7 +21,7 @@ let DmgMastery = {
     }
     return 0
   },
-  getBasePct (type, element, talent, params={}) {
+  getBasePct (type, element, talent, params = {}) {
     let typeCfg = erType[type]
     if (typeCfg) {
       const args = {};
