@@ -1,0 +1,40 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0" />
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/character/avatar-list.css" />
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/gacha/gacha-info.css?v=1.0" />
+
+{{/block}}
+
+{{block 'main'}}
+<div class="basic">
+  {{each pools pool}}
+  <div class="cont pool-cont">
+    <div class="cont-title pool-title">
+      <strong class="pool-name">{{pool.version}} {{pool.half}}{{if pool.isMix}}<em class="mix-tag">mix</em>{{/if}}</strong>
+      {{if pool.from}}<span class="pool-time">{{pool.from}} - {{pool.to}}</span>{{/if}}
+    </div>
+    <div class="cont-body pool-body">
+      {{each pool.groups group}}
+      <div class="pool-group">
+        <div class="group-title">{{group.title}}</div>
+        {{each group.rows row}}
+        <div class="item-row">
+          {{each row item}}
+          <div class="item-card">
+            <div class="item-icon star{{item.star}}">
+              <div class="item-bg" style="background-image:url({{_res_path}}{{item.img}})"></div>
+            </div>
+            <div class="item-name">{{item.name.length > 4 ? (item.abbr || item.name) : item.name}}</div>
+          </div>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{/block}}

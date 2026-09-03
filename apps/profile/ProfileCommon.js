@@ -61,9 +61,21 @@ export async function getProfileRefresh (e, avatar) {
   }
   if (!profile || !profile.hasData) {
     if (!e._isReplyed) {
-      e.reply([`请确认${char.name}已展示在【游戏内】的角色展柜中，并打开了“显示角色详情”。然后请使用 #更新面板\n命令来获取${char.name}的面板详情`, new Button(e).profileList(player.uid), new Button(e).profile(char, player.uid)])
+      e.reply([
+        `⚠️ 暂无 ${char.name} 数据，请：\n` +
+        `━━━━━━━━━━━━\n` +
+        `📋 方式一：角色展柜更新（展柜需开启"显示角色详情）\n` +
+        `#更新面板    (原神)\n` +
+        `*更新面板    (星铁)\n\n` +
+        `📋 方式二：全量更新\n` +
+        `#扫码登录 (已登录可忽略)\n` +
+        `#米游社更新面板   (原神)\n` +
+        `*米游社更新面板   (星铁)`,
+        new Button(e).profileList(player.uid),
+        new Button(e).profile(char, player.uid)
+      ]);
     }
-    return false
+    return false;
   }
   return profile
 }
