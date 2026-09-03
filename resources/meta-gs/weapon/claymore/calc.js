@@ -249,7 +249,7 @@ export default function (step, staticStep) {
         mastery: step(120)
       }
     }, {
-      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      check: ({ element }) => ['雷', '风', '冰'].includes(element),
       title: '触发星烁反应后，元素精通提高[mastery]点',
       refine: {
         mastery: step(120)
@@ -261,7 +261,7 @@ export default function (step, staticStep) {
         mastery: step(64)
       }
     }, {
-      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      check: ({ element }) => ['雷', '风', '冰'].includes(element),
       title: '触发星烁反应后，攻击力提高[atkPct]%',
       refine: {
         atkPct: step(16)

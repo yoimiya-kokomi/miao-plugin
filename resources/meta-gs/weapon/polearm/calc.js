@@ -237,7 +237,7 @@ export default function (step, staticStep) {
       }
     },
     戍望谣歌: {
-      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      check: ({ element }) => ['雷', '风', '冰'].includes(element),
       title: '触发星烁反应后，攻击力提升[atkPct]%',
       refine: {
         atkPct: step(20)
