@@ -2,7 +2,7 @@ import { Common } from '#miao'
 import { getTargetUid } from '../profile/ProfileCommon.js'
 import GachaData from './GachaData.js'
 import GachaPool from './GachaPool.js'
-import { Button, Character, Player } from '#miao.models'
+import { Button, Character, Player, Weapon } from '#miao.models'
 
 let Gacha = {
   async detail (e) {
@@ -113,13 +113,15 @@ let Gacha = {
       return false
     }
     let { game, version, half } = param
+    // 上下半英文标识：无/空 → all，上半 → up，下半 → down，其他值保留原值
+    let half_key = !half ? 'all' : half === '上半' ? 'up' : half === '下半' ? 'down' : half
     let pools = GachaPool.getData(game, version, half)
     if (!pools.length) {
-      e.reply(`未找到${game === 'sr' ? '星铁' : ''}${version}${half}的卡池信息`)
+      e.reply(`未找到 ${game === 'sr' ? '星铁' : '原神'}${version}${half} 的卡池信息`)
       return true
     }
     e.reply(await Common.render('gacha/gacha-info', {
-      save_id: `pool-${game}-${version}-${half}`,
+      save_id: `pool-${game}-${version}-${half_key}`,
       pools,
       game,
       elem: game === 'sr' ? 'sr' : 'hydro'
@@ -153,12 +155,30 @@ let Gacha = {
     let simple = !isDetail
     let result = GachaPool.searchByItem(item, simple, isSrPrefix)
     if (!result) {
-      e.reply(`未找到该${item}`)
+      e.reply(`未找到 ${item} 的卡池信息`)
       return true
     }
     let { game, pools } = result
+    // 解析标准名与类型，生成稳定的英文缓存 id
+    let resolved = GachaPool.resolveItem(item, game)
+    let item_type = 'unknown'
+    let item_id = 'unknown'
+    if (resolved) {
+      let model = resolved.type === 'char'
+        ? Character.get(resolved.name, resolved.game)
+        : Weapon.get(resolved.name, resolved.game)
+      if (model) {
+        if (model.star) {
+          item_type = `${resolved.type}${model.star}`
+        }
+        if (model.id !== undefined && model.id !== null && model.id !== '') {
+          item_id = model.id
+        }
+      }
+    }
+    let simple_key = simple ? 'simple' : 'detail'
     e.reply(await Common.render('gacha/gacha-info', {
-      save_id: `pool-${game}-item-${encodeURIComponent(item)}`,
+      save_id: `pool-${game}-${item_type}-${item_id}-${simple_key}`,
       pools,
       game,
       elem: game === 'sr' ? 'sr' : 'hydro'
