@@ -178,7 +178,8 @@ const buffs = {
       data: {
         swirl: 60,
         fykx: 40,
-        stellarSwirl: 20
+        stellarSwirl: 20,
+        stellarVortex: 20
       }
     }
   },
