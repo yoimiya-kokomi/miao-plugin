@@ -328,7 +328,9 @@ export default function (step, staticStep) {
       check: ({ element }) => ['冰', '雷', '风'].includes(element),
       title: '触发星烁反应后，星烁反应伤害提升[stellarConduct]%',
       refine: {
-        stellarConduct: step(16)
+        stellarConduct: step(16),
+        stellarSwirl: step(16),
+        stellarVortex: step(16)
       }
     }],
     白湖冬羽: [{

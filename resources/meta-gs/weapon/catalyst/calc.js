@@ -291,10 +291,12 @@ export default function (step, staticStep) {
         mastery: step(60)
       }
     }, {
-      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      check: ({ element }) => ['雷', '风', '冰'].includes(element),
       title: '触发星烁反应后，星烁反应伤害提升[stellarConduct]%',
       refine: {
-        stellarConduct: step(16)
+        stellarConduct: step(16),
+        stellarSwirl: step(16),
+        stellarVortex: step(16)
       }
     }]
   }
