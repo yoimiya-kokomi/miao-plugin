@@ -534,5 +534,25 @@ export default {
         cdmg: 32
       }
     }]
+  },
+  戏梦点星的伶人: {
+    2: attr('speedPct', 6),
+    4: {
+      check: ({ params }) => params.certifiedBanger >= 10, 
+      title: '若装备者持有的好活当赏大于等于10点，则使我方全体目标的暴击伤害提高[cpct]%',
+      data: {
+        cpct: 12
+      }
+    }
+  },
+  贪噬禁果的异端: {
+    2: attr('cpct', 16),
+    4: {
+      title: '使装备者普攻造成的伤害提高[aDmg]%。当装备者施放普攻时，使装备者的攻击力提高[atkPct]%',
+      data: {
+        aDmg: 36,
+        atkPct: 15
+      }
+    }
   }
 }
