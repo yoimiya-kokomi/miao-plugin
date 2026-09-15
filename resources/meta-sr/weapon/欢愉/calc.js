@@ -60,5 +60,11 @@ export default function (staticIdx, keyIdx) {
         speedPct: 2, joyPct: 3
       })
     ],
+    献给明日的色彩: [
+      staticIdx(1, 'defPct'),
+      keyIdx('敌方全体受到的伤害提高[enemydmg]%', {
+        enemydmg: 2
+      })
+    ]
   }
 }
