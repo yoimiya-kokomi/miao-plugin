@@ -15,7 +15,7 @@ export const buffs = [{
   tree: 1,
   data: {
     joy: ({ attr }) => attr.def >= 2400 ? 32 + Math.floor(Math.min(attr.def - 2400, 3600)) / 10 * 3 : 0,
-    heal: attr.joy * 0.2
+    heal: ({ attr }) => attr.joy * 0.2
   }
 }, {
   title: '笑点计算：计算笑点用',
