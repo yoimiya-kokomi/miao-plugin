@@ -5,7 +5,7 @@ export default function ({ attr, cons, weapon, def }) {
   let particularAttr = { ...usefulAttr['芙宁娜'] }
   if (cons >= 4) {
     title.push('高命')
-    particularAttr.recharge = 60
+    particularAttr.recharge = 75
     if (cons == 6) {
       particularAttr.mastery = 45
     }
