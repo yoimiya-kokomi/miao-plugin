@@ -1,6 +1,14 @@
-export default function ({ attr, rule, def }) {
+import { usefulAttr } from "../../artifact/artis-mark.js"
+
+export default function ({ attr, def }) {
+  let title = []
+  let particularAttr = { ...usefulAttr['行秋'] }
   if (attr.mastery > 120) {
-    return rule('行秋-蒸发', { atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 75 })
+    title.push('蒸发')
+    particularAttr.mastery = 75
   }
-  return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, recharge: 75 })
+  if (title.length > 0) {
+    return def(particularAttr, title)
+  }
+  return def(usefulAttr['行秋'])
 }
