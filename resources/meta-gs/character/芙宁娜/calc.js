@@ -43,6 +43,11 @@ export const details = [{
   cons: 6,
   params: { talentQ: true },
   dmg: ({ talent, attr }, { basic }) => basic(attr.atk * talent.a['一段伤害'] / 100 + attr.hp * 0.43, 'a')
+}, {
+  title: '六命芒刀下落伤害·蒸发',
+  cons: 6,
+  params: { talentQ: true },
+  dmg: ({ talent, attr }, { basic }) => basic(attr.atk * talent.a['低空/高空坠地冲击伤害'][1] / 100 + attr.hp * 0.43, 'a3', '蒸发')
 }]
 
 export const mainAttr = 'hp,mastery,cpct,cdmg,dmg'
