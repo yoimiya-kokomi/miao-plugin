@@ -315,7 +315,7 @@ export default function (step, staticStep) {
     }],
     熔猎异端之刃: {
       title: '施放元素战技后，每秒都将基于上一秒记录的移动距离，获得最高[atkPct]%的攻击力加成',
-      data: {
+      refine: {
         atkPct: step(36)
       }
     },
