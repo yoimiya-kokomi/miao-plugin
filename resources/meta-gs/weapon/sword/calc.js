@@ -352,6 +352,37 @@ export default function (step, staticStep) {
         atkPct: step(16),
         cdmg: 42
       }
+    },
+    新枝: [{
+      title: '施放元素战技后的12秒内，装备者的攻击命中敌人时，会获得「蓊郁」：攻击力提升[atkPct]%，元素精通提升[mastery]点',
+      refine: {
+        atkPct: step(4),
+        mastery: step(20),
+      }
+    }, {
+      check: ({ element }) => ['冰', '雷', '风'].includes(element),
+      title: '辉映·星烁:「蓊郁」效果的攻击力额外提升[atkPct]%，且装备者造成的星烁反应伤害提升[stellarConduct]%',
+      refine: {
+        atkPct: step(2),
+        stellarConduct: step(8),
+        stellarSwirl: step(8),
+        stellarVortex: step(8)
+      }
+    }],
+    银釭: {
+      title: '施放元素战技后的12秒内，元素精通最多提升[mastery]点',
+      refine: {
+        mastery: step(52) * 2
+      }
+    },
+    蝶变: {
+      title: '施放元素战技或元素爆发共2次后，暴击伤害提升[cdmg]%，星扩散反应伤害提升[stellarConduct]%',
+      refine: {
+        cdmg: step(56, 16),
+        stellarConduct: step(36),
+        stellarSwirl: step(36),
+        stellarVortex: step(36)
+      }
     }
   }
 }
