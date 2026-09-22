@@ -298,6 +298,12 @@ export default function (step, staticStep) {
         stellarSwirl: step(16),
         stellarVortex: step(16)
       }
-    }]
+    }],
+    漩流颂歌: {
+      title: '治疗加成提升[heal]%',
+      refine: {
+        heal: step(4)
+      }
+    }
   }
 }
