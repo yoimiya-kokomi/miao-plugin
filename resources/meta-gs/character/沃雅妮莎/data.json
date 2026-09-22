@@ -864,7 +864,7 @@
     "1": {
       "name": "聚光灯下的水华",
       "desc": [
-        "沃雅妮莎触发<span style=\"color:#FFD780FF;\">遥久之歌</span>的治疗效果时，还会使队伍中附近的所有角色攻击力提升，提升值相当于沃雅妮莎生命值上限的1%，持续5秒。"
+        "沃雅妮莎触发<span style=\"color:#FFD780FF;\">遥久之歌</span>的治疗效果时，还会使队伍中附近的所有角色攻击力提升，提升值相当于沃雅妮莎生命值上限的0.8%，持续5秒。"
       ]
     },
     "2": {
@@ -901,7 +901,7 @@
       "name": "永不落幕的盛歌",
       "desc": [
         "命之座<span style=\"color:#FFD780FF;\">「穿彻风雪的余响」</span>的效果获得强化：「黑与白的双音」改为对队伍中附近的所有角色生效。",
-        "此外，<span style=\"color:#FFD780FF;\">遥久之歌</span>效果持续期间，队伍中附近的角色造成的星扩散反应伤害<span style=\"color:#FFD780FF;\">擢升</span>30%，造成的<span style=\"color:#80C0FFFF;\">水元素伤害</span>与<span style=\"color:#99FFFFFF;\">冰元素伤害</span>提升60%。",
+        "此外，<span style=\"color:#FFD780FF;\">遥久之歌</span>效果持续期间，队伍中附近的角色造成的星扩散反应伤害<span style=\"color:#FFD780FF;\">擢升</span>25%，造成的<span style=\"color:#80C0FFFF;\">水元素伤害</span>与<span style=\"color:#99FFFFFF;\">冰元素伤害</span>提升60%。",
         "<h3>● 擢升</h3>",
         "特殊的伤害提升效果，与其他的伤害提升效果分别独立计算。"
       ]
