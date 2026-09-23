@@ -26,7 +26,7 @@ export const details = [
   }
 ]
 
-export const defDmgIdx = 1
+export const defDmgIdx = 2
 export const mainAttr = 'hp,cpct,cdmg'
 
 export const buffs = [
