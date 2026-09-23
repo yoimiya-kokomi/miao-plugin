@@ -75,7 +75,7 @@ export const buffs = [
     title: '薇斯纳2命：拥有最大层数的整肃时，薇斯纳的攻击力提升[atkPct]%',
     cons: 2,
     data: {
-      atkPct: 60
+      atkPct: 40
     }
   },
   {

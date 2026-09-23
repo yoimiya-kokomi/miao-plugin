@@ -340,6 +340,14 @@ export default function (step, staticStep) {
       refine: {
         mastery: step(120)
       }
-    }
+    },
+    柔风游弦: [staticStep('recharge', 20),{
+      title: '元素战技或元素爆发命中敌人时，获得一层「纯净者的圣咏」，该效果至多叠加3层，满层后队伍中附近的所有角色造成的星烁反应伤害提升[stellarConduct]%',
+      refine: {
+        stellarConduct: step(24),
+        stellarSwirl: step(24),
+        stellarVortex: step(24)
+      }
+    }]
   }
 }

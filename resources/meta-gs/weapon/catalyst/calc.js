@@ -300,9 +300,10 @@ export default function (step, staticStep) {
       }
     }],
     漩流颂歌: {
-      title: '治疗加成提升[heal]%',
+      title: '治疗加成提升[heal]%，进行治疗时，生命值上限提升[hpPct]%',
       refine: {
-        heal: step(4)
+        heal: step(4),
+				hpPct: step(4 * 3 * 1.75)
       }
     }
   }
