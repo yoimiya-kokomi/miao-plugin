@@ -170,7 +170,20 @@ async function updateMiaoPlugin (e) {
       msg: '重启成功，新版喵喵已经生效',
       qq: e.user_id
     }, 30)
-    timer = setTimeout(function () {
+    timer = setTimeout(async function () {
+      // TRSS-Yunzai下使用其自带的Bot.restart重启：
+      // 直接以node app启动时会继承当前控制台重新拉起进程（保持前台stdin可用），pm2下由pm2负责重启
+      // 若走下方的npm run start，在TRSS-Yunzai中该命令实际为pm2 start（后台守护进程），
+      // 会导致更新后Yunzai脱离当前控制台、转为后台运行
+      if (Version.name === 'TRSS-Yunzai' && Bot.restart) {
+        try {
+          await Bot.restart()
+        } catch (error) {
+          e.reply('自动重启失败，请手动重启以应用新版喵喵。\nError: ' + error.stack + '\n')
+          Bot.logger.error(`重启失败\n${error.stack}`)
+        }
+        return
+      }
       let command = 'npm run start'
       if (process.argv[1].includes('pm2')) {
         command = 'npm run restart'
