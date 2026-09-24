@@ -15,7 +15,7 @@ export const details = [
   {
     check: ({ cons }) => cons >= 1,
     params: ({ cons }) => ({ cons_4: cons >= 4 }),
-		title: '1命提供攻击力提升',
+    title: '1命提供攻击力提升',
     dmg: ({ attr, calc }) => { return { avg: calc(attr.hp) * 0.8 / 100 }}
   },
   {
