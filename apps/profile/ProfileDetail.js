@@ -48,8 +48,8 @@ let ProfileDetail = {
       msg = msg.replace(uidRet[0], '')
     }
 
-    let name = msg.replace(/#|老婆|老公|星铁|原神/g, '').trim()
     msg = msg.replace('面版', '面板')
+    let name = msg.replace(/#|老婆|老公|星铁|原神/g, '').trim()
     let dmgRet = /(?:伤害|武器)(\d*)$/.exec(name)
     let dmgIdx = 0; let idxIsInput = false
     if (/(最强|最高|最高分|最牛|第一)/.test(msg)) {
