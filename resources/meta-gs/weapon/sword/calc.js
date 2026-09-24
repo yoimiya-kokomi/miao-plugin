@@ -355,7 +355,7 @@ export default function (step, staticStep) {
     },
     新枝: [{
       check: ({ element }) => !['冰', '雷', '风'].includes(element),
-			title: '命中敌人时，会获得「蓊郁」，攻击力提升[atkPct]%，元素精通提升[mastery]点',
+      title: '命中敌人时，会获得「蓊郁」，攻击力提升[atkPct]%，元素精通提升[mastery]点',
       refine: {
         atkPct: step(4),
         mastery: step(20),

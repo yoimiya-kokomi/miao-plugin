@@ -13,6 +13,12 @@ export const details = [
     dmg: ({ attr, calc, talent }, { heal }) => heal(calc(attr.hp) * talent.e['遥久之歌治疗量2'][1] / 100 + talent.e['遥久之歌治疗量2'][0])
   },
   {
+    check: ({ cons }) => cons >= 1,
+    params: ({ cons }) => ({ cons_4: cons >= 4 }),
+    title: '1命提供攻击力提升',
+    dmg: ({ attr, calc }) => { return { avg: calc(attr.hp) * 0.8 / 100 }}
+  },
+  {
     cons: 4,
     title: '4命buff E唤春角笛后台伤害',
     params: { cons_4: true },
