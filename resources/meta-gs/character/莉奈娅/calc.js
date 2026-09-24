@@ -9,8 +9,8 @@ export const details = [
     dmg: ({ attr, calc, cons, talent } , { basic }) => basic(calc(attr.def) * talent.e['露米加力重锤伤害'] / 100, '', 'lunarCrystallize')
   },
   {
-    params: { Moonsign_Benediction: true, cons_1_2: true, cons_2: true },
-    title: '满辉·露米百万吨重锤伤害（后台）',
+    params: { Moonsign_Benediction: true, cons_1_2: true, cons_2: true, cons_4_def50: true },
+    title: '满辉·露米百万吨重锤伤害',
     dmg: ({ attr, calc, cons, talent } , { basic }) => basic(calc(attr.def) * talent.e['露米百万吨重锤伤害'] / 100, '', 'lunarCrystallize')
   },
   {
@@ -85,7 +85,7 @@ export const buffs = [
     title: '莉奈娅4命：触发月笼谐奏后的5秒内，莉奈娅与队伍中自己的当前场上角色的防御力分别提升[defPct]%',
     cons: 4,
     data: {
-      defPct: 25
+      defPct: ({ params }) => (params.cons_4_def50 === true ? 50 : 25)
     }
   },
   {
