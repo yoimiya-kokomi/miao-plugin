@@ -19,10 +19,13 @@ const Render = {
         }
         let resPath = data.pluResPath
         const layoutPath = miaoPath + '/resources/common/layout/'
+        // 图片地址：带协议（如file://）的绝对地址原样使用，其余拼接resources目录前缀
+        const _imgUrl = (img = '') => (/^[a-z][a-z0-9+.-]*:/i.test(img) ? img : `${resPath}${img}`)
         return {
           _miao_path: resPath,
           ...data,
           _res_path: resPath,
+          _imgUrl,
           _layout_path: layoutPath,
           _tpl_path: miaoPath + '/resources/common/tpl/',
           defaultLayout: layoutPath + 'default.html',

@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import path from 'node:path'
 import { promisify } from 'util'
 import { pipeline } from 'stream'
 import MD5 from 'md5'
@@ -6,6 +7,7 @@ import fetch from 'node-fetch'
 import lodash from 'lodash'
 import { Cfg, Data } from '#miao'
 import { Character } from '#miao.models'
+import CharImg from '../../models/character/CharImg.js'
 import { miaoPath } from '#miao.path'
 
 const resPath = miaoPath + '/resources/'
@@ -199,23 +201,57 @@ export async function delProfileImg (e) {
     return false
   }
   let name = char.name
-  let pathSuffix = `profile/normal-character/${name}`
-  let path = resPath + pathSuffix
   let num = e.msg.match(/\d+/)
   if (!num) {
     e.reply(`删除哪张捏？请输入数字序列号,可输入【#${name}面板图列表】查看序列号`)
     return
   }
   try {
-    let imgs = fs.readdirSync(`${path}`).filter((file) => {
-      return /\.(png|webp)$/.test(file)
-    })
-    fs.unlinkSync(`${path}/${imgs[num - 1]}`)
+    // 与#面板图列表的可删除段使用同一套枚举，保证序号一致
+    let imgs = CharImg.getProfileImgFiles(getProfileImgBase(), name)
+    fs.unlinkSync(imgs[num - 1])
     e.reply('删除成功')
   } catch (err) {
     e.reply('删除失败，请检查序列号是否正确')
   }
   return true
+}
+
+// 默认图库（可写）的普通立绘目录
+function getProfileImgBase () {
+  return `${resPath}profile/normal-character`
+}
+
+/**
+ * 获取面板图列表数据
+ * 默认图库（resources/profile/normal-character/{角色}/）内的图片可按序号删除
+ * 自定义图库源（含平铺层、单文件形式）仅用于展示，只读
+ * @param name 角色名
+ * @returns {{delFiles: string[], otherFiles: string[]}} 图片的绝对路径列表
+ */
+export function getProfileImgListData (name) {
+  let delFiles = []
+  try {
+    delFiles = CharImg.getProfileImgFiles(getProfileImgBase(), name)
+  } catch (err) {
+    logger.error(err)
+  }
+  let seen = {}
+  lodash.forEach(delFiles, (file) => {
+    seen[path.resolve(file)] = true
+  })
+  let otherFiles = []
+  lodash.forEach(CharImg.getProfileImgSrc(), (src) => {
+    lodash.forEach([`${src}/normal-character`, src], (base) => {
+      lodash.forEach(CharImg.getProfileImgFiles(base, name), (file) => {
+        if (!seen[path.resolve(file)]) {
+          seen[path.resolve(file)] = true
+          otherFiles.push(file)
+        }
+      })
+    })
+  })
+  return { delFiles, otherFiles }
 }
 
 export async function profileImgList (e) {
@@ -229,24 +265,31 @@ export async function profileImgList (e) {
     return true
   }
   let name = char.name
-  let pathSuffix = `profile/normal-character/${name}`
-  let path = resPath + pathSuffix
-  if (!fs.existsSync(path)) {
+  let { delFiles, otherFiles } = getProfileImgListData(name)
+  if (delFiles.length + otherFiles.length === 0) {
     e.reply(`暂无${char.name}的角色面板图`)
     return true
   }
   try {
-    let imgs = fs.readdirSync(`${path}`).filter((file) => {
-      return /\.(png|webp)$/.test(file)
-    })
     msglist.push({
-      message: [`当前查看的是${name}面板图,共${imgs.length}张，可输入【#删除${name}面板图(序列号)】进行删除`],
+      message: [`当前查看的是${name}面板图,共${delFiles.length}张，可输入【#删除${name}面板图(序列号)】进行删除`],
     })
-    for (let i = 0; i < imgs.length; i++) {
-      // 合并转发最多99？ 但是我感觉不会有这么多先不做处理
-      console.log(`${path}${imgs[i]}`)
+    // 合并转发最多99？ 但是我感觉不会有这么多先不做处理
+    lodash.forEach(delFiles, (file, idx) => {
+      console.log(file)
       msglist.push({
-        message: [`${i + 1}.`, segment.image(`file://${path}/${imgs[i]}`)],
+        message: [`${idx + 1}.`, segment.image(`file://${file}`)],
+      })
+    })
+    if (otherFiles.length > 0) {
+      msglist.push({
+        message: [`以下${otherFiles.length}张来自自定义图库，仅展示，无法删除`],
+      })
+      lodash.forEach(otherFiles, (file, idx) => {
+        console.log(file)
+        msglist.push({
+          message: [`自定义图库 ${idx + 1}.`, segment.image(`file://${file}`)],
+        })
       })
     }
     let msg
