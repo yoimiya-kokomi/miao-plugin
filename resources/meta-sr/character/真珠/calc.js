@@ -1,14 +1,15 @@
 export const details = [{
   title: '战技治疗',
-  dmg: ({ talent, attr }, { heal }) => heal(attr.def * talent.e['目标治疗·百分比生命'] + talent.e['目标治疗·固定值'])
+  dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.def) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值'])
 }, {
   title: '强普治疗',
-  dmg: ({ talent, attr }, { heal }) => heal(attr.def * talent.a2['目标治疗·百分比生命'] + talent.a2['目标治疗·固定值'])
+  dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.def) * talent.a2['治疗·百分比生命'] + talent.a2['治疗·固定值'])
 }]
 
 export const defDmgIdx = 1
 export const defParams = { certifiedBanger: 50 }
-export const mainAttr = 'def,cpct,cdmg'
+export const mainAttr = 'def,heal,effDef,speed'
+export const createdBy = '欧阳青瓜'
 
 export const buffs = [{
   title: '行迹-洞察万物：自身欢愉度提高[joy]%。治疗量加成[heal]%。',
