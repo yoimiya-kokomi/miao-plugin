@@ -43,3 +43,24 @@ export const miaoApi = {
  * 会以服务侧查询冷却为准（在服务侧冷却时间内，即使请求也不会返回更新数据）
  * */
 export const requestInterval = 5
+
+/**
+ * 自定义面板图（立绘）的图库源列表
+ *
+ * 可配置多个源；同一层级（normal-character / super-character）的源会合并后随机使用，配置顺序不影响结果
+ * 支持绝对路径，或相对resources目录的相对路径（使用..可读取插件目录外的图库）
+ * 默认使用resources/profile/目录（定义于config/system/profile_system.js）
+ *
+ * 支持的图库结构（角色名后的图片可为目录，也可为{角色名}.webp|png|jpg|jpeg单文件）：
+ *   {源}/normal-character/{角色名}  普通立绘
+ *   {源}/super-character/{角色名}   彩蛋立绘（满命/ACE/三皇冠），无平铺形式
+ *   {源}/{角色名}                   平铺形式，等同于普通立绘（部分第三方图库没有normal-character层）
+ * 跨盘（如插件在C盘、图库在E盘）请直接填写绝对路径
+ *
+ * 注意：#上传面板图、#删除面板图 仍只作用于resources/profile/normal-character/，
+ *      建议保留'profile'，否则上传的图片不会被读取；
+ *      #面板图列表 会一并展示自定义图库（含平铺层）的图片，但仅默认图库的图片可删除
+ * */
+export const profileImgSrc = [
+  'profile'
+]

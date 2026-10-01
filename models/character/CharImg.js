@@ -2,11 +2,18 @@
  * 角色照片及角色图像资源相关
  * */
 import fs from 'node:fs'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 import lodash from 'lodash'
 import sizeOf from 'image-size'
+import { Data } from '#miao'
 import { miaoPath } from '#miao.path'
 
 const rPath = `${miaoPath}/resources`
+// 面板图（自定义立绘）支持的图片格式
+const profileImgReg = /\.(png|webp|jpe?g)$/i
+const profileImgExt = ['webp', 'png', 'jpg', 'jpeg']
+let { sysCfg, diyCfg } = await Data.importCfg('profile')
 const CharImg = {
 
   // 获取角色的插画
@@ -81,6 +88,104 @@ const CharImg = {
         return defImg
       }
     }
+  },
+
+  /**
+   * 获取自定义面板图（立绘）的图库源列表
+   * 依次读取config/profile.js、config/system/profile_system.js的profileImgSrc配置
+   * 相对路径以resources目录为基准，配置为空或无效时回落到系统默认源
+   * @returns {string[]} 图库源的绝对路径列表
+   */
+  getProfileImgSrc () {
+    for (let src of [diyCfg.profileImgSrc, sysCfg.profileImgSrc, ['profile']]) {
+      if (!src) {
+        continue
+      }
+      if (!lodash.isArray(src)) {
+        src = [src]
+      }
+      let ret = []
+      lodash.forEach(src, (ds) => {
+        ds = lodash.isString(ds) ? lodash.trim(ds) : ''
+        if (ds) {
+          ret.push(path.isAbsolute(ds) ? ds : path.join(rPath, ds))
+        }
+      })
+      if (ret.length > 0) {
+        return ret
+      }
+    }
+    return [path.join(rPath, 'profile')]
+  },
+
+  /**
+   * 合并读取指定角色的面板图候选列表
+   * 同层级的所有图库源合并，源不存在/无权限/为空时跳过，不影响其他源
+   * 支持 {源}/{tier}/{角色名} 与平铺的 {源}/{角色名} 两种布局（目录或单文件均可）
+   * @param name 角色名
+   * @param isSuper 是否读取彩蛋立绘（满命/ACE/三皇冠）目录；平铺层仅在普通立绘时读取
+   * @returns {string[]} 可被模板引用的图片路径（resources相对路径或file://绝对路径）
+   */
+  getProfileImgPool (name, isSuper = false) {
+    let tier = isSuper ? 'super-character' : 'normal-character'
+    let files = []
+    lodash.forEach(CharImg.getProfileImgSrc(), (src) => {
+      files = files.concat(CharImg.getProfileImgFiles(`${src}/${tier}`, name))
+      // 平铺层：图库源下直接存放角色目录/文件（部分第三方图库没有tier层）
+      if (!isSuper) {
+        files = files.concat(CharImg.getProfileImgFiles(src, name))
+      }
+    })
+    return lodash.map(files, (file) => CharImg.getProfileImgRes(file))
+  },
+
+  /**
+   * 读取指定目录下某个角色的面板图文件
+   * @param base 图库层目录，如 {源}/normal-character，或平铺时的图库源根目录
+   * @param name 角色名
+   * @returns {string[]} 图片的绝对路径列表（单文件形式在前，目录形式在后）
+   */
+  getProfileImgFiles (base, name) {
+    let ret = []
+    // 单文件形式：{base}/{角色名}.webp|png|jpg|jpeg
+    lodash.forEach(profileImgExt, (type) => {
+      let file = `${base}/${name}.${type}`
+      if (fs.existsSync(file)) {
+        ret.push(file)
+      }
+    })
+    // 目录形式：{base}/{角色名}/
+    let dir = `${base}/${name}`
+    let files = []
+    try {
+      if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
+        files = fs.readdirSync(dir)
+      }
+    } catch (e) {
+      logger?.warn(`miao-plugin: 面板图目录读取失败 ${dir}`)
+      return ret
+    }
+    lodash.forEach(files, (file) => {
+      if (profileImgReg.test(file)) {
+        ret.push(`${dir}/${file}`)
+      }
+    })
+    return ret
+  },
+
+  /**
+   * 将面板图绝对路径转为模板可引用的路径
+   * resources目录内及可相对表示的路径返回相对路径，其余（如跨盘）返回file://绝对地址
+   * @param file 图片绝对路径
+   * @returns {string}
+   */
+  getProfileImgRes (file) {
+    let name = encodeURIComponent(path.basename(file))
+    let relative = path.relative(rPath, path.dirname(file)).replace(/\\/g, '/')
+    if (!path.isAbsolute(relative)) {
+      return relative ? `${relative}/${name}` : name
+    }
+    return pathToFileURL(file).href
   },
 
   // 获取角色的图像资源数据

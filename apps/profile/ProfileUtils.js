@@ -49,7 +49,12 @@ export async function getOriginalPicture (e) {
         }
       }
       if (imgPath && imgPath.img) {
-        e.reply(segment.image(`file://${miaoPath}/resources/${decodeURIComponent(imgPath.img)}`), false, { recallMsg: 30 })
+        let img = imgPath.img
+        // 自定义图库源可能返回file://绝对地址（跨盘等），其余按resources相对路径处理
+        let url = /^file:\/\//i.test(img)
+          ? `file://${decodeURIComponent(img.replace(/^file:\/+/i, ''))}`
+          : `file://${miaoPath}/resources/${decodeURIComponent(img)}`
+        e.reply(segment.image(url), false, { recallMsg: 30 })
       }
       return true
     }

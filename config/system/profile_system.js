@@ -78,4 +78,9 @@ export const mysPanelHSRApi = {
 
 export const requestInterval = 3
 
+// 自定义面板图（立绘）的默认图库源，如需自定义请复制修改profile_default.js
+export const profileImgSrc = [
+  'profile'
+]
+
 export const isSys = true
