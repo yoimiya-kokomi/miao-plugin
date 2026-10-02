@@ -10,7 +10,7 @@ import { Data, Format, Cfg, Meta } from '#miao'
 import CharImg from './character/CharImg.js'
 import CharTalent from './character/CharTalent.js'
 import CharId from './character/CharId.js'
-import CharMeta from './character/CharMeta.js'
+import CharMeta, { srAttrName } from './character/CharMeta.js'
 import CharCfg from './character/CharCfg.js'
 
 let metaKey = 'abbr,star,elem,weapon,talentId,talentCons,eta'.split(',')
@@ -227,6 +227,20 @@ class Character extends Base {
 
   // 获取attr列表
   getAttrList () {
+    if (this.isSr) {
+      // 星铁基础属性直接取角色数据的 baseAttr（即80级、满晋阶数值）
+      let ret = []
+      lodash.forEach(srAttrName, (title, key) => {
+        let val = this.baseAttr[key]
+        if (val !== undefined && val !== null && !isNaN(val * 1)) {
+          ret.push({ title, value: Format.comma(val, 1) })
+        }
+      })
+      if (this.sp) {
+        ret.push({ title: '能量上限', value: this.sp })
+      }
+      return ret
+    }
     let { baseAttr, growAttr } = this
     return CharMeta.getAttrList(baseAttr, growAttr, this.elemName)
   }
