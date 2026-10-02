@@ -35,7 +35,7 @@ export const buffs = [{
     atk: 30
   }
 }, {
-  title: '夏洛蒂4命：Q命中带有E印记的敌人时，Q造成的伤害提升[dmg]%',
+  title: '夏洛蒂4命：Q命中带有E印记的敌人时，Q造成的伤害提升[qDmg]%',
   cons: 4,
   data: {
     qDmg: 10

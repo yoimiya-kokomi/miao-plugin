@@ -120,17 +120,18 @@ const ProfileAvatar = {
           break
       }
     }
+    let defImgs = [`${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
     if (isSuper) {
-      return CharImg.getRandomImg(
-        [`profile/super-character/${name}`, `profile/normal-character/${name}`],
-        [`${nPath}/imgs/splash0.webp`, `${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
-      )
-    } else {
-      return CharImg.getRandomImg(
-        [`profile/normal-character/${name}`],
-        [`${nPath}/imgs/splash${costume}.webp`, `/${nPath}/imgs/splash.webp`]
-      )
+      defImgs.unshift(`${nPath}/imgs/splash0.webp`)
     }
+    // 自定义面板图：彩蛋立绘（super）优先于普通立绘，同层级合并所有图库源
+    for (let tier of isSuper ? ['super', 'normal'] : ['normal']) {
+      let imgs = CharImg.getProfileImgPool(name, tier === 'super')
+      if (imgs.length > 0) {
+        return lodash.sample(imgs)
+      }
+    }
+    return CharImg.getRandomImg([], defImgs)
   },
 
   getServ (uid, game = 'gs') {

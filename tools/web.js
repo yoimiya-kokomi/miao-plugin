@@ -60,6 +60,8 @@ app.get('/:page', function (req, res) {
     data._res_path = `/plugins/${data._plugin}/resources/`
     data.pluResPath = data._res_path
   }
+  // 与components/common/Render.js保持一致：带协议的图片地址原样使用，其余拼接resources目录前缀
+  data._imgUrl = (img = '') => (/^[a-z][a-z0-9+.-]*:/i.test(img) ? img : `${data._res_path}${img}`)
   let htmlPath = ''
   if (data._plugin === 'genshin') {
     htmlPath = 'html/'
