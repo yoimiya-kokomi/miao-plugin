@@ -275,4 +275,25 @@ body {
   bottom: 5px;
   right: 5px;
 }
+/* 星铁图鉴：属性行更多（无命之座/生日，改为命途/属性），材料名更长需加宽卡片 */
+.sr-wiki .char-attr li {
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+}
+.sr-wiki .material-list {
+  width: 330px;
+  flex-wrap: wrap;
+}
+.sr-wiki .material-list .item-card {
+  width: 60px;
+}
+.sr-wiki .material-list .item-title {
+  width: 88px;
+}
+.sr-wiki .material-list .num {
+  width: 100%;
+  margin: 0;
+  font-size: 11px;
+}
 /*# sourceMappingURL=character-wiki.css.map */

@@ -30,6 +30,14 @@ export const growAttrName = {
   phy: '物伤'
 }
 
+// 星铁基础属性（按80级，嘲讽/能量上限取自角色数据）
+export const srAttrName = {
+  hp: '基础生命',
+  atk: '基础攻击',
+  def: '基础防御',
+  speed: '速度',
+  aggro: '嘲讽'
+}
 const mKeys = [{
   key: 'gem',
   num: '1/9/9/6'
@@ -116,6 +124,17 @@ const CharMeta = {
     return ret
   },
   getMaterials (char, type = 'all') {
+    if (char.isSr) {
+      // 星铁材料不区分天赋/武器/周本类型，清单与数量直接取自角色数据的 talent-materials 字段
+      if (type !== 'all') {
+        return undefined
+      }
+      let tm = char.getDetail()['talent-materials'] || {}
+      return lodash.map(tm, (num, name) => {
+        let mat = Material.get(name, 'sr')
+        return mat ? { ...mat.getData('label,star,icon,type'), num } : false
+      }).filter(v => v)
+    }
     let ds = char.materials
     let ret = []
     lodash.forEach(mKeys, (cfg) => {

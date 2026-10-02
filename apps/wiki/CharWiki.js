@@ -78,10 +78,6 @@ const CharWiki = {
         e.reply('暂不支持该角色图鉴展示')
         return true
       }
-      if (char.isSr) {
-        e.reply('暂不支持星铁角色')
-        return true
-      }
       return await CharWiki.render({ e, char })
     } else if (mode === 'material') {
       return CharMaterial.render({ e, char })
@@ -92,9 +88,10 @@ const CharWiki = {
   async render ({ e, char }) {
     let data = char.getData()
     lodash.extend(data, char.getData('weaponTypeName,elemName'))
-    // 命座持有
-    let holding = await CharWikiData.getHolding(char.id)
-    let usage = await CharWikiData.getUsage(char.id)
+    // 星铁无对应API统计，不展示持有率/武器/遗器
+    let holding = char.isSr ? false : await CharWikiData.getHolding(char.id)
+    let usage = char.isSr ? {} : await CharWikiData.getUsage(char.id)
+    data.isSr = char.isSr
     return await Common.render('wiki/character-wiki', {
       data,
       attr: char.getAttrList(),
@@ -103,7 +100,8 @@ const CharWiki = {
       holding,
       usage,
       materials: char.getMaterials(),
-      elem: char.elem
+      elem: char.elem,
+      bodyClass: char.isSr ? 'sr-wiki' : ''
     }, { e, scale: 1.4 })
   }
 }
