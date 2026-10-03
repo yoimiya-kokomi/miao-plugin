@@ -119,6 +119,12 @@ export const cfgSchema = {
         def: true,
         desc: '开启彩蛋图（三皇冠/ACE/满命）及自定义面板图，关闭使用官方立绘'
       },
+      proShareProfileImg: {
+        title: '加强角色共用面板图',
+        key: '共用面板图',
+        def: false,
+        desc: '开启后，加强版角色（如花火Pro）在没有单独面板图时，会与原角色（花火）共用面板图；若加强版有单独面板图则优先使用。关闭则各用各的。'
+      },
       teamCalc: {
         title: '组队加成伤害',
         key: '组队',

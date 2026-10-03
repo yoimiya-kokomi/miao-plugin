@@ -6,7 +6,7 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import lodash from 'lodash'
 import sizeOf from 'image-size'
-import { Data } from '#miao'
+import { Data, Cfg } from '#miao'
 import { miaoPath } from '#miao.path'
 
 const rPath = `${miaoPath}/resources`
@@ -128,14 +128,23 @@ const CharImg = {
    */
   getProfileImgPool (name, isSuper = false) {
     let tier = isSuper ? 'super-character' : 'normal-character'
-    let files = []
-    lodash.forEach(CharImg.getProfileImgSrc(), (src) => {
-      files = files.concat(CharImg.getProfileImgFiles(`${src}/${tier}`, name))
-      // 平铺层：图库源下直接存放角色目录/文件（部分第三方图库没有tier层）
-      if (!isSuper) {
-        files = files.concat(CharImg.getProfileImgFiles(src, name))
-      }
-    })
+    // 收集指定角色在当前层级（含平铺层）下的所有面板图
+    let collect = (charName) => {
+      let files = []
+      lodash.forEach(CharImg.getProfileImgSrc(), (src) => {
+        files = files.concat(CharImg.getProfileImgFiles(`${src}/${tier}`, charName))
+        // 平铺层：图库源下直接存放角色目录/文件（部分第三方图库没有tier层）
+        if (!isSuper) {
+          files = files.concat(CharImg.getProfileImgFiles(src, charName))
+        }
+      })
+      return files
+    }
+    let files = collect(name)
+    // 加强角色（名称以Pro结尾）共用面板图：Pro无专属面板图时回落至原角色
+    if (files.length === 0 && /Pro$/.test(name) && Cfg.get('proShareProfileImg', false)) {
+      files = collect(name.replace(/Pro$/, ''))
+    }
     return lodash.map(files, (file) => CharImg.getProfileImgRes(file))
   },
 
