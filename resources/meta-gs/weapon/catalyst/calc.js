@@ -305,6 +305,23 @@ export default function (step, staticStep) {
         heal: step(4),
 				hpPct: step(4 * 3 * 1.75)
       }
-    }
+    },
+    凝雪沉心: [{
+      check: ({ element }) => !['冰', '雷'].includes(element),
+      title: '(队友2冰1雷)获得「银染的血契」效果，元素精通提升[mastery]点，攻击力提升[atkPct]%',
+      refine: {
+        mastery: step(24 * 2),
+        atkPct: step(4.8),
+      }
+    }, {
+      check: ({ element }) => ['冰', '雷'].includes(element),
+      title: '(队友3冰雷)辉映·星烁下，获得「银染的血契」效果，元素精通提升[mastery]点，星烁反应伤害提升[stellarConduct]%',
+      refine: {
+        mastery: step(20 * 4),
+        stellarConduct: step(6 * 4),
+        stellarSwirl: step(6 * 4),
+        stellarVortex: step(6 * 4)
+      }
+    }]
   }
 }
