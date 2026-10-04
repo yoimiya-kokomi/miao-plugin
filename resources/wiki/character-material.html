@@ -16,22 +16,27 @@
        style="background-image:url({{_res_path}}{{imgs.splash}})"></div>
   <div class="detail">
     <div class="char-title">
-      <div class="char-name"><span>{{data.title}} · </span>{{data.name}}</div>
+      <div class="char-name">{{if data.title}}<span>{{data.title}} · </span>{{/if}}{{data.name}}</div>
       <div class="char-lv char-desc">{{@data.desc}}</div>
     </div>
     <div class="char-meta">
       <div class="cont">
         <ul class="attr char-attr">
+          {{if data.isSr}}
+          <li><strong>命途</strong> <span>{{data.weaponTypeName}}</span></li>
+          <li><strong>属性</strong> <span>{{data.elemName}}</span></li>
+          {{else}}
           <li><strong>武器类型</strong> <span>{{data.weaponTypeName}}</span></li>
           <li><strong>命之座</strong> <span>{{data.astro}}</span></li>
           <li><strong>生日</strong> <span>{{data.birthday}}</span></li>
+          {{/if}}
           <li><strong>归属</strong> <span>{{data.allegiance}}</span></li>
           <li><strong>中文CV</strong> <span>{{data.cncv}}</span></li>
           <li><strong>日文CV</strong> <span>{{data.jpcv}}</span></li>
         </ul>
       </div>
       <div class="cont">
-        <div class="cont-title">100级基础属性</div>
+        <div class="cont-title">{{if data.isSr}}80级{{else}}100级{{/if}}基础属性</div>
         <ul class="attr char-attr">
           {{each attr ds}}
           <li><strong>{{ds.title}}</strong> <span>{{ds.value}}</span></li>
