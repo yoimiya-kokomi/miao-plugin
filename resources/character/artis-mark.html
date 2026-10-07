@@ -73,7 +73,7 @@
           <li>
             <span class="title">总分对齐</span>
             <span class="val">
-              *{{( 66 / (46.6/6/100 * charCfg.posMaxMark[idx]) * 100).toFixed(1)}}%
+              *{{( 66 / (46.6/6/100 * (ds.pMax || charCfg.posMaxMark[idx])) * 100).toFixed(1)}}%
             </span>
           </li>
           {{if idx>2 || game==='sr' }}
