@@ -131,7 +131,8 @@ let ArtisMark = {
     lodash.forEach(sAttr, (ds) => {
       ret += (attrs[ds.key]?.mark || 0) * (ds.value || 0)
     })
-    return pMax > 0 ? ret * (1 + fixPct) / 2 / pMax * 66 : 0
+    // 星铁算法可能导致超出70不显示评级，但源码规则最高应为66，老毛病了索性不管
+    return pMax > 0 ? Math.min(ret * (1 + fixPct) / 2 / pMax * 66, 70) : 0
   },
 
   // 获取主词条对应的评分key，元素伤害主词条按dmg计
