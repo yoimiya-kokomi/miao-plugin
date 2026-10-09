@@ -103,7 +103,7 @@ function getMatchedCards (source = {}, target = {}, tarotCardState) {
 
 export async function RoleCard (e) {
   let rawMsg = e.original_msg || e.msg || ''
-  let isMatch = /^#(喵喵)(月谕|越狱|幻想|幻境|剧诗|幻想真境剧诗)(圣牌|卡片|卡牌|塔罗牌|card|tarot)(收藏|收集)?$/.test(rawMsg)
+  let isMatch = /^#(喵喵)(月谕|月喻|越狱|幻想|幻境|剧诗|幻想真境剧诗)(圣牌|卡片|卡牌|塔罗牌|card|tarot)(收藏|收集)?$/.test(rawMsg)
   if (!Cfg.get('roleCard', false) && !isMatch) {
     return false
   }
