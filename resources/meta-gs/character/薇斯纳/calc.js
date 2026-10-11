@@ -48,8 +48,8 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [
   {
-    title: '薇斯纳天赋：每有一位元素类型为冰元素或风元素的角色：薇斯纳的攻击力提升6%（默认3位）；' +
-      '每有一位不为上述元素类型的角色：薇斯纳的元素精通提升25点。（默认1位）',
+    title: '薇斯纳天赋：每有一位元素类型为冰元素或风元素的角色，薇斯纳的攻击力提升6%（默认3位）；' +
+      '每有一位不为上述元素类型的角色，薇斯纳的元素精通提升25点。（默认1位）',
     data: {
       atkPct: ({ cons, params }) => (params.num1 || 3) * (cons >= 4 ? 6 * 3 : 6),
       mastery: ({ cons, params }) => (params.num2 || 1) * (cons >= 4 ? 25 * 3 : 25)

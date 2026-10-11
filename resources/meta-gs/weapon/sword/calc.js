@@ -357,17 +357,17 @@ export default function (step, staticStep) {
       check: ({ element }) => !['冰', '雷', '风'].includes(element),
       title: '命中敌人时，会获得「蓊郁」，攻击力提升[atkPct]%，元素精通提升[mastery]点',
       refine: {
-        atkPct: step(4),
-        mastery: step(20),
+        atkPct: step(4 * 3),
+        mastery: step(20 * 3),
       }
     }, {
       check: ({ element }) => ['冰', '雷', '风'].includes(element),
       title: '辉映·星烁下，装备者的攻击命中敌人时，会获得「蓊郁」，攻击力提升[atkPct]%，且装备者造成的星烁反应伤害提升[stellarConduct]%',
       refine: {
-        atkPct: step(6),
-        stellarConduct: step(8),
-        stellarSwirl: step(8),
-        stellarVortex: step(8)
+        atkPct: step(6 * 3),
+        stellarConduct: step(8 * 3),
+        stellarSwirl: step(8 * 3),
+        stellarVortex: step(8 * 3)
       }
     }],
     银釭: {

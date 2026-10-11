@@ -15,6 +15,8 @@ import { poolDetailSr } from '../../resources/meta-sr/info/index.js'
 // 每行最多展示的图标数量，超出自动换行
 const maxRowNum = 8
 
+const DAY_MS = 24 * 60 * 60 * 1000
+
 // 卡池展示分组，顺序固定：五星角色 / 四星角色 / 五星武器 / 四星武器
 const poolGroups = [
   { key: 'char5', type: 'char', star: 5, title: '五星角色' },
@@ -149,10 +151,87 @@ const GachaPool = {
   },
 
   /**
-   * 查询并格式化卡池绘图数据
+   * 版本号转可比较数值，如 6.0 -> 6000，6.7 -> 6007
+   */
+  versionValue (version) {
+    let val = 0
+    lodash.forEach(String(version || '').split('.'), (n) => {
+      val = val * 1000 + (parseInt(n, 10) || 0)
+    })
+    return val
+  },
+
+  /**
+   * 卡池倒序排序：新版本在前，同版本「下半」在「上半」之前
+   */
+  sortPoolsDesc (pools) {
+    return lodash.orderBy(pools, [
+      (p) => this.versionValue(p.version),
+      (p) => (p.half === '下半' ? 1 : 0)
+    ], ['desc', 'desc'])
+  },
+
+  /**
+   * 解析卡池时间字符串为时间戳（本地时区）
+   * 兼容 `2024-01-09 18:00:00` / `2024/01/09 18:00` 等格式
+   */
+  parseDate (str) {
+    if (!str) {
+      return 0
+    }
+    let m = String(str).trim().replace(/\//g, '-')
+      .match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:[ T](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?/)
+    if (!m) {
+      return 0
+    }
+    return new Date(
+      +m[1], (+m[2]) - 1, +m[3],
+      +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)
+    ).getTime()
+  },
+
+  /**
+   * 计算复刻状态
+   * - 当前处于某个卡池区间内 -> 正在UP（绿色）
+   * - 否则返回距离最近一次卡池结束的天数 -> xx天未复刻（红色）
+   * @returns { up, days, text } 或 false
+   */
+  getReprintInfo (pools) {
+    if (!pools || !pools.length) {
+      return false
+    }
+    let now = Date.now()
+    let lastTo = 0
+    let ongoing = false
+    lodash.forEach(pools, (p) => {
+      let from = this.parseDate(p.from)
+      let to = this.parseDate(p.to)
+      if (from && to && now >= from && now <= to) {
+        ongoing = true
+      }
+      if (to && to > lastTo) {
+        lastTo = to
+      }
+    })
+    if (ongoing) {
+      return { up: true, days: 0, text: '该角色/武器正在UP' }
+    }
+    if (!lastTo) {
+      return false
+    }
+    let days = Math.floor((now - lastTo) / DAY_MS)
+    if (days < 0) {
+      days = 0
+    }
+    return { up: false, days, text: `该角色/武器已 ${days} 天未复刻` }
+  },
+
+  /**
+   * 查询并格式化卡池绘图数据（倒序，最新在前）
    */
   getData (game, version, half = '') {
-    return lodash.map(this.getPools(game, version, half), (pool) => this.formatPool(pool, game))
+    let pools = lodash.map(this.getPools(game, version, half), (pool) => this.formatPool(pool, game))
+    return this.sortPoolsDesc(pools)
   },
 
   /**
@@ -160,7 +239,7 @@ const GachaPool = {
    * @param item 角色名或武器名（支持别名，自动转换为标准名）
    * @param simple 是否精简模式（只保留包含 item 的那一行）
    * @param isSrPrefix 命令是否以 #星铁 开头（决定检索优先级）
-   * @returns { game, pools } 或 false
+   * @returns { game, pools, reprint } 或 false
    */
   searchByItem (item, simple = false, isSrPrefix = false) {
     let games = isSrPrefix ? ['sr', 'gs'] : ['gs', 'sr']
@@ -171,7 +250,12 @@ const GachaPool = {
       }
       let pools = this.findPools(resolved.game, resolved, simple)
       if (pools.length) {
-        return { game: resolved.game, pools }
+        let reprint = this.getReprintInfo(pools)
+        // 同时挂在数组和返回对象上，兼容不同的渲染调用方式
+        if (reprint) {
+          pools.reprint = reprint
+        }
+        return { game: resolved.game, pools, reprint, item: resolved }
       }
     }
     return false
@@ -206,7 +290,7 @@ const GachaPool = {
   },
 
   /**
-   * 在指定游戏的卡池数据中查找包含 item 的记录
+   * 在指定游戏的卡池数据中查找包含 item 的记录（倒序）
    * simple 模式下每条记录仅保留包含 item 的那一行
    */
   findPools (game, resolved, simple) {
@@ -217,9 +301,10 @@ const GachaPool = {
     if (!matched.length) {
       return []
     }
-    return lodash.map(matched, (pool) => {
+    let pools = lodash.map(matched, (pool) => {
       return simple ? this.formatSimplePool(pool, keys, name, game) : this.formatPool(pool, game)
     })
+    return this.sortPoolsDesc(pools)
   },
 
   /**

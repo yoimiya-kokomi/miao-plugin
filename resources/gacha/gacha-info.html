@@ -9,6 +9,11 @@
 
 {{block 'main'}}
 <div class="basic">
+  {{if pools.reprint}}
+  <div class="reprint-tip {{if pools.reprint.up}}is-up{{else}}is-away{{/if}}">
+    {{pools.reprint.text}}
+  </div>
+  {{/if}}
   {{each pools pool}}
   <div class="cont pool-cont">
     <div class="cont-title pool-title">

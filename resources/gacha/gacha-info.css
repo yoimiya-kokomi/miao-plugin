@@ -96,3 +96,17 @@
   position: relative;
   z-index: 4;
 }
+/* 顶部复刻提示：红色=未复刻，绿色=正在UP */
+.reprint-tip {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+  padding: 6px 20px 10px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+.reprint-tip.is-away {
+  color: #ff5a5a;
+}
+.reprint-tip.is-up {
+  color: #3ddc84;
+}
