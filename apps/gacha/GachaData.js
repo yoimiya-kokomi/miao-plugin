@@ -4,10 +4,7 @@ import { Character, Weapon } from '#miao.models'
 import { poolDetail, mixPoolDetail } from '../../resources/meta-gs/info/index.js'
 import { poolDetailSr } from '../../resources/meta-sr/info/index.js'
 import moment from 'moment'
-
-let { sysCfg, diyCfg } = await Data.importCfg('gacha')
-// 数组（评级档位）整体覆盖，不按下标合并
-let luckCfg = lodash.mergeWith({}, sysCfg.luckCfg, diyCfg.luckCfg, (obj, src) => lodash.isArray(src) ? src : undefined)
+import GachaLuck from './GachaLuck.js'
 
 let poolVersion = []
 lodash.forEach(poolDetail, (ds) => {
@@ -248,13 +245,14 @@ let GachaData = {
 
     // 有效抽卡
     let isvalidNum = 0
+    let upUsed = 0
     if (fiveNum > 0 && fiveNum > wai) {
       if (fiveLog.length > 0 && !fiveLog[0].isUp) {
-        isvalidNum = (allNum - noFiveNum - fiveLog[0].count) / (fiveNum - wai)
+        upUsed = allNum - noFiveNum - fiveLog[0].count
       } else {
-        isvalidNum = (allNum - noFiveNum) / (fiveNum - wai)
+        upUsed = allNum - noFiveNum
       }
-      isvalidNum = isvalidNum.toFixed(2)
+      isvalidNum = (upUsed / (fiveNum - wai)).toFixed(2)
     }
 
     let upYs = isvalidNum * 160
@@ -301,22 +299,28 @@ let GachaData = {
       noWaiRate = (smallWin / smallNum * 100).toFixed(1)
     }
 
-    let luck = GachaData.getLuck({
+    let luck = GachaLuck.get({
       game,
       type,
       isUpPool,
-      upAvg: isvalidNum * 1,
       upNum: fiveNum - wai,
-      fiveAvg: fiveAvg * 1,
+      upUsed,
       fiveNum,
+      fiveUsed: allNum - noFiveNum,
       smallNum,
-      smallWin,
-      bigNum,
-      maxUpStreak,
-      maxWaiStreak,
-      noWaiRate,
-      hasNewPool: lodash.some(fiveLog, (ds) => ds.isNewPool)
+      smallWin
     })
+    if (luck) {
+      lodash.extend(luck, {
+        smallNum,
+        smallWin,
+        bigNum,
+        noWaiRate,
+        maxUpStreak,
+        maxWaiStreak,
+        hasNewPool: lodash.some(fiveLog, (ds) => ds.isNewPool)
+      })
+    }
 
     if (noFiveNum > 0) {
       fiveLog.unshift({
@@ -353,43 +357,6 @@ let GachaData = {
       noWaiRate,
       luck,
       items: itemMap
-    }
-  },
-
-  // 欧皇度：实际抽数 / 理论期望抽数
-  getLuck (data) {
-    let { game, type, isUpPool } = data
-    let expect = luckCfg?.expect?.[game]?.[type] * 1
-    if (!luckCfg?.enable || !expect) {
-      return false
-    }
-    // UP池按UP平均计算，常驻/集录按平均出金计算
-    let value = isUpPool ? data.upAvg : data.fiveAvg
-    let sample = isUpPool ? data.upNum : data.fiveNum
-    if (!(value > 0) || !(sample > 0)) {
-      return false
-    }
-    let ratio = value / expect
-    let level = lodash.find(luckCfg.levels || [], (ds) => ratio <= ds.max) || lodash.last(luckCfg.levels)
-    if (!level) {
-      return false
-    }
-    let diff = (ratio - 1) * 100
-    return {
-      ...level,
-      ratio: ratio.toFixed(2),
-      value: value.toFixed(1),
-      expect: expect.toFixed(1),
-      diff: (diff > 0 ? '+' : '') + diff.toFixed(1) + '%',
-      isUpPool,
-      fewSample: sample < (luckCfg.minSample || 0),
-      smallNum: data.smallNum,
-      smallWin: data.smallWin,
-      bigNum: data.bigNum,
-      noWaiRate: data.noWaiRate,
-      maxUpStreak: data.maxUpStreak,
-      maxWaiStreak: data.maxWaiStreak,
-      hasNewPool: data.hasNewPool
     }
   },
 
