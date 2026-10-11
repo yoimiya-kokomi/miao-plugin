@@ -360,6 +360,19 @@ let GachaData = {
     }
   },
 
+  // 限制五星记录条数，避免图片过长无法发送；“已抽”不计入条数
+  limitLog (gacha, max) {
+    max = max * 1
+    let log = gacha.fiveLog || []
+    let keep = max + (log[0]?.id === 888 ? 1 : 0)
+    if (max > 0 && log.length > keep) {
+      gacha.shownNum = max
+      gacha.hiddenNum = log.length - keep
+      gacha.fiveLog = log.slice(0, keep)
+    }
+    return gacha
+  },
+
   // 卡池统计
   stat (qq, uid, type, game) {
     let items = []

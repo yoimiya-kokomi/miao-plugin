@@ -44,4 +44,11 @@ export const luckCfg = {
   minSample: 3
 }
 
+// 【#抽卡记录】图片设置
+export const detailCfg = {
+  // 最多显示的五星记录条数（不含“已抽”），超出的不显示，但统计数据仍包含全部记录
+  // 记录过多时图片太长可能无法发送；0 为不限制
+  maxLog: 30
+}
+
 export const isSys = true
