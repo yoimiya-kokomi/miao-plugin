@@ -229,3 +229,22 @@
   font-size: 13px;
   color: #aaa;
 }
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0 10px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  color: #ddd;
+}
+.page-head strong {
+  font-size: 20px;
+  color: #fff;
+  margin-right: 6px;
+}
+.page-head span {
+  color: #ffd484;
+}

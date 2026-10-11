@@ -12,6 +12,12 @@
 {{block 'main'}}
 {{ set gameHash = game === 'gs' ? '#' : '*'}}
 <div class="basic">
+  {{if pageInfo && pageInfo.page > 1}}
+  <div class="page-head">
+    <strong>{{face.name}}</strong> #{{uid}} · {{poolName}}池抽卡记录
+    <span>第 {{pageInfo.page}}/{{pageInfo.total}} 张</span>
+  </div>
+  {{else}}
   <div class="user-banner" style="background-image:url({{_res_path}}{{face?.banner}})">
     <div class="face">
       <span style="background-image:url({{_res_path}}{{face?.qFace||face?.face}})"></span>
@@ -99,6 +105,7 @@
   <div class="ck-notice">
     <strong>{{gameHash}}抽卡帮助</strong>获取抽卡链接，<strong>{{gameHash}}更新抽卡记录</strong>更新抽卡信息，<strong>{{gameHash}}抽卡统计</strong><strong>{{gameHash}}角色统计</strong>可查看按卡池分析结果
   </div>
+  {{/if}}
   <div class="cont avatar-cont">
     <div class="gacha-list">
       {{each gacha.fiveLog ds idx}}
@@ -128,7 +135,10 @@
       {{/each}}
     </div>
     {{if gacha.hiddenNum}}
-    <div class="gacha-more">仅显示最近 {{gacha.shownNum}} 条记录，更早的 {{gacha.hiddenNum}} 条未显示（顶部统计包含全部记录）</div>
+    <div class="gacha-more">仅显示最近 {{gacha.shownNum}} 条记录，更早的 {{gacha.hiddenNum}} 条未显示（顶部统计包含全部记录），发送 {{gameHash}}{{poolName}}全部记录 查看全部</div>
+    {{/if}}
+    {{if pageInfo}}
+    <div class="gacha-more">第 {{pageInfo.page}}/{{pageInfo.total}} 张 · 第 {{pageInfo.from}}~{{pageInfo.to}} 条，共 {{pageInfo.count}} 条五星记录</div>
     {{/if}}
   </div>
 </div>
