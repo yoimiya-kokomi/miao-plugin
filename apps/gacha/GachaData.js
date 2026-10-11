@@ -373,6 +373,27 @@ let GachaData = {
     return gacha
   },
 
+  // 按条数分页，“已抽”放在第一页且不计入条数；返回 [{ fiveLog, from, to, count }]
+  pageLog (gacha, size) {
+    size = size * 1
+    let log = gacha.fiveLog || []
+    let now = log[0]?.id === 888 ? [log[0]] : []
+    let items = log.slice(now.length)
+    if (!(size > 0) || items.length <= size) {
+      return [{ fiveLog: log, from: 1, to: items.length, count: items.length }]
+    }
+    let pages = []
+    for (let i = 0; i < items.length; i += size) {
+      pages.push({
+        fiveLog: (i === 0 ? now : []).concat(items.slice(i, i + size)),
+        from: i + 1,
+        to: Math.min(i + size, items.length),
+        count: items.length
+      })
+    }
+    return pages
+  },
+
   // 卡池统计
   stat (qq, uid, type, game) {
     let items = []
