@@ -5,6 +5,10 @@ import { poolDetail, mixPoolDetail } from '../../resources/meta-gs/info/index.js
 import { poolDetailSr } from '../../resources/meta-sr/info/index.js'
 import moment from 'moment'
 
+let { sysCfg, diyCfg } = await Data.importCfg('gacha')
+// 数组（评级档位）整体覆盖，不按下标合并
+let luckCfg = lodash.mergeWith({}, sysCfg.luckCfg, diyCfg.luckCfg, (obj, src) => lodash.isArray(src) ? src : undefined)
+
 let poolVersion = []
 lodash.forEach(poolDetail, (ds) => {
   poolVersion.push({
@@ -19,9 +23,9 @@ poolVersion.push({
   version: '新版本',
   half: '?',
   from: last.to,
-  to: '2025-12-31 23:59:59',
+  to: '2099-12-31 23:59:59',
   start: last.end,
-  end: new Date('2025-12-31 23:59:59')
+  end: new Date('2099-12-31 23:59:59')
 })
 
 let poolVersionSr = []
@@ -37,9 +41,9 @@ poolVersionSr.push({
   version: '新版本',
   half: '?',
   from: lastSr.to,
-  to: '2025-12-31 23:59:59',
+  to: '2099-12-31 23:59:59',
   start: lastSr.end,
-  end: new Date('2025-12-31 23:59:59')
+  end: new Date('2099-12-31 23:59:59')
 })
 
 let mixPoolVersion = []
@@ -55,9 +59,9 @@ mixPoolVersion.push({
   version: '新版本',
   half: '?',
   from: mixLast.to,
-  to: '2025-12-31 23:59:59',
+  to: '2099-12-31 23:59:59',
   start: mixLast.end,
-  end: new Date('2025-12-31 23:59:59')
+  end: new Date('2099-12-31 23:59:59')
 })
 
 let GachaData = {
@@ -159,7 +163,8 @@ let GachaData = {
     }
     let currVersion
     lodash.forEach(logData.items, (item) => {
-      if (!currVersion || (item.time < currVersion.start)) {
+      // 未匹配到卡池时没有start，需逐条重新匹配
+      if (!currVersion || !currVersion.start || (item.time < currVersion.start)) {
         currVersion = GachaData.getVersion(item.time, true, isMix, game)
       }
 
@@ -211,6 +216,7 @@ let GachaData = {
         fiveLog.push({
           id: item.id,
           isUp,
+          isNewPool: currVersion.version === '新版本',
           date: moment(item.time).format('MM-DD')
         })
       }
@@ -258,12 +264,59 @@ let GachaData = {
       upYs = upYs.toFixed(0)
     }
 
+    // 小保底/大保底：按时间正序，歪了之后的下一个五星为大保底
+    let isUpPool = [301, 302, 11, 12].includes(type * 1)
+    let smallNum = 0
+    let smallWin = 0
+    let maxUpStreak = 0
+    let maxWaiStreak = 0
+    if (isUpPool) {
+      let isGuarantee = false
+      let upStreak = 0
+      let waiStreak = 0
+      lodash.forEachRight(fiveLog, (ds) => {
+        if (isGuarantee) {
+          ds.isBig = true
+          bigNum++
+        } else {
+          smallNum++
+          if (ds.isUp) {
+            smallWin++
+            upStreak++
+            waiStreak = 0
+          } else {
+            waiStreak++
+            upStreak = 0
+          }
+          maxUpStreak = Math.max(maxUpStreak, upStreak)
+          maxWaiStreak = Math.max(maxWaiStreak, waiStreak)
+        }
+        isGuarantee = !ds.isUp
+      })
+    }
+
     // 小保底不歪概率
     let noWaiRate = 0
-    if (fiveNum > 0) {
-      noWaiRate = (fiveNum - bigNum - wai) / (fiveNum - bigNum)
-      noWaiRate = (noWaiRate * 100).toFixed(1)
+    if (smallNum > 0) {
+      noWaiRate = (smallWin / smallNum * 100).toFixed(1)
     }
+
+    let luck = GachaData.getLuck({
+      game,
+      type,
+      isUpPool,
+      upAvg: isvalidNum * 1,
+      upNum: fiveNum - wai,
+      fiveAvg: fiveAvg * 1,
+      fiveNum,
+      smallNum,
+      smallWin,
+      bigNum,
+      maxUpStreak,
+      maxWaiStreak,
+      noWaiRate,
+      hasNewPool: lodash.some(fiveLog, (ds) => ds.isNewPool)
+    })
 
     if (noFiveNum > 0) {
       fiveLog.unshift({
@@ -298,7 +351,45 @@ let GachaData = {
       maxFour: fourItem[0],
       fiveLog,
       noWaiRate,
+      luck,
       items: itemMap
+    }
+  },
+
+  // 欧皇度：实际抽数 / 理论期望抽数
+  getLuck (data) {
+    let { game, type, isUpPool } = data
+    let expect = luckCfg?.expect?.[game]?.[type] * 1
+    if (!luckCfg?.enable || !expect) {
+      return false
+    }
+    // UP池按UP平均计算，常驻/集录按平均出金计算
+    let value = isUpPool ? data.upAvg : data.fiveAvg
+    let sample = isUpPool ? data.upNum : data.fiveNum
+    if (!(value > 0) || !(sample > 0)) {
+      return false
+    }
+    let ratio = value / expect
+    let level = lodash.find(luckCfg.levels || [], (ds) => ratio <= ds.max) || lodash.last(luckCfg.levels)
+    if (!level) {
+      return false
+    }
+    let diff = (ratio - 1) * 100
+    return {
+      ...level,
+      ratio: ratio.toFixed(2),
+      value: value.toFixed(1),
+      expect: expect.toFixed(1),
+      diff: (diff > 0 ? '+' : '') + diff.toFixed(1) + '%',
+      isUpPool,
+      fewSample: sample < (luckCfg.minSample || 0),
+      smallNum: data.smallNum,
+      smallWin: data.smallWin,
+      bigNum: data.bigNum,
+      noWaiRate: data.noWaiRate,
+      maxUpStreak: data.maxUpStreak,
+      maxWaiStreak: data.maxWaiStreak,
+      hasNewPool: data.hasNewPool
     }
   },
 

@@ -38,6 +38,48 @@
     </div>
     {{/if}}
   </div>
+  {{set luck = gacha.luck}}
+  {{if luck}}
+  <div class="luck" style="--luck-color:{{luck.color}}">
+    <div class="luck-main">
+      <div class="luck-label">欧皇度</div>
+      <div class="luck-title">{{luck.title}}</div>
+      <div class="luck-desc">{{luck.desc}}</div>
+    </div>
+    <div class="luck-detail">
+      <div class="luck-line">
+        {{luck.isUpPool ? 'UP平均' : '平均出金'}} <strong>{{luck.value}}</strong> 抽，理论期望 {{luck.expect}} 抽
+        <span class="luck-diff {{luck.ratio > 1 ? 'bad' : 'good'}}">{{luck.diff}}</span>
+      </div>
+      {{if luck.isUpPool && luck.smallNum > 0}}
+      <div class="luck-stat">
+        <div class="luck-stat-li">
+          <strong>{{luck.noWaiRate}}%</strong>
+          <span>小保底不歪 {{luck.smallWin}}/{{luck.smallNum}}</span>
+        </div>
+        <div class="luck-stat-li">
+          <strong>{{luck.bigNum}}</strong>
+          <span>大保底</span>
+        </div>
+        <div class="luck-stat-li">
+          <strong>{{luck.maxUpStreak}}</strong>
+          <span>最多连UP</span>
+        </div>
+        <div class="luck-stat-li">
+          <strong>{{luck.maxWaiStreak}}</strong>
+          <span>最多连歪</span>
+        </div>
+      </div>
+      {{/if}}
+      {{if luck.fewSample}}
+      <div class="luck-tip">样本较少，仅供参考</div>
+      {{/if}}
+      {{if luck.hasNewPool}}
+      <div class="luck-tip">最新卡池数据暂未收录，新卡池中的UP判定可能不准，待卡池数据更新后即可恢复</div>
+      {{/if}}
+    </div>
+  </div>
+  {{/if}}
   <div class="ck-notice">
     <strong>{{gameHash}}抽卡帮助</strong>获取抽卡链接，<strong>{{gameHash}}更新抽卡记录</strong>更新抽卡信息，<strong>{{gameHash}}抽卡统计</strong><strong>{{gameHash}}角色统计</strong>可查看按卡池分析结果
   </div>
