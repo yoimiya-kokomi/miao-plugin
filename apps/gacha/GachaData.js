@@ -4,6 +4,7 @@ import { Character, Weapon } from '#miao.models'
 import { poolDetail, mixPoolDetail } from '../../resources/meta-gs/info/index.js'
 import { poolDetailSr } from '../../resources/meta-sr/info/index.js'
 import moment from 'moment'
+import GachaLuck from './GachaLuck.js'
 
 let poolVersion = []
 lodash.forEach(poolDetail, (ds) => {
@@ -19,9 +20,9 @@ poolVersion.push({
   version: '新版本',
   half: '?',
   from: last.to,
-  to: '2025-12-31 23:59:59',
+  to: '2099-12-31 23:59:59',
   start: last.end,
-  end: new Date('2025-12-31 23:59:59')
+  end: new Date('2099-12-31 23:59:59')
 })
 
 let poolVersionSr = []
@@ -37,9 +38,9 @@ poolVersionSr.push({
   version: '新版本',
   half: '?',
   from: lastSr.to,
-  to: '2025-12-31 23:59:59',
+  to: '2099-12-31 23:59:59',
   start: lastSr.end,
-  end: new Date('2025-12-31 23:59:59')
+  end: new Date('2099-12-31 23:59:59')
 })
 
 let mixPoolVersion = []
@@ -55,9 +56,9 @@ mixPoolVersion.push({
   version: '新版本',
   half: '?',
   from: mixLast.to,
-  to: '2025-12-31 23:59:59',
+  to: '2099-12-31 23:59:59',
   start: mixLast.end,
-  end: new Date('2025-12-31 23:59:59')
+  end: new Date('2099-12-31 23:59:59')
 })
 
 let GachaData = {
@@ -159,7 +160,8 @@ let GachaData = {
     }
     let currVersion
     lodash.forEach(logData.items, (item) => {
-      if (!currVersion || (item.time < currVersion.start)) {
+      // 未匹配到卡池时没有start，需逐条重新匹配
+      if (!currVersion || !currVersion.start || (item.time < currVersion.start)) {
         currVersion = GachaData.getVersion(item.time, true, isMix, game)
       }
 
@@ -211,6 +213,7 @@ let GachaData = {
         fiveLog.push({
           id: item.id,
           isUp,
+          isNewPool: currVersion.version === '新版本',
           date: moment(item.time).format('MM-DD')
         })
       }
@@ -242,13 +245,14 @@ let GachaData = {
 
     // 有效抽卡
     let isvalidNum = 0
+    let upUsed = 0
     if (fiveNum > 0 && fiveNum > wai) {
       if (fiveLog.length > 0 && !fiveLog[0].isUp) {
-        isvalidNum = (allNum - noFiveNum - fiveLog[0].count) / (fiveNum - wai)
+        upUsed = allNum - noFiveNum - fiveLog[0].count
       } else {
-        isvalidNum = (allNum - noFiveNum) / (fiveNum - wai)
+        upUsed = allNum - noFiveNum
       }
-      isvalidNum = isvalidNum.toFixed(2)
+      isvalidNum = (upUsed / (fiveNum - wai)).toFixed(2)
     }
 
     let upYs = isvalidNum * 160
@@ -258,11 +262,64 @@ let GachaData = {
       upYs = upYs.toFixed(0)
     }
 
+    // 小保底/大保底：按时间正序，歪了之后的下一个五星为大保底
+    let isUpPool = [301, 302, 11, 12].includes(type * 1)
+    let smallNum = 0
+    let smallWin = 0
+    let maxUpStreak = 0
+    let maxWaiStreak = 0
+    if (isUpPool) {
+      let isGuarantee = false
+      let upStreak = 0
+      let waiStreak = 0
+      lodash.forEachRight(fiveLog, (ds) => {
+        if (isGuarantee) {
+          ds.isBig = true
+          bigNum++
+        } else {
+          smallNum++
+          if (ds.isUp) {
+            smallWin++
+            upStreak++
+            waiStreak = 0
+          } else {
+            waiStreak++
+            upStreak = 0
+          }
+          maxUpStreak = Math.max(maxUpStreak, upStreak)
+          maxWaiStreak = Math.max(maxWaiStreak, waiStreak)
+        }
+        isGuarantee = !ds.isUp
+      })
+    }
+
     // 小保底不歪概率
     let noWaiRate = 0
-    if (fiveNum > 0) {
-      noWaiRate = (fiveNum - bigNum - wai) / (fiveNum - bigNum)
-      noWaiRate = (noWaiRate * 100).toFixed(1)
+    if (smallNum > 0) {
+      noWaiRate = (smallWin / smallNum * 100).toFixed(1)
+    }
+
+    let luck = GachaLuck.get({
+      game,
+      type,
+      isUpPool,
+      upNum: fiveNum - wai,
+      upUsed,
+      fiveNum,
+      fiveUsed: allNum - noFiveNum,
+      smallNum,
+      smallWin
+    })
+    if (luck) {
+      lodash.extend(luck, {
+        smallNum,
+        smallWin,
+        bigNum,
+        noWaiRate,
+        maxUpStreak,
+        maxWaiStreak,
+        hasNewPool: lodash.some(fiveLog, (ds) => ds.isNewPool)
+      })
     }
 
     if (noFiveNum > 0) {
@@ -298,8 +355,43 @@ let GachaData = {
       maxFour: fourItem[0],
       fiveLog,
       noWaiRate,
+      luck,
       items: itemMap
     }
+  },
+
+  // 限制五星记录条数，避免图片过长无法发送；“已抽”不计入条数
+  limitLog (gacha, max) {
+    max = max * 1
+    let log = gacha.fiveLog || []
+    let keep = max + (log[0]?.id === 888 ? 1 : 0)
+    if (max > 0 && log.length > keep) {
+      gacha.shownNum = max
+      gacha.hiddenNum = log.length - keep
+      gacha.fiveLog = log.slice(0, keep)
+    }
+    return gacha
+  },
+
+  // 按条数分页，“已抽”放在第一页且不计入条数；返回 [{ fiveLog, from, to, count }]
+  pageLog (gacha, size) {
+    size = size * 1
+    let log = gacha.fiveLog || []
+    let now = log[0]?.id === 888 ? [log[0]] : []
+    let items = log.slice(now.length)
+    if (!(size > 0) || items.length <= size) {
+      return [{ fiveLog: log, from: 1, to: items.length, count: items.length }]
+    }
+    let pages = []
+    for (let i = 0; i < items.length; i += size) {
+      pages.push({
+        fiveLog: (i === 0 ? now : []).concat(items.slice(i, i + size)),
+        from: i + 1,
+        to: Math.min(i + size, items.length),
+        count: items.length
+      })
+    }
+    return pages
   },
 
   // 卡池统计

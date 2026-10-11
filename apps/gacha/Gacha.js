@@ -1,12 +1,17 @@
-import { Common } from '#miao'
+import { Common, Data } from '#miao'
+import common from '../../../../lib/common/common.js'
 import { getTargetUid } from '../profile/ProfileCommon.js'
 import GachaData from './GachaData.js'
 import GachaPool from './GachaPool.js'
 import { Button, Character, Player, Weapon } from '#miao.models'
 
+let { sysCfg, diyCfg } = await Data.importCfg('gacha')
+
 let Gacha = {
   async detail (e) {
-    let msg = e.msg.replace(/#|抽卡|记录|祈愿|分析|池/g, '')
+    // #角色全部记录：显示全部记录，超出条数限制时分页并合并转发
+    let isAll = /全部/.test(e.msg)
+    let msg = e.msg.replace(/#|喵喵|全部|抽卡|记录|祈愿|分析|池/g, '')
     let game = /星铁/.test(msg) ? 'sr' : 'gs'
     msg = msg.replace(/星铁/, '')
     let type
@@ -58,20 +63,46 @@ let Gacha = {
       e.reply([`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`, new Button(e).gacha()])
       return true
     }
-
+    let maxLog = (diyCfg.detailCfg?.maxLog ?? sysCfg.detailCfg?.maxLog ?? 0) * 1
+    let poolName = { 301: '角色', 302: '武器', 200: '常驻', 500: '集录', 11: '角色', 12: '光锥', 1: '常驻' }[type]
     if (type === 302 || type === 12) type = 'weapon'
-    this.reply([await Common.render('gacha/gacha-detail', {
-      save_id: uid,
+    let render = (gacha, pageInfo) => Common.render('gacha/gacha-detail', {
+      save_id: pageInfo ? `${uid}-${pageInfo.page}` : uid,
       uid,
       gacha,
       face: Gacha.getFace(uid, game),
       game,
       type,
+      poolName,
+      pageInfo,
       elem: e.isSr ? 'sr' : 'hydro'
-    }, { e, scale: 1.4, retType: 'base64' }), new Button(e).gacha()])
+    }, { e, scale: 1.4, retType: 'base64' })
+
+    let pages = isAll ? GachaData.pageLog(gacha, maxLog) : []
+    if (pages.length <= 1) {
+      if (!isAll) GachaData.limitLog(gacha, maxLog)
+      this.reply([await render(gacha), new Button(e).gacha()])
+      return true
+    }
+
+    // 逐页渲染后合并转发
+    let imgs = []
+    for (let i = 0; i < pages.length; i++) {
+      imgs.push(await render({ ...gacha, fiveLog: pages[i].fiveLog }, {
+        ...pages[i],
+        page: i + 1,
+        total: pages.length
+      }))
+    }
+    let title = `UID:${uid} ${poolName}池抽卡记录，共${pages[0].count}条五星，分${pages.length}张图`
+    e.reply(await common.makeForwardMsg(e, imgs, title))
+    return true
   },
   async stat (e) {
-    let msg = e.msg.replace(/#|统计|分析|池/g, '')
+    let msg = e.msg.replace(/#|喵喵|统计|分析|池/g, '')
+    // #角色全部统计：显示全部卡池，超出数量限制时分页并合并转发；#全部统计 仍为全部卡池汇总
+    let isAll = /全部/.test(msg) && msg !== '全部'
+    msg = isAll ? msg.replace(/全部/g, '') : msg
     let game = /星铁/.test(msg) ? 'sr' : 'gs'
     msg = msg.replace(/星铁/, '')
     let type = 'up'
@@ -96,14 +127,46 @@ let Gacha = {
       e.reply([`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`, new Button(e).gacha()])
       return true
     }
-    e.reply([await Common.render('gacha/gacha-stat', {
-      save_id: uid,
+    let maxVersion = (diyCfg.statCfg?.maxVersion ?? sysCfg.statCfg?.maxVersion ?? 0) * 1
+    let poolName = { up: '抽卡', char: '角色', weapon: game === 'sr' ? '光锥' : '武器', normal: '常驻', mix: '集录', all: '全部' }[type]
+    let render = (gacha, pageInfo) => Common.render('gacha/gacha-stat', {
+      save_id: pageInfo ? `${uid}-${pageInfo.page}` : uid,
       uid,
       gacha,
       face: Gacha.getFace(uid, game),
       game,
+      poolName,
+      pageInfo,
       elem: e.isSr ? 'sr' : 'hydro'
-    }, { e, scale: 1.4, retType: 'base64' }), new Button(e).gacha()])
+    }, { e, scale: 1.4, retType: 'base64' })
+
+    let list = gacha.versionData || []
+    if (!(maxVersion > 0) || list.length <= maxVersion) {
+      e.reply([await render(gacha), new Button(e).gacha()])
+      return true
+    }
+    if (!isAll) {
+      gacha.shownNum = maxVersion
+      gacha.hiddenNum = list.length - maxVersion
+      gacha.versionData = list.slice(0, maxVersion)
+      e.reply([await render(gacha), new Button(e).gacha()])
+      return true
+    }
+
+    // 逐页渲染后合并转发
+    let imgs = []
+    let total = Math.ceil(list.length / maxVersion)
+    for (let i = 0; i < total; i++) {
+      imgs.push(await render({ ...gacha, versionData: list.slice(i * maxVersion, (i + 1) * maxVersion) }, {
+        page: i + 1,
+        total,
+        from: i * maxVersion + 1,
+        to: Math.min((i + 1) * maxVersion, list.length),
+        count: list.length
+      }))
+    }
+    e.reply(await common.makeForwardMsg(e, imgs, `UID:${uid} ${poolName}统计，共${list.length}期卡池，分${total}张图`))
+    return true
   },
 
   // 卡池信息查询：#6.7卡池 / #6.7上半卡池 / #星铁4.1下半卡池

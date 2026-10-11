@@ -12,6 +12,12 @@
 {{block 'main'}}
 {{ set gameHash = game === 'gs' ? '#' : '*'}}
 <div class="basic">
+  {{if pageInfo && pageInfo.page > 1}}
+  <div class="page-head">
+    <strong>{{face.name}}</strong> #{{uid}} · {{poolName}}池抽卡记录
+    <span>第 {{pageInfo.page}}/{{pageInfo.total}} 张</span>
+  </div>
+  {{else}}
   <div class="user-banner" style="background-image:url({{_res_path}}{{face?.banner}})">
     <div class="face">
       <span style="background-image:url({{_res_path}}{{face?.qFace||face?.face}})"></span>
@@ -38,9 +44,68 @@
     </div>
     {{/if}}
   </div>
+  {{set luck = gacha.luck}}
+  {{if luck}}
+  <div class="luck" style="--luck-color:{{luck.color}}">
+    <div class="luck-main">
+      <div class="luck-label">欧皇度</div>
+      <div class="luck-title">{{luck.title}}</div>
+      <div class="luck-desc">运气超过 <strong>{{luck.percent}}%</strong> 的{{game === 'sr' ? '开拓者' : '旅行者'}}</div>
+    </div>
+    <div class="luck-detail">
+      <div class="luck-line">
+        {{if luck.isUpPool}}
+        UP平均 <strong>{{luck.upAvg}}</strong> 抽<span class="luck-expect">期望 {{luck.upExpect}} 抽（含歪）</span>
+        {{else}}
+        平均出金 <strong>{{luck.fiveAvg}}</strong> 抽<span class="luck-expect">期望 {{luck.fiveExpect}} 抽</span>
+        {{/if}}
+      </div>
+      <div class="luck-stat">
+        {{if luck.isUpPool}}
+        <div class="luck-stat-li">
+          <strong>{{luck.fiveAvg}}</strong>
+          <span>平均出金 · 期望{{luck.fiveExpect}}</span>
+          <span class="pct">超过{{luck.fivePercent}}%</span>
+        </div>
+        {{if luck.smallNum > 0}}
+        <div class="luck-stat-li">
+          <strong>{{luck.noWaiRate}}%</strong>
+          <span>小保底不歪 {{luck.smallWin}}/{{luck.smallNum}} · 期望{{luck.upRate}}%</span>
+          <span class="pct">超过{{luck.winPercent}}%</span>
+        </div>
+        {{/if}}
+        <div class="luck-stat-li">
+          <strong>{{luck.bigNum}}</strong>
+          <span>大保底</span>
+        </div>
+        <div class="luck-stat-li">
+          <strong>{{luck.maxUpStreak}}</strong>
+          <span>最多连UP</span>
+        </div>
+        <div class="luck-stat-li">
+          <strong>{{luck.maxWaiStreak}}</strong>
+          <span>最多连歪</span>
+        </div>
+        {{else}}
+        <div class="luck-stat-li">
+          <strong>{{luck.desc}}</strong>
+          <span>{{luck.fiveAvg * 1 <= luck.fiveExpect * 1 ? '出金快于' : '出金慢于'}}理论期望</span>
+        </div>
+        {{/if}}
+      </div>
+      {{if luck.fewSample}}
+      <div class="luck-tip">样本较少，仅供参考</div>
+      {{/if}}
+      {{if luck.hasNewPool}}
+      <div class="luck-tip">最新卡池数据暂未收录，新卡池中的UP判定可能不准，待卡池数据更新后即可恢复</div>
+      {{/if}}
+    </div>
+  </div>
+  {{/if}}
   <div class="ck-notice">
     <strong>{{gameHash}}抽卡帮助</strong>获取抽卡链接，<strong>{{gameHash}}更新抽卡记录</strong>更新抽卡信息，<strong>{{gameHash}}抽卡统计</strong><strong>{{gameHash}}角色统计</strong>可查看按卡池分析结果
   </div>
+  {{/if}}
   <div class="cont avatar-cont">
     <div class="gacha-list">
       {{each gacha.fiveLog ds idx}}
@@ -69,6 +134,12 @@
       </div>
       {{/each}}
     </div>
+    {{if gacha.hiddenNum}}
+    <div class="gacha-more">仅显示最近 {{gacha.shownNum}} 条记录，更早的 {{gacha.hiddenNum}} 条未显示（顶部统计包含全部记录），发送 {{gameHash}}{{poolName}}全部记录 查看全部</div>
+    {{/if}}
+    {{if pageInfo}}
+    <div class="gacha-more">第 {{pageInfo.page}}/{{pageInfo.total}} 张 · 第 {{pageInfo.from}}~{{pageInfo.to}} 条，共 {{pageInfo.count}} 条五星记录</div>
+    {{/if}}
   </div>
 </div>
 {{/block}}

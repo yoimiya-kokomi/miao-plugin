@@ -202,3 +202,132 @@
     text-align: center;
   }
 }
+
+.luck {
+  --luck-color: #e4c46a;
+  display: flex;
+  align-items: stretch;
+  margin: 10px 0 5px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .4);
+
+  .luck-main {
+    width: 170px;
+    flex-shrink: 0;
+    padding: 12px 10px;
+    text-align: center;
+    background: rgba(0, 0, 0, .35);
+    border-right: 3px solid var(--luck-color);
+  }
+
+  .luck-label {
+    font-size: 13px;
+    color: #bbb;
+  }
+
+  .luck-title {
+    font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, sans-serif;
+    font-size: 34px;
+    line-height: 46px;
+    color: var(--luck-color);
+    text-shadow: 0 0 6px rgba(0, 0, 0, .8);
+  }
+
+  .luck-desc {
+    font-size: 12px;
+    color: #ccc;
+
+    strong {
+      color: var(--luck-color);
+    }
+  }
+
+  .luck-detail {
+    flex: 1;
+    padding: 12px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .luck-line {
+    font-size: 15px;
+    color: #ddd;
+
+    strong {
+      font-size: 20px;
+      color: var(--luck-color);
+    }
+  }
+
+  .luck-expect {
+    margin-left: 8px;
+    font-size: 13px;
+    color: #aaa;
+  }
+
+  .luck-stat {
+    display: flex;
+    margin-top: 8px;
+  }
+
+  .luck-stat-li {
+    flex: 1 1 auto;
+    padding: 0 4px;
+    text-align: center;
+
+    strong {
+      display: block;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    span {
+      display: block;
+      font-size: 12px;
+      line-height: 16px;
+      color: #aaa;
+    }
+
+    .pct {
+      color: var(--luck-color);
+    }
+  }
+
+  .luck-tip {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #f0b37e;
+  }
+}
+
+.gacha-more {
+  padding: 8px 0 4px;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0 10px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, .5);
+  font-size: 16px;
+  color: #ddd;
+
+  strong {
+    font-size: 20px;
+    color: #fff;
+    margin-right: 6px;
+  }
+
+  span {
+    color: #ffd484;
+  }
+}
