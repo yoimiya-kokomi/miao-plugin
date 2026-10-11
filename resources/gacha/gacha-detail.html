@@ -127,6 +127,9 @@
       </div>
       {{/each}}
     </div>
+    {{if gacha.hiddenNum}}
+    <div class="gacha-more">仅显示最近 {{gacha.shownNum}} 条记录，更早的 {{gacha.hiddenNum}} 条未显示（顶部统计包含全部记录）</div>
+    {{/if}}
   </div>
 </div>
 {{/block}}

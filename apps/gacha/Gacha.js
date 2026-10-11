@@ -1,8 +1,10 @@
-import { Common } from '#miao'
+import { Common, Data } from '#miao'
 import { getTargetUid } from '../profile/ProfileCommon.js'
 import GachaData from './GachaData.js'
 import GachaPool from './GachaPool.js'
 import { Button, Character, Player, Weapon } from '#miao.models'
+
+let { sysCfg, diyCfg } = await Data.importCfg('gacha')
 
 let Gacha = {
   async detail (e) {
@@ -58,6 +60,7 @@ let Gacha = {
       e.reply([`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`, new Button(e).gacha()])
       return true
     }
+    GachaData.limitLog(gacha, diyCfg.detailCfg?.maxLog ?? sysCfg.detailCfg?.maxLog ?? 0)
 
     if (type === 302 || type === 12) type = 'weapon'
     this.reply([await Common.render('gacha/gacha-detail', {
