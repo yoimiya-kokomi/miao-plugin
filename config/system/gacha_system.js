@@ -51,4 +51,11 @@ export const detailCfg = {
   maxLog: 30
 }
 
+// 【#抽卡统计】【#角色统计】等图片设置
+export const statCfg = {
+  // 每张图最多显示的卡池期数，超出的部分：#角色统计 不显示，#角色全部统计 分多张图合并转发
+  // 顶部统计仍包含全部数据；0 为不限制
+  maxVersion: 10
+}
+
 export const isSys = true
