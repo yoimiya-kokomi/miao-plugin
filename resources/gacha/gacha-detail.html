@@ -44,19 +44,30 @@
     <div class="luck-main">
       <div class="luck-label">欧皇度</div>
       <div class="luck-title">{{luck.title}}</div>
-      <div class="luck-desc">{{luck.desc}}</div>
+      <div class="luck-desc">运气超过 <strong>{{luck.percent}}%</strong> 的{{game === 'sr' ? '开拓者' : '旅行者'}}</div>
     </div>
     <div class="luck-detail">
       <div class="luck-line">
-        {{luck.isUpPool ? 'UP平均' : '平均出金'}} <strong>{{luck.value}}</strong> 抽，理论期望 {{luck.expect}} 抽
-        <span class="luck-diff {{luck.ratio > 1 ? 'bad' : 'good'}}">{{luck.diff}}</span>
+        {{if luck.isUpPool}}
+        UP平均 <strong>{{luck.upAvg}}</strong> 抽<span class="luck-expect">期望 {{luck.upExpect}} 抽（含歪）</span>
+        {{else}}
+        平均出金 <strong>{{luck.fiveAvg}}</strong> 抽<span class="luck-expect">期望 {{luck.fiveExpect}} 抽</span>
+        {{/if}}
       </div>
-      {{if luck.isUpPool && luck.smallNum > 0}}
       <div class="luck-stat">
+        {{if luck.isUpPool}}
+        <div class="luck-stat-li">
+          <strong>{{luck.fiveAvg}}</strong>
+          <span>平均出金 · 期望{{luck.fiveExpect}}</span>
+          <span class="pct">超过{{luck.fivePercent}}%</span>
+        </div>
+        {{if luck.smallNum > 0}}
         <div class="luck-stat-li">
           <strong>{{luck.noWaiRate}}%</strong>
-          <span>小保底不歪 {{luck.smallWin}}/{{luck.smallNum}}</span>
+          <span>小保底不歪 {{luck.smallWin}}/{{luck.smallNum}} · 期望{{luck.upRate}}%</span>
+          <span class="pct">超过{{luck.winPercent}}%</span>
         </div>
+        {{/if}}
         <div class="luck-stat-li">
           <strong>{{luck.bigNum}}</strong>
           <span>大保底</span>
@@ -69,8 +80,13 @@
           <strong>{{luck.maxWaiStreak}}</strong>
           <span>最多连歪</span>
         </div>
+        {{else}}
+        <div class="luck-stat-li">
+          <strong>{{luck.desc}}</strong>
+          <span>{{luck.fiveAvg * 1 <= luck.fiveExpect * 1 ? '出金快于' : '出金慢于'}}理论期望</span>
+        </div>
+        {{/if}}
       </div>
-      {{/if}}
       {{if luck.fewSample}}
       <div class="luck-tip">样本较少，仅供参考</div>
       {{/if}}

@@ -238,6 +238,10 @@
   .luck-desc {
     font-size: 12px;
     color: #ccc;
+
+    strong {
+      color: var(--luck-color);
+    }
   }
 
   .luck-detail {
@@ -258,21 +262,10 @@
     }
   }
 
-  .luck-diff {
-    margin-left: 5px;
-    padding: 0 6px;
-    border-radius: 8px;
+  .luck-expect {
+    margin-left: 8px;
     font-size: 13px;
-
-    &.good {
-      background: #168b2c;
-      color: #fff;
-    }
-
-    &.bad {
-      background: #9d3333;
-      color: #fff;
-    }
+    color: #aaa;
   }
 
   .luck-stat {
@@ -281,7 +274,8 @@
   }
 
   .luck-stat-li {
-    flex: 1;
+    flex: 1 1 auto;
+    padding: 0 4px;
     text-align: center;
 
     strong {
@@ -291,8 +285,14 @@
     }
 
     span {
+      display: block;
       font-size: 12px;
+      line-height: 16px;
       color: #aaa;
+    }
+
+    .pct {
+      color: var(--luck-color);
     }
   }
 
