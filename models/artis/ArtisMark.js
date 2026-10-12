@@ -112,16 +112,10 @@ let ArtisMark = {
     }
     let fixPct = 1
     idx = idx * 1
+    let pMax = posMaxMark[idx]
     if (idx >= 3) {
-      let mainKey = key
+      let mainKey = ArtisMark.getMainKey(idx, key, elem, game, id)
       if (key !== 'recharge') {
-        let dmgIdx = { gs: 4, sr: 5 }
-        if (idx === dmgIdx[game]) {
-          // 对法尔伽做特殊处理————所有异色属伤杯，在圣遗物评分时，均视为风伤杯
-          if (Format.sameElem(elem, key, game) || id === 10000128) {
-            mainKey = 'dmg'
-          }
-        }
         let mMax = posMaxMark['m' + idx]
         fixPct = mMax > 0 ? Math.max(0, Math.min(1, (attrs[mainKey]?.weight || 0) / mMax)) : 1
         if (game === 'gs') {
@@ -131,13 +125,51 @@ let ArtisMark = {
         }
       }
       ret += (attrs[mainKey]?.mark || 0) * (mAttr.value || 0) / 4
+      pMax = ArtisMark.getPosMaxMark(charCfg, idx, mainKey, game)
     }
 
     lodash.forEach(sAttr, (ds) => {
       ret += (attrs[ds.key]?.mark || 0) * (ds.value || 0)
     })
-    let pMax = posMaxMark[idx]
-    return pMax > 0 ? ret * (1 + fixPct) / 2 / pMax * 66 : 0
+    // 星铁算法可能导致超出70不显示评级，但源码规则最高应为66，老毛病了索性不管
+    return pMax > 0 ? Math.min(ret * (1 + fixPct) / 2 / pMax * 66, 70) : 0
+  },
+
+  // 获取主词条对应的评分key，元素伤害主词条按dmg计
+  getMainKey (idx, key, elem = '', game = 'gs', id) {
+    idx = idx * 1
+    if (!key || key === 'recharge') {
+      return key
+    }
+    let dmgIdx = { gs: 4, sr: 5 }
+    // 对法尔伽做特殊处理————所有异色属伤杯，在圣遗物评分时，均视为风伤杯
+    if (idx === dmgIdx[game] && (Format.sameElem(elem, key, game) || id === 10000128)) {
+      return 'dmg'
+    }
+    return key
+  },
+
+  // 获取位置在当前主词条下的裸分上限
+  // posMaxMark 按该位置最优主词条计算，此时最优主词条属性被排除在副词条池外
+  // 若主词条为其它属性，该属性可作为副词条，实际裸分上限高于 posMaxMark，直接归一化会导致得分超出上限
+  getPosMaxMark (charCfg, idx, mainKey, game = 'gs') {
+    let pMax = charCfg.posMaxMark[idx]
+    if (idx < 3) {
+      return pMax
+    }
+    return Math.max(pMax, ArtisMark.getMainMaxMark(charCfg.attrs, mainKey, game))
+  },
+
+  // 获取指定主词条下该位置的裸分上限
+  // 仅用于 idx>=3 的位置，花/羽主词条固定，不参与评分
+  getMainMaxMark (attrs, mainKey, game = 'gs') {
+    let { subAttr } = Meta.getMeta(game, 'arti')
+    let totalMark = (attrs[mainKey]?.fixWeight || 0) * 2
+    let sAttr = ArtisMark.getMaxAttr(attrs, subAttr, 4, mainKey)
+    lodash.forEach(sAttr, (attr, aIdx) => {
+      totalMark += attrs[attr].fixWeight * (aIdx === 0 ? 6 : 1)
+    })
+    return totalMark
   },
 
   // 获取位置最高分
@@ -213,6 +245,7 @@ let ArtisMark = {
           level: arti.level,
           main: ArtisMark.formatArti(arti.main, charCfg.attrs, true, game),
           attrs: ArtisMark.formatArtiAttrs(arti.attrs, charCfg.attrs, game),
+          pMax: ArtisMark.getPosMaxMark(charCfg, idx, ArtisMark.getMainKey(idx, arti.main?.key, elem, game, id), game),
           ...artisRet[idx]
         }
       }
