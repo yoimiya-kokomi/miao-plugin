@@ -4,7 +4,6 @@
 * 武器：计算从指定等级（默认1级）升至目标等级所需的突破材料、经验与摩拉
 * */
 import lodash from 'lodash'
-import { getTargetUid } from './ProfileCommon.js'
 import { Common, Data, Format } from '#miao'
 import { Character, Material, Player, Weapon } from '#miao.models'
 
@@ -253,33 +252,36 @@ const ProfileGrow = {
       return true
     }
 
-    let uid = await getTargetUid(e)
-    if (!uid) {
-      return true
-    }
-    let player = Player.create(e)
-    let avatar = player.getAvatar(char.id)
-    let hasData = !!(avatar && avatar.hasData)
-    let talent = hasData ? avatar.originalTalent : {}
-    let curr = {
-      level: hasData ? avatar.level * 1 || 1 : 1,
-      promote: hasData ? avatar.promote * 1 || 0 : 0,
-      a: talent.a || 1,
-      e: talent.e || 1,
-      q: talent.q || 1
-    }
+    let zero = { level: 1, promote: 0, a: 1, e: 1, q: 1 }
+    let curr = zero
+    let uid = ''
+    let notice = []
     if (opt.from) {
-      curr.level = opt.from.level
-      curr.promote = opt.from.promote
+      curr = { ...zero, level: opt.from.level, promote: opt.from.promote }
+      notice.push('已指定起始等级，不读取本地角色数据，天赋从1级开始计算')
+    } else {
+      // 优先使用本地角色数据；无数据或本地练度已超过目标时，按1级、天赋1/1/1计算
+      let avatar = await ProfileGrow.getLocalAvatar(e, char)
+      let local = avatar && {
+        level: avatar.level * 1 || 1,
+        promote: avatar.promote * 1 || 0,
+        a: avatar.originalTalent?.a || 1,
+        e: avatar.originalTalent?.e || 1,
+        q: avatar.originalTalent?.q || 1
+      }
+      if (!local) {
+        notice.push(`未找到本地${char.name}数据，按1级、天赋1/1/1计算，可先【#更新面板】`)
+      } else if (ProfileGrow.isOverTarget(local, opt)) {
+        notice.push(`本地${char.name}练度已超过目标，按1级、天赋1/1/1计算`)
+      } else {
+        curr = local
+        uid = e.uid
+      }
     }
     let data = ProfileGrow.calcChar(char, curr, opt)
     if (!data) {
       e.reply(`暂无${char.name}的养成材料数据`)
       return true
-    }
-    let notice = []
-    if (!hasData && !opt.from) {
-      notice.push('未找到角色数据，按零练度计算，可先【#更新面板】')
     }
     return await ProfileGrow.renderImg(e, {
       ...data,
@@ -290,6 +292,35 @@ const ProfileGrow = {
       img: char.face,
       elem: char.elem
     })
+  },
+
+  // 获取本地角色数据，未绑定UID时不提示绑定
+  async getLocalAvatar (e, char) {
+    let uid = e.uid
+    if (!uid) {
+      try {
+        uid = e.runtime?.getUid ? await e.runtime.getUid() : e.runtime?.uid
+      } catch (err) {
+        uid = ''
+      }
+    }
+    if (!/^(18|[1-9])[0-9]{8}$/.test(String(uid || ''))) {
+      return false
+    }
+    e.uid = uid
+    let avatar = Player.create(e).getAvatar(char.id)
+    return avatar && avatar.hasData ? avatar : false
+  },
+
+  // 本地练度是否已超过指令中的目标
+  isOverTarget (local, opt) {
+    let isAll = !opt.level && !opt.talent
+    let level = opt.level || (isAll ? { level: charMaxLv, promote: 6 } : null)
+    let talent = opt.talent || (isAll ? { a: 10, e: 10, q: 10 } : {})
+    if (level && (local.level > level.level || (local.level === level.level && local.promote > level.promote))) {
+      return true
+    }
+    return lodash.some(talentKeys, (title, key) => talent[key] && local[key] > talent[key])
   },
 
   async renderWeapon (e, weapon, opt) {
