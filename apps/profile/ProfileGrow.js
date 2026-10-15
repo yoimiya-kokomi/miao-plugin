@@ -399,13 +399,17 @@ const ProfileGrow = {
     let uid = e.uid
     let failed = { notice: '米游社计算器请求失败，未扣除背包材料' }
     try {
-      // 未绑定CK时不提示绑定
+      // 未绑定CK时不提示绑定；未安装原神插件（genshin）时 getMysInfo 不可用，仅使用本地计算
       e.noTips = true
-      let mysInfo = await runtime.getMysInfo('cookie')
+      let mysInfo = await runtime.getMysInfo('cookie').catch(() => false)
       let { ck, uid: ckUid } = mysInfo?.ckInfo || {}
       // 只使用本人CK，且不为指令中指定的其他UID扣除背包
       if (!mysInfo?.uid || !ck || String(ckUid) !== String(mysInfo.uid) || (opt.uid && opt.uid !== String(mysInfo.uid))) {
         return false
+      }
+      // 国际服计算器接口返回格式不同，暂不支持
+      if (/^(18|[6-9])/.test(String(mysInfo.uid))) {
+        return { notice: '国际服暂不支持扣除背包材料' }
       }
       let api = runtime.createMysApi(mysInfo.uid, ck, { log: false })
       let item = await getItem(api)
