@@ -255,6 +255,7 @@ const ProfileGrow = {
       e.reply(helpMsg + '\n角色等级最高90，天赋最高10')
       return true
     }
+    e.reply(`正在计算${char.name}的养成材料，请稍候...`)
 
     let zero = { level: 1, promote: 0, a: 1, e: 1, q: 1 }
     let curr = zero
@@ -360,6 +361,7 @@ const ProfileGrow = {
       e.reply(helpMsg + `\n${weapon.name}最高${maxLv}级`)
       return true
     }
+    e.reply(`正在计算${weapon.name}的养成材料，请稍候...`)
     let data = ProfileGrow.calcWeapon(weapon, from, level)
     if (!data) {
       e.reply(`暂无${weapon.name}的养成材料数据`)
@@ -416,7 +418,9 @@ const ProfileGrow = {
       if (!item) {
         return failed
       }
-      let ret = await api.getData('compute', { body: { items: [item] } })
+      // 需同时传入uid与region，接口才会返回该账号的背包数据（has_user_info）
+      let region = api.server || (String(mysInfo.uid)[0] === '5' ? 'cn_qd01' : 'cn_gf01')
+      let ret = await api.getData('compute', { body: { items: [item], uid: String(mysInfo.uid), region } })
       let consume = ret?.data?.overall_consume
       if (ret?.retcode !== 0 || !lodash.isArray(consume)) {
         logger.mark(`[miao-plugin] 养成计算器请求失败：${ret?.retcode} ${ret?.message || ''}`)
