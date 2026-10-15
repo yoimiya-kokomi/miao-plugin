@@ -1,0 +1,91 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/character-grow.css"/>
+{{/block}}
+
+{{block 'main'}}
+<div class="grow-head">
+  <div class="grow-face star{{star}} {{isWeapon ? 'is-weapon' : ''}}">
+    <div class="img" style="background-image:url({{_res_path}}{{img}})"></div>
+  </div>
+  <div class="grow-info">
+    <div class="grow-name">{{title}}<span>{{isWeapon ? '武器' : ''}}养成计算</span></div>
+    {{if uid}}<div class="grow-uid">UID: {{uid}}</div>{{/if}}
+  </div>
+</div>
+
+<div class="cont">
+  <div class="cont-title">养成目标</div>
+  <div class="cont-body grow-target">
+    {{each rows row}}
+    <div class="target-item">
+      <strong>{{row.title}}</strong>
+      <span>{{row.from}}<i>→</i>{{row.to}}</span>
+    </div>
+    {{/each}}
+    <div class="target-item target-mora">
+      <strong>摩拉合计{{if moraLack}}<em>已扣除背包</em>{{/if}}</strong>
+      <span>{{moraTotal}}</span>
+    </div>
+  </div>
+</div>
+
+{{if lack}}
+<div class="cont">
+  <div class="cont-title">还需材料<span>已扣除背包内材料（含可合成材料）</span></div>
+  <div class="cont-body">
+    {{if lack.items.length === 0}}
+    <div class="grow-done">背包材料已足够</div>
+    {{else}}
+    <div class="mat-list">
+      {{each lack.items ds}}
+      <div class="mat-card">
+        <div class="mat-icon star{{ds.star}}">
+          <div class="img" style="background-image:url({{_imgUrl(ds.icon)}})"></div>
+          <div class="mat-num">{{ds.num}}</div>
+        </div>
+        <div class="mat-name{{ds.label.length > 6 ? ' long' : ''}}">{{ds.label}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</div>
+{{/if}}
+
+{{each groups group}}
+<div class="cont">
+  <div class="cont-title">{{group.title}}<span>{{group.desc}}</span></div>
+  <div class="cont-body">
+    {{if group.items.length === 0}}
+    <div class="grow-done">已达成目标，无需额外材料</div>
+    {{else}}
+    <div class="mat-list">
+      {{each group.items ds}}
+      <div class="mat-card">
+        <div class="mat-icon star{{ds.star}}">
+          <div class="img" style="background-image:url({{_res_path}}{{ds.icon}})"></div>
+          <div class="mat-num">{{ds.num}}</div>
+        </div>
+        <div class="mat-name{{ds.label.length > 6 ? ' long' : ''}}">{{ds.label}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</div>
+{{/each}}
+
+<div class="grow-notice">
+  {{each notice txt}}
+  * {{txt}}<br>
+  {{/each}}
+  {{if !isWeapon}}
+  * 天赋按不含命座加成的等级计算，经验未扣除当前等级内已有经验<br>
+  * 可指定方向：#养成计算 {{title}} 等级89 天赋 10 9 10（80+ 表示80级已突破）
+  {{else}}
+  * 80 表示升至80级未突破，80+ 表示80级已突破
+  {{/if}}
+</div>
+{{/block}}

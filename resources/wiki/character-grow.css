@@ -1,0 +1,193 @@
+.font-YS {
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.font-NZBZ {
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+body {
+  width: 600px;
+}
+.container {
+  width: 600px;
+  padding: 20px 5px 10px 10px;
+}
+.grow-head {
+  display: flex;
+  align-items: center;
+  margin: 0 15px 10px 10px;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+.grow-head .grow-face {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-size: cover;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  margin-right: 15px;
+}
+.grow-head .grow-face .img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center bottom;
+}
+.grow-head .grow-face.is-weapon .img {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.grow-head .grow-name {
+  font-size: 30px;
+}
+.grow-head .grow-name span {
+  font-size: 20px;
+  color: #d3bc8e;
+  padding-left: 10px;
+}
+.grow-head .grow-uid {
+  font-size: 14px;
+  margin-top: 5px;
+}
+.cont-title {
+  padding: 8px 20px;
+  font-size: 16px;
+}
+.cont-title span {
+  font-size: 12px;
+  color: #ccc;
+  padding-left: 10px;
+}
+.cont-body {
+  font-size: 14px;
+  color: #fff;
+}
+.grow-target {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+}
+.grow-target .target-item {
+  width: 33.33%;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.grow-target .target-item strong {
+  color: #d3bc8e;
+  font-weight: normal;
+}
+.grow-target .target-item i {
+  font-style: normal;
+  color: #d3bc8e;
+  padding: 0 4px;
+}
+.grow-target .target-mora {
+  width: 100%;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.grow-target .target-mora em {
+  font-style: normal;
+  font-size: 12px;
+  color: #aaa;
+  padding-left: 8px;
+}
+.grow-target .target-mora span {
+  color: #ffcc66;
+  font-size: 16px;
+}
+.mat-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -4px;
+}
+.mat-card {
+  width: 76px;
+  margin: 4px 4px 6px;
+  border-radius: 5px 5px 15px 5px;
+  background: #e7e5d9;
+  overflow: hidden;
+  box-shadow: 0 0 1px 0 #ccc, 1px 1px 3px 0 rgba(0, 0, 0, 0.5);
+}
+.mat-card .mat-icon {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  background-size: cover;
+  border-radius: 5px 5px 15px 0;
+}
+.mat-card .mat-icon .img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.mat-card .mat-num {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 13px;
+  padding: 1px 6px;
+  border-radius: 6px 0 12px 0;
+}
+.mat-card .mat-name {
+  color: #222;
+  font-size: 12px;
+  text-align: center;
+  padding: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.mat-card .mat-name.long {
+  font-size: 10px;
+  letter-spacing: -0.5px;
+  padding: 3px 0;
+}
+.mat-icon.star1 {
+  background-image: url("../common/item/bg1.png");
+}
+.mat-icon.star2 {
+  background-image: url("../common/item/bg2.png");
+}
+.mat-icon.star3 {
+  background-image: url("../common/item/bg3.png");
+}
+.mat-icon.star4 {
+  background-image: url("../common/item/bg4.png");
+}
+.mat-icon.star5 {
+  background-image: url("../common/item/bg5.png");
+}
+.grow-face.star1 {
+  background-image: url("../common/item/bg1.png");
+}
+.grow-face.star2 {
+  background-image: url("../common/item/bg2.png");
+}
+.grow-face.star3 {
+  background-image: url("../common/item/bg3.png");
+}
+.grow-face.star4 {
+  background-image: url("../common/item/bg4.png");
+}
+.grow-face.star5 {
+  background-image: url("../common/item/bg5.png");
+}
+.grow-done {
+  text-align: center;
+  padding: 10px 0;
+  color: #d3bc8e;
+}
+.grow-notice {
+  margin: 10px 15px 0 10px;
+  font-size: 12px;
+  color: #ddd;
+  text-shadow: 1px 1px 1px #000;
+  line-height: 1.6;
+}
