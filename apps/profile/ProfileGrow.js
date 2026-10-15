@@ -130,6 +130,12 @@ const items = {
   crown: { label: '智识之冕', star: 5, icon: 'wiki/imgs/grow/crown.webp' }
 }
 
+// 还需材料的排列顺序
+const lackSort = {
+  gem: 1, weapon: 1, boss: 2, monster: 2, specialty: 3, normal: 4, talent: 5, weekly: 6,
+  other: 7, crown: 8, charExp: 9, weaponExp: 9, mora: 10
+}
+
 const helpMsg = [
   '养成计算格式：',
   '#养成计算 刻晴：等级90、天赋10/10/10',
@@ -429,16 +435,21 @@ const ProfileGrow = {
       if (!ret.data.has_user_info) {
         return { notice: '米游社计算器未返回背包数据，未扣除背包材料' }
       }
+      // 与本地计算保持一致的顺序：材料按类型、星级排列，其后为智识之冕、经验、摩拉
       let list = consume.filter((ds) => ds.lack_num > 0).map((ds) => {
-        let local = lodash.find(items, (item) => item.label === ds.name)
+        let key = lodash.findKey(items, (item) => item.label === ds.name)
+        let local = items[key]
         let mat = !local && Material.get(ds.name)
+        let star = mat?.star || local?.star || ds.level || 1
         return {
           label: ds.name.replace(/^「(.+)」的(.+)$/, '$1·$2'),
-          star: mat?.star || local?.star || ds.level || 1,
+          star,
           icon: mat?.icon || local?.icon || ds.icon,
-          num: Format.comma(ds.lack_num)
+          num: Format.comma(ds.lack_num),
+          sort: (lackSort[key] || lackSort[mat?.type] || lackSort.other) * 10 + (mat ? star : 0)
         }
       })
+      list = lodash.sortBy(list, 'sort')
       return {
         notice: `已通过米游社计算器扣除UID:${mysInfo.uid}背包内材料（含可合成材料），背包数据可能存在延迟`,
         data: { uid: mysInfo.uid, items: list }
