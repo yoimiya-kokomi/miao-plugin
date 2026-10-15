@@ -161,6 +161,9 @@ const getPromote = (level) => promoteLvs.filter((lv) => level > lv).length
 const promoteMinLv = (promote) => promote > 0 ? promoteLvs[promote - 1] : 1
 const sumExp = (table, from, to) => lodash.sum(table.slice(from - 1, to - 1))
 
+// 计算器接口只区分等级，已在突破节点完成突破的按下一级传入
+const apiLv = ({ level, promote }) => Math.min(promote > getPromote(level) ? level + 1 : level, charMaxLv)
+
 // 解析等级文本，80 为80级未突破，80+ 为80级已突破
 const parseLv = (lv, plus) => {
   lv = lv * 1
@@ -180,6 +183,7 @@ const ProfileGrow = {
       e.reply(helpMsg)
       return true
     }
+    opt.uid = uidRet?.[0] || ''
     let char = Character.get(opt.name, 'gs')
     if (char && !char.isSr) {
       return await ProfileGrow.renderChar(e, char, opt)
@@ -283,7 +287,31 @@ const ProfileGrow = {
       e.reply(`暂无${char.name}的养成材料数据`)
       return true
     }
+    let lack = await ProfileGrow.getLack(e, opt, async (api) => {
+      let item = {
+        avatar_id: char.id * 1,
+        avatar_level_current: apiLv(data.curr),
+        avatar_level_target: apiLv(data.to)
+      }
+      let keys = lodash.keys(talentKeys).filter((key) => data.to[key] > data.curr[key])
+      if (keys.length > 0) {
+        let skills = await api.getData('avatarSkill', { avatar_id: char.id })
+        let list = (skills?.data?.list || []).filter((ds) => ds.max_level !== 1)
+        if (skills?.retcode !== 0 || list.length < 3) {
+          return false
+        }
+        item.skill_list = keys.map((key) => {
+          let ds = list[lodash.keys(talentKeys).indexOf(key)]
+          return { id: ds.group_id * 1, level_current: data.curr[key], level_target: data.to[key] }
+        })
+      }
+      return item
+    })
+    if (lack) {
+      notice.unshift(lack.notice)
+    }
     return await ProfileGrow.renderImg(e, {
+      lack: lack?.data,
       ...data,
       uid,
       notice,
@@ -341,7 +369,14 @@ const ProfileGrow = {
     if (!opt.from) {
       notice.push(`默认从1级开始计算，可指定起始等级，如 #养成计算 ${weapon.abbr || weapon.name} 50-80`)
     }
+    let lack = await ProfileGrow.getLack(e, opt, async () => ({
+      weapon: { id: weapon.id * 1, level_current: apiLv(data.curr), level_target: apiLv(data.to) }
+    }))
+    if (lack) {
+      notice.unshift(lack.notice)
+    }
     return await ProfileGrow.renderImg(e, {
+      lack: lack?.data,
       ...data,
       notice,
       title: weapon.name,
@@ -349,6 +384,63 @@ const ProfileGrow = {
       img: weapon.icon,
       isWeapon: true
     })
+  },
+
+  /**
+   * 已绑定本人CK时，调用米游社养成计算器获取扣除背包（含可合成材料）后仍缺少的材料
+   * 未绑定CK、查询他人UID或接口异常时返回false，仅展示本地计算结果
+   * @param getItem 生成 batch_compute 的计算项
+   */
+  async getLack (e, opt, getItem) {
+    let { runtime } = e
+    if (!runtime?.getMysInfo || !runtime?.createMysApi) {
+      return false
+    }
+    let uid = e.uid
+    let failed = { notice: '米游社计算器请求失败，未扣除背包材料' }
+    try {
+      // 未绑定CK时不提示绑定
+      e.noTips = true
+      let mysInfo = await runtime.getMysInfo('cookie')
+      let { ck, uid: ckUid } = mysInfo?.ckInfo || {}
+      // 只使用本人CK，且不为指令中指定的其他UID扣除背包
+      if (!mysInfo?.uid || !ck || String(ckUid) !== String(mysInfo.uid) || (opt.uid && opt.uid !== String(mysInfo.uid))) {
+        return false
+      }
+      let api = runtime.createMysApi(mysInfo.uid, ck, { log: false })
+      let item = await getItem(api)
+      if (!item) {
+        return failed
+      }
+      let ret = await api.getData('compute', { body: { items: [item] } })
+      let consume = ret?.data?.overall_consume
+      if (ret?.retcode !== 0 || !lodash.isArray(consume)) {
+        logger.mark(`[miao-plugin] 养成计算器请求失败：${ret?.retcode} ${ret?.message || ''}`)
+        return failed
+      }
+      if (!ret.data.has_user_info) {
+        return { notice: '米游社计算器未返回背包数据，未扣除背包材料' }
+      }
+      let list = consume.filter((ds) => ds.lack_num > 0).map((ds) => {
+        let local = lodash.find(items, (item) => item.label === ds.name)
+        let mat = !local && Material.get(ds.name)
+        return {
+          label: ds.name.replace(/^「(.+)」的(.+)$/, '$1·$2'),
+          star: mat?.star || local?.star || ds.level || 1,
+          icon: mat?.icon || local?.icon || ds.icon,
+          num: Format.comma(ds.lack_num)
+        }
+      })
+      return {
+        notice: `已通过米游社计算器扣除UID:${mysInfo.uid}背包内材料（含可合成材料），背包数据可能存在延迟`,
+        data: { uid: mysInfo.uid, items: list }
+      }
+    } catch (err) {
+      logger.error('[miao-plugin] 养成计算器请求异常', err)
+      return failed
+    } finally {
+      e.uid = uid
+    }
   },
 
   async renderImg (e, data) {
@@ -487,6 +579,8 @@ const ProfileGrow = {
       ...lodash.map(talentKeys, (title, key) => ({ title, from: curr[key], to: to[key] }))
     ]
     return {
+      curr,
+      to,
       rows,
       groups,
       moraTotal: Format.comma(lvGroup.mora + tGroup.mora)
@@ -516,6 +610,8 @@ const ProfileGrow = {
       return false
     }
     return {
+      curr,
+      to,
       rows: [
         { title: '等级', from: `Lv.${curr.level}`, to: `Lv.${to.level}` },
         { title: '突破', from: curr.promote, to: to.promote }
