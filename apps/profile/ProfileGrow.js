@@ -322,6 +322,11 @@ const ProfileGrow = {
     if (lack) {
       notice.unshift(lack.notice)
     }
+    // 计算的是CK账号内的角色时，摩拉合计使用扣除背包后的数量
+    if (uid && lack?.data && String(lack.data.uid) === String(uid)) {
+      data.moraTotal = lack.data.mora
+      data.moraLack = true
+    }
     return await ProfileGrow.renderImg(e, {
       lack: lack?.data,
       ...data,
@@ -457,7 +462,11 @@ const ProfileGrow = {
       list = lodash.sortBy(list, 'sort')
       return {
         notice: `已通过米游社计算器扣除UID:${mysInfo.uid}背包内材料（含可合成材料），背包数据可能存在延迟`,
-        data: { uid: mysInfo.uid, items: list }
+        data: {
+          uid: mysInfo.uid,
+          items: list,
+          mora: Format.comma(lodash.find(consume, (ds) => ds.name === items.mora.label)?.lack_num || 0)
+        }
       }
     } catch (err) {
       logger.error('[miao-plugin] 养成计算器请求异常', err)
