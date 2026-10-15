@@ -1,0 +1,101 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/character-grow.css"/>
+{{/block}}
+
+{{block 'main'}}
+<div class="grow-head">
+  <div class="grow-face star{{role.star}}">
+    <div class="img" style="background-image:url({{_res_path}}{{role.face}})"></div>
+  </div>
+  <div class="grow-info">
+    <div class="grow-name">{{role.name}}<span>养成计算</span></div>
+    <div class="grow-uid">UID: {{uid}}{{if !hasData}}<span>未找到角色数据，按零练度计算</span>{{/if}}</div>
+  </div>
+</div>
+
+<div class="cont">
+  <div class="cont-title">养成目标</div>
+  <div class="cont-body grow-target">
+    <div class="target-item">
+      <strong>等级</strong>
+      <span>Lv.{{curr.level}}<i>→</i>Lv.{{to.level}}</span>
+    </div>
+    <div class="target-item">
+      <strong>突破</strong>
+      <span>{{curr.promote}}<i>→</i>{{to.promote}}</span>
+    </div>
+    {{each talentKeys title key}}
+    <div class="target-item">
+      <strong>{{title}}</strong>
+      <span>{{curr[key]}}<i>→</i>{{to[key]}}</span>
+    </div>
+    {{/each}}
+  </div>
+</div>
+
+<div class="cont">
+  <div class="cont-title">所需材料</div>
+  <div class="cont-body">
+    {{if isDone}}
+    <div class="grow-done">已达成目标，无需额外材料</div>
+    {{else}}
+    <div class="mat-list">
+      {{each items ds}}
+      <div class="mat-card">
+        <div class="mat-icon star{{ds.star}}">
+          <div class="img" style="background-image:url({{_res_path}}{{ds.icon}})"></div>
+          <div class="mat-num">{{ds.num}}</div>
+        </div>
+        <div class="mat-name">{{ds.label}}</div>
+      </div>
+      {{/each}}
+      {{if crown}}
+      <div class="mat-card">
+        <div class="mat-icon star5">
+          <div class="img mat-text">冕</div>
+          <div class="mat-num">{{crown}}</div>
+        </div>
+        <div class="mat-name">智识之冕</div>
+      </div>
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+</div>
+
+{{if !isDone}}
+<div class="cont">
+  <div class="cont-title">经验与摩拉</div>
+  <div class="cont-body grow-cost">
+    <div class="cost-item">
+      <strong>角色经验</strong>
+      <span>{{exp}}<em>约{{wit}}本大英雄的经验</em></span>
+    </div>
+    <div class="cost-item">
+      <strong>突破摩拉</strong>
+      <span>{{mora.promote}}</span>
+    </div>
+    <div class="cost-item">
+      <strong>天赋摩拉</strong>
+      <span>{{mora.talent}}</span>
+    </div>
+    <div class="cost-item">
+      <strong>经验摩拉</strong>
+      <span>{{mora.exp}}</span>
+    </div>
+    <div class="cost-item cost-total">
+      <strong>摩拉合计</strong>
+      <span>{{moraTotal}}</span>
+    </div>
+  </div>
+</div>
+{{/if}}
+
+<div class="grow-notice">
+  * 基于本地角色数据计算，数据过期可先【#更新面板】<br>
+  * 天赋按不含命座加成的等级计算，经验未扣除当前等级内已有经验<br>
+  * 可指定目标：#{{role.abbr || role.name}}养成计算 90 9 9 9（等级 普攻 战技 爆发）
+</div>
+{{/block}}
