@@ -30,9 +30,9 @@ app.reg({
 
   profileGrow: {
     name: '养成计算',
-    describe: '【#刻晴养成计算 90 10 10 10】 计算角色升至目标等级与天赋所需材料',
+    describe: '【#养成计算 刻晴 等级90 天赋 10 10 10】【#养成计算 雾切 80】 计算角色/武器养成所需材料',
     fn: ProfileGrow.render,
-    rule: /^#(原神)?.+(养成|培养)计算[\d\s,，/]*$/
+    rule: /^#(原神)?(养成|培养)计算.*$/
   },
 
   profileChange: {

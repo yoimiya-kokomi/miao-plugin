@@ -33,6 +33,11 @@ body {
   background-size: cover;
   background-position: center bottom;
 }
+.grow-head .grow-face.is-weapon .img {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .grow-head .grow-name {
   font-size: 30px;
 }
@@ -45,13 +50,14 @@ body {
   font-size: 14px;
   margin-top: 5px;
 }
-.grow-head .grow-uid span {
-  color: #ffcc66;
-  padding-left: 10px;
-}
 .cont-title {
   padding: 8px 20px;
   font-size: 16px;
+}
+.cont-title span {
+  font-size: 12px;
+  color: #ccc;
+  padding-left: 10px;
 }
 .cont-body {
   font-size: 14px;
@@ -76,6 +82,16 @@ body {
   font-style: normal;
   color: #d3bc8e;
   padding: 0 4px;
+}
+.grow-target .target-mora {
+  width: 100%;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.grow-target .target-mora span {
+  color: #ffcc66;
+  font-size: 16px;
 }
 .mat-list {
   display: flex;
@@ -104,13 +120,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
-.mat-card .mat-icon .mat-text {
-  line-height: 76px;
-  text-align: center;
-  font-size: 30px;
-  color: #fff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-}
 .mat-card .mat-num {
   position: absolute;
   right: 0;
@@ -129,6 +138,11 @@ body {
   white-space: nowrap;
   overflow: hidden;
 }
+.mat-card .mat-name.long {
+  font-size: 10px;
+  letter-spacing: -0.5px;
+  padding: 3px 0;
+}
 .mat-icon.star1 {
   background-image: url("../common/item/bg1.png");
 }
@@ -144,6 +158,15 @@ body {
 .mat-icon.star5 {
   background-image: url("../common/item/bg5.png");
 }
+.grow-face.star1 {
+  background-image: url("../common/item/bg1.png");
+}
+.grow-face.star2 {
+  background-image: url("../common/item/bg2.png");
+}
+.grow-face.star3 {
+  background-image: url("../common/item/bg3.png");
+}
 .grow-face.star4 {
   background-image: url("../common/item/bg4.png");
 }
@@ -154,32 +177,6 @@ body {
   text-align: center;
   padding: 10px 0;
   color: #d3bc8e;
-}
-.grow-cost {
-  padding: 8px 15px;
-}
-.grow-cost .cost-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.grow-cost .cost-item:last-child {
-  border-bottom: none;
-}
-.grow-cost .cost-item strong {
-  color: #d3bc8e;
-  font-weight: normal;
-}
-.grow-cost .cost-item em {
-  font-style: normal;
-  font-size: 12px;
-  color: #aaa;
-  padding-left: 8px;
-}
-.grow-cost .cost-total span {
-  color: #ffcc66;
-  font-size: 16px;
 }
 .grow-notice {
   margin: 10px 15px 0 10px;

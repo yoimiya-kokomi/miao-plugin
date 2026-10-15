@@ -31,6 +31,12 @@ body {
       background-size: cover;
       background-position: center bottom;
     }
+
+    &.is-weapon .img {
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   }
 
   .grow-name {
@@ -46,17 +52,18 @@ body {
   .grow-uid {
     font-size: 14px;
     margin-top: 5px;
-
-    span {
-      color: #ffcc66;
-      padding-left: 10px;
-    }
   }
 }
 
 .cont-title {
   padding: 8px 20px;
   font-size: 16px;
+
+  span {
+    font-size: 12px;
+    color: #ccc;
+    padding-left: 10px;
+  }
 }
 
 .cont-body {
@@ -84,6 +91,18 @@ body {
       font-style: normal;
       color: #d3bc8e;
       padding: 0 4px;
+    }
+  }
+
+  .target-mora {
+    width: 100%;
+    margin-top: 4px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+
+    span {
+      color: #ffcc66;
+      font-size: 16px;
     }
   }
 }
@@ -117,13 +136,6 @@ body {
       background-repeat: no-repeat;
     }
 
-    .mat-text {
-      line-height: 76px;
-      text-align: center;
-      font-size: 30px;
-      color: #fff;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, .6);
-    }
   }
 
   .mat-num {
@@ -144,6 +156,12 @@ body {
     padding: 2px;
     white-space: nowrap;
     overflow: hidden;
+
+    &.long {
+      font-size: 10px;
+      letter-spacing: -0.5px;
+      padding: 3px 0;
+    }
   }
 }
 
@@ -157,7 +175,7 @@ body {
 }
 
 .grow-face {
-  @stars: 4, 5;
+  @stars: 1, 2, 3, 4, 5;
   each(@stars, {
     &.star@{value} {
       background-image: url("../common/item/bg@{value}.png");
@@ -169,38 +187,6 @@ body {
   text-align: center;
   padding: 10px 0;
   color: #d3bc8e;
-}
-
-.grow-cost {
-  padding: 8px 15px;
-
-  .cost-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, .1);
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    strong {
-      color: #d3bc8e;
-      font-weight: normal;
-    }
-
-    em {
-      font-style: normal;
-      font-size: 12px;
-      color: #aaa;
-      padding-left: 8px;
-    }
-  }
-
-  .cost-total span {
-    color: #ffcc66;
-    font-size: 16px;
-  }
 }
 
 .grow-notice {
