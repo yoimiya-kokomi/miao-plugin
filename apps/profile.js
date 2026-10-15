@@ -3,6 +3,7 @@ import { profileArtisList } from './profile/ProfileArtis.js'
 import ProfileDetail from './profile/ProfileDetail.js'
 import ProfileStat from './profile/ProfileStat.js'
 import ProfileList from './profile/ProfileList.js'
+import ProfileGrow from './profile/ProfileGrow.js'
 import { uploadCharacterImg, delProfileImg, profileImgList } from './character/ImgUpload.js'
 import { enemyLv } from './profile/ProfileUtils.js'
 import { groupRank, resetRank, refreshRank, manageRank } from './profile/ProfileRank.js'
@@ -25,6 +26,13 @@ app.reg({
     name: '角色面板',
     fn: ProfileDetail.detail,
     rule: /^#*([^#]+)\s*(详细|详情|面板|面版|圣遗物|遗器|武器[1-7]?|伤害([1-9]+\d*)?)\s*(\d{9,10})*(.*[换].*)?$/
+  },
+
+  profileGrow: {
+    name: '养成计算',
+    describe: '【#养成计算 刻晴 等级90 天赋 10 10 10】【#养成计算 雾切 80】 计算角色/武器养成所需材料',
+    fn: ProfileGrow.render,
+    rule: /^#(原神)?(养成|培养)计算.*$/
   },
 
   profileChange: {
