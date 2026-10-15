@@ -170,6 +170,11 @@ const sumExp = (table, from, to) => lodash.sum(table.slice(from - 1, to - 1))
 // 计算器接口只区分等级，已在突破节点完成突破的按下一级传入
 const apiLv = ({ level, promote }) => Math.min(promote > getPromote(level) ? level + 1 : level, charMaxLv)
 
+// 原神UID对应服务器，与Yunzai一致：按去掉末8位后的前缀区分（9位18开头为国服官服，10位18开头为国际服亚服）
+const getGsRegion = (uid) => ({
+  5: 'cn_qd01', 6: 'os_usa', 7: 'os_euro', 8: 'os_asia', 18: 'os_asia', 9: 'os_cht'
+})[String(uid).slice(0, -8)] || 'cn_gf01'
+
 // 解析等级文本，80 为80级未突破，80+ 为80级已突破
 const parseLv = (lv, plus) => {
   lv = lv * 1
@@ -416,7 +421,8 @@ const ProfileGrow = {
         return false
       }
       // 国际服计算器接口返回格式不同，暂不支持
-      if (/^(18|[6-9])/.test(String(mysInfo.uid))) {
+      let region = getGsRegion(mysInfo.uid)
+      if (region.startsWith('os')) {
         return { notice: '国际服暂不支持扣除背包材料' }
       }
       let api = runtime.createMysApi(mysInfo.uid, ck, { log: false })
@@ -425,7 +431,6 @@ const ProfileGrow = {
         return failed
       }
       // 需同时传入uid与region，接口才会返回该账号的背包数据（has_user_info）
-      let region = api.server || (String(mysInfo.uid)[0] === '5' ? 'cn_qd01' : 'cn_gf01')
       let ret = await api.getData('compute', { body: { items: [item], uid: String(mysInfo.uid), region } })
       let consume = ret?.data?.overall_consume
       if (ret?.retcode !== 0 || !lodash.isArray(consume)) {
