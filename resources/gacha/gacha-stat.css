@@ -29,6 +29,7 @@
   background: rgba(0, 0, 0, 0.8);
   padding: 10px 0;
   display: flex;
+  align-items: center;
   border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
 .gacha-pool .version-name {
@@ -50,8 +51,9 @@
   width: 160px;
 }
 .gacha-pool .pool-name .name {
-  height: 22px;
-  line-height: 22px;
+  min-height: 22px;
+  line-height: 18px;
+  white-space: normal;
 }
 .gacha-pool .pool-name .time {
   font-size: 12px;
@@ -137,4 +139,28 @@
 .gacha-stat .normal-card .item-life {
   background: #333;
   color: #fff;
+}
+.stat-luck {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 8px;
+}
+.stat-luck-image {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.stat-luck-copy strong {
+  display: block;
+  color: #fff;
+  font-size: 16px;
+}
+.stat-luck-copy span {
+  color: #d3bc8e;
+  font-size: 13px;
 }
