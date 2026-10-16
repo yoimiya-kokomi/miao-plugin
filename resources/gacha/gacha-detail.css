@@ -1,9 +1,41 @@
 .avatar-cont {
   background: rgba(0, 0, 0, 0.1);
 }
-.user-banner .stat-li {
+.user-banner {
+  width: 740px;
+  height: 90px;
+  background-size: auto 100%;
+  padding-left: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.user-banner .face {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  margin: 0;
+}
+.user-banner .user-info {
   width: auto;
-  min-width: 75px;
+  padding: 4px 0 0;
+}
+.user-banner .stat {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 8px 0 0;
+  overflow: visible;
+  box-shadow: none;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.user-banner .stat-li,
+.user-banner .stat-li:first-child,
+.user-banner .stat-li:last-child {
+  width: auto;
+  min-width: 88px;
+  height: auto;
+  padding: 4px 8px;
 }
 .gacha-list .gacha-item {
   height: 38px;
@@ -142,20 +174,26 @@
 .luck {
   --luck-color: #e4c46a;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   margin: 10px 0 5px;
+  padding: 8px 10px;
   border-radius: 12px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.28);
+}
+.luck .luck-face {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 10px;
+  flex: 0 0 auto;
+  border: 2px solid var(--luck-color);
 }
 .luck .luck-main {
-  width: 170px;
+  width: 150px;
   flex-shrink: 0;
-  padding: 12px 10px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.35);
-  border-right: 3px solid var(--luck-color);
+  padding: 0 12px;
+  text-align: left;
 }
 .luck .luck-label {
   font-size: 13px;
