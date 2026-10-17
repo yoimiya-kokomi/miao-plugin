@@ -18,7 +18,7 @@ let last = poolVersion[poolVersion.length - 1]
 // 为未知卡池做兼容
 poolVersion.push({
   version: '新版本',
-  half: '?',
+  half: '',
   from: last.to,
   to: '2099-12-31 23:59:59',
   start: last.end,
@@ -36,7 +36,7 @@ lodash.forEach(poolDetailSr, (ds) => {
 let lastSr = poolVersionSr[poolVersionSr.length - 1]
 poolVersionSr.push({
   version: '新版本',
-  half: '?',
+  half: '',
   from: lastSr.to,
   to: '2099-12-31 23:59:59',
   start: lastSr.end,
@@ -54,7 +54,7 @@ lodash.forEach(mixPoolDetail, (ds) => {
 let mixLast = mixPoolVersion[mixPoolVersion.length - 1]
 mixPoolVersion.push({
   version: '新版本',
-  half: '?',
+  half: '',
   from: mixLast.to,
   to: '2099-12-31 23:59:59',
   start: mixLast.end,
@@ -196,18 +196,15 @@ let GachaData = {
         fiveLogNum = 0
         let isUp = false
         // 歪了多少个
-        if (type === 'char') {
-          if (currVersion.char5?.includes(ds.name)) {
-            isUp = true
-          } else {
-            wai++
-          }
+        let upNames = type === 'char' ? currVersion.char5 : currVersion.weapon5
+        if (!upNames?.length && currVersion.version === '新版本') {
+          let known = (game === 'gs' ? poolVersion : poolVersionSr).find((ds) => (type === 'char' ? ds.char5 : ds.weapon5)?.includes(item.name))
+          upNames = known ? (type === 'char' ? known.char5 : known.weapon5) : []
+        }
+        if (upNames?.includes(ds.name) || upNames?.includes(item.name)) {
+          isUp = true
         } else {
-          if (currVersion.weapon5?.includes(ds.name)) {
-            isUp = true
-          } else {
-            wai++
-          }
+          wai++
         }
 
         fiveLog.push({
