@@ -140,6 +140,32 @@
   background: #333;
   color: #fff;
 }
+.gacha-stat-page .record-hero {
+  background-color: #241c33;
+  background-position: right center;
+  background-size: auto 170%;
+}
+.gacha-stat-page .record-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: auto;
+  max-width: 430px;
+}
+.gacha-stat-page .record-stats div {
+  width: 128px;
+  padding: 7px 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 248, 232, 0.72);
+  border-radius: 10px;
+  background: rgba(20, 16, 28, 0.28);
+  box-sizing: border-box;
+}
+.gacha-stat-page .record-stats span,
+.gacha-stat-page .record-stats strong { display: block; white-space: nowrap; }
+.gacha-stat-page .record-stats span { color: #fff8e8; font-size: 12px; }
+.gacha-stat-page .record-stats strong { color: #ffe7a4; font-size: 20px; line-height: 24px; }
 .stat-luck {
   display: flex;
   align-items: center;
