@@ -18,26 +18,21 @@
     <span>第 {{pageInfo.page}}/{{pageInfo.total}} 张</span>
   </div>
   {{else}}
-  <div class="user-banner" style="background-image:url({{_res_path}}{{face?.banner}})">
-    <div class="face">
-      <span style="background-image:url({{_res_path}}{{face?.qFace||face?.face}})"></span>
-    </div>
-    <div class="user-info">
-      <div class="name">
-        <strong>{{face.name}}</strong>
-      </div>
-      <div class="uid">
-        {{if uid}}<span> #{{uid}}</span>{{/if}}
-      </div>
+  <div class="record-hero" style="background-image:url({{_res_path}}{{splash}})">
+    <div class="record-copy">
+      <div class="record-kicker">祈愿履历 · {{poolName}}统计</div>
+      <div class="record-title">{{poolName}}统计</div>
+      <div class="record-uid">{{face.name}}</div>
+      {{if uid}}<div class="record-uid">UID {{uid}}</div>{{/if}}
     </div>
     {{if gacha && gacha.totalStat }}
     {{set stat = gacha.totalStat }}
-    <div class="stat">
+    <div class="record-stats">
       {{each statMap title key}}
       {{if stat[key] }}
-      <div class="stat-li">
-        <strong>{{stat[key]}}</strong>
+      <div>
         <span>{{title}}</span>
+        <strong>{{stat[key]}}</strong>
       </div>
       {{/if}}
       {{/each}}
