@@ -2,12 +2,30 @@
   background: rgba(0, 0, 0, 0.1);
 }
 .user-banner {
-  width: 740px;
-  height: 90px;
+  width: fit-content;
+  max-width: 740px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  margin: 8px 10px 0;
+  padding: 0 18px 0 78px;
+  border-radius: 16px;
   background-size: auto 100%;
-  padding-left: 100px;
+  background-position: right center;
   white-space: nowrap;
   overflow: hidden;
+  box-sizing: border-box;
+}
+.user-banner .face {
+  left: 22px;
+  top: 20px;
+}
+.user-banner .banner-extra {
+  margin-left: 28px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+.user-banner .banner-extra strong {
+  font-size: 16px;
 }
 .user-banner .face {
   position: absolute;
@@ -180,6 +198,35 @@
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.28);
 }
+.record-hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 132px;
+  margin: 8px 10px 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #241c33 center right / auto 150% no-repeat;
+  color: #fff8e8;
+  box-sizing: border-box;
+}
+.record-kicker { font-size: 13px; color: #f3e7ff; }
+.record-hero h1 { margin: 2px 0; font-size: 28px; line-height: 32px; }
+.record-uid { color: #ffe7a4; font-size: 14px; }
+.record-luck { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.record-luck img { width: 64px; height: 64px; object-fit: cover; object-position: center top; border-radius: 12px; border: 2px solid #ffe7a4; }
+.record-luck strong, .record-luck span { display: block; white-space: nowrap; }
+.record-luck strong { color: #ffe7a4; font-size: 20px; }
+.record-luck span { font-size: 13px; }
+.record-metrics { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-left: auto; max-width: 390px; }
+.record-metrics div { width: 118px; padding: 6px 4px; text-align: center; border-radius: 10px; background: rgba(255, 255, 255, 0.14); }
+.record-metrics strong, .record-metrics small { display: block; white-space: nowrap; }
+.record-metrics strong { color: #ffe7a4; font-size: 18px; }
+.record-metrics small { color: #fff; font-size: 12px; }
+.record-metrics strong,
+.record-metrics span { display: block; white-space: nowrap; }
+.record-metrics strong { color: #ffe7a4; font-size: 16px; }
+.record-metrics span { font-size: 12px; }
 .luck .luck-face {
   width: 64px;
   height: 64px;
@@ -190,10 +237,11 @@
   border: 2px solid var(--luck-color);
 }
 .luck .luck-main {
-  width: 150px;
+  width: 196px;
   flex-shrink: 0;
   padding: 0 12px;
   text-align: left;
+  white-space: nowrap;
 }
 .luck .luck-label {
   font-size: 13px;
@@ -201,8 +249,9 @@
 }
 .luck .luck-title {
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, sans-serif;
-  font-size: 34px;
-  line-height: 46px;
+  font-size: 32px;
+  line-height: 40px;
+  white-space: nowrap;
   color: var(--luck-color);
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
 }
