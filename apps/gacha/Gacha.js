@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { Common, Data } from '#miao'
 import common from '../../../../lib/common/common.js'
 import { getTargetUid } from '../profile/ProfileCommon.js'
@@ -123,6 +125,7 @@ let Gacha = {
       uid,
       gacha,
       face: Gacha.getFace(uid, game),
+      splash: Gacha.getSplash(game),
       game,
       type,
       poolName,
@@ -353,6 +356,14 @@ let Gacha = {
     ]
     e.reply(helpMsg.join('\n'))
     return true
+  },
+
+  getSplash (game) {
+    let root = path.join(process.cwd(), 'plugins', 'miao-plugin', 'resources', game === 'sr' ? 'meta-sr' : 'meta-gs', 'character')
+    if (!fs.existsSync(root)) return ''
+    let names = fs.readdirSync(root).filter((name) => fs.existsSync(path.join(root, name, 'imgs', 'splash.webp')))
+    if (!names.length) return ''
+    return `${game === 'sr' ? 'meta-sr' : 'meta-gs'}/character/${names[Math.floor(Math.random() * names.length)]}/imgs/splash.webp`
   },
 
   getFace (uid, game) {
