@@ -204,6 +204,7 @@ let Gacha = {
       uid,
       gacha,
       face: Gacha.getFace(uid, game),
+      splash: Gacha.getSplash(game),
       game,
       poolName,
       pageInfo,
