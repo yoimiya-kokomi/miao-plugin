@@ -24,6 +24,15 @@
       <div class="record-title">{{poolName}}统计</div>
       <div class="record-uid">{{face.name}}</div>
       {{if uid}}<div class="record-uid">UID {{uid}}</div>{{/if}}
+      {{if gacha.luck}}
+      <div class="record-luck">
+        {{if gacha.luck.image}}<img src="{{_res_path}}gacha/imgs/luck/{{gacha.luck.image}}" alt="{{gacha.luck.title}}"/>{{/if}}
+        <div>
+          <strong>{{gacha.luck.title}}</strong>
+          <span>欧皇度 {{gacha.luck.percent}}% · {{gacha.luck.desc}}</span>
+        </div>
+      </div>
+      {{/if}}
     </div>
     {{if gacha && gacha.totalStat }}
     {{set stat = gacha.totalStat }}
@@ -57,16 +66,6 @@
     <strong>*抽卡帮助</strong>获取帮助
   </div>
   {{/if}}
-  {{/if}}
-
-  {{if gacha.luck}}
-  <div class="stat-luck">
-    <img class="stat-luck-image" src="{{_res_path}}gacha/imgs/luck/{{gacha.luck.image}}" />
-    <div class="stat-luck-copy">
-      <strong>{{gacha.luck.title}}</strong>
-      <span>欧皇度 {{gacha.luck.percent}}% · {{gacha.luck.desc}}</span>
-    </div>
-  </div>
   {{/if}}
 
   {{each gacha.versionData vData}}
