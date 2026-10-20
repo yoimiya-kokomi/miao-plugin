@@ -145,6 +145,23 @@
   background-position: right center;
   background-size: auto 170%;
 }
+.gacha-stat-page .user-banner { height: auto; min-height: 0; overflow: visible; flex-wrap: nowrap; align-items: center; width: fit-content; max-width: 100%; border-radius: 16px; padding: 6px 8px; background-size: cover; }
+.gacha-stat-page .user-banner .user-info { width: auto; min-width: 0; flex: 0 0 auto; overflow: hidden; padding: 8px 6px; }
+.gacha-stat-page .user-banner .stat { position: static; display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 4px; width: auto; max-width: none; height: auto; margin: 0 4px 0 8px; box-shadow: none; overflow: visible; }
+.gacha-stat-page .user-banner .stat > div { width: 78px; padding: 4px 2px; text-align: center; border-radius: 8px; background: rgba(255,255,255,.72); }
+.gacha-stat-page .user-banner .stat strong { display: block; font-size: 18px; line-height: 22px; }
+.gacha-stat-page .user-banner .stat span { display: block; font-size: 12px; color: #414e64; }
+.gacha-stat-page .record-luck { display: flex; align-items: center; gap: 8px; }
+.gacha-stat-page .record-luck img {
+  width: 48px;
+  height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 8px;
+  flex: 0 0 48px;
+}
 .gacha-stat-page .record-stats {
   display: flex;
   flex-wrap: wrap;

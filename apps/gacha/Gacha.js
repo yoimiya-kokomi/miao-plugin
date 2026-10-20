@@ -1,5 +1,3 @@
-import fs from 'node:fs'
-import path from 'node:path'
 import { Common, Data } from '#miao'
 import common from '../../../../lib/common/common.js'
 import { getTargetUid } from '../profile/ProfileCommon.js'
@@ -9,6 +7,16 @@ import GachaPool from './GachaPool.js'
 import { Button, Character, Player, Weapon } from '#miao.models'
 
 let { sysCfg, diyCfg } = await Data.importCfg('gacha')
+
+const styleKey = (e) => `miao:gacha:detail-style:${e.user_id || e.user?.qq || 'default'}`
+
+async function getDetailStyle (e, isAll, fallback) {
+  if (isAll) return 1
+  let mode = await redis.get(styleKey(e))
+  if (mode === 'random') return Math.random() < 0.5 ? 1 : 2
+  if (mode === '1' || mode === '2') return Number(mode)
+  return Number(fallback) === 2 ? 2 : 1
+}
 
 let Gacha = {
   async detail (e) {
@@ -109,7 +117,7 @@ let Gacha = {
         if (Number.isFinite(fiveAvg) && fiveAvg > 0) estimated.fiveAvg = fiveAvg.toFixed(2)
         if (upPool && Number.isFinite(upAvg) && upAvg > 0 && upNum > 0) estimated.upAvg = upAvg.toFixed(2)
         if (gacha.noWaiRate !== undefined && gacha.noWaiRate !== null) estimated.noWaiRate = gacha.noWaiRate
-        for (let key of ['bigNum', 'maxUpStreak', 'maxWaiStreak']) {
+        for (let key of ['smallNum', 'smallWin', 'bigNum', 'maxUpStreak', 'maxWaiStreak']) {
           if (gacha[key] !== undefined && gacha[key] !== null) estimated[key] = gacha[key]
         }
         gacha = { ...gacha, luck: estimated }
@@ -120,22 +128,25 @@ let Gacha = {
       gacha.luck.color = gacha.luck.color || '#e4c46a'
     }
     if (type === 302 || type === 12) type = 'weapon'
+    let detailStyle = await getDetailStyle(e, isAll, diyCfg.detailCfg?.style ?? sysCfg.detailCfg?.style ?? 1)
     let render = (gacha, pageInfo) => Common.render('gacha/gacha-detail', {
       save_id: pageInfo ? `${uid}-${pageInfo.page}` : uid,
       uid,
       gacha,
       face: Gacha.getFace(uid, game),
-      splash: Gacha.getSplash(game),
       game,
       type,
       poolName,
       pageInfo,
+      detailStyle,
       elem: e.isSr ? 'sr' : 'hydro'
     }, { e, scale: 1.4, retType: 'base64' })
 
-    let pages = isAll ? GachaData.pageLog(gacha, maxLog) : []
+    // 样式2：单页不超过70条就整页发出；超过70条才分页，第2页起只留昵称和卡片
+    let pageSize = detailStyle === 2 ? 70 : maxLog
+    let pages = (isAll || detailStyle === 2) ? GachaData.pageLog(gacha, pageSize) : []
     if (pages.length <= 1) {
-      if (!isAll) GachaData.limitLog(gacha, maxLog)
+      if (!isAll && detailStyle !== 2) GachaData.limitLog(gacha, maxLog)
       this.reply([await render(gacha), new Button(e).gacha()])
       return true
     }
@@ -204,7 +215,6 @@ let Gacha = {
       uid,
       gacha,
       face: Gacha.getFace(uid, game),
-      splash: Gacha.getSplash(game),
       game,
       poolName,
       pageInfo,
@@ -323,6 +333,7 @@ let Gacha = {
       }
     }
     let simple_key = simple ? 'simple' : 'detail'
+
     e.reply(await Common.render('gacha/gacha-info', {
       save_id: `pool-${game}-${item_type}-${item_id}-${simple_key}`,
       pools,
@@ -342,6 +353,7 @@ let Gacha = {
       '    #6.0卡池',
       '    #6.7上半卡池',
       '',
+
       '✅ *x.x卡池  查星铁历史卡池',
       '    *3.0卡池',
       '    *4.1下半卡池',
@@ -359,20 +371,13 @@ let Gacha = {
     return true
   },
 
-  getSplash (game) {
-    let root = path.join(process.cwd(), 'plugins', 'miao-plugin', 'resources', game === 'sr' ? 'meta-sr' : 'meta-gs', 'character')
-    if (!fs.existsSync(root)) return ''
-    let names = fs.readdirSync(root).filter((name) => fs.existsSync(path.join(root, name, 'imgs', 'splash.webp')))
-    if (!names.length) return ''
-    return `${game === 'sr' ? 'meta-sr' : 'meta-gs'}/character/${names[Math.floor(Math.random() * names.length)]}/imgs/splash.webp`
-  },
-
   getFace (uid, game) {
     let player = Player.create(uid, game)
     let defaultFaceChar = game === 'gs' ? 10000014 : 1005
     let faceChar = Character.get(player.face || defaultFaceChar, game)
     let imgs = faceChar?.imgs
     if (!imgs?.face) {
+
       imgs = game === 'gs' ? Character.get(10000079, game).imgs : Character.get(1005, game).imgs
     }
     return {
@@ -383,6 +388,16 @@ let Gacha = {
       sign: player.sign,
       level: player.level
     }
+  },
+
+  async setStyle (e) {
+    let match = /#抽卡样式设置\s*(1|2|随机)/.exec(e.msg || '')
+    if (!match) return false
+    let mode = match[1]
+    await redis.set(styleKey(e), mode)
+    let text = mode === '随机' ? '随机（每次独立记录随机选择样式1或样式2）' : `样式${mode}`
+    await e.reply(`抽卡记录样式已设置为：${text}\n仅影响角色、武器、集录、常驻记录，#全部记录不受影响。`)
+    return true
   }
 }
 export default Gacha
