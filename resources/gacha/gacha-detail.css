@@ -299,6 +299,8 @@
 .detail-style-2 .style2-luck-title,
 .detail-style-2 .style2-luck-sub { white-space: nowrap; }
 .detail-style-2 .style2-luck-title { color: #5b4b39; font-size: 16px; font-weight: 700; line-height: 24px; }
+.detail-style-2 .style2-luck-title strong { color: #29272b; }
+.detail-style-2 .style2-luck-title em { font-style: normal; }
 .detail-style-2 .style2-luck-title strong { color: #b17818; }
 .detail-style-2 .style2-luck-sub { margin-top: 2px; color: #9b8557; font-size: 12px; line-height: 18px; }
 .detail-style-2 .style2-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px 6px; margin: 16px 0 10px; }

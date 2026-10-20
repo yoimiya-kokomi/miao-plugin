@@ -24,7 +24,7 @@
     <div class="style2-luck">
       <div class="style2-luck-image"><img src="{{_res_path}}gacha/imgs/luck/{{luck.image || '1.jpg'}}" /></div>
       <div class="style2-luck-main">
-        <div class="style2-luck-title">{{luck.title || '普通'}} · 超过 <strong>{{luck.percent || 0}}%</strong> 旅行者</div>
+        <div class="style2-luck-title">运气超过 <strong>{{luck.percent || 0}}%</strong> 旅行者 · <em style="color:{{luck.color || '#5b4b39'}}">{{luck.title || '普通'}}</em></div>
         <div class="style2-luck-sub">{{luck.desc || '按官方概率计算'}} · 理论期望 {{luck.upExpect || luck.fiveExpect || '—'}} 抽{{if luck.fewSample}} · 样本较少{{/if}}</div>
       </div>
     </div>
