@@ -13,13 +13,13 @@
 {{ set gameHash = game === 'gs' ? '#' : '*'}}
 <div class="basic detail-style-{{detailStyle || 1}}">
   {{if detailStyle == 2}}
+  {{set luck = gacha.luck}}
+  {{set style2First = !(pageInfo && pageInfo.page > 1)}}
   <div class="style2-head">
-    <div class="style2-id">ID: {{uid}}</div>
-    <div class="style2-total">{{gacha.stat.allNum || 0}}抽 <span class="style2-pool style2-pool-{{type}}">{{poolName}}池</span></div>
-  </div>
-  <div class="style2-panel">
-    {{set luck = gacha.luck}}
-    {{set style2First = !(pageInfo && pageInfo.page > 1)}}
+    <div class="style2-user">
+      <div class="style2-id">{{face.name}}<span>#{{uid}}</span></div>
+      <div class="style2-total">{{gacha.stat.allNum || 0}}抽 <span class="style2-pool style2-pool-{{type}}">{{poolName}}池</span></div>
+    </div>
     {{if luck && style2First}}
     <div class="style2-luck">
       <div class="style2-luck-image"><img src="{{_res_path}}gacha/imgs/luck/{{luck.image || '1.jpg'}}" /></div>
@@ -29,6 +29,8 @@
       </div>
     </div>
     {{/if}}
+  </div>
+  <div class="style2-panel">
     {{if style2First}}
     <div class="style2-stats">
       <div><strong>{{gacha.stat.noFiveNum || 0}}<small>抽</small></strong><span>未出五星</span></div>
@@ -46,7 +48,7 @@
     {{if style2First}}
     <div class="style2-history"><i></i><span>五星历史 {{gacha.firstDate || '暂无'}} ~ {{gacha.lastDate || '暂无'}}</span><i></i></div>
     {{else}}
-    <div class="style2-history"><i></i><span>{{face.name}} #{{uid}} · 第 {{pageInfo.page}}/{{pageInfo.total}} 张</span><i></i></div>
+    <div class="style2-history"><i></i><span>第 {{pageInfo.page}}/{{pageInfo.total}} 张</span><i></i></div>
     {{/if}}
     <div class="style2-grid">
       {{each gacha.fiveLog ds idx}}
@@ -63,7 +65,6 @@
   {{else}}
   {{if pageInfo && pageInfo.page > 1}}
   <div class="page-head">
-    <strong>{{face.name}}</strong> #{{uid}} · {{poolName}}池抽卡记录
     <span>第 {{pageInfo.page}}/{{pageInfo.total}} 张</span>
   </div>
   {{else}}

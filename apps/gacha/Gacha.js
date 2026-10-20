@@ -142,11 +142,10 @@ let Gacha = {
       elem: e.isSr ? 'sr' : 'hydro'
     }, { e, scale: 1.4, retType: 'base64' })
 
-    // 样式2：单页不超过70条就整页发出；超过70条才分页，第2页起只留昵称和卡片
-    let pageSize = detailStyle === 2 ? 70 : maxLog
-    let pages = (isAll || detailStyle === 2) ? GachaData.pageLog(gacha, pageSize) : []
+    // 样式2单页70条；样式1和全部记录按 maxLog 分页，超出后合并转发，不再截断
+    let pageSize = detailStyle === 2 ? 70 : (maxLog > 0 ? maxLog : 30)
+    let pages = GachaData.pageLog(gacha, pageSize)
     if (pages.length <= 1) {
-      if (!isAll && detailStyle !== 2) GachaData.limitLog(gacha, maxLog)
       this.reply([await render(gacha), new Button(e).gacha()])
       return true
     }
