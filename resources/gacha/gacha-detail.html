@@ -30,13 +30,23 @@
         {{if uid}}<span> #{{uid}}</span>{{/if}}
       </div>
     </div>
+    {{if gacha && gacha.stat }}
+    {{set stat = gacha.stat }}
+    <div class="stat">
+      {{each statMap title key}}
+      {{if stat[key] }}
+      <div class="stat-li">
+        <strong>{{stat[key]}}</strong>
+        <span>{{title}}</span>
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+    {{/if}}
   </div>
   {{set luck = gacha.luck}}
   {{if luck}}
   <div class="luck" style="--luck-color:{{luck.color}}">
-    {{if luck.image}}
-    <img class="luck-face" src="{{_res_path}}gacha/imgs/luck/{{luck.image}}" alt="{{luck.title}}"/>
-    {{/if}}
     <div class="luck-main">
       <div class="luck-label">欧皇度</div>
       <div class="luck-title">{{luck.title}}</div>
@@ -51,14 +61,37 @@
         {{/if}}
       </div>
       <div class="luck-stat">
-        {{each statMap title key}}
-        {{if gacha.stat && gacha.stat[key] }}
+        {{if luck.isUpPool}}
         <div class="luck-stat-li">
-          <strong>{{gacha.stat[key]}}</strong>
-          <span>{{title}}</span>
+          <strong>{{luck.fiveAvg}}</strong>
+          <span>平均出金 · 期望{{luck.fiveExpect}}</span>
+          <span class="pct">超过{{luck.fivePercent}}%</span>
+        </div>
+        {{if luck.smallNum > 0}}
+        <div class="luck-stat-li">
+          <strong>{{luck.noWaiRate}}%</strong>
+          <span>小保底不歪 {{luck.smallWin}}/{{luck.smallNum}} · 期望{{luck.upRate}}%</span>
+          <span class="pct">超过{{luck.winPercent}}%</span>
         </div>
         {{/if}}
-        {{/each}}
+        <div class="luck-stat-li">
+          <strong>{{luck.bigNum}}</strong>
+          <span>大保底</span>
+        </div>
+        <div class="luck-stat-li">
+          <strong>{{luck.maxUpStreak}}</strong>
+          <span>最多连UP</span>
+        </div>
+        <div class="luck-stat-li">
+          <strong>{{luck.maxWaiStreak}}</strong>
+          <span>最多连歪</span>
+        </div>
+        {{else}}
+        <div class="luck-stat-li">
+          <strong>{{luck.desc}}</strong>
+          <span>{{luck.fiveAvg * 1 <= luck.fiveExpect * 1 ? '出金快于' : '出金慢于'}}理论期望</span>
+        </div>
+        {{/if}}
       </div>
       {{if luck.fewSample}}
       <div class="luck-tip">样本较少，仅供参考</div>

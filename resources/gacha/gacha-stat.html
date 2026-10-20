@@ -11,7 +11,7 @@
 {{ set statMap = { totalNum:'抽卡总数', star5Num:'金卡',c5UpNum:'UP角色',w5UpNum:'UP武器', star4Num:'紫卡',avgUpNum:'平均UP抽' } }}
 
 {{block 'main'}}
-<div class="basic gacha-stat-page">
+<div class="basic">
   {{if pageInfo && pageInfo.page > 1}}
   <div class="page-head">
     <strong>{{face.name}}</strong> #{{uid}} · {{poolName}}统计
@@ -62,16 +62,6 @@
     <strong>*抽卡帮助</strong>获取帮助
   </div>
   {{/if}}
-  {{/if}}
-
-  {{if gacha.luck}}
-  <div class="stat-luck">
-    <img class="stat-luck-image" src="{{_res_path}}gacha/imgs/{{gacha.luck.image}}" />
-    <div class="stat-luck-copy">
-      <strong>{{gacha.luck.title}}</strong>
-      <span>欧皇度 {{gacha.luck.percent}}% · {{gacha.luck.desc}}</span>
-    </div>
-  </div>
   {{/if}}
 
   {{each gacha.versionData vData}}
