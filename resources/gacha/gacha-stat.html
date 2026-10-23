@@ -23,22 +23,15 @@
       <span style="background-image:url({{_res_path}}{{face?.qFace||face?.face}})"></span>
     </div>
     <div class="user-info">
-      <div class="name">
-        <strong>{{face.name}}</strong>
-      </div>
-      <div class="uid">
-        {{if uid}}<span> #{{uid}}</span>{{/if}}
-      </div>
+      <div class="name"><strong>{{face.name}}</strong></div>
+      <div class="uid">{{if uid}}<span>#{{uid}}</span>{{/if}}</div>
     </div>
     {{if gacha && gacha.totalStat }}
     {{set stat = gacha.totalStat }}
     <div class="stat">
       {{each statMap title key}}
       {{if stat[key] }}
-      <div class="stat-li">
-        <strong>{{stat[key]}}</strong>
-        <span>{{title}}</span>
-      </div>
+      <div><strong>{{stat[key]}}</strong><span>{{title}}</span></div>
       {{/if}}
       {{/each}}
     </div>
@@ -62,16 +55,6 @@
     <strong>*抽卡帮助</strong>获取帮助
   </div>
   {{/if}}
-  {{/if}}
-
-  {{if gacha.luck}}
-  <div class="stat-luck">
-    <img class="stat-luck-image" src="{{_res_path}}gacha/imgs/{{gacha.luck.image}}" />
-    <div class="stat-luck-copy">
-      <strong>{{gacha.luck.title}}</strong>
-      <span>欧皇度 {{gacha.luck.percent}}% · {{gacha.luck.desc}}</span>
-    </div>
-  </div>
   {{/if}}
 
   {{each gacha.versionData vData}}

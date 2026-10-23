@@ -29,15 +29,15 @@ export const luckCfg = {
 
   // 评级：运气超过的玩家比例(%) >= min 时命中，从上到下依次判断
   levels: [
-    { min: 99, title: '天运所归', desc: '天选之人，建议去买彩票', color: '#ff7a1f' },
-    { min: 95, title: '终极欧皇', desc: '金光常伴左右', color: '#ff9f1f' },
-    { min: 85, title: '大欧皇', desc: '运气远超常人', color: '#f5b72a' },
+    { min: 99, title: '天选', desc: '天选之人，建议去买彩票', color: '#ff7a1f' },
+    { min: 90, title: '极欧', desc: '金光常伴左右', color: '#ff9f1f' },
+    { min: 80, title: '大欧皇', desc: '运气远超常人', color: '#f5b72a' },
     { min: 70, title: '小欧皇', desc: '运气明显好于平均', color: '#e4c46a' },
-    { min: 55, title: '小有运气', desc: '运气略好于平均', color: '#c9cf8a' },
-    { min: 45, title: '平民', desc: '和理论期望相当', color: '#a8c1d8' },
-    { min: 25, title: '小非酋', desc: '运气略差于平均', color: '#8f9bd6' },
-    { min: 8, title: '大非酋', desc: '保底常客', color: '#9a76d8' },
-    { min: 0, title: '终极非酋', desc: '抱抱，下次一定出金', color: '#b0526a' }
+    { min: 60, title: '准欧皇', desc: '运气略好于平均', color: '#c9cf8a' },
+    { min: 40, title: '普通', desc: '和理论期望相当', color: '#a8c1d8' },
+    { min: 30, title: '小非酋', desc: '运气略差于平均', color: '#8f9bd6' },
+    { min: 10, title: '大非酋', desc: '保底常客', color: '#9a76d8' },
+    { min: 0, title: '非酋王', desc: '抱抱，下次一定出金', color: '#b0526a' }
   ],
 
   // 有效样本（UP数 / 五星数）少于该值时提示“样本较少”

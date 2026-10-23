@@ -140,6 +140,57 @@
   background: #333;
   color: #fff;
 }
+.gacha-stat-page .record-hero {
+  background-color: #241c33;
+  background-position: right center;
+  background-size: auto 170%;
+}
+body:has(.gacha-stat-page) { width: 960px; }
+body:has(.gacha-stat-page) .container { width: 960px; }
+.gacha-stat-page { width: 930px; }
+.gacha-stat-page .user-banner { height: auto; min-height: 0; overflow: hidden; display: flex; flex-wrap: nowrap; align-items: center; width: auto; margin: 8px 24px 8px; border-radius: 48px; padding: 6px 14px; background-size: auto 145%; background-position: center 18%; background-repeat: no-repeat; }
+.gacha-stat-page .page-head { justify-content: flex-start; gap: 10px; margin: 8px 24px 10px; padding: 8px 18px; }
+.gacha-stat-page .page-head strong { margin-right: 0; }
+.gacha-stat-page .page-head span { margin-left: auto; }
+.gacha-stat-page .user-banner .face { flex: 0 0 72px; width: 72px; height: 72px; min-width: 72px; }
+.gacha-stat-page .user-banner .face span { width: 72px; height: 72px; background-size: cover; background-position: center top; }
+.gacha-stat-page .user-banner .user-info { width: auto; min-width: 0; flex: 0 0 auto; overflow: hidden; padding: 8px 6px; }
+.gacha-stat-page .user-banner .stat { position: static; display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; width: auto; max-width: none; height: auto; margin: 0 0 0 12px; box-shadow: none; overflow: visible; }
+.gacha-stat-page .user-banner .stat > div { width: auto; min-width: 86px; flex: 0 0 auto; padding: 4px 8px; text-align: center; border-radius: 8px; background: rgba(255,255,255,.72); }
+.gacha-stat-page .user-banner .stat strong { display: block; font-size: 18px; line-height: 22px; }
+.gacha-stat-page .user-banner .stat span { display: block; font-size: 12px; color: #414e64; }
+.gacha-stat-page .record-luck { display: flex; align-items: center; gap: 8px; }
+.gacha-stat-page .record-luck img {
+  width: 48px;
+  height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 8px;
+  flex: 0 0 48px;
+}
+.gacha-stat-page .record-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: auto;
+  max-width: 430px;
+}
+.gacha-stat-page .record-stats div {
+  width: 128px;
+  padding: 7px 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 248, 232, 0.72);
+  border-radius: 10px;
+  background: rgba(20, 16, 28, 0.28);
+  box-sizing: border-box;
+}
+.gacha-stat-page .record-stats span,
+.gacha-stat-page .record-stats strong { display: block; white-space: nowrap; }
+.gacha-stat-page .record-stats span { color: #fff8e8; font-size: 12px; }
+.gacha-stat-page .record-stats strong { color: #ffe7a4; font-size: 20px; line-height: 24px; }
 .stat-luck {
   display: flex;
   align-items: center;

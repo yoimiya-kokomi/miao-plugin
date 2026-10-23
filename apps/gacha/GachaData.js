@@ -211,7 +211,8 @@ let GachaData = {
           id: item.id,
           isUp,
           isNewPool: currVersion.version === '新版本',
-          date: moment(item.time).format('MM-DD')
+          date: moment(item.time).format('MM-DD'),
+          fullDate: moment(item.time).format('YY-MM-DD')
         })
       }
       fiveLogNum++
@@ -307,6 +308,9 @@ let GachaData = {
       smallNum,
       smallWin
     })
+    let realFive = fiveLog.filter((ds) => ds.id !== 888 && ds.count > 0)
+    let maxFive = realFive.length ? Math.max(...realFive.map((ds) => ds.count)) : 0
+    let minFive = realFive.length ? Math.min(...realFive.map((ds) => ds.count)) : 0
     if (luck) {
       lodash.extend(luck, {
         smallNum,
@@ -315,6 +319,8 @@ let GachaData = {
         noWaiRate,
         maxUpStreak,
         maxWaiStreak,
+        maxFive,
+        minFive,
         hasNewPool: lodash.some(fiveLog, (ds) => ds.isNewPool)
       })
     }
@@ -334,7 +340,10 @@ let GachaData = {
       }
     }
 
+    let dated = fiveLog.filter((ds) => ds.fullDate)
     return {
+      firstDate: dated.length ? dated[dated.length - 1].fullDate : '',
+      lastDate: dated.length ? dated[0].fullDate : '',
       stat: {
         allNum,
         noFiveNum,
