@@ -1,20 +1,19 @@
 {{set avatar = $data[0] || false }}
 {{set {_res_path, cardType} = $data[1]}}
 {{set weapon = avatar.weapon || {} }}
+{{set artis = avatar.artisSet || {} }}
+{{set artisImgs = artis.imgs || [] }}
 {{set talentMap = ['a','e','q'] }}
 
-<div class="avatar-card elem-{{avatar.elem}} avatar-{{avatar.name}} card-{{cardType||'mini'}}">
+<div class="avatar-card elem-{{avatar.elem}} avatar-{{avatar.name}} card-{{cardType||'mini'}} {{avatar.is_popularity ? 'is-popularity' : ''}}" style="--avatar-name-length:{{(avatar.abbr || '').length || 1}}">
   <div class="card">
     {{if avatar}}
     <div class="avatar-face item-icon star{{avatar.star==4?4:5}}">
       <div class="img mini" style="background-image:url({{_res_path}}{{avatar.face}})"></div>
       <div class="img wide avatar-{{avatar.name}}" style="background-image:url({{_res_path}}{{avatar.gacha}})"></div>
-      {{if avatar.is_popularity}}
-        <span class="popularity">UP!</span>
-      {{/if}}
       <span class="cons cons-{{avatar.cons}} mini">{{avatar.cons}}</span>
       
-      <div class="avatar-level"><span>Lv</span>{{avatar.level}} {{avatar.abbr}}</div>
+      <div class="avatar-level"><span class="level-number"><span class="level-prefix">Lv</span>{{avatar.level}}</span><span class="avatar-label">{{avatar.abbr}}</span></div>
     </div>
     <div class="avatar-info">
       {{set talent = avatar.talent || {} }}
@@ -39,20 +38,31 @@
       {{/if}}
       <div class="line"></div>
       <div class="avatar-detail">
+        {{if avatar.equipmentUnknown}}
+        <div class="item equipment-placeholder">
+          {{if avatar.weaponType}}<img src="{{_res_path}}/common/item/atk-{{avatar.weaponType}}.webp" alt="武器类型"/>{{else}}<span class="equipment-symbol">?</span>{{/if}}
+          <span class="equipment-note">未提供</span>
+        </div>
+        <div class="item equipment-placeholder">
+          <img src="{{_res_path}}/common/item/artifact-icon.webp" alt="圣遗物"/>
+          <span class="equipment-note">未提供</span>
+        </div>
+        {{else}}
         <div class="item avatar-weapon">
           <div class="item-icon star{{weapon.star}}">
             <span class="img" style="background-image:url({{_res_path}}{{weapon.img}})"></span>
             <span class="cons cons-{{weapon.affix > 4 ? weapon.affix + 1 : weapon.affix}}">{{weapon.affix}}</span>
           </div>
         </div>
-        <div class="item avatar-artis artis{{avatar.artisSet?.names?.length}}">
-          <div class="artis item-icon">
-            {{each avatar.artisSet?.imgs img}}
+        <div class="item avatar-artis artis{{artisImgs.length}}">
+          <div class="artis item-icon {{artisImgs.length ? 'star' + (artis.star || 5) : ''}}">
+            {{each artisImgs img}}
             <div class="img" style="background-image:url({{_res_path}}{{img}})"></div>
             {{/each}}
           </div>
           <div class="item-info wide"></div>
         </div>
+        {{/if}}
       </div>
     </div>
     {{/if}}

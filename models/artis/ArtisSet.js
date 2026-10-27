@@ -15,13 +15,16 @@ const ArtisSet = {
    */
   getSetData (artis) {
     let setCount = {}
+    let setStars = {}
     artis.forEach((arti, idx) => {
       setCount[arti.set] = (setCount[arti.set] || 0) + 1
+      setStars[arti.set] = Math.max(setStars[arti.set] || 0, Number(arti.star) || 5)
     })
 
     let sets = {}
     let names = []
     let imgs = []
+    let star = 0
     let abbrs = []
     let abbrs2 = []
     for (let set in setCount) {
@@ -31,6 +34,7 @@ const ArtisSet = {
         let artiSet = ArtifactSet.get(set)
         names.push(artiSet.name)
         imgs.push(artiSet.img)
+        star = Math.max(star, setStars[set])
         abbrs.push(artiSet.abbr + count)
         abbrs2.push(artiSet.name + count)
       }
@@ -39,6 +43,7 @@ const ArtisSet = {
       sets,
       names,
       imgs,
+      star,
       abbrs: [...abbrs, ...abbrs2],
       name: (abbrs.length > 1 || abbrs2[0]?.length > 7) ? abbrs.slice(0, 2).join('+') : abbrs2[0],
       sName: abbrs.slice(0, 2).join('+')

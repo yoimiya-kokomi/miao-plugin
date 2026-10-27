@@ -3,111 +3,92 @@
 {{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/common.css?v=1.0"/>
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css?v=1.0"/>
-<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/hard-summary.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/stat/hard-summary.css?v=1.2"/>
 {{/block}}
 
 {{block 'main'}}
-{{ set difficultyName = {1:'普通', 2:'进阶', 3:'困难', 4:'险恶', 5: '无畏', 6: '绝境'} }}
+{{set cardTypes = {1:['wide wide2'], 2:['wide','wide'], 3:['wide','mini','mini'], 4:['mini','mini','mini','mini']} }}
+{{set recordLabels = ['最强一击', '最高总伤害'] }}
 <div class="head-box type">
-  <div class="title">#幽境危战<span class="time">{{hard.start_time}} - {{hard.end_time}}</span></div>
+  <div class="title">#幽境危战<span class="hard-version">{{hard.version ? hard.version + '版本' : '版本未知'}}</span></div>
   <div class="uid">UID:{{uid}}</div>
 </div>
 <div class="info_box">
-  <div class="hard-stat-cont">
-    <div class="hard-stat">
-      <div class="cont">
-        <div class="stat-title">
-          <span>难度</span>
-        </div>
-        <div class="stat-msg">
-          <strong>{{hard.best.difficulty}} · {{difficultyName[hard.best.difficulty]}}</strong>
-        </div>
-      </div>
-      <div class="cont">
-        <div class="stat-title time">
-          <span>总用时</span>
-        </div>
-        <div class="stat-msg time">
-          <strong>{{hard.best.second}} 秒</strong>
-        </div>
-      </div>
+  <div class="hard-overview">
+    <div class="cont overview-item">
+      <span>挑战难度</span>
+      <strong>N{{hard.best.difficulty}}</strong>
+    </div>
+    <div class="cont overview-item">
+      <span>总用时</span>
+      <strong>{{hard.best.second}}<small>秒</small></strong>
     </div>
   </div>
-      
-
-  </div>
-  {{set cardTypes={1:['wide wide2'],2:['wide','wide'],3:['wide','mini','mini'],4:['mini','mini','mini','mini']} }}
-  {{each hard?.challs chall chall_index}}
-  <div class="cont">
+  {{each hard?.challs chall}}
+  {{set monster = chall.monster || {} }}
+  <div class="cont hard-battle">
     <div class="cont-body">
       <div class="hard-title">
-        <strong>{{chall.name}}</strong>
-        <span>用时 {{chall.second}} 秒</span>
-      </div>
-      {{set monster=chall?.monster }}
-      <div class="hard-chall-team">
-        <div class="hard-team">
-          {{set current_avatars=chall?.avatars||[] }}
-          {{each current_avatars avatar idx}}
-          <% include(_tpl_path+'/avatar-card.html', [avatars[avatar.avatar_id],{_res_path, cardType:cardTypes[current_avatars.length][idx]}]) %>
-          {{/each}}
+        <div class="hard-boss-meta">
+          <strong>{{chall.name}}</strong>
         </div>
-        <div class="line"></div>
-        <div class="hard-info">
-          <div class="hard-info-line">
-            <div class="hard-enemy-container">
-              <div class="hard-best-header">Lv. {{monster.level}}</div>
-              <div class="hard-best-content">
-                <div class="hard-content-container">
-                  <div class="hard-content-icon" style="background-image:url({{monster.icon}})"></div>
-                </div>
-              </div>
-            </div>
-            {{set greatest_onehit=chall?.best_avatars[0]}}
-            <div class="hard-best-container">
-              <div class="hard-best-header">最强一击</div>
-              <div class="hard-best-content" style="flex-direction: column">
-                  <div class="best-avatar-container">
-                    {{set avatar=avatars[greatest_onehit.avatar_id]}}
-                    <div class="avatar-banner avatar-{{avatar.name}}"
-                          style="background-image:url({{_res_path}}{{avatar.face}})"></div>
-                  </div>
-                  <div class="best-number-container">
-                    <p class="best-number">{{greatest_onehit.dps}}</p>
-                  </div>
-              </div>
-            </div>
-            {{set greatest_total=chall?.best_avatars[1]}}
-            <div class="hard-best-container">
-              <div class="hard-best-header">最高总伤害</div>
-              <div class="hard-best-content" style="flex-direction: column">
-                  <div class="best-avatar-container">
-                    {{set avatar=avatars[greatest_total.avatar_id]}}
-                    <div class="avatar-banner avatar-{{avatar.name}}"
-                          style="background-image:url({{_res_path}}{{avatar.face}})"></div>
-                  </div>
-                  <div class="best-number-container">
-                    <p class="best-number">{{greatest_total.dps}}</p>
-                  </div>
-              </div>
+        <div class="hard-battle-time"><span>用时</span><strong>{{chall.second}}<small>秒</small></strong></div>
+      </div>
+      <div class="hard-content">
+        <div class="hard-enemy">
+          {{if monster.icon}}
+          <div class="hard-enemy-icon" style="background-image:url({{monster.icon}})"></div>
+          {{else}}
+          <div class="hard-enemy-icon enemy-empty">暂无图像</div>
+          {{/if}}
+          {{if monster.level}}<span class="hard-enemy-level">Lv.{{monster.level}}</span>{{/if}}
+        </div>
+        <div class="hard-team">
+          {{set current_avatars = chall.avatars || [] }}
+          {{each current_avatars avatar idx}}
+          <% include(_tpl_path+'/avatar-card.html', [avatars[avatar.avatar_id], {_res_path, cardType:cardTypes[current_avatars.length]?.[idx] || 'mini'}]) %>
+          {{/each}}
+          {{if !current_avatars.length}}
+          <div class="hard-team-empty">暂无队伍数据</div>
+          {{/if}}
+        </div>
+        <div class="hard-highlights">
+          {{each recordLabels label record_index}}
+          {{set record = chall.best_avatars?.[record_index] }}
+          {{set portrait = record && avatars[record.avatar_id] }}
+          <div class="cont hard-record">
+            {{if portrait}}
+            <div class="record-portrait avatar-{{portrait.name}}" style="background-image:url({{_res_path}}{{portrait.gacha || portrait.face}})"></div>
+            {{/if}}
+            <div class="stat-title">
+              <span>{{label}}</span>
+              {{if record && record.dps != null}}
+              <strong>{{record.dps >= 10000 ? (record.dps / 10000).toFixed(1) : record.dps}}{{if record.dps >= 10000}}<small>W</small>{{/if}}</strong>
+              {{else}}
+              <strong class="record-empty">暂无统计</strong>
+              {{/if}}
             </div>
           </div>
+          {{/each}}
         </div>
       </div>
+      {{if monster.desc?.length}}
       <div class="hard-chall-desc">
+        <div class="hard-desc-label">敌方特性</div>
         <ul>
           {{each monster.desc desc}}
-            <li class="hard-chall-desc-item">{{@desc}}</li>
+          <li>{{@ desc.replace(/\\n/g, '<br>')}}</li>
           {{/each}}
         </ul>
       </div>
+      {{/if}}
     </div>
   </div>
   {{/each}}
-
   <div class="cont hard-notice">
     <div class="cont-body">
       <ul class="cont-msg">
+        <li>角色卡的金色光晕表示本期赋光之人</li>
         <li>角色装备与圣遗物为当前最新状态</li>
         <li><strong>组队模式</strong>的查询仅根据查询信息与当前角色状态的关系<strong>猜测</strong>每个角色是否为自己上场的角色；若发现自己上场的角色面板未同步至查询信息中，请先<strong>#更新面板</strong></li>
       </ul>

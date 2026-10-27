@@ -1,245 +1,339 @@
 @import "../common/base.less";
 
-@scale: 1.4;
-
 body,
 .container {
   width: 970px;
 }
-
 .container {
   padding: 5px 0 10px 5px;
 }
-
 .head-box {
   display: flex;
+  align-items: baseline;
   width: 100%;
-
-  .title {
-    font-size: 45px;
-    padding-bottom: 10px;
-    width: 70%;
-
-    span {
-      font-size: 30px;
-      margin-left: 10px;
-      color: #d3bc8e;
-    }
-  }
-
-  .uid {
-    text-align: right;
-    width: 30%;
-    padding-top: 25px;
-    padding-right: 10px;
-    font-size: 25px;
-  }
 }
-
-.role-stat-cont {
+.head-box .title {
+  width: 74%;
+  padding-bottom: 10px;
+  font-size: 40px;
+  white-space: nowrap;
+}
+.head-box .title span {
+  margin-left: 12px;
+  color: #d3bc8e;
+  font-size: 23px;
+}
+.head-box .uid {
+  width: 26%;
+  padding-right: 10px;
+  text-align: right;
+  font-size: 23px;
+  white-space: nowrap;
+}
+.role-overview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 5px 15px 12px 10px;
+}
+.role-overview .cont {
+  margin: 0;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.overview-item > span,
+.overview-label {
+  color: #d3bc8e;
+  font-size: 15px;
+  line-height: 22px;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, YS, sans-serif;
+}
+.overview-item strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 29px;
+  line-height: 32px;
+  font-weight: normal;
+}
+.overview-item small {
+  margin-left: 4px;
+  color: #d3bc8e;
+  font-size: 14px;
+}
+.overview-label {
   display: flex;
-  padding: 5px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  white-space: nowrap;
 }
-
-.role-stat {
+.overview-record {
   display: flex;
-
-  .cont {
-    // position: relative;
-    margin: 5px 10px 5px 5px;
-    width: 140px;
-    height: 82px;
-  }
-
-  .cont.star-display {
-    width: 330px;
-    .line {
-      width: 1px;
-      background: rgba(255, 255, 255, 0.5);
-      height: 25px;
-      vertical-align: middle;
-      margin: 5px 3px 0;
-    }
-  }
-
-  strong {
-    text-shadow: 0 0 3px #000;
-  }
-
-  .stat-title {
-    position: absolute;
-    top: 0;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 5px 10px;
-    width: 100%;
-    text-shadow: 0 0 1px #000;
-
-    span {
-      display: block;
-      font-weight: normal;
-      .font-NZBZ;
-      font-size: 20px;
-    }
-
-    strong {
-      display: block;
-      font-size: 30px;
-    }
-  }
-
-  .stat-msg {
-    position: absolute;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(2px);
-    padding: 5px 10px;
-    width: 100%;
-    text-shadow: 0 0 1px #000;
-    font-size: 30px;
-    height: 45px;
-    display: flex;
-    justify-content: flex-start;
-
-    .stat-star-container {
-      margin-bottom: 10px;
-
-      .stat-star {
-        width: 25px;
-        height: 25px;
-        background-size: cover;
-        margin-top: 4px;
-      }
-    }
-  }
+  align-items: center;
+  flex-shrink: 0;
+  gap: 8px;
+  padding-right: 14px;
+  border-right: 1px solid rgba(211, 188, 142, 0.25);
+  min-height: 44px;
 }
-
+.record-label {
+  display: block;
+  color: #d3bc8e;
+  font-size: 13px;
+  line-height: 18px;
+}
+.record-trophy {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+.record-progress {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  min-width: 0;
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 28px;
+  white-space: nowrap;
+}
+.record-progress small {
+  margin-left: 4px;
+  color: #d3bc8e;
+  font-size: 13px;
+}
+.record-progress small:first-child {
+  margin: 0 4px 0 0;
+}
+.record-progress .record-tarot {
+  color: #d3bc8e;
+  font-size: 13px;
+  line-height: 16px;
+}
+.overview-highlights {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.overview-label strong {
+  color: #fff;
+  font-size: 24px;
+  font-weight: normal;
+}
+.overview-label small {
+  margin-left: 3px;
+  color: #aaa;
+  font-size: 15px;
+}
+.role-medals {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 5px 8px;
+  border-radius: 24px;
+  background: rgba(211, 188, 142, 0.13);
+}
+.medal-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-basis: 0;
+  min-width: 0;
+}
+.medal-group:empty {
+  display: none;
+}
+.medal-group + .medal-group {
+  margin-left: 8px;
+  padding-left: 8px;
+  border-left: 1px solid rgba(211, 188, 142, 0.4);
+}
+.role-medals img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+.role-medals .is-missing {
+  opacity: 0.35;
+}
+.role-round > .cont-body {
+  padding: 12px 15px;
+}
 .role-title {
-  margin: -3px 0 8px;
   display: flex;
-  align-items: flex-end;
-
-  strong {
-    margin-left: 3px;
-    color: #d3bc8e;
-    font-size: 18px;
-    .font-NZBZ;
-    font-weight: normal;
-    margin-right: 10px;
-  }
-
-  .role-star {
-    width: 20px;
-    height: 20px;
-    background-size: cover;
-  }
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 12px;
 }
-
-.role-floor-team {
-  display: flex;
-
-  .line {
-    width: 1px;
-    background: rgba(255, 255, 255, .5);
-    height: 80px;
-    vertical-align: middle;
-    margin: 15px 8px 0;
-  }
+.role-title .role-star {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }
-
+.role-title strong {
+  min-width: 0;
+  color: #d3bc8e;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, YS, sans-serif;
+}
+.round-time {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: #aaa;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.role-round-grid {
+  display: grid;
+  grid-template-columns: 447px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
 .role-team {
   display: flex;
-  margin-right: -5px;
-  margin-left: -5px;
+  align-self: start;
+  gap: 9px;
 }
-
-.role-buff {
+.role-team .avatar-card {
+  margin: 0;
+}
+.role-team .avatar-card > .card {
+  height: 100%;
+}
+.role-team-empty {
   display: flex;
-  margin-right: -5px;
-  margin-left: -5px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 187.5px;
+  color: #aaa;
+  font-size: 16px;
+}
+.role-round-details {
+  display: grid;
+  gap: 8px;
+}
+.role-blessings,
+.role-support {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+}
+.role-section-title {
+  margin-bottom: 5px;
+  color: #d3bc8e;
+  font-size: 13px;
+  line-height: 18px;
+}
+.role-section-title > span {
+  margin-left: 5px;
+  color: #aaa;
+  font-family: Number, YS, sans-serif;
+}
+.blessing-list {
+  display: grid;
+  grid-template-columns: repeat(var(--blessing-columns), minmax(0, 1fr));
+  row-gap: 8px;
+}
+.blessing-item {
+  display: flex;
   flex-direction: column;
-  width: 50%;
-
-  .role-choice-cards-container {
-    width: 100%;
-    height: 100%;
-    background-color: rgb(231, 229, 217);
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .role-enemy-container {
-    width: 20%;
-    height: 100%;
-    background-color: rgb(231, 229, 217);
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .role-splendour-container {
-    width: 40%;
-    height: 100%;
-    background-color: rgb(231, 229, 217);
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .role-splendour-buff-container {
-    width: 40%;
-    height: 100%;
-    background-color: rgb(231, 229, 217);
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .role-choice-cards-header {
-    width: 100%;
-    height: 30px;
-    background-color: rgb(139, 139, 131);
-    padding: 5px;
-    font-size: 18px;
-  }
-
-  .role-choice-cards-content {
-    width: 100%;
-    padding: 5px;
-    display: flex;
-
-    .role-content-container {
-      width: 40px;
-      display: flex;
-      margin-top: 5px;
-      margin-left: 5px;
-      flex-direction: column;
-      align-items: center;
-      margin-right: 5px
-    }
-
-    .role-content-icon {
-      width: 40px;
-      height: 40px;
-      background-size: cover;
-      background-color: black;
-      border-radius: 50%;
-    }
-  }
-
-  .role-buff-line {
-    width: 100%;
-    height: 48%;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .role-buff-line + .role-buff-line {
-    margin-top: 4%;
-    /* 两个子元素之间的间距4% */
-  }
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+.blessing-item + .blessing-item {
+  border-left: 1px solid rgba(255, 255, 255, 0.09);
+}
+.blessing-icon {
+  display: block;
+  width: 33px;
+  height: 33px;
+  object-fit: contain;
+}
+.blessing-crown {
+  filter: brightness(0) invert(82%) sepia(26%) saturate(451%) hue-rotate(357deg);
+}
+.blessing-level {
+  min-width: 58px;
+  padding: 1px 8px 2px;
+  border-radius: 20px;
+  background: rgba(211, 188, 142, 0.15);
+  color: #e4d5b5;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  white-space: nowrap;
+}
+.blessing-level > span {
+  margin-right: 2px;
+  font-size: inherit;
+}
+.blessing-item.is-zero .blessing-icon {
+  opacity: 0.3;
+}
+.blessing-item.is-zero .blessing-level {
+  background: rgba(255, 255, 255, 0.04);
+  color: #89909b;
+}
+.role-support {
+  display: flex;
+  gap: 12px;
+  min-height: 74px;
+}
+.role-enemy {
+  flex: 0 0 58px;
+  padding-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.09);
+  text-align: center;
+}
+.enemy-icon {
+  display: block;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+.role-harvest {
+  flex: 1;
+  min-width: 0;
+}
+.harvest-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-height: 36px;
+}
+.harvest-icon {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+.missing-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #89909b;
+  font-size: 20px;
+}
+.empty-text {
+  color: #89909b;
+  font-size: 13px;
+  line-height: 20px;
+}
+.role-notice .cont-body {
+  font-size: 14px;
+  line-height: 1.6;
 }

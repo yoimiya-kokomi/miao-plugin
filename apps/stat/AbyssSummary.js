@@ -88,10 +88,6 @@ export async function AbyssSummary (e) {
     if (ds.percent) {
       pct(ds.percent, char.abbr)
       pct(ds.percentTotal, '总记录')
-    } else {
-      msg.push({
-        txt: '暂无统计信息'
-      })
     }
     stat.push(tmp)
   }

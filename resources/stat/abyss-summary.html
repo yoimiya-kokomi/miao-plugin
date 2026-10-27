@@ -28,7 +28,7 @@
         <div class="avatar-banner avatar-{{avatar.name}}"
              style="background-image:url({{_res_path}}{{avatar.gacha}})"></div>
 
-        {{if ds.msg}}
+        {{if ds.msg && ds.msg.length}}
         <div class="stat-msg">
           {{each ds.msg msg}}
           {{if msg.txt}}

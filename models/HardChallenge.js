@@ -8,6 +8,7 @@ import moment from 'moment'
 import Base from './Base.js'
 import Character from './Character.js'
 import { Data } from '#miao'
+import { poolDetail } from '../resources/meta-gs/info/pool.js'
 
 moment.locale('zh-cn')
 
@@ -15,6 +16,9 @@ export default class HardChallenge extends Base {
   constructor (data, popularity) {
     super()
     this.best = data.best.best
+    let scheduleTime = Number(data.schedule.start_time) * 1000
+    let pool = poolDetail.find(item => scheduleTime >= new Date(item.from).getTime() && scheduleTime <= new Date(item.to).getTime())
+    this.version = pool?.version || ''
     this.challs = []
     this.popularity_avatar_ids = new Set(lodash.map(popularity, (item) => item.avatar_id.toString()))
     lodash.forEach(data.best.challenge, (chall) => {
@@ -59,7 +63,7 @@ export default class HardChallenge extends Base {
   }
 
   getData () {
-    return Data.getData(this, 'best,challs,start_time,end_time')
+    return Data.getData(this, 'best,challs,start_time,end_time,version')
   }
 
   getAvatars () {

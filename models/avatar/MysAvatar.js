@@ -87,7 +87,8 @@ const MysAvatar = {
           if (re && re.name && posIdx[re.pos_name]) {
             artis[posIdx[re.pos_name]] = {
               name: re.name,
-              level: re.level
+              level: re.level,
+              star: re.rarity || 5
             }
           }
         })

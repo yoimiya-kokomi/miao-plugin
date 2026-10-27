@@ -6,6 +6,9 @@
   font-size: @px*13;
   border-radius: @px*7;
 
+  &.is-popularity {
+    box-shadow: 0 0 0 1px rgba(255, 217, 139, 0.85), 0 0 7px 1px rgba(255, 199, 92, 0.5);
+  }
 
   .card {
     border-radius: @px*7;
@@ -39,23 +42,31 @@
       color: #fff;
       font-size: 16px;
       text-shadow: 0 0 1px #000;
+      display: flex;
+      align-items: baseline;
+      gap: 3px;
+      width: 100%;
+      padding-right: @px*3;
+      line-height: 20px;
+      white-space: nowrap;
+      overflow: hidden;
 
-      span {
+      .level-number {
+        flex: none;
+      }
+
+      .level-prefix {
         font-size: 12px;
+      }
+
+      .avatar-label {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: clamp(12px, calc(48px / var(--avatar-name-length)), 16px);
       }
     }
 
-  }
-
-  .popularity {
-    border-radius: 0 0 @px*5 0;
-    padding: @px*2 @px*5;
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 16px;
-    text-shadow: 0 0 1px #000, 1px 1px 3px rgba(0, 0, 0, .8);
-    background-color: #C00000;
   }
 
   .cons {
@@ -134,14 +145,17 @@
   }
 
   .avatar-name {
-    padding: @px*8 0 0 @px*5;
+    padding: @px*8 @px*5 0;
     color: #333;
 
     strong {
-      font-size: @px*20px;
+      font-size: clamp(12px, calc(90px / var(--avatar-name-length)), 30px);
       display: block;
       height: @px*23;
       line-height: @px*20;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .cons {
@@ -218,6 +232,10 @@
       padding-left: @px*5;
     }
 
+    .avatar-name strong {
+      font-size: clamp(12px, calc(190px / var(--avatar-name-length)), 30px);
+    }
+
 
   }
 
@@ -232,6 +250,40 @@
       border-radius: @px*3;
       margin: @px*1;
       overflow: hidden;
+    }
+  }
+
+  .equipment-placeholder {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background: #6f7778;
+
+    img {
+      width: 30px;
+      height: 30px;
+      margin-top: 1px;
+      object-fit: contain;
+    }
+
+    .equipment-symbol {
+      color: #eee;
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    .equipment-note {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.25);
+      font-family: YS, sans-serif;
+      font-size: 9px;
+      line-height: 14px;
+      text-align: center;
+      white-space: nowrap;
     }
   }
 
@@ -259,7 +311,7 @@
     }
 
     .artis {
-      background: rgba(0, 0, 0, 0.4)
+      background-color: rgba(0, 0, 0, 0.4)
     }
 
     &.artis2 {

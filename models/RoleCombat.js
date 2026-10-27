@@ -58,6 +58,7 @@ export default class RoleCombat extends Base {
       lodash.forEach(round.avatars, (avatar) => {
         avatars.push({
           avatar_id: avatar.avatar_id.toString(),
+          card_key: avatar.avatar_type == 1 ? avatar.avatar_id.toString() : `${avatar.avatar_type}:${avatar.avatar_id}`,
           name: avatar.name,
           avatar_type: avatar.avatar_type,
           level: avatar.level
@@ -102,10 +103,13 @@ export default class RoleCombat extends Base {
             name: avatar.name
           })
           let detailInfo = character.getDetail()
-          ret[avatar.avatar_id] = {
+          let weaponType = (character.weaponType || '').toLowerCase()
+          ret[avatar.card_key] = {
             id: +avatar.avatar_id,
             name: avatar.name,
             level: avatar.level,
+            equipmentUnknown: true,
+            weaponType: ['sword', 'claymore', 'polearm', 'bow', 'catalyst'].includes(weaponType) ? weaponType : '',
             star: detailInfo.star,
             cons: {
               2: '试用',

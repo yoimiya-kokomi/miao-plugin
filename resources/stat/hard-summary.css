@@ -13,205 +13,230 @@ body,
 }
 .head-box {
   display: flex;
+  align-items: baseline;
   width: 100%;
 }
 .head-box .title {
-  font-size: 45px;
-  padding-bottom: 10px;
   width: 70%;
+  padding-bottom: 10px;
+  font-size: 45px;
+  white-space: nowrap;
 }
-.head-box .title .difficulty {
-  font-size: 30px;
-  margin-left: 10px;
+.head-box .title .hard-version {
+  display: inline-block;
+  margin-left: 14px;
   color: #d3bc8e;
-}
-.head-box .title .time {
-  font-size: 18px;
-  margin-left: 10px;
-  color: #ffffff;
+  font-size: 23px;
+  line-height: 1.5;
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
 .head-box .uid {
-  text-align: right;
   width: 30%;
-  padding-top: 25px;
-  padding-right: 10px;
+  padding: 0 10px 0 0;
+  text-align: right;
   font-size: 25px;
 }
-.hard-stat-cont {
-  display: flex;
-  padding: 5px;
+.hard-overview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 5px 15px 10px 10px;
 }
-.hard-stat {
+.hard-overview .overview-item {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  width: 100%;
+  margin: 0;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.6);
 }
-.hard-stat .cont {
-  margin: 5px 10px 5px 5px;
-  width: 30%;
-  height: 82px;
+.overview-item > span {
+  color: #d3bc8e;
+  font-size: 20px;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, sans-serif;
 }
-.hard-stat .time {
-  text-align: right;
-}
-.hard-stat strong {
+.overview-item strong {
+  font-size: 30px;
+  font-weight: normal;
   text-shadow: 0 0 3px #000;
 }
-.hard-stat .stat-title {
-  position: absolute;
-  top: 0;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 5px 10px;
-  width: 100%;
-  text-shadow: 0 0 1px #000;
+.overview-item small,
+.hard-battle-time small {
+  margin-left: 6px;
+  color: #d3bc8e;
+  font-size: 16px;
 }
-.hard-stat .stat-title span {
-  display: block;
-  font-weight: normal;
-  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
-  font-size: 20px;
-}
-.hard-stat .stat-title strong {
-  display: block;
-  font-size: 30px;
-}
-.hard-stat .stat-msg {
-  position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(2px);
-  padding: 5px 10px;
-  width: 100%;
-  text-shadow: 0 0 1px #000;
-  font-size: 30px;
-  height: 45px;
+.hard-battle > .cont-body {
+  padding: 12px 15px;
 }
 .hard-title {
-  margin: -3px 0 8px;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
 }
-.hard-title strong {
-  margin-left: 3px;
+.hard-enemy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 189px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+.hard-enemy-icon {
+  width: 92px;
+  height: 100px;
+  border-radius: 8px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hard-enemy-level {
   color: #d3bc8e;
-  font-size: 18px;
-  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
-  font-weight: normal;
-  margin-right: 10px;
+  font-size: 16px;
 }
-.hard-title span {
-  text-align: right;
-  font-size: 15px;
-}
-.hard-chall-team {
+.enemy-empty {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 13px;
 }
-.hard-chall-team .line {
-  width: 1px;
-  background: rgba(255, 255, 255, 0.5);
-  height: 80px;
-  vertical-align: middle;
-  margin: 15px 8px 0;
+.hard-boss-meta {
+  flex: 1;
+  min-width: 0;
 }
-.hard-chall-desc {
-  margin: 3px 0;
+.hard-boss-meta strong {
+  display: block;
+  position: relative;
+  padding-left: 12px;
+  color: #d3bc8e;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, sans-serif;
 }
-.hard-chall-desc ul {
-  list-style-position: inside;
+.hard-boss-meta strong::before {
+  content: "▎";
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: Arial, sans-serif;
 }
-.hard-chall-desc ul li {
-  font-size: 15px;
+.hard-battle-time {
+  flex-shrink: 0;
+  min-width: 90px;
+  text-align: right;
+}
+.hard-battle-time > span {
+  display: block;
+  color: #aaa;
+  font-size: 13px;
+}
+.hard-battle-time strong {
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 1.2;
+}
+.hard-content {
+  display: grid;
+  grid-template-columns: 92px 447px minmax(0, 1fr);
+  align-items: stretch;
+  gap: 12px;
 }
 .hard-team {
   display: flex;
-  margin-right: -5px;
-  margin-left: -5px;
+  gap: 9px;
+  align-items: stretch;
 }
-.hard-info {
-  display: flex;
-  margin-right: -5px;
-  margin-left: -5px;
-  flex-direction: column;
-  width: 50%;
+.hard-team .avatar-card {
+  margin: 0;
 }
-.hard-info .hard-choice-cards-container {
-  width: 100%;
+.hard-team .avatar-card > .card {
   height: 100%;
-  background-color: #e7e5d9;
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-direction: column;
 }
-.hard-info .hard-enemy-container {
-  width: 40%;
-  height: 100%;
-  background-color: #e7e5d9;
+.hard-team-empty {
   display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-direction: column;
-}
-.hard-info .hard-best-container {
-  width: 30%;
-  height: 100%;
-  background-color: #e7e5d9;
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-direction: column;
-}
-.hard-info .hard-best-container .avatar-banner {
-  width: 130px;
-  height: 130px;
-  background-size: 150px 150px;
-  background-position: center;
-  overflow: hidden;
-}
-.hard-info .hard-best-container .best-number-container {
-  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  height: 24px;
+  width: 100%;
+  min-height: 189px;
+  color: #aaa;
+  font-size: 16px;
 }
-.hard-info .hard-best-container .best-number-container .best-number {
+.hard-highlights {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-height: 189px;
+}
+.hard-record.cont {
+  margin: 0;
+}
+.record-portrait {
+  position: absolute;
+  inset: 0;
+  background-size: 100% auto;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+}
+.hard-record .stat-title {
+  position: relative;
+  z-index: 1;
+  padding: 6px 10px 7px;
+  background: rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 3px #000;
+}
+.hard-record .stat-title > span {
+  display: block;
   font-size: 20px;
-  color: #0D0D0D;
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, sans-serif;
 }
-.hard-info .hard-best-header {
-  width: 100%;
-  height: 30px;
-  background-color: #8b8b83;
-  padding: 5px;
-  font-size: 18px;
+.hard-record .stat-title strong {
+  display: block;
+  font-size: 30px;
+  font-weight: normal;
 }
-.hard-info .hard-best-content {
-  width: 100%;
-  padding: 5px;
-  display: flex;
+.hard-record .stat-title strong small {
+  margin-left: 4px;
+  font-size: 20px;
 }
-.hard-info .hard-best-content .hard-content-container {
-  width: 100%;
-  display: flex;
-  margin-top: 5px;
-  flex-direction: column;
-  align-items: center;
+.hard-record .stat-title .record-empty {
+  padding-top: 5px;
+  color: #aaa;
+  font-size: 20px;
 }
-.hard-info .hard-best-content .hard-content-icon {
-  width: 140px;
-  height: 140px;
-  background-size: 220px 220px;
-  background-position: center;
-  overflow: hidden;
+.hard-chall-desc {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
-.hard-info .hard-info-line {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
+.hard-desc-label {
+  color: #d3bc8e;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: nowrap;
 }
-.hard-info .hard-info-line + .hard-info-line {
-  margin-top: 4%;
-  /* 两个子元素之间的间距4% */
+.hard-chall-desc ul {
+  padding-left: 16px;
+}
+.hard-chall-desc li {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+.hard-chall-desc li:last-child {
+  margin-bottom: 0;
+}
+.hard-notice .cont-body {
+  font-size: 14px;
+  line-height: 1.6;
 }
