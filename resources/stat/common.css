@@ -4,6 +4,9 @@
 .font-NZBZ {
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
+html {
+  background-color: #2a3860;
+}
 * {
   margin: 0;
   padding: 0;
