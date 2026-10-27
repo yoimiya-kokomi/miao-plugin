@@ -11,7 +11,7 @@
 {{ set statMap = { totalNum:'抽卡总数', star5Num:'金卡',c5UpNum:'UP角色',w5UpNum:'UP武器', star4Num:'紫卡',avgUpNum:'平均UP抽' } }}
 
 {{block 'main'}}
-<div class="basic gacha-stat-page">
+<div class="basic">
   {{if pageInfo && pageInfo.page > 1}}
   <div class="page-head">
     <strong>{{face.name}}</strong> #{{uid}} · {{poolName}}统计
@@ -23,15 +23,22 @@
       <span style="background-image:url({{_res_path}}{{face?.qFace||face?.face}})"></span>
     </div>
     <div class="user-info">
-      <div class="name"><strong>{{face.name}}</strong></div>
-      <div class="uid">{{if uid}}<span>#{{uid}}</span>{{/if}}</div>
+      <div class="name">
+        <strong>{{face.name}}</strong>
+      </div>
+      <div class="uid">
+        {{if uid}}<span> #{{uid}}</span>{{/if}}
+      </div>
     </div>
     {{if gacha && gacha.totalStat }}
     {{set stat = gacha.totalStat }}
     <div class="stat">
       {{each statMap title key}}
       {{if stat[key] }}
-      <div><strong>{{stat[key]}}</strong><span>{{title}}</span></div>
+      <div class="stat-li">
+        <strong>{{stat[key]}}</strong>
+        <span>{{title}}</span>
+      </div>
       {{/if}}
       {{/each}}
     </div>

@@ -27,12 +27,6 @@ app.reg({
     yzRule: /^#*(星铁)?(全部|抽卡|抽奖|角色|武器|光锥|常驻|集录|up|版本)+池?统计$/,
     yzCheck: () => Cfg.get('gachaStat', false)
   },
-  style: {
-    name: '抽卡记录样式设置',
-    fn: Gacha.setStyle,
-    rule: /^#抽卡样式设置\s*(1|2|随机)$/,
-    yzRule: /^#抽卡样式设置\s*(1|2|随机)$/
-  },
   info: {
     name: '卡池信息',
     fn: Gacha.info,

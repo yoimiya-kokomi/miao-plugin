@@ -190,9 +190,6 @@
   font-size: 20px;
   color: var(--luck-color);
 }
-.luck .luck-wai { margin-bottom: 4px; color: #aaa; font-size: 13px; }
-.luck .luck-wai strong { font-size: 18px; color: var(--luck-color); }
-.luck .luck-wai span { margin-left: 5px; color: #888; font-size: 12px; }
 .luck .luck-expect {
   margin-left: 8px;
   font-size: 13px;
@@ -251,74 +248,3 @@
 .page-head span {
   color: #ffd484;
 }
-
-/* 独立记录样式2：卡池概览与五星网格，仅由 detailCfg.style=2 启用 */
-.detail-style-2 { background: #f5f3ef; padding: 12px; color: #51483d; }
-.detail-style-2 .user-banner { position: relative; width: 100%; min-height: 84px; padding: 14px 18px; box-sizing: border-box; border-radius: 14px; background: #fff; box-shadow: 0 3px 12px rgba(80, 60, 30, .12); }
-.detail-style-2 .user-banner .face { display: none; }
-.detail-style-2 .user-banner .user-info { width: 170px; padding: 0; }
-.detail-style-2 .user-banner .name strong { color: #504638; font-size: 18px; }
-.detail-style-2 .user-banner .uid { color: #8f806c; }
-.detail-style-2 .user-banner .stat { position: absolute; left: 205px; right: 12px; bottom: 10px; display: flex; gap: 5px; height: auto; box-shadow: none; background: none; }
-.detail-style-2 .user-banner .stat-li { min-width: 0; flex: 1; padding: 3px; text-align: center; background: #faf8f4; border-radius: 7px; }
-.detail-style-2 .user-banner .stat-li strong { display: block; color: #5b4b39; font-size: 16px; }
-.detail-style-2 .user-banner .stat-li span { color: #9b8a75; font-size: 11px; }
-.detail-style-2 .luck { margin: 12px 0; background: #fff; border: 1px solid #eee2c8; box-shadow: 0 3px 12px rgba(80, 60, 30, .1); color: #5b5044; }
-.detail-style-2 .luck .luck-main { width: 190px; }
-.detail-style-2 .luck .luck-title { font-size: 28px; }
-.detail-style-2 .luck .luck-detail { padding: 10px 14px; }
-.detail-style-2 .gacha-list { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; padding: 14px; background: #fff; border-radius: 14px; box-shadow: 0 3px 12px rgba(80, 60, 30, .1); }
-.detail-style-2 .gacha-list .gacha-item { position: relative; display: flex; flex-direction: column; height: 112px; min-width: 0; border-radius: 9px; overflow: hidden; background: #eadcc3; }
-.detail-style-2 .gacha-list .gacha-item .date { order: 3; width: 100%; height: 18px; min-height: 18px; padding: 0; line-height: 18px; justify-content: center; background: rgba(80,60,30,.78); font-size: 10px; }
-.detail-style-2 .gacha-list .gacha-item .date .dot { display: none; }
-.detail-style-2 .gacha-list .gacha-item .name { order: 1; width: 100% !important; height: 20px; padding: 2px 3px 0; line-height: 18px; text-align: center; color: #5b4730; font-size: 11px; overflow: hidden; }
-.detail-style-2 .gacha-list .gacha-item .icon { order: 2; width: 100%; height: 56px; text-align: center; }
-.detail-style-2 .gacha-list .gacha-item .icon .icon-bg { margin: 0 auto; }
-.detail-style-2 .gacha-list .gacha-item .process { order: 4; width: 100%; height: 18px; }
-.detail-style-2 .gacha-list .gacha-item .process .bar { width: 100% !important; height: 18px; min-width: 0; line-height: 18px; text-align: center; font-size: 12px; }
-.detail-style-2 .gacha-list .gacha-item .process .bar:after { right: 3px; top: 0; height: 16px; line-height: 16px; }
-.detail-style-2 .gacha-list .gacha-item.has-date { margin-top: 0; }
-.detail-style-2 .gacha-more, .detail-style-2 .ck-notice { color: #8f806c; }
-
-
-/* 样式2：复刻 Yunzai-genshin 单池记录布局 */
-.detail-style-2 { width: 100%; min-height: 100%; padding: 16px; background: #f3f1f7; color: #333; }
-.detail-style-2 .style2-head { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-radius: 14px; background: #fff; border: 1px solid #e8e5eb; box-shadow: 0 3px 12px rgba(60,48,80,.09); }
-.detail-style-2 .style2-user { flex: 0 0 auto; }
-.detail-style-2 .style2-id { font-size: 18px; font-weight: 700; color: #29272b; line-height: 24px; }
-.detail-style-2 .style2-id span { margin-left: 8px; font-size: 14px; font-weight: 400; color: #8d8992; }
-.detail-style-2 .style2-total { margin-top: 4px; font: 700 24px tttgbnumber, sans-serif; color: #29272b; }
-.detail-style-2 .style2-pool { display: inline-block; margin-left: 8px; padding: 3px 10px; border-radius: 10px; color: #fff; font: 13px sans-serif; vertical-align: 3px; background: #df765a; }
-.detail-style-2 .style2-pool-302 { background: #d99a4e; }
-.detail-style-2 .style2-pool-200 { background: #7882c6; }
-.detail-style-2 .style2-panel { margin-top: 14px; padding: 14px 12px 10px; border-radius: 14px; background: #fff; border: 1px solid #e8e5eb; box-shadow: 0 3px 12px rgba(60,48,80,.08); }
-.detail-style-2 .style2-luck { display: flex; align-items: center; align-self: center; width: auto; max-width: none; margin-left: auto; padding: 0; overflow: visible; background: none; border: 0; }
-.detail-style-2 .style2-luck-image { width: 64px; height: 64px; margin-right: 8px; overflow: hidden; border-radius: 8px; flex: 0 0 auto; }
-.detail-style-2 .style2-luck-image img { width: 100%; height: 100%; object-fit: cover; }
-.detail-style-2 .style2-luck-main { min-width: 0; overflow: hidden; }
-.detail-style-2 .style2-luck-title,
-.detail-style-2 .style2-luck-sub { white-space: nowrap; }
-.detail-style-2 .style2-luck-title { color: #5b4b39; font-size: 16px; font-weight: 700; line-height: 24px; }
-.detail-style-2 .style2-luck-title strong { color: #29272b; }
-.detail-style-2 .style2-luck-title em { font-style: normal; }
-.detail-style-2 .style2-luck-title strong { color: #b17818; }
-.detail-style-2 .style2-luck-sub { margin-top: 2px; color: #9b8557; font-size: 12px; line-height: 18px; }
-.detail-style-2 .style2-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px 6px; margin: 16px 0 10px; }
-.detail-style-2 .style2-stats > div { min-width: 0; text-align: center; }
-.detail-style-2 .style2-stats strong { display: block; color: #27252a; font: 700 22px tttgbnumber, sans-serif; white-space: nowrap; }
-.detail-style-2 .style2-stats small { margin-left: 2px; font-size: 11px; }
-.detail-style-2 .style2-stats span { display: block; margin-top: 3px; color: #8d8992; font-size: 11px; white-space: nowrap; }
-.detail-style-2 .style2-history { display: flex; align-items: center; gap: 8px; margin: 13px 0 12px; color: #88838d; font-size: 12px; white-space: nowrap; }
-.detail-style-2 .style2-history i { height: 1px; flex: 1; background: #e4e1e7; }
-.detail-style-2 .style2-grid { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 10px 8px; padding: 13px; border-radius: 12px; background: #fff; border: 1px solid #e8e5eb; }
-.detail-style-2 .style2-card { position: relative; width: 70px; height: 90px; overflow: hidden; border-radius: 7px; background: url('../common/item/bg5.png') center top/100% auto no-repeat; box-shadow: 0 2px 6px rgba(132,93,90,.3); }
-.detail-style-2 .style2-icon { width: 70px; height: 70px; }
-.detail-style-2 .style2-icon span { display: block; width: 70px; height: 70px; background-position: center; background-size: auto 100%; background-repeat: no-repeat; }
-.detail-style-2 .style2-date { height: 20px; padding-top: 2px; color: #fff; background: rgba(68,51,42,.82); font: 12px tttgbnumber, sans-serif; line-height: 18px; text-align: center; }
-.detail-style-2 .style2-count { position: absolute; left: 0; top: 70px; z-index: 3; width: 100%; height: 20px; color: #fff; font: 16px tttgbnumber, sans-serif; line-height: 20px; text-align: center; background: #9d3333; }
-.detail-style-2 .style2-card.gold .style2-count { color: #6f4b00; background: #ffeb73; }
-.detail-style-2 .style2-card.good .style2-count { background: #168b2c; }
-.detail-style-2 .style2-card.normal .style2-count { background: #6939b7; }
-.detail-style-2 .style2-card.bad .style2-count { background: #9d3333; }
-.detail-style-2 .style2-up { position: absolute; z-index: 4; top: 6px; right: 4px; padding: 1px 4px; border-radius: 3px; color: #fff; background: #e26b53; font: 10px tttgbnumber, sans-serif; line-height: 14px; }
-
