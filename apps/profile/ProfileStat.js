@@ -1,6 +1,6 @@
 import { Common, Cfg } from '#miao'
 import { MysApi, Player, Character } from '#miao.models'
-import moment from 'moment'
+import moment from '../../components/Moment.js'
 import lodash from 'lodash'
 import fetch from 'node-fetch'
 import * as cheerio from 'cheerio'

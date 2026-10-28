@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment from '../../components/Moment.js'
 import lodash from 'lodash'
 import { Player, Material, Weapon, MysApi } from '#miao.models'
 import { Common } from '#miao'

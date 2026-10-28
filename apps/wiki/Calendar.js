@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import fetch from 'node-fetch'
-import moment from 'moment'
+import moment from '../../components/Moment.js'
 import { Common, Data, Cfg } from '#miao'
 import { Character, Material } from '#miao.models'
 

@@ -3,7 +3,7 @@
 * */
 
 import lodash from 'lodash'
-import moment from 'moment'
+import moment from '../components/Moment.js'
 
 import Base from './Base.js'
 import Character from './Character.js'
