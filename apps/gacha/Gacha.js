@@ -2,21 +2,10 @@ import { Common, Data } from '#miao'
 import common from '../../../../lib/common/common.js'
 import { getTargetUid } from '../profile/ProfileCommon.js'
 import GachaData from './GachaData.js'
-import GachaLuck from './GachaLuck.js'
 import GachaPool from './GachaPool.js'
 import { Button, Character, Player, Weapon } from '#miao.models'
 
 let { sysCfg, diyCfg } = await Data.importCfg('gacha')
-
-const styleKey = (e) => `miao:gacha:detail-style:${e.user_id || e.user?.qq || 'default'}`
-
-async function getDetailStyle (e, isAll, fallback) {
-  if (isAll) return 1
-  let mode = await redis.get(styleKey(e))
-  if (mode === 'random') return Math.random() < 0.5 ? 1 : 2
-  if (mode === '1' || mode === '2') return Number(mode)
-  return Number(fallback) === 2 ? 2 : 1
-}
 
 let Gacha = {
   async detail (e) {
@@ -76,59 +65,7 @@ let Gacha = {
     }
     let maxLog = (diyCfg.detailCfg?.maxLog ?? sysCfg.detailCfg?.maxLog ?? 0) * 1
     let poolName = { 301: '角色', 302: '武器', 200: '常驻', 500: '集录', 11: '角色', 12: '光锥', 1: '常驻' }[type]
-    // 记录页也必须携带由实际记录分析得到的欧皇度；不要只在 stat() 注入。
-    if (!gacha.luck) {
-      let s = gacha.stat || {}
-      let upPool = [301, 302, 11, 12].includes(type)
-      let fiveNum = Number(s.fiveNum)
-      let fiveUsed = Number(s.allNum) - Number(s.noFiveNum)
-      let upNum = upPool ? fiveNum - Number(s.wai) : fiveNum
-      let upAvg = Number(s.isvalidNum)
-      let fiveAvg = Number(s.fiveAvg)
-      let upUsed = upPool ? upAvg * upNum : fiveAvg * fiveNum
-      let luck = GachaLuck.get({
-        game,
-        type,
-        isUpPool: upPool,
-        upNum,
-        upUsed,
-        fiveNum,
-        fiveUsed
-      })
-      if (luck) {
-        // 保留真实 GachaLuck 结果（包括精确百分位与评级字段）。
-        gacha = { ...gacha, luck }
-      } else {
-        // fallback 只展示真实统计，并明确不是精确百分位。
-        let score = upPool && upNum > 0 ? upAvg : fiveAvg
-        let percent = Number.isFinite(score) && score > 0
-          ? Math.max(1, Math.min(99, Math.round((1 - Math.min(score, 90) / 90) * 100)))
-          : 0
-        let estimated = {
-          isUpPool: upPool,
-          title: percent >= 70 ? '欧皇' : percent >= 55 ? '小欧' : percent >= 40 ? '普通' : '非酋',
-          desc: fiveNum > 0
-            ? `按${fiveNum}次出金的真实抽数估算`
-            : '暂无五星样本',
-          percent,
-          color: percent >= 55 ? '#ffd484' : '#e4c46a',
-          image: GachaLuck.getImage(percent)
-        }
-        if (Number.isFinite(fiveAvg) && fiveAvg > 0) estimated.fiveAvg = fiveAvg.toFixed(2)
-        if (upPool && Number.isFinite(upAvg) && upAvg > 0 && upNum > 0) estimated.upAvg = upAvg.toFixed(2)
-        if (gacha.noWaiRate !== undefined && gacha.noWaiRate !== null) estimated.noWaiRate = gacha.noWaiRate
-        for (let key of ['smallNum', 'smallWin', 'bigNum', 'maxUpStreak', 'maxWaiStreak']) {
-          if (gacha[key] !== undefined && gacha[key] !== null) estimated[key] = gacha[key]
-        }
-        gacha = { ...gacha, luck: estimated }
-      }
-    }
-    if (gacha.luck) {
-      gacha.luck.image = gacha.luck.image || GachaLuck.getImage(gacha.luck.percent)
-      gacha.luck.color = gacha.luck.color || '#e4c46a'
-    }
     if (type === 302 || type === 12) type = 'weapon'
-    let detailStyle = await getDetailStyle(e, isAll, diyCfg.detailCfg?.style ?? sysCfg.detailCfg?.style ?? 1)
     let render = (gacha, pageInfo) => Common.render('gacha/gacha-detail', {
       save_id: pageInfo ? `${uid}-${pageInfo.page}` : uid,
       uid,
@@ -138,14 +75,12 @@ let Gacha = {
       type,
       poolName,
       pageInfo,
-      detailStyle,
       elem: e.isSr ? 'sr' : 'hydro'
     }, { e, scale: 1.4, retType: 'base64' })
 
-    // 样式2单页70条；样式1和全部记录按 maxLog 分页，超出后合并转发，不再截断
-    let pageSize = detailStyle === 2 ? 70 : (maxLog > 0 ? maxLog : 30)
-    let pages = GachaData.pageLog(gacha, pageSize)
+    let pages = isAll ? GachaData.pageLog(gacha, maxLog) : []
     if (pages.length <= 1) {
+      if (!isAll) GachaData.limitLog(gacha, maxLog)
       this.reply([await render(gacha), new Button(e).gacha()])
       return true
     }
@@ -165,8 +100,8 @@ let Gacha = {
   },
   async stat (e) {
     let msg = e.msg.replace(/#|喵喵|统计|分析|池/g, '')
-    // #角色全部统计/#全部统计：显示全部卡池，超出数量限制时分页并合并转发
-    let isAll = /全部/.test(msg)
+    // #角色全部统计：显示全部卡池，超出数量限制时分页并合并转发；#全部统计 仍为全部卡池汇总
+    let isAll = /全部/.test(msg) && msg !== '全部'
     msg = isAll ? msg.replace(/全部/g, '') : msg
     let game = /星铁/.test(msg) ? 'sr' : 'gs'
     msg = msg.replace(/星铁/, '')
@@ -194,21 +129,6 @@ let Gacha = {
     }
     let maxVersion = (diyCfg.statCfg?.maxVersion ?? sysCfg.statCfg?.maxVersion ?? 0) * 1
     let poolName = { up: '抽卡', char: '角色', weapon: game === 'sr' ? '光锥' : '武器', normal: '常驻', mix: '集录', all: '全部' }[type]
-    // Statistics data is aggregated by pool; derive a representative luck object
-    // from the same GachaLuck model without mutating GachaData's source records.
-    let luck = GachaLuck.get({
-      game,
-      type: type === 'char' ? 'up' : type,
-      isUpPool: ['up', 'char', 'weapon', 'mix'].includes(type),
-      upNum: gacha.totalStat?.upNum,
-      upUsed: gacha.totalStat?.totalNum,
-      fiveNum: gacha.totalStat?.star5Num,
-      fiveUsed: gacha.totalStat?.totalNum
-    })
-    if (luck) {
-      luck.image = luck.image || GachaLuck.getImage(luck.percent)
-    }
-    gacha = { ...gacha, luck }
     let render = (gacha, pageInfo) => Common.render('gacha/gacha-stat', {
       save_id: pageInfo ? `${uid}-${pageInfo.page}` : uid,
       uid,
@@ -221,39 +141,27 @@ let Gacha = {
     }, { e, scale: 1.4, retType: 'base64' })
 
     let list = gacha.versionData || []
-    // Keep every statistics image bounded: all-statistics always pages at 10 pools,
-    // while ordinary statistics also page once they exceed ten versions.
-    let pageSize = isAll ? 10 : (maxVersion > 0 ? Math.min(maxVersion, 10) : 10)
-    if (list.length <= pageSize) {
+    if (!(maxVersion > 0) || list.length <= maxVersion) {
       e.reply([await render(gacha), new Button(e).gacha()])
       return true
     }
     if (!isAll) {
-      // 普通四类统计也分 forward，确保完整渲染而非只提示隐藏数量。
-      let imgs = []
-      let total = Math.ceil(list.length / pageSize)
-      for (let i = 0; i < total; i++) {
-        imgs.push(await render({ ...gacha, versionData: list.slice(i * pageSize, (i + 1) * pageSize) }, {
-          page: i + 1,
-          total,
-          from: i * pageSize + 1,
-          to: Math.min((i + 1) * pageSize, list.length),
-          count: list.length
-        }))
-      }
-      e.reply(await common.makeForwardMsg(e, imgs, `UID:${uid} ${poolName}统计，共${list.length}期卡池，分${total}张图`))
+      gacha.shownNum = maxVersion
+      gacha.hiddenNum = list.length - maxVersion
+      gacha.versionData = list.slice(0, maxVersion)
+      e.reply([await render(gacha), new Button(e).gacha()])
       return true
     }
 
     // 逐页渲染后合并转发
     let imgs = []
-    let total = Math.ceil(list.length / pageSize)
+    let total = Math.ceil(list.length / maxVersion)
     for (let i = 0; i < total; i++) {
-      imgs.push(await render({ ...gacha, versionData: list.slice(i * pageSize, (i + 1) * pageSize) }, {
+      imgs.push(await render({ ...gacha, versionData: list.slice(i * maxVersion, (i + 1) * maxVersion) }, {
         page: i + 1,
         total,
-        from: i * pageSize + 1,
-        to: Math.min((i + 1) * pageSize, list.length),
+        from: i * maxVersion + 1,
+        to: Math.min((i + 1) * maxVersion, list.length),
         count: list.length
       }))
     }
@@ -332,7 +240,6 @@ let Gacha = {
       }
     }
     let simple_key = simple ? 'simple' : 'detail'
-
     e.reply(await Common.render('gacha/gacha-info', {
       save_id: `pool-${game}-${item_type}-${item_id}-${simple_key}`,
       pools,
@@ -352,7 +259,6 @@ let Gacha = {
       '    #6.0卡池',
       '    #6.7上半卡池',
       '',
-
       '✅ *x.x卡池  查星铁历史卡池',
       '    *3.0卡池',
       '    *4.1下半卡池',
@@ -376,7 +282,6 @@ let Gacha = {
     let faceChar = Character.get(player.face || defaultFaceChar, game)
     let imgs = faceChar?.imgs
     if (!imgs?.face) {
-
       imgs = game === 'gs' ? Character.get(10000079, game).imgs : Character.get(1005, game).imgs
     }
     return {
@@ -387,16 +292,6 @@ let Gacha = {
       sign: player.sign,
       level: player.level
     }
-  },
-
-  async setStyle (e) {
-    let match = /#抽卡样式设置\s*(1|2|随机)/.exec(e.msg || '')
-    if (!match) return false
-    let mode = match[1]
-    await redis.set(styleKey(e), mode)
-    let text = mode === '随机' ? '随机（每次独立记录随机选择样式1或样式2）' : `样式${mode}`
-    await e.reply(`抽卡记录样式已设置为：${text}\n仅影响角色、武器、集录、常驻记录，#全部记录不受影响。`)
-    return true
   }
 }
 export default Gacha

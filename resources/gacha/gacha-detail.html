@@ -11,60 +11,10 @@
 {{/if}}
 {{block 'main'}}
 {{ set gameHash = game === 'gs' ? '#' : '*'}}
-<div class="basic detail-style-{{detailStyle || 1}}">
-  {{if detailStyle == 2}}
-  {{set luck = gacha.luck}}
-  {{set style2First = !(pageInfo && pageInfo.page > 1)}}
-  <div class="style2-head">
-    <div class="style2-user">
-      <div class="style2-id">{{face.name}}<span>#{{uid}}</span></div>
-      <div class="style2-total">{{gacha.stat.allNum || 0}}抽 <span class="style2-pool style2-pool-{{type}}">{{poolName}}池</span></div>
-    </div>
-    {{if luck && style2First}}
-    <div class="style2-luck">
-      <div class="style2-luck-image"><img src="{{_res_path}}gacha/imgs/luck/{{luck.image || '1.jpg'}}" /></div>
-      <div class="style2-luck-main">
-        <div class="style2-luck-title">运气超过 <strong>{{luck.percent || 0}}%</strong> 旅行者 · <em style="color:{{luck.color || '#5b4b39'}}">{{luck.title || '普通'}}</em></div>
-        <div class="style2-luck-sub">{{luck.desc || '按官方概率计算'}} · 理论期望 {{luck.upExpect || luck.fiveExpect || '—'}} 抽{{if luck.fewSample}} · 样本较少{{/if}}</div>
-      </div>
-    </div>
-    {{/if}}
-  </div>
-  <div class="style2-panel">
-    {{if style2First}}
-    <div class="style2-stats">
-      <div><strong>{{gacha.stat.noFiveNum || 0}}<small>抽</small></strong><span>未出五星</span></div>
-      <div><strong>{{gacha.stat.fiveNum || 0}}<small>个</small></strong><span>五星</span></div>
-      <div><strong>{{gacha.stat.fiveAvg || 0}}<small>抽</small></strong><span>五星平均</span></div>
-      <div><strong>{{luck.noWaiRate || 0}}<small>%</small></strong><span>小保底不歪</span></div>
-      <div><strong>{{luck.maxFive || 0}}<small>抽</small></strong><span>最非</span></div>
-      <div><strong>{{gacha.stat.noFourNum || 0}}<small>抽</small></strong><span>未出四星</span></div>
-      <div><strong>{{gacha.stat.wai || 0}}<small>个</small></strong><span>五星常驻</span></div>
-      <div><strong>{{luck.upAvg || luck.fiveAvg || 0}}<small>抽</small></strong><span>UP平均</span></div>
-      <div><strong>{{gacha.stat.upYs || 0}}<small>原石</small></strong><span>UP花费原石</span></div>
-      <div><strong>{{luck.minFive || 0}}<small>抽</small></strong><span>最欧</span></div>
-    </div>
-    {{/if}}
-    {{if style2First}}
-    <div class="style2-history"><i></i><span>五星历史 {{gacha.firstDate || '暂无'}} ~ {{gacha.lastDate || '暂无'}}</span><i></i></div>
-    {{else}}
-    <div class="style2-history"><i></i><span>第 {{pageInfo.page}}/{{pageInfo.total}} 张</span><i></i></div>
-    {{/if}}
-    <div class="style2-grid">
-      {{each gacha.fiveLog ds idx}}
-      {{set item = gacha.items[ds.id]}}
-      {{set max = type === 'weapon' ? 80 : 90}}
-      <div class="style2-card {{ds.isUp ? 'is-up' : ''}} {{ds.count <= 10 ? 'gold' : (ds.count < max * 0.5 ? 'good' : (ds.count < max * 0.83 ? 'normal' : 'bad'))}}">
-        {{if ds.isUp && ds.id != 888}}<b class="style2-up">UP</b>{{/if}}
-        <div class="style2-icon"><span style="background-image:url({{_res_path}}{{item.img}})"></span></div>
-        <div class="style2-count">{{ds.count}}</div>
-      </div>
-      {{/each}}
-    </div>
-  </div>
-  {{else}}
+<div class="basic">
   {{if pageInfo && pageInfo.page > 1}}
   <div class="page-head">
+    <strong>{{face.name}}</strong> #{{uid}} · {{poolName}}池抽卡记录
     <span>第 {{pageInfo.page}}/{{pageInfo.total}} 张</span>
   </div>
   {{else}}
@@ -84,7 +34,7 @@
     {{set stat = gacha.stat }}
     <div class="stat">
       {{each statMap title key}}
-      {{if stat[key] !== undefined && stat[key] !== null}}
+      {{if stat[key] }}
       <div class="stat-li">
         <strong>{{stat[key]}}</strong>
         <span>{{title}}</span>
@@ -192,5 +142,4 @@
     {{/if}}
   </div>
 </div>
-  {{/if}}
 {{/block}}

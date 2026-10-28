@@ -26,14 +26,6 @@ const conv = function (a, b, limit) {
 }
 
 let GachaLuck = {
-  // Select a local luck image without relying on external modules.
-  getImage (percent) {
-    let p = Number(percent)
-    if (!Number.isFinite(p)) p = 0
-    let index = p >= 92 ? 3 : p >= 80 ? 1 : p >= 68 ? 7 : p >= 55 ? 5 : p >= 42 ? 14 : p >= 30 ? 12 : p >= 18 ? 13 : 8
-    return `${index}.jpg`
-  },
-
   getModel (game, type) {
     return luckCfg?.model?.[game]?.[type]
   },
@@ -134,9 +126,7 @@ let GachaLuck = {
    */
   get (data) {
     let { game, type, isUpPool } = data
-    let typeMap = game === 'sr' ? { up: 11, char: 11, weapon: 12, normal: 1 } : { up: 301, char: 301, weapon: 302, normal: 200, mix: 500 }
-     type = typeMap[type] || type
-     let m = GachaLuck.getModel(game, type)
+    let m = GachaLuck.getModel(game, type)
     if (!luckCfg?.enable || !m) {
       return false
     }
