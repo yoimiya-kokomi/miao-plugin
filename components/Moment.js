@@ -1,14 +1,39 @@
 /**
  * moment 兼容层
- * TRSS-Yunzai 在 package.json 中把 moment 换成了 dayjs（"moment": "npm:dayjs@^1.11"），
+ * TRSS-Yunzai 把 moment 换成了 dayjs：早期为 "moment": "npm:dayjs@^1.11"（只有 dayjs 本体），
+ * 现在为 "moment": "link:lib/modules/moment"（自带一批 dayjs 插件，但没有 plugin 目录）。
  * 插件用到的 weekday、duration().humanize()、moment.min/max、按格式解析、中文 locale 以及
- * hours() 等复数写法 dayjs 默认都没有。检测到 dayjs 时补齐这些能力，仍是 moment 时原样导出
+ * hours() 等复数写法 dayjs 默认都没有。检测到 dayjs 时补齐缺少的能力，仍是 moment 时原样导出
  */
 import moment from 'moment'
 
+/** dayjs 插件名 -> 是否已安装；customParseFormat 无法从外部判断，交给 dayjs.extend 去重 */
+const PLUGINS = {
+  weekday: () => typeof moment().weekday === 'function',
+  duration: () => typeof moment.duration === 'function',
+  relativeTime: () => typeof moment().fromNow === 'function',
+  minMax: () => typeof moment.min === 'function',
+  customParseFormat: () => false
+}
+
+/** 依次从 dayjs、moment（npm:dayjs 别名）加载插件，都找不到时返回 undefined */
+async function loadPlugin (name) {
+  for (const pkg of ['dayjs', 'moment']) {
+    try {
+      return (await import(`${pkg}/plugin/${name}.js`)).default
+    } catch {}
+  }
+}
+
 if (typeof moment.extend === 'function') {
-  for (const name of ['weekday', 'duration', 'relativeTime', 'minMax', 'customParseFormat']) {
-    moment.extend((await import(`moment/plugin/${name}.js`)).default)
+  for (const [name, installed] of Object.entries(PLUGINS)) {
+    if (installed()) continue
+    const plugin = await loadPlugin(name)
+    if (plugin) {
+      moment.extend(plugin)
+    } else if (name !== 'customParseFormat') {
+      globalThis.logger?.warn?.(`[miao-plugin] 未找到 dayjs 插件 ${name}，相关功能可能不可用`)
+    }
   }
 
   // moment 的复数取值 / 设值方法（hours() 等）在 dayjs 中只有单数形式
