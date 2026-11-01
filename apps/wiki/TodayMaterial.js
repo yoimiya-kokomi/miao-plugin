@@ -13,7 +13,7 @@ const TodayMaterial = {
     if (/明天|明日/.test(e.msg)) {
       now = now.add(1, 'days')
     }
-    let week = now.weekday()
+    let week = (now.day() + 6) % 7
 
     let weekRet = /周([1-7]|一|二|三|四|五|六|日)/.exec(e.msg)
     let weekSel = weekRet?.[1]
