@@ -434,7 +434,7 @@ export default class ProfileRank {
       }
     }
     if (type === 'dmg' && profile.hasDmg) {
-      let enemyLv = profile.game === 'gs' ? 103 : 80
+      let enemyLv = profile.game === 'gs' ? 110 : 80
       let dmg = await profile.calcDmg({ enemyLv, mode: 'single' })
       if (dmg && dmg.avg) {
         return {

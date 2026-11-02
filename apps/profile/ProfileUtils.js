@@ -76,7 +76,7 @@ export async function enemyLv (e) {
   if (ret && ret[2]) {
     let lv = ret[2] * 1
     await selfUser.setCfg('char.enemyLv', lv)
-    lv = await selfUser.getCfg('char.enemyLv', 103)
+    lv = await selfUser.getCfg('char.enemyLv', 110)
     e.reply(`敌人等级已经设置为${lv}`)
     return true
   }
