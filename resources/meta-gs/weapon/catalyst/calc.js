@@ -322,6 +322,18 @@ export default function (step, staticStep) {
         stellarSwirl: step(6 * 4),
         stellarVortex: step(6 * 4)
       }
-    }]
+    }],
+    秘星典谕: [staticStep('cdmg', 24), {
+      title: '满buff时，元素精通提升[mastery]点',
+      refine: {
+        mastery: step(48 + 24 * 3)
+      }
+    }, {
+      check: ({ params }) => params.Starsealed_Edict === true,
+      title: '3层「炬中法度」还会使装备者造成的星超导反应伤害的暴击伤害提升[cdmg]%',
+      refine: {
+        cdmg: step(12 * 3)
+      }
+    }],
   }
 }
