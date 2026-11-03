@@ -107,7 +107,7 @@ export const buffs = [
   },
   {
     cons: 6,
-    title: '奥黛塔6命：奥黛塔对敌人造成的星烁反应伤害总共擢升[kx]%',
+    title: '奥黛塔6命：奥黛塔对敌人造成的星烁反应伤害总共擢升[elevated]%',
     data: {
       elevated: 20
     }
