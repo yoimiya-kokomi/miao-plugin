@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import moment from 'moment'
+import moment from '../../components/Moment.js'
 import { Data } from '#miao'
 import { chestInfo } from '../../resources/meta-gs/info/index.js'
 import AvatarUtil from './AvatarUtil.js'

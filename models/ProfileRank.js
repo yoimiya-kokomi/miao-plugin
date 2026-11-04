@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import moment from 'moment'
+import moment from '../components/Moment.js'
 import { Cfg, Common, Data, Version } from '#miao'
 
 export default class ProfileRank {

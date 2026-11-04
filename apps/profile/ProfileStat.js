@@ -1,6 +1,6 @@
 import { Common, Cfg } from '#miao'
 import { MysApi, Player, Character } from '#miao.models'
-import moment from 'moment'
+import moment from '../../components/Moment.js'
 import lodash from 'lodash'
 import fetch from 'node-fetch'
 import * as cheerio from 'cheerio'
@@ -769,7 +769,7 @@ const ProfileStat = {
     if (now.hour() < 4) {
       now = now.add(-1, 'days')
     }
-    let week = now.weekday()
+    let week = (now.day() + 6) % 7
 
     if (mode === 'talent') {
       let weekRet = /周([1-6]|一|二|三|四|五|六)/.exec(msg)
@@ -778,7 +778,7 @@ const ProfileStat = {
         weekSel = week + 1
       } else if (/(明天|明日)/.test(msg)) {
         now = now.add(1, 'days')
-        weekSel = now.weekday() + 1
+        weekSel = (now.day() + 6) % 7 + 1
       }
       let weekFilter = (weekSel * 1) || ('一二三四五六'.split('').indexOf(weekSel) + 1)
       if (weekFilter && weekFilter !== 7) {

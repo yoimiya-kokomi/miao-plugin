@@ -3,7 +3,7 @@ import { Data } from '#miao'
 import { Character, Weapon } from '#miao.models'
 import { poolDetail, mixPoolDetail } from '../../resources/meta-gs/info/index.js'
 import { poolDetailSr } from '../../resources/meta-sr/info/index.js'
-import moment from 'moment'
+import moment from '../../components/Moment.js'
 import GachaLuck from './GachaLuck.js'
 
 let poolVersion = []
