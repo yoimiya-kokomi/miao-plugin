@@ -181,12 +181,12 @@ export default function (step, staticStep) {
         eDmg: step(18 * 2)
       }
     }],
-    '「究极霸王超级魔剑」': {
-      title: '攻击力提升[atkPct]%',
+    '「究极霸王超级魔剑」': [staticStep('atkPct', 12), {
+      title: '攻击力进一步提升[atkPct]%',
       refine: {
-        atkPct: step(12 * 2)
+        atkPct: step(12)
       }
-    },
+    }],
     山王长牙: [{
       title: '满层时，元素战技与元素爆发伤害提升[eDmg]%',
       refine: {
