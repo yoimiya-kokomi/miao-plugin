@@ -65,6 +65,29 @@ export default function (staticIdx, keyIdx) {
       keyIdx('敌方全体受到的伤害提高[enemydmg]%', {
         enemydmg: 2
       })
+    ],
+    '在世界尽头相会吧！': [
+      (tables) => ({
+        title: '队伍中的欢愉角色使暴击伤害提高[cdmg]%',
+        check: ({ weaponTypeName }) => weaponTypeName === '欢愉',
+        data: {
+          cdmg: ({ params }) => tables[1] * Math.max(1, Math.min(4, Math.trunc(Number(params.elationCount) || 1)))
+        }
+      }),
+      (tables) => ({
+        title: '星神★阿哈在场，暴击伤害额外提高[cdmg]%',
+        check: ({ characterName, weaponTypeName, params }) => weaponTypeName === '欢愉' && (characterName === '星神★阿哈' || params.ahaInTeam === true),
+        data: { cdmg: tables[2] }
+      })
+    ],
+    '当第一声「阿哈」响起': [
+      // 基础速度参与所有速度百分比加成，不能记作固定速度或速度百分比。
+      staticIdx(1, 'speedBase'),
+      (tables) => ({
+        title: '对其他我方单体施放战技后，全队伤害无视[ignore]%防御力',
+        check: ({ weaponTypeName, params }) => weaponTypeName === '欢愉' && params.ahaLightconeSkillTriggered !== false,
+        data: { ignore: tables[4] }
+      })
     ]
   }
 }
