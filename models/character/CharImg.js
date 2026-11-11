@@ -57,7 +57,7 @@ const CharImg = {
         return false
       }
     }
-    let ret = sizeOf(`./plugins/miao-plugin/resources/${img}`)
+    let ret = sizeOf(fs.readFileSync(`./plugins/miao-plugin/resources/${img}`))
     ret.img = img
     ret.mode = ret.width > ret.height ? 'left' : 'bottom'
     return ret
