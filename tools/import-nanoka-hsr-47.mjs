@@ -59,6 +59,7 @@ const names = {
 }
 const c = {
   id: 1511, key: raw('character')['1511'].icon, name: r.name, star: 5, elem: '量子',
+  eta: 1794326400000,
   allegiance: r.chara_info.camp, weapon: '欢愉', sp: r.sp_need, desc: clean(r.desc),
   cncv: r.chara_info.va.chinese, jpcv: r.chara_info.va.japanese,
   baseAttr: {}, growAttr: {}, materials: {}, 'talent-materials': {}, talentId: {},
@@ -137,7 +138,7 @@ for (const [kind, id] of Object.entries({ ascension: 110443, assignment: 116003,
 }
 c['talent-materials'][materialIndex[241].name] = totals[241]
 add(`character/${c.name}/data.json`, c)
-insert('character/data.json', { 1511: Object.fromEntries(['id', 'key', 'name', 'star', 'elem', 'weapon', 'sp', 'talentId', 'talentCons'].map(k => [k, c[k]])) })
+insert('character/data.json', { 1511: Object.fromEntries(['id', 'key', 'name', 'star', 'elem', 'weapon', 'sp', 'talentId', 'talentCons', 'eta'].map(k => [k, c[k]])) })
 for (const [file, res] of Object.entries({ face: 'avatarroundicon', preview: 'avatarshopicon', splash: 'avatardrawcard' })) image(`character/${c.name}/imgs/${file}.webp`, res + '/1511')
 for (const [id, key] of Object.entries(skillKeys)) {
   const point = points.find(p => p.level_up_skill_id.includes(Number(id)))
