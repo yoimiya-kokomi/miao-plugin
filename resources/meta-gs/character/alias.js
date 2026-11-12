@@ -138,5 +138,7 @@ export const alias = {
   沃雅妮莎: 'Vodyanitsa,妮莎,水妖,人鱼,沃雅,沃雅妮沙',
   薇斯纳: 'Vesna,威斯纳,风仙,维斯娜,薇斯娜,薇丝纳,薇丝娜',
   米提亚: 'Mitya',
-  瓦列里: 'Valeriy,门先生'
+  瓦列里: 'Valeriy,门先生',
+  达妮卡: 'Danica,女仆长',
+  安娜丝塔夏: 'Anastasya,女皇,冰皇,蜜雪冰皇,冰神'
 }
