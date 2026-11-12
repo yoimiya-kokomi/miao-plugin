@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import fetch from 'node-fetch'
-import moment from 'moment'
+import moment from '../../components/Moment.js'
 import { Common, Data, Cfg } from '#miao'
 import { Character, Material } from '#miao.models'
 
@@ -128,8 +128,8 @@ let Cal = {
   },
 
   getDateList () {
+    // moment 可变而 dayjs 不可变，每次复制 today 再计算：前 6 天 ~ 后 6 天
     let today = moment()
-    let temp = today.add(-7, 'days')
     let dateList = []
     let month = 0
     let date = []
@@ -138,7 +138,7 @@ let Cal = {
     let startDate, endDate
 
     for (let idx = 0; idx < 13; idx++) {
-      temp = today.add(1, 'days')
+      let temp = moment(today).add(idx - 6, 'days')
       let m = temp.month() + 1
       let d = temp.date()
       if (month === 0) {
@@ -156,7 +156,7 @@ let Cal = {
         month = m
       }
       date.push(d)
-      week.push(temp.weekday())
+      week.push((temp.day() + 6) % 7)
       if (idx === 12) {
         dateList.push({
           month,
@@ -185,12 +185,15 @@ let Cal = {
     let now = moment()
     let check = []
     let f = 'YYYY-MM'
-    let last = now.add(-1, 'M').format(f)
-    let lastM = now.format('MMMM')
-    let curr = now.add(1, 'M').format(f)
+    // moment 可变而 dayjs 不可变，复制 now 后分别计算上月 / 本月 / 下月
+    let lastMoment = moment(now).add(-1, 'M')
+    let nextMoment = moment(now).add(1, 'M')
+    let last = lastMoment.format(f)
+    let lastM = lastMoment.format('MMMM')
+    let curr = now.format(f)
     let currM = now.format('MMMM')
-    let next = now.add(1, 'M').format(f)
-    let nextM = now.format('MMMM')
+    let next = nextMoment.format(f)
+    let nextM = nextMoment.format('MMMM')
     let title = [ `「幻想真境剧诗」· ${lastM}`, `「幻想真境剧诗」· ${currM}`, `「深境螺旋」· ${lastM}`, `「深境螺旋」· ${currM}` ]
 
     check.push([ moment(`${last}-01 04:00:00`), moment(`${curr}-01 03:59:59`), title[0] ])
@@ -227,7 +230,7 @@ let Cal = {
     if (now.hour() < 4) {
       now = now.add(-1, 'days')
     }
-    let week = now.weekday()
+    let week = (now.day() + 6) % 7
     Material.forEach('talent', (material) => {
       let data = material.getData('name,abbr,city,icon,week,cid')
       data.chars = []
