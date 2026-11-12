@@ -554,5 +554,20 @@ export default {
         atkPct: 15
       }
     }
+  },
+  神的瞬息欢愉: {
+    2: [attr('speedPct', 6), {
+      title: '进场欢愉度达到40%，行动提前40%（不计入单次伤害倍率）',
+      sort: 10,
+      check: ({ attr, calc, params }) => (params.entryJoy ?? calc(attr.joy)) >= 40
+    }]
+  },
+  亚空异容所: {
+    2: [attr('speedPct', 6), {
+      title: '进场速度达到145，全队击破特攻提高[stance]%（同套效果不叠加）',
+      sort: 9,
+      check: ({ attr, calc, params }) => (params.entrySpeed ?? calc(attr.speed)) >= 145 && params.subspaceBuffAlreadyApplied !== true,
+      data: { stance: 18 }
+    }]
   }
 }
