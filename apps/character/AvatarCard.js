@@ -1,7 +1,7 @@
 import { Button, Character, MysApi, Player } from '#miao.models'
 import { Cfg, Common, Meta } from '#miao'
 import lodash from 'lodash'
-import moment from 'moment'
+import moment from '../../components/Moment.js'
 import { miaoPath } from '#miao.path'
 
 let Avatar = {

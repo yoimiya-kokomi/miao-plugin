@@ -7,7 +7,7 @@ import Attr from './attr/Attr.js'
 import Artis from './artis/Artis.js'
 import ProfileAvatar from './avatar/ProfileAvatar.js'
 import ArtisMark from './artis/ArtisMark.js'
-import moment from 'moment'
+import moment from '../components/Moment.js'
 import MysAvatar from './avatar/MysAvatar.js'
 
 const charKey = 'name,abbr,sName,star,imgs,face,side,gacha,weaponTypeName'.split(',')
