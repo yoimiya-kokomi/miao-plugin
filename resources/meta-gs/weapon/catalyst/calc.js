@@ -259,10 +259,15 @@ export default function (step, staticStep) {
       }
     },
     真语秘匣: [staticStep('cpct', 8), {
-      title: '施放元素战技时元素精通提升[mastery]点, 暴击伤害提升[cdmg]%',
+      title: '施放元素战技时，元素精通提升[mastery]点',
       data: {
-        mastery: ({ params, refine }) => ((params.Moonsign || 0) >= 1 ? 1.5 : 1) * step(80)[refine],
-        cdmg: ({ params, refine }) => ((params.Moonsign || 0) >= 1 ? 1.5 : 1) * step(24)[refine]
+        mastery: ({ params, refine, element }) => (((params.Moonsign || 0) >= 1 && ['水', '草'].includes(element))? 1.5 : 1) * step(80)[refine]
+      }
+    }, {
+      check: ({ params, element }) => (params.Moonsign || 0) >= 1 && ['水', '草'].includes(element),
+      title: '施放元素战技，且装备者对敌人造成月绽放反应伤害时，暴击伤害提升[cdmg]%',
+      refine: {
+        cdmg: step(36)
       }
     }],
     帷间夜曲: [staticStep('hpPct', 10, 2), {
