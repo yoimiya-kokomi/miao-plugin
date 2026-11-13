@@ -7,8 +7,7 @@
   "scripts": {},
   "dependencies": {
     "cheerio": "^1.2.0",
-    "image-size": "^2.0.4",
-    "moment": "^2.31.0"
+    "image-size": "^2.0.4"
   },
   "devDependencies": {
     "request": "^2.88.2"
