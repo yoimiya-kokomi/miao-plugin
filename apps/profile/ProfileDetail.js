@@ -179,7 +179,7 @@ let ProfileDetail = {
       wCfg.weapons = await ProfileWeapon.calc(profile)
     }
 
-    let enemyLv = isGs ? (await selfUser.getCfg('char.enemyLv', 103)) : 80
+    let enemyLv = isGs ? (await selfUser.getCfg('char.enemyLv', 110)) : 80
     let dmgCalc = await ProfileDetail.getProfileDmgCalc({ profile, enemyLv, mode, params })
 
     let rank = false
