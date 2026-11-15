@@ -7,6 +7,22 @@ export const details = [
   {
     title: 'E护盾量',
     dmg: ({ attr, calc, talent }, { shield }) => shield(calc(attr.atk) * talent.e['护盾吸收量2'][0] / 100 + talent.e['护盾吸收量2'][1])
+  },
+  {
+    title: '雷元素伤害增加',
+    dmg: ({ attr, calc, talent }) => {
+      return {
+        avg: talent.a["雷元素伤害增加"] * calc(attr.atk) / 100
+      }
+    }
+  },
+  {
+    title: '星超导反应伤害增加',
+    dmg: ({ attr, calc, talent }) => {
+      return {
+        avg: talent.a["星超导反应伤害增加"] * calc(attr.atk) / 100
+      }
+    }
   }
 ]
 
