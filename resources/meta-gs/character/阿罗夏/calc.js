@@ -24,7 +24,7 @@ export const details = [{
   dmg: ({ attr, calc }, { heal }) => heal(calc(attr.atk) * 60 / 100)
 }]
 
-export const defDmgIdx = 0
+export const defDmgIdx = 1
 export const mainAttr = 'atk,recharge,cpct,cdmg,heal'
 
 export const buffs = [{
