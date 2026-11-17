@@ -385,10 +385,10 @@ const buffs = {
     4: {
       title: '队伍存在[mArtisDiffCount]个不同元素类型角色，[sameCount]个相同类型角色，精通提高[mastery]，攻击力提高[atkPct]%',
       data: {
-        mArtisDiffCount: ({ params }) => params.mArtisDiffCount || 3,
-        sameCount: ({ params }) => 3 - (params.mArtisDiffCount || 3),
-        mastery: ({ params }) => (params.mArtisDiffCount || 3) * 50,
-        atkPct: ({ params }) => (3 - (params.mArtisDiffCount || 3)) * 14
+        mArtisDiffCount: ({ params }) => params.mArtisDiffCount || 2,
+        sameCount: ({ params }) => 3 - (params.mArtisDiffCount || 2),
+        mastery: ({ params }) => (params.mArtisDiffCount || 2) * 50,
+        atkPct: ({ params }) => (3 - (params.mArtisDiffCount || 2)) * 14
       }
     }
   },
