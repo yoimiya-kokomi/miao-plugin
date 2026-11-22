@@ -122,6 +122,10 @@ let Gacha = {
     if (!uid || !qq) {
       return false
     }
+    return Gacha.renderStat(e, { uid, qq, type, game, isAll })
+  },
+
+  async renderStat (e, { uid, qq, type = 'all', game = 'gs', isAll = false }) {
     let gacha = GachaData.stat(qq, uid, type, game)
     if (!gacha) {
       e.reply([`UID:${uid} 本地暂无抽卡信息，请通过【#抽卡帮助】获得绑定帮助...`, new Button(e).gacha()])
@@ -137,7 +141,7 @@ let Gacha = {
       game,
       poolName,
       pageInfo,
-      elem: e.isSr ? 'sr' : 'hydro'
+      elem: game === 'sr' ? 'sr' : 'hydro'
     }, { e, scale: 1.4, retType: 'base64' })
 
     let list = gacha.versionData || []

@@ -9,7 +9,7 @@
 
   & > div {
     padding: 10px;
-    height: 56px;
+    min-height: 56px;
   }
 
   .line {
@@ -29,15 +29,19 @@
   }
 
   .version {
+    flex: 1;
+    min-width: 0;
     text-align: center;
     background: rgba(0, 0, 0, .8);
     padding: 10px 0;
     display: flex;
+    align-items: center;
     border-right: 1px solid rgba(255, 255, 255, .3);
   }
 
   .version-name {
-    width: 105px;
+    flex-shrink: 0;
+    width: 120px;
     line-height: 36px;
     font-size: 20px;
     font-weight: bold;
@@ -50,16 +54,14 @@
   }
 
   .pool-name {
-    width: 125px;
+    flex: 1;
+    min-width: 0;
+    padding-right: 10px;
     text-align: left;
 
-    &.mix {
-      width: 160px;
-    }
-
     .name {
-      height: 22px;
-      line-height: 22px;
+      line-height: 20px;
+      word-break: break-all;
     }
 
     .time {
@@ -71,12 +73,16 @@
   }
 
   .stat-info {
+    flex-shrink: 0;
+    min-width: 250px;
     display: flex;
-    padding: 10px 20px 0;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px 10px 6px;
 
     .info {
-      min-width: 60px;
-      padding: 0 20px 0 10px;
+      min-width: 52px;
+      padding: 0 14px 0 6px;
 
       .num {
         color: #ffde9d;

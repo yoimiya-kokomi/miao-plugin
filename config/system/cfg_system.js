@@ -191,6 +191,17 @@ export const cfgSchema = {
       }
     }
   },
+  mys: {
+    title: '米游社相关功能',
+    cfg: {
+      srGachaLog: {
+        title: '*更新抽卡记录 *导入记录',
+        key: '星铁抽卡记录',
+        def: true,
+        desc: '星铁抽卡记录免链接更新（需绑定CK或扫码登录）、抽卡链接与文件导入'
+      }
+    }
+  },
   sys: {
     title: '系统设置',
     cfg: {

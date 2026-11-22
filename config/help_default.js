@@ -176,6 +176,10 @@ export const helpList = [{
     title: '#角色统计 #武器统计',
     desc: '按卡池统计抽卡数据'
   }, {
+    icon: 6,
+    title: '*更新抽卡记录 *导入记录',
+    desc: '星铁免链接更新/文件导入'
+  }, {
     icon: 8,
     title: '十连 十连2 定轨',
     desc: '真实模拟抽卡'
