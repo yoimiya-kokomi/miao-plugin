@@ -683,8 +683,8 @@ const buffs = {
     4: {
       title: '装备者的元素战技与元素爆发造成的伤害提升[eDmg]%。',
       data: {
-        eDmg: 40,
-        qDmg: 40
+        eDmg: 25,
+        qDmg: 25
       }
     }
   }
