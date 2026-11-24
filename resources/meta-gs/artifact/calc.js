@@ -665,6 +665,28 @@ const buffs = {
         stellarVortex: 40
       }
     }
+  },
+
+  肇史之遗: {
+    2: attr('atkPct', 18),
+    4: {
+      check: ({ element }) => ['冰'].includes(element),
+      title: '装备者施放元素战技、元素爆发或进行普通攻击时，造成的冰元素星烁反应伤害暴击率提升[cpct]%。',
+      data: {
+        cpct: 40
+      }
+    }
+  },
+
+  遥天奉翠华引: {
+    2: attr('recharge', 20),
+    4: {
+      title: '装备者的元素战技与元素爆发造成的伤害提升[eDmg]%。',
+      data: {
+        eDmg: 25,
+        qDmg: 25
+      }
+    }
   }
 
 }
