@@ -376,4 +376,24 @@ body {
   border-radius: 0 5px 5px 0;
   color: #fff;
 }
+.cons-divider {
+  display: flex;
+  align-items: center;
+  margin: 35px 0 25px 0;
+  text-align: center;
+}
+.cons-divider:before,
+.cons-divider:after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px dashed rgba(211, 188, 142, 0.4);
+}
+.cons-divider span {
+  padding: 0 15px;
+  color: #d3bc8e;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
 /*# sourceMappingURL=character-talent.css.map */

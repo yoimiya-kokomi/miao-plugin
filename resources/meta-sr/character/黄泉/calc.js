@@ -24,6 +24,14 @@ export const details = [{
   title: '终结技伤害·对无花目标',
   params: { q: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['相邻目标伤害'], 'q')
+}, {
+  title: '奇缘追击伤害·对单',
+  check: ({ exCons }) => !!exCons,
+  params: { q: true },
+  dmg: ({ cons }, dmg) => {
+    // 全体300% + 6次80%对单 = 780%攻击力，视为终结技伤害
+    return dmg(3.0 + 0.8 * 6, 'q')
+  }
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,dmg'

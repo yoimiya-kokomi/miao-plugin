@@ -14,7 +14,7 @@ import CharMeta, { srAttrName } from './character/CharMeta.js'
 import CharCfg from './character/CharCfg.js'
 
 let metaKey = 'abbr,star,elem,weapon,talentId,talentCons,eta'.split(',')
-const detailKey = 'title,allegiance,birth,astro,desc,cncv,jpcv,costume,baseAttr,growAttr,materials,talent,talentData,cons,passive,attr,sp'.split(',')
+const detailKey = 'title,allegiance,birth,astro,desc,cncv,jpcv,costume,baseAttr,growAttr,materials,talent,talentData,cons,exCons,passive,attr,sp'.split(',')
 
 class Character extends Base {
   // 含加强数据的角色id

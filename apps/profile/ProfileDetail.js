@@ -198,7 +198,7 @@ let ProfileDetail = {
     artisDetail.allAttr = allAttr
 
     let artisKeyTitle = Artifact.getArtisKeyTitle(game)
-    let data = profile.getData('name,abbr,cons,level,talent,dataSource,updateTime,imgs,costumeSplash')
+    let data = profile.getData('name,abbr,cons,exCons,level,talent,dataSource,updateTime,imgs,costumeSplash')
     if (isSr) {
       let treeData = []
       let treeMap = {}

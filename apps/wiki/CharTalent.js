@@ -9,7 +9,7 @@ const CharTalent = {
     }
     let detail = JSON.parse(JSON.stringify(char.getDetail()))
     if (char.game === 'sr') {
-      lodash.forEach(['cons', 'talent', 'treeData'], (key) => {
+      lodash.forEach(['cons', 'exCons', 'talent', 'treeData'], (key) => {
         lodash.forEach(detail[key], (ds, idx) => {
           if (ds.desc) {
             if (key === 'talent' && ds.desc.split) {

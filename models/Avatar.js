@@ -146,6 +146,13 @@ export default class Avatar extends Base {
     const now = this._now || (new Date()) * 1
     this.level = ds.lv || ds.level || this.level || 1
     this.cons = ds.cons || this.cons || 0
+    let exCons = ds.exCons ?? ds.ex_rank ?? ds.extra_rank ?? ds.ex_cons
+    if (exCons === undefined || exCons === null) {
+      if (Array.isArray(ds.exRankList)) exCons = ds.exRankList.length
+      else if (Array.isArray(ds.exRankIdList)) exCons = ds.exRankIdList.length
+      else if (Array.isArray(ds.ex_rank_list)) exCons = ds.ex_rank_list.length
+    }
+    this.exCons = exCons ?? this.exCons ?? 0
     this.fetter = ds.fetter || this.fetter || 0
     this._costume = ds.costume || this._costume || 0
     this.elem = ds.elem || this.elem || this.char.elem || ''
@@ -288,7 +295,7 @@ export default class Avatar extends Base {
       }
     } else {
       return {
-        ...(this.getData(keys || 'id,name,level,star,cons,elem,abbr,weapon,talent,artisSet,trees') || {}),
+        ...(this.getData(keys || 'id,name,level,star,cons,exCons,elem,abbr,weapon,talent,artisSet,trees') || {}),
         ...Data.getData(imgs, 'face,qFace,gacha,preview')
       }
     }
@@ -342,7 +349,7 @@ export default class Avatar extends Base {
   // 计算当前profileData的伤害信息
   async calcDmg ({ enemyLv = 103, mode = 'profile', dmgIdx = 0, idxIsInput = false }) {
     if (!this.dmg || this.dmg._update !== this._update) {
-      let ds = this.getData('id,level,elem,attr,cons,artis:artis.sets,trees,uid')
+      let ds = this.getData('id,level,elem,attr,cons,exCons,artis:artis.sets,trees,uid')
       ds.talent = lodash.mapValues(this.talent, 'level')
       ds.weapon = Data.getData(this.weapon, 'name,affix,level')
       ds._update = this._update
@@ -355,7 +362,7 @@ export default class Avatar extends Base {
   toJSON () {
     let keys = this.isGs
       ? 'name,id,elem,level,promote,fetter,costume,cons,talent:originalTalent'
-      : 'name,id,elem,level,promote,cons,talent:originalTalent,trees'
+      : 'name,id,elem,level,promote,cons,exCons,talent:originalTalent,trees'
     let ret = {
       ...this.getData(keys),
       weapon: Data.getData(this.weapon, this.isGs ? 'name,level,promote,affix' : 'id,level,promote,affix')

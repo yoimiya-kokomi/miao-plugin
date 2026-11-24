@@ -551,7 +551,7 @@ export default {
       title: '使装备者普攻造成的伤害提高[aDmg]%。当装备者施放普攻时，使装备者的攻击力提高[atkPct]%',
       data: {
         aDmg: 36,
-        atkPct: 15
+        atkPct: 20
       }
     }
   },

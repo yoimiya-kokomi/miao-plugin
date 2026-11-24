@@ -133,6 +133,7 @@ export default class ProfileDmg extends Base {
       uid: profile.uid,
       level: profile.level,
       cons: profile.cons * 1,
+      exCons: (profile.exCons * 1) || 0,
       talent,
       trees: this.trees(),
       weapon: profile.weapon
