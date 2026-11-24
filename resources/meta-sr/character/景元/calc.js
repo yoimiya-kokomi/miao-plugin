@@ -9,12 +9,12 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: '10层神君单体伤害',
-  check: ({ cons }) => cons < 6,
+  check: ({ cons, exCons }) => !exCons && cons < 6,
   dmgKey: 't',
   dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'] * 10, 't')
 }, {
   title: '10层神君单体伤害',
-  check: ({ cons }) => cons >= 6,
+  check: ({ cons, exCons }) => !exCons && cons >= 6,
   dmgKey: 't',
   dmg: ({ talent }, { dynamic }) => {
     const dynamicEnemydmg = 12
@@ -25,6 +25,26 @@ export const details = [{
     return {
       dmg: t1dmg.dmg + t2dmg.dmg + t3dmg.dmg + t4dmg.dmg * 7,
       avg: t1dmg.avg + t2dmg.avg + t3dmg.avg + t4dmg.avg * 7
+    }
+  }
+}, {
+  title: '30层神君单体伤害',
+  check: ({ cons, exCons }) => !!exCons && cons < 6,
+  dmgKey: 't',
+  dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'] * 30, 't')
+}, {
+  title: '30层神君单体伤害',
+  check: ({ cons, exCons }) => !!exCons && cons >= 6,
+  dmgKey: 't',
+  dmg: ({ talent }, { dynamic }) => {
+    const dynamicEnemydmg = 12
+    let t1dmg = dynamic(talent.t['技能伤害'], 't')
+    let t2dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemydmg })
+    let t3dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemydmg: dynamicEnemydmg * 2 })
+    let t4dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemydmg: dynamicEnemydmg * 3 })
+    return {
+      dmg: t1dmg.dmg + t2dmg.dmg + t3dmg.dmg + t4dmg.dmg * 27,
+      avg: t1dmg.avg + t2dmg.avg + t3dmg.avg + t4dmg.avg * 27
     }
   }
 }]
@@ -44,6 +64,12 @@ export const buffs = [{
 }, {
   title: '景元6命：神君会使目标陷入易伤状态，使伤害提高12%，最多3层',
   cons: 6
+}, {
+  title: '奇缘星魂-万钧入盏，风静灯明：强化状态下，景元造成的伤害提高240%',
+  check: ({ exCons }) => !!exCons,
+  data: {
+    dmg: 240
+  }
 }, {
   title: '行迹-破阵：攻击段数大于等于6段，则其下回合的暴击伤害提高25%',
   tree: 1,

@@ -268,6 +268,10 @@ const CharImg = {
     imgs.card = 'meta-sr/character/common/imgs/card.webp'
     imgs.cons3 = imgs[talentCons[3]]
     imgs.cons5 = imgs[talentCons[5]]
+    let exConsPath = `${nPath}imgs/cons-ex.${fileType}`
+    if (fs.existsSync(`${rPath}/${exConsPath}`)) {
+      imgs.consEx = exConsPath
+    }
     return imgs
   }
 }

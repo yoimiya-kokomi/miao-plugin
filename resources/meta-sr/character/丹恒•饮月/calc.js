@@ -92,12 +92,25 @@ export const details = [{
       avg: a1dmg.avg + a2dmg.avg + a3dmg.avg + (a1plusdmg.avg + a2plusdmg.avg + a3plusdmg.avg) * 2
     }
   }
+}, {
+  title: '奇缘追击伤害(全体)',
+  check: ({ exCons }) => !!exCons,
+  dmg: ({ cons }, dmg) => {
+    // 6段攻击全体500%攻击力，视为普攻伤害
+    return dmg(5.0, 'a')
+  }
 }]
 
 export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
+  title: '奇缘星魂-沧溟间，月落潮平：自身造成的伤害提高240%',
+  check: ({ exCons }) => !!exCons,
+  data: {
+    dmg: 240
+  }
+}, {
   title: '行迹-起蛰：对拥有虚数属性弱点的敌人造成伤害时，暴击伤害提高24%',
   tree: 3,
   data: {

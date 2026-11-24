@@ -83,10 +83,30 @@ const HomoData = {
       return false
     }
     let avatar = player.getAvatar(char.id, true)
+    let exCons = 0
+    if (Array.isArray(data.exRankList)) {
+      exCons = data.exRankList.length
+    } else if (Array.isArray(data.exRankIdList)) {
+      exCons = data.exRankIdList.length
+    } else if (Array.isArray(data.ex_rank_list)) {
+      exCons = data.ex_rank_list.length
+    } else if (data.ex_ranks && typeof data.ex_ranks === 'object') {
+      exCons = Object.keys(data.ex_ranks).length
+    } else if (data.exCons || data.ex_rank || data.extra_rank || data.ex_cons) {
+      exCons = Number(data.exCons || data.ex_rank || data.extra_rank || data.ex_cons) || 0
+    }
+    if (!exCons && data.skillTreeList) {
+      let exPointIds = [120401, 130801, 121301]
+      if (char?.id) exPointIds.push(Number(char.id) * 100 + 1)
+      if (data.skillTreeList.some(s => exPointIds.includes(Number(s.pointId || s.point_id)) && (s.level > 0 || s.is_activated !== false))) {
+        exCons = 1
+      }
+    }
     let setData = {
       level: data.level,
       promote: data.promotion,
       cons: data.rank || 0,
+      exCons,
       weapon: Data.getData(data.equipment, 'id:tid,promote:promotion,level,affix:rank'),
       ...HomoData.getTalent(data.skillTreeList, char),
       artis: HomoData.getArtis(data.relicList)

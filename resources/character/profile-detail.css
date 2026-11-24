@@ -277,10 +277,28 @@ body {
 }
 .char-cons {
   display: flex;
+  flex-direction: column;
   width: 250px;
   position: absolute;
   bottom: 5px;
   left: 20px;
+}
+.char-cons.has-ex-cons {
+  bottom: 0px;
+}
+.char-cons .cons-row {
+  display: flex;
+  width: 250px;
+}
+.char-cons .cons-row.ex-row {
+  margin-top: -2px;
+}
+.char-cons .cons-item {
+  flex: 1;
+}
+.char-cons .cons-row.ex-row .cons-item {
+  flex: 0 0 calc(100% / 6);
+  max-width: calc(100% / 6);
 }
 .char-cons .talent-item,
 .char-talents .talent-item {

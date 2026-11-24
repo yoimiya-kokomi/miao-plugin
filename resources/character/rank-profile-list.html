@@ -75,7 +75,7 @@
     {{/if}}
     <div class="char-info char-name">
       <div class="name">
-        <span class="cons cons-{{ds.cons}}">{{ds.cons}}</span>
+        <span class="cons cons-{{ds.cons}} {{ds.exCons ? 'has-ex-cons' : ''}}">{{ds.cons}}</span>
         <strong>{{ds.sName}}</strong>
       </div>
       <div class="info"> {{ds.uid}}</div>

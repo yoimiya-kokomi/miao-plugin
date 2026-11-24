@@ -196,7 +196,7 @@ async function renderCharRankList({ e, uids, char, mode, groupId }) {
       let tmp = {
         uid,
         isMax: !char,
-        ...avatar.getData('id,star,name,sName,level,fetter,cons,weapon,elem,talent,artisSet,imgs'),
+        ...avatar.getData('id,star,name,sName,level,fetter,cons,exCons,weapon,elem,talent,artisSet,imgs'),
         artisMark: Data.getData(mark, 'mark,markClass,valid,crit')
       }
       let dmg = data?.dmg?.data

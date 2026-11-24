@@ -69,10 +69,26 @@ let MysPanelHSRData = {
     }
     promote = Math.min(promote, 6)
 
+    let exCons = ds.exCons || ds.ex_rank || ds.extra_rank || ds.ex_cons || 0
+    if (!exCons) {
+      if (Array.isArray(ds.exRankList)) exCons = ds.exRankList.length
+      else if (Array.isArray(ds.exRankIdList)) exCons = ds.exRankIdList.length
+      else if (Array.isArray(ds.ex_rank_list)) exCons = ds.ex_rank_list.length
+      else if (ds.ex_ranks && typeof ds.ex_ranks === 'object') exCons = Object.keys(ds.ex_ranks).length
+    }
+    if (!exCons && ds.skills) {
+      let exPointIds = [120401, 130801, 121301]
+      if (char?.id) exPointIds.push(Number(char.id) * 100 + 1)
+      if (ds.skills.some(s => exPointIds.includes(Number(s.point_id || s.pointId)) && s.is_activated !== false)) {
+        exCons = 1
+      }
+    }
+
     const setData = {
       level,
       promote,
       cons: ds.rank,
+      exCons,
       weapon: ds.equip ? MysPanelHSRData.getWeapon(ds.equip, weaponPromote) : null,
       talent: MysPanelHSRData.getTalent(
         char,

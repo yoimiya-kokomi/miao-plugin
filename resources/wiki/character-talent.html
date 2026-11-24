@@ -95,6 +95,14 @@
     {{each detail.cons con idx}}
     <% include(_tpl_path+'/talent-detail.html', [con, {_res_path,lvs,type,icon:imgs['cons'+idx],game}]) %>
     {{/each}}
+    {{if detail.exCons}}
+    <div class="cons-divider">
+      <span>奇缘星魂</span>
+    </div>
+    {{each detail.exCons con idx}}
+    <% include(_tpl_path+'/talent-detail.html', [con, {_res_path,lvs,type,icon:imgs.consEx || imgs['consEx'+idx] || imgs['cons'+idx],game}]) %>
+    {{/each}}
+    {{/if}}
   </div>
 </div>
 {{/if}}

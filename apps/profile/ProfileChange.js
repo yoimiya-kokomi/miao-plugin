@@ -159,6 +159,13 @@ const ProfileChange = {
         txt = txt.replace(consRet[0], '')
       }
 
+      // 奇缘星魂匹配
+      let exConsRet = /(无|没有|关闭)?(奇缘星魂|奇缘)/.exec(txt)
+      if (exConsRet) {
+        char.exCons = exConsRet[1] ? 0 : 1
+        txt = txt.replace(exConsRet[0], '')
+      }
+
       // 行迹树匹配
       let treeRet = /满行迹/.exec(txt)
       if (!isGs && treeRet) {
@@ -254,6 +261,7 @@ const ProfileChange = {
       id: char.id,
       level,
       cons: Data.def(dc.cons, source.cons, 0),
+      exCons: Data.def(dc.exCons, source.exCons, 0),
       fetter: source.fetter || 10,
       elem: char.elem || source.char?.elem,
       dataSource: 'change',

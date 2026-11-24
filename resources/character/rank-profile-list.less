@@ -129,6 +129,25 @@
     padding: 0;
     margin-right: -2px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
+
+    &.has-ex-cons {
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 4px;
+        padding: 1.5px;
+        background: linear-gradient(135deg, #ff3366, #ff9933, #ffe600, #33cc99, #3399ff, #cc33ff);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+    }
   }
 
   .info {

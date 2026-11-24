@@ -79,15 +79,26 @@
         {{/if}}
       </div>
     </div>
-    <div class="char-cons">
-      {{set cons = [1,2,3,4,5,6]}}
-      {{each cons idx}}
-      <div class="cons-item">
-        <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
-          <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs[`cons${idx}`]}})"></div>
+    <div class="char-cons {{imgs.consEx ? 'has-ex-cons' : ''}}">
+      <div class="cons-row">
+        {{set cons = [1,2,3,4,5,6]}}
+        {{each cons idx}}
+        <div class="cons-item">
+          <div class="talent-icon {{idx * 1 > data.cons * 1 ? 'off' : '' }}">
+            <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs[`cons${idx}`]}})"></div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      {{if imgs.consEx}}
+      <div class="cons-row ex-row">
+        <div class="cons-item">
+          <div class="talent-icon {{!data.exCons ? 'off' : '' }}">
+            <div class="talent-icon-img" style="background-image:url({{_res_path}}{{imgs.consEx}})"></div>
+          </div>
         </div>
       </div>
-      {{/each}}
+      {{/if}}
     </div>
 
     <div class="data-info">
