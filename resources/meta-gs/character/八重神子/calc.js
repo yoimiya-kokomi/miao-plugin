@@ -55,7 +55,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery,dmg'
-export const defDmgKey = 'e'
+export const defDmgIdx = 6
 
 export const buffs = [{
   title: '被动天赋：基于元素精通提高杀生樱伤害[eDmg]%',

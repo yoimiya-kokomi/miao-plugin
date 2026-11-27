@@ -275,13 +275,19 @@ body {
   width: 300px;
   margin: 0 0 10px 0;
 }
+/* 默认状态（适配原神）：保持横向排列 */
 .char-cons {
   display: flex;
-  flex-direction: column;
   width: 250px;
   position: absolute;
   bottom: 5px;
   left: 20px;
+}
+/* 星铁环境，或者有额外命座时：采用纵向排列，实现上下两排 */
+.game-sr .char-cons,
+.char-cons.has-ex-cons {
+  flex-direction: column-reverse;
+  bottom: 0px;
 }
 .char-cons.has-ex-cons {
   bottom: 0px;
