@@ -35,6 +35,11 @@ export default class Avatar extends Base {
     return this.char?.name || ''
   }
 
+  // 展示用角色名（加强版本沿用原角色名）
+  get displayName () {
+    return this.char?.displayName || this.name
+  }
+
   get costume () {
     let costume = this._costume
     if (lodash.isArray(costume)) {

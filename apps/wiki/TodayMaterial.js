@@ -98,6 +98,11 @@ const TodayMaterial = {
       }
       data.sort = sort
 
+      // 加强版角色与原角色展示名一致，按展示名去重，保留先遍历到的条目
+      if (data.displayName && curr.data.some((ds) => ds.displayName === data.displayName)) {
+        return true
+      }
+
       // done
       curr.data.push(data)
     }
@@ -109,6 +114,7 @@ const TodayMaterial = {
       // 添加天赋素材
       addMaterial(char?.materials?.talent, {
         ...char.getData('id,name,face,star'),
+        displayName: char.displayName,
         ...avatar.getData('level,cons'),
         talent,
         isMax: avatar.isMaxTalent

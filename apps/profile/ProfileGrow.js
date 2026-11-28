@@ -266,7 +266,7 @@ const ProfileGrow = {
       e.reply(helpMsg + '\n角色等级最高90，天赋最高10')
       return true
     }
-    e.reply(`正在计算${char.name}的养成材料，请稍候...`)
+    e.reply(`正在计算${char.displayName}的养成材料，请稍候...`)
 
     let zero = { level: 1, promote: 0, a: 1, e: 1, q: 1 }
     let curr = zero
@@ -286,9 +286,9 @@ const ProfileGrow = {
         q: avatar.originalTalent?.q || 1
       }
       if (!local) {
-        notice.push(`未找到本地${char.name}数据，按1级、天赋1/1/1计算，可先【#更新面板】`)
+        notice.push(`未找到本地${char.displayName}数据，按1级、天赋1/1/1计算，可先【#更新面板】`)
       } else if (ProfileGrow.isOverTarget(local, opt)) {
-        notice.push(`本地${char.name}练度已超过目标，按1级、天赋1/1/1计算`)
+        notice.push(`本地${char.displayName}练度已超过目标，按1级、天赋1/1/1计算`)
       } else {
         curr = local
         uid = e.uid
@@ -296,7 +296,7 @@ const ProfileGrow = {
     }
     let data = ProfileGrow.calcChar(char, curr, opt)
     if (!data) {
-      e.reply(`暂无${char.name}的养成材料数据`)
+      e.reply(`暂无${char.displayName}的养成材料数据`)
       return true
     }
     let lack = await ProfileGrow.getLack(e, opt, async (api) => {
@@ -332,7 +332,7 @@ const ProfileGrow = {
       ...data,
       uid,
       notice,
-      title: char.name,
+      title: char.displayName,
       star: char.star,
       img: char.face,
       elem: char.elem

@@ -43,7 +43,7 @@ let Avatar = {
     }
     let bg = char.getCardImg(Cfg.get('charPicSe', false))
     if (!bg) {
-      e.reply(`${char.name}暂无角色图片`)
+      e.reply(`${char.displayName}暂无角色图片`)
       return true
     }
     if (renderType === 'photo') {
@@ -68,6 +68,11 @@ let Avatar = {
       }
     } else {
       data = char.getData('id,name,sName')
+    }
+    // 加强版角色展示原角色名；取图（bg/face）与存档仍使用 char.name
+    if (char.displayName !== char.name) {
+      data.name = char.displayName
+      data.sName = char.displayName
     }
 
     let width = 600

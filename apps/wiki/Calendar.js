@@ -239,15 +239,19 @@ let Cal = {
     // 遍历角色数据
     Character.forEach((char) => {
       if (charBirth[char.birth] && (char.isRelease || char.birth !== '1-1')) {
-        charBirth[char.birth].push(char.getData('id,name:abbr,star,face'))
+        charBirth[char.birth].push({ ...char.getData('id,name:abbr,star,face'), displayName: char.displayName })
       }
       let t = char.materials?.talent
       if (t && charTalent[t] && !char.isTraveler) {
-        let data = char.getData('id,name:abbr,star,face')
+        let data = { ...char.getData('id,name:abbr,star,face'), displayName: char.displayName }
         data.weekly = char.getMaterials('weekly')?.icon
         charTalent[t].chars.push(data)
       }
     }, Cfg.get('notReleasedData') ? 'official' : 'release')
+    // 加强版角色与原角色展示名一致，按展示名去重，保留先遍历到的条目
+    lodash.forEach(charBirth, (charList, birth) => {
+      charBirth[birth] = lodash.uniqBy(charList, 'displayName')
+    })
     let charNum = 0
     lodash.forEach(charBirth, (charList) => {
       charNum = Math.max(charNum, charList.length)
@@ -255,6 +259,7 @@ let Cal = {
     charTalent = lodash.values(charTalent)
     charTalent = lodash.sortBy(charTalent, 'cid')
     lodash.forEach(charTalent, (ds) => {
+      ds.chars = lodash.uniqBy(ds.chars, 'displayName')
       ds.chars = lodash.sortBy(ds.chars, ['star', 'id']).reverse()
     })
     return { charBirth, charNum, charTalent }

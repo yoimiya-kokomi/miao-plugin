@@ -1,6 +1,9 @@
+import Character from './Character.js'
+
 export default class Button {
   constructor(e = {}) {
     this.prefix = e.isSr ? "*" : "#"
+    this.charGame = e.isSr ? 'sr' : 'gs'
   }
 
   bindUid() {
@@ -25,18 +28,21 @@ export default class Button {
   }
 
   profile(char = {}, uid = "") {
+    // 按钮文字使用展示名，回调保留角色本名以精确定位面板数据
+    const name = char.displayName || char.name
+    const key = char.name
     return segment.button([
-      { text: `${char.name}卡片`, callback: `${this.prefix}${char.name}卡片${uid}` },
-      { text: `${char.name}面板`, callback: `${this.prefix}${char.name}面板${uid}` },
+      { text: `${name}卡片`, callback: `${this.prefix}${key}卡片${uid}` },
+      { text: `${name}面板`, callback: `${this.prefix}${key}面板${uid}` },
     ],[
-      { text: `${char.name}排行`, callback: `${this.prefix}${char.name}排行` },
-      { text: `${char.name}圣遗物`, callback: `${this.prefix}${char.name}圣遗物${uid}` },
+      { text: `${name}排行`, callback: `${this.prefix}${key}排行` },
+      { text: `${name}圣遗物`, callback: `${this.prefix}${key}圣遗物${uid}` },
     ],[
-      { text: `${char.name}图鉴`, callback: `${this.prefix}${char.name}图鉴` },
-      { text: `${char.name}攻略`, callback: `${this.prefix}${char.name}攻略` },
+      { text: `${name}图鉴`, callback: `${this.prefix}${key}图鉴` },
+      { text: `${name}攻略`, callback: `${this.prefix}${key}攻略` },
     ],[
-      { text: `${char.name}命座`, callback: `${this.prefix}${char.name}命座` },
-      { text: `${char.name}天赋`, callback: `${this.prefix}${char.name}天赋` },
+      { text: `${name}命座`, callback: `${this.prefix}${key}命座` },
+      { text: `${name}天赋`, callback: `${this.prefix}${key}天赋` },
     ])
   }
 
@@ -46,7 +52,9 @@ export default class Button {
     for (const name in charList) {
       if (count >= 10) break 
       const array = button[button.length-1]
-      array.push({ text: `${name}面板`, callback: `${this.prefix}${name}面板${uid}` })
+      // 按钮文字使用展示名，回调保留角色本名以精确定位面板数据
+      let displayName = Character.get(name, this.charGame)?.displayName || name
+      array.push({ text: `${displayName}面板`, callback: `${this.prefix}${name}面板${uid}` })
       if (array.length > 1)
         button.push([])
       count++

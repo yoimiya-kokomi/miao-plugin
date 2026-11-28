@@ -63,7 +63,11 @@ export default {
         }
 
         let ret = HomoData.setAvatar(player, dsToProcess)
-        if (ret) player._update.push(dsToProcess.avatarId)
+        if (ret) {
+          player._update.push(dsToProcess.avatarId)
+          // 清理该角色已失效的另一形态面板（加强↔未加强）
+          player.delAltFormAvatar(dsToProcess.avatarId, 'sr')
+        }
       })
     } catch (e) {
       logger.error(e)

@@ -69,6 +69,54 @@ class Character extends Base {
     return this.isCustom ? this._id : this._id * 1
   }
 
+  // 加强版本（Pro）角色对应的原角色id，非加强角色返回自身id
+  static getBaseId (id) {
+    let idStr = String(id)
+    if (!/^2\d{3}$/.test(idStr)) {
+      return id
+    }
+    let baseId = parseInt('1' + idStr.substring(1))
+    return Character.enhancedCharIds.includes(baseId) ? baseId : id
+  }
+
+  // 加强版本（Pro）角色id，无加强数据时返回自身id
+  static getEnhancedId (id, game = 'sr') {
+    if (!Character.enhancedCharIds.includes(id * 1)) {
+      return id
+    }
+    let enhancedId = parseInt('2' + String(id).substring(1))
+    return CharId.getId(enhancedId, game) ? enhancedId : id
+  }
+
+  // 同一角色的另一形态id（基础↔加强），非加强角色返回自身id
+  static getAltFormId (id, game = 'sr') {
+    let baseId = Character.getBaseId(id)
+    if (baseId !== id * 1) {
+      return baseId
+    }
+    return Character.getEnhancedId(id, game)
+  }
+
+  // 展示用角色名：加强版本沿用原角色名，不暴露Pro字样
+  get displayName () {
+    let baseId = Character.getBaseId(this.id)
+    if (baseId === this.id) {
+      return this.name
+    }
+    let baseChar = Character.get(baseId, this.game)
+    return baseChar?.name || this.name
+  }
+
+  // 展示用缩写：加强版本沿用原角色缩写
+  get abbr () {
+    let baseId = Character.getBaseId(this.id)
+    if (baseId === this.id) {
+      return this._get('abbr')
+    }
+    let baseChar = Character.get(baseId, this.game)
+    return baseChar?.abbr || this._get('abbr')
+  }
+
   _get (key) {
     if (metaKey.includes(key)) {
       return this.meta[key]
