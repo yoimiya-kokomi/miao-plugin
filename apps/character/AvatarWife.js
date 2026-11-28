@@ -32,6 +32,8 @@ const relationMap = {
 }
 
 const relation = lodash.flatMap(relationMap, (d) => d.keyword)
+// 展示用角色名：加强版角色沿用原角色名，设置项仍存 char.name
+const getDisplayName = (name) => Character.get(name)?.displayName || name
 // 老婆命令必须以#开头，防止误触
 const wifeReg = `^#\\s*(${relation.join('|')})\\s*(设置|选择|指定|添加|列表|查询|列表|是|是谁|照片|相片|图片|写真|图像)?\\s*([^\\d]*)\\s*(\\d*)$`
 
@@ -167,7 +169,7 @@ const Wife = {
           }
         }
         await selfUser.setCfg(`wife.${targetCfg.key}`, addRet)
-        e.reply(`${targetCfg.keyword[0]}已经设置：${addRet.join('，')}`)
+        e.reply(`${targetCfg.keyword[0]}已经设置：${addRet.map(getDisplayName).join('，')}`)
         return true
       case '列表':
       case '是':
@@ -179,7 +181,7 @@ const Wife = {
         }
         wifeList = await selfUser.getCfg(`wife.${targetCfg.key}`, [])
         if (wifeList && wifeList.length > 0) {
-          e.reply(`你的${targetCfg.keyword[0]}是：${wifeList.join('，')}`)
+          e.reply(`你的${targetCfg.keyword[0]}是：${wifeList.map(getDisplayName).join('，')}`)
         } else {
           e.reply(`尚未设置，回复#${targetCfg.keyword[0]}设置+角色名 来设置，如果设置多位请用逗号间隔`)
         }

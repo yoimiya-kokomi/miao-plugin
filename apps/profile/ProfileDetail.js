@@ -199,6 +199,8 @@ let ProfileDetail = {
 
     let artisKeyTitle = Artifact.getArtisKeyTitle(game)
     let data = profile.getData('name,abbr,cons,exCons,level,talent,dataSource,updateTime,imgs,costumeSplash')
+    // 加强版本（Pro）面板沿用原角色名展示
+    data.name = char.displayName
     if (isSr) {
       let treeData = []
       let treeMap = {}

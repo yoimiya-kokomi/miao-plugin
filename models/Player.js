@@ -185,6 +185,16 @@ export default class Player extends Base {
     delete this._avatars[id]
   }
 
+  // 清理同一角色另一形态（加强/未加强）的面板，避免两种形态并存
+  delAltFormAvatar (id, game = 'sr') {
+    let altId = Character.getAltFormId(id, game)
+    if (String(altId) === String(id) || !this._avatars[altId]) {
+      return false
+    }
+    this.delAvatar(altId)
+    return altId
+  }
+
   hasAvatar (id = '') {
     if (!id) {
       return !lodash.isEmpty(this._avatars)

@@ -246,13 +246,13 @@ const ProfileStat = {
 
   getInitialCharacterInfo(initialCharacterIds) {
     let characters = lodash.compact(lodash.map(initialCharacterIds, (id) => Character.get(id)))
-    let characterNames = lodash.map(characters, (character) => character.name).join('、')
+    let characterNames = lodash.map(characters, (character) => character.displayName).join('、')
     return `开幕角色：${characterNames}`
   },
 
   getInvitationCharacterInfo(invitationCharacterIds) {
     let characters = lodash.compact(lodash.map(invitationCharacterIds, (id) => Character.get(id)))
-    let characterNames = lodash.map(characters, (character) => character.name).join('、')
+    let characterNames = lodash.map(characters, (character) => character.displayName).join('、')
     return `特邀角色：${characterNames}`
   },
 
@@ -577,7 +577,7 @@ const ProfileStat = {
       if (char) {
         initialAvatars.push({
           id: id,
-          name: char.name,
+          name: char.displayName,
           elem: char.elem,
           abbr: char.abbr,
           star: char.star,

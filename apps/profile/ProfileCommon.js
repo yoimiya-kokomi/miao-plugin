@@ -52,17 +52,32 @@ export async function getProfileRefresh (e, avatar) {
     return false
   }
 
-  let player = Player.create(e)
-  let profile = player.getProfile(char.id)
-  if (!profile || !profile.hasData) {
-    logger.mark(`本地无UID:${player.uid}的${char.name}面板数据，尝试自动请求...`)
-    await player.refresh({ profile: true })
-    profile = player.getProfile(char.id)
+  // 加强版本（Pro）与原角色共用面板数据：先按请求的角色匹配，再尝试另一形态
+  let altId = Character.getBaseId(char.id) === char.id
+    ? Character.getEnhancedId(char.id, char.game)
+    : Character.getBaseId(char.id)
+  let charIds = altId === char.id ? [char.id] : [char.id, altId]
+  let getProfile = (player) => {
+    for (let id of charIds) {
+      let profile = player.getProfile(id)
+      if (profile && profile.hasData) {
+        return profile
+      }
+    }
+    return false
   }
-  if (!profile || !profile.hasData) {
+
+  let player = Player.create(e)
+  let profile = getProfile(player)
+  if (!profile) {
+    logger.mark(`本地无UID:${player.uid}的${char.displayName}面板数据，尝试自动请求...`)
+    await player.refresh({ profile: true })
+    profile = getProfile(player)
+  }
+  if (!profile) {
     if (!e._isReplyed) {
       e.reply([
-        `⚠️ 暂无 ${char.name} 数据，请：\n` +
+        `⚠️ 暂无 ${char.displayName} 数据，请：\n` +
         `━━━━━━━━━━━━\n` +
         `📋 方式一：角色展柜更新（展柜需开启"显示角色详情）\n` +
         `#更新面板    (原神)\n` +

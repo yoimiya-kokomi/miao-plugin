@@ -16,7 +16,7 @@
   <div class="basic">
     <div class="main-pic" style="background-image:url({{_imgUrl(splash||imgs?.splash)}})"></div>
     <div class="detail">
-      <div class="char-name">{{data.name}}</div>
+      <div class="char-name">{{data.displayName}}</div>
       <div class="char-lv">UID {{uid}} - Lv.{{data.level}}
         <span class="cons cons-{{data.cons}}">{{data.cons}}命</span>
       </div>
@@ -115,7 +115,7 @@
   <!-- 词条规则 -->
   <div class="cont">
     <div class="cont-title">
-      {{data.name}}评分规则: {{charCfg.classTitle}}
+      {{data.displayName}}评分规则: {{charCfg.classTitle}}
     </div>
     <div class="cont-table mark-table">
       <div class="tr thead">
@@ -208,7 +208,7 @@
     </div>
     <ul class="cont-msg">
       <li><strong>总分对齐比例:
-        </strong>根据<strong>{{data.name}}</strong>不同圣遗物位置可选词条及评分，计算理论最高原始词条总分。为使不同角色不同位置最终总分对齐，规定圣遗物满分为66分。理论总分对齐比例
+        </strong>根据<strong>{{data.displayName}}</strong>不同圣遗物位置可选词条及评分，计算理论最高原始词条总分。为使不同角色不同位置最终总分对齐，规定圣遗物满分为66分。理论总分对齐比例
         = 66 / 理论最高原始分 * 100%
       </li>
       <li><strong>最优主词缀比例:
@@ -226,7 +226,7 @@
     <ul class="cont-msg">
       <li>圣遗物评分的目标是对角色圣遗物词条进行一个快速的评估，一般来说评分更高的圣遗物可能会更匹配角色</li>
       <li>但实际情况下圣遗物各词条的提升并非线性，且需考虑各的词条平衡，故评分仅供参考，请勿过分追求高评分</li>
-      <li>如需更精准的词条评估请使用 <strong>#{{data.name}}伤害</strong>命令进行伤害及词条侧重分析</li>
+      <li>如需更精准的词条评估请使用 <strong>#{{data.displayName}}伤害</strong>命令进行伤害及词条侧重分析</li>
       <li>当前评分为<strong>喵喵版评分规则</strong>，根据角色实际需求侧重，对不同角色会使用不同的评分逻辑。</li>
       <li>喵喵逻辑与通用的评分不同，请勿横向比较分值。当前评分逻辑仍在完善中，如有问题请反馈给喵喵</li>
       <li>目前为角色通用逻辑，后期会补充同角色不同流派（例如血牛钟离、暴力芭芭拉）的判定及评分逻辑，以使评分更加精准</li>
