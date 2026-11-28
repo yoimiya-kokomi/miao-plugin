@@ -26,6 +26,8 @@ const CharTalent = {
     return await Common.render('wiki/character-talent', {
       saveId: `${mode}-${char.id}`,
       ...char.getData(),
+      // 加强版角色展示原角色名，不暴露Pro
+      name: char.displayName,
       game: char.game,
       detail,
       imgs: char.getImgs(),

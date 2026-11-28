@@ -125,6 +125,10 @@ const ProfileList = {
       let profile = profiles[id]
       let char = profile.char
       let tmp = char.getData('id,face,name,abbr,element,star')
+      if (char.displayName !== char.name) {
+        tmp.name = char.displayName
+        tmp.abbr = char.displayName
+      }
       let imgs = char.getImgs(profile.costume)
       tmp.face = imgs.qFace || imgs.face
       tmp.level = profile.level || 1

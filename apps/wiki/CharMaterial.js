@@ -5,6 +5,8 @@ const CharMaterial = {
   async render ({ e, char }) {
     let data = char.getData()
     lodash.extend(data, char.getData('weaponTypeName,elemName'))
+    // 加强版角色展示原角色名，不暴露Pro
+    data.name = char.displayName
     data.isSr = char.isSr
     return await Common.render('wiki/character-material', {
       // saveId: `info-${char.id}`,

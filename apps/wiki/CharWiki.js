@@ -88,6 +88,8 @@ const CharWiki = {
   async render ({ e, char }) {
     let data = char.getData()
     lodash.extend(data, char.getData('weaponTypeName,elemName'))
+    // 加强版角色展示原角色名，不暴露Pro
+    data.name = char.displayName
     // 星铁无对应API统计，不展示持有率/武器/遗器
     let holding = char.isSr ? false : await CharWikiData.getHolding(char.id)
     let usage = char.isSr ? {} : await CharWikiData.getUsage(char.id)

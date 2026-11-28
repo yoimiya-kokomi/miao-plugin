@@ -133,7 +133,9 @@ const ProfileChange = {
         let weaponName = lodash.trim(wRet[7])
         if (/专武/.test(weaponName)) {
           let char = Character.get(weaponName.replace('专武', '') || lodash.trim(regRet[2]).replace(/\d{9,10}/g, ''), ret.char.game)
-          weaponName = `${char.name}专武`
+          // 加强版本（Pro）角色的专武沿用原角色的武器别名
+          let baseName = Character.get(Character.getBaseId(char.id), char.game)?.name || char.name
+          weaponName = `${baseName}专武`
         }
         let weapon = Weapon.get(weaponName, game, ret.char.game)
         if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {

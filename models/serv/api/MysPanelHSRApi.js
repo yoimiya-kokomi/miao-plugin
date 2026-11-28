@@ -54,6 +54,8 @@ export default {
       let ret = MysPanelHSRData.setAvatar(player, dsToProcess)
       if (ret) {
         player._update.push(ret.id)
+        // 清理该角色已失效的另一形态面板（加强↔未加强）
+        player.delAltFormAvatar(dsToProcess.id, 'sr')
       }
     })
   },

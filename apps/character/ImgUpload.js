@@ -40,6 +40,7 @@ export async function uploadCharacterImg (e) {
     return false
   }
   let name = char.name
+  let displayName = char.displayName
   for (let val of e.message) {
     if (val.type === 'image') {
       imageMessages.push(val)
@@ -86,11 +87,11 @@ export async function uploadCharacterImg (e) {
     e.reply('消息中未找到图片，请将要发送的图片与消息一同发送或引用要添加的图像..')
     return true
   }
-  await saveImages(e, name, imageMessages)
+  await saveImages(e, name, displayName, imageMessages)
   return true
 }
 
-async function saveImages (e, name, imageMessages) {
+async function saveImages (e, name, displayName, imageMessages) {
   let imgMaxSize = e?.groupConfig?.imgMaxSize || 5
   let pathSuffix = `character-img/${name}/upload`
   if (isProfile) pathSuffix = `profile/normal-character/${name}`
@@ -153,7 +154,7 @@ async function saveImages (e, name, imageMessages) {
     imgCount++
     Bot.logger.mark(`添加成功: ${newImgPath}`)
   }
-  e.reply([segment.at(e.user_id, senderName), `\n成功添加${imgCount}张${name}${isProfile ? '面板图' : '图片'}。`])
+  e.reply([segment.at(e.user_id, senderName), `\n成功添加${imgCount}张${displayName}${isProfile ? '面板图' : '图片'}。`])
   return true
 }
 
@@ -265,14 +266,16 @@ export async function profileImgList (e) {
     return true
   }
   let name = char.name
+  // 展示用角色名与目录名分开：目录/删除命令必须用 char.name
+  let displayName = char.displayName
   let { delFiles, otherFiles } = getProfileImgListData(name)
   if (delFiles.length + otherFiles.length === 0) {
-    e.reply(`暂无${char.name}的角色面板图`)
+    e.reply(`暂无${displayName}的角色面板图`)
     return true
   }
   try {
     msglist.push({
-      message: [`当前查看的是${name}面板图,共${delFiles.length}张，可输入【#删除${name}面板图(序列号)】进行删除`],
+      message: [`当前查看的是${displayName}面板图,共${delFiles.length}张，可输入【#删除${name}面板图(序列号)】进行删除`],
     })
     // 合并转发最多99？ 但是我感觉不会有这么多先不做处理
     lodash.forEach(delFiles, (file, idx) => {
@@ -304,7 +307,7 @@ export async function profileImgList (e) {
     if (!msgRsg) e.reply('风控了，可私聊查看', true)
   } catch (err) {
     logger.error(err)
-    e.reply(`暂无${char.name}的角色面板图~`)
+    e.reply(`暂无${char.displayName}的角色面板图~`)
   }
   return true
 }

@@ -124,11 +124,19 @@ const ProfileAvatar = {
     if (isSuper) {
       defImgs.unshift(`${nPath}/imgs/splash0.webp`)
     }
+    // 加强版本（Pro）与原角色共用自定义面板图库
+    let nameList = [name]
+    let displayName = profile.char?.displayName
+    if (displayName && displayName !== name) {
+      nameList.push(displayName)
+    }
     // 自定义面板图：彩蛋立绘（super）优先于普通立绘，同层级合并所有图库源
     for (let tier of isSuper ? ['super', 'normal'] : ['normal']) {
-      let imgs = CharImg.getProfileImgPool(name, tier === 'super')
-      if (imgs.length > 0) {
-        return lodash.sample(imgs)
+      for (let imgName of nameList) {
+        let imgs = CharImg.getProfileImgPool(imgName, tier === 'super')
+        if (imgs.length > 0) {
+          return lodash.sample(imgs)
+        }
       }
     }
     return CharImg.getRandomImg([], defImgs)
